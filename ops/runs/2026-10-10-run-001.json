@@ -1,0 +1,29 @@
+{
+  "date_utc": "2026-10-10",
+  "run_number": 1,
+  "asset": "PayoutDiff offline CSV payout matcher v0.1",
+  "result": "Built local working downloadable bundle; 11/11 deterministic Node tests passed",
+  "file": "PayoutDiff_Offline_Utility_v0.1.zip",
+  "repo_publication": false,
+  "source_evidence": [
+    "https://www.reddit.com/r/CFO/comments/1vny2cf/need_a_software_that_reconciles_stripe_payouts/",
+    "https://www.reddit.com/r/stripe/comments/1qdfnsi/how_do_you_reconcile_stripe_with_accounting/"
+  ],
+  "financial": {
+    "stripe_livemode": true,
+    "checked_from_utc": "2026-10-09T00:00:00Z",
+    "new_payment_intents": 0,
+    "existing_payment_links": 0,
+    "confirmed_new_venture_gross_usd": "0.00",
+    "confirmed_new_venture_fees_usd": "0.00",
+    "confirmed_new_venture_payouts_usd": "0.00"
+  },
+  "limitations": [
+    "Problem signals are not paying customers",
+    "Local bundle not yet publicly distributed",
+    "GitHub create_file rejected by safety checks; using Git tree for evidence-only audit",
+    "Library upload failed because connector could not access container session",
+    "No user-facing notifications without receipts or required approval"
+  ],
+  "next_run": "Independently reassess all categories; prioritize buyer access and verified cash over another speculative prototype"
+}
