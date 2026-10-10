@@ -1,0 +1,22 @@
+name: Payment audit engine tests
+on:
+  push:
+    paths:
+      - 'products/payment-anomaly-auditor/**'
+      - '.github/workflows/payment-auditor-tests.yml'
+  pull_request:
+    paths:
+      - 'products/payment-anomaly-auditor/**'
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node products/payment-anomaly-auditor/test.mjs
+      - run: node products/payment-anomaly-auditor/audit.mjs products/payment-anomaly-auditor/examples/payments.csv --output /tmp/payment-findings.json
