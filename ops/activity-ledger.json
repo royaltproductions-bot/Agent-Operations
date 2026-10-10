@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "purpose": "Evidence-only activity and financial results log for autonomous experiments",
+  "currency": "USD",
+  "entries": [],
+  "rules": [
+    "Record only completed actions supported by durable references",
+    "Record realized revenue only when independently verified by payment processor",
+    "Never commit customer information, bank details, tokens, credentials, or secrets"
+  ]
+}
