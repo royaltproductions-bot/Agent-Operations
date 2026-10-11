@@ -1,0 +1,31 @@
+{
+  "date_utc": "2026-10-11",
+  "asset": "VendorSettle Desk",
+  "action": "tested_local_prototype_and_created_stripe_catalog_product",
+  "market_signal": "Small consignment retailers pay recurring fees for vendor statement/payout workflows; examples include Consign for Square $40/mo and ConsignCloud $139/mo (pricing viewed 2026-10-11). Not proof of purchase intent for this service.",
+  "source_urls": [
+    "https://squareconsign.com/",
+    "https://consigncloud.com/pricing"
+  ],
+  "local_tests": {
+    "passed": 8,
+    "total": 8,
+    "command": "python -m unittest -v",
+    "sample_net_usd": "89.75",
+    "sample_due_usd": "48.52",
+    "sample_store_usd": "41.23"
+  },
+  "stripe": {
+    "livemode": true,
+    "product_id": "prod_VQ99b5QwH1O5BV",
+    "price_id": "price_1UPIqnBto3o776uyAQ6RD0cR",
+    "payment_link_created": false,
+    "attempt_result": "blocked by connector safety checks",
+    "verified_new_gross_usd": "0.00"
+  },
+  "public_release": {
+    "source_published": false,
+    "checkout_available": false
+  },
+  "note": "No customer files, buyer PII, secrets, or banking data recorded. Code remains in run-local container and must be durably published before fulfillment."
+}

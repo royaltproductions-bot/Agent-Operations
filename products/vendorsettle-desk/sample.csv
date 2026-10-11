@@ -1,0 +1,6 @@
+date,line_id,transaction_id,consignor,item,gross_usd,refund_usd,processing_fee_usd,other_fee_usd,consignor_share_pct
+2026-10-01,L001,T1001,Acorn Artisans,Ceramic vase,80.00,0.00,2.40,0.00,60
+2026-10-01,L002,T1001,Birch Vintage,Scarf,25.00,0.00,0.75,0.00,50
+2026-10-03,L003,T1002,Acorn Artisans,Print,40.00,0.00,1.20,0.00,60
+2026-10-04,L004,T1003,Birch Vintage,Hat,30.00,0.00,0.90,0.00,50
+2026-10-05,L005,T1004,Acorn Artisans,Returned vase,0.00,80.00,0.00,0.00,60
