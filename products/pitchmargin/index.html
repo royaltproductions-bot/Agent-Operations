@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PitchMargin — Food Truck Event Fee Stress Test</title><meta name="description" content="Compare food truck festival offers, including booth fees, commissions, capacity limits, labor, break-even orders, and target profit. Runs privately in your browser.">
+<style>
+:root{font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif;color:#eaf2f0;background:#0d1919}
+*{box-sizing:border-box}body{margin:0}main{max-width:1100px;margin:auto;padding:30px 20px 80px}
+h1{font-size:clamp(2.2rem,6vw,4.4rem);line-height:1.05;letter-spacing:-.05em;margin:.4em 0}h2{font-size:1.15rem;margin:0 0 12px}p{color:#b6c9c6}
+.tag{font-size:.76rem;letter-spacing:.15em;color:#9ce3c3;font-weight:800;text-transform:uppercase}
+.hero{padding:22px 0 30px;border-bottom:1px solid #314745}.hero p{max-width:720px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:20px}
+.card{background:#152626;border:1px solid #324a46;border-radius:14px;padding:20px}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+label{font-size:.83rem;color:#d4e6e2;font-weight:650;display:block}
+input{width:100%;margin-top:4px;background:#0b1919;border:1px solid #4a6460;border-radius:7px;color:#fff;padding:10px;font-size:1rem}
+input:focus{outline:2px solid #9ce3c3;outline-offset:1px}
+button{background:#9ce3c3;color:#10201b;border:0;border-radius:8px;font-size:.95rem;font-weight:800;padding:12px 17px;cursor:pointer}
+button.secondary{background:#243c38;color:#eaf2f0;border:1px solid #537269}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.metric{background:#0d1d1c;border:1px solid #3b5751;border-radius:9px;padding:13px}
+.metric span{display:block;color:#a7c0ba;font-size:.77rem}.metric strong{display:block;font-size:1.35rem;margin-top:4px}
+table{width:100%;border-collapse:collapse;font-size:.91rem}th,td{border-bottom:1px solid #38534c;padding:10px;text-align:right}th:first-child,td:first-child{text-align:left}
+th{color:#a5d7c1}tr:last-child td{border-bottom:0}.good{color:#9ce3c3}.bad{color:#ffc0a8}
+.note{font-size:.85rem;color:#a8beb8}.notice{padding:12px 16px;border:1px solid #62744b;background:#283222;border-radius:9px;color:#f0e2b2}
+footer{margin-top:30px;border-top:1px solid #314745;padding-top:15px;font-size:.85rem;color:#b6c9c6}
+@media(max-width:750px){.grid{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}main{padding:18px 12px 60px}.card{padding:15px}}
+@media print{body{background:#fff;color:#111}main{padding:0}.hero{padding:0}.card,.metric{background:#fff;color:#111;border-color:#ccc}p,.note,footer,label,.metric span{color:#333}input{background:#fff;color:#111;border-color:#aaa}.actions{display:none}.grid{display:none}#results{display:block}.tag{color:#111}th{color:#111}}
+</style></head><body><main>
+<header class="hero"><div class="tag">PitchMargin · offline event economics</div><h1>Is that festival fee<br>worth your weekend?</h1>
+<p>Compare two food-truck event offers using your real ticket, food, crew and throughput numbers. Test fixed booth fees, organizer percentages and optional caps. See the orders needed to break even and the fee you can afford while keeping your target profit.</p><p class="note">Runs entirely in your browser. No login, uploads, tracking scripts, or external dependencies.</p></header>
+<section class="grid"><div class="card"><h2>1 · Your truck economics</h2><div class="fields">
+<label>Average ticket ($)<input id="ticket" type="number" min="0.01" step=".01" value="18"></label>
+<label>Food cost / order ($)<input id="food" type="number" min="0" step=".01" value="5.5"></label>
+<label>Packaging / order ($)<input id="pack" type="number" min="0" step=".01" value="1"></label>
+<label>Card fee (% of sales)<input id="card" type="number" min="0" max="100" step=".1" value="3"></label>
+<label>Expected orders<input id="orders" type="number" min="0" step="1" value="300"></label>
+<label>Max orders / hour<input id="rate" type="number" min="0" step="1" value="65"></label>
+<label>Selling hours<input id="hours" type="number" min="0" step=".25" value="8"></label>
+<label>Crew members<input id="crew" type="number" min="0" step="1" value="3"></label>
+<label>Paid hours / crew member<input id="crewHours" type="number" min="0" step=".25" value="8"></label>
+<label>Wage / hour ($)<input id="wage" type="number" min="0" step=".01" value="17"></label>
+<label>Travel, fuel, permits ($)<input id="travel" type="number" min="0" step=".01" value="150"></label>
+<label>Other fixed costs ($)<input id="other" type="number" min="0" step=".01" value="0"></label>
+<label>Desired event profit ($)<input id="target" type="number" min="0" step=".01" value="500"></label>
+</div></div><div class="card"><h2>2 · Competing event offers</h2><div class="fields">
+<label>Offer A — flat fee ($)<input id="flatA" type="number" min="0" step=".01" value="1200"></label>
+<label>Offer A — % of gross<input id="pctA" type="number" min="0" max="100" step=".1" value="20"></label>
+<label>Offer A — total fee cap ($; 0 = none)<input id="capA" type="number" min="0" step=".01" value="0"></label>
+<label>Offer B — flat fee ($)<input id="flatB" type="number" min="0" step=".01" value="300"></label>
+<label>Offer B — % of gross<input id="pctB" type="number" min="0" max="100" step=".1" value="10"></label>
+<label>Offer B — total fee cap ($; 0 = none)<input id="capB" type="number" min="0" step=".01" value="0"></label>
+</div><p class="note">A fee cap limits the combined flat fee plus percentage. If your organizer uses a minimum guarantee or tiered commission, confirm the exact contract rule before relying on these figures.</p><div class="notice">The forecast assumes average ticket and cost per order stay constant across scenarios. Actual traffic, weather, food waste, tips, taxes and service speed can change the result.</div></div></section>
+<div class="actions"><button id="calculate">Calculate offers</button><button id="export" class="secondary">Export comparison CSV</button><button id="print" class="secondary">Print results</button><button id="reset" class="secondary">Restore example</button></div><p id="error" role="alert" class="bad"></p>
+<section id="results" class="card"><h2>3 · Decision worksheet</h2><p class="note">Low scenario = 60% of expected orders; high = 135%. All scenarios are capped by service throughput. Net is after specified costs, before income taxes and unmodeled expenses.</p><div class="metrics" id="metrics"></div>
+<div style="overflow-x:auto"><table><thead><tr><th>Measure</th><th>Offer A</th><th>Offer B</th></tr></thead><tbody id="rows"></tbody></table></div><p id="summary" class="notice"></p></section>
+<footer>© 2026 PitchMargin. An independent decision aid for mobile food vendors. Not accounting, tax, or legal advice. Organizer contracts control actual fee obligations. You may use the results internally; do not treat forecasts as guaranteed income.</footer>
+</main><script>
+"use strict";
+const keys=["ticket","food","pack","card","orders","rate","hours","crew","crewHours","wage","travel","other","target","flatA","pctA","capA","flatB","pctB","capB"];
+const $=id=>document.getElementById(id),money=x=>Number.isFinite(x)?new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:2}).format(x):"Not reachable";
+const fmt=x=>Number.isFinite(x)?new Intl.NumberFormat("en-US",{maximumFractionDigits:0}).format(x):"Not reachable";
+function read(){const o={};for(const k of keys){const e=$(k),n=Number(e.value);if(e.value.trim()===""||!Number.isFinite(n)||n<0)throw Error("Enter a valid nonnegative value for "+k+".");o[k]=n;}if(o.ticket<=0||o.rate<=0||o.hours<=0)throw Error("Ticket price, orders per hour and selling hours must exceed zero.");if(o.card>100||o.pctA>100||o.pctB>100)throw Error("Percentages must be between 0 and 100.");return o;}
+function evaluate(p,offer,requestedOrders){const maxOrders=Math.floor(p.rate*p.hours),orders=Math.min(maxOrders,Math.max(0,Math.floor(requestedOrders))),revenue=orders*p.ticket,food=orders*(p.food+p.pack),card=revenue*p.card/100,rawFee=offer.flat+revenue*offer.pct/100,fee=offer.cap>0?Math.min(rawFee,offer.cap):rawFee,fixed=p.crew*p.crewHours*p.wage+p.travel+p.other,net=revenue-food-card-fee-fixed;return{orders,revenue,fee,fixed,net,contribution:revenue-food-card-fee};}
+function breakEven(p,offer,target){const maxOrders=Math.floor(p.rate*p.hours);if(evaluate(p,offer,maxOrders).net<target-1e-8)return null;let lo=0,hi=maxOrders;while(lo<hi){const m=Math.floor((lo+hi)/2);if(evaluate(p,offer,m).net>=target-1e-8)hi=m;else lo=m+1;}return lo;}
+function maxFlatFee(p,offer,orders){const cap=offer.cap;if(cap>0)return null;const without=evaluate(p,{...offer,flat:0},orders);return Math.max(0,without.net-p.target);}
+function compare(p){const offers=[{flat:p.flatA,pct:p.pctA,cap:p.capA},{flat:p.flatB,pct:p.pctB,cap:p.capB}],base=Math.min(Math.floor(p.rate*p.hours),Math.floor(p.orders));return offers.map(o=>({offer:o,low:evaluate(p,o,p.orders*.6),base:evaluate(p,o,p.orders),high:evaluate(p,o,p.orders*1.35),breakEven:breakEven(p,o,0),targetOrders:breakEven(p,o,p.target),maxFlat:maxFlatFee(p,o,base)}));}
+let last=null;
+function draw(){try{const p=read(),r=compare(p);last={p,r};$("error").textContent="";const best=r[0].base.net===r[1].base.net?"Both offers have equal modeled profit.":r[0].base.net>r[1].base.net?"Offer A has higher modeled base profit.":"Offer B has higher modeled base profit.";$("summary").textContent=best+" Compare the contract's actual fee rules, expected attendance, weather risk and nonfinancial requirements before committing.";
+const metric=[["Base orders (capacity-capped)",fmt(r[0].base.orders)],["Maximum possible orders",fmt(Math.floor(p.rate*p.hours))],["Desired net profit",money(p.target)]];
+$("metrics").replaceChildren(...metric.map(([label,value])=>{const div=document.createElement("div");div.className="metric";const span=document.createElement("span"),strong=document.createElement("strong");span.textContent=label;strong.textContent=value;div.append(span,strong);return div;}));
+const rows=[["Low scenario — net",r[0].low.net,r[1].low.net,"money"],["Base scenario — net",r[0].base.net,r[1].base.net,"money"],["High scenario — net",r[0].high.net,r[1].high.net,"money"],["Base revenue",r[0].base.revenue,r[1].base.revenue,"money"],["Base organizer fee",r[0].base.fee,r[1].base.fee,"money"],["Crew + other fixed costs",r[0].base.fixed,r[1].base.fixed,"money"],["Orders to break even",r[0].breakEven,r[1].breakEven,"orders"],["Orders to target profit",r[0].targetOrders,r[1].targetOrders,"orders"],["Max flat fee for target profit*",r[0].maxFlat,r[1].maxFlat,"money"]];
+$("rows").replaceChildren(...rows.map(([label,a,b,type])=>{const tr=document.createElement("tr"),th=document.createElement("td");th.textContent=label;tr.append(th);for(const v of [a,b]){const td=document.createElement("td");td.textContent=v===null?"Not reachable / n.a.":type==="money"?money(v):fmt(v);if(type==="money"&&v!==null&&label.includes("net"))td.className=v>=0?"good":"bad";tr.append(td);}return tr;}));const note=document.createElement("p");note.className="note";note.textContent="*Maximum flat fee assumes the percentage stays fixed and no cap applies. It is a negotiation ceiling, not a recommended offer.";const existing=$("footnote");if(existing)existing.remove();note.id="footnote";$("results").append(note);
+}catch(e){last=null;$("error").textContent=e.message;$("rows").replaceChildren();$("metrics").replaceChildren();$("summary").textContent="Correct the inputs to view results.";}}
+function csvCell(v){const s=String(v);return '"'+s.replace(/"/g,'""')+'"';}
+function exportCsv(){if(!last)return;const {p,r}=last;const lines=[["PitchMargin event fee comparison","Offer A","Offer B"],["Event fee flat",p.flatA,p.flatB],["Event fee %",p.pctA,p.pctB],["Event fee cap",p.capA,p.capB],["Base orders",r[0].base.orders,r[1].base.orders],["Low net",r[0].low.net.toFixed(2),r[1].low.net.toFixed(2)],["Base net",r[0].base.net.toFixed(2),r[1].base.net.toFixed(2)],["High net",r[0].high.net.toFixed(2),r[1].high.net.toFixed(2)],["Base revenue",r[0].base.revenue.toFixed(2),r[1].base.revenue.toFixed(2)],["Base organizer fee",r[0].base.fee.toFixed(2),r[1].base.fee.toFixed(2)],["Orders to break even",r[0].breakEven??"not reachable",r[1].breakEven??"not reachable"],["Orders to target",r[0].targetOrders??"not reachable",r[1].targetOrders??"not reachable"]];const csv=lines.map(a=>a.map(csvCell).join(",")).join("\r\n"),url=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"})),a=document.createElement("a");a.href=url;a.download="pitchmargin-event-comparison.csv";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+$("calculate").onclick=draw;$("export").onclick=()=>{draw();exportCsv();};$("print").onclick=()=>{draw();if(last)window.print();};$("reset").onclick=()=>{for(const k of keys)$(k).value=$(k).defaultValue;draw();};draw();
+</script></body></html>
