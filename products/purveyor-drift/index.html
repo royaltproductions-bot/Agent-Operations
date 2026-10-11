@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Purveyor Drift | Offline Supplier Price Audit</title>
+<meta name="description" content="Compare supplier CSV exports for price drift, pack-size changes, and estimated spend impact. Runs locally in your browser.">
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#eaf0f5;background:#0c1820;font-size:16px}
+*{box-sizing:border-box}body{margin:0}main{max-width:1160px;margin:auto;padding:36px 22px 90px}
+h1{font-size:clamp(2rem,5vw,3.5rem);letter-spacing:-.05em;margin:12px 0}h2{font-size:1.25rem;margin:0 0 16px}
+p{line-height:1.65;color:#c4d3db}.eyebrow{font-weight:700;color:#73d7b7;letter-spacing:.12em;text-transform:uppercase;font-size:.77rem}
+.hero{padding:28px 0 35px;border-bottom:1px solid #30434b}.sub{max-width:730px;font-size:1.1rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:25px}
+.card{border:1px solid #30434b;border-radius:15px;background:#12232d;padding:20px}
+label{display:block;margin:0 0 10px;font-weight:700}textarea{width:100%;min-height:220px;background:#0a161d;border:1px solid #3b525d;border-radius:8px;color:#f4f7fa;padding:12px;font:13px/1.5 ui-monospace,Consolas,monospace;resize:vertical}
+input[type=number]{width:95px;background:#0a161d;border:1px solid #3b525d;border-radius:8px;color:white;padding:12px;font-size:1rem}
+input[type=file]{max-width:100%;font-size:.85rem;color:#d2dfe4}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:22px 0}
+button{border:0;border-radius:9px;background:#75e0bc;color:#0b211c;font-weight:800;padding:12px 20px;cursor:pointer}
+button.secondary{background:#223945;color:#e8f1f5;border:1px solid #42606a}
+button:disabled{opacity:.45;cursor:not-allowed}
+small,.hint{color:#a6b9c4;font-size:.85rem;line-height:1.5}
+#message{min-height:24px;color:#ffd59a}#summary{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0 20px}
+.metric{border:1px solid #30434b;border-radius:10px;padding:14px 20px;background:#12232d;min-width:160px}
+.metric strong{display:block;font-size:1.45rem;margin-top:7px}.metric span{font-size:.8rem;color:#b9cdd6}
+.tablewrap{overflow-x:auto;border:1px solid #30434b;border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:.87rem;min-width:950px}
+th,td{text-align:left;padding:11px 13px;border-bottom:1px solid #30434b}
+th{background:#1b333e;color:#bce9dc}td{color:#dce7ed}tr:last-child td{border:0}
+.positive{color:#ffb7a4}.negative{color:#8fe6c7}
+footer{margin-top:30px;border-top:1px solid #30434b;padding-top:20px;font-size:.9rem}
+code{color:#8de7c9}
+@media(max-width:760px){.grid{grid-template-columns:1fr}main{padding:22px 13px 60px}.card{padding:14px}}
+</style></head><body><main>
+<header class="hero"><div class="eyebrow">Purveyor Drift · Offline Audit Utility</div>
+<h1>Catch supplier price drift.<br>Before it eats your margin.</h1>
+<p class="sub">Compare two invoice exports by supplier and SKU, normalize case prices by pack size, and estimate the spend difference at current purchase volume. <strong>All calculations run in this browser; your CSVs are not uploaded.</strong></p>
+<p class="hint">Designed for restaurant operators and independent buyers. No login, trackers, API calls, or external libraries.</p></header>
+<section class="grid" aria-label="CSV input">
+<div class="card"><h2>1. Baseline invoice export</h2><label for="base">Older agreed or paid prices (CSV)</label><input id="baseFile" type="file" accept=".csv,text/csv"><p class="hint">Required: vendor, sku (or description), pack_price, pack_units, unit.</p><textarea id="base" spellcheck="false" aria-label="Baseline CSV"></textarea></div>
+<div class="card"><h2>2. Current invoice export</h2><label for="current">New invoice prices (CSV)</label><input id="currentFile" type="file" accept=".csv,text/csv"><p class="hint">Same fields. Add <code>packs_purchased</code> for estimated spend impact.</p><textarea id="current" spellcheck="false" aria-label="Current CSV"></textarea></div>
+</section>
+<div class="actions"><label for="threshold">Flag at ≥</label><input type="number" id="threshold" min="0" max="100" step=".1" value="3" aria-label="Percent threshold"><span>%</span>
+<button id="run">Compare prices</button><button class="secondary" id="demo">Load sample data</button><button class="secondary" id="download" disabled>Export findings CSV</button></div>
+<p id="message" role="status" aria-live="polite"></p>
+<section aria-label="Results"><h2>Price audit results</h2><div id="summary"></div>
+<div class="tablewrap"><table><thead><tr><th>Supplier</th><th>SKU / item</th><th>Prior / unit</th><th>Current / unit</th><th>Change</th><th>Spend delta*</th><th>Finding</th></tr></thead><tbody id="rows"><tr><td colspan="7">Load two CSV files or sample data, then select Compare prices.</td></tr></tbody></table></div>
+<p class="hint">*Estimated spend delta = (current normalized unit cost − prior normalized unit cost) × current pack units × packs purchased. Positive means higher spend at the same current quantity. Missing purchase quantities are excluded. Differences are <em>not</em> automatically vendor overcharges or recoverable credits; verify pack specifications, substitutions, discounts, freight, tax and contract terms. Item matching is exact by vendor + SKU (or description when no SKU).</p></section>
+<footer><strong>Data handling:</strong> files are read only in your browser. Export your report to retain it. This tool does not save, upload, or share your records. <strong>Limitations:</strong> it does not read PDFs, detect fraud, or reconcile quantities received. It is a decision aid, not an accounting audit or a promise of savings. © 2026 Purveyor Drift utility.</footer>
+</main><script>
+
+function csvParse(input){
+  const s=String(input||"").replace(/^\uFEFF/,"");
+  const first=s.split(/\r?\n/,1)[0]||"";
+  const counts={",":0,";":0,"\t":0}; let quoted=false;
+  for(let i=0;i<first.length;i++){const c=first[i];if(c==='"'){if(quoted&&first[i+1]==='"')i++;else quoted=!quoted;}else if(!quoted&&Object.prototype.hasOwnProperty.call(counts,c))counts[c]++;}
+  const delimiter=Object.keys(counts).sort((a,b)=>counts[b]-counts[a])[0];
+  const rows=[];let row=[],field="",q=false;
+  for(let i=0;i<s.length;i++){
+    const c=s[i];
+    if(c==='"'){if(q&&s[i+1]==='"'){field+='"';i++;}else q=!q;}
+    else if(!q&&c===delimiter){row.push(field);field="";}
+    else if(!q&&(c==="\n"||c==="\r")){if(c==="\r"&&s[i+1]==="\n")i++;row.push(field);if(row.some(v=>v.trim()!==""))rows.push(row);row=[];field="";}
+    else field+=c;
+  }
+  if(q)throw new Error("Unclosed quoted CSV field.");
+  row.push(field);if(row.some(v=>v.trim()!==""))rows.push(row);
+  if(rows.length<2)throw new Error("CSV needs a header and at least one data row.");
+  const norm=h=>h.trim().toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"");
+  const head=rows.shift().map(norm);
+  if(new Set(head).size!==head.length)throw new Error("Duplicate CSV column headers.");
+  return rows.map((cells,i)=>{const obj={_line:i+2};head.forEach((h,j)=>obj[h]=(cells[j]||"").trim());return obj;});
+}
+function normalizeRecords(csv,which){
+  const aliases={vendor:["vendor","supplier","purveyor"],sku:["sku","item_code","product_code"],description:["description","item","product","item_name"],pack_price:["pack_price","case_price","invoice_price"],pack_units:["pack_units","units_per_pack","units_per_case","pack_size"],unit:["unit","uom","measure"],packs_purchased:["packs_purchased","cases_purchased","packs","quantity_packs"]};
+  const rows=csvParse(csv),out=[],seen=new Set();
+  for(const row of rows){
+    const get=k=>{for(const a of aliases[k])if(Object.prototype.hasOwnProperty.call(row,a))return row[a];return "";};
+    const vendor=get("vendor"),sku=get("sku"),description=get("description");
+    const priceText=get("pack_price"),packText=get("pack_units"),unit=get("unit").toLowerCase();
+    const qtyText=get("packs_purchased");
+    if(!vendor||(!sku&&!description)||!unit||priceText===""||packText==="")throw new Error(which+" line "+row._line+": required vendor, sku or description, pack_price, pack_units and unit.");
+    const price=Number(priceText),pack=Number(packText),qty=qtyText===""?null:Number(qtyText);
+    if(!Number.isFinite(price)||price<0||!Number.isFinite(pack)||pack<=0||qty!==null&&(!Number.isFinite(qty)||qty<0))throw new Error(which+" line "+row._line+": invalid price, pack size or purchased packs.");
+    const key=vendor.trim().toLowerCase()+"|"+(sku?"sku:"+sku.trim().toLowerCase():"description:"+description.trim().toLowerCase());
+    if(seen.has(key))throw new Error(which+" line "+row._line+": duplicate vendor/item key; aggregate rows before comparing.");
+    seen.add(key);
+    out.push({key,vendor,sku,description,price,pack,unit,qty,line:row._line});
+  }
+  return out;
+}
+function audit(baselineText,currentText,threshold){
+  const t=Number(threshold);
+  if(!Number.isFinite(t)||t<0||t>100)throw new Error("Threshold must be between 0 and 100 percent.");
+  const old=normalizeRecords(baselineText,"Baseline"),now=normalizeRecords(currentText,"Current");
+  const lookup=new Map(old.map(r=>[r.key,r])),present=new Set(),results=[];
+  for(const r of now){
+    present.add(r.key);const b=lookup.get(r.key);
+    let status="New item",oldUnit=null,newUnit=r.price/r.pack,pct=null,impact=null,note="";
+    if(b){
+      if(b.unit!==r.unit){status="Review unit";note="Units differ ("+b.unit+" vs "+r.unit+"); no price comparison.";}
+      else{
+        oldUnit=b.price/b.pack;
+        if(oldUnit===0){status=newUnit===0?"No change":"Review zero baseline";note="Cannot calculate percentage change from zero baseline price.";}
+        else{
+          pct=(newUnit/oldUnit-1)*100;
+          status=pct>=t&&pct>0?"Increase":pct<=-t&&pct<0?"Decrease":"Within threshold";
+          if(r.qty!==null)impact=(newUnit-oldUnit)*r.pack*r.qty;
+        }
+      }
+    }
+    results.push({vendor:r.vendor,sku:r.sku,description:r.description,unit:r.unit,old_unit_cost:oldUnit,new_unit_cost:newUnit,change_pct:pct,packs_purchased:r.qty,estimated_spend_delta:impact,status,note});
+  }
+  for(const b of old)if(!present.has(b.key))results.push({vendor:b.vendor,sku:b.sku,description:b.description,unit:b.unit,old_unit_cost:b.price/b.pack,new_unit_cost:null,change_pct:null,packs_purchased:null,estimated_spend_delta:null,status:"Not on current file",note:"No current line; not proof of discontinued supply."});
+  const known=results.filter(r=>r.estimated_spend_delta!==null);
+  return {results,summary:{baseline_items:old.length,current_items:now.length,compared:results.filter(r=>r.change_pct!==null).length,flagged_increases:results.filter(r=>r.status==="Increase").length,flagged_decreases:results.filter(r=>r.status==="Decrease").length,known_volume_lines:known.length,estimated_spend_delta:known.reduce((a,r)=>a+r.estimated_spend_delta,0)}};
+}
+function reportCSV(results){
+  const keys=["vendor","sku","description","unit","old_unit_cost","new_unit_cost","change_pct","packs_purchased","estimated_spend_delta","status","note"];
+  const esc=v=>{const s=v===null||v===undefined?"":String(v);return /[",\r\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;};
+  return [keys.join(",")].concat(results.map(r=>keys.map(k=>esc(r[k])).join(","))).join("\r\n");
+}
+
+const $=id=>document.getElementById(id);
+const base=$("base"),current=$("current"),msg=$("message"),tbody=$("rows"),summary=$("summary"),download=$("download");
+let last=null;
+const fmt=(v,d=2)=>v===null||v===undefined?"—":Number(v).toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d});
+function cell(tr,value,klass){const td=document.createElement("td");td.textContent=String(value);if(klass)td.className=klass;tr.appendChild(td);}
+function metric(label,value){const box=document.createElement("div");box.className="metric";const a=document.createElement("span");a.textContent=label;const b=document.createElement("strong");b.textContent=value;box.append(a,b);summary.appendChild(box);}
+function render(data){
+  summary.replaceChildren();tbody.replaceChildren();
+  metric("Items compared",String(data.summary.compared));metric("Price increases flagged",String(data.summary.flagged_increases));metric("Price decreases flagged",String(data.summary.flagged_decreases));
+  metric("Estimated spend delta*",data.summary.known_volume_lines?"$"+fmt(data.summary.estimated_spend_delta):"No quantity data");
+  for(const r of data.results){
+    const tr=document.createElement("tr");
+    cell(tr,r.vendor);cell(tr,r.sku||r.description);cell(tr,r.old_unit_cost===null?"—":"$"+fmt(r.old_unit_cost));cell(tr,r.new_unit_cost===null?"—":"$"+fmt(r.new_unit_cost));
+    cell(tr,r.change_pct===null?"—":fmt(r.change_pct,1)+"%",r.change_pct>0?"positive":r.change_pct<0?"negative":"");
+    cell(tr,r.estimated_spend_delta===null?"—":"$"+fmt(r.estimated_spend_delta),r.estimated_spend_delta>0?"positive":r.estimated_spend_delta<0?"negative":"");
+    cell(tr,r.status+(r.note?" — "+r.note:""));tbody.appendChild(tr);
+  }
+}
+$("run").addEventListener("click",()=>{try{last=audit(base.value,current.value,$("threshold").value);render(last);download.disabled=false;msg.textContent="Compared locally. No data was transmitted.";}catch(e){last=null;download.disabled=true;msg.textContent="Please fix: "+e.message;}});
+$("demo").addEventListener("click",()=>{base.value="vendor,sku,description,pack_price,pack_units,unit\nHarbor Foods,CHX-40,Chicken thighs 40 lb case,132,40,lb\nHarbor Foods,OIL-6,Cooking oil 6 gal case,96,6,gal\nHarbor Foods,RICE-25,Rice 25 lb bag,30,25,lb";current.value="vendor,sku,description,pack_price,pack_units,unit,packs_purchased\nHarbor Foods,CHX-40,Chicken thighs 40 lb case,148,40,lb,5\nHarbor Foods,OIL-6,Cooking oil 6 gal case,94,6,gal,3\nHarbor Foods,RICE-25,Rice 25 lb bag,31,25,lb,4";msg.textContent="Sample loaded. Select Compare prices.";});
+async function loadFile(id,target){const f=$(id).files[0];if(f){if(f.size>2*1024*1024){msg.textContent="CSV too large (2 MB limit for responsive browser use).";return;}target.value=await f.text();msg.textContent="File loaded locally: "+f.name;}}
+$("baseFile").addEventListener("change",()=>loadFile("baseFile",base));
+$("currentFile").addEventListener("change",()=>loadFile("currentFile",current));
+download.addEventListener("click",()=>{if(!last)return;const blob=new Blob([reportCSV(last.results)],{type:"text/csv;charset=utf-8"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="purveyor-drift-findings.csv";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+</script></body></html>
