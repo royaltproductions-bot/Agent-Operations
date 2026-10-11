@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Free offline market-vendor break-even and risk calculator. Model attendance, conversion, fees, inventory and labor before booking a booth.">
+<title>StallSignal — Know your break-even before you book</title>
+<style>
+:root{color-scheme:dark;--bg:#0c111b;--card:#172234;--edge:#34445d;--txt:#f1f5ff;--muted:#b8c7df;--green:#83e3b6;--red:#ff9d9d;--gold:#ffda91}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0,#1d3448,var(--bg) 55%);color:var(--txt);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:1100px;margin:auto;padding:30px 20px 70px}header{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.brand{font-size:1.5rem;font-weight:800;letter-spacing:-.04em}.tag{font-size:.75rem;color:#07140e;background:var(--green);padding:5px 9px;border-radius:30px;font-weight:700}
+h1{font-size:clamp(2.2rem,5vw,4rem);letter-spacing:-.06em;line-height:1.06;margin:35px 0 14px;max-width:800px}
+.lead{font-size:1.13rem;color:var(--muted);max-width:760px}h2{font-size:1.2rem;margin:0 0 18px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:25px}
+.card{background:var(--card);border:1px solid var(--edge);border-radius:17px;padding:22px;box-shadow:0 6px 25px #0002}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+label{display:block;font-size:.82rem;color:var(--muted);font-weight:650}
+input{display:block;margin-top:5px;width:100%;padding:12px 11px;border-radius:8px;border:1px solid #4b5f7a;background:#0e1827;color:var(--txt);font:inherit}
+input:focus{outline:2px solid var(--green)}small{display:block;color:var(--muted);font-size:.76rem;margin-top:5px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0}
+.stat{padding:19px;background:#14253a;border:1px solid #37516c;border-radius:14px}
+.stat strong{font-size:clamp(1.4rem,3vw,2.3rem);display:block;font-variant-numeric:tabular-nums;letter-spacing:-.05em}
+.stat span{font-size:.77rem;color:var(--muted)}.good{color:var(--green)}.bad{color:var(--red)}.warn{color:var(--gold)}
+table{width:100%;border-collapse:collapse;font-size:.93rem}th,td{padding:11px 7px;border-bottom:1px solid #35475d;text-align:right}th:first-child,td:first-child{text-align:left}
+.note{padding:14px;border-left:3px solid var(--gold);background:#232d3b;color:#dbe4f5;border-radius:5px;margin-top:16px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0}button{background:var(--green);border:0;border-radius:9px;color:#092019;padding:12px 17px;font:inherit;font-weight:750;cursor:pointer}
+button.secondary{background:#25364a;color:var(--txt);border:1px solid #58708d}button:hover{filter:brightness(1.1)}
+#saved{list-style:none;padding:0}#saved li{border-bottom:1px solid #3a4a61;padding:12px 0;display:flex;justify-content:space-between;gap:10px;align-items:center}
+#saved button{padding:5px 9px;font-size:.78rem}footer{color:var(--muted);font-size:.82rem;margin-top:28px}
+@media(max-width:760px){.grid,.stats{grid-template-columns:1fr}.fields{grid-template-columns:1fr 1fr}.card{padding:17px}}
+@media(max-width:430px){.fields{grid-template-columns:1fr}}
+@media print{body{background:white;color:#111}main{padding:0}.card,.stat{background:white;color:#111;border:1px solid #bbb;box-shadow:none}.actions,#savedPanel,footer{display:none!important}.lead,small,label,.stat span{color:#444}input{color:#111;background:white;border:1px solid #aaa}table th,table td{color:#111}.grid{gap:10px}}
+</style></head><body><main>
+<header><div class="brand">◆ StallSignal <span class="tag">FREE · OFFLINE</span></div><div>Vendor event decision lab · v1.0</div></header>
+<h1>Is that vendor booth actually worth it?</h1>
+<p class="lead">Model a craft fair, farmers market, pop-up or holiday event <em>before</em> paying the fee. Calculate break-even orders, attendance required, hourly earnings and downside exposure. Your data stays on this device.</p>
+<div class="grid">
+<section class="card"><h2>1 · Event and buyer assumptions</h2><div class="fields">
+<label>Event name<input id="event" type="text" value="Holiday Market"></label>
+<label>Expected attendees<input id="traffic" type="number" min="0" value="500"></label>
+<label>Percent who visit your booth<input id="reach" type="number" min="0" max="100" step=".1" value="20"></label>
+<label>Percent of booth visitors who buy<input id="convert" type="number" min="0" max="100" step=".1" value="20"></label>
+<label>Average order value ($)<input id="aov" type="number" min="0" step=".01" value="25"></label>
+<label>Product cost as % of sales<input id="cogs" type="number" min="0" max="100" step=".1" value="35"></label>
+<label>Payment fees as % of sales<input id="card" type="number" min="0" max="100" step=".1" value="3"></label>
+<label>Organizer commission as % of sales<input id="commission" type="number" min="0" max="100" step=".1" value="0"></label>
+</div><small>Enter percentages as whole numbers (e.g. 20 for 20%). Forecast is a scenario, not a promise of attendance or sales.</small></section>
+<section class="card"><h2>2 · All-in cost of attending</h2><div class="fields">
+<label>Booth/application fees ($)<input id="booth" type="number" min="0" step=".01" value="150"></label>
+<label>Travel, parking, lodging ($)<input id="travel" type="number" min="0" step=".01" value="30"></label>
+<label>Displays, rentals, permits ($)<input id="supplies" type="number" min="0" step=".01" value="25"></label>
+<label>Other event-only costs ($)<input id="other" type="number" min="0" step=".01" value="15"></label>
+<label>Hours (prep + travel + selling)<input id="hours" type="number" min="0" step=".5" value="12"></label>
+<label>Target pay per hour ($)<input id="wage" type="number" min="0" step=".01" value="20"></label>
+</div><div class="note">Your time is shown separately from cash profit. The tool does not double-count your own labor as a cash expense.</div></section>
+</div>
+<div class="stats" aria-live="polite">
+<div class="stat"><span>Expected cash profit</span><strong id="profit">—</strong><span>After variable costs + event cash expenses</span></div>
+<div class="stat"><span>Orders to break even</span><strong id="orders">—</strong><span>At your current average order value</span></div>
+<div class="stat"><span>Estimated pay per hour</span><strong id="hourly">—</strong><span>Before income tax and your own labor cost</span></div>
+</div>
+<section class="card"><h2>3 · Downside, base case and upside</h2>
+<p style="color:var(--muted)">Conservative: 50% of base-case buyers · Optimistic: 150%. Change your input assumptions to stress-test a specific event.</p>
+<table><thead><tr><th>Scenario</th><th>Orders</th><th>Revenue</th><th>Cash profit</th><th>Hourly</th></tr></thead><tbody id="scenarios"></tbody></table>
+<p class="note" id="verdict"></p><p id="threshold" style="color:var(--muted)"></p></section>
+<div class="actions"><button id="save">Save event comparison</button><button class="secondary" id="export">Export comparisons CSV</button><button class="secondary" onclick="window.print()">Print / save PDF</button><button class="secondary" id="reset">Restore sample</button></div>
+<section class="card" id="savedPanel"><h2>4 · Saved event comparisons</h2><p style="color:var(--muted)">Stored only in this browser, never sent to a server. Export before clearing browser data.</p><ul id="saved"></ul></section>
+<footer>© 2026 StallSignal. Independent vendor planning utility. Not accounting, tax, legal, or guaranteed revenue advice. Sales tax, inventory cash timing, refunds and income tax require separate consideration. No data collection, trackers or external dependencies.</footer>
+</main>
+<script>
+"use strict";
+const numeric=["traffic","reach","convert","aov","cogs","card","commission","booth","travel","supplies","other","hours","wage"];
+const defaults=Object.fromEntries([...numeric,"event"].map(id=>[id,document.getElementById(id).value]));
+const money=n=>Number.isFinite(n)?new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:2}).format(n):"N/A";
+const num=n=>Number.isFinite(n)?new Intl.NumberFormat("en-US",{maximumFractionDigits:1}).format(n):"N/A";
+function inputs(){const o={event:document.getElementById("event").value.trim()||"Untitled event"};for(const id of numeric){const el=document.getElementById(id);const n=Number(el.value);o[id]=Number.isFinite(n)?Math.max(0,n):0;if(["reach","convert","cogs","card","commission"].includes(id))o[id]=Math.min(100,o[id]);}return o}
+function model(a,factor=1){
+ const buyers=a.traffic*a.reach/100*a.convert/100*factor;
+ const revenue=buyers*a.aov;
+ const variableRate=(a.cogs+a.card+a.commission)/100;
+ const contribution=a.aov*(1-variableRate);
+ const fixed=a.booth+a.travel+a.supplies+a.other;
+ const profit=revenue*(1-variableRate)-fixed;
+ const breakEven=contribution>0?Math.ceil(fixed/contribution):fixed===0?0:Infinity;
+ const targetOrders=contribution>0?Math.ceil((fixed+a.wage*a.hours)/contribution):Infinity;
+ const requiredTraffic=(a.reach>0&&a.convert>0)?breakEven/(a.reach/100*a.convert/100):Infinity;
+ return {buyers,revenue,profit,contribution,fixed,breakEven,targetOrders,requiredTraffic,hourly:a.hours>0?profit/a.hours:NaN};
+}
+function render(){
+ const a=inputs(),m=model(a);
+ const fmtOrders=n=>Number.isFinite(n)?num(n):"Not reachable";
+ const set=(id,v,cl)=>{const el=document.getElementById(id);el.textContent=v;el.className=cl||""};
+ set("profit",money(m.profit),m.profit>=0?"good":"bad");
+ set("orders",fmtOrders(m.breakEven),m.breakEven<=m.buyers?"good":"warn");
+ set("hourly",money(m.hourly),m.hourly>=a.wage?"good":"warn");
+ const tbody=document.getElementById("scenarios");tbody.replaceChildren();
+ for(const [name,factor] of [["Conservative",.5],["Base case",1],["Optimistic",1.5]]){
+  const s=model(a,factor),tr=document.createElement("tr");
+  for(const [value,color] of [[name,""],[num(s.buyers),""],[money(s.revenue),""],[money(s.profit),s.profit>=0?"good":"bad"],[money(s.hourly),""]]){
+   const td=document.createElement("td");td.textContent=value;td.className=color;tr.append(td);
+  }tbody.append(tr);
+ }
+ const v=document.getElementById("verdict");
+ if(m.contribution<=0){v.textContent="STOP: After variable costs, each order adds no positive contribution. Improve prices or costs before committing.";v.className="note bad";}
+ else if(m.profit<0){v.textContent="CAUTION: Your base case loses cash. Check organizer claims, ask for prior event attendance evidence, and reduce fixed costs before booking.";v.className="note warn";}
+ else if(m.hourly<a.wage){v.textContent="MARGINAL: The base case covers cash expenses but misses your target hourly pay. Consider a lower booth fee or stronger sales assumptions backed by evidence.";v.className="note warn";}
+ else {v.textContent="BASE CASE PASSES: Your modeled profit and hourly target are positive. Validate traffic and conversion independently; the conservative scenario may still lose money.";v.className="note good";}
+ document.getElementById("threshold").textContent="Break-even needs "+fmtOrders(m.breakEven)+" orders or approximately "+fmtOrders(Math.ceil(m.requiredTraffic))+" attendees under these assumptions. To reach your target hourly pay: "+fmtOrders(m.targetOrders)+" orders. Worst-case cash exposure with zero sales: "+money(m.fixed)+".";
+ return {a,m};
+}
+const key="stallsignal.saved.v1";
+function load(){try{const data=JSON.parse(localStorage.getItem(key)||"[]");return Array.isArray(data)?data:[]}catch{return []}}
+function store(data){try{localStorage.setItem(key,JSON.stringify(data))}catch{alert("Browser storage unavailable; export your comparisons as CSV instead.")}}
+function list(){const root=document.getElementById("saved");root.replaceChildren();const all=load();if(!all.length){const li=document.createElement("li");li.textContent="No saved events yet.";root.append(li);return}
+ all.forEach((row,i)=>{const li=document.createElement("li"),label=document.createElement("span");label.textContent=row.a.event+" — "+money(model(row.a).profit);li.append(label);
+ const buttons=document.createElement("span"),open=document.createElement("button"),del=document.createElement("button");open.textContent="Load";del.textContent="Delete";del.className="secondary";
+ open.onclick=()=>{for(const [id,value] of Object.entries(row.a))if(document.getElementById(id))document.getElementById(id).value=value;render();window.scrollTo({top:0,behavior:"smooth"})};
+ del.onclick=()=>{const d=load();d.splice(i,1);store(d);list()};buttons.append(open,del);li.append(buttons);root.append(li)})}
+for(const id of [...numeric,"event"])document.getElementById(id).addEventListener("input",render);
+document.getElementById("save").onclick=()=>{const a=inputs();const all=load();all.push({a,savedAt:new Date().toISOString()});store(all);list()};
+document.getElementById("reset").onclick=()=>{for(const [id,value] of Object.entries(defaults))document.getElementById(id).value=value;render()};
+document.getElementById("export").onclick=()=>{
+ const rows=load();if(!rows.length){alert("Save an event first.");return}
+ const cols=["event","savedAt",...numeric,"expectedOrders","expectedRevenue","cashProfit","breakEvenOrders","profitPerHour"];
+ const quote=v=>'"'+String(v??"").replaceAll('"','""')+'"';
+ const csv=[cols.map(quote).join(",")].concat(rows.map(({a,savedAt})=>{const m=model(a);return cols.map(k=>quote(k==="savedAt"?savedAt:k==="expectedOrders"?m.buyers:k==="expectedRevenue"?m.revenue:k==="cashProfit"?m.profit:k==="breakEvenOrders"?m.breakEven:k==="profitPerHour"?m.hourly:a[k])).join(",")})).join("\r\n");
+ const url=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));const link=document.createElement("a");link.href=url;link.download="stallsignal-events.csv";link.click();setTimeout(()=>URL.revokeObjectURL(url),1000)
+};
+render();list();
+</script></body></html>
