@@ -1,0 +1,5 @@
+# Contractor change-order demand check — 2026-10-11
+
+Independent research: small contractor project managers report time-consuming manual change-order approval workflows and inability to afford enterprise systems. One public account: https://www.reddit.com/r/ConstructionManagers/comments/1ij9g2g/change_order_management/ . A June 2026 discussion describes unbilled changes as a cash-flow leak: https://www.reddit.com/r/ConstructionManagers/comments/1u6y00y/cash_flow_lessons_from_10_years_of_long_projects/ . A September 2026 homebuilding dispute shows real cost of changes not discussed before work: https://www.reddit.com/r/Homebuilding/comments/1wsnb7x/what_can_we_do/ .
+
+These are qualitative evidence of pain, not confirmed purchase intent. Target buyer: independent remodeling contractor or small construction PM with no Procore budget. Product acceptance criteria: offline estimator, clear margin vs markup, client-facing change-order proposal without exposing internal costs, printable signature lines, exportable estimate, zero hosting expense. Distribution remains unverified. Do not claim a sale.
