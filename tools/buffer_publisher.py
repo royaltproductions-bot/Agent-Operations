@@ -44,7 +44,7 @@ def find_channel():
     candidates = []
     for org in orgs:
         query = ('query { channels(input: { organizationId: '
-                 + quoted(org["id"]) + ' }) { id name displayName service isDisconnected isLocked isQueuePaused } }')
+                 + quoted(org["id"]) + ' }) { id name displayName externalLink service isDisconnected isLocked isQueuePaused } }')
         candidates.extend(gql(query).get("channels") or [])
     # Refuse to publish to ANY non-TikTok account or an approximate handle match.
     matches = []
@@ -53,6 +53,11 @@ def find_channel():
             continue
         values = [str(channel.get(k) or "").strip().lower().lstrip("@")
                   for k in ("name", "displayName")]
+        link = str(channel.get('externalLink') or '').strip()
+        if link:
+            parsed = urlparse(link if '://' in link else 'https://' + link)
+            if (parsed.hostname or '').lower().endswith('tiktok.com'):
+                values.append(parsed.path.strip('/').lstrip('@').lower())
         if EXPECTED_HANDLE in values:
             matches.append(channel)
     if len(matches) != 1:
