@@ -52,6 +52,16 @@ class PublisherSafetyTests(unittest.TestCase):
             with self.subTest(url=url), self.assertRaises(ValueError):
                 pub.validated_media(url)
 
+    def test_masked_or_non_ascii_key_rejected_before_request(self):
+        with patch.dict(os.environ, {"BUFFER_API_KEY": "●●●●●masked"}):
+            with self.assertRaisesRegex(RuntimeError, "contains invalid characters"):
+                pub.gql("query { account { id } }")
+
+    def test_bearer_prefix_rejected(self):
+        with patch.dict(os.environ, {"BUFFER_API_KEY": "Bearer token123"}):
+            with self.assertRaises(RuntimeError):
+                pub.gql("query { account { id } }")
+
     def test_api_key_required(self):
         with patch.dict(os.environ, {}, clear=True), self.assertRaisesRegex(RuntimeError, "BUFFER_API_KEY"):
             pub.gql("query { account { id } }")
