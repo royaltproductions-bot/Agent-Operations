@@ -126,7 +126,7 @@ def main():
         " channelId: " + quoted(channel["id"]) +
         " schedulingType: automatic mode: addToQueue" +
         " saveToDraft: " + ("true" if args.mode == "draft" else "false") +
-        (" assets: [{image: {url: " + quoted(image) + "}}]" if image else "")
+        (" assets: [{image: {url: " + quoted(image) + "}}]" if image else "") +
         " }) { ... on PostActionSuccess { post { id text dueAt } }"
         " ... on MutationError { message } } }"
     )
