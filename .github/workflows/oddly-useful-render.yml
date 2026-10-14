@@ -1,0 +1,56 @@
+name: Oddly Useful Stuff - Render Creative PNG
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'campaigns/oddly-useful-stuff/creative-source/*.svg'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          persist-credentials: true
+      - name: Install SVG renderer
+        run: python3 -m pip install --quiet --disable-pip-version-check --break-system-packages 'CairoSVG==2.8.2'
+      - name: Render SVG source to public PNG
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import cairosvg
+          root = Path('campaigns/oddly-useful-stuff')
+          source = root / 'creative-source'
+          destination = root / 'media'
+          destination.mkdir(parents=True, exist_ok=True)
+          sources = sorted(source.glob('*.svg'))
+          if not sources:
+              raise RuntimeError('No SVG sources found.')
+          for src in sources:
+              if src.stat().st_size > 150_000:
+                  raise RuntimeError('SVG source too large: ' + src.name)
+              output = destination / (src.stem + '.png')
+              if output.exists():
+                  continue
+              cairosvg.svg2png(url=str(src), write_to=str(output), output_width=1080, output_height=1920)
+              if output.stat().st_size < 1000:
+                  raise RuntimeError('Generated image unexpectedly small: ' + output.name)
+              print('RENDERED:', output, output.stat().st_size, 'bytes')
+          PY
+      - name: Commit public PNG assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add campaigns/oddly-useful-stuff/media/*.png
+          if git diff --cached --quiet; then
+            echo 'No new media to commit.'
+          else
+            git -c user.name='oddly-useful-bot' -c user.email='ari-operations@agentmail.to' commit -m 'Render free promotional PNG assets for Oddly Useful Stuff'
+            git push
+          fi
