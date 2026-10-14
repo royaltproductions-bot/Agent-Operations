@@ -1,0 +1,21 @@
+name: Buffer Publisher Validation
+on:
+  push:
+    branches: [main]
+    paths:
+      - tools/buffer_publisher.py
+      - tests/test_buffer_publisher.py
+      - .github/workflows/buffer-code-tests.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Syntax check
+        run: python3 -m py_compile tools/buffer_publisher.py
+      - name: Offline publisher tests (no API key; nothing published)
+        run: python3 -m unittest discover -s tests -p 'test_buffer_publisher.py' -v
