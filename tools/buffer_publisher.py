@@ -21,6 +21,15 @@ def gql(query):
     key = os.environ.get("BUFFER_API_KEY", "").strip()
     if not key:
         raise RuntimeError("BUFFER_API_KEY is missing. Add it as a GitHub Actions secret; never commit or paste it.")
+    if any(ord(ch) < 33 or ord(ch) > 126 for ch in key):
+        raise RuntimeError(
+            "BUFFER_API_KEY contains invalid characters. "
+            "Go to Buffer Settings > API and use Copy key to copy the full "
+            "raw token; replace the existing GitHub repository secret value. "
+            "Do not copy masked dots, a label, or a URL."
+        )
+    if key.startswith(("Bearer ", "bearer ", "{", "http")):
+        raise RuntimeError("BUFFER_API_KEY must be the raw Buffer API token, not a prefix, JSON, or URL.")
     body = json.dumps({"query": query}).encode("utf-8")
     req = urllib.request.Request(
         API, data=body, method="POST",
