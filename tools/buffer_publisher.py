@@ -44,7 +44,7 @@ def find_channel():
     candidates = []
     for org in orgs:
         query = ('query { channels(input: { organizationId: '
-                 + quoted(org["id"]) + ' }) { id name displayName service } }')
+                 + quoted(org["id"]) + ' }) { id name displayName service isDisconnected isLocked isQueuePaused } }')
         candidates.extend(gql(query).get("channels") or [])
     # Refuse to publish to ANY non-TikTok account or an approximate handle match.
     matches = []
@@ -59,7 +59,12 @@ def find_channel():
         safe = [{"name": c.get("name"), "service": c.get("service")} for c in candidates]
         raise RuntimeError("Expected exactly one TikTok @" + EXPECTED_HANDLE
                            + ", found " + str(len(matches)) + ". Connected channels: " + json.dumps(safe))
-    return matches[0]
+    channel = matches[0]
+    if channel.get("isDisconnected") or channel.get("isLocked"):
+        raise RuntimeError("Expected TikTok channel exists but is disconnected or locked in Buffer")
+    if channel.get("isQueuePaused"):
+        raise RuntimeError("Expected TikTok channel queue is paused in Buffer; no queued posts will publish")
+    return channel
 
 def validated_media(url):
     if not isinstance(url, str):
