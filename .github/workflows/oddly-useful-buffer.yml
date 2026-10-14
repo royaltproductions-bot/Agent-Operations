@@ -1,0 +1,56 @@
+name: Oddly Useful Stuff - Buffer TikTok
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "check (safe), draft (non-published), queue (requires approved JSON)"
+        type: choice
+        required: true
+        default: check
+        options:
+          - check
+          - draft
+          - queue
+      content_path:
+        description: "JSON campaign path for draft/queue"
+        type: string
+        required: false
+        default: campaigns/oddly-useful-stuff/sample-post.json
+permissions:
+  contents: read
+jobs:
+  buffer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify setup
+        env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+        run: |
+          if [ -z "$BUFFER_API_KEY" ]; then
+            echo "::error::BUFFER_API_KEY not configured in repository Actions secrets."
+            exit 1
+          fi
+      - name: Validate campaign path
+        if: inputs.mode != 'check'
+        env:
+          CONTENT_PATH: ${{ inputs.content_path }}
+        run: |
+          case "$CONTENT_PATH" in
+            campaigns/oddly-useful-stuff/*.json) ;;
+            *) echo "::error::Content file must be under campaigns/oddly-useful-stuff/"; exit 1 ;;
+          esac
+          test -f "$CONTENT_PATH" || { echo "::error::Campaign file not found"; exit 1; }
+      - name: Execute guarded Buffer operation
+        env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          BUFFER_QUEUE_ENABLED: ${{ inputs.mode == 'queue' && 'YES' || 'NO' }}
+          MODE: ${{ inputs.mode }}
+          CONTENT_PATH: ${{ inputs.content_path }}
+        run: |
+          if [ "$MODE" = check ]; then
+            python3 tools/buffer_publisher.py --mode check
+          else
+            python3 tools/buffer_publisher.py --mode "$MODE" --input "$CONTENT_PATH"
+          fi
