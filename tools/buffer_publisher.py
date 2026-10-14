@@ -112,7 +112,9 @@ def main():
     text = str(post.get("text") or "").strip()
     if not text or len(text) > 2000:
         raise ValueError("Post text is missing or exceeds our safety length")
-    image = validated_media(post.get("image_url"))
+    image = validated_media(post["image_url"]) if post.get("image_url") else None
+    if args.mode == "queue" and image is None:
+        raise ValueError("Live TikTok posts require a real public image_url.")
     if args.mode == "queue":
         if os.environ.get("BUFFER_QUEUE_ENABLED") != "YES":
             raise RuntimeError("Queuing disabled. Set BUFFER_QUEUE_ENABLED=YES only after a successful draft test.")
@@ -124,7 +126,7 @@ def main():
         " channelId: " + quoted(channel["id"]) +
         " schedulingType: automatic mode: addToQueue" +
         " saveToDraft: " + ("true" if args.mode == "draft" else "false") +
-        " assets: [{image: {url: " + quoted(image) + "}}]"
+        (" assets: [{image: {url: " + quoted(image) + "}}]" if image else "")
         " }) { ... on PostActionSuccess { post { id text dueAt } }"
         " ... on MutationError { message } } }"
     )
