@@ -1,5 +1,10 @@
 name: Oddly Useful Stuff - Buffer TikTok
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - campaigns/oddly-useful-stuff/.verify-buffer
   workflow_dispatch:
     inputs:
       mode:
@@ -33,7 +38,7 @@ jobs:
             exit 1
           fi
       - name: Validate campaign path
-        if: inputs.mode != 'check'
+        if: github.event_name == 'workflow_dispatch' && inputs.mode != 'check'
         env:
           CONTENT_PATH: ${{ inputs.content_path }}
         run: |
@@ -46,7 +51,7 @@ jobs:
         env:
           BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
           BUFFER_QUEUE_ENABLED: ${{ inputs.mode == 'queue' && 'YES' || 'NO' }}
-          MODE: ${{ inputs.mode }}
+          MODE: ${{ github.event_name == 'push' && 'check' || inputs.mode }}
           CONTENT_PATH: ${{ inputs.content_path }}
         run: |
           if [ "$MODE" = check ]; then
