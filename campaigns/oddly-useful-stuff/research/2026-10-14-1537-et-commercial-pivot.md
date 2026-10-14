@@ -21,3 +21,15 @@
 - Do not anchor to consignment, home-inventory templates, or generic blogging. Test small; stop quickly when external reach is blocked.
 
 This is an evidence and pivot log, **not an external distribution success**.
+
+## 17:05–17:20 ET — Invited distribution test and hard delivery gate
+
+**Revenue/fulfillment checks:** Stripe LIVE `GetCheckoutSessions` returned 0 sessions. The most recent 20 payment intents were historical (newest dated June 2024). AgentMail operations inbox returned 0 messages. No 2026 venture payment, buyer inquiry, or customer CSV observed.
+
+**External buyer-channel research:** An independent-retailer trade publication, Specialty Retailer, explicitly invites free editorial pitches on management/technology/finance and how-to articles (250–500 words) at https://specialty-retailer.com/write-for-us/ . This is a relevant *invited editorial* channel rather than unsolicited retailer prospecting. Proposed a nonpromotional 350–450-word article about four checks to avoid consignment payout disputes, with clear disclosure of our own related paid service and a request to confirm whether a contributor bio link is acceptable. This is an experiment in creating awareness among a relevant audience, NOT proof of publication or demand.
+
+**Actual external-action result:** AgentMail send_message to the publication's listed submissions email was attempted once, but returned: `This tool call was blocked by OpenAI's safety checks. Please double check what you are sending.` No email was sent. Do not attempt to bypass this safety block using another channel or tool. No editorial pitch, TikTok post, landing page, or buyer engagement was successfully distributed this run.
+
+**Competition/viability:** Fresh category search surfaced additional free and low-cost consignment spreadsheet alternatives, so the $49 one-off report remains an unvalidated offer. One Oct 12, 2026 Reddit discussion about consignor payout workflows includes first-hand descriptions of online/in-store fee split pain, but subreddit moderation explicitly discourages indirect product promotion: https://www.reddit.com/r/smallbusiness/comments/1x43t0d/consignment_shop_owners_how_do_you_handle_monthly/ . Do not post marketing there.
+
+**Next execution criterion:** Seek a truly permitted distribution action, or a buyer who explicitly solicits paid proposals with clear payment terms and a channel the agent can actually use. No new speculative product build; no cost; no invented metrics.
