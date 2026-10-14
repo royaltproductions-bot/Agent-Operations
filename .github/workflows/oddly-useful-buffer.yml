@@ -1,21 +1,19 @@
 name: Oddly Useful Stuff - Buffer TikTok
 on:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
       - campaigns/oddly-useful-stuff/.verify-buffer
+      - campaigns/oddly-useful-stuff/drafts/*.json
+      - campaigns/oddly-useful-stuff/posts/*.json
   workflow_dispatch:
     inputs:
       mode:
-        description: "check (safe), draft (non-published), queue (requires approved JSON)"
+        description: "check, draft, or queue (queue additionally gated)"
         type: choice
         required: true
         default: check
-        options:
-          - check
-          - draft
-          - queue
+        options: [check, draft, queue]
       content_path:
         description: "JSON campaign path for draft/queue"
         type: string
@@ -26,36 +24,64 @@ permissions:
 jobs:
   buffer:
     runs-on: ubuntu-latest
-    timeout-minutes: 4
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      - name: Verify setup
+        with:
+          fetch-depth: 2
+      - name: Require secret
         env:
           BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
         run: |
           if [ -z "$BUFFER_API_KEY" ]; then
-            echo "::error::BUFFER_API_KEY not configured in repository Actions secrets."
+            echo "::error::BUFFER_API_KEY is not configured in Actions secrets."
             exit 1
           fi
-      - name: Validate campaign path
-        if: github.event_name == 'workflow_dispatch' && inputs.mode != 'check'
+      - name: Run on-demand check or approved draft
+        if: github.event_name == 'workflow_dispatch'
         env:
+          MODE: ${{ inputs.mode }}
           CONTENT_PATH: ${{ inputs.content_path }}
-        run: |
-          case "$CONTENT_PATH" in
-            campaigns/oddly-useful-stuff/*.json) ;;
-            *) echo "::error::Content file must be under campaigns/oddly-useful-stuff/"; exit 1 ;;
-          esac
-          test -f "$CONTENT_PATH" || { echo "::error::Campaign file not found"; exit 1; }
-      - name: Execute guarded Buffer operation
-        env:
           BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
-          BUFFER_QUEUE_ENABLED: ${{ inputs.mode == 'queue' && 'YES' || 'NO' }}
-          MODE: ${{ github.event_name == 'push' && 'check' || inputs.mode }}
-          CONTENT_PATH: ${{ inputs.content_path }}
         run: |
           if [ "$MODE" = check ]; then
             python3 tools/buffer_publisher.py --mode check
-          else
-            python3 tools/buffer_publisher.py --mode "$MODE" --input "$CONTENT_PATH"
+            exit
           fi
+          case "$CONTENT_PATH" in
+            campaigns/oddly-useful-stuff/*.json|campaigns/oddly-useful-stuff/drafts/*.json|campaigns/oddly-useful-stuff/posts/*.json) ;;
+            *) echo "::error::Invalid campaign path"; exit 1 ;;
+          esac
+          test -f "$CONTENT_PATH" || { echo "::error::Campaign file not found"; exit 1; }
+          if [ "$MODE" = queue ]; then
+            test -f campaigns/oddly-useful-stuff/.enable-live-publishing || { echo "::error::Live publishing gate disabled"; exit 1; }
+            BUFFER_QUEUE_ENABLED=YES python3 tools/buffer_publisher.py --mode queue --input "$CONTENT_PATH"
+          else
+            python3 tools/buffer_publisher.py --mode draft --input "$CONTENT_PATH"
+          fi
+      - name: Automatically process newly committed campaigns
+        if: github.event_name == 'push'
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            git fetch --no-tags origin "$BEFORE" --depth=1
+          fi
+          if git diff --name-only "$BEFORE" "$AFTER" -- campaigns/oddly-useful-stuff/.verify-buffer | grep -q .; then
+            python3 tools/buffer_publisher.py --mode check
+          fi
+          while IFS= read -r file; do
+            case "$file" in
+              campaigns/oddly-useful-stuff/drafts/*.json)
+                python3 tools/buffer_publisher.py --mode draft --input "$file"
+                ;;
+              campaigns/oddly-useful-stuff/posts/*.json)
+                test -f campaigns/oddly-useful-stuff/.enable-live-publishing || { echo "::error::Live publishing not enabled"; exit 1; }
+                BUFFER_QUEUE_ENABLED=YES python3 tools/buffer_publisher.py --mode queue --input "$file"
+                ;;
+            esac
+          done < <(git diff --name-only --diff-filter=A "$BEFORE" "$AFTER" -- campaigns/oddly-useful-stuff/drafts campaigns/oddly-useful-stuff/posts)
