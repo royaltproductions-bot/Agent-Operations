@@ -80,9 +80,15 @@ def score_comment(comment):
     text = clean_html(comment.get("text") or "")[:6000]
     if not text or SKIP.search(text):
         return None
-    if not CONTRACT.search(text):
+    header = re.sub(r"\s+", " ", text.split("\n")[0]).strip()
+    # A stray 'contract' anywhere in a full-time posting is not a contract offer.
+    if not CONTRACT.search(header):
         return None
-    categories = [key for key, regex in SKILLS.items() if regex.search(text)]
+    if re.search(r"\b(commission[- ]only|equity[- ]only|unpaid trial)\b", header, re.I):
+        return None
+    if re.search(r"\b(onsite|on[- ]site|hybrid|german c1|remote\s*\((?:uk|europe|germany)|gmt[-+ ]*2)", header, re.I):
+        return None
+    categories = [key for key, regex in SKILLS.items() if regex.search(text[:750])]
     if not categories:
         return None
     try:
