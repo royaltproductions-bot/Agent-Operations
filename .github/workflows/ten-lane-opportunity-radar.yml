@@ -72,11 +72,48 @@ jobs:
               for lane, problem in data['lane_errors'].items():
                   f.write('\n- ' + lane + ' search failed: ' + problem)
           PY
+      - name: Create immutable native Actions execution receipt
+        env:
+          GH_RUN_ID: ${{ github.run_id }}
+          GH_ATTEMPT: ${{ github.run_attempt }}
+          GH_EVENT: ${{ github.event_name }}
+        run: |
+          python3 - <<'PY'
+          from datetime import datetime, timezone
+          from pathlib import Path
+          import json, os
+          folder = Path('ops/gha-runs')
+          folder.mkdir(parents=True, exist_ok=True)
+          item = folder / (os.environ['GH_RUN_ID'] + '-' + os.environ['GH_ATTEMPT'] + '.json')
+          if item.exists():
+              raise RuntimeError('Refusing duplicate workflow receipt: ' + item.name)
+          discovery = json.loads(Path('ops/discovery/current.json').read_text())
+          triage = json.loads(Path('ops/discovery/triage.json').read_text())
+          record = {
+              'schema_version': 1,
+              'attribution': 'github_actions_discovery_not_chatgpt_scout_or_executor',
+              'run_id': os.environ['GH_RUN_ID'],
+              'run_attempt': int(os.environ['GH_ATTEMPT']),
+              'source_event': os.environ['GH_EVENT'],
+              'recorded_at_utc': datetime.now(timezone.utc).isoformat().replace('+00:00','Z'),
+              'workflow_url': 'https://github.com/royaltproductions-bot/Agent-Operations/actions/runs/' + os.environ['GH_RUN_ID'],
+              'search_lanes_completed': discovery['successful_lanes'],
+              'raw_opportunity_hints': discovery['unique_candidates'],
+              'bounty_hints_reviewed': triage['reviewed_items'],
+              'competing_fix_counts': triage['decision_counts'],
+              'paid_orders_checked': False,
+              'external_customer_actions_sent': 0,
+              'new_revenue_checked': False,
+              'new_revenue_usd': None
+          }
+          item.write_text(json.dumps(record, indent=2) + '\\n')
+          print('NATIVE GH ACTIONS RECEIPT, NOT A CHATGPT AGENT RUN:', item)
+          PY
       - name: Commit deduplicated findings only when changed
         shell: bash
         run: |
           set -euo pipefail
-          git add ops/discovery/current.json ops/discovery/triage.json
+          git add ops/discovery/current.json ops/discovery/triage.json ops/gha-runs/*.json
           if test -f ops/discovery/hn-contract-invitations.json; then
             git add ops/discovery/hn-contract-invitations.json
           fi
