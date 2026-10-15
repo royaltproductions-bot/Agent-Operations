@@ -1,35 +1,23 @@
-# Autonomous revenue engine — persistent operational handoff
-_Updated October 15, 2026 by LIVE CHAT intervention, **not an autonomous hourly engine execution**._
+# Autonomous revenue engine — cross-run operational state
+**Updated 2026-10-15 following LIVE-CHAT corrective intervention; not an autonomous scheduled execution.**
 
-## North-star outcome
-Verified buyer-relevant PUBLIC placement with a working offer/payment path -> attributable buyer inquiries -> newly collected live Stripe revenue. Internal commits, private drafts, and queued-but-unsent posts count as **zero external distribution**.
+## Verified current outcome
+- **First TikTok publishing path succeeded**. Buffer recorded @oddly.useful.stuff post status `sent` on 2026-10-15T16:46:59.739Z and returned destination URL https://tiktok.com/@oddly.useful.stuff/video/7696936897301531917 . Independent browser verification was blocked by TikTok robots, so classify this as **Buffer-confirmed sent with destination URL**, not externally re-opened/verified. Source: https://github.com/royaltproductions-bot/Agent-Operations/actions/runs/38771872096 .
+- Content is NONCOMMERCIAL, educational consignment-shop payout checklist; correct TikTok handle, automatic shareNow, MP4 media, AI-generated disclosure enabled, approved review gate. First actual publish request: https://github.com/royaltproductions-bot/Agent-Operations/actions/runs/38771754107 .
+- Buffer channel at first post check: `sent=1, draft=6, scheduled=0`. Older private drafts don't count as public distribution.
+- Campaign video renderer succeeded: https://github.com/royaltproductions-bot/Agent-Operations/actions/runs/38771600510 . Publisher automated tests passed: https://github.com/royaltproductions-bot/Agent-Operations/actions/runs/38770722209 .
+- GitHub Actions publishing monitor (read-only) runs hourly: `.github/workflows/oddly-useful-inventory.yml`. It records Buffer status and external links, not revenue.
+- VendorSettle Desk $49 paid offer: https://github.com/royaltproductions-bot/Agent-Operations/blob/main/products/vendorsettle-desk/README.md . Stripe LIVE payment link verified ACTIVE via connected Stripe account on Oct 15: https://buy.stripe.com/eVq9AS63KcrdfUe3AP7Re00 . No new revenue was independently checked in this optimization intervention; query live payments each run.
+- **Critical compliance split**: TikTok requires native commercial-content disclosure when promoting a business. Current Buffer GraphQL TikTok metadata supports AI labeling, but not the commercial promotional disclosure control. DO NOT publish `commercial_promotion=true` through this route or mislabel sales promotion as education. Find a proper disclosure-capable authorized channel or publish through TikTok's native compliant interface when specifically possible. Reference TikTok: https://ads.tiktok.com/resources/help/article/about-the-content-disclosure-setting-for-creators .
+- `tools/buffer_publisher.py` uses preflight, only approved `posts/*.json`, explicit publishing gate, exact target channel, MP4 video, remote duplicate detection and optional publish_now, and rejects declared commercial promo. The currently enabled `.enable-live-publishing` gate is NOT permission to post without review or compliance.
+- Run-continuity problem remains: `ops/runs/` historically only had two saved task records. User's request requires exact hourly persistence; GitHub commits are not evidence of scheduled task runs.
 
-## Verifiable current state
-- User screenshot showed 0 public TikTok posts / followers / likes on @oddly.useful.stuff. Recheck the actual profile before claiming change.
-- $49 VendorSettle Desk offer: https://github.com/royaltproductions-bot/Agent-Operations/blob/main/products/vendorsettle-desk/README.md
-- Existing Stripe checkout: https://buy.stripe.com/eVq9AS63KcrdfUe3AP7Re00 . No verified new orders as of previous audit; query live payment processor before asserting current totals.
-- Buffer account @oddly.useful.stuff confirmed; private draft pipeline and GitHub media hosting work.
-- **Video technical problem corrected** on Oct 15: publisher accepts explicit `video_url` MP4 and rejects image-only auto-queue; GitHub Actions generates MP4 from SVG/PNG. Tests passed: https://github.com/royaltproductions-bot/Agent-Operations/actions/runs/38769273367 . Render passed: https://github.com/royaltproductions-bot/Agent-Operations/actions/runs/38769560987 .
-- Verified output media: `campaigns/oddly-useful-stuff/media/home-inventory-01.mp4` and `intro-01.mp4`. One MP4 **private draft only** succeeded: https://github.com/royaltproductions-bot/Agent-Operations/actions/runs/38769752289 , Buffer post ID `6ad0fff7e30d190e5e5e86bf`. **Not publicly published**.
-- Live publishing remains gated: missing `campaigns/oddly-useful-stuff/.enable-live-publishing`; campaign would need `approved_for_queue: true`, genuine researched offer, buyer-accessible landing/payment route, reviewed legible creative and successful draft. Do not bypass preflight or platform restrictions.
-- TikTok's profile-link eligibility and measurable B2B buyer access are still UNVERIFIED. A general home-inventory tip is not a VendorSettle customer acquisition result.
-- Persistent log deficiency: as of Oct 15 only two `ops/runs/` records and one `activity-ledger.json` entry were present before this intervention; commits do not prove autonomous hourly runs.
-- Earlier editorial outreach / GitHub modification safety blocks are definitive until permission genuinely changes. Do not repeatedly retry or circumvent them.
+## PRIORITIZED NEXT RUN
+1. First: check live Stripe new paid orders/checkout sessions and AgentMail ari-operations@agentmail.to for qualified buyers; fulfill paid orders privately before anything else.
+2. Verify the TikTok public video using a native or independently accessible source if available. Confirm at least first post externally and review reactions/target audience; the public URL is above.
+3. Focus commercial distribution on a genuinely buyer-reachable channel that permits properly disclosed promotion and clickable payment link, rather than publishing more generic TikTok drafts. Determine available connected channels, channel permissions and target audience; take an actual authorized external action.
+4. Track funnel from public reach -> engaged qualified shop operator -> checkout clicks (where available) -> verified live Stripe payment. Do not infer buyer demand from a scheduled post. If TikTok cannot convert, pivot, not repeat.
+5. If creating new TikTok educational video, ensure useful original information, approved media, noncommercial character, disclosure where applicable, no duplicates, and actual public post confirmation; keep frequency sensible and no spam.
 
-## NEXT ONE MATERIAL ACTION
-1. Check for a paid order or actionable inbound customer inquiry (LIVE Stripe + AgentMail). Fulfill actual paid orders first.
-2. Validate an actual buyer-facing channel aligned to an existing paid offer, ideally where consignment shop operators are reachable and a payment link is usable. If TikTok can link to the offer, create one researched **offer-relevant** compliant video campaign using working MP4 pipeline, review creative, then use authorized publish gate and confirm a public URL. If it cannot, pivot to another genuinely connected/authorized channel rather than wasting cycles on generic TikTok drafts.
-3. Require independently accessible public post URL before recording external distribution. An API success with status 'queued' or 'sent' is not itself confirmation of a live TikTok page.
-4. Observe conversion; improve one measured bottleneck instead of creating additional unrelated micro-products.
-
-## Execution decision rules (every hourly run)
-- **0–3 minutes:** read this handoff + newest run log + latest audit; one batch Stripe payment check and inbox check; confirm external state.
-- **Action first:** choose the highest expected verified financial advance, with priority paid fulfillment > buyer follow-up > publicly reachable distribution > channel validation > product creation. Pursue ONE active experiment per run. No speculative asset unless distribution/fulfillment is functioning or a paying buyer requested it.
-- **Retry intelligently:** transient failure at most twice, checking remote state before retry to avoid duplicates. Definitive permission/safety/platform block: never bypass; record as blocked, cooldown 24h or until credentials/permissions change, and pivot to different lawful method immediately.
-- **Stop-loss:** If two runs fail to make external progress on one channel, switch channels or change tactic; no endless repetition of research, private drafts, or obstacle notes.
-- **Evidence:** distinguish completed remote action, remote confirmation, and unverified assertion. Keep timestamps in UTC, attribution `scheduled_hourly` versus `live_chat`, external URL, amount where relevant, next step.
-- **Persistence:** append a unique UTC timestamped `ops/runs/` log and update THIS handoff at finish. Record actual independent run only. If GitHub write blocked, surface explicit persistence failure rather than claiming continuity.
-- **Economics:** no unauthorized spend, spam, deception, publishing unreviewed claims, secrets disclosure, public customer data, or policy bypass.
-
-## Hard truth
-As of this update: technically functioning video draft path; no confirmed public TikTok distribution, attributable paying customer, or new revenue. **Engineering completion is not commercial completion.**
+## EVERY HOURLY EXECUTION
+READ this handoff, latest actual `ops/runs` and activity ledger, latest daily audit, real external evidence -> RESUME one highest-impact unfinished action -> EXECUTE -> VERIFY -> LOG with separate timestamp and `attribution=scheduled_hourly` -> UPDATE handoff. Prioritize money/orders > genuine inbound buyer > offer-linked public distribution > channel validation > new product. Retry transient failures at most twice after checking remote state for duplicates. Treat safety/permission blocks as definitive; pivot to a truly different lawful avenue, never bypass. After two unproductive cycles on one tactic, change tactics. Do not spend without authorization, spam, misrepresent sales, expose customer data, or conflate GitHub technical work with customers. If write access fails, report persistence failure rather than claiming continuity.
