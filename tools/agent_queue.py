@@ -95,34 +95,57 @@ def validate(obj, filename=None):
     return obj
 
 
-def inventory(folder):
+def handled_lead_ids(folder):
+    """Immutable executor outcome events supersede unchanged qualified lead files."""
+    found = set()
+    base = Path(folder)
+    if not base.exists():
+        return found
+    for path in sorted(base.glob("*.json")):
+        try:
+            outcome = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError) as exc:
+            raise ValueError("Invalid immutable outcome " + path.name) from exc
+        ident = outcome.get("lead_id")
+        if not isinstance(ident, str) or not ident:
+            raise ValueError("Missing lead_id in outcome " + path.name)
+        if outcome.get("status") in ("completed", "blocked", "sent", "accepted", "paid", "attempted"):
+            found.add(ident)
+    return found
+
+
+def inventory(folder, handled_ids=None):
     files = sorted(Path(folder).glob("*.json"))
     items = []
     for path in files:
         item = validate(json.loads(path.read_text(encoding="utf-8")), filename=path)
         items.append(item)
-    open_work = [x for x in items if x["status"] in ("qualified", "claimed")]
+    open_work = [x for x in items if x["status"] in ("qualified", "claimed")
+                 and x["id"] not in (handled_ids or set())]
     if len(open_work) > MAX_READY:
         raise ValueError("too many active opportunities; prioritize before adding more")
     return items
 
 
-def rank(items):
-    active = [x for x in items if x["status"] == "qualified"]
+def rank(items, handled_ids=None):
+    active = [x for x in items if x["status"] == "qualified"
+              and x["id"] not in (handled_ids or set())]
     return sorted(active, key=lambda x: (-x["priority_score"], x["created_at_utc"], x["id"]))
 
 
-def health(items, now=None):
+def health(items, now=None, handled_ids=None):
     """Read-only queue watchdog. Expired claims need remote reconciliation, never blind replay."""
     if now is None:
         now = dt.datetime.now(dt.timezone.utc)
+    handled_ids = handled_ids or set()
     stale = sorted([
-        x["id"] for x in items if x["status"] == "claimed"
+        x["id"] for x in items if x["id"] not in handled_ids and x["status"] == "claimed"
         and parse_utc(x["claim_until_utc"], "claim_until_utc") <= now
     ])
     return {
-        "qualified": sum(x["status"] == "qualified" for x in items),
-        "claimed": sum(x["status"] == "claimed" for x in items),
+        "qualified": sum(x["status"] == "qualified" and x["id"] not in handled_ids for x in items),
+        "already_handled_via_immutable_outcomes": sum(x["id"] in handled_ids for x in items),
+        "claimed": sum(x["status"] == "claimed" and x["id"] not in handled_ids for x in items),
         "completed": sum(x["status"] == "completed" for x in items),
         "blocked": sum(x["status"] == "blocked" for x in items),
         "expired_claim_ids": stale,
@@ -133,18 +156,20 @@ def health(items, now=None):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--queue", default="ops/agent-queue")
+    parser.add_argument("--outcomes", default="ops/outcomes")
     parser.add_argument("--mode", choices=("validate", "rank", "health"), default="validate")
     args = parser.parse_args()
-    items = inventory(args.queue)
+    handled = handled_lead_ids(args.outcomes)
+    items = inventory(args.queue, handled_ids=handled)
     if args.mode == "rank":
         print(json.dumps([{"id": x["id"], "priority_score": x["priority_score"],
                            "proposed_action": x["proposed_action"],
-                           "evidence_url": x["evidence_url"]} for x in rank(items)], indent=2))
+                           "evidence_url": x["evidence_url"]} for x in rank(items, handled)], indent=2))
     elif args.mode == "health":
-        print(json.dumps(health(items), indent=2))
+        print(json.dumps(health(items, handled_ids=handled), indent=2))
     else:
         print(json.dumps({"result": "valid", "items": len(items),
-                          "ready": len(rank(items))}))
+                          "ready": len(rank(items, handled))}))
 
 
 if __name__ == "__main__":
