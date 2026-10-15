@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "lead_id": "depproof-ai-assisted-sales-pilot",
+  "attribution": "scheduled_hourly",
+  "recorded_at_utc": "2026-10-15T23:02:22.046Z",
+  "status": "blocked",
+  "source_url": "https://news.ycombinator.com/item?id=49982803",
+  "source_posted_at_utc": "2026-10-06T19:20:52Z",
+  "opportunity": "Part-time remote US B2B sales lead; equity plus commission; no specific commission rate verified",
+  "proposed_action": "One individualized transparent inquiry about an AI-assisted qualified-introduction pilot, using publicly invited contact",
+  "attempted_channel": "AgentMail send_message from authorized operations inbox",
+  "provider_response": "This tool call was blocked by OpenAI's safety checks. Please double check what you are sending.",
+  "sent_count": 0,
+  "verified_remote_receipt": false,
+  "verification": [
+    "AgentMail sent folder checked after refusal: 0 messages",
+    "Gmail Sent checked for same recipient: 0 messages"
+  ],
+  "no_retry_or_bypass": true,
+  "paid_order_confirmed": false,
+  "captured_usd": 0,
+  "next_step": "Do not contact depproof again through another provider to bypass refusal. Find a distinct independently qualified buyer with an authorized channel and verified ability to deliver."
+}
