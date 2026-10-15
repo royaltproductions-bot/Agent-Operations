@@ -34,6 +34,14 @@ DENY_REPOS = (
 )
 CURRENCY_RE = re.compile(r'(?<!\w)\$\s*(\d{1,7}(?:,\d{3})*(?:\.\d{1,2})?)\b')
 BIDDING_RE = re.compile(r'\b(bounty|reward|paid|funded|payout|usd|usdc|bounties)\b', re.I)
+NOT_FUNDED_RE = re.compile(
+    r'\b(willing to (?:place|put|offer)|would (?:place|consider|offer)|'
+    r'once funded|if funding arrives|seeking funding|unfunded|'
+    r'no bounty (?:yet|available)|reward not guaranteed)\b', re.I
+)
+CLAIM_OR_INDEX_RE = re.compile(
+    r'\b(bounty (?:solution|alert)|payout claim|bounty radar|grant application)\b', re.I
+)
 REQUIRED_SPEND_RE = re.compile(
     r'\b(fund (?:a |the |your )?task|pay (?:a |the )?fee|'
     r'entry fee|deposit required|buy (?:a |the )?subscription|'
@@ -74,6 +82,31 @@ def amount_hint(text):
     return max(vals) if vals else None
 
 
+def explicit_payment_hint(title, body):
+    """Require dollar figure on the SAME line as a real payout commitment.
+
+    Dollar amounts for hypothetical product ceilings, pricing and budget are not
+    bounties. Accept Bounty heading + following 2 lines (common issue format).
+    """
+    lines = [title] + body.splitlines()
+    amounts = []
+    for i, raw in enumerate(lines):
+        line = re.sub(r'[*_`#>]+', ' ', raw).strip()[:600]
+        if not line or NOT_FUNDED_RE.search(line):
+            continue
+        has_payout = re.search(r'\b(bounty|reward(?:\s+tier)?|payout|'
+                               r'paid (?:for|upon|after)|payment (?:for|upon|after))\b',
+                               line, re.I)
+        if not has_payout and i > 0:
+            previous = re.sub(r'[*_#>]+', ' ', lines[i-1]).strip().lower()
+            has_payout = previous in ('bounty', 'reward', 'payout', 'payment')
+        if has_payout:
+            amount = amount_hint(line)
+            if amount is not None:
+                amounts.append(amount)
+    return max(amounts) if amounts else None
+
+
 def prospect(issue, lane):
     if not isinstance(issue, dict) or issue.get("pull_request"):
         return None
@@ -86,9 +119,10 @@ def prospect(issue, lane):
     title = str(issue.get("title") or "").strip()
     body = str(issue.get("body") or "")[:15000]
     combined = title + "\n" + body
-    if not BIDDING_RE.search(combined) or REQUIRED_SPEND_RE.search(combined):
+    if (not BIDDING_RE.search(combined) or REQUIRED_SPEND_RE.search(combined)
+            or NOT_FUNDED_RE.search(combined) or CLAIM_OR_INDEX_RE.search(title)):
         return None
-    amount = amount_hint(combined)
+    amount = explicit_payment_hint(title, body)
     if amount is None:
         return None
     comments = max(0, int(issue.get("comments") or 0))
