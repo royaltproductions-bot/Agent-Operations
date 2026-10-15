@@ -4,9 +4,13 @@ on:
     branches: [main]
     paths:
       - 'campaigns/oddly-useful-stuff/creative-source/*.svg'
+      - '.github/workflows/oddly-useful-render.yml'
   workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: oddly-useful-render-main
+  cancel-in-progress: false
 jobs:
   render:
     runs-on: ubuntu-latest
@@ -24,6 +28,7 @@ jobs:
           set -euo pipefail
           python3 - <<'PY'
           from pathlib import Path
+          import subprocess
           import cairosvg
           root = Path('campaigns/oddly-useful-stuff')
           source = root / 'creative-source'
@@ -42,12 +47,31 @@ jobs:
               if output.stat().st_size < 1000:
                   raise RuntimeError('Generated image unexpectedly small: ' + output.name)
               print('RENDERED:', output, output.stat().st_size, 'bytes')
+          # TikTok's automatic Buffer path is video-first. Render an actual
+          # short MP4 from each reviewed card without pretending PNG drafts are live posts.
+          for png in sorted(destination.glob('*.png')):
+              video = png.with_suffix('.mp4')
+              if video.exists():
+                  continue
+              subprocess.run([
+                  'ffmpeg', '-hide_banner', '-loglevel', 'error', '-y',
+                  '-loop', '1', '-framerate', '24', '-i', str(png),
+                  '-f', 'lavfi', '-i', 'anullsrc=channel_layout=stereo:sample_rate=44100',
+                  '-t', '6', '-vf',
+                  'scale=720:1280:flags=lanczos,format=yuv420p,fade=t=in:st=0:d=0.4,fade=t=out:st=5.6:d=0.4',
+                  '-r', '24', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '25',
+                  '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '64k',
+                  '-shortest', '-movflags', '+faststart', str(video)
+              ], check=True, timeout=150)
+              if video.stat().st_size < 1000:
+                  raise RuntimeError('Generated MP4 unexpectedly small: ' + video.name)
+              print('VIDEO:', video, video.stat().st_size, 'bytes')
           PY
       - name: Commit public PNG assets
         shell: bash
         run: |
           set -euo pipefail
-          git add campaigns/oddly-useful-stuff/media/*.png
+          git add campaigns/oddly-useful-stuff/media/*.png campaigns/oddly-useful-stuff/media/*.mp4
           if git diff --cached --quiet; then
             echo 'No new media to commit.'
           else
