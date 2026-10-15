@@ -1,3 +1,20 @@
+# CURRENT PERSISTENCE DESIGN — immutable run receipts (2026-10-15)
+
+This top section OVERRIDES any old instruction below that requires scheduled ChatGPT `update_file`, mutable claim state, or an in-place handoff rewrite.
+
+**Evidence:** after the user's GitHub app-specific setting changed to Allow all actions, live-chat `create_file` and `update_file` passed, and INDEPENDENT SCHEDULED `create_file` + `fetch_file` passed (commit [e5e5d9d](https://github.com/royaltproductions-bot/Agent-Operations/commit/e5e5d9d35819ad9a971d1b5624c3297cb9c87ef9)). A separate scheduled `update_file` test reached terminal task state but its target file was unchanged at last read. **Scheduled update is NOT verified. Do not depend on it** and do not circumvent any safety block.
+
+**Architectural fix: event-sourced GitHub persistence using permitted NEW-file creation.** Keep THIS handoff static as a configuration/runbook. Scheduled agents WRITE NEW uniquely named, immutable JSON files only; they READ previous ones to reconstruct state. No per-run mutations or attempts to overwrite previous files.
+
+- Scout reads latest `ops/discovery/current.json` / `triage.json` and recent queue/outcome files. Creates new `ops/agent-queue/<stable-id>.json` only for an evidence-backed, actually actionable score>=70 job/customer opportunity (original queue JSON schema applies, `status:"qualified"`). Complete run by creating ONE NEW `ops/scout-runs/<UTC>-scout.json` with factual counted checks, qualified new IDs, rejections/reasons, attribution `scheduled_scout`, terminal timestamp, external source URLs. Verify readback. If blocked, report failure and do not pretend persisted. Do not create misleading filler leads.
+- Executor checks LIVE Stripe paid orders and real AgentMail/Gmail messages FIRST. Reads recent queue files and `ops/outcomes/` (if folder absent, treat as no prior outcome evidence) and Gmail Sent/remote destination BEFORE acting; do not repeat an already handled `lead_id`. Carry out one real authorized economic action if possible. After verified remote result, create ONE NEW `ops/outcomes/<lead-id>-<UTC>.json` only when a qualified queued lead was processed; include `lead_id`, outcome state, UTC time and publicly safe evidence. Complete run by creating ONE NEW `ops/runs/<UTC>-executor.json` with attribution `scheduled_hourly`, task action and verifiable remote receipt, paid captured amount ONLY if processor confirmed, next concrete action, status. Verify readback. Both are NEW files; never update the qualified lead file or the common handoff from scheduled executor.
+- Only ONE executor is enabled, so an explicit mutable claim lease is not required. Duplicate protection comes from checking `ops/outcomes/`, existing run records and remote Sent/payment state before each action. If two runs overlap, do not send the same outreach without checking remote delivery status; stop and disclose uncertainty.
+- Daily audit READS files and actual remote evidence, never writes operations. GitHub Actions discovery writes its own `ops/discovery/*.json` through existing authorized native workflow, not through ChatGPT's connectors. GitHub Actions commits do NOT count as ChatGPT hourly runs.
+- Distinguish `github_actions`, `live_chat`, `scheduled_scout`, `scheduled_hourly`, `one_time_test` in each JSON. Do not record an unverified completed sale or hide a connector failure.
+- This design implements original persistence/activity log intent without depending on scheduled UPDATE. It does **not** prove customers or revenue. Verify the next real Scout and Executor runs and actual external outcomes separately.
+
+---
+
 # Autonomous Revenue Engine — durable operating handoff
 
 Updated 2026-10-15 by **live chat** (NOT an autonomous scheduled run). This file is the current operational state; older failures and iterations remain in Git history. Keep this concise and update only when facts change.
