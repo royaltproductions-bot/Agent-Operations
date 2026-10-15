@@ -122,6 +122,11 @@ def prospect(issue, lane):
     title = str(issue.get("title") or "").strip()
     body = str(issue.get("body") or "")[:15000]
     combined = title + "\n" + body
+    # Cash in a news article or a planning issue does not create a payable issue.
+    labels = {str(x.get("name", "")).lower() for x in issue.get("labels", []) if isinstance(x, dict)}
+    explicitly_bounty = bool(re.search(r"\b(bounty|paid task|paid issue|cash reward)\b", title, re.I)) or "bounty" in labels
+    if not explicitly_bounty:
+        return None
     if (not BIDDING_RE.search(combined) or REQUIRED_SPEND_RE.search(combined)
             or NOT_FUNDED_RE.search(combined) or CLAIM_OR_INDEX_RE.search(title)):
         return None
