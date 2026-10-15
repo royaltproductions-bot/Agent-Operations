@@ -47,6 +47,18 @@ class TestEngineHealth(unittest.TestCase):
         self.assertEqual(report["executor_terminal_records_last_24h"], 1)
         self.assertFalse(report["money_checked"])
 
+    def test_running_start_is_counted_not_misclassified_as_terminal_error(self):
+        self.put("ops/scout-runs", "s-start.json", "scheduled_scout", status="running")
+        self.put("ops/scout-runs", "s.json", "scheduled_scout", status="completed")
+        self.put("ops/runs", "e-start.json", "scheduled_hourly", status="running")
+        self.put("ops/runs", "e.json", "scheduled_hourly", status="completed")
+        report = engine_health.run(self.root, NOW)
+        self.assertEqual(report["reliability_status"], "PASS")
+        self.assertEqual(report["scout_start_receipts_last_24h"], 1)
+        self.assertEqual(report["executor_start_receipts_last_24h"], 1)
+        self.assertEqual(report["scout_record_errors"], [])
+        self.assertEqual(report["executor_record_errors"], [])
+
     def test_stale_receipts_do_not_pass(self):
         self.put("ops/scout-runs", "s.json", "scheduled_scout", "2026-10-14T19:00:00Z")
         self.put("ops/runs", "e.json", "scheduled_hourly", "2026-10-15T17:00:00Z")
