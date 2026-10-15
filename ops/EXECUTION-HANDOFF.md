@@ -1,3 +1,28 @@
+# Revenue engine — VERIFIED full-cycle handoff (2026-10-15)
+
+## FIRST ACTION ON NEXT INDEPENDENT RUN
+1. **Check actual money and buyers:** connected live Stripe Checkout Sessions and new successful charges since prior run; AgentMail ari-operations@agentmail.to; connected Gmail for any response to the live-chat professional outreach sent at **2026-10-15T18:04:38Z**. Gmail receipt is private; do not expose private message IDs, personal details or applicant credentials publicly. Paid orders first.
+2. **Do not develop the four bounty prospects in current discovery batch.** All **4 of 4** were shown to have active or prior competing fixes by live GitHub review (including cross-repo PRs): see `ops/discovery/triage.json` and [successful 10-lane + verification run](https://github.com/royaltproductions-bot/Agent-Operations/actions/runs/38782039320). Verified exclusive funded bounties **0**. Advance to fresh, genuinely solicited paid work with an authorized reachable contact or permitted direct submission. No speculative dollar-value estimates.
+3. **Execute, don't postpone:** produce an actual authorized application, response to an interested buyer, paid order fulfillment or compliant distribution and verify remote receipt. On zero executable options, record a precise reason and avoid retrying the same disabled integration or the same claimed task.
+4. **Write a START receipt** in `ops/runs/` immediately upon starting each *actual* scheduled ChatGPT run, with timestamp and `attribution=scheduled_hourly`. Use unique UTC ID and create-file. After external action, update same file to terminal `completed` / `blocked` with exact remote evidence, any payments, and next action; if write fails, report persistence failure. An Actions scan or live-chat log is never proof of a ChatGPT hourly run. The two historic automated run files do not establish full cadence.
+5. **Avoid duplicate outreach:** live chat sent one *solicited job application* via Gmail on Oct 15 18:04 UTC (proof in user's private Gmail Sent), logged without private IDs at [2026-10-15 live-chat optimization](https://github.com/royaltproductions-bot/Agent-Operations/blob/main/ops/runs/2026-10-15-live-chat-full-optimization.json). Await a reply and follow up only if requested or appropriate; no mass outreach. That action = 1 verified sent, **0** verified replies/contracts/revenue at reporting time.
+
+## Exact currently demonstrated numbers
+- Github GitHub Actions discovery **10/10** concurrent queries succeeded; **4** raw bounty results; **4** detected as competed; **0** exclusive/verified funded jobs.
+- Qualified agent queue files **0** at last check; do not fabricate qualification score.
+- Connected operations AgentMail threads **0**; Stripe Checkout Sessions **0**; unrelated legacy payment intents do NOT count.
+- One solicited outgoing professional application **SENT** verified by readback, **no** user cash or prospective revenue claimed.
+- Real traffic, funnel visitors, conversion rate, full task-run history and per-hour autonomous completion rate are **not measurable with currently available data**; do not invent a 10× performance improvement.
+
+## Known external integration constraints
+- Gmail already works through connected connector; Meticulate new registrations restricted, exclude it.
+- GitHub connector lacks advertised fork creation; verify before accepting PR-only bounties.
+- Buffer TikTok account has one provider-confirmed noncommercial educational sent post. Buffer route does not expose TikTok's native branded-commercial disclosure. Do not publish paid business promotions through a workaround.
+- Metricool connected brand is Yaliyah only and must NEVER be used for this separate engine.
+- Check for definitive connector safety blocks; do not route around blocked requests through another app.
+
+---
+
 # Revenue engine — fast recovery state
 _Last corrective update: 2026-10-15, LIVE CHAT, **not** an autonomous scheduled run. Historical evidence is in git history, ops/activity-ledger.json and ops/runs._
 
