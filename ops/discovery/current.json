@@ -10,13 +10,13 @@
     "documentation": 25,
     "frontend": 25,
     "integration": 25,
-    "javascript": 24,
+    "javascript": 25,
     "open-paid": 25,
     "python": 25,
     "testing": 25
   },
   "lane_errors": {},
-  "unique_candidates": 17,
+  "unique_candidates": 21,
   "top_candidates": [
     {
       "source": "github_public_issue",
@@ -33,11 +33,23 @@
     {
       "source": "github_public_issue",
       "repo": "Parabola-org/parabola",
+      "title": "[Bounty: $90] Reject amounts whose precision exceeds the destination chain's USDC decimals",
+      "url": "https://github.com/Parabola-org/parabola/issues/10",
+      "bounty_usd_hint_not_verified": 90.0,
+      "score_for_review_only": 80,
+      "competition_indicator_comments": 4,
+      "created_at": "2026-10-15T20:02:39Z",
+      "status": "requires_manual_payment_and_claim_verification",
+      "discovered_lane": "testing"
+    },
+    {
+      "source": "github_public_issue",
+      "repo": "Parabola-org/parabola",
       "title": "[Bounty: $90] Skip the Arc approve transaction when the existing allowance already covers the burn",
       "url": "https://github.com/Parabola-org/parabola/issues/8",
       "bounty_usd_hint_not_verified": 90.0,
       "score_for_review_only": 80,
-      "competition_indicator_comments": 3,
+      "competition_indicator_comments": 4,
       "created_at": "2026-10-15T20:02:25Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "testing"
@@ -49,10 +61,10 @@
       "url": "https://github.com/Parabola-org/parabola/issues/5",
       "bounty_usd_hint_not_verified": 125.0,
       "score_for_review_only": 77,
-      "competition_indicator_comments": 4,
+      "competition_indicator_comments": 5,
       "created_at": "2026-10-15T20:02:07Z",
       "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "integration"
+      "discovered_lane": "testing"
     },
     {
       "source": "github_public_issue",
@@ -64,7 +76,7 @@
       "competition_indicator_comments": 4,
       "created_at": "2026-10-15T20:02:13Z",
       "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "documentation"
+      "discovered_lane": "cash"
     },
     {
       "source": "github_public_issue",
@@ -76,7 +88,7 @@
       "competition_indicator_comments": 5,
       "created_at": "2026-10-15T20:01:50Z",
       "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "integration"
+      "discovered_lane": "testing"
     },
     {
       "source": "github_public_issue",
@@ -85,10 +97,34 @@
       "url": "https://github.com/Parabola-org/parabola/issues/3",
       "bounty_usd_hint_not_verified": 105.0,
       "score_for_review_only": 77,
-      "competition_indicator_comments": 4,
+      "competition_indicator_comments": 5,
       "created_at": "2026-10-15T20:02:02Z",
       "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "documentation"
+      "discovered_lane": "cash"
+    },
+    {
+      "source": "github_public_issue",
+      "repo": "Parabola-org/parabola",
+      "title": "[Bounty: $90] Add ESLint with typescript-eslint and wire it into CI",
+      "url": "https://github.com/Parabola-org/parabola/issues/11",
+      "bounty_usd_hint_not_verified": 90.0,
+      "score_for_review_only": 72,
+      "competition_indicator_comments": 5,
+      "created_at": "2026-10-15T20:02:45Z",
+      "status": "requires_manual_payment_and_claim_verification",
+      "discovered_lane": "testing"
+    },
+    {
+      "source": "github_public_issue",
+      "repo": "Parabola-org/parabola",
+      "title": "[Bounty: $90] Make estimateFee agree with transfer() on maxFee and maxWait fallback",
+      "url": "https://github.com/Parabola-org/parabola/issues/7",
+      "bounty_usd_hint_not_verified": 90.0,
+      "score_for_review_only": 72,
+      "competition_indicator_comments": 3,
+      "created_at": "2026-10-15T20:02:18Z",
+      "status": "requires_manual_payment_and_claim_verification",
+      "discovered_lane": "cash"
     },
     {
       "source": "github_public_issue",
@@ -97,8 +133,20 @@
       "url": "https://github.com/Parabola-org/parabola/issues/9",
       "bounty_usd_hint_not_verified": 90.0,
       "score_for_review_only": 72,
-      "competition_indicator_comments": 3,
+      "competition_indicator_comments": 4,
       "created_at": "2026-10-15T20:02:33Z",
+      "status": "requires_manual_payment_and_claim_verification",
+      "discovered_lane": "testing"
+    },
+    {
+      "source": "github_public_issue",
+      "repo": "Parabola-org/parabola",
+      "title": "[Bounty: $75] Expose retry/backoff knobs for Stellar allowance wait and RPC-lag retry",
+      "url": "https://github.com/Parabola-org/parabola/issues/12",
+      "bounty_usd_hint_not_verified": 75.0,
+      "score_for_review_only": 72,
+      "competition_indicator_comments": 4,
+      "created_at": "2026-10-15T20:02:49Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "documentation"
     },
@@ -109,10 +157,10 @@
       "url": "https://github.com/Parabola-org/parabola/issues/13",
       "bounty_usd_hint_not_verified": 75.0,
       "score_for_review_only": 72,
-      "competition_indicator_comments": 5,
+      "competition_indicator_comments": 6,
       "created_at": "2026-10-15T20:02:51Z",
       "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "documentation"
+      "discovered_lane": "testing"
     },
     {
       "source": "github_public_issue",
@@ -133,10 +181,10 @@
       "url": "https://github.com/Parabola-org/parabola/issues/17",
       "bounty_usd_hint_not_verified": 60.0,
       "score_for_review_only": 72,
-      "competition_indicator_comments": 3,
+      "competition_indicator_comments": 4,
       "created_at": "2026-10-15T20:03:01Z",
       "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "integration"
+      "discovered_lane": "cash"
     },
     {
       "source": "github_public_issue",
@@ -145,7 +193,7 @@
       "url": "https://github.com/Parabola-org/parabola/issues/18",
       "bounty_usd_hint_not_verified": 60.0,
       "score_for_review_only": 72,
-      "competition_indicator_comments": 3,
+      "competition_indicator_comments": 4,
       "created_at": "2026-10-15T20:03:03Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "integration"
@@ -160,7 +208,7 @@
       "competition_indicator_comments": 5,
       "created_at": "2026-10-15T20:03:06Z",
       "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "documentation"
+      "discovered_lane": "cash"
     },
     {
       "source": "github_public_issue",
@@ -172,7 +220,7 @@
       "competition_indicator_comments": 5,
       "created_at": "2026-10-15T20:03:08Z",
       "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "open-paid"
+      "discovered_lane": "testing"
     },
     {
       "source": "github_public_issue",
