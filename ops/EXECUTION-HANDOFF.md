@@ -1,57 +1,36 @@
-## Independent acceptance result — 2026-10-15 18:11 UTC
-- One-time ChatGPT scheduled **Revenue Engine Acceptance Test** reached a terminal state with `last_run_time=2026-10-15T18:11:11.707340Z`, but a fresh GitHub `ops/runs/` listing showed **NO acceptance-test start/terminal log**. Therefore **autonomous persistence FAILED acceptance**. No ability to infer exactly why from schedule metadata alone. Do NOT label the full autonomous cycle reliable. This observation was made via live chat, not as an independent scheduled run.
-- Scope narrowed with independent one-time `GitHub Persistence Probe` scheduled to write a single static file `ops/runs/2026-10-15-automated-persistence-probe.json`. Check its independently verified actual GitHub existence before claiming scheduled GitHub writes function. If no file appears, isolate connector/tool availability and stop requiring complex executor to log as if it had proven write access.
-- A true one-time test execution is NOT an hourly scheduled executor run. Its outcome and GitHub commit count must never inflate commercial KPI metrics.
+# Autonomous Revenue Engine — durable operating handoff
 
-# Revenue engine — VERIFIED full-cycle handoff (2026-10-15)
+Updated 2026-10-15 by **live chat** (NOT an autonomous scheduled run). This file is the current operational state; older failures and iterations remain in Git history. Keep this concise and update only when facts change.
 
-## FIRST ACTION ON NEXT INDEPENDENT RUN
-1. **Check actual money and buyers:** connected live Stripe Checkout Sessions and new successful charges since prior run; AgentMail ari-operations@agentmail.to; connected Gmail for any response to the live-chat professional outreach sent at **2026-10-15T18:04:38Z**. Gmail receipt is private; do not expose private message IDs, personal details or applicant credentials publicly. Paid orders first.
-2. **Do not develop the four bounty prospects in current discovery batch.** All **4 of 4** were shown to have active or prior competing fixes by live GitHub review (including cross-repo PRs): see `ops/discovery/triage.json` and [successful 10-lane + verification run](https://github.com/royaltproductions-bot/Agent-Operations/actions/runs/38782039320). Verified exclusive funded bounties **0**. Advance to fresh, genuinely solicited paid work with an authorized reachable contact or permitted direct submission. No speculative dollar-value estimates.
-3. **Execute, don't postpone:** produce an actual authorized application, response to an interested buyer, paid order fulfillment or compliant distribution and verify remote receipt. On zero executable options, record a precise reason and avoid retrying the same disabled integration or the same claimed task.
-4. **Write a START receipt** in `ops/runs/` immediately upon starting each *actual* scheduled ChatGPT run, with timestamp and `attribution=scheduled_hourly`. Use unique UTC ID and create-file. After external action, update same file to terminal `completed` / `blocked` with exact remote evidence, any payments, and next action; if write fails, report persistence failure. An Actions scan or live-chat log is never proof of a ChatGPT hourly run. The two historic automated run files do not establish full cadence.
-5. **Avoid duplicate outreach:** live chat sent one *solicited job application* via Gmail on Oct 15 18:04 UTC (proof in user's private Gmail Sent), logged without private IDs at [2026-10-15 live-chat optimization](https://github.com/royaltproductions-bot/Agent-Operations/blob/main/ops/runs/2026-10-15-live-chat-full-optimization.json). Await a reply and follow up only if requested or appropriate; no mass outreach. That action = 1 verified sent, **0** verified replies/contracts/revenue at reporting time.
+## GitHub permission status — important
+- User explicitly selected **Allow all actions** for the GitHub plugin. The plugin's app-specific permissions were independently checked and reported **Allow all actions**.
+- A fresh direct GitHub `create_file` call from live chat **SUCCEEDED**; commit: https://github.com/royaltproductions-bot/Agent-Operations/commit/86d527edbb23226e2dec8f0e8d0ebd71a5de0db1 and receipt `ops/runs/2026-10-15-permission-repair-check.json`.
+- Earlier scheduled GitHub write attempts (acceptance and persistence probe) **FAILED** under previous conditions. Independent *scheduled* write permission must be rechecked with a distinct one-time task; DO NOT infer scheduled success merely from live chat success.
+- Never work around a genuine safety restriction. If a scheduled write fails after the authorized setting, record a clear error and continue permitted external work where possible.
 
-## Exact currently demonstrated numbers
-- Github GitHub Actions discovery **10/10** concurrent queries succeeded; **4** raw bounty results; **4** detected as competed; **0** exclusive/verified funded jobs.
-- Qualified agent queue files **0** at last check; do not fabricate qualification score.
-- Connected operations AgentMail threads **0**; Stripe Checkout Sessions **0**; unrelated legacy payment intents do NOT count.
-- One solicited outgoing professional application **SENT** verified by readback, **no** user cash or prospective revenue claimed.
-- Real traffic, funnel visitors, conversion rate, full task-run history and per-hour autonomous completion rate are **not measurable with currently available data**; do not invent a 10× performance improvement.
+## Architecture and sequence
+1. **GitHub Actions market radar** hourly at ~:12 UTC: `.github/workflows/ten-lane-opportunity-radar.yml` runs ten independent GitHub issue searches and duplicate/PR checks, updating `ops/discovery/current.json` and `ops/discovery/triage.json`. These are discovery hints, **not** sales, paying customers, or ChatGPT hourly runs.
+2. **ChatGPT Revenue Scout** hourly at ~:25: read this file and latest radar, evaluate whether real buyers/jobs are available through permitted channels. Create ONLY genuinely qualified scored leads as individual `ops/agent-queue/<id>.json` per `ops/agent-queue/README.md`, or report zero if none. Verify current publication, funding/terms, competition, accessible contact/application, cost and ability to perform. Never spam or invent a lead. Record a dated actual scout run in `ops/scout-runs/` when GitHub writes are permitted.
+3. **ChatGPT Revenue Executor** hourly: prioritize new PAID orders (live Stripe + AgentMail) and replies, then claim highest qualified unclaimed work with latest GitHub blob SHA and a 90-minute lease; perform actual permitted external action, verify by external receipt; mark completed or blocked with specific cause. Create unique `ops/runs/` start receipt at RUN START, update at end, and update handoff on material change. If Scout has no lead, research and attempt a concrete legal direct economic action itself, not more product generation or private drafts.
+4. **Daily Audit** 22:00 America/New_York: reporting only. Check verified independent run files, GitHub Actions results, qualified leads, external actions, replies, paid accepted work, new live Stripe captures, and actual failures. Distinguish live-chat intervention and GH Actions from scheduled ChatGPT operations.
 
-## Known external integration constraints
-- Gmail already works through connected connector; Meticulate new registrations restricted, exclude it.
-- GitHub connector lacks advertised fork creation; verify before accepting PR-only bounties.
-- Buffer TikTok account has one provider-confirmed noncommercial educational sent post. Buffer route does not expose TikTok's native branded-commercial disclosure. Do not publish paid business promotions through a workaround.
-- Metricool connected brand is Yaliyah only and must NEVER be used for this separate engine.
-- Check for definitive connector safety blocks; do not route around blocked requests through another app.
+The **sequence is discover → qualify → externally execute → verify → record → self-correct**. Do not call a run complete merely because it has code, drafts or internal commits.
 
----
+## Verified state / baseline
+- Latest fully tested radar: **10/10** concurrent searches, **4** bounty hints, **4/4** with competing fixes; **0 independently verified available funded jobs**. https://github.com/royaltproductions-bot/Agent-Operations/actions/runs/38782039320 . Do not rework those four competed issues.
+- Latest previously checked `ops/agent-queue/` contained **0** qualified JSON leads.
+- VendorSettle Desk $49 live payment link: https://buy.stripe.com/eVq9AS63KcrdfUe3AP7Re00 . Public offer: https://github.com/royaltproductions-bot/Agent-Operations/blob/main/products/vendorsettle-desk/README.md . No new venture payment verified at previous last check; check LIVE Stripe each run. Private fulfillment after genuine payment and usable anonymized CSV (up to 500 rows), normally within three business days.
+- Operations AgentMail `ari-operations@agentmail.to` previously had **0** customer threads. Gmail `ari.gpt.c@gmail.com` is connected and works directly. A single job application was sent by **live chat** at 2026-10-15T18:04:38Z; check Gmail before any follow-up and never claim it was sent by the scheduled executor. Proof remains privately in Gmail Sent.
+- TikTok Buffer educational draft/video path functions; business promotion disclosures are not supported in that route, so do NOT post commercial advertisements disguised as education. Meticulate signup is restricted. Yaliyah Metricool belongs to a different brand and must NOT be touched.
 
-# Revenue engine — fast recovery state
-_Last corrective update: 2026-10-15, LIVE CHAT, **not** an autonomous scheduled run. Historical evidence is in git history, ops/activity-ledger.json and ops/runs._
+## Operational controls
+- All run files identify attribution honestly: `scheduled_scout`, `scheduled_hourly`, `one_time_test`, `github_actions`, `live_chat`.
+- Start log only at actual execution; terminal status, UTC time, external source/receipt, actual new captured revenue (not projections), actual blocker and next independent action.
+- Check remote destination before any retry to avoid duplicate messages/posts; transient failures at most twice. Do not circumvent genuine connector safety blocks, spam, spend funds, sign contracts, share customer information publicly or manufacture sales claims.
+- Prioritize live customers > accepted/contracted work > genuinely qualified buyer opportunity > legal public distribution > infrastructure. If blocked, change lawful method rather than restating obstacle.
+- Report **exact observed counts** only, never promises of an arbitrary speed or revenue multiplier.
 
-## Immediate priorities (do these; no further infrastructure research)
-1. Query authorized LIVE Stripe for new paid VendorSettle Desk payments (existing checkout https://buy.stripe.com/eVq9AS63KcrdfUe3AP7Re00). Query AgentMail ari-operations@agentmail.to for genuine incoming customers. **Paid orders are the first priority.** Typical fulfillment: up to 500 anonymized CSV rows, vendor summary + audit CSV, ~3 business days after usable file.
-2. Read `ops/agent-queue/` and top entries in `ops/discovery/current.json`; confirm primary evidence, actual payer and terms, eligibility, competing PRs, permitted submission route and time-to-money. Claim task safely by current SHA and act externally; do not count raw discovery as a qualified lead.
-3. If no executable lead, use a genuinely connected, permission-compatible channel to reach people with a stated immediate need, not another speculative product or private social draft. Execute **up to 3 truly permitted** distinct actions per hourly run when possible; otherwise document real blocker and pivot, not fake activity.
-4. End with a truthful timestamped `ops/runs/` record and update this handoff. Include `attribution=scheduled_hourly`, exact public receipt/remote result or definitive failure, next actual task. A GitHub Actions commit **is not** a ChatGPT automation execution.
-
-## Ten-way discovery accelerator
-- `.github/workflows/ten-lane-opportunity-radar.yml`: hourly ~:12 UTC, ONE free-style GitHub runner does **10 concurrent public GitHub issue searches**, deduplicates/filter obvious bogus payouts and writes `ops/discovery/current.json`. No outreach, claims or paid APIs.
-- Unit tests and market scan **passed with 10/10 lanes** on Oct 15: https://github.com/royaltproductions-bot/Agent-Operations/actions/runs/38778280558 .
-- At last read **4 raw cash-bounty hints**, not funded or exclusive verified orders: `paraloom-labs/paraloom-core` #929 and #930 (up to $150, payment/claim method unconfirmed), `uvsmtid/protoprimer` #143 ($75 but FOUR competing PRs #144-147), and `SUSU-LABS/susu-web` #51 ($50, **already at least five competing PR submissions**, incl #78/#96/#115/#137/#141; low expected payout).
-- `ops/discovery/README.md` defines Scout verification; `ops/agent-queue/README.md` defines scored actual handoff, score ≥70, ≤10 pending.
-- Revenue Scout Agent operates hourly ~:25, reviews/verifies up to five raw hints and queues ONLY genuinely reachable paid work. Main executor follows next hourly cycle; daily auditor reports real funnel conversion. Ten search lanes are **10× discovery concurrency, NOT 10× revenue**.
-- GitHub tool availability has no advertised fork-creation action: external repo PR bounties can be **unactionable** without an authorized submission route. Reject speculative/unfunded/competitive work.
-
-## Current real customer/payment/channel state (verified Oct 15)
-- LIVE Stripe link ACTIVE, merchant account connected; direct list of Checkout Sessions had **0**, most recently listed unrelated Stripe intents were historic 2024 Sirius Sage purchases. **No new VendorSettle revenue verified**. Never count historic charges.
-- AgentMail operations inbox accessible but **0 threads** at last check.
-- Gmail `ari.gpt.c@gmail.com` ALREADY works through connected Gmail API; failed in-app reconnect UI does not block operations. Do not make user reauthorize unnecessarily.
-- Meticulate new signup restricted, NOT connected, NOT a dependency.
-- TikTok @oddly.useful.stuff first **noncommercial** educational video: Buffer-confirmed `sent`, external destination https://tiktok.com/@oddly.useful.stuff/video/7696936897301531917 ; TikTok page not independently reopened. Evidence https://github.com/royaltproductions-bot/Agent-Operations/actions/runs/38771872096 . No paid conversions established. Buffer lacks native TikTok business-promotion disclosure; **do not post ads disguised as education**. Read-only TikTok monitoring was REDUCED to daily at 09:17 UTC to eliminate 23 low-value polls/day.
-- Historically `ops/runs/` had only TWO persisted task logs although many commits. Persistence is still unverified until genuine independent scheduled runs maintain it. Do not claim otherwise.
-
-## Operating safeguards & stop-loss
-No spending, self-funded tasks, spam, deceptive claims, contract acceptance, unsafe data exposure, or bypassing app/platform restrictions. No Yaliyah Metricool access for this engine. Transient retry at most twice, first check remote state for duplicate. Definitive permissions/compliance block: record and switch to a DIFFERENT lawful route; after 2 unproductive cycles of one tactic pivot. Agent proposal, GitHub scan, private draft, and sent-without-public-confirmation are not buyer engagement or captured cash. Notify user when new money or concrete material outcome verified, otherwise daily reporting audit continues at 22:00 ET.
+## Known exact evidence
+- Previously FAILED scheduled GitHub-write test: `ops/runs/` had no acceptance/probe file from earlier scheduled tests.
+- NOW PASSED live GitHub-write test: https://github.com/royaltproductions-bot/Agent-Operations/commit/86d527edbb23226e2dec8f0e8d0ebd71a5de0db1 .
+- Next validation: independent scheduled writer creates a DIFFERENT file and read-back verifies it. Only then mark autonomous GitHub persistence verified.
