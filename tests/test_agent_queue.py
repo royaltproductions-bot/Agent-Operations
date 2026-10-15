@@ -89,6 +89,32 @@ class QueueTests(unittest.TestCase):
         self.assertTrue(report["needs_attention"])
         self.assertEqual(expired["status"], "claimed")
 
+    def test_append_only_outcome_prevents_duplicate_work(self):
+        with tempfile.TemporaryDirectory() as temp:
+            base = Path(temp)
+            work = base / "queue"
+            outcomes = base / "outcomes"
+            work.mkdir()
+            outcomes.mkdir()
+            (work / (BASE["id"] + ".json")).write_text(json.dumps(BASE))
+            (outcomes / "done.json").write_text(json.dumps({
+                "lead_id": BASE["id"],
+                "status": "sent",
+                "external_receipt": "https://example.com/receipt"
+            }))
+            handled = queue.handled_lead_ids(outcomes)
+            self.assertEqual(handled, {BASE["id"]})
+            items = queue.inventory(work, handled_ids=handled)
+            self.assertEqual(queue.rank(items, handled), [])
+            self.assertEqual(queue.health(items, handled_ids=handled)["already_handled_via_immutable_outcomes"], 1)
+
+    def test_corrupted_outcomes_fail_closed(self):
+        with tempfile.TemporaryDirectory() as temp:
+            d = Path(temp)
+            (d / "bad.json").write_text("not-json")
+            with self.assertRaisesRegex(ValueError, "Invalid immutable outcome"):
+                queue.handled_lead_ids(d)
+
     def test_rejects_unsafe_local_url(self):
         x = copy.deepcopy(BASE)
         x["evidence_url"] = "https://localhost/path"
