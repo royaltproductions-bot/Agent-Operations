@@ -38,6 +38,16 @@ class ParallelDiscoveryTests(unittest.TestCase):
         free = fake_issue(2, "Improve Python docs", "Would be a nice addition.")
         self.assertIsNone(radar.prospect(free, "documentation"))
 
+    def test_product_price_ceiling_is_not_a_bounty(self):
+        issue = fake_issue(99, "Bounty: cut subscription pricing",
+                           "Keep the platform price ceiling at $100,000 and a $249 plan. No cash payout.")
+        self.assertIsNone(radar.prospect(issue, "cash"))
+
+    def test_conditional_not_funded_reward_is_not_a_confirmed_bounty(self):
+        issue = fake_issue(100, "Proposal: $100 bounty on gamification",
+                           "I am willing to place a $100 bounty if anyone wants to work on this.")
+        self.assertIsNone(radar.prospect(issue, "cash"))
+
     def test_large_competition_reduces_score(self):
         item = fake_issue(2, "Fix bug bounty $75", "Paid after merged PR")
         low = radar.prospect(item, "python")["score_for_review_only"]
@@ -49,7 +59,7 @@ class ParallelDiscoveryTests(unittest.TestCase):
             if "javascript" in query:
                 raise RuntimeError("Temporary rate limit")
             return [
-                fake_issue(1, "Fix paid automation bug $75",
+                fake_issue(1, "Fix paid automation bug — $75 bounty",
                            "Acceptance criteria; USDC bounty for merged PR."),
                 fake_issue(2, "Need better docs", "No cash reward"),
             ]
