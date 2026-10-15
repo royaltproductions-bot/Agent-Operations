@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "reviewed_at_utc": "2026-10-15T18:43:42.494954Z",
+  "reviewed_at_utc": "2026-10-15T19:23:25.593341Z",
   "source_items": 4,
   "reviewed_items": 4,
   "decision_counts": {
@@ -36,11 +36,14 @@
       "url": "https://github.com/paraloom-labs/paraloom-core/issues/929",
       "decision": "competing_fix_or_pr",
       "competing_pr_urls": [
-        "https://github.com/paraloom-labs/paraloom-wallet/pull/62"
+        "https://github.com/paraloom-labs/paraloom-wallet/pull/62",
+        "https://github.com/paraloom-labs/paraloom-wallet/pull/71"
       ],
-      "claim_signals": [],
-      "open_prs_inspected": 64,
-      "comments_inspected": 6,
+      "claim_signals": [
+        "https://github.com/paraloom-labs/paraloom-core/issues/929#issuecomment-6199923963"
+      ],
+      "open_prs_inspected": 65,
+      "comments_inspected": 7,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
     },
@@ -48,11 +51,16 @@
       "url": "https://github.com/paraloom-labs/paraloom-core/issues/930",
       "decision": "competing_fix_or_pr",
       "competing_pr_urls": [
-        "https://github.com/paraloom-labs/paraloom-wallet/pull/66"
+        "https://github.com/paraloom-labs/paraloom-core/pull/931",
+        "https://github.com/paraloom-labs/paraloom-wallet/pull/66",
+        "https://github.com/paraloom-labs/paraloom-wallet/pull/72"
       ],
-      "claim_signals": [],
-      "open_prs_inspected": 64,
-      "comments_inspected": 5,
+      "claim_signals": [
+        "https://github.com/paraloom-labs/paraloom-core/issues/930#issuecomment-6199936166",
+        "https://github.com/paraloom-labs/paraloom-core/issues/930#issuecomment-6199961800"
+      ],
+      "open_prs_inspected": 65,
+      "comments_inspected": 7,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
     },
@@ -63,13 +71,16 @@
         "https://github.com/uvsmtid/protoprimer/pull/144",
         "https://github.com/uvsmtid/protoprimer/pull/145",
         "https://github.com/uvsmtid/protoprimer/pull/146",
-        "https://github.com/uvsmtid/protoprimer/pull/147"
+        "https://github.com/uvsmtid/protoprimer/pull/147",
+        "https://github.com/uvsmtid/protoprimer/pull/148",
+        "https://github.com/uvsmtid/protoprimer/pull/149"
       ],
       "claim_signals": [
-        "https://github.com/uvsmtid/protoprimer/issues/143#issuecomment-6195154155"
+        "https://github.com/uvsmtid/protoprimer/issues/143#issuecomment-6195154155",
+        "https://github.com/uvsmtid/protoprimer/issues/143#issuecomment-6199814339"
       ],
-      "open_prs_inspected": 4,
-      "comments_inspected": 8,
+      "open_prs_inspected": 6,
+      "comments_inspected": 11,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
     }
