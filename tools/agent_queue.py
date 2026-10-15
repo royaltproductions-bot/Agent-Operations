@@ -112,16 +112,36 @@ def rank(items):
     return sorted(active, key=lambda x: (-x["priority_score"], x["created_at_utc"], x["id"]))
 
 
+def health(items, now=None):
+    """Read-only queue watchdog. Expired claims need remote reconciliation, never blind replay."""
+    if now is None:
+        now = dt.datetime.now(dt.timezone.utc)
+    stale = sorted([
+        x["id"] for x in items if x["status"] == "claimed"
+        and parse_utc(x["claim_until_utc"], "claim_until_utc") <= now
+    ])
+    return {
+        "qualified": sum(x["status"] == "qualified" for x in items),
+        "claimed": sum(x["status"] == "claimed" for x in items),
+        "completed": sum(x["status"] == "completed" for x in items),
+        "blocked": sum(x["status"] == "blocked" for x in items),
+        "expired_claim_ids": stale,
+        "needs_attention": bool(stale),
+    }
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--queue", default="ops/agent-queue")
-    parser.add_argument("--mode", choices=("validate", "rank"), default="validate")
+    parser.add_argument("--mode", choices=("validate", "rank", "health"), default="validate")
     args = parser.parse_args()
     items = inventory(args.queue)
     if args.mode == "rank":
         print(json.dumps([{"id": x["id"], "priority_score": x["priority_score"],
                            "proposed_action": x["proposed_action"],
                            "evidence_url": x["evidence_url"]} for x in rank(items)], indent=2))
+    elif args.mode == "health":
+        print(json.dumps(health(items), indent=2))
     else:
         print(json.dumps({"result": "valid", "items": len(items),
                           "ready": len(rank(items))}))
