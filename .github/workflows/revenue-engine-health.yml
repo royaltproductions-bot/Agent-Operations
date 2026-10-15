@@ -1,0 +1,61 @@
+name: Revenue Engine - Independent Reliability Monitor
+on:
+  schedule:
+    - cron: '55 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/engine_health.py'
+      - 'tests/test_engine_health.py'
+      - 'ops/runs/*.json'
+      - 'ops/scout-runs/*.json'
+      - 'ops/agent-queue/*.json'
+      - 'ops/outcomes/*.json'
+      - '.github/workflows/revenue-engine-health.yml'
+permissions:
+  contents: read
+concurrency:
+  group: revenue-engine-health
+  cancel-in-progress: false
+jobs:
+  independent-health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate receipt classifier
+        run: |
+          python3 -m py_compile tools/engine_health.py
+          python3 -m unittest discover -s tests -p 'test_engine_health.py' -v
+      - name: Audit actual scheduled agent receipts (read-only)
+        run: |
+          python3 tools/engine_health.py > /tmp/health.json
+          python3 - <<'PY'
+          from pathlib import Path
+          import json, os
+          data = json.loads(Path('/tmp/health.json').read_text())
+          print(json.dumps(data, indent=2))
+          summary = Path(os.environ["GITHUB_STEP_SUMMARY"])
+          with summary.open('a', encoding='utf-8') as stream:
+              stream.write("# Independent revenue engine reliability\n\n")
+              stream.write("**Agent run evidence: " + data["reliability_status"] + "**\n\n")
+              stream.write("| Independent evidence | Exact result |\n|---|---|\n")
+              for role in ("scout", "executor"):
+                  stream.write("| " + role + " terminal receipts in 24h | "
+                               + str(data[role + "_terminal_records_last_24h"]) + " |\n")
+                  stream.write("| " + role + " verified within 2h | "
+                               + str(data[role + "_fresh_within_2h"]) + " |\n")
+              stream.write("| Fresh GitHub discovery triage | " +
+                           str(data["triage_fresh_within_3h"]) + " |\n")
+              stream.write("| Qualified queue JSON | " +
+                           str(data["qualified_queue_files"]) + " |\n")
+              stream.write("| New revenue independently checked here | NO |\n\n")
+              stream.write("This workflow measures log presence, NOT delivered outreach or revenue.\n\n")
+              if data["issues"]:
+                  stream.write("## Unresolved findings\n")
+                  for issue in data["issues"]:
+                      stream.write("- " + issue + "\n")
+          if data["reliability_status"] != "PASS":
+              print("::warning::Independent Scout/Executor run persistence is NOT VERIFIED. The workflow completed its audit; agent success is not implied.")
+          PY
