@@ -30,6 +30,16 @@ class HNContractTests(unittest.TestCase):
         self.assertIsNone(h.score_comment(comment(11, "<p>Senior remote engineer, full time salary.</p>")))
         self.assertIsNone(h.score_comment(comment(12, "<p>Freelance work moving boxes.</p>")))
 
+    def test_rejects_fulltime_commission_only_and_region_mismatch(self):
+        self.assertIsNone(h.score_comment(comment(30,
+            "<p>Company X | Head of Sales | Remote US | Full-time</p><p>We occasionally use a contract vendor for marketing.</p>")))
+        self.assertIsNone(h.score_comment(comment(31,
+            "<p>Agency | Freelance AI automation sales | Remote | Commission-only | Contract</p>")))
+        self.assertIsNone(h.score_comment(comment(32,
+            "<p>Studio | AI video freelance creator | Remote (UK) | Contract</p>")))
+        self.assertIsNotNone(h.score_comment(comment(33,
+            "<p>Studio | AI Video Creator | Remote US | Part-time contract</p><p>Paid project work</p>")))
+
     def test_protects_against_unpaid_or_deleted(self):
         self.assertIsNone(h.score_comment(comment(13, "Voluntary unpaid AI video contract")))
         self.assertIsNone(h.score_comment(comment(14, "Contract AI video paid", deleted=True)))
