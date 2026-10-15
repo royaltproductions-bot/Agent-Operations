@@ -1,7 +1,9 @@
 name: Oddly Useful Stuff - Publishing Outcome Monitor
 on:
+  # Low-value read-only TikTok monitoring runs daily, not hourly;
+  # the paid-opportunity radar owns the hourly background scan.
   schedule:
-    - cron: '17 * * * *'
+    - cron: '17 9 * * *'
   push:
     branches: [main]
     paths:
