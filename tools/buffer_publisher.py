@@ -96,6 +96,33 @@ def validated_media(url):
         raise ValueError("Use an image hosted publicly under Agent-Operations GitHub or GitHub Pages")
     return url
 
+def validated_video(url):
+    """Only approved, durable HTTPS MP4 assets within the public campaign media folder."""
+    uri = urlparse(url if isinstance(url, str) else "")
+    if (uri.scheme != "https" or uri.hostname != "raw.githubusercontent.com"
+            or uri.username or uri.password or uri.query or uri.fragment
+            or not uri.path.startswith("/royaltproductions-bot/Agent-Operations/")
+            or not uri.path.startswith("/royaltproductions-bot/Agent-Operations/main/campaigns/oddly-useful-stuff/media/")
+            or not uri.path.lower().endswith(".mp4")):
+        raise ValueError("video_url must point to a public MP4 in Oddly Useful Stuff's GitHub media folder")
+    return url
+
+def asset_for(post, mode):
+    image_url = post.get("image_url")
+    video_url = post.get("video_url")
+    if image_url and video_url:
+        raise ValueError("Choose either image_url or video_url, not both")
+    if video_url:
+        video = validated_video(video_url)
+        return " assets: [{video: {url: " + quoted(video) + "}}]"
+    if image_url:
+        if mode == "queue":
+            raise ValueError("Automatic TikTok queue requires video_url; image-only posts may require notification publishing. Use draft mode instead.")
+        return " assets: [{image: {url: " + quoted(validated_media(image_url)) + "}}]"
+    if mode == "queue":
+        raise ValueError("Live TikTok queue requires a real public video_url")
+    return ""
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode", choices=["check", "draft", "queue"], default="check")
@@ -112,9 +139,7 @@ def main():
     text = str(post.get("text") or "").strip()
     if not text or len(text) > 2000:
         raise ValueError("Post text is missing or exceeds our safety length")
-    image = validated_media(post["image_url"]) if post.get("image_url") else None
-    if args.mode == "queue" and image is None:
-        raise ValueError("Live TikTok posts require a real public image_url.")
+    assets = asset_for(post, args.mode)
     if args.mode == "queue":
         if os.environ.get("BUFFER_QUEUE_ENABLED") != "YES":
             raise RuntimeError("Queuing disabled. Set BUFFER_QUEUE_ENABLED=YES only after a successful draft test.")
@@ -126,7 +151,7 @@ def main():
         " channelId: " + quoted(channel["id"]) +
         " schedulingType: automatic mode: addToQueue" +
         " saveToDraft: " + ("true" if args.mode == "draft" else "false") +
-        (" assets: [{image: {url: " + quoted(image) + "}}]" if image else "") +
+        assets +
         " }) { ... on PostActionSuccess { post { id text dueAt } }"
         " ... on MutationError { message } } }"
     )
