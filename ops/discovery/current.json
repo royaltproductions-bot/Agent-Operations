@@ -16,20 +16,8 @@
     "testing": 25
   },
   "lane_errors": {},
-  "unique_candidates": 17,
+  "unique_candidates": 6,
   "top_candidates": [
-    {
-      "source": "github_public_issue",
-      "repo": "vanduc2514/hackathon-circle-misthos",
-      "title": "Bounty: cut Loop, Spend and Plans, and the subscription pricing with them",
-      "url": "https://github.com/vanduc2514/hackathon-circle-misthos/issues/183",
-      "bounty_usd_hint_not_verified": 100000.0,
-      "score_for_review_only": 90,
-      "competition_indicator_comments": 0,
-      "created_at": "2026-10-15T16:51:01Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "frontend"
-    },
     {
       "source": "github_public_issue",
       "repo": "paraloom-labs/paraloom-core",
@@ -80,102 +68,6 @@
     },
     {
       "source": "github_public_issue",
-      "repo": "chiuhehe1-design/conm",
-      "title": "[Bounty Solution] ZcashCommunityGrants/zcashcommunitygrants#150: Zcash Nigeria 2026",
-      "url": "https://github.com/chiuhehe1-design/conm/issues/24",
-      "bounty_usd_hint_not_verified": 6200.0,
-      "score_for_review_only": 70,
-      "competition_indicator_comments": 0,
-      "created_at": "2026-10-12T21:54:45Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "javascript"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "donetick/donetick",
-      "title": "Feat: Gamification & Categorized XP System",
-      "url": "https://github.com/donetick/donetick/issues/885",
-      "bounty_usd_hint_not_verified": 100.0,
-      "score_for_review_only": 70,
-      "competition_indicator_comments": 2,
-      "created_at": "2026-10-13T21:22:41Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "automation"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "ZcashCommunityGrants/zcashcommunitygrants",
-      "title": "Grant Application - Zcash Early Builders Lab (ZEBL) Cape Town",
-      "url": "https://github.com/ZcashCommunityGrants/zcashcommunitygrants/issues/493",
-      "bounty_usd_hint_not_verified": 50000.0,
-      "score_for_review_only": 65,
-      "competition_indicator_comments": 6,
-      "created_at": "2026-10-14T19:21:07Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "automation"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "nish3451/seo-fix-kit",
-      "title": "Launch: a stranger gets from the free check to a paid Fix Pack without help",
-      "url": "https://github.com/nish3451/seo-fix-kit/issues/295",
-      "bounty_usd_hint_not_verified": 99.0,
-      "score_for_review_only": 65,
-      "competition_indicator_comments": 0,
-      "created_at": "2026-10-15T17:26:07Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "open-paid"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "dev-kp-eloper/BountyScout",
-      "title": "🎯 Bounty Alert: 14 New Opportunityies found",
-      "url": "https://github.com/dev-kp-eloper/BountyScout/issues/1591",
-      "bounty_usd_hint_not_verified": 95.0,
-      "score_for_review_only": 65,
-      "competition_indicator_comments": 0,
-      "created_at": "2026-10-14T20:30:19Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "automation"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "freedom-winds/BountyScout",
-      "title": "🎯 Bounty Alert: 14 New Opportunityies found",
-      "url": "https://github.com/freedom-winds/BountyScout/issues/1252",
-      "bounty_usd_hint_not_verified": 95.0,
-      "score_for_review_only": 65,
-      "competition_indicator_comments": 0,
-      "created_at": "2026-10-14T20:27:03Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "automation"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "freedom-winds/BountyScout",
-      "title": "🎯 Bounty Alert: 18 New Opportunityies found",
-      "url": "https://github.com/freedom-winds/BountyScout/issues/1256",
-      "bounty_usd_hint_not_verified": 70.0,
-      "score_for_review_only": 65,
-      "competition_indicator_comments": 0,
-      "created_at": "2026-10-15T13:56:56Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "frontend"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "freedom-winds/BountyScout",
-      "title": "🎯 Bounty Alert: 14 New Opportunityies found",
-      "url": "https://github.com/freedom-winds/BountyScout/issues/1250",
-      "bounty_usd_hint_not_verified": 50.0,
-      "score_for_review_only": 65,
-      "competition_indicator_comments": 0,
-      "created_at": "2026-10-14T11:12:17Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "javascript"
-    },
-    {
-      "source": "github_public_issue",
       "repo": "lukiod/radar",
       "title": "Radar",
       "url": "https://github.com/lukiod/radar/issues/4",
@@ -184,31 +76,7 @@
       "competition_indicator_comments": 33,
       "created_at": "2026-10-09T08:27:07Z",
       "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "data"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "vanduc2514/hackathon-circle-misthos",
-      "title": "Bounty: Overview becomes the signed-in user's dashboard — a publisher's, and a contributor's",
-      "url": "https://github.com/vanduc2514/hackathon-circle-misthos/issues/182",
-      "bounty_usd_hint_not_verified": 500.0,
-      "score_for_review_only": 62,
-      "competition_indicator_comments": 10,
-      "created_at": "2026-10-15T16:50:38Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "data"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "fulton-ring/agent-content-demos",
-      "title": "Spike: Can we use swarms of agents to recreate FEMA's Future Risk Index",
-      "url": "https://github.com/fulton-ring/agent-content-demos/issues/15",
-      "bounty_usd_hint_not_verified": 25.0,
-      "score_for_review_only": 60,
-      "competition_indicator_comments": 2,
-      "created_at": "2026-10-15T17:16:09Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "open-paid"
+      "discovered_lane": "javascript"
     },
     {
       "source": "github_public_issue",
