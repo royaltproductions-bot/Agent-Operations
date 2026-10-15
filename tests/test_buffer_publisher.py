@@ -73,6 +73,21 @@ class PublisherSafetyTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "either image_url or video_url"):
             pub.asset_for({"image_url": "image", "video_url": "video"}, "queue")
 
+    def test_read_only_inventory_is_not_mistaken_for_publication(self):
+        candidate = channel()
+        candidate["_organization_id"] = "0123456789abcdef01234567"
+        def inventory_gql(query):
+            self.assertIn("posts(first: 30", query)
+            return {"posts": {"edges": [
+                {"node": {"id": "a", "status": "draft", "externalLink": None}},
+                {"node": {"id": "b", "status": "sent", "externalLink": "https://www.tiktok.com/@oddly.useful.stuff/video/example"}}
+            ]}}
+        with patch.object(pub, "gql", inventory_gql):
+            info = pub.inspect_channel_posts(candidate)
+        self.assertEqual(info["status_counts"], {"draft": 1, "sent": 1})
+        self.assertEqual(info["result"], "buffer_inventory_not_publication_proof")
+        self.assertIn("unverified", list(info["posts"][1].keys())[-1])
+
     def test_masked_or_non_ascii_key_rejected_before_request(self):
         with patch.dict(os.environ, {"BUFFER_API_KEY": "●●●●●masked"}):
             with self.assertRaisesRegex(RuntimeError, "contains invalid characters"):
