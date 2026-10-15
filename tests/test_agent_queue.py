@@ -19,7 +19,7 @@ BASE = {
     "created_at_utc": "2026-10-15T17:00:00Z",
     "updated_at_utc": "2026-10-15T17:00:00Z",
     "score_factors": {"buyer_intent": 5, "reachability": 4, "audience_match": 5, "offer_fit": 5, "urgency": 3},
-    "priority_score": 96,
+    "priority_score": 90,
     "safety_review": "pass",
     "contains_private_data": False,
 }
@@ -27,11 +27,11 @@ BASE = {
 
 class QueueTests(unittest.TestCase):
     def test_good_candidate_and_deterministic_score(self):
-        self.assertEqual(queue.validate(BASE)["priority_score"], 96)
+        self.assertEqual(queue.validate(BASE)["priority_score"], 90)
 
     def test_fail_closed_on_unverified_score(self):
         x = copy.deepcopy(BASE)
-        x["priority_score"] = 97
+        x["priority_score"] = 91
         with self.assertRaisesRegex(ValueError, "weighted factor"):
             queue.validate(x)
 
