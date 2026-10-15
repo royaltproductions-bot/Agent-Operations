@@ -92,7 +92,10 @@ def explicit_payment_hint(title, body):
     amounts = []
     for i, raw in enumerate(lines):
         line = re.sub(r'[*_`#>]+', ' ', raw).strip()[:600]
-        if not line or NOT_FUNDED_RE.search(line):
+        if (not line or NOT_FUNDED_RE.search(line) or
+                re.search(r'\b(no (?:cash |actual )?(?:payout|reward|payment)|'
+                          r'not (?:a |an )?(?:bounty|paid task)|'
+                          r'price ceiling|subscription fee)\b', line, re.I)):
             continue
         has_payout = re.search(r'\b(bounty|reward(?:\s+tier)?|payout|'
                                r'paid (?:for|upon|after)|payment (?:for|upon|after))\b',
