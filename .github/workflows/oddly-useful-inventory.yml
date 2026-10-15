@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/oddly-useful-inventory.yml'
+      - 'campaigns/oddly-useful-stuff/posts/*.json'
   workflow_dispatch:
 permissions:
   contents: read
