@@ -52,6 +52,27 @@ class PublisherSafetyTests(unittest.TestCase):
             with self.subTest(url=url), self.assertRaises(ValueError):
                 pub.validated_media(url)
 
+    def test_tiktok_queue_requires_real_video(self):
+        good = "https://raw.githubusercontent.com/royaltproductions-bot/Agent-Operations/main/campaigns/oddly-useful-stuff/media/promo.mp4"
+        asset = pub.asset_for({"text": "Useful", "video_url": good}, "queue")
+        self.assertIn("video:", asset)
+        self.assertIn(good, asset)
+        with self.assertRaisesRegex(ValueError, "Automatic TikTok queue requires video_url"):
+            pub.asset_for({"text": "Useful", "image_url":
+                           "https://raw.githubusercontent.com/royaltproductions-bot/Agent-Operations/main/campaigns/oddly-useful-stuff/media/promo.png"}, "queue")
+        self.assertIn("image:", pub.asset_for({"image_url":
+            "https://raw.githubusercontent.com/royaltproductions-bot/Agent-Operations/main/campaigns/oddly-useful-stuff/media/promo.png"}, "draft"))
+
+    def test_rejects_unsafe_video_hosts_and_conflicting_assets(self):
+        for url in ("https://evil.example/video.mp4",
+                    "https://raw.githubusercontent.com/royaltproductions-bot/Agent-Operations/main/file.mp4",
+                    "https://raw.githubusercontent.com/royaltproductions-bot/Agent-Operations/main/campaigns/oddly-useful-stuff/media/p.mp4?x=1",
+                    "http://raw.githubusercontent.com/royaltproductions-bot/Agent-Operations/main/campaigns/oddly-useful-stuff/media/p.mp4"):
+            with self.subTest(url=url), self.assertRaises(ValueError):
+                pub.validated_video(url)
+        with self.assertRaisesRegex(ValueError, "either image_url or video_url"):
+            pub.asset_for({"image_url": "image", "video_url": "video"}, "queue")
+
     def test_masked_or_non_ascii_key_rejected_before_request(self):
         with patch.dict(os.environ, {"BUFFER_API_KEY": "●●●●●masked"}):
             with self.assertRaisesRegex(RuntimeError, "contains invalid characters"):
