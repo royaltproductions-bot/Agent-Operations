@@ -192,6 +192,8 @@ def main():
     assets = asset_for(post, args.mode)
     assert_no_duplicate(channel, text, args.mode)
     if args.mode == "queue":
+        if post.get("commercial_promotion") is True:
+            raise RuntimeError("Commercial TikTok promotions require native content disclosure; this Buffer API route does not expose that setting.")
         if os.environ.get("BUFFER_QUEUE_ENABLED") != "YES":
             raise RuntimeError("Queuing disabled. Set BUFFER_QUEUE_ENABLED=YES only after a successful draft test.")
         if post.get("approved_for_queue") is not True:
@@ -200,8 +202,9 @@ def main():
         "mutation { createPost(input: {"
         " text: " + quoted(text) +
         " channelId: " + quoted(channel["id"]) +
-        " schedulingType: automatic mode: addToQueue" +
+        " schedulingType: automatic mode: " + ("shareNow" if args.mode == "queue" and post.get("publish_now") is True else "addToQueue") +
         " saveToDraft: " + ("true" if args.mode == "draft" else "false") +
+        (" metadata: {tiktok: {isAiGenerated: true}}" if post.get("is_ai_generated") is True else "") +
         assets +
         " }) { ... on PostActionSuccess { post { id text dueAt } }"
         " ... on MutationError { message } } }"
@@ -210,7 +213,9 @@ def main():
     if not result.get("post", {}).get("id"):
         raise RuntimeError("Buffer rejected post: " + str(result.get("message") or result))
     info = result["post"]
-    print(json.dumps({"result": "draft_created" if args.mode == "draft" else "queued",
+    result_label = ("draft_created" if args.mode == "draft" else
+                    "publish_requested_not_live_verified" if post.get("publish_now") is True else "queued_not_live_verified")
+    print(json.dumps({"result": result_label,
                       "post_id": info["id"], "due_at": info.get("dueAt"),
                       "channel": channel["id"]}))
 
