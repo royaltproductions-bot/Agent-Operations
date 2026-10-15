@@ -85,5 +85,25 @@ jobs:
           else
             git -c user.name=opportunity-radar -c user.email=ari-operations@agentmail.to \
               commit -m 'Refresh screened external cash opportunity hints (not confirmed leads)'
-            git push
+            # The branch may advance while search runs; never force-push.
+            # Pull/rebase safely and try bounded non-destructive push retries.
+            pushed=0
+            for attempt in 1 2 3; do
+              if git push origin HEAD:main; then
+                pushed=1
+                break
+              fi
+              echo "Upstream changed before push (attempt $attempt); rebasing safely."
+              git fetch origin main
+              if ! git rebase origin/main; then
+                git rebase --abort || true
+                echo "Concurrent edit conflict; next scheduled discovery will retry."
+                exit 1
+              fi
+              sleep 2
+            done
+            if test "$pushed" != 1; then
+              echo "Could not safely persist discovery after three attempts."
+              exit 1
+            fi
           fi
