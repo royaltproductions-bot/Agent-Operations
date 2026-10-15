@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "attribution": "live_chat_intervention_not_autonomous_scheduled_run",
+  "reported_period_utc": "2026-10-15T17:55:00Z through 2026-10-15T18:05:00Z (measurement/action window approximate; source event timestamps below authoritative)",
+  "executed_external_actions": [
+    {
+      "kind": "invited_job_application",
+      "channel": "connected Gmail",
+      "count": 1,
+      "outcome": "sent_and_readback_verified",
+      "sent_at_utc": "2026-10-15T18:04:38Z",
+      "public_solicitation": "https://news.ycombinator.com/item?id=49922569",
+      "private_send_receipt": "Available in the connected owner's Gmail Sent folder; intentionally not exposed in the public GitHub repository",
+      "qualified_buyer_response": 0,
+      "paid_contracts": 0,
+      "realized_revenue_usd": "0.00"
+    }
+  ],
+  "pipeline": {
+    "github_discovery_lanes_configured": 10,
+    "latest_scan_successful_lanes": 10,
+    "unique_raw_bounty_candidates": 4,
+    "upstream_competing_fix_found": 4,
+    "actionable_exclusive_bounties_verified": 0,
+    "verified_funded_payouts": 0,
+    "qualified_queue_files": 0,
+    "saved_independent_automated_execution_logs_as_of_baseline": 2,
+    "workflow_test_and_live_review": "https://github.com/royaltproductions-bot/Agent-Operations/actions/runs/38782039320",
+    "triage_path": "ops/discovery/triage.json"
+  },
+  "customer_check": {
+    "agentmail_customer_threads": 0,
+    "gmail_customer_inquiries_in_recent_targeted_query": 0,
+    "live_stripe_checkout_sessions": 0,
+    "historical_payment_intents_are_not_new_venture_revenue": true,
+    "current_new_revenue_verified_usd": "0.00"
+  },
+  "limitations": [
+    "A Gmail Sent receipt verifies outbound application, not recipient delivery, interview, acceptance or payment",
+    "The four cash amounts were not independently escrow-funded or exclusive",
+    "GitHub Actions workflow history does NOT prove ChatGPT hourly tasks executed",
+    "No verified public commercial promotion channel connected other than a TikTok route lacking native promotional disclosure; do not bypass",
+    "Zero conversion, so commercial efficiency multiplier cannot be computed",
+    "This live-chat work is not evidence that the scheduled engine resumes without intervention"
+  ],
+  "next_handoff": "Scout should broaden beyond claimed coding bounties to explicit active invitations for paid work with permitted submission route. Executor must record actual start and terminal receipts for each autonomous run; prioritize replies to the one sent application and new paid orders. Auditor verifies these outcomes separately from development."
+}
