@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#06140d"/><stop offset="1" stop-color="#152c22"/></linearGradient>
+<linearGradient id="green" x1="0" x2="1"><stop stop-color="#acff89"/><stop offset="1" stop-color="#55d5a4"/></linearGradient>
+</defs>
+<rect width="1080" height="1920" fill="url(#bg)"/>
+<rect x="0" y="0" width="1080" height="16" fill="#f65965"/>
+<circle cx="98" cy="117" r="29" fill="#0a3425" stroke="#b8ff9f" stroke-width="5"/>
+<circle cx="98" cy="117" r="10" fill="#b8ff9f"/>
+<text x="149" y="131" font-family="DejaVu Sans,sans-serif" font-size="43" font-weight="bold" fill="#f0ffef">ODDLY USEFUL STUFF</text>
+<text x="61" y="270" font-family="DejaVu Sans,sans-serif" font-size="48" fill="#8bebb5" font-weight="bold">FOR CONSIGNMENT SHOPS</text>
+<text x="61" y="390" font-family="DejaVu Sans,sans-serif" font-size="76" font-weight="bold" fill="#ffffff">VENDOR PAYOUTS</text>
+<text x="61" y="485" font-family="DejaVu Sans,sans-serif" font-size="76" font-weight="bold" fill="#ffffff">TAKING TOO LONG?</text>
+<rect x="60" y="570" width="960" height="156" rx="24" fill="#133b2c" stroke="#7adf9e" stroke-width="3"/>
+<text x="540" y="635" text-anchor="middle" font-family="DejaVu Sans,sans-serif" font-size="57" font-weight="bold" fill="url(#green)">VendorSettle Desk</text>
+<text x="540" y="686" text-anchor="middle" font-family="DejaVu Sans,sans-serif" font-size="32" fill="#e2f9ed">One-time settlement report preparation</text>
+<rect x="60" y="794" width="960" height="568" rx="30" fill="#0d2119" stroke="#356a52" stroke-width="2"/>
+<text x="100" y="868" font-family="DejaVu Sans,sans-serif" font-size="39" fill="#95e9b5">FROM ONE ANONYMIZED SALES CSV:</text>
+<circle cx="115" cy="949" r="18" fill="#a3f684"/>
+<text x="161" y="965" font-family="DejaVu Sans,sans-serif" font-size="45" font-weight="bold" fill="#ffffff">Vendor payout summary</text>
+<circle cx="115" cy="1060" r="18" fill="#a3f684"/>
+<text x="161" y="1076" font-family="DejaVu Sans,sans-serif" font-size="45" font-weight="bold" fill="#ffffff">Transaction audit CSV</text>
+<circle cx="115" cy="1171" r="18" fill="#a3f684"/>
+<text x="161" y="1187" font-family="DejaVu Sans,sans-serif" font-size="45" font-weight="bold" fill="#ffffff">Exception flags</text>
+<text x="100" y="1304" font-family="DejaVu Sans,sans-serif" font-size="31" fill="#c1d7c9">One reporting period • Up to 500 sales rows</text>
+<rect x="60" y="1430" width="960" height="181" rx="24" fill="#a8f58c"/>
+<text x="540" y="1510" text-anchor="middle" font-family="DejaVu Sans,sans-serif" font-size="80" font-weight="bold" fill="#092018">$49 ONE TIME</text>
+<text x="540" y="1564" text-anchor="middle" font-family="DejaVu Sans,sans-serif" font-size="29" fill="#153a27">No subscription • Delivery by email</text>
+<text x="540" y="1699" text-anchor="middle" font-family="DejaVu Sans,sans-serif" font-size="47" font-weight="bold" fill="#ffffff">SEARCH: VENDORSETTLE DESK</text>
+<text x="540" y="1752" text-anchor="middle" font-family="DejaVu Sans,sans-serif" font-size="34" fill="#9be0ad">on GitHub • Full details &amp; checkout there</text>
+<text x="540" y="1848" text-anchor="middle" font-family="DejaVu Sans,sans-serif" font-size="24" fill="#a5c4b1">Not bookkeeping, accounting or tax advice.</text>
+</svg>
