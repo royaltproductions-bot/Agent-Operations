@@ -106,7 +106,7 @@ jobs:
               'new_revenue_checked': False,
               'new_revenue_usd': None
           }
-          item.write_text(json.dumps(record, indent=2) + '\\n')
+          item.write_text(json.dumps(record, indent=2) + '\n')
           print('NATIVE GH ACTIONS RECEIPT, NOT A CHATGPT AGENT RUN:', item)
           PY
       - name: Commit deduplicated findings only when changed
