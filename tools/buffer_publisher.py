@@ -125,16 +125,34 @@ def asset_for(post, mode):
         raise ValueError("Live TikTok queue requires a real public video_url")
     return ""
 
-def inspect_channel_posts(channel):
-    """Read-only inventory: Buffer status is not itself independent proof of a live TikTok post."""
+def recent_channel_posts(channel):
+    """Fetch last 30 Buffer posts for remote-state verification before mutation."""
     query = (
         'query { posts(first: 30 input: { organizationId: '
         + quoted(channel["_organization_id"])
         + ' filter: { channelIds: [' + quoted(channel["id"])
-        + '] } }) { edges { node { id status schedulingType dueAt sentAt externalLink } } } }'
+        + '] } }) { edges { node { id text status schedulingType dueAt sentAt externalLink } } } }'
     )
     edges = ((gql(query).get("posts") or {}).get("edges") or [])
-    posts = [edge.get("node") or {} for edge in edges]
+    return [edge.get("node") or {} for edge in edges]
+
+def assert_no_duplicate(channel, text, mode):
+    """Fail closed when retries risk duplicate live/queued posts or duplicate drafts."""
+    if mode not in ("draft", "queue"):
+        return
+    for post in recent_channel_posts(channel):
+        status = str(post.get("status") or "").lower()
+        if str(post.get("text") or "").strip() != text:
+            continue
+        if (mode == "draft" and status in ("draft", "scheduled", "sent")) or (
+                mode == "queue" and status in ("scheduled", "sent")):
+            raise RuntimeError(
+                "Potential duplicate " + status + " Buffer post " + str(post.get("id")) +
+                "; verify remote state instead of creating another.")
+
+def inspect_channel_posts(channel):
+    """Read-only inventory: Buffer status is not itself independent proof of a live TikTok post."""
+    posts = recent_channel_posts(channel)
     counts = {}
     for post in posts:
         status = str(post.get("status") or "unknown").lower()
@@ -172,6 +190,7 @@ def main():
     if not text or len(text) > 2000:
         raise ValueError("Post text is missing or exceeds our safety length")
     assets = asset_for(post, args.mode)
+    assert_no_duplicate(channel, text, args.mode)
     if args.mode == "queue":
         if os.environ.get("BUFFER_QUEUE_ENABLED") != "YES":
             raise RuntimeError("Queuing disabled. Set BUFFER_QUEUE_ENABLED=YES only after a successful draft test.")
