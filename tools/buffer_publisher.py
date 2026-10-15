@@ -54,7 +54,9 @@ def find_channel():
     for org in orgs:
         query = ('query { channels(input: { organizationId: '
                  + quoted(org["id"]) + ' }) { id name displayName externalLink service isDisconnected isLocked isQueuePaused } }')
-        candidates.extend(gql(query).get("channels") or [])
+        for candidate in (gql(query).get("channels") or []):
+            candidate["_organization_id"] = org["id"]
+            candidates.append(candidate)
     # Refuse to publish to ANY non-TikTok account or an approximate handle match.
     matches = []
     for channel in candidates:
@@ -123,14 +125,44 @@ def asset_for(post, mode):
         raise ValueError("Live TikTok queue requires a real public video_url")
     return ""
 
+def inspect_channel_posts(channel):
+    """Read-only inventory: Buffer status is not itself independent proof of a live TikTok post."""
+    query = (
+        'query { posts(first: 30 input: { organizationId: '
+        + quoted(channel["_organization_id"])
+        + ' filter: { channelIds: [' + quoted(channel["id"])
+        + '] } }) { edges { node { id status schedulingType dueAt sentAt externalLink } } } }'
+    )
+    edges = ((gql(query).get("posts") or {}).get("edges") or [])
+    posts = [edge.get("node") or {} for edge in edges]
+    counts = {}
+    for post in posts:
+        status = str(post.get("status") or "unknown").lower()
+        counts[status] = counts.get(status, 0) + 1
+    return {
+        "result": "buffer_inventory_not_publication_proof",
+        "channel": channel["name"],
+        "sample_size": len(posts),
+        "status_counts": counts,
+        "posts": [{
+            "id": p.get("id"), "status": p.get("status"),
+            "scheduling_type": p.get("schedulingType"),
+            "due_at": p.get("dueAt"), "sent_at": p.get("sentAt"),
+            "external_url_unverified": p.get("externalLink")
+        } for p in posts],
+    }
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mode", choices=["check", "draft", "queue"], default="check")
+    parser.add_argument("--mode", choices=["check", "draft", "queue", "inventory"], default="check")
     parser.add_argument("--input", help="JSON file with text and image_url; required for draft/queue")
     args = parser.parse_args()
     channel = find_channel()
     print(json.dumps({"connection": "verified", "channel": channel.get("name"), "service": "tiktok", "id": channel["id"]}))
     if args.mode == "check":
+        return
+    if args.mode == "inventory":
+        print(json.dumps(inspect_channel_posts(channel)))
         return
     if not args.input:
         raise ValueError("--input is required for draft/queue")
