@@ -1,0 +1,43 @@
+name: Oddly Useful Stuff - Publishing Outcome Monitor
+on:
+  schedule:
+    - cron: '17 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/oddly-useful-inventory.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: oddly-useful-inventory
+  cancel-in-progress: false
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read Buffer status (no posts created)
+        env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/buffer_publisher.py --mode inventory | tee /tmp/buffer-inventory.log
+          python3 - <<'PY'
+          import json, pathlib
+          lines = pathlib.Path('/tmp/buffer-inventory.log').read_text().splitlines()
+          state = json.loads(lines[-1])
+          summary = pathlib.Path(__import__('os').environ['GITHUB_STEP_SUMMARY'])
+          with summary.open('a') as f:
+              f.write('# Buffer read-only status\n')
+              f.write('Counts are Buffer states, not independently verified TikTok publication.\n\n')
+              for status, count in sorted(state['status_counts'].items()):
+                  f.write('- ' + status + ': ' + str(count) + '\n')
+              if not state['status_counts']:
+                  f.write('- No posts in first-page inventory.\n')
+              for post in state['posts']:
+                  if post.get('external_url_unverified'):
+                      f.write('- Buffer-provided URL (not independently checked): ' + post['external_url_unverified'] + '\n')
+          PY
