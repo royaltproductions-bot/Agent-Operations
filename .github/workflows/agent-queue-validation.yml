@@ -1,0 +1,29 @@
+name: Agent Queue - Validation and Unit Tests
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/agent_queue.py'
+      - 'tests/test_agent_queue.py'
+      - 'ops/agent-queue/*.json'
+      - '.github/workflows/agent-queue-validation.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: agent-queue-validation
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Syntax and offline state-machine tests
+        run: |
+          python3 -m py_compile tools/agent_queue.py
+          python3 -m unittest discover -s tests -p 'test_agent_queue.py' -v
+      - name: Validate current qualified opportunity queue
+        run: python3 tools/agent_queue.py --mode validate
+      - name: Show ranked eligible handoffs
+        run: python3 tools/agent_queue.py --mode rank
