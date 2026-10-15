@@ -48,6 +48,11 @@ class ParallelDiscoveryTests(unittest.TestCase):
                            "I am willing to place a $100 bounty if anyone wants to work on this.")
         self.assertIsNone(radar.prospect(issue, "cash"))
 
+    def test_news_about_prizes_is_not_payable_work(self):
+        issue = fake_issue(101, "[News] Security researchers earned awards",
+                           "A historic $250,000 bug bounty reward was paid for unrelated work.")
+        self.assertIsNone(radar.prospect(issue, "cash"))
+
     def test_large_competition_reduces_score(self):
         item = fake_issue(2, "Fix bug bounty $75", "Paid after merged PR")
         low = radar.prospect(item, "python")["score_for_review_only"]
