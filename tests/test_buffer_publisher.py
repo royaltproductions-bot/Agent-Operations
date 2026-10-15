@@ -88,6 +88,23 @@ class PublisherSafetyTests(unittest.TestCase):
         self.assertEqual(info["result"], "buffer_inventory_not_publication_proof")
         self.assertIn("unverified", list(info["posts"][1].keys())[-1])
 
+    def test_remote_duplicate_draft_is_not_created_twice(self):
+        candidate = channel()
+        existing = [{"id": "draft1", "status": "draft", "text": "Hello"}]
+        with patch.object(pub, "recent_channel_posts", return_value=existing):
+            with self.assertRaisesRegex(RuntimeError, "Potential duplicate draft"):
+                pub.assert_no_duplicate(candidate, "Hello", "draft")
+            pub.assert_no_duplicate(candidate, "Hello", "queue")
+
+    def test_remote_queued_or_sent_post_prevents_republishing(self):
+        candidate = channel()
+        for status in ("scheduled", "sent"):
+            with self.subTest(status=status), patch.object(
+                    pub, "recent_channel_posts",
+                    return_value=[{"id": "existing", "status": status, "text": "Hello"}]):
+                with self.assertRaisesRegex(RuntimeError, "Potential duplicate"):
+                    pub.assert_no_duplicate(candidate, "Hello", "queue")
+
     def test_masked_or_non_ascii_key_rejected_before_request(self):
         with patch.dict(os.environ, {"BUFFER_API_KEY": "●●●●●masked"}):
             with self.assertRaisesRegex(RuntimeError, "contains invalid characters"):
