@@ -38,6 +38,19 @@
       "new_orders_verified": "not_checked_in_this_intervention",
       "new_revenue_verified_usd": null,
       "next_action": "Deploy one buyer-relevant offer through an authorized channel after completing the publishing preflight; verify actual public URL; pivot if TikTok cannot convey payment offer."
+    },
+    {
+      "date_utc": "2026-10-15",
+      "type": "buffer_confirmed_sent_tiktok_post",
+      "attribution": "live_chat_intervention_not_autonomous_hourly_run",
+      "channel": "tiktok",
+      "post_id": "6ad1035a9e106c07ca79f8c1",
+      "url": "https://tiktok.com/@oddly.useful.stuff/video/7696936897301531917",
+      "verification": "Buffer API status=sent with externalLink; TikTok page not independently accessible to browser",
+      "evidence_url": "https://github.com/royaltproductions-bot/Agent-Operations/actions/runs/38771872096",
+      "commercial_promotion": false,
+      "orders_verified": "not_checked",
+      "new_revenue_verified_usd": null
     }
   ],
   "rules": [
