@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-10-15T18:00:41.675086Z",
+  "source_items": 4,
+  "reviewed_items": 4,
+  "decision_counts": {
+    "competing_fix_or_pr": 4
+  },
+  "verified_paid_orders": 0,
+  "verified_funding": 0,
+  "results": [
+    {
+      "url": "https://github.com/SUSU-LABS/susu-web/issues/51",
+      "decision": "competing_fix_or_pr",
+      "competing_pr_urls": [
+        "https://github.com/SUSU-LABS/susu-web/pull/106",
+        "https://github.com/SUSU-LABS/susu-web/pull/115",
+        "https://github.com/SUSU-LABS/susu-web/pull/125",
+        "https://github.com/SUSU-LABS/susu-web/pull/137",
+        "https://github.com/SUSU-LABS/susu-web/pull/78",
+        "https://github.com/SUSU-LABS/susu-web/pull/88",
+        "https://github.com/SUSU-LABS/susu-web/pull/96"
+      ],
+      "claim_signals": [
+        "https://github.com/SUSU-LABS/susu-web/issues/51#issuecomment-6084150736",
+        "https://github.com/SUSU-LABS/susu-web/issues/51#issuecomment-6084913666",
+        "https://github.com/SUSU-LABS/susu-web/issues/51#issuecomment-6095195560",
+        "https://github.com/SUSU-LABS/susu-web/issues/51#issuecomment-6125701294"
+      ],
+      "open_prs_inspected": 78,
+      "comments_inspected": 10,
+      "funds_independently_verified": false,
+      "qualifies_as_paid_order": false
+    },
+    {
+      "url": "https://github.com/paraloom-labs/paraloom-core/issues/929",
+      "decision": "competing_fix_or_pr",
+      "competing_pr_urls": [
+        "https://github.com/paraloom-labs/paraloom-wallet/pull/62"
+      ],
+      "claim_signals": [],
+      "open_prs_inspected": 64,
+      "comments_inspected": 3,
+      "funds_independently_verified": false,
+      "qualifies_as_paid_order": false
+    },
+    {
+      "url": "https://github.com/paraloom-labs/paraloom-core/issues/930",
+      "decision": "competing_fix_or_pr",
+      "competing_pr_urls": [
+        "https://github.com/paraloom-labs/paraloom-wallet/pull/66"
+      ],
+      "claim_signals": [],
+      "open_prs_inspected": 64,
+      "comments_inspected": 3,
+      "funds_independently_verified": false,
+      "qualifies_as_paid_order": false
+    },
+    {
+      "url": "https://github.com/uvsmtid/protoprimer/issues/143",
+      "decision": "competing_fix_or_pr",
+      "competing_pr_urls": [
+        "https://github.com/uvsmtid/protoprimer/pull/144",
+        "https://github.com/uvsmtid/protoprimer/pull/145",
+        "https://github.com/uvsmtid/protoprimer/pull/146",
+        "https://github.com/uvsmtid/protoprimer/pull/147"
+      ],
+      "claim_signals": [
+        "https://github.com/uvsmtid/protoprimer/issues/143#issuecomment-6195154155"
+      ],
+      "open_prs_inspected": 4,
+      "comments_inspected": 8,
+      "funds_independently_verified": false,
+      "qualifies_as_paid_order": false
+    }
+  ],
+  "note": "Competition audit only. No independent escrow verification; these are not accepted paying jobs."
+}
