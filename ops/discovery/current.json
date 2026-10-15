@@ -16,20 +16,8 @@
     "testing": 25
   },
   "lane_errors": {},
-  "unique_candidates": 21,
+  "unique_candidates": 20,
   "top_candidates": [
-    {
-      "source": "github_public_issue",
-      "repo": "Parabola-org/parabola",
-      "title": "[Bounty: $105] checkStellarRecipientReady must not report RPC outages as missing accounts",
-      "url": "https://github.com/Parabola-org/parabola/issues/4",
-      "bounty_usd_hint_not_verified": 105.0,
-      "score_for_review_only": 82,
-      "competition_indicator_comments": 2,
-      "created_at": "2026-10-15T20:02:04Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "cash"
-    },
     {
       "source": "github_public_issue",
       "repo": "Parabola-org/parabola",
@@ -37,7 +25,7 @@
       "url": "https://github.com/Parabola-org/parabola/issues/10",
       "bounty_usd_hint_not_verified": 90.0,
       "score_for_review_only": 80,
-      "competition_indicator_comments": 4,
+      "competition_indicator_comments": 6,
       "created_at": "2026-10-15T20:02:39Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "testing"
@@ -88,7 +76,7 @@
       "competition_indicator_comments": 5,
       "created_at": "2026-10-15T20:01:50Z",
       "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "cash"
+      "discovered_lane": "integration"
     },
     {
       "source": "github_public_issue",
@@ -99,6 +87,18 @@
       "score_for_review_only": 77,
       "competition_indicator_comments": 5,
       "created_at": "2026-10-15T20:02:02Z",
+      "status": "requires_manual_payment_and_claim_verification",
+      "discovered_lane": "cash"
+    },
+    {
+      "source": "github_public_issue",
+      "repo": "Parabola-org/parabola",
+      "title": "[Bounty: $105] checkStellarRecipientReady must not report RPC outages as missing accounts",
+      "url": "https://github.com/Parabola-org/parabola/issues/4",
+      "bounty_usd_hint_not_verified": 105.0,
+      "score_for_review_only": 77,
+      "competition_indicator_comments": 3,
+      "created_at": "2026-10-15T20:02:04Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "cash"
     },
@@ -121,7 +121,7 @@
       "url": "https://github.com/Parabola-org/parabola/issues/7",
       "bounty_usd_hint_not_verified": 90.0,
       "score_for_review_only": 72,
-      "competition_indicator_comments": 3,
+      "competition_indicator_comments": 5,
       "created_at": "2026-10-15T20:02:18Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "cash"
@@ -145,7 +145,7 @@
       "url": "https://github.com/Parabola-org/parabola/issues/12",
       "bounty_usd_hint_not_verified": 75.0,
       "score_for_review_only": 72,
-      "competition_indicator_comments": 4,
+      "competition_indicator_comments": 5,
       "created_at": "2026-10-15T20:02:49Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "documentation"
@@ -153,26 +153,14 @@
     {
       "source": "github_public_issue",
       "repo": "Parabola-org/parabola",
-      "title": "[Bounty: $75] Unit tests for src/errors.ts and a public export surface snapshot",
-      "url": "https://github.com/Parabola-org/parabola/issues/13",
+      "title": "[Bounty: $75] Demo app: recovery flow for post-burn failures using TransferError.burnTxHash",
+      "url": "https://github.com/Parabola-org/parabola/issues/14",
       "bounty_usd_hint_not_verified": 75.0,
       "score_for_review_only": 72,
       "competition_indicator_comments": 6,
-      "created_at": "2026-10-15T20:02:51Z",
+      "created_at": "2026-10-15T20:02:53Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "cash"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "Parabola-org/parabola",
-      "title": "[Bounty: $75] Package hygiene: sideEffects flag, export-map validation, and publint in CI",
-      "url": "https://github.com/Parabola-org/parabola/issues/15",
-      "bounty_usd_hint_not_verified": 75.0,
-      "score_for_review_only": 72,
-      "competition_indicator_comments": 3,
-      "created_at": "2026-10-15T20:02:55Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "open-paid"
     },
     {
       "source": "github_public_issue",
@@ -184,7 +172,7 @@
       "competition_indicator_comments": 4,
       "created_at": "2026-10-15T20:03:01Z",
       "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "cash"
+      "discovered_lane": "integration"
     },
     {
       "source": "github_public_issue",
@@ -217,7 +205,7 @@
       "url": "https://github.com/Parabola-org/parabola/issues/20",
       "bounty_usd_hint_not_verified": 45.0,
       "score_for_review_only": 67,
-      "competition_indicator_comments": 5,
+      "competition_indicator_comments": 6,
       "created_at": "2026-10-15T20:03:08Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "cash"
@@ -236,15 +224,15 @@
     },
     {
       "source": "github_public_issue",
-      "repo": "paraloom-labs/paraloom-core",
-      "title": "[BOUNTY] Medium: concurrent PRIVATE_SWAP clobbers swapJob/pendingSwap and pendingSwap lost on MV3 restart (paraloom-wallet)",
-      "url": "https://github.com/paraloom-labs/paraloom-core/issues/930",
-      "bounty_usd_hint_not_verified": 150.0,
-      "score_for_review_only": 58,
-      "competition_indicator_comments": 9,
-      "created_at": "2026-10-15T16:42:29Z",
+      "repo": "Parabola-org/parabola",
+      "title": "[Bounty: $75] Unit tests for src/errors.ts and a public export surface snapshot",
+      "url": "https://github.com/Parabola-org/parabola/issues/13",
+      "bounty_usd_hint_not_verified": 75.0,
+      "score_for_review_only": 57,
+      "competition_indicator_comments": 8,
+      "created_at": "2026-10-15T20:02:51Z",
       "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "documentation"
+      "discovered_lane": "cash"
     },
     {
       "source": "github_public_issue",

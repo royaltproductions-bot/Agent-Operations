@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "reviewed_at_utc": "2026-10-15T20:52:26.902222Z",
-  "source_items": 21,
-  "reviewed_items": 21,
+  "reviewed_at_utc": "2026-10-15T21:39:02.886704Z",
+  "source_items": 20,
+  "reviewed_items": 20,
   "decision_counts": {
-    "competing_fix_or_pr": 21
+    "competing_fix_or_pr": 20
   },
   "verified_paid_orders": 0,
   "verified_funding": 0,
@@ -13,13 +13,15 @@
       "url": "https://github.com/Parabola-org/parabola/issues/1",
       "decision": "competing_fix_or_pr",
       "competing_pr_urls": [
-        "https://github.com/Parabola-org/parabola/pull/21"
+        "https://github.com/Parabola-org/parabola/pull/21",
+        "https://github.com/Parabola-org/parabola/pull/45",
+        "https://github.com/Parabola-org/parabola/pull/47"
       ],
       "claim_signals": [
         "https://github.com/Parabola-org/parabola/issues/1#issuecomment-6201517965",
         "https://github.com/Parabola-org/parabola/issues/1#issuecomment-6201574963"
       ],
-      "open_prs_inspected": 20,
+      "open_prs_inspected": 27,
       "comments_inspected": 5,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
@@ -31,8 +33,8 @@
         "https://github.com/Parabola-org/parabola/pull/25"
       ],
       "claim_signals": [],
-      "open_prs_inspected": 20,
-      "comments_inspected": 4,
+      "open_prs_inspected": 27,
+      "comments_inspected": 6,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
     },
@@ -43,7 +45,7 @@
         "https://github.com/Parabola-org/parabola/pull/34"
       ],
       "claim_signals": [],
-      "open_prs_inspected": 20,
+      "open_prs_inspected": 27,
       "comments_inspected": 5,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
@@ -56,8 +58,8 @@
         "https://github.com/Parabola-org/parabola/pull/31"
       ],
       "claim_signals": [],
-      "open_prs_inspected": 20,
-      "comments_inspected": 4,
+      "open_prs_inspected": 27,
+      "comments_inspected": 5,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
     },
@@ -70,20 +72,20 @@
       "claim_signals": [
         "https://github.com/Parabola-org/parabola/issues/13#issuecomment-6201577341"
       ],
-      "open_prs_inspected": 20,
-      "comments_inspected": 6,
+      "open_prs_inspected": 27,
+      "comments_inspected": 8,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
     },
     {
-      "url": "https://github.com/Parabola-org/parabola/issues/15",
+      "url": "https://github.com/Parabola-org/parabola/issues/14",
       "decision": "competing_fix_or_pr",
       "competing_pr_urls": [
-        "https://github.com/Parabola-org/parabola/pull/28"
+        "https://github.com/Parabola-org/parabola/pull/37"
       ],
       "claim_signals": [],
-      "open_prs_inspected": 20,
-      "comments_inspected": 3,
+      "open_prs_inspected": 27,
+      "comments_inspected": 6,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
     },
@@ -91,10 +93,11 @@
       "url": "https://github.com/Parabola-org/parabola/issues/17",
       "decision": "competing_fix_or_pr",
       "competing_pr_urls": [
-        "https://github.com/Parabola-org/parabola/pull/39"
+        "https://github.com/Parabola-org/parabola/pull/39",
+        "https://github.com/Parabola-org/parabola/pull/43"
       ],
       "claim_signals": [],
-      "open_prs_inspected": 20,
+      "open_prs_inspected": 27,
       "comments_inspected": 4,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
@@ -106,7 +109,7 @@
         "https://github.com/Parabola-org/parabola/pull/40"
       ],
       "claim_signals": [],
-      "open_prs_inspected": 20,
+      "open_prs_inspected": 27,
       "comments_inspected": 4,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
@@ -120,7 +123,7 @@
       "claim_signals": [
         "https://github.com/Parabola-org/parabola/issues/19#issuecomment-6201328053"
       ],
-      "open_prs_inspected": 20,
+      "open_prs_inspected": 27,
       "comments_inspected": 5,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
@@ -132,8 +135,8 @@
         "https://github.com/Parabola-org/parabola/pull/33"
       ],
       "claim_signals": [],
-      "open_prs_inspected": 20,
-      "comments_inspected": 5,
+      "open_prs_inspected": 27,
+      "comments_inspected": 6,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
     },
@@ -146,7 +149,7 @@
       "claim_signals": [
         "https://github.com/Parabola-org/parabola/issues/3#issuecomment-6201515593"
       ],
-      "open_prs_inspected": 20,
+      "open_prs_inspected": 27,
       "comments_inspected": 5,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
@@ -155,11 +158,13 @@
       "url": "https://github.com/Parabola-org/parabola/issues/4",
       "decision": "competing_fix_or_pr",
       "competing_pr_urls": [
-        "https://github.com/Parabola-org/parabola/pull/26"
+        "https://github.com/Parabola-org/parabola/pull/26",
+        "https://github.com/Parabola-org/parabola/pull/42",
+        "https://github.com/Parabola-org/parabola/pull/44"
       ],
       "claim_signals": [],
-      "open_prs_inspected": 20,
-      "comments_inspected": 2,
+      "open_prs_inspected": 27,
+      "comments_inspected": 3,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
     },
@@ -170,7 +175,7 @@
         "https://github.com/Parabola-org/parabola/pull/38"
       ],
       "claim_signals": [],
-      "open_prs_inspected": 20,
+      "open_prs_inspected": 27,
       "comments_inspected": 5,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
@@ -184,7 +189,7 @@
       "claim_signals": [
         "https://github.com/Parabola-org/parabola/issues/6#issuecomment-6201384208"
       ],
-      "open_prs_inspected": 20,
+      "open_prs_inspected": 27,
       "comments_inspected": 4,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
@@ -193,11 +198,12 @@
       "url": "https://github.com/Parabola-org/parabola/issues/7",
       "decision": "competing_fix_or_pr",
       "competing_pr_urls": [
-        "https://github.com/Parabola-org/parabola/pull/23"
+        "https://github.com/Parabola-org/parabola/pull/23",
+        "https://github.com/Parabola-org/parabola/pull/46"
       ],
       "claim_signals": [],
-      "open_prs_inspected": 20,
-      "comments_inspected": 3,
+      "open_prs_inspected": 27,
+      "comments_inspected": 5,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
     },
@@ -208,7 +214,7 @@
         "https://github.com/Parabola-org/parabola/pull/30"
       ],
       "claim_signals": [],
-      "open_prs_inspected": 20,
+      "open_prs_inspected": 27,
       "comments_inspected": 4,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
@@ -220,7 +226,7 @@
         "https://github.com/Parabola-org/parabola/pull/29"
       ],
       "claim_signals": [],
-      "open_prs_inspected": 20,
+      "open_prs_inspected": 27,
       "comments_inspected": 4,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
@@ -268,27 +274,6 @@
       "qualifies_as_paid_order": false
     },
     {
-      "url": "https://github.com/paraloom-labs/paraloom-core/issues/930",
-      "decision": "competing_fix_or_pr",
-      "competing_pr_urls": [
-        "https://github.com/paraloom-labs/paraloom-core/pull/931",
-        "https://github.com/paraloom-labs/paraloom-core/pull/933",
-        "https://github.com/paraloom-labs/paraloom-core/pull/937",
-        "https://github.com/paraloom-labs/paraloom-wallet/pull/66",
-        "https://github.com/paraloom-labs/paraloom-wallet/pull/72"
-      ],
-      "claim_signals": [
-        "https://github.com/paraloom-labs/paraloom-core/issues/930#issuecomment-6199936166",
-        "https://github.com/paraloom-labs/paraloom-core/issues/930#issuecomment-6199961800",
-        "https://github.com/paraloom-labs/paraloom-core/issues/930#issuecomment-6201389786",
-        "https://github.com/paraloom-labs/paraloom-core/issues/930#issuecomment-6201453080"
-      ],
-      "open_prs_inspected": 70,
-      "comments_inspected": 9,
-      "funds_independently_verified": false,
-      "qualifies_as_paid_order": false
-    },
-    {
       "url": "https://github.com/uvsmtid/protoprimer/issues/143",
       "decision": "competing_fix_or_pr",
       "competing_pr_urls": [
@@ -299,13 +284,14 @@
         "https://github.com/uvsmtid/protoprimer/pull/148",
         "https://github.com/uvsmtid/protoprimer/pull/149",
         "https://github.com/uvsmtid/protoprimer/pull/150",
-        "https://github.com/uvsmtid/protoprimer/pull/152"
+        "https://github.com/uvsmtid/protoprimer/pull/152",
+        "https://github.com/uvsmtid/protoprimer/pull/153"
       ],
       "claim_signals": [
         "https://github.com/uvsmtid/protoprimer/issues/143#issuecomment-6195154155",
         "https://github.com/uvsmtid/protoprimer/issues/143#issuecomment-6199814339"
       ],
-      "open_prs_inspected": 9,
+      "open_prs_inspected": 10,
       "comments_inspected": 14,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
