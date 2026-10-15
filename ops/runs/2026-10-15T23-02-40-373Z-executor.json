@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "attribution": "scheduled_hourly",
+  "start_at_utc": "2026-10-15T22:59:49.557Z",
+  "recorded_at_utc": "2026-10-15T23:02:40.373Z",
+  "status": "blocked",
+  "start_receipt": "ops/runs/2026-10-15T22-59-49-557Z-executor-start.json",
+  "start_readback_verified": true,
+  "canonical_handoff_read": true,
+  "queue": {
+    "qualified_lead_files": 0,
+    "source": "ops/agent-queue/"
+  },
+  "discovery": {
+    "triage_at_utc": "2026-10-15T22:36:31.096618Z",
+    "source_items": 19,
+    "competing_fix_or_pr": 19,
+    "verified_funding": 0,
+    "source": "ops/discovery/triage.json"
+  },
+  "payments": {
+    "processor": "Stripe",
+    "mode": "live",
+    "checkout_sessions_count": 0,
+    "latest_payment_intents_observed_year": 2024,
+    "new_paid_orders": 0,
+    "new_usd": 0,
+    "verification": "GetCheckoutSessions limit=30 returned empty; GetPaymentIntents newest entries dated 2024; none from this venture"
+  },
+  "buyer_inbox": {
+    "agentmail_inbound_count": 0,
+    "gmail_buyer_replies_count": 0,
+    "toolhouse_prior_sent_application_not_repeated": true
+  },
+  "external_commercial_action": {
+    "source_url": "https://news.ycombinator.com/item?id=49982803",
+    "candidate": "depproof part-time B2B sales lead equity plus commission",
+    "action": "One transparent, individually tailored inquiry about an agent-assisted sales qualification pilot",
+    "attempted_channel": "AgentMail send_message",
+    "result": "definitively blocked by provider safety checks",
+    "provider_error": "This tool call was blocked by OpenAI's safety checks. Please double check what you are sending.",
+    "sent_count": 0,
+    "remote_receipt_verified": false,
+    "post_attempt_sent_folder_verification": "AgentMail sent folder 0; Gmail sent search 0",
+    "outcome_receipt": "ops/outcomes/depproof-ai-assisted-sales-pilot-2026-10-15T23-02-22-046Z.json",
+    "outcome_readback_verified": true
+  },
+  "additional_live_checks": [
+    {
+      "url": "https://github.com/Nudge-Pay/nudge-app/issues/45",
+      "finding": "competing open PR #148, #146"
+    },
+    {
+      "url": "https://github.com/attestar-labs/attestar/issues/46",
+      "finding": "competing open PRs #265, #269, #270, #271"
+    },
+    {
+      "url": "https://github.com/sybil-solutions/local-ai-registry/issues/216",
+      "finding": "requires direct hardware testing; no suitable card access verified"
+    },
+    {
+      "url": "https://news.ycombinator.com/item?id=49939260",
+      "finding": "Privy.pro growth role explicitly filled 2026-10-14; no application"
+    }
+  ],
+  "revenue": {
+    "verified_new_gross_usd": 0,
+    "verified_new_orders": 0
+  },
+  "blocked_reason": "No verified available paid order or uncontested fundable job; attempted distinct explicitly invited sales role inquiry was blocked by safety gate and verified unsent. No bypass or duplicate contact attempted.",
+  "next_task": "Check Stripe and buyer inboxes first. Seek a different current explicit paid solicitation with independently verified availability, funding, no competing accepted work, and a lawful delivery/application channel; avoid previously blocked recipients and roles filled."
+}
