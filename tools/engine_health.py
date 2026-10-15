@@ -7,7 +7,7 @@ from pathlib import Path
 
 TERMINAL = {"completed", "blocked", "failed", "completed_with_external_action_blocked",
             "completed_no_external_action", "complete", "partial"}
-TIMESTAMP_KEYS = ("ended_at_utc", "completed_at_utc", "recorded_at_utc", "timestamp_utc")
+TIMESTAMP_KEYS = ("ended_at_utc", "completed_at_utc", "recorded_at_utc", "timestamp_utc", "started_at_utc", "start_at_utc")
 
 
 def parsed_timestamp(value):
@@ -23,9 +23,10 @@ def parsed_timestamp(value):
 def records(root, subdir, attribution, now):
     folder = root / subdir
     valid = []
+    starts = []
     errors = []
     if not folder.is_dir():
-        return valid, ["directory absent: " + subdir]
+        return valid, ["directory absent: " + subdir], starts
     for path in sorted(folder.glob("*.json")):
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
@@ -40,14 +41,17 @@ def records(root, subdir, attribution, now):
             errors.append(path.name + ": no valid terminal UTC timestamp")
             continue
         state = str(data.get("status") or data.get("state") or "").lower()
+        if state in ("running", "started"):
+            starts.append((stamp, path.name))
+            continue
         if state not in TERMINAL:
-            errors.append(path.name + ": not a verified terminal record")
+            errors.append(path.name + ": unknown status")
             continue
         if stamp > now + timedelta(minutes=5):
             errors.append(path.name + ": timestamp is in future")
             continue
         valid.append((stamp, path.name, state))
-    return valid, errors
+    return valid, errors, starts
 
 
 def run(root, now=None):
@@ -65,10 +69,19 @@ def run(root, now=None):
     for role, dirpath, attr in (
             ("scout", "ops/scout-runs", "scheduled_scout"),
             ("executor", "ops/runs", "scheduled_hourly")):
-        matches, errs = records(root, dirpath, attr, now)
+        matches, errs, starts = records(root, dirpath, attr, now)
         recent = [x for x in matches if x[0] >= now - timedelta(hours=24)]
         fresh = [x for x in matches if x[0] >= now - timedelta(hours=2)]
         info[role + "_terminal_records_last_24h"] = len(recent)
+        info[role + "_start_receipts_last_24h"] = sum(
+            now - timedelta(hours=24) <= t <= now for t, _ in starts)
+        stale_starts = [
+            name for t, name in starts
+            if t <= now - timedelta(hours=2) and
+            not any(t <= finished <= t + timedelta(hours=4) for finished, _, _ in matches)]
+        info[role + "_possibly_orphaned_starts"] = stale_starts
+        if stale_starts:
+            issues.append(role + " has " + str(len(stale_starts)) + " stale start receipts without a terminal receipt")
         info[role + "_last_terminal_utc"] = (
             max(x[0] for x in matches).isoformat().replace("+00:00", "Z")
             if matches else None)
