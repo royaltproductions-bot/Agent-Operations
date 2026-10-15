@@ -1,5 +1,7 @@
 name: Agent Queue - Validation and Unit Tests
 on:
+  schedule:
+    - cron: '43 * * * *'
   push:
     branches: [main]
     paths:
@@ -27,3 +29,21 @@ jobs:
         run: python3 tools/agent_queue.py --mode validate
       - name: Show ranked eligible handoffs
         run: python3 tools/agent_queue.py --mode rank
+      - name: Detect stuck agent claims without re-executing them
+        run: |
+          python3 tools/agent_queue.py --mode health | tee /tmp/agent-health.json
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          state = json.loads(Path('/tmp/agent-health.json').read_text())
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as stream:
+              stream.write('## Multi-agent opportunity pipeline health\n')
+              for k in ('qualified', 'claimed', 'completed', 'blocked'):
+                  stream.write(f'- {k}: {state[k]}\n')
+              if state['expired_claim_ids']:
+                  stream.write('- Attention: expired claims need safe remote reconciliation (NOT automatic replay): ' +
+                               ', '.join(state['expired_claim_ids']) + '\n')
+              else:
+                  stream.write('- No expired claimed work detected\n')
+          PY
