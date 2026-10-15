@@ -1,3 +1,11 @@
+## Channel connectivity and sign-up failures (verified live chat, 2026-10-15)
+- Gmail account `ari.gpt.c@gmail.com` is **already connected and operational through ChatGPT's Gmail connector**: profile and message search both returned data in the live chat. The user's in-app Gmail *reconnect* path failed, but the connector itself DOES NOT need reauthorization. Do not retry OAuth/ask user to reconnect unless an actual direct Gmail API call starts failing.
+- AgentMail operations inbox `ari-operations@agentmail.to` is reachable; inbox has no received customer threads at the latest check. This remains the business support/order address.
+- Meticulate is NOT installed/connected and the provider's sign-up page explicitly displays "New sign-ups are currently restricted." It is not a dependency of the revenue engine. DO NOT send the user back through restricted signup or Google OAuth loops; discover buyers using available GitHub/public research and existing authorized channels instead.
+- These are channel/integration outcomes, NOT proof of failed sales-engine scheduling. Avoid conflating Gmail linking UI errors with actual account access or completed commercial work.
+- The $75 protoprimer GitHub bounty (issue #143) already attracted FOUR competing PRs #144-147 as of Oct 15; deprioritize it until a genuinely distinct payable need appears. Claimed bounty price alone is not a conversion probability.
+
+
 # Autonomous revenue engine — cross-run operational state
 **Updated 2026-10-15 following LIVE-CHAT corrective intervention; not an autonomous scheduled execution.**
 
