@@ -1,4 +1,5 @@
 import copy
+import datetime as dt
 import json
 import tempfile
 import unittest
@@ -76,6 +77,17 @@ class QueueTests(unittest.TestCase):
             (d / "different-id.json").write_text(json.dumps(x))
             with self.assertRaisesRegex(ValueError, "filename"):
                 queue.inventory(d)
+
+    def test_watchdog_flags_expired_claim_without_replaying(self):
+        expired = copy.deepcopy(BASE)
+        expired["status"] = "claimed"
+        expired["claimed_by"] = "executor"
+        expired["claim_until_utc"] = "2026-10-15T17:15:00Z"
+        now = dt.datetime(2026, 10, 15, 18, 0, tzinfo=dt.timezone.utc)
+        report = queue.health([expired], now=now)
+        self.assertEqual(report["expired_claim_ids"], [expired["id"]])
+        self.assertTrue(report["needs_attention"])
+        self.assertEqual(expired["status"], "claimed")
 
     def test_rejects_unsafe_local_url(self):
         x = copy.deepcopy(BASE)
