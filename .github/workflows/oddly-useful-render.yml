@@ -21,7 +21,7 @@ jobs:
           fetch-depth: 2
           persist-credentials: true
       - name: Install SVG renderer
-        run: python3 -m pip install --quiet --disable-pip-version-check --break-system-packages 'CairoSVG==2.8.2'
+        run: python3 -m pip install --quiet --disable-pip-version-check --break-system-packages 'CairoSVG==2.8.2' 'imageio-ffmpeg==0.6.0'
       - name: Render SVG source to public PNG
         shell: bash
         run: |
@@ -30,6 +30,7 @@ jobs:
           from pathlib import Path
           import subprocess
           import cairosvg
+          import imageio_ffmpeg
           root = Path('campaigns/oddly-useful-stuff')
           source = root / 'creative-source'
           destination = root / 'media'
@@ -54,7 +55,7 @@ jobs:
               if video.exists():
                   continue
               subprocess.run([
-                  'ffmpeg', '-hide_banner', '-loglevel', 'error', '-y',
+                  imageio_ffmpeg.get_ffmpeg_exe(), '-hide_banner', '-loglevel', 'error', '-y',
                   '-loop', '1', '-framerate', '24', '-i', str(png),
                   '-f', 'lavfi', '-i', 'anullsrc=channel_layout=stereo:sample_rate=44100',
                   '-t', '6', '-vf',
