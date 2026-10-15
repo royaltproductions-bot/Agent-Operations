@@ -1,3 +1,8 @@
+## Independent acceptance result — 2026-10-15 18:11 UTC
+- One-time ChatGPT scheduled **Revenue Engine Acceptance Test** reached a terminal state with `last_run_time=2026-10-15T18:11:11.707340Z`, but a fresh GitHub `ops/runs/` listing showed **NO acceptance-test start/terminal log**. Therefore **autonomous persistence FAILED acceptance**. No ability to infer exactly why from schedule metadata alone. Do NOT label the full autonomous cycle reliable. This observation was made via live chat, not as an independent scheduled run.
+- Scope narrowed with independent one-time `GitHub Persistence Probe` scheduled to write a single static file `ops/runs/2026-10-15-automated-persistence-probe.json`. Check its independently verified actual GitHub existence before claiming scheduled GitHub writes function. If no file appears, isolate connector/tool availability and stop requiring complex executor to log as if it had proven write access.
+- A true one-time test execution is NOT an hourly scheduled executor run. Its outcome and GitHub commit count must never inflate commercial KPI metrics.
+
 # Revenue engine — VERIFIED full-cycle handoff (2026-10-15)
 
 ## FIRST ACTION ON NEXT INDEPENDENT RUN
