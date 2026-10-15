@@ -5,7 +5,7 @@ Updated 2026-10-15 by **live chat** (NOT an autonomous scheduled run). This file
 ## GitHub permission status — important
 - User explicitly selected **Allow all actions** for the GitHub plugin. The plugin's app-specific permissions were independently checked and reported **Allow all actions**.
 - A fresh direct GitHub `create_file` call from live chat **SUCCEEDED**; commit: https://github.com/royaltproductions-bot/Agent-Operations/commit/86d527edbb23226e2dec8f0e8d0ebd71a5de0db1 and receipt `ops/runs/2026-10-15-permission-repair-check.json`.
-- Earlier scheduled GitHub write attempts (acceptance and persistence probe) **FAILED** under previous conditions. Independent *scheduled* write permission must be rechecked with a distinct one-time task; DO NOT infer scheduled success merely from live chat success.
+- Earlier scheduled GitHub write attempts (acceptance and persistence probe) **FAILED** before the user's app permission change. A distinct independent one-time scheduled task NOW **PASSED** GitHub create_file + fetch_file readback: https://github.com/royaltproductions-bot/Agent-Operations/commit/e5e5d9d35819ad9a971d1b5624c3297cb9c87ef9 . This proves independent *scheduled create/read* works under the updated authorization; regular Scout/Executor terminal-update behavior and commercial actions must still be verified.
 - Never work around a genuine safety restriction. If a scheduled write fails after the authorized setting, record a clear error and continue permitted external work where possible.
 
 ## Architecture and sequence
@@ -33,4 +33,4 @@ The **sequence is discover → qualify → externally execute → verify → rec
 ## Known exact evidence
 - Previously FAILED scheduled GitHub-write test: `ops/runs/` had no acceptance/probe file from earlier scheduled tests.
 - NOW PASSED live GitHub-write test: https://github.com/royaltproductions-bot/Agent-Operations/commit/86d527edbb23226e2dec8f0e8d0ebd71a5de0db1 .
-- Next validation: independent scheduled writer creates a DIFFERENT file and read-back verifies it. Only then mark autonomous GitHub persistence verified.
+- Independent scheduled write and readback **PASSED**: https://github.com/royaltproductions-bot/Agent-Operations/commit/e5e5d9d35819ad9a971d1b5624c3297cb9c87ef9 . Next test is scheduled UPDATE of an existing file and then actual Scout→Executor qualified handoff with truthful receipts.
