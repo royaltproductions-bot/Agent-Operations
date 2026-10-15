@@ -8,6 +8,8 @@ on:
     paths:
       - 'tools/parallel_opportunity_radar.py'
       - 'tests/test_parallel_opportunity_radar.py'
+      - 'tools/verify_opportunity_claims.py'
+      - 'tests/test_verify_opportunity_claims.py'
       - '.github/workflows/ten-lane-opportunity-radar.yml'
 permissions:
   contents: write
@@ -24,11 +26,17 @@ jobs:
         run: |
           python3 -m py_compile tools/parallel_opportunity_radar.py
           python3 -m unittest discover -s tests -p 'test_parallel_opportunity_radar.py' -v
+          python3 -m unittest discover -s tests -p 'test_verify_opportunity_claims.py' -v
       - name: Scan ten independent public opportunity searches in parallel
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           python3 tools/parallel_opportunity_radar.py --output ops/discovery/current.json
+      - name: Verify competing PRs and issue claim status for discoveries
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 tools/verify_opportunity_claims.py --source ops/discovery/current.json --output ops/discovery/triage.json
       - name: Write truthful outcome summary
         shell: bash
         run: |
@@ -37,12 +45,14 @@ jobs:
           import os
           from pathlib import Path
           data = json.loads(Path('ops/discovery/current.json').read_text())
+          triage = json.loads(Path('ops/discovery/triage.json').read_text())
           with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as f:
               f.write('## Public market discovery, not paid customers\n\n')
               f.write('Configured lanes: **10**; completed lanes: **'
                       + str(data['successful_lanes']) + '**; unique candidates: **'
                       + str(data['unique_candidates']) + '**.\n\n')
               f.write('Candidates are NOT verified payouts, contacts, qualified buyer leads, or completed jobs.\n')
+              f.write('Upstream duplicate/claim review: ' + str(triage['decision_counts']) + '.\n')
               for lane, problem in data['lane_errors'].items():
                   f.write('\n- ' + lane + ' search failed: ' + problem)
           PY
@@ -50,7 +60,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          git add ops/discovery/current.json
+          git add ops/discovery/current.json ops/discovery/triage.json
           if git diff --cached --quiet; then
             echo 'No change in durable discovery state: no commit needed.'
           else
