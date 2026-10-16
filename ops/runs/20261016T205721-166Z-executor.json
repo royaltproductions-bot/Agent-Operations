@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "attribution": "scheduled_hourly",
+  "recorded_at_utc": "2026-10-16T20:57:21.166Z",
+  "status": "blocked",
+  "start_receipt": {
+    "path": "ops/runs/2026-10-16T205524Z-executor-start.json",
+    "created": false,
+    "create_file_result": "OpenAI safety-check refusal",
+    "readback": "404 NOT_FOUND",
+    "no_bypass": true
+  },
+  "source_state": {
+    "handoff_read": true,
+    "qualified_queue_leads": 0,
+    "discovery_candidates": 10,
+    "triage_reviewed": 10,
+    "triage_independently_funded": 0,
+    "triage_competing_or_incomplete": 9,
+    "prior_outcomes_reviewed": 4
+  },
+  "live_stripe": {
+    "checkout_sessions": 0,
+    "latest_payment_intent_created_unix": 1718343295,
+    "latest_charge_created_unix": 1718343295,
+    "verified_new_paid_orders": 0,
+    "verified_new_usd": 0
+  },
+  "inbound": {
+    "agentmail_received": 0,
+    "gmail_new_buyer_replies": 0
+  },
+  "external_action": {
+    "kind": "explicit_paid_editorial_pitch",
+    "source_url": "https://nobells.blog/pitching-guidelines/",
+    "source_pay_range_usd": [
+      75,
+      150
+    ],
+    "official_2026_invitation": true,
+    "duplicate_precheck": "Gmail Sent and AgentMail Sent both 0",
+    "channel": "Gmail",
+    "attempted": true,
+    "result": "OpenAI safety-check refusal",
+    "sent_count": 0,
+    "remote_receipt_verified": false,
+    "post_refusal_gmail_sent_count": 0,
+    "post_refusal_agentmail_sent_count": 0,
+    "no_retry_or_bypass": true
+  },
+  "blocker": "GitHub create_file start denied; no qualified funded Scout lead; explicitly invited paid editorial pitch denied by Gmail safety check. No order, accepted paid job, verified outreach, or new revenue.",
+  "next_task": "Do not retry blocked No Bells pitch or prior denied targets. Check actual new paid orders/inbound; identify different funded explicit public solicitation with supported authorized submission, verify remote receipt, and log immutably if permitted."
+}
