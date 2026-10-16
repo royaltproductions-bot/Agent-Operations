@@ -16,7 +16,7 @@
     "testing": 25
   },
   "lane_errors": {},
-  "unique_candidates": 7,
+  "unique_candidates": 8,
   "top_candidates": [
     {
       "source": "github_public_issue",
@@ -89,6 +89,18 @@
       "created_at": "2026-10-16T12:12:10Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "cash"
+    },
+    {
+      "source": "github_public_issue",
+      "repo": "BasedHardware/omi",
+      "title": "[Bounty Proposal] fix(backend): filter soft-deleted entities in recommendations and ensure goal deletion idempotency ($50 proposed)",
+      "url": "https://github.com/BasedHardware/omi/issues/21854",
+      "bounty_usd_hint_not_verified": 50.0,
+      "score_for_review_only": 65,
+      "competition_indicator_comments": 0,
+      "created_at": "2026-10-16T12:56:39Z",
+      "status": "requires_manual_payment_and_claim_verification",
+      "discovered_lane": "python"
     },
     {
       "source": "github_public_issue",
