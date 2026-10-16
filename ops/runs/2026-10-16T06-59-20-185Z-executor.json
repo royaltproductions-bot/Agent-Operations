@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "attribution": "scheduled_hourly",
+  "start_at_utc": "2026-10-16T06:57:27.681Z",
+  "start_receipt": "ops/runs/2026-10-16T06-57-27-681Z-executor-start.json",
+  "start_readback_verified": true,
+  "recorded_at_utc": "2026-10-16T06:59:20.185Z",
+  "status": "blocked",
+  "handoff_read": "ops/EXECUTION-HANDOFF.md",
+  "qualified_queue": {
+    "directory": "ops/agent-queue/",
+    "qualified_json_count": 0
+  },
+  "outcomes_checked": [
+    "ops/outcomes/depproof-ai-assisted-sales-pilot-2026-10-15T23-02-22-046Z.json",
+    "ops/outcomes/irash-tech-commission-referral-inquiry-20261016T025501-539Z.json"
+  ],
+  "discovery": {
+    "triage_reviewed_at_utc": "2026-10-16T06:45:40.141339Z",
+    "reviewed_items": 15,
+    "competing_fix_or_pr": 14,
+    "uncontested_not_funding_verified": 1,
+    "verified_funding": 0,
+    "source": "ops/discovery/triage.json"
+  },
+  "payment_check": {
+    "provider": "Stripe",
+    "livemode": true,
+    "checkout_sessions_total": 0,
+    "paid_checkout_sessions": 0,
+    "latest_five_payment_intents_from_year": 2024,
+    "verified_new_orders": 0,
+    "verified_new_usd": 0
+  },
+  "buyer_inbox": {
+    "agentmail_received": 0,
+    "agentmail_sent": 0,
+    "gmail_buyer_replies": 0,
+    "gmail_prior_toolhouse_application_not_duplicated": true
+  },
+  "external_action": {
+    "sent_count": 0,
+    "verified_remote_receipt": false,
+    "reason": "No current unclaimed, adequately funded, reachable paid buyer/job with an authorized submission and feasible full delivery path; no paid inbound order. Did not make noise or claim an untested implementation."
+  },
+  "fresh_opportunity_review": [
+    {
+      "url": "https://github.com/oll4com/spaceapp/issues/64",
+      "offer_usd_advertised": 400,
+      "maintainer_reaffirmed_terms": true,
+      "competing_attempt_comments": 2,
+      "requires_full_merge": true,
+      "escrow_independently_verified": false,
+      "decision": "not_actionable_this_cycle_due_to_full_scope_and_active_competition"
+    },
+    {
+      "url": "https://github.com/oll4com/spaceapp/issues/65",
+      "offer_usd_advertised": 450,
+      "competing_attempt_comments": 3,
+      "requires_full_merge": true,
+      "escrow_independently_verified": false,
+      "decision": "not_actionable_this_cycle_due_to_full_scope_and_active_competition"
+    },
+    {
+      "url": "https://github.com/oll4com/spaceapp/issues/62",
+      "offer_usd_advertised": 750,
+      "competing_attempt_comments": 3,
+      "requires_full_merge": true,
+      "escrow_independently_verified": false,
+      "decision": "not_actionable_this_cycle_due_to_full_scope_and_active_competition"
+    },
+    {
+      "url": "https://github.com/Expensify/App/issues/104178",
+      "offer_usd_advertised": 175,
+      "already_assigned": true,
+      "decision": "not_claimable"
+    },
+    {
+      "url": "https://news.ycombinator.com/item?id=49922572",
+      "decision": "October freelancer thread returned seeking-work posts, no independently qualified open buyer solicitation with direct authorized route"
+    }
+  ],
+  "safety": {
+    "previous_sundream_block_not_retried": true,
+    "previous_depproof_block_not_retried": true,
+    "previous_irash_block_not_retried": true,
+    "no_duplicate_toolhouse_application": true,
+    "no_spend": true,
+    "no_unsolicited_outreach": true
+  },
+  "verified_new_usd": 0,
+  "blocker": "Qualified Scout queue empty; radar candidates contested/unfunded; new public cash bounties are competitive full-scope jobs not executable and verifiable in this cycle. No actual buyer inquiry or paid order.",
+  "next_task": "Check Stripe and both inboxes; inspect next Scout queue; seek direct invited paid tasks with explicit terms and feasible small deliverable. If none, record and pivot, do not spam or invent sales."
+}
