@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "lead_id": "elitepersonalfinance-paid-guestpost-pitch",
+  "attribution": "scheduled_hourly",
+  "recorded_at_utc": "2026-10-16T11:57:09.043Z",
+  "status": "blocked",
+  "kind": "explicit_public_paid_editorial_solicitation",
+  "source_url": "https://www.elitepersonalfinance.com/write-for-us/",
+  "source_updated": "2026-03-01",
+  "advertised_compensation_usd": 300,
+  "terms": "$300 per accepted completed guest post; initial topic pitch by email, 1000-3000 words, original nonpromotional content; no guaranteed commission",
+  "action_attempted": "One individually tailored pitch for a fact-checked hypothetical small-retailer consignment cashflow explainer, with explicit AI-assistance disclosure, sent to the official submission address",
+  "attempted_channel": "AgentMail operations inbox to publicly invited editor address",
+  "provider_response": "This tool call was blocked by OpenAI's safety checks. Please double check what you are sending.",
+  "sent_count": 0,
+  "verified_remote_receipt": false,
+  "verification": [
+    "AgentMail recipient-specific Sent search after refusal returned 0 messages",
+    "Gmail recipient-specific Sent search after refusal returned 0 messages"
+  ],
+  "no_retry_or_bypass": true,
+  "paid_order_confirmed": false,
+  "verified_new_usd": 0,
+  "next_task": "Do not retry this blocked publisher pitch via another provider. Find a different legitimate explicitly solicited paid opportunity with a permissible direct submission mechanism, or await inbound paid work."
+}
