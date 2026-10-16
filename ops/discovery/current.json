@@ -64,7 +64,7 @@
       "competition_indicator_comments": 7,
       "created_at": "2026-10-15T20:02:45Z",
       "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "testing"
+      "discovered_lane": "javascript"
     },
     {
       "source": "github_public_issue",
@@ -88,7 +88,7 @@
       "competition_indicator_comments": 7,
       "created_at": "2026-10-15T20:02:53Z",
       "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "cash"
+      "discovered_lane": "testing"
     },
     {
       "source": "github_public_issue",
@@ -100,7 +100,7 @@
       "competition_indicator_comments": 7,
       "created_at": "2026-10-15T20:03:01Z",
       "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "cash"
+      "discovered_lane": "integration"
     },
     {
       "source": "github_public_issue",
@@ -136,7 +136,7 @@
       "competition_indicator_comments": 8,
       "created_at": "2026-10-15T20:01:50Z",
       "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "testing"
+      "discovered_lane": "integration"
     },
     {
       "source": "github_public_issue",
@@ -181,10 +181,10 @@
       "url": "https://github.com/Parabola-org/parabola/issues/19",
       "bounty_usd_hint_not_verified": 45.0,
       "score_for_review_only": 52,
-      "competition_indicator_comments": 8,
+      "competition_indicator_comments": 9,
       "created_at": "2026-10-15T20:03:06Z",
       "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "cash"
+      "discovered_lane": "documentation"
     },
     {
       "source": "github_public_issue",
@@ -193,10 +193,10 @@
       "url": "https://github.com/Parabola-org/parabola/issues/20",
       "bounty_usd_hint_not_verified": 45.0,
       "score_for_review_only": 52,
-      "competition_indicator_comments": 8,
+      "competition_indicator_comments": 9,
       "created_at": "2026-10-15T20:03:08Z",
       "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "cash"
+      "discovered_lane": "documentation"
     }
   ]
 }
