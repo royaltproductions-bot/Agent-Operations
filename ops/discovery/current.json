@@ -16,7 +16,7 @@
     "testing": 25
   },
   "lane_errors": {},
-  "unique_candidates": 9,
+  "unique_candidates": 10,
   "top_candidates": [
     {
       "source": "github_public_issue",
@@ -101,6 +101,18 @@
       "created_at": "2026-10-16T16:47:30Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "python"
+    },
+    {
+      "source": "github_public_issue",
+      "repo": "BasedHardware/omi",
+      "title": "[Bounty proposal] fix(database): sanitize inputs and add stream error boundaries to batch pipeline privacy queries ($50 proposed)",
+      "url": "https://github.com/BasedHardware/omi/issues/21916",
+      "bounty_usd_hint_not_verified": 50.0,
+      "score_for_review_only": 73,
+      "competition_indicator_comments": 0,
+      "created_at": "2026-10-16T17:57:46Z",
+      "status": "requires_manual_payment_and_claim_verification",
+      "discovered_lane": "cash"
     },
     {
       "source": "github_public_issue",
