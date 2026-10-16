@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "attribution": "scheduled_hourly",
+  "recorded_at_utc": "2026-10-16T21:58:49.693Z",
+  "status": "blocked",
+  "start_receipt": {
+    "path": "ops/runs/2026-10-16T21-56-15-140Z-executor-start.json",
+    "created": true,
+    "verified_readback": true,
+    "commit": "d89eca010a81698cbad9795be0e8236b3f68984e"
+  },
+  "state_recovered": {
+    "handoff_read": true,
+    "qualified_queue_leads": 0,
+    "discovery_candidates": 10,
+    "triage_reviewed": 10,
+    "independently_funded_discovery_candidates": 0,
+    "prior_outcomes_reviewed": 4
+  },
+  "live_stripe": {
+    "checkout_sessions": 0,
+    "latest_payment_intent_created_unix": 1718343295,
+    "verified_new_paid_orders": 0,
+    "verified_new_usd": 0
+  },
+  "inbound": {
+    "agentmail_received": 0,
+    "gmail_new_buyer_replies": 0,
+    "gmail_sent_prior_existing_toolhouse_application": 1
+  },
+  "external_action": {
+    "kind": "original_proposal_to_explicit_paid_wildcard_invitation",
+    "source_url": "https://github.com/limitlessprojects/Go-Hybrid/blob/main/MOONSHOT.md",
+    "terms_url": "https://github.com/limitlessprojects/Go-Hybrid/blob/main/BOUNTY.md",
+    "advertised_potential_award_usd": 500,
+    "verified_award_usd": 0,
+    "attempted": true,
+    "channel": "GitHub create_issue",
+    "topic": "Proof-carrying Go independent safety certificates",
+    "result": "OpenAI safety-check refusal",
+    "remote_receipt_verified": false,
+    "post_refusal_issue_search_count": 0,
+    "sent_count": 0,
+    "no_retry_or_bypass": true,
+    "outcome_path": "ops/outcomes/go-hybrid-wildcard-proof-carrying-2026-10-16T21-58-38-809Z.json",
+    "outcome_readback_verified": true
+  },
+  "blocker": "No new paid inbound orders, no independently funded qualified Scout lead, and a distinct explicitly invited paid wildcard proposal was blocked by GitHub connector safety checks. No external action was accepted, no money collected.",
+  "next_task": "Check paid inbound orders first; find a different independently qualified funded buyer/job with authorized submission; do not retry previously blocked Sundream, Toolhouse, depproof, ElitePersonalFinance, Irash Tech, Mix-n-Morph, No Bells, or Go-Hybrid proof-carrying proposal through alternate endpoints. Verify receipt and payment before claiming success."
+}
