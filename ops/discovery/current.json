@@ -16,7 +16,7 @@
     "testing": 25
   },
   "lane_errors": {},
-  "unique_candidates": 20,
+  "unique_candidates": 19,
   "top_candidates": [
     {
       "source": "github_public_issue",
@@ -52,7 +52,7 @@
       "competition_indicator_comments": 6,
       "created_at": "2026-10-15T20:02:07Z",
       "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "integration"
+      "discovered_lane": "testing"
     },
     {
       "source": "github_public_issue",
@@ -73,7 +73,7 @@
       "url": "https://github.com/Parabola-org/parabola/issues/1",
       "bounty_usd_hint_not_verified": 105.0,
       "score_for_review_only": 77,
-      "competition_indicator_comments": 6,
+      "competition_indicator_comments": 7,
       "created_at": "2026-10-15T20:01:50Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "cash"
@@ -133,7 +133,7 @@
       "url": "https://github.com/Parabola-org/parabola/issues/9",
       "bounty_usd_hint_not_verified": 90.0,
       "score_for_review_only": 72,
-      "competition_indicator_comments": 5,
+      "competition_indicator_comments": 7,
       "created_at": "2026-10-15T20:02:33Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "testing"
@@ -245,18 +245,6 @@
       "created_at": "2026-10-15T20:02:58Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "data"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "uvsmtid/protoprimer",
-      "title": "Add `ShellDriverSh`: use `/bin/sh` when `SHELL` is not set",
-      "url": "https://github.com/uvsmtid/protoprimer/issues/143",
-      "bounty_usd_hint_not_verified": 75.0,
-      "score_for_review_only": 57,
-      "competition_indicator_comments": 14,
-      "created_at": "2026-10-15T14:49:56Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "testing"
     }
   ]
 }
