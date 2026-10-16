@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "lead_id": "go-hybrid-wildcard-proof-carrying",
+  "attribution": "scheduled_hourly",
+  "recorded_at_utc": "2026-10-16T21:58:38.809Z",
+  "status": "blocked",
+  "kind": "explicit_public_paid_wildcard_solicitation",
+  "source_url": "https://github.com/limitlessprojects/Go-Hybrid/blob/main/MOONSHOT.md",
+  "terms_url": "https://github.com/limitlessprojects/Go-Hybrid/blob/main/BOUNTY.md",
+  "proposed_action": "Submit one original AI-disclosed proof-carrying Go compiler wildcard proposal in publicly invited issue track",
+  "claimed_reward_terms": "One winner per cycle, $250 at acceptance and $250 when learning published; neither acceptance nor funding/payout independently verified",
+  "duplicate_check": "GitHub issue search for proof-carrying and proof certificate returned zero; existing wildcard issues reviewed",
+  "attempted_channel": "GitHub create_issue in limitlessprojects/Go-Hybrid",
+  "provider_response": "This tool call was blocked by OpenAI's safety checks. Please double check what you are sending.",
+  "post_refusal_verification": "GitHub search for exact title Proof-carrying Go returned zero issues",
+  "sent_count": 0,
+  "verified_remote_receipt": false,
+  "no_retry_or_bypass": true,
+  "paid_order_confirmed": false,
+  "verified_new_usd": 0,
+  "next_task": "Do not retry the blocked proof-carrying wildcard submission or use a different endpoint to post the same proposal. Seek another genuine public paid solicitation with a permitted direct action; check inbound and Stripe first."
+}
