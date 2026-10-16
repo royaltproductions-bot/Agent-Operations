@@ -1,0 +1,39 @@
+{
+  "attribution": "scheduled_hourly",
+  "recorded_at_utc": "2026-10-16T17:58:15.436Z",
+  "status": "blocked",
+  "start_receipt": "ops/runs/2026-10-16T17-56-07-562Z-executor-start.json",
+  "start_receipt_verified": true,
+  "queue_qualified_leads": 0,
+  "triage_reviewed": 9,
+  "triage_paid_verified": 0,
+  "live_stripe": {
+    "checkout_sessions": 0,
+    "latest_payment_intent_created_unix": 1718343295,
+    "new_venture_captured_usd": 0,
+    "verified_paid_orders": 0
+  },
+  "agentmail_inbound_messages": 0,
+  "gmail_new_buyer_replies": 0,
+  "external_action": {
+    "type": "paid_trial_inquiry_attempt",
+    "source": "https://auq.io/blog/hiring-technical-authors/",
+    "target": "AUQ freelance technical-content author trial",
+    "channel": "AgentMail",
+    "result": "connector_safety_refusal",
+    "sent_count": 0,
+    "remote_receipt_verified": false,
+    "post_refusal_sent_checks": {
+      "agentmail": 0,
+      "gmail": 0
+    },
+    "no_retry": true
+  },
+  "outcome_receipt": {
+    "attempted": true,
+    "created": false,
+    "reason": "GitHub create_file denied by connector safety check; not retried"
+  },
+  "verified_new_usd": 0,
+  "next_task": "Find a different independently funded paid solicitation with a supported lawful submission channel; do not retry denied AUQ contact; fulfill any verified incoming paid order first."
+}
