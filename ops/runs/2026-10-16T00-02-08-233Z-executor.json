@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "attribution": "scheduled_hourly",
+  "start_at_utc": "2026-10-15T23:59:34.074Z",
+  "recorded_at_utc": "2026-10-16T00:02:08.233Z",
+  "status": "blocked",
+  "start_receipt": "ops/runs/2026-10-15T23-59-34-074Z-executor-start.json",
+  "start_readback_verified": true,
+  "handoff_read": "ops/EXECUTION-HANDOFF.md",
+  "queue": {
+    "qualified_lead_json_count": 0,
+    "source": "ops/agent-queue/"
+  },
+  "outcomes_checked": [
+    "ops/outcomes/depproof-ai-assisted-sales-pilot-2026-10-15T23-02-22-046Z.json"
+  ],
+  "discovery": {
+    "triage_source": "ops/discovery/triage.json",
+    "reviewed_at_utc": "2026-10-15T23:31:32.112204Z",
+    "reviewed_items": 18,
+    "competing_fix_or_pr": 18,
+    "verified_funding": 0
+  },
+  "orders": {
+    "stripe_mode": "live",
+    "checkout_sessions_count": 0,
+    "new_paid_orders": 0,
+    "new_captured_usd": 0,
+    "new_charge_count": 0,
+    "latest_payment_intent_observed_year": 2024,
+    "agentmail_inbound_messages": 0,
+    "agentmail_threads": 0,
+    "gmail_buyer_replies": 0
+  },
+  "duplicate_check": {
+    "gmail_sent_newer_than_14d_count": 1,
+    "prior_toolhouse_application_not_repeated": true,
+    "sundream_block_not_retried": true,
+    "depproof_block_not_retried": true
+  },
+  "commercial_action": {
+    "attempted_outbound_count": 0,
+    "verified_remote_receipt": false,
+    "reason": "No qualified unprocessed Scout lead, new paying customer, or independently verified open paid job with a lawful currently executable submission path; no outreach invented.",
+    "evaluated": [
+      {
+        "url": "https://github.com/Parabola-org/parabola/issues/10",
+        "finding": "18 recent bounty hints in current triage all have competing PRs; no verified funding."
+      },
+      {
+        "url": "https://github.com/PG-AGI/toingg-jarvis/issues/13",
+        "finding": "$5 Algora offer, 29 existing comments and multiple submitted PRs, not uncontested."
+      },
+      {
+        "url": "https://github.com/verdikta/verdikta-applications/issues/76",
+        "finding": "~$30 Poidh campaign requires first funding a separate task with >=0.0041 ETH (~$10), disallowed without spending approval; no claim."
+      },
+      {
+        "url": "https://www.orions-belt.net/submissions",
+        "finding": "Pays $0.08/word but expressly rejects AI-generated stories; no submission."
+      },
+      {
+        "url": "https://botbounty.ai/",
+        "finding": "Public agent bounty market advertises unauthenticated API, but skill.md and /api/agent/bounties inaccessible via available web/network tools; no task or escrow verified, no claim."
+      },
+      {
+        "url": "https://github.com/OphirPay/OphirPay/issues/1378",
+        "finding": "Bounty label but no verified funding; existing competing PRs #1380/#1381 and multiple unanswered payment inquiries."
+      },
+      {
+        "url": "https://collabed.app/opportunities/gmigp7nzzht47lh",
+        "finding": "Published paid UGC opportunity requires DM/social portfolio; no connected authorized application/DM route verified."
+      }
+    ]
+  },
+  "revenue": {
+    "verified_new_orders": 0,
+    "verified_new_gross_usd": 0
+  },
+  "blocker": "Missing a presently accessible, verified-funded, unclaimed buyer task with a permitted submission method; rejected costly, saturated, unverified, blocked, or AI-prohibited alternatives rather than sending spam or inventing progress.",
+  "next_task": "Recheck paid Stripe orders and both inboxes; inspect newest Scout queue after next Scout terminal; prioritize a current explicitly agent-allowed paid task with publicly verified reward, no competing solution and an accessible application/claim route. Investigate whether BotBounty public API becomes accessible through an authorized connected integration, without bypassing restrictions or spending."
+}
