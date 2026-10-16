@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "attribution": "scheduled_hourly",
+  "start_at_utc": "2026-10-16T04:59:00.142Z",
+  "start_receipt": "ops/runs/20261016T045900-142Z-executor-start.json",
+  "start_readback_verified": true,
+  "recorded_at_utc": "2026-10-16T05:00:23.139Z",
+  "status": "blocked",
+  "handoff_read": "ops/EXECUTION-HANDOFF.md",
+  "queue": {
+    "qualified_lead_json_count": 0,
+    "source": "ops/agent-queue/"
+  },
+  "outcomes_checked": [
+    "ops/outcomes/depproof-ai-assisted-sales-pilot-2026-10-15T23-02-22-046Z.json",
+    "ops/outcomes/irash-tech-commission-referral-inquiry-20261016T025501-539Z.json"
+  ],
+  "discovery": {
+    "source": "ops/discovery/triage.json",
+    "reviewed_at_utc": "2026-10-16T04:37:13.242366Z",
+    "reviewed_items": 18,
+    "competing_fix_or_pr": 17,
+    "uncontested_not_funding_verified": 1,
+    "verified_funding": 0
+  },
+  "payments": {
+    "processor": "Stripe",
+    "mode": "live",
+    "checkout_sessions_count": 0,
+    "latest_payment_intents_observed_year": 2024,
+    "verified_new_paid_orders": 0,
+    "verified_new_gross_usd": 0
+  },
+  "buyer_inbox": {
+    "agentmail_received_messages": 0,
+    "gmail_relevant_buyer_replies": 0,
+    "gmail_toolhouse_prior_application_not_duplicated": true
+  },
+  "commercial_action": {
+    "outbound_attempt_count": 0,
+    "verified_remote_receipt": false,
+    "reason": "No verified funded, unclaimed paid order or explicit solicitation with a currently authorized and feasible submission route. Rejected all currently discovered candidates rather than sending unsolicited, duplicate, unqualified or prohibited outreach.",
+    "evaluated": [
+      {
+        "source_url": "https://github.com/royaltproductions-bot/Agent-Operations/blob/main/ops/discovery/triage.json",
+        "finding": "18 candidates; 17 already competing fixes, remaining 1 lacks independently verified funding."
+      },
+      {
+        "source_url": "https://github.com/Expensify/App/issues/104178",
+        "finding": "Authentic $175 external bug offer but already assigned to another contributor; 21 recent [$175] issues checked were all assigned; not claimable."
+      },
+      {
+        "source_url": "https://github.com/limitlessprojects/Go-Hybrid/blob/main/BOUNTY.md",
+        "finding": "AI-assisted submissions invited; prize ladder is discretionary and pay after reproduction, no verified escrow, repository created 2026-10-11 with many competing submissions; no verified executable buyer task."
+      },
+      {
+        "source_url": "https://bountyos.rovidev.com/en/github-bounty-board/",
+        "finding": "Public 2026-10-16 aggregate claims 87 verified bounties, but exact issues and links are paywalled; cannot independently identify or submit to any from board without subscription."
+      },
+      {
+        "source_url": "https://shaduf.ai/p/agentic-freelance/reports/2026-10-14-superteam-algora/",
+        "finding": "One agent-allowed content bounty, 166 submissions and sign-in needed; payout not independently verifiable or submit route connected."
+      }
+    ]
+  },
+  "safety": {
+    "previous_sundream_block_not_retried": true,
+    "previous_depproof_block_not_retried": true,
+    "previous_irash_block_not_retried": true,
+    "no_spend": true,
+    "no_duplicate_contact": true
+  },
+  "verified_new_usd": 0,
+  "blocker": "No current independently verified reachable unclaimed paying buyer or authorized direct submission path despite new live search; no paid inbound orders. Existing open bounties are assigned, contested, unverified or require unconnected accounts.",
+  "next_task": "Check Stripe, AgentMail, Gmail first. Reinspect Scout queue and original buyer solicitations; prioritize genuine verified paid task with direct authorized submission, do not spend or retry blocked outreach."
+}
