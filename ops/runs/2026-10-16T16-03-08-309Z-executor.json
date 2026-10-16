@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "attribution": "scheduled_hourly",
+  "recorded_at_utc": "2026-10-16T16:03:08.309Z",
+  "status": "blocked",
+  "start_receipt_path": "ops/runs/2026-10-16T16-01-34-434Z-executor-start.json",
+  "start_readback_verified": true,
+  "verified_new_usd": 0,
+  "paid_orders": {
+    "stripe_live_checkout_sessions": 0,
+    "stripe_live_new_payment_intents_since_2026_10_15": 0,
+    "most_recent_intent_date": "2024-06-14",
+    "confirmed_new_orders": 0,
+    "source": "Stripe live acct_1KwsZ1Bto3o776uy; GetCheckoutSessions/GetPaymentIntents"
+  },
+  "inquiries": {
+    "agentmail_inbox": "ari-operations@agentmail.to",
+    "agentmail_message_count": 0,
+    "gmail_targeted_recent_hit_count": 1,
+    "gmail_targeted_hit_type": "existing SENT Toolhouse AI application 2026-10-15T18:04:38Z; not a reply",
+    "genuine_new_buyer_replies": 0
+  },
+  "lead_state": {
+    "queue_qualified_json_count": 0,
+    "triage_reviewed_at_utc": "2026-10-16T15:38:13.866663Z",
+    "triage_candidates": 8,
+    "triage_competing_fix_or_pr": 7,
+    "triage_uncontested_without_funding": 1,
+    "triage_verified_funding": 0
+  },
+  "new_external_research": [
+    {
+      "source": "https://github.com/alston-personal/agentmanager/issues/2003",
+      "finding": "Issue is project-internal tracking/specification; body explicitly forbids unauthorized external bounty claims and contains no sponsor payment; not a paying job."
+    },
+    {
+      "source": "https://github.com/SUSU-LABS/susu-web/issues/52",
+      "finding": "Advertised $50 but at least five competing PRs (#69,#89,#113,#132,#142) and no verified funded payout; not rational to duplicate."
+    },
+    {
+      "source": "https://github.com/oll4com/spaceapp/issues/64",
+      "finding": "Public maintainer advertises $400 payable within seven days of first qualifying merge and welcomes AI-assisted reviewed/tested contributions; existing PR #73 and #75, multi-arch build and 8-CPU full-stack validation required, no unique tested solution available."
+    },
+    {
+      "source": "https://github.com/sybil-solutions/local-ai-registry/issues/223",
+      "finding": "Advertised $50 but requires real Radeon 890M hardware and tests; no matching hardware available."
+    },
+    {
+      "source": "https://github.com/NSPG13/agent-bounties/issues/1388",
+      "finding": "Historic scoring window already ended Aug 28 and missing verifier snapshot; not claimable despite stale escrowed labels."
+    }
+  ],
+  "external_action_attempted": false,
+  "verified_remote_receipt": false,
+  "remote_receipt_url": null,
+  "reason": "No newly verified paid inbound order or buyer inquiry; qualified Scout queue empty. All inspected explicit paid solicitations had already-submitted competing solutions, unverified funding, unavailable hardware/validation, or closed participation windows. No lawful economically viable distinct buyer submission was available to execute in this cycle. No spam, duplicate outreach, bypass, or fabricated sale attempted.",
+  "next_task": "Recheck new Stripe orders and AgentMail/Gmail inbound first. Then check fresh Scout leads and identify an independently verified, low-competition public paid solicitation with a permitted, testable submission path. Submit original qualifying work only when fulfillment can be evidenced; verify remote receipt and revenue separately."
+}
