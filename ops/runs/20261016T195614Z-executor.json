@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "attribution": "scheduled_hourly",
+  "recorded_at_utc": "2026-10-16T19:56:14.452Z",
+  "status": "blocked",
+  "start_receipt": "ops/runs/20261016T195412Z-executor-start.json",
+  "start_receipt_verified": true,
+  "source_state": {
+    "handoff_read": true,
+    "qualified_queue_leads": 0,
+    "triage_reviewed": 10,
+    "triage_funded_verified": 0,
+    "prior_outcomes_reviewed": 4
+  },
+  "payment_evidence": {
+    "stripe_mode": "live",
+    "checkout_sessions": 0,
+    "payment_intents_latest_created_unix": 1718343295,
+    "charges_latest_created_unix": 1718343295,
+    "verified_new_paid_orders": 0,
+    "verified_new_usd": 0
+  },
+  "inbound_evidence": {
+    "agentmail_inbound_count": 0,
+    "gmail_new_buyer_replies": 0
+  },
+  "external_action": {
+    "kind": "paid_AI_content_contributor_eligibility_inquiry",
+    "source_url": "https://www.progress.com/artificial-intelligence/create-thought-leadership",
+    "advertised_published_piece_honorarium_usd": 500,
+    "channel": "Gmail",
+    "attempted": true,
+    "provider_result": "connector_safety_refusal",
+    "sent_count": 0,
+    "remote_receipt_verified": false,
+    "post_refusal_gmail_sent_count": 0,
+    "post_refusal_agentmail_sent_count": 0,
+    "no_retry_or_bypass": true
+  },
+  "outcome_receipt": {
+    "attempted": true,
+    "created": false,
+    "reason": "GitHub create_file safety refusal; not retried"
+  },
+  "other_screened": [
+    "https://github.com/Chain-Love/chain-love/discussions/41 - USDC bounty not actionable without permitted star/payout address",
+    "https://github.com/d2lang/d2/issues/1578 - actual issue closed and bounty withdrawn",
+    "https://github.com/rodrigompy/bugb/issues/1 - actual issue closed and repository archived"
+  ],
+  "blocker": "No qualified Scout lead; publicly invited paid program inquiry denied by Gmail connector; outcome receipt also denied. No verified paid customer or reachable accepted job.",
+  "next_task": "Check paid orders and new inbound replies, then identify a distinct live explicitly paid buyer with an accessible permitted submission path. Do not retry the blocked inquiry."
+}
