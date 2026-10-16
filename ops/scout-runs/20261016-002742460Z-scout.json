@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "attribution": "scheduled_scout",
+  "recorded_at_utc": "2026-10-16T00:27:42.460Z",
+  "status": "blocked",
+  "start_receipt_created": false,
+  "start_receipt_error": "GitHub create_file blocked by OpenAI safety checks; no alternate path attempted",
+  "sources_checked": [
+    "https://github.com/royaltproductions-bot/Agent-Operations/blob/main/ops/discovery/triage.json",
+    "https://news.ycombinator.com/item?id=49922569",
+    "https://jobs.a16z.com/jobs/sleeper/fd7c8e44-caa4-4dff-b2d9-3a3365aae706--ai-content-creator-contract",
+    "https://www.upwork.com/freelance-jobs/apply/Video-Production-Operator_~022109555898556641112/",
+    "https://www.reddit.com/r/VideoEditors_forhire/comments/1wuru1v/hiring_shortform_video_editor_remote_parttime/"
+  ],
+  "qualified_lead_ids": [],
+  "qualified_count": 0,
+  "queue_existing_count": 0,
+  "discovery_reviewed_items": 18,
+  "discovery_competed_items": 18,
+  "reason": "No source met all requirements for verified currently reachable compensated work executable via connected channel without missing application portfolio or account access. Sleeper $500/month application requires 3-5 specific work URLs and JS-only Ashby form; Upwork requires account and has 50+ proposals; Reddit hiring requires Reddit DM; Privy.pro contract requires 90-second application video. No speculative lead created.",
+  "outreach_sent": 0,
+  "paid_orders_checked": false,
+  "verified_revenue_usd": null,
+  "next_task": "Find original buyer solicitations with explicitly permitted email contact, verifiable compensation, no unprovided application artifacts, and work executable by the authorized agent. Investigate scheduled GitHub write safety refusal without bypassing it."
+}
