@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "reviewed_at_utc": "2026-10-16T18:41:25.214919Z",
+  "reviewed_at_utc": "2026-10-16T19:36:20.772897Z",
   "source_items": 10,
   "reviewed_items": 10,
   "decision_counts": {
@@ -37,7 +37,8 @@
       "url": "https://github.com/BasedHardware/omi/issues/21916",
       "decision": "competing_fix_or_pr",
       "competing_pr_urls": [
-        "https://github.com/BasedHardware/omi/pull/21917"
+        "https://github.com/BasedHardware/omi/pull/21917",
+        "https://github.com/BasedHardware/omi/pull/21928"
       ],
       "claim_signals": [],
       "open_prs_inspected": 100,
@@ -69,7 +70,7 @@
         "https://github.com/paraloom-labs/paraloom-core/issues/929#issuecomment-6201387217",
         "https://github.com/paraloom-labs/paraloom-core/issues/929#issuecomment-6201450009"
       ],
-      "open_prs_inspected": 83,
+      "open_prs_inspected": 82,
       "comments_inspected": 9,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
@@ -83,7 +84,7 @@
       "claim_signals": [
         "https://github.com/paraloom-labs/paraloom-core/issues/952#issuecomment-6217797774"
       ],
-      "open_prs_inspected": 83,
+      "open_prs_inspected": 82,
       "comments_inspected": 2,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
@@ -95,7 +96,7 @@
         "https://github.com/paraloom-labs/paraloom-core/pull/957"
       ],
       "claim_signals": [],
-      "open_prs_inspected": 83,
+      "open_prs_inspected": 82,
       "comments_inspected": 2,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
@@ -109,7 +110,7 @@
       "claim_signals": [
         "https://github.com/paraloom-labs/paraloom-core/issues/959#issuecomment-6217801204"
       ],
-      "open_prs_inspected": 83,
+      "open_prs_inspected": 82,
       "comments_inspected": 2,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
