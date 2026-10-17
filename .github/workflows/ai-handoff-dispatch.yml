@@ -1,0 +1,75 @@
+name: AI Decisions to GitHub Execution - Documentary Handoff
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ops/ai-handoffs/*.json'
+      - 'tools/ai_handoff_executor.py'
+      - 'tests/test_ai_handoff_executor.py'
+      - '.github/workflows/ai-handoff-dispatch.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: approved-chatgpt-handoff
+  cancel-in-progress: false
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 3
+          persist-credentials: true
+      - name: Verify external handoff guardrails and retry safety
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m unittest discover -s tests -p 'test_ai_handoff_executor.py' -v
+      - name: Generate eligible handoff files
+        run: python3 tools/ai_handoff_executor.py
+      - name: Commit approved original creative source and handoff provenance
+        id: committed
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! grep -qx yes /tmp/ai-handoff-ready.txt; then
+            echo 'No new AI-originated approved job; no duplicate execution.'
+            echo 'ready=no' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git add campaigns/oddly-useful-stuff/creative-source/ai-commerce-*.svg ops/ai-handoff-results/*.json
+          if git diff --cached --quiet; then
+            echo 'ready=no' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git -c user.name='commerce-handoff' -c user.email='ari-operations@agentmail.to' \
+            commit -m 'Execute approved AI decision: produce original documentary source'
+          pushed=no
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then
+              pushed=yes
+              break
+            fi
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              exit 1
+            fi
+            sleep 2
+          done
+          test "$pushed" = yes
+          echo 'ready=yes' >> "$GITHUB_OUTPUT"
+      - name: Trigger existing SVG renderer and Buffer publisher
+        if: steps.committed.outputs.ready == 'yes'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # A GITHUB_TOKEN commit cannot initiate a second push-triggered workflow.
+          # Explicit workflow dispatch is necessary, and already accepted in this repo.
+          gh workflow run oddly-useful-render.yml --repo "$GITHUB_REPOSITORY" --ref main
+          echo 'Downstream renderer dispatched; actual Buffer acceptance must be checked there.'
