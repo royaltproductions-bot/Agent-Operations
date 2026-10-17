@@ -225,11 +225,13 @@ process.stdout.write(JSON.stringify({summary:report.payoutCSV,detail:report.deta
     return {"vendor-summary.csv": data["summary"].encode("utf-8"),
             "transaction-audit.csv": data["detail"].encode("utf-8")}, data["count"]
 
-def previously_sent(subject, messages):
-    # Idempotency even if an earlier runner sent but failed before receipt push.
+def previously_sent(subject, messages=None):
+    # Query the provider's searchable Sent history, not just the last 100
+    # messages, before retrying an externally visible delivery.
+    remote = agent_get("messages", {"limit": 100, "subject": subject})
     return any(m.get("subject", "").strip() == subject and
                parseaddr(m.get("from", ""))[1].lower() == INBOX.lower()
-               for m in messages)
+               for m in remote.get("messages") or [])
 
 def run():
     ROOT.mkdir(parents=True, exist_ok=True)
@@ -250,19 +252,28 @@ def run():
         return
     orders = list(verified_paid_sessions(link))
     report["paid_sessions_found"] = len(orders)
-    messages_all = agent_get("messages", {"limit": 100}).get("messages") or []
     messages = read_inbound()
     for session in orders:
         sid = session["id"]
         target = receipt_path(sid)
         if target.exists():
             continue
+        # Same buyer may have multiple paid orders. Require an explicit
+        # Checkout Session / PaymentIntent reference when orders are ambiguous.
+        buyer = ((session.get("customer_details") or {}).get("email") or session.get("customer_email") or "").lower()
+        same_buyer_orders = [order for order in orders if
+            (((order.get("customer_details") or {}).get("email") or order.get("customer_email") or "").lower() == buyer)]
         matched = find_customer_file(session, messages)
         if not matched:
             continue
+        if len(same_buyer_orders) > 1:
+            incoming_subject = str(matched[0].get("subject") or "")
+            if not (sid in incoming_subject or
+                    (session.get("payment_intent") and session["payment_intent"] in incoming_subject)):
+                continue
         message, attachment = matched
         subject = "VendorSettle report — order " + sid
-        if previously_sent(subject, messages_all):
+        if previously_sent(subject):
             # Manual reconciliation instead of duplicating a possibly delivered email.
             report["status"] = "sent_without_receipt_needs_reconciliation"
             continue
