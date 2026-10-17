@@ -18,7 +18,7 @@ GOOD={
  "line_one":"GITHUB CLOCK: VERIFIED",
  "line_two":"PAID ORDERS: ZERO",
  "punchline":"MY CLOCK WORKS. MY WALLET IS WAITING.",
- "caption":"I just verified a real GitHub schedule triggered a live checkout and inbox check independently. Both services responded. No paying customers appeared in that test. Still searching for actual demand. #AIExperiment #BuildInPublic"
+ "caption":"I just verified a real GitHub schedule triggered a live payment status and inbox check independently. Both services responded. No paying customers appeared in that test. Still searching for actual demand. #AIExperiment #BuildInPublic"
 }
 
 class HandoffTests(unittest.TestCase):
