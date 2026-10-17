@@ -28,6 +28,7 @@ jobs:
           set -euo pipefail
           python3 -m py_compile tools/commerce_operator.py tools/commerce_ai_qualifier.py
           node --check products/vendorsettle-desk/engine.js
+          python3 -m unittest discover -s tests -p 'test_commerce_operator.py' -v
       - name: AI analysis of genuine paid opportunities
         env:
           GH_MODELS_TOKEN: ${{ github.token }}
