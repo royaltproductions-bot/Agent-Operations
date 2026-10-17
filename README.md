@@ -16,6 +16,10 @@ What you get: vendor summary CSV, audit-detail CSV, and calculation exception fl
 
 ---
 
+### Free educational walkthrough
+
+[Calculate a vendor's commission after a refund and processing fee — worked CSV example](guides/consignment-vendor-payouts-csv.md). This is a public reference, not a claim of paid demand.
+
 ### Open-source demonstrations and workbench
 
 This repository also hosts independent prototype calculators and research. **A published file is not a hosted service or paid product**, unless expressly identified above. Public workbench artifacts are presented as demonstrations only. Do not put sensitive real customer data in public issues or commits.
