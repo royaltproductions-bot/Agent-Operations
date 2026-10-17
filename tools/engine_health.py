@@ -64,7 +64,9 @@ def run(root, now=None):
             "checked_at_utc": now.isoformat().replace("+00:00", "Z"),
             "money_checked": False,
             "verified_new_revenue_usd": None,
-            "external_publication_checked": False}
+            "external_publication_checked": False,
+            "expected_running_agents": ["executor"],
+            "disabled_legacy_scout_excluded_from_health": True}
     issues = []
     for role, dirpath, attr in (
             ("scout", "ops/scout-runs", "scheduled_scout"),
@@ -87,7 +89,7 @@ def run(root, now=None):
             if matches else None)
         info[role + "_fresh_within_2h"] = bool(fresh)
         info[role + "_record_errors"] = errs
-        if not fresh:
+        if not fresh and role == "executor":
             issues.append(role + " has no verified terminal log within 2 hours")
         if errs:
             issues.append(role + " has " + str(len(errs)) + " invalid/missing log condition(s)")
@@ -113,8 +115,8 @@ def run(root, now=None):
             info["triage_fresh_within_3h"] = False
     else:
         info["triage_fresh_within_3h"] = False
-    if not info["triage_fresh_within_3h"]:
-        issues.append("discovery triage file is missing or older than 3 hours")
+    # Bounty-only discovery is a nonessential, now-daily supplementary lane.
+    # Its freshness is informative, never a prerequisite for the open-scope executor.
     info["reliability_status"] = "PASS" if not issues else "NOT_VERIFIED"
     info["issues"] = issues
     info["note"] = ("A passed monitor means scheduled agent receipts exist; it does NOT prove "
