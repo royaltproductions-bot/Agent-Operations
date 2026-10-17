@@ -69,7 +69,7 @@ jobs:
                   raise RuntimeError('Generated MP4 unexpectedly small: ' + video.name)
               print('VIDEO:', video, video.stat().st_size, 'bytes')
           new_video_files = sorted(str(p) for p in destination.glob('*.mp4') if p.name not in existing_mp4)
-          Path('/tmp/oddly-new-videos.txt').write_text('\\n'.join(new_video_files) + ('\\n' if new_video_files else ''), encoding='utf-8')
+          Path('/tmp/oddly-new-videos.txt').write_text('\n'.join(new_video_files) + ('\n' if new_video_files else ''), encoding='utf-8')
           print('NEW_RENDERED_VIDEOS:', new_video_files)
           PY
       - name: Prepare eligible AI experiment documentary posts
