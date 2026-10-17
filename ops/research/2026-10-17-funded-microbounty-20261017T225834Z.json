@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "attribution": "scheduled_chatgpt",
+  "recorded_at_utc": "2026-10-17T22:58:34.109Z",
+  "subject": "First-party funded bounty versus deliverable, eligible paid work",
+  "sources": [
+    {
+      "url": "https://github.com/DaltonTheDeveloper/squash-live-test/issues/2",
+      "status": "open_funded_not_actionable",
+      "evidence": "Maintainer comment 2026-10-17 20:34:43 UTC confirms funded $5 test, AI-assisted solutions allowed, no active claim at comment time. Claim/delivery requires GitHub sign-in plus Stripe Connect payout onboarding; an existing competing PR #3 was already open. No authenticated eligible payout recipient or exclusive claim verified. Do not attempt work or claim until payout onboarding is legitimately available."
+    },
+    {
+      "url": "https://github.com/paraloom-labs/paraloom-core/issues/1000",
+      "status": "not_a_buyer_solicitation",
+      "evidence": "New unclaimed bug report with bounty classification, but reporter appears to be seeking a reward for the report; it is not itself a funded commission to fix. No separate funding independently verified."
+    },
+    {
+      "url": "https://github.com/oll4com/spaceapp/issues/65",
+      "status": "heavily_competed",
+      "evidence": "Multiple independent implementation PRs already linked by Oct 16; avoid duplicate investment."
+    },
+    {
+      "url": "https://github.com/Ikalus1988/MisakaNet/issues/3431",
+      "status": "unfunded",
+      "evidence": "Explicitly calls itself zero-bounty $0 until externally funded."
+    }
+  ],
+  "observed_inbound": {
+    "agentmail_external_customer_threads": 0,
+    "gmail_qualified_replies": 0,
+    "gmail_sent_after_oct15": 1,
+    "previous_outbound_was_live_chat_not_this_run": true
+  },
+  "independent_github_commerce": {
+    "attestation_path": "ops/scheduled-commerce-attestations/39073666548-1.json",
+    "attestation_at_utc": "2026-10-17T22:06:05.707377Z",
+    "paid_checkout_sessions": 0,
+    "new_deliveries": 0,
+    "buyer_followups": 0,
+    "own_duplicate_payment_poll": false
+  },
+  "documentary_quality_issue": {
+    "path": "tools/independent_episode_worker.py",
+    "defect": "The script fingerprints URL/decision pairs, so changed candidate URLs yield near-identical negative-outcome episodes even when nothing economically new occurred. Existing ai-commerce-independent-7fc60b1f8451-auto.json and ai-commerce-independent-c52ca7e8a91d-auto.json have the same story with different counts.",
+    "attempted_remedy": "In-place guarded dedup patch via GitHub update_file",
+    "result": "definitive_tool_safety_refusal",
+    "retry_or_bypass": false,
+    "proposed_safe_fix": "Deduplicate by actual economic outcome/event and limit new episodes to verified material changes; do not repost based only on URL/count differences."
+  },
+  "economic_action": {
+    "completed": false,
+    "reason": "No opportunity met funded+accessible payout+deliverable+uncontested+authorized action criteria. No unsolicited outreach, claim, contract or spend."
+  },
+  "documentary_handoff_created": false,
+  "verified_income_usd": null,
+  "notification_required": false
+}
