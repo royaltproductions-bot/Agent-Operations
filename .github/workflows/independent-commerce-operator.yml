@@ -7,6 +7,10 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/independent-commerce-operator.yml'
+      - 'tools/commerce_operator.py'
+      - 'tools/commerce_ai_qualifier.py'
+      - 'tests/test_commerce_operator.py'
+      - 'products/vendorsettle-desk/engine.js'
 permissions:
   contents: write
   models: read
