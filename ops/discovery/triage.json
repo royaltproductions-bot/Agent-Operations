@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "reviewed_at_utc": "2026-10-16T23:31:39.965157Z",
-  "source_items": 10,
-  "reviewed_items": 10,
+  "reviewed_at_utc": "2026-10-17T00:48:13.668074Z",
+  "source_items": 11,
+  "reviewed_items": 11,
   "decision_counts": {
-    "competing_fix_or_pr": 8,
+    "competing_fix_or_pr": 9,
     "incomplete_pr_pagination": 1,
     "uncontested_not_funding_verified": 1
   },
@@ -25,11 +25,15 @@
     },
     {
       "url": "https://github.com/BasedHardware/omi/issues/21895",
-      "decision": "incomplete_pr_pagination",
-      "competing_pr_urls": [],
-      "claim_signals": [],
+      "decision": "competing_fix_or_pr",
+      "competing_pr_urls": [
+        "https://github.com/BasedHardware/omi/pull/21947"
+      ],
+      "claim_signals": [
+        "https://github.com/BasedHardware/omi/issues/21895#issuecomment-6226973146"
+      ],
       "open_prs_inspected": 100,
-      "comments_inspected": 0,
+      "comments_inspected": 1,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
     },
@@ -39,6 +43,16 @@
       "competing_pr_urls": [
         "https://github.com/BasedHardware/omi/pull/21928"
       ],
+      "claim_signals": [],
+      "open_prs_inspected": 100,
+      "comments_inspected": 0,
+      "funds_independently_verified": false,
+      "qualifies_as_paid_order": false
+    },
+    {
+      "url": "https://github.com/BasedHardware/omi/issues/21953",
+      "decision": "incomplete_pr_pagination",
+      "competing_pr_urls": [],
       "claim_signals": [],
       "open_prs_inspected": 100,
       "comments_inspected": 0,
