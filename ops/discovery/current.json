@@ -16,7 +16,7 @@
     "testing": 25
   },
   "lane_errors": {},
-  "unique_candidates": 11,
+  "unique_candidates": 2,
   "top_candidates": [
     {
       "source": "github_public_issue",
@@ -29,114 +29,6 @@
       "created_at": "2026-10-15T08:42:58Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "data"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "paraloom-labs/paraloom-core",
-      "title": "[BOUNTY] Medium: prove_withdrawal_v2 and prove_transfer_v2 shift-overflow panic in leaf_index_from, silent invalid proof emission on unsatisfied v2 witnesses, and non-canonical BN2",
-      "url": "https://github.com/paraloom-labs/paraloom-core/issues/952",
-      "bounty_usd_hint_not_verified": 150.0,
-      "score_for_review_only": 78,
-      "competition_indicator_comments": 2,
-      "created_at": "2026-10-16T11:03:25Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "testing"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "paraloom-labs/paraloom-core",
-      "title": "[BOUNTY] Medium: Ephemeral keypair fund stranding on post-withdraw fee failure, zero-output re-shield, and unvalidated DEX query/config in relayer",
-      "url": "https://github.com/paraloom-labs/paraloom-core/issues/956",
-      "bounty_usd_hint_not_verified": 150.0,
-      "score_for_review_only": 78,
-      "competition_indicator_comments": 2,
-      "created_at": "2026-10-16T11:38:19Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "cash"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "paraloom-labs/paraloom-core",
-      "title": "[BOUNTY] Medium: Prover & v2 Transfer/Withdraw u64 Precision Loss & Unmasked BN254 Blinding, Partial Scrypt Migration Orphaning Seed Phrase, and Ephemeral Lockout Bypass (paraloom-",
-      "url": "https://github.com/paraloom-labs/paraloom-core/issues/959",
-      "bounty_usd_hint_not_verified": 150.0,
-      "score_for_review_only": 78,
-      "competition_indicator_comments": 2,
-      "created_at": "2026-10-16T12:12:09Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "cash"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "paraloom-labs/paraloom-prover-wasm",
-      "title": "[BOUNTY] Medium: prove_withdrawal_v2 and prove_transfer_v2 shift-overflow panic in leaf_index_from, silent invalid proof emission on unsatisfied v2 witnesses, and non-canonical BN2",
-      "url": "https://github.com/paraloom-labs/paraloom-prover-wasm/issues/9",
-      "bounty_usd_hint_not_verified": 150.0,
-      "score_for_review_only": 78,
-      "competition_indicator_comments": 2,
-      "created_at": "2026-10-16T11:03:26Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "testing"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "paraloom-labs/paraloom-wallet",
-      "title": "[BOUNTY] Medium: Prover & v2 Transfer/Withdraw u64 Precision Loss & Unmasked BN254 Blinding, Partial Scrypt Migration Orphaning Seed Phrase, and Ephemeral Lockout Bypass (paraloom-",
-      "url": "https://github.com/paraloom-labs/paraloom-wallet/issues/84",
-      "bounty_usd_hint_not_verified": 150.0,
-      "score_for_review_only": 78,
-      "competition_indicator_comments": 2,
-      "created_at": "2026-10-16T12:12:10Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "cash"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "BasedHardware/omi",
-      "title": "[Bounty proposal] fix(database): sanitize phone call overrides and add fault-tolerant client injection ($50 proposed)",
-      "url": "https://github.com/BasedHardware/omi/issues/21895",
-      "bounty_usd_hint_not_verified": 50.0,
-      "score_for_review_only": 73,
-      "competition_indicator_comments": 1,
-      "created_at": "2026-10-16T16:47:30Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "python"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "BasedHardware/omi",
-      "title": "[Bounty proposal] fix(database): sanitize inputs and add stream error boundaries to batch pipeline privacy queries ($50 proposed)",
-      "url": "https://github.com/BasedHardware/omi/issues/21916",
-      "bounty_usd_hint_not_verified": 50.0,
-      "score_for_review_only": 73,
-      "competition_indicator_comments": 0,
-      "created_at": "2026-10-16T17:57:46Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "cash"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "BasedHardware/omi",
-      "title": "[Bounty Proposal] Persona refresh includes paywall-locked conversation context and memory previews ($50 proposed)",
-      "url": "https://github.com/BasedHardware/omi/issues/21953",
-      "bounty_usd_hint_not_verified": 50.0,
-      "score_for_review_only": 73,
-      "competition_indicator_comments": 0,
-      "created_at": "2026-10-17T00:41:28Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "python"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "BasedHardware/omi",
-      "title": "[Bounty Proposal] fix(backend): filter soft-deleted entities in recommendations and ensure goal deletion idempotency ($50 proposed)",
-      "url": "https://github.com/BasedHardware/omi/issues/21854",
-      "bounty_usd_hint_not_verified": 50.0,
-      "score_for_review_only": 65,
-      "competition_indicator_comments": 0,
-      "created_at": "2026-10-16T12:56:39Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "python"
     },
     {
       "source": "github_public_issue",

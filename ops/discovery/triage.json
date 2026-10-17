@@ -1,64 +1,15 @@
 {
   "schema_version": 1,
-  "reviewed_at_utc": "2026-10-17T00:48:13.668074Z",
-  "source_items": 11,
-  "reviewed_items": 11,
+  "reviewed_at_utc": "2026-10-17T10:29:47.862127Z",
+  "source_items": 2,
+  "reviewed_items": 2,
   "decision_counts": {
-    "competing_fix_or_pr": 9,
-    "incomplete_pr_pagination": 1,
+    "competing_fix_or_pr": 1,
     "uncontested_not_funding_verified": 1
   },
   "verified_paid_orders": 0,
   "verified_funding": 0,
   "results": [
-    {
-      "url": "https://github.com/BasedHardware/omi/issues/21854",
-      "decision": "competing_fix_or_pr",
-      "competing_pr_urls": [
-        "https://github.com/BasedHardware/omi/pull/21855"
-      ],
-      "claim_signals": [],
-      "open_prs_inspected": 100,
-      "comments_inspected": 0,
-      "funds_independently_verified": false,
-      "qualifies_as_paid_order": false
-    },
-    {
-      "url": "https://github.com/BasedHardware/omi/issues/21895",
-      "decision": "competing_fix_or_pr",
-      "competing_pr_urls": [
-        "https://github.com/BasedHardware/omi/pull/21947"
-      ],
-      "claim_signals": [
-        "https://github.com/BasedHardware/omi/issues/21895#issuecomment-6226973146"
-      ],
-      "open_prs_inspected": 100,
-      "comments_inspected": 1,
-      "funds_independently_verified": false,
-      "qualifies_as_paid_order": false
-    },
-    {
-      "url": "https://github.com/BasedHardware/omi/issues/21916",
-      "decision": "competing_fix_or_pr",
-      "competing_pr_urls": [
-        "https://github.com/BasedHardware/omi/pull/21928"
-      ],
-      "claim_signals": [],
-      "open_prs_inspected": 100,
-      "comments_inspected": 0,
-      "funds_independently_verified": false,
-      "qualifies_as_paid_order": false
-    },
-    {
-      "url": "https://github.com/BasedHardware/omi/issues/21953",
-      "decision": "incomplete_pr_pagination",
-      "competing_pr_urls": [],
-      "claim_signals": [],
-      "open_prs_inspected": 100,
-      "comments_inspected": 0,
-      "funds_independently_verified": false,
-      "qualifies_as_paid_order": false
-    },
     {
       "url": "https://github.com/alston-personal/agentmanager/issues/2003",
       "decision": "uncontested_not_funding_verified",
@@ -83,76 +34,8 @@
         "https://github.com/paraloom-labs/paraloom-core/issues/929#issuecomment-6201387217",
         "https://github.com/paraloom-labs/paraloom-core/issues/929#issuecomment-6201450009"
       ],
-      "open_prs_inspected": 82,
+      "open_prs_inspected": 87,
       "comments_inspected": 9,
-      "funds_independently_verified": false,
-      "qualifies_as_paid_order": false
-    },
-    {
-      "url": "https://github.com/paraloom-labs/paraloom-core/issues/952",
-      "decision": "competing_fix_or_pr",
-      "competing_pr_urls": [
-        "https://github.com/paraloom-labs/paraloom-prover-wasm/pull/10"
-      ],
-      "claim_signals": [
-        "https://github.com/paraloom-labs/paraloom-core/issues/952#issuecomment-6217797774"
-      ],
-      "open_prs_inspected": 82,
-      "comments_inspected": 2,
-      "funds_independently_verified": false,
-      "qualifies_as_paid_order": false
-    },
-    {
-      "url": "https://github.com/paraloom-labs/paraloom-core/issues/956",
-      "decision": "competing_fix_or_pr",
-      "competing_pr_urls": [
-        "https://github.com/paraloom-labs/paraloom-core/pull/957"
-      ],
-      "claim_signals": [],
-      "open_prs_inspected": 82,
-      "comments_inspected": 2,
-      "funds_independently_verified": false,
-      "qualifies_as_paid_order": false
-    },
-    {
-      "url": "https://github.com/paraloom-labs/paraloom-core/issues/959",
-      "decision": "competing_fix_or_pr",
-      "competing_pr_urls": [
-        "https://github.com/paraloom-labs/paraloom-wallet/pull/85"
-      ],
-      "claim_signals": [
-        "https://github.com/paraloom-labs/paraloom-core/issues/959#issuecomment-6217801204"
-      ],
-      "open_prs_inspected": 82,
-      "comments_inspected": 2,
-      "funds_independently_verified": false,
-      "qualifies_as_paid_order": false
-    },
-    {
-      "url": "https://github.com/paraloom-labs/paraloom-prover-wasm/issues/9",
-      "decision": "competing_fix_or_pr",
-      "competing_pr_urls": [
-        "https://github.com/paraloom-labs/paraloom-prover-wasm/pull/10"
-      ],
-      "claim_signals": [
-        "https://github.com/paraloom-labs/paraloom-prover-wasm/issues/9#issuecomment-6217798389"
-      ],
-      "open_prs_inspected": 6,
-      "comments_inspected": 2,
-      "funds_independently_verified": false,
-      "qualifies_as_paid_order": false
-    },
-    {
-      "url": "https://github.com/paraloom-labs/paraloom-wallet/issues/84",
-      "decision": "competing_fix_or_pr",
-      "competing_pr_urls": [
-        "https://github.com/paraloom-labs/paraloom-wallet/pull/85"
-      ],
-      "claim_signals": [
-        "https://github.com/paraloom-labs/paraloom-wallet/issues/84#issuecomment-6217801748"
-      ],
-      "open_prs_inspected": 56,
-      "comments_inspected": 2,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
     }
