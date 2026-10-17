@@ -374,6 +374,11 @@ def run():
         report["new_deliveries"] += 1
     if report["status"] == "not_verified":
         report["status"] = "completed"
+    # Independent schedule audit writes only aggregate provider status and counts.
+    # No email addresses, session IDs, attachments, API keys, or buyer CSVs.
+    status_path = os.environ.get("COMMERCE_STATUS_PATH")
+    if status_path:
+        Path(status_path).write_text(json.dumps(report, sort_keys=True) + "\\n", encoding="utf-8")
     print(json.dumps(report))
 
 if __name__ == "__main__":
