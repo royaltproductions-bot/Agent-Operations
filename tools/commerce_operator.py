@@ -23,17 +23,20 @@ import urllib.request
 ROOT = Path("ops/commerce-deliveries")
 INBOX = "ari-operations@agentmail.to"
 CHECKOUT_URL = "https://buy.stripe.com/eVq9AS63KcrdfUe3AP7Re00"
+CHECKOUT_LINK_ID = "plink_1UQ81zBto3o776uyd6CwIP8s"  # Identified via live Stripe read; public, non-secret
 MAX_BYTES = 250_000
 DRY_RUN = os.environ.get("COMMERCE_SEND_ENABLED", "") != "YES"
 
 def error(msg):
     raise RuntimeError(msg)
 
-def request(url, bearer="", method="GET", body=None, basic=False):
+def request(url, bearer="", method="GET", body=None, basic=False, extra_headers=None):
     headers = {"Accept": "application/json", "User-Agent": "oddly-commerce-operator/1.0"}
     if bearer:
         headers["Authorization"] = ("Basic " + base64.b64encode((bearer+":").encode()).decode()
                                     if basic else "Bearer " + bearer)
+    if extra_headers:
+        headers.update(extra_headers)
     data = None if body is None else json.dumps(body).encode("utf-8")
     if data is not None:
         headers["Content-Type"] = "application/json"
@@ -52,18 +55,18 @@ def stripe_get(path, params=None):
     key = os.environ.get("STRIPE_SECRET_KEY", "")
     if not key.startswith(("sk_live_", "rk_live_")):
         error("Stripe live API key unavailable: no paid-order execution possible")
-    query = urllib.parse.urlencode(params or {})
+    query = urllib.parse.urlencode(params or {}, doseq=True)
     return request("https://api.stripe.com/v1/" + path + ("?"+query if query else ""), key, basic=True)
 
 def agent_get(path, params=None):
     token = os.environ.get("AGENTMAIL_API_KEY", "")
     if not token:
         error("AgentMail API key unavailable: no private customer intake possible")
-    query = urllib.parse.urlencode(params or {})
+    query = urllib.parse.urlencode(params or {}, doseq=True)
     return request("https://api.agentmail.to/v0/inboxes/" + urllib.parse.quote(INBOX, safe="")
                    + "/" + path + ("?"+query if query else ""), token)
 
-def agent_send(to, subject, body, files):
+def agent_send(to, subject, body, files, order_id=""):
     token = os.environ.get("AGENTMAIL_API_KEY", "")
     if not token or not to or not re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+", to):
         error("Outbound credentials or recipient invalid")
@@ -76,25 +79,20 @@ def agent_send(to, subject, body, files):
           "attachments": [{"filename": name,
                            "content_type": "text/plain" if name.endswith(".txt") else "text/csv",
                            "content": base64.b64encode(content).decode()}
-                          for name, content in files]})
+                          for name, content in files]},
+          extra_headers={"Idempotency-Key": "vendorsettle-"
+                         + hashlib.sha256(order_id.encode()).hexdigest()} if order_id else None)
     if not response.get("message_id"):
         error("AgentMail did not return a sent message receipt")
     return response["message_id"]
 
 def find_payment_link():
-    cursor = None
-    for _ in range(3):
-        params = {"limit": 100}
-        if cursor:
-            params["starting_after"] = cursor
-        page = stripe_get("payment_links", params)
-        for item in page.get("data", []):
-            if item.get("url") == CHECKOUT_URL:
-                return item.get("id")
-        if not page.get("has_more") or not page.get("data"):
-            break
-        cursor = page["data"][-1]["id"]
-    return None
+    # Avoid scanning many unrelated checkout products each hour.
+    # Verify ID+URL from Stripe rather than trusting a hardcoded ID blindly.
+    item = stripe_get("payment_links/" + CHECKOUT_LINK_ID)
+    if item.get("id") != CHECKOUT_LINK_ID or item.get("url") != CHECKOUT_URL or item.get("active") is not True:
+        return None
+    return CHECKOUT_LINK_ID
 
 def verified_paid_sessions(link):
     cursor = None
@@ -266,8 +264,9 @@ process.stdout.write(JSON.stringify({summary:report.payoutCSV,detail:report.deta
 def previously_sent(subject, messages=None):
     # Query the provider's searchable Sent history, not just the last 100
     # messages, before retrying an externally visible delivery.
-    remote = agent_get("messages", {"limit": 100, "subject": subject})
+    remote = agent_get("messages", {"limit": 100, "subject": [subject], "labels": ["sent"]})
     return any(m.get("subject", "").strip() == subject and
+               "sent" in m.get("labels", []) and
                parseaddr(m.get("from", ""))[1].lower() == INBOX.lower()
                for m in remote.get("messages") or [])
 
@@ -336,7 +335,7 @@ def run():
             report["status"] = "sent_without_receipt_needs_reconciliation"
             continue
         sent = agent_send(recipient, subject,
-          "Attached are your vendor summary and transaction audit CSVs, plus review notes if needed. Please review all calculations and flags against original records before paying vendors.", list(files.items()))
+          "Attached are your vendor summary and transaction audit CSVs, plus review notes if needed. Please review all calculations and flags against original records before paying vendors.", list(files.items()), order_id=sid)
         # Public record contains NO PII, CSV data, email addresses or attachments.
         record = {"schema_version": 1, "actor": "independent_github_actions",
                   "order_id_sha256": safe_key(sid), "paid_verified": True,
