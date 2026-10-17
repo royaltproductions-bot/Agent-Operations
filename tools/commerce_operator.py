@@ -50,7 +50,7 @@ def request(url, bearer="", method="GET", body=None, basic=False):
 
 def stripe_get(path, params=None):
     key = os.environ.get("STRIPE_SECRET_KEY", "")
-    if not key.startswith("sk_live_"):
+    if not key.startswith(("sk_live_", "rk_live_")):
         error("Stripe live API key unavailable: no paid-order execution possible")
     query = urllib.parse.urlencode(params or {})
     return request("https://api.stripe.com/v1/" + path + ("?"+query if query else ""), key, basic=True)
@@ -73,7 +73,8 @@ def agent_send(to, subject, body, files):
                        + urllib.parse.quote(INBOX, safe="") + "/messages/send",
                        token, method="POST", body={
           "to": [to], "subject": subject, "text": body,
-          "attachments": [{"filename": name, "content_type": "text/csv",
+          "attachments": [{"filename": name,
+                           "content_type": "text/plain" if name.endswith(".txt") else "text/csv",
                            "content": base64.b64encode(content).decode()}
                           for name, content in files]})
     if not response.get("message_id"):
@@ -243,7 +244,7 @@ const sandbox={}; vm.runInNewContext(fs.readFileSync('products/vendorsettle-desk
 const input=fs.readFileSync(0,'utf8');
 const report=sandbox.VendorSettle.settle(input,{});
 process.stdout.write(JSON.stringify({summary:report.payoutCSV,detail:report.detailCSV,
-  count:report.totals.lines,warnings:report.warnings.length}));
+  count:report.totals.lines,warnings:report.warnings}));
 """
     p = subprocess.run(["node", "-e", node], input=text, capture_output=True,
                        text=True, timeout=12, check=False)
@@ -252,8 +253,15 @@ process.stdout.write(JSON.stringify({summary:report.payoutCSV,detail:report.deta
     data = json.loads(p.stdout)
     if data["count"] < 1 or data["count"] > 500:
         error("Unexpected settlement record count")
-    return {"vendor-summary.csv": data["summary"].encode("utf-8"),
-            "transaction-audit.csv": data["detail"].encode("utf-8")}, data["count"]
+    files = {"vendor-summary.csv": data["summary"].encode("utf-8"),
+             "transaction-audit.csv": data["detail"].encode("utf-8")}
+    if data.get("warnings"):
+        # Include duplicate/negative balance findings promised in the offer.
+        files["review-notes.txt"] = (
+            "Review all figures against source records before payouts.\n"
+            + "\n".join(str(w) for w in data["warnings"]) + "\n"
+        ).encode("utf-8")
+    return files, data["count"]
 
 def previously_sent(subject, messages=None):
     # Query the provider's searchable Sent history, not just the last 100
@@ -328,14 +336,14 @@ def run():
             report["status"] = "sent_without_receipt_needs_reconciliation"
             continue
         sent = agent_send(recipient, subject,
-          "Attached are your vendor summary and transaction audit CSVs. Please review against your original records before making any payments.", list(files.items()))
+          "Attached are your vendor summary and transaction audit CSVs, plus review notes if needed. Please review all calculations and flags against original records before paying vendors.", list(files.items()))
         # Public record contains NO PII, CSV data, email addresses or attachments.
         record = {"schema_version": 1, "actor": "independent_github_actions",
                   "order_id_sha256": safe_key(sid), "paid_verified": True,
                   "delivery_confirmed_by_agentmail": bool(sent),
                   "sales_rows_processed": count,
                   "sent_at_utc": datetime.now(timezone.utc).isoformat(),
-                  "attachment_count": 2}
+                  "attachment_count": len(files)}
         target.write_text(json.dumps(record, indent=2) + "\n")
         report["new_deliveries"] += 1
     if report["status"] == "not_verified":
