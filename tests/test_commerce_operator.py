@@ -54,6 +54,7 @@ class CommerceOperatorTests(unittest.TestCase):
                  patch.object(op,"read_inbound",return_value=[incoming]),\
                  patch.object(op,"agent_get",return_value={"messages":[incoming]}),\
                  patch.object(op,"download_csv",return_value=SAMPLE.encode()),\
+                 patch.object(op,"verified_unreversed_payment",return_value=True),\
                  patch.object(op,"agent_send",side_effect=send),\
                  patch("sys.stdout",new_callable=io.StringIO) as output:
                 op.run()
@@ -65,6 +66,20 @@ class CommerceOperatorTests(unittest.TestCase):
                 self.assertTrue(data["delivery_confirmed_by_agentmail"])
                 self.assertNotIn("customer@example.test",output.getvalue())
                 self.assertNotIn("customer@example.test",op.receipt_path(session["id"]).read_text())
+
+
+    def test_refunded_charge_is_not_fulfillable(self):
+        session={"payment_intent":"pi_live_abc"}
+        pi={"status":"succeeded","currency":"usd","amount_received":4900,"amount":4900,"latest_charge":"ch_abc"}
+        charge={"payment_intent":"pi_live_abc","paid":True,"refunded":True,
+                "status":"succeeded","amount_refunded":4900}
+        def fake_get(path, params=None):
+            return pi if path.startswith("payment_intents/") else charge
+        with patch.object(op,"stripe_get",side_effect=fake_get):
+            self.assertFalse(op.verified_unreversed_payment(session))
+            charge["refunded"]=False
+            charge["amount_refunded"]=0
+            self.assertTrue(op.verified_unreversed_payment(session))
 
     def test_no_credentials_means_no_emails(self):
         with patch.dict(os.environ,{},clear=True),patch.object(op,"DRY_RUN",True),\
