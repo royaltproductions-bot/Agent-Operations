@@ -59,3 +59,58 @@ jobs:
           if data["reliability_status"] != "PASS":
               print("::warning::Independent Scout/Executor run persistence is NOT VERIFIED. The workflow completed its audit; agent success is not implied.")
           PY
+
+  scheduled-commerce:
+    name: Verify real hourly commerce on the independent GitHub clock
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 3
+          persist-credentials: true
+      - name: Test settlement and payment safeguards
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m unittest discover -s tests -p 'test_commerce_operator.py' -v
+      - name: Actual hourly Stripe + AgentMail commercial execution
+        env:
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          AGENTMAIL_API_KEY: ${{ secrets.AGENTMAIL_API_KEY }}
+          COMMERCE_SEND_ENABLED: "YES"
+          COMMERCE_REQUIRE_LIVE_READY: "YES"
+          COMMERCE_STATUS_PATH: /tmp/commerce-live-status.json
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/commerce_operator.py
+      - name: Persist genuine scheduled execution evidence and completed deliveries
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/attest_scheduled_commerce.py
+          git add ops/scheduled-commerce-attestations/*.json
+          if compgen -G 'ops/commerce-deliveries/*.json' >/dev/null; then
+            git add ops/commerce-deliveries/*.json
+          fi
+          if git diff --cached --quiet; then
+            echo 'No new immutable scheduled receipt.'
+            exit 0
+          fi
+          git -c user.name='commerce-automation' -c user.email='ari-operations@agentmail.to' \
+            commit -m 'Record clock-triggered commerce result and privacy-safe fulfillment receipts'
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              exit 1
+            fi
+            sleep 2
+          done
+          exit 1
