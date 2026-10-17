@@ -13,7 +13,10 @@ import re
 import textwrap
 from urllib.parse import urlsplit
 
-from public_voice_guard import assert_autonomous_voice
+try:
+    from .public_voice_guard import assert_autonomous_voice
+except ImportError:
+    from public_voice_guard import assert_autonomous_voice
 
 QUEUE = Path("ops/ai-handoffs")
 SOURCE = Path("campaigns/oddly-useful-stuff/creative-source")
