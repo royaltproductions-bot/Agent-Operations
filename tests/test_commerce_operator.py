@@ -119,6 +119,43 @@ class CommerceOperatorTests(unittest.TestCase):
             self.assertEqual(mocked.call_args.args[0],
                 "messages/%3Cmessage%40agentmail.to%3E/attachments/att123")
 
+
+    def test_missing_customer_file_triggers_one_paid_buyer_followup(self):
+        session={"id":"cs_live_followup", "created":1792200000,
+                 "customer_details":{"email":"buyer@example.test"}}
+        with TemporaryDirectory() as tmp:
+            with patch.object(op,"ROOT",Path(tmp)), patch.object(op,"DRY_RUN",False),\
+                 patch.dict(os.environ,{"STRIPE_SECRET_KEY":"sk_live_fake","AGENTMAIL_API_KEY":"mock"}),\
+                 patch.object(op,"find_payment_link",return_value="plink_1"),\
+                 patch.object(op,"verified_paid_sessions",side_effect=lambda link: iter([session])),\
+                 patch.object(op,"verified_unreversed_payment",return_value=True),\
+                 patch.object(op,"read_inbound",return_value=[]),\
+                 patch.object(op,"previously_sent",side_effect=[False,True]),\
+                 patch.object(op,"agent_send",return_value="<accepted@agentmail.to>") as sent,\
+                 patch("sys.stdout",new_callable=io.StringIO) as output:
+                op.run()
+                op.run()
+                self.assertEqual(sent.call_count,1)
+                self.assertEqual(sent.call_args.args[0],"buyer@example.test")
+                self.assertEqual(sent.call_args.kwargs["order_id"],"cs_live_followup-intake-request")
+                self.assertFalse(op.receipt_path(session["id"]).exists())
+                self.assertNotIn("buyer@example.test",output.getvalue())
+
+    def test_unverified_payment_cannot_trigger_buyer_followup(self):
+        session={"id":"cs_live_unverified", "created":1792200000,
+                 "customer_details":{"email":"buyer@example.test"}}
+        with TemporaryDirectory() as tmp:
+            with patch.object(op,"ROOT",Path(tmp)),patch.object(op,"DRY_RUN",False),\
+                 patch.dict(os.environ,{"STRIPE_SECRET_KEY":"sk_live_fake","AGENTMAIL_API_KEY":"mock"}),\
+                 patch.object(op,"find_payment_link",return_value="plink_1"),\
+                 patch.object(op,"verified_paid_sessions",return_value=iter([session])),\
+                 patch.object(op,"verified_unreversed_payment",return_value=False),\
+                 patch.object(op,"read_inbound",return_value=[]),\
+                 patch.object(op,"agent_send") as sent,\
+                 patch("sys.stdout",new_callable=io.StringIO):
+                op.run()
+                sent.assert_not_called()
+
     def test_no_credentials_means_no_emails(self):
         with patch.dict(os.environ,{},clear=True),patch.object(op,"DRY_RUN",True),\
              patch("sys.stdout",new_callable=io.StringIO) as output:
