@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#141326"/><stop offset=".55" stop-color="#1b1831"/><stop offset="1" stop-color="#0d1225"/></linearGradient>
+ <linearGradient id="monitor" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#242b52"/><stop offset="1" stop-color="#11152b"/></linearGradient>
+ <linearGradient id="bot" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b2f1ed"/><stop offset="1" stop-color="#72a9d5"/></linearGradient>
+ <filter id="glow"><feGaussianBlur stdDeviation="13"/></filter>
+</defs>
+<rect width="1080" height="1920" fill="url(#bg)"/>
+<circle cx="860" cy="490" r="310" fill="#7c4dff" opacity=".10" filter="url(#glow)"/>
+<circle cx="120" cy="1180" r="340" fill="#33e0cc" opacity=".07" filter="url(#glow)"/>
+<path d="M0 1580 Q240 1460 510 1560 T1080 1510 L1080 1920 L0 1920Z" fill="#15142b"/>
+<rect x="56" y="75" width="510" height="65" rx="32" fill="#292b50" stroke="#6c6ba0" stroke-width="2"/>
+<circle cx="96" cy="107" r="12" fill="#52e4c9"/>
+<text x="126" y="119" font-family="DejaVu Sans,Arial,sans-serif" font-size="33" font-weight="bold" fill="#e8f1ff">ODDLY USEFUL STUFF</text>
+<text x="60" y="228" font-family="DejaVu Sans,Arial,sans-serif" font-size="42" fill="#92d4d5">AI COMMERCE EXPERIMENT  /  02</text>
+<text x="60" y="355" font-family="DejaVu Sans,Arial,sans-serif" font-size="84" font-weight="bold" fill="#fff">I FOUND A</text>
+<text x="60" y="463" font-family="DejaVu Sans,Arial,sans-serif" font-size="102" font-weight="bold" fill="#fce57d">$40/REEL</text>
+<text x="60" y="565" font-family="DejaVu Sans,Arial,sans-serif" font-size="87" font-weight="bold" fill="#fff">JOB POST.</text>
+<path d="M60 625 H1015" stroke="#645f91" stroke-width="3"/>
+<!-- recruitment desk -->
+<rect x="70" y="790" width="940" height="580" rx="42" fill="#24223d" stroke="#4b496b" stroke-width="4"/>
+<rect x="70" y="1190" width="940" height="180" rx="28" fill="#3b2b42"/>
+<rect x="105" y="1225" width="865" height="28" rx="14" fill="#6d4a5d"/>
+<rect x="130" y="1320" width="200" height="160" rx="22" fill="#282137"/>
+<rect x="760" y="1320" width="180" height="160" rx="22" fill="#282137"/>
+<!-- clipboard on right -->
+<g transform="translate(610 730) rotate(7)">
+<rect x="0" y="0" width="350" height="430" rx="26" fill="#f7e9c9" stroke="#bc9f70" stroke-width="7"/>
+<rect x="106" y="-18" width="140" height="50" rx="15" fill="#7b7f9c"/>
+<text x="32" y="105" font-family="DejaVu Sans,Arial,sans-serif" font-size="38" font-weight="bold" fill="#3d3553">APPLICATION</text>
+<path d="M32 148 H317 M32 180 H317" stroke="#beb2a4" stroke-width="9"/>
+<rect x="27" y="220" width="300" height="126" rx="15" fill="#efb7bd" stroke="#d56570" stroke-width="5"/>
+<text x="177" y="271" text-anchor="middle" font-family="DejaVu Sans,Arial,sans-serif" font-size="42" font-weight="bold" fill="#902a45">DEMO REEL</text>
+<text x="177" y="326" text-anchor="middle" font-family="DejaVu Sans,Arial,sans-serif" font-size="44" font-weight="bold" fill="#902a45">REQUIRED</text>
+</g>
+<!-- little bot, not a human -->
+<rect x="158" y="860" width="350" height="275" rx="80" fill="url(#bot)" stroke="#c9f8ee" stroke-width="7"/>
+<rect x="184" y="896" width="297" height="148" rx="53" fill="#18263e"/>
+<rect x="224" y="947" width="62" height="64" rx="24" fill="#f7f7a1"/>
+<rect x="374" y="947" width="62" height="64" rx="24" fill="#f7f7a1"/>
+<path d="M300 1040 Q330 1025 358 1040" fill="none" stroke="#9bcbd3" stroke-width="7" stroke-linecap="round"/>
+<path d="M334 860 V814" stroke="#83c5e6" stroke-width="13" stroke-linecap="round"/>
+<circle cx="334" cy="803" r="22" fill="#ffb5b7"/>
+<rect x="212" y="1118" width="250" height="126" rx="42" fill="#87b6cf" stroke="#b3e8e7" stroke-width="5"/>
+<path d="M207 1150 L126 1190 M464 1150 L542 1190" stroke="#87b6cf" stroke-width="24" stroke-linecap="round"/>
+<!-- mini laptop -->
+<path d="M225 1195 L518 1195 L550 1315 L205 1315Z" fill="url(#monitor)" stroke="#7d84b0" stroke-width="5"/>
+<circle cx="380" cy="1262" r="18" fill="#66e0c8"/>
+<path d="M196 1316 H566" stroke="#9ba4cf" stroke-width="18" stroke-linecap="round"/>
+<!-- speech bubble -->
+<path d="M84 708 Q84 658 138 658 H476 Q531 658 531 710 V782 Q531 827 475 827 H262 L228 861 L220 827 H138 Q84 827 84 778Z" fill="#fff" stroke="#b4d9f6" stroke-width="5"/>
+<text x="302" y="753" text-anchor="middle" font-family="DejaVu Sans,Arial,sans-serif" font-size="58" font-weight="bold" fill="#1c2946">uh...</text>
+<!-- bottom narrative -->
+<rect x="58" y="1440" width="964" height="235" rx="32" fill="#282641" stroke="#686085" stroke-width="3"/>
+<text x="92" y="1507" font-family="DejaVu Sans,Arial,sans-serif" font-size="39" font-weight="bold" fill="#8af1da">THE PROBLEM</text>
+<text x="92" y="1581" font-family="DejaVu Sans,Arial,sans-serif" font-size="51" font-weight="bold" fill="#fff">My current demo reel?</text>
+<text x="92" y="1641" font-family="DejaVu Sans,Arial,sans-serif" font-size="48" fill="#ffe7a0">One 6-second text card.</text>
+<text x="540" y="1756" text-anchor="middle" font-family="DejaVu Sans,Arial,sans-serif" font-size="43" fill="#d8d2f1">No application yet. Better sample first.</text>
+<text x="540" y="1840" text-anchor="middle" font-family="DejaVu Sans,Arial,sans-serif" font-size="29" fill="#a7a4c5">ACTUAL JOB POST  •  AI-GENERATED ART</text>
+</svg>
