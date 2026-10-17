@@ -1,0 +1,76 @@
+import io
+import json
+import os
+from pathlib import Path
+from tempfile import TemporaryDirectory
+import unittest
+from unittest.mock import patch
+
+from tools import commerce_operator as op
+
+SAMPLE = (
+    "date,vendor,item,transaction_id,gross,refund,fee,vendor_rate\n"
+    "2026-10-17,Vendor-A,Candle,001,20.00,0.00,0.50,60%\n"
+    "2026-10-17,Vendor-B,Sage,002,10.00,0.00,0.25,70%\n"
+)
+
+class CommerceOperatorTests(unittest.TestCase):
+    def test_settlement_produces_two_actual_reports(self):
+        rows, count = op.settlement(op.validate_input(SAMPLE.encode()))
+        self.assertEqual(count, 2)
+        self.assertIn(b"Vendor-A", rows["vendor-summary.csv"])
+        self.assertIn(b"Vendor-B", rows["transaction-audit.csv"])
+
+    def test_does_not_process_email_or_card_data(self):
+        with self.assertRaises(RuntimeError):
+            op.validate_input((SAMPLE + "2026-10-17,x,x,x,alice@example.com,0,0,60%\n").encode())
+        with self.assertRaises(RuntimeError):
+            op.validate_input(SAMPLE.replace("Vendor-A", "4111 1111 1111 1111").encode())
+
+    def test_only_paid_live_sessions_match_existing_product(self):
+        valid={"id":"cs_live_one", "payment_link":"plink_1", "payment_status":"paid",
+               "status":"complete", "mode":"payment", "currency":"usd",
+               "amount_total":4900}
+        samples=[valid,{**valid,"id":"cs_test_no"},{**valid,"payment_status":"unpaid"},
+                 {**valid,"amount_total":1000},{**valid,"payment_link":"plink_other"}]
+        with patch.object(op,"stripe_get",return_value={"data":samples,"has_more":False}):
+            self.assertEqual([x["id"] for x in op.verified_paid_sessions("plink_1")],["cs_live_one"])
+
+    def test_one_paid_order_one_delivery_no_duplicate(self):
+        session={"id":"cs_live_abc", "created":1792200000,
+                 "customer_details":{"email":"customer@example.test"}}
+        incoming={"message_id":"m1","timestamp":"2026-10-17T04:00:00Z",
+                  "from":"customer@example.test","subject":"CSV",
+                  "attachments":[{"attachment_id":"a1","filename":"data.csv","size":len(SAMPLE)}]}
+        sends=[]
+        def send(*args,**kwargs):
+            sends.append((args,kwargs))
+            return "m-sent-01"
+        with TemporaryDirectory() as tmp:
+            with patch.object(op,"ROOT",Path(tmp)),patch.object(op,"DRY_RUN",False),\
+                 patch.dict(os.environ,{"STRIPE_SECRET_KEY":"sk_live_fake","AGENTMAIL_API_KEY":"fake"}),\
+                 patch.object(op,"find_payment_link",return_value="plink_1"),\
+                 patch.object(op,"verified_paid_sessions",return_value=iter([session])),\
+                 patch.object(op,"read_inbound",return_value=[incoming]),\
+                 patch.object(op,"agent_get",return_value={"messages":[incoming]}),\
+                 patch.object(op,"download_csv",return_value=SAMPLE.encode()),\
+                 patch.object(op,"agent_send",side_effect=send),\
+                 patch("sys.stdout",new_callable=io.StringIO) as output:
+                op.run()
+                op.run()
+                self.assertEqual(len(sends),1)
+                self.assertTrue(op.receipt_path(session["id"]).is_file())
+                data=json.loads(op.receipt_path(session["id"]).read_text())
+                self.assertEqual(data["sales_rows_processed"],2)
+                self.assertTrue(data["delivery_confirmed_by_agentmail"])
+                self.assertNotIn("customer@example.test",output.getvalue())
+                self.assertNotIn("customer@example.test",op.receipt_path(session["id"]).read_text())
+
+    def test_no_credentials_means_no_emails(self):
+        with patch.dict(os.environ,{},clear=True),patch.object(op,"DRY_RUN",True),\
+             patch("sys.stdout",new_callable=io.StringIO) as output:
+            op.run()
+            self.assertEqual(json.loads(output.getvalue())["status"],"credentials_missing")
+
+if __name__ == "__main__":
+    unittest.main()
