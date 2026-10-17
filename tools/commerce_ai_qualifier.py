@@ -61,7 +61,9 @@ def run():
                 # Advisory can influence later actions only after deterministic
                 # payment and policy gates independently confirm them.
                 result["ai_advisory"] = str(answer["choices"][0]["message"]["content"])[:1400]
-            except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, KeyError, ValueError):
+            except urllib.error.HTTPError as exc:
+                result["ai_status"] = "inference_http_" + str(exc.code)
+            except (urllib.error.URLError, TimeoutError, KeyError, ValueError):
                 result["ai_status"] = "service_unavailable_or_quota"
     REPORT.write_text(json.dumps(result, indent=2) + "\n")
     # No unnecessary prints of untrusted model content or external buyer data.
