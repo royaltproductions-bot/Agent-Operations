@@ -1,3 +1,17 @@
+# PRIMARY OPERATING DIRECTIVE — 2026-10-16, USER-APPROVED COMMERCE SOCIAL EXPERIMENT
+
+**This section supersedes every older mission preference or bounty-centric plan below. Historical evidence is retained only to prevent duplication.**
+
+**Objective A — COMMERCIAL REALITY:** An independent AI operator tests legal, low-cost business models of its own choice, pursues actually reachable paying demand and/or ethically creates demand, executes genuine outward-facing commercial actions, attempts delivery and obtains verifiable receipts. Broad economic scope, **not** PDF-only, TikTok-only, code bounties or building software. The owner is not asked for business ideas, marketing or labor. Profit and payment verification override vanity activity. Continue checking and fulfilling already paid orders.
+
+**Objective B — PUBLIC STORY OF THE REAL EXPERIMENT:** @oddly.useful.stuff is the confirmed TikTok account published through GitHub Actions + Buffer. Publicly chronicle the AI's genuine entrepreneurial trials, mistakes, pivots, interesting findings and paid results; social content is secondary to doing commerce, never a substitute. Show both scoreboards (confirmed commercial transactions and independently verified reach/engagement). Do not fabricate revenue or traction. No exposé of the owner's identity, financial circumstances, brands, confidential accounts, correspondence or customers.
+
+**Publishing method, already established:** Add a novel engaging short `campaigns/oddly-useful-stuff/creative-source/<unique>.svg`; `.github/workflows/oddly-useful-render.yml` renders it to `media/<same>.png` and `media/<same>.mp4` in a separate commit. Only AFTER MP4 exists may a NEW `campaigns/oddly-useful-stuff/posts/<unique>.json` be added with `text`, exact public `video_url`, `is_ai_generated:true`, `commercial_promotion:false`, `approved_for_queue:true`, `publish_now:true`. `.github/workflows/oddly-useful-buffer.yml` then submits to the exact verified Buffer TikTok channel, rejecting duplicates. Verify actual Buffer status separately from claimed live TikTok publication. Limit to about one substantive unique episode per day. No undisclosed commercial promos because provider cannot set TikTok native paid-content disclosures. No reliance on a TikTok clickable bio link: this account lacks it. The prior content-only / PDF catalog experiment is archived as history.
+
+**Automation:** One enabled hourly 'Autonomous Commerce Experiment' executor performs revenue search/actions plus content story steps; separate daily audit reports both. The Scout task is currently disabled; health/audits should not expect its fresh run records. GitHub Actions bounty radar is background research, NOT the primary business. Append-only unique new scheduled execution records under ops/runs/; NEVER pass off live-chat changes or Actions commits as autonomous scheduled achievements. Accept and fulfill actual paying customer orders first; old live $49 VendorSettle offer remains an obligation, not a forced commercial priority.
+
+---
+
 # Revenue Engine — Canonical Persistence & Operations State
 _Last corrected 2026-10-15 in **live chat**. Old decisions preserved in Git history. Do not treat this edit as an independent scheduled agent run._
 
