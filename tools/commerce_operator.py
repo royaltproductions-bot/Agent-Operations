@@ -114,6 +114,26 @@ def verified_paid_sessions(link):
             break
         cursor = page["data"][-1]["id"]
 
+def verified_unreversed_payment(session):
+    """Confirm payment, amount, and refund state against live Stripe objects."""
+    intent_id = session.get("payment_intent") or ""
+    if not isinstance(intent_id, str) or not intent_id.startswith("pi_"):
+        return False
+    pi = stripe_get("payment_intents/" + urllib.parse.quote(intent_id, safe=""))
+    if (pi.get("status") != "succeeded" or pi.get("currency") != "usd"
+            or pi.get("amount_received") != 4900 or pi.get("amount") != 4900):
+        return False
+    charge_id = pi.get("latest_charge")
+    if not isinstance(charge_id, str) or not charge_id.startswith("ch_"):
+        return False
+    charge = stripe_get("charges/" + urllib.parse.quote(charge_id, safe=""))
+    if (charge.get("payment_intent") != intent_id or not charge.get("paid")
+            or charge.get("refunded") or int(charge.get("amount_refunded") or 0) > 0
+            or charge.get("status") != "succeeded"):
+        return False
+    return True
+
+
 def safe_key(session_id):
     return hashlib.sha256(session_id.encode("utf-8")).hexdigest()
 
@@ -170,6 +190,16 @@ def download_csv(message, attachment):
     # URL supplied by authenticated AgentMail attachment API; no arbitrary URL in customer text.
     if parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password:
         error("Attachment URL invalid")
+    # Reject redirects to untrusted origins and insecure/private address ranges.
+    # AgentMail's signed CDN supplies the URL; never accept links from email text.
+    import ipaddress
+    host = parsed.hostname.lower()
+    try:
+        ip = ipaddress.ip_address(host)
+    except ValueError:
+        ip = None
+    if ip is not None and not ip.is_global:
+        error("Attachment host address is not public")
     if (parsed.hostname.endswith(".local") or parsed.hostname in ("localhost", "127.0.0.1")
             or parsed.hostname.startswith("192.168.")):
         error("Attachment host invalid")
@@ -244,11 +274,15 @@ def run():
     if not (report["stripe_ready"] and report["agentmail_ready"]):
         report["status"] = "credentials_missing"
         print(json.dumps(report))
+        if os.environ.get("COMMERCE_REQUIRE_LIVE_READY") == "YES":
+            error("Required Stripe and AgentMail GitHub secrets are not configured")
         return
     link = find_payment_link()
     if not link:
         report["status"] = "existing_checkout_link_not_found"
         print(json.dumps(report))
+        if os.environ.get("COMMERCE_REQUIRE_LIVE_READY") == "YES":
+            error("Live $49 Stripe payment link is unavailable on this account")
         return
     orders = list(verified_paid_sessions(link))
     report["paid_sessions_found"] = len(orders)
@@ -265,6 +299,10 @@ def run():
             (((order.get("customer_details") or {}).get("email") or order.get("customer_email") or "").lower() == buyer)]
         matched = find_customer_file(session, messages)
         if not matched:
+            continue
+        # A completed checkout alone is insufficient: never fulfill a
+        # refunded, reversed, or otherwise unsettled PaymentIntent.
+        if not verified_unreversed_payment(session):
             continue
         if len(same_buyer_orders) > 1:
             incoming_subject = str(matched[0].get("subject") or "")
@@ -284,6 +322,11 @@ def run():
             report["status"] = "validated_order_ready_not_sent"
             continue
         recipient = (session.get("customer_details") or {}).get("email") or session.get("customer_email")
+        # Re-read state immediately before sending to minimize duplicate
+        # delivery after prior retries or delayed provider indexing.
+        if previously_sent(subject):
+            report["status"] = "sent_without_receipt_needs_reconciliation"
+            continue
         sent = agent_send(recipient, subject,
           "Attached are your vendor summary and transaction audit CSVs. Please review against your original records before making any payments.", list(files.items()))
         # Public record contains NO PII, CSV data, email addresses or attachments.
