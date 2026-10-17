@@ -1,0 +1,68 @@
+name: Independent Commerce Operator - Full Cycle
+on:
+  schedule:
+    - cron: '21 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/independent-commerce-operator.yml'
+permissions:
+  contents: write
+  models: read
+concurrency:
+  group: independent-full-commerce-operator
+  cancel-in-progress: false
+jobs:
+  commerce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 3
+          persist-credentials: true
+      - name: Validate independent commercial engine
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m py_compile tools/commerce_operator.py tools/commerce_ai_qualifier.py
+          node --check products/vendorsettle-desk/engine.js
+      - name: AI analysis of genuine paid opportunities
+        env:
+          GH_MODELS_TOKEN: ${{ github.token }}
+        run: python3 tools/commerce_ai_qualifier.py
+      - name: Poll ONLY verified existing live Stripe service payments and customer intake
+        env:
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          AGENTMAIL_API_KEY: ${{ secrets.AGENTMAIL_API_KEY }}
+          COMMERCE_SEND_ENABLED: "YES"
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/commerce_operator.py
+      - name: Persist privacy-safe completed deliveries only
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -d ops/commerce-deliveries ]; then
+            echo 'No paid deliveries requiring receipt persistence.'
+            exit 0
+          fi
+          git add ops/commerce-deliveries/*.json
+          if git diff --cached --quiet; then
+            echo 'No new delivery receipt.'
+            exit 0
+          fi
+          git -c user.name='oddly-commerce-bot' -c user.email='ari-operations@agentmail.to' \
+            commit -m 'Record confirmed independent paid customer delivery (PII-free)'
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              exit 1
+            fi
+            sleep 2
+          done
+          exit 1
