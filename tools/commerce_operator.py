@@ -378,7 +378,7 @@ def run():
     # No email addresses, session IDs, attachments, API keys, or buyer CSVs.
     status_path = os.environ.get("COMMERCE_STATUS_PATH")
     if status_path:
-        Path(status_path).write_text(json.dumps(report, sort_keys=True) + "\\n", encoding="utf-8")
+        Path(status_path).write_text(json.dumps(report, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps(report))
 
 if __name__ == "__main__":
