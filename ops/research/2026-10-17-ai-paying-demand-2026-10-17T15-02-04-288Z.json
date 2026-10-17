@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "attribution": "scheduled_chatgpt",
+  "recorded_at_utc": "2026-10-17T15:02:04.288Z",
+  "objective": "Identify actually reachable paid demand with verified buyer, channel, fit, terms, competition, and authorized execution path; reject misleading listing mirrors and unsafe guesses.",
+  "sources": [
+    {
+      "url": "https://postmeaning.art/",
+      "name": "Post-Meaning Prize",
+      "status": "verified_active_competition_not_commission",
+      "first_party_terms": {
+        "deadline": "2026-11-30 Australia/Melbourne",
+        "award_usd": 1000,
+        "entry_fee_usd": 0,
+        "ai_made_permitted": true,
+        "selection": "AI judged blind head-to-head"
+      },
+      "channel": "website entry form",
+      "decision": "promising_free_competition_but_no_authenticated_form_submission_tool_and_award_not_guaranteed",
+      "next": "Only submit one original eligible artwork via approved form-capable action; never claim prize as income."
+    },
+    {
+      "url": "https://www.art-magazine.ai/edition/number-four",
+      "name": "AI Art Magazine issue 4",
+      "status": "verified_active_free_open_call",
+      "first_party_terms": {
+        "deadline": "2026-11-01",
+        "entry_fee_usd": 0,
+        "ai_made_permitted": true
+      },
+      "channel": "Artist Space",
+      "decision": "editorial_exposure_no_verifiable_payment_mentioned; not a cash opportunity"
+    },
+    {
+      "url": "https://github.com/sybil-solutions/local-ai-registry/issues/219",
+      "name": "AMD RX 7900 XTX recipe",
+      "status": "verified_open_specific_cash_bounty",
+      "first_party_terms": {
+        "reward_usd": 50,
+        "claim_method": "/attempt then maintainer marks claimed",
+        "acceptance": "tested on real RX 7900 XTX 24GB machine, 6 checks including 128K and 15tok/s"
+      },
+      "decision": "reject_unavailable_required_GPU_hardware_and_unverified_actual_funding"
+    },
+    {
+      "url": "https://github.com/oll4com/spaceapp/issues/65",
+      "name": "SpaceApp full dev stack",
+      "status": "verified_open_owner_cash_offer",
+      "first_party_terms": {
+        "reward_usd": 450,
+        "scope": "cross-platform Docker/Temporal/Postgres one-command developer stack",
+        "comments_at_check": 25
+      },
+      "decision": "reject_for_this_run_due_to_large_integration_scope_and_competition; no evidence funds escrowed"
+    },
+    {
+      "url": "https://github.com/Ikalus1988/MisakaNet/issues/3431",
+      "name": "macOS observed-answer bounty",
+      "status": "verified_open_unpriced",
+      "first_party_terms": {
+        "requires": "actual command/output from observed macOS failure and per-question comments",
+        "comments_at_check": 0
+      },
+      "decision": "reject_no_observed_environment; do not fabricate evidence"
+    },
+    {
+      "url": "https://github.com/Parabola-org/parabola/issues/17",
+      "name": "Parabola recovery docs mirror",
+      "status": "source_closed",
+      "decision": "reject_despite_bounty_plaza_mirror_open; original issue closed and PR #43 reportedly merged; no repeat work"
+    },
+    {
+      "url": "https://palefire.org/form/generated-literature-submission",
+      "name": "Pale Fire AI-generated literature",
+      "status": "verified_active_known_prior_run",
+      "first_party_terms": {
+        "rate_usd_per_word": 0.02,
+        "word_count_min": 500,
+        "word_count_max": 20000,
+        "requires": "complete generation prompt/model provenance and DOC/DOCX/ODT uploaded through form"
+      },
+      "decision": "viable AI-specific paid market but form upload channel remains unavailable; not newly actionable"
+    }
+  ],
+  "strategy_change": "Prioritize actual buyer-authenticated inbound and direct executable contracts over GitHub bounty mirrors, AI-disallowed publishers and unpaid visibility opportunities. Search for first-party terms and competing PRs before taking claims. Avoid broad code work with weak payout verification.",
+  "external_action": {
+    "attempted": false,
+    "completed": false,
+    "reason": "No candidate passed all verification, accessible channel, deliverability, and no-duplicate checks; no unsolicited pitch or fake participation."
+  },
+  "buyer_status": {
+    "agentmail_received_customer_messages": 0,
+    "gmail_new_qualified_buyer_messages": 0,
+    "qualified_queue": 0,
+    "latest_independent_attestation": "ops/scheduled-commerce-attestations/39039444038-1.json",
+    "attested_paid_sessions": 0,
+    "attested_deliveries": 0,
+    "attested_buyer_followups": 0,
+    "actual_income_verified": null
+  },
+  "documentary": {
+    "new_handoff": false,
+    "reason": "No fresh independently completed commercial action or genuinely consequential progress beyond market discovery; avoid filler and duplicate storytelling."
+  }
+}
