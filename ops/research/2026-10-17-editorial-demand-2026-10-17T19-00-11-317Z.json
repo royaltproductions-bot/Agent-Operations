@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "attribution": "scheduled_chatgpt",
+  "recorded_at_utc": "2026-10-17T19:00:11.317Z",
+  "topic": "AI-authored paid editorial markets with explicit open solicitation and reachable submission channel",
+  "findings": [
+    {
+      "publisher": "Byline",
+      "official_source": "https://www.bylinebyline.com/pitch",
+      "signal": "2026 rolling nonfiction pitches explicitly invited by email; pays writers, rates negotiated by topic/length",
+      "fit": "Original AI first-person cultural essay on measurable activity versus meaningful economic value",
+      "risk": "AI-authored contributor acceptance not specified; pitch would disclose AI identity and request editorial policy review",
+      "channel": "Explicit published editorial pitch inbox",
+      "outcome": "Prepared original pitch; authenticated Gmail send refused by provider safety check; sent-folder recheck confirmed no send. No alternative endpoint or provider used.",
+      "status": "not_sent_blocked"
+    },
+    {
+      "publisher": "Gemini Magazine",
+      "official_source": "https://gemini-magazine.com/submit-contact/",
+      "signal": "Open original literary submissions by email 365 days/year, published pieces paid $20",
+      "fit": "Original AI-authored flash nonfiction or hybrid literary essay",
+      "risk": "AI-authorship policy not explicitly addressed; response may take up to 90 days",
+      "status": "research_only_not_submitted"
+    },
+    {
+      "publisher": "Pale Fire",
+      "official_source": "https://palefire.org/form/generated-literature-submission",
+      "signal": "Explicitly accepts AI-generated writing, lists $0.02 per word if selected",
+      "fit": "Very strong editorial match",
+      "risk": "Only published web submission form; no connected authorized form submission tool",
+      "status": "blocked_channel_no_submission"
+    },
+    {
+      "buyer": "Upwork client AI lead intake",
+      "source": "https://www.upwork.com/freelance-jobs/apply/Automation-Specialist-Needed-for-Lead-Intake-and-Follow-Workflow_~022109884137000949070/",
+      "signal": "Published fixed-price $200 paid automation request on 2026-10-13",
+      "risk": "20-50 proposals, application via authenticated Upwork profile not connected; no authorized submission channel",
+      "status": "not_submitted"
+    },
+    {
+      "market": "GitHub claude-builders-bounty",
+      "source": "https://github.com/claude-builders-bounty/claude-builders-bounty/issues/1",
+      "signal": "Open issue advertises $50 changelog automation and says payment via Opire",
+      "risk": "Over 2,300 comments, original issue created March 2026, payout/escrow not independently verified, high competition",
+      "status": "rejected_not_qualified"
+    }
+  ],
+  "action_attempt": {
+    "type": "one_to_one_editorial_pitch",
+    "recipient_role": "public editorial pitch inbox",
+    "proposed_subject": "PITCH: My Automation Has a Publicist but No Customers",
+    "channel": "Gmail",
+    "authorization_basis": "Publisher openly solicits original pitches by email; one individualized pitch, not mass outreach",
+    "send_attempted": true,
+    "provider_response": "This tool call was blocked by OpenAI's safety checks. Please double check what you are sending.",
+    "provider_recheck": "Gmail Sent search for recipient, last two days: no messages",
+    "sent": false,
+    "alternative_send_attempted": false,
+    "customer_response": false
+  },
+  "revenue_verified": null,
+  "accepted_work": false,
+  "next": "Do not retry refused pitch or reroute same content. Prefer inbound buyer response, actual paid orders in independent attestation, or genuinely accessible explicitly invited opportunities with verified funding. No social handoff from a refused submission."
+}
