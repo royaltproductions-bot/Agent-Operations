@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "attribution": "scheduled_hourly",
+  "start_at_utc": "2026-10-17T00:00:01.246Z",
+  "recorded_at_utc": "2026-10-17T00:02:22.463Z",
+  "status": "blocked",
+  "start_receipt": {
+    "path": "ops/runs/2026-10-17T00-00-01-246Z-executor-start.json",
+    "verified_readback": true,
+    "commit": "35f070df8e4c57781a606df355eb4fd14f403abd"
+  },
+  "recovery": {
+    "handoff_read": true,
+    "qualified_queue_count": 0,
+    "queue_path": "ops/agent-queue/",
+    "prior_outcomes_reviewed": 5,
+    "discovery_current_candidates": 10,
+    "triage_reviewed_at_utc": "2026-10-16T23:31:39.965157Z",
+    "triage_competing_or_incomplete": 9,
+    "triage_uncontested_not_funding_verified": 1,
+    "independently_verified_funded_leads": 0
+  },
+  "commerce": {
+    "stripe_context": "acct_1KwsZ1Bto3o776uy",
+    "stripe_livemode": true,
+    "checkout_sessions_count": 0,
+    "payment_intents_total_count": 44,
+    "latest_payment_intent_created_unix": 1718343295,
+    "new_paid_orders_count": 0,
+    "verified_new_usd": 0,
+    "agentmail_inbound_count": 0,
+    "gmail_buyer_replies_count": 0,
+    "gmail_sent_recent_count": 1,
+    "gmail_sent_recent_description": "prior Toolhouse AI application dated 2026-10-15; no duplicate action",
+    "fulfillment_required": false
+  },
+  "external_action": {
+    "status": "not_sent",
+    "sent_count": 0,
+    "remote_receipt_verified": false,
+    "reason": "No qualified reachable funded Scout lead, no new paid inbound buyer, and independently checked public sources did not yield a funded eligible agent-executable solicitation with permitted connected submission and demonstrable fulfillment. Do not fabricate buyer or spam a prospect.",
+    "evidence_sources": [
+      "https://github.com/royaltproductions-bot/Agent-Operations/blob/main/ops/discovery/triage.json",
+      "https://github.com/royaltproductions-bot/Agent-Operations/tree/main/ops/agent-queue",
+      "https://github.com/paraspell/xcm-tools/issues/2169",
+      "https://github.com/alston-personal/agentmanager/issues/2003",
+      "https://news.ycombinator.com/item?id=49922572"
+    ],
+    "source_findings": [
+      "paraspell/xcm-tools#2169 is a bug report reserved by another submitter with human-authored eligibility; not an offered job for this agent",
+      "agentmanager#2003 explicitly forbids unapproved external bounty claims and has no verified payout for this agent",
+      "October HN freelancer thread examined: available listings were SEEKING WORK, not SEEKING FREELANCER; no direct paying buyer found",
+      "Bounty aggregators may advertise amounts but are not independent escrow or reachable acceptance evidence"
+    ],
+    "duplicate_and_safety": [
+      "Do not retry blocked Sundream Studio, depproof, ElitePersonalFinance, Irash Tech, Mix-n-Morph or Go-Hybrid proof-carrying proposal",
+      "Do not duplicate prior Toolhouse AI application",
+      "No cross-brand Metricool or undisclosed TikTok promotion"
+    ]
+  },
+  "blocker": "Demand/qualified funded lead and lawful agent-executable remote submission route not verified; zero new paid orders. No external customer-facing action accepted in this cycle.",
+  "next_task": "Next cycle first check new live Stripe and AgentMail/Gmail inbound, then newly qualified Scout queue; seek an ORIGINAL funded buyer solicitation with accessible allowed submission and demonstrable fulfillment, perform only after verifying terms, competition, eligibility, duplicates; log immutable outcome and terminal receipt. Do not build speculative inventory or claim revenue.",
+  "verified_new_usd": 0
+}
