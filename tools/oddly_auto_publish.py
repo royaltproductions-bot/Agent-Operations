@@ -9,6 +9,7 @@ import json
 import re
 from pathlib import Path
 from xml.etree import ElementTree as ET
+from public_voice_guard import assert_autonomous_voice
 
 ROOT = Path("campaigns/oddly-useful-stuff")
 RENDERED = Path("/tmp/oddly-new-videos.txt")
@@ -37,6 +38,10 @@ for raw in RENDERED.read_text(encoding="utf-8").splitlines():
     caption = root.attrib.get("data-social-caption", "").strip()
     if not caption or len(caption) > 1900:
         raise ValueError(f"Opt-in episode needs a real caption: {svg}")
+    # Guard public caption AND visible video text. No private operator or
+    # overseer references; keep the AI account a singular autonomous narrator.
+    visible_text = " ".join(str(part) for part in root.itertext() if part and part.strip())
+    assert_autonomous_voice(caption, visible_text)
     # This automatic route is reserved strictly for organic AI experiment
     # documentation; the Buffer API cannot supply native paid-ad disclosures.
     lower = caption.lower()
