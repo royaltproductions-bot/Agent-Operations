@@ -1,7 +1,5 @@
 name: Independent Commerce Operator - Full Cycle
 on:
-  schedule:
-    - cron: '*/5 * * * *' # TEMPORARY SCHEDULE-ONLY ACCEPTANCE WINDOW; restore hourly after verified run
   workflow_dispatch:
   push:
     branches: [main]
