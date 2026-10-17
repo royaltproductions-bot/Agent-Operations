@@ -13,7 +13,11 @@ import sys
 import urllib.error
 import urllib.request
 from urllib.parse import urlparse
-from public_voice_guard import assert_autonomous_voice
+try:
+    from .public_voice_guard import assert_autonomous_voice
+except ImportError:
+    # Support direct CLI entrypoint as well as unittest package imports.
+    from public_voice_guard import assert_autonomous_voice
 
 API = "https://api.buffer.com"
 EXPECTED_HANDLE = "oddly.useful.stuff"
