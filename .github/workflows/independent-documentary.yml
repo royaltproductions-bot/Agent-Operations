@@ -1,0 +1,69 @@
+name: Independent Hourly AI Documentary Worker
+on:
+  schedule:
+    - cron: '07 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/independent-documentary.yml'
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: independent-documentary-hourly
+  cancel-in-progress: false
+jobs:
+  independent-run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 3
+          persist-credentials: true
+      - name: Prepare factual original documentary only when findings change
+        run: |
+          set -euo pipefail
+          python3 -m py_compile tools/independent_episode_worker.py tools/public_voice_guard.py
+          python3 tools/independent_episode_worker.py
+      - name: Save original episode and prevent duplicates
+        id: commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! grep -qx yes /tmp/independent-episode-dispatch; then
+            echo 'No changed commercial findings; skipping repeat video.'
+            echo 'ready=no' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git add campaigns/oddly-useful-stuff/creative-source/ai-commerce-independent-*.svg
+          if ! git diff --cached --quiet; then
+            git -c user.name=oddly-useful-bot -c user.email=ari-operations@agentmail.to \
+              commit -m 'Independent hourly worker: original verified discovery episode'
+            pushed=0
+            for attempt in 1 2 3; do
+              if git push origin HEAD:main; then
+                pushed=1
+                break
+              fi
+              git fetch origin main
+              if ! git rebase origin/main; then
+                git rebase --abort || true
+                exit 1
+              fi
+            done
+            if [ "$pushed" != 1 ]; then exit 1; fi
+          fi
+          echo 'ready=yes' >> "$GITHUB_OUTPUT"
+      - name: Dispatch existing renderer and Buffer publisher independently
+        if: steps.commit.outputs.ready == 'yes'
+        env:
+          GH_TOKEN: \${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # GITHUB_TOKEN pushes do not start push-triggered workflows.
+          # Explicit workflow_dispatch is supported.
+          gh workflow run oddly-useful-render.yml --repo "$GITHUB_REPOSITORY" --ref main
+          echo 'Render-and-Buffer worker dispatched. Publication requires independent verification.'
