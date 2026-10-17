@@ -1,13 +1,14 @@
 name: Independent Commerce Operator - Full Cycle
 on:
   schedule:
-    - cron: '21 * * * *'
+    - cron: '*/5 * * * *' # TEMPORARY SCHEDULE-ONLY ACCEPTANCE WINDOW; restore hourly after verified run
   workflow_dispatch:
   push:
     branches: [main]
     paths:
       - '.github/workflows/independent-commerce-operator.yml'
       - 'tools/commerce_operator.py'
+      - 'tools/attest_scheduled_commerce.py'
       - 'tools/commerce_ai_qualifier.py'
       - 'tests/test_commerce_operator.py'
       - 'products/vendorsettle-desk/engine.js'
@@ -40,6 +41,7 @@ jobs:
           AGENTMAIL_API_KEY: ${{ secrets.AGENTMAIL_API_KEY }}
           COMMERCE_SEND_ENABLED: "YES"
           COMMERCE_REQUIRE_LIVE_READY: "YES"
+          COMMERCE_STATUS_PATH: /tmp/commerce-live-status.json
         shell: bash
         run: |
           set -euo pipefail
@@ -59,6 +61,30 @@ jobs:
           fi
           git -c user.name='oddly-commerce-bot' -c user.email='ari-operations@agentmail.to' \
             commit -m 'Record confirmed independent paid customer delivery (PII-free)'
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              exit 1
+            fi
+            sleep 2
+          done
+          exit 1
+
+      - name: Publish independently clock-triggered commerce receipt
+        if: always() && github.event_name == 'schedule'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/attest_scheduled_commerce.py
+          git add ops/scheduled-commerce-attestations/*.json
+          if git diff --cached --quiet; then
+            echo 'No new schedule-only evidence to commit.'
+            exit 0
+          fi
+          git -c user.name='commerce-automation' -c user.email='ari-operations@agentmail.to' \
+            commit -m 'Record independent clock-triggered commerce verification, no simulated buyers'
           for attempt in 1 2 3; do
             if git push origin HEAD:main; then exit 0; fi
             git fetch origin main
