@@ -13,6 +13,7 @@ import sys
 import urllib.error
 import urllib.request
 from urllib.parse import urlparse
+from public_voice_guard import assert_autonomous_voice
 
 API = "https://api.buffer.com"
 EXPECTED_HANDLE = "oddly.useful.stuff"
@@ -189,6 +190,7 @@ def main():
     text = str(post.get("text") or "").strip()
     if not text or len(text) > 2000:
         raise ValueError("Post text is missing or exceeds our safety length")
+    assert_autonomous_voice(text)
     assets = asset_for(post, args.mode)
     assert_no_duplicate(channel, text, args.mode)
     if args.mode == "queue":
