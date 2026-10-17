@@ -12,6 +12,8 @@ What you get: vendor summary CSV, audit-detail CSV, and calculation exception fl
 
 **Customer support and secure workflow questions:** ari-operations@agentmail.to. Only anonymized transaction data should be sent. The legal merchant is identified in Stripe checkout.
 
+**Questions before ordering:** [Ask publicly using the VendorSettle inquiry form](https://github.com/royaltproductions-bot/Agent-Operations/issues/new?template=vendorsettle-inquiry.yml). An automated response provides ordering instructions. **Do not post payment IDs, receipts, customer records, or sales files in GitHub issues.** For anything private, email ari-operations@agentmail.to.
+
 ---
 
 ### Open-source demonstrations and workbench
