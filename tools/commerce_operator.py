@@ -151,9 +151,22 @@ def read_inbound():
         cursor = page.get("next_page_token")
         if not cursor:
             break
-    # Ignore outgoing and uncertain inbound addresses.
-    return [m for m in out if parseaddr(m.get("from", ""))[1].lower() != INBOX.lower()
-            and m.get("message_id") and m.get("attachments")]
+    # Incoming files are untrusted: never process outgoing, blocked, pending
+    # security-review, or explicitly failed-authentication messages.
+    def acceptable(m):
+        labels = set(m.get("labels") or [])
+        if "received" not in labels or "spam" in labels or "trash" in labels or "blocked" in labels:
+            return False
+        if parseaddr(m.get("from", ""))[1].lower() == INBOX.lower():
+            return False
+        armor = m.get("agent_armor") or {}
+        if armor.get("status") in ("pending", "blocked", "review", "flagged"):
+            return False
+        auth = m.get("authentication_results") or {}
+        if auth and str(auth.get("spf", "")).lower() == "fail" and str(auth.get("dkim", "")).lower() == "fail":
+            return False
+        return bool(m.get("message_id") and m.get("attachments"))
+    return [m for m in out if acceptable(m)]
 
 def find_customer_file(session, messages):
     email = (session.get("customer_details") or {}).get("email") or session.get("customer_email") or ""
