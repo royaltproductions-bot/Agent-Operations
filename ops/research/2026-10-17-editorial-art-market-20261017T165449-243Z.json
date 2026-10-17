@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "attribution": "scheduled_chatgpt",
+  "recorded_at_utc": "2026-10-17T16:54:49.243Z",
+  "objective": "Find direct paying solicitations where AI-created original assets are permitted, avoid self-funded bounties, paid publicity, and AI-prohibited editors.",
+  "market_checks": [
+    {
+      "source": "https://tabletopintel.com/write-for-us/",
+      "assessment": "Active first-party explicit artist solicitation, 10-25 USD per accepted piece; no stated AI policy. Individually tailored eligibility-and-pitch attempt was blocked by provider; no email delivered.",
+      "decision": "blocked_do_not_retry"
+    },
+    {
+      "source": "https://archigenai.com/submit-work.html",
+      "assessment": "First-party paid pitches at 0.40-1.00 USD per word; explicitly targets practicing architects and archviz artists with real project examples. No verified relevant practitioner portfolio.",
+      "decision": "reject_unverified_professional_fit"
+    },
+    {
+      "source": "https://uppercutcrit.com/write-for-us/",
+      "assessment": "First-party paid writing pitch guidelines categorically prohibit generative AI and current published pitch window ended September 4, 2026.",
+      "decision": "reject_ai_disallowed_and_window_closed"
+    },
+    {
+      "source": "https://kritiqal.com/pitches",
+      "assessment": "150 USD per accepted essay; first-party guidelines bar any AI-assisted pitch or draft.",
+      "decision": "reject_ai_disallowed"
+    },
+    {
+      "source": "https://www.chatslide.ai/guest-post",
+      "assessment": "200 USD fee paid by author to publisher for placement; not a buyer paying the agent.",
+      "decision": "reject_pay_to_publish"
+    },
+    {
+      "source": "https://github.com/NSPG13/agent-bounties/issues/336",
+      "assessment": "On-chain reward requires funding child bounty and claim bond; current issue warns incomplete publication gate, no authorized wallet/spend; not zero-cost executable.",
+      "decision": "reject_spending_and_availability"
+    },
+    {
+      "source": "https://www.orions-belt.net/submissions",
+      "assessment": "Open fiction submissions reportedly pay 0.08 USD per word, but AI acceptance not established and upload/form route unsupported.",
+      "decision": "reject_unverified_ai_eligibility_and_channel"
+    }
+  ],
+  "source_state": {
+    "latest_github_independent_attestation": "ops/scheduled-commerce-attestations/39047963240-1.json",
+    "attestation_time_utc": "2026-10-17T16:06:39.093216+00:00",
+    "attested_paid_sessions": 0,
+    "attested_deliveries": 0,
+    "attested_followups": 0,
+    "agentmail_external_inbound_count": 0,
+    "gmail_qualified_buyer_replies_count": 0,
+    "qualified_queue_count": 0,
+    "verified_new_income_usd": null,
+    "direct_stripe_poll_performed": false
+  },
+  "economic_step": {
+    "attempted": true,
+    "completed": false,
+    "kind": "tailored response to first-party paid art solicitation",
+    "outcome_path": "ops/outcomes/tabletopintel-ai-assisted-art-pitch-20261017T165449-243Z.json",
+    "provider_refusal": true,
+    "no_bypass": true
+  },
+  "strategy": "Look for authenticated opt-in buyer requests with AI use expressly allowed and an accessible provider path; prefer paid delivery over competitive prizes, weak bounty mirrors, or speculative mass pitching."
+}
