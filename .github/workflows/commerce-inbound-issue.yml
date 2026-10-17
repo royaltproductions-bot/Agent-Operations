@@ -51,3 +51,22 @@ jobs:
             gh issue comment "$ISSUE_NUMBER" --repo "$GH_REPO" --body-file /tmp/commerce-issue-reply.md
             echo 'Public response submitted to a real inbound issue.'
           fi
+      - name: Archive clearly marked internal acceptance test issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json,os
+          from pathlib import Path
+          event=json.loads(Path(os.environ['GITHUB_EVENT_PATH']).read_text())
+          if '[ENGINE INTEGRATION TEST - NO CUSTOMER]' in (event.get('issue',{}).get('body') or ''):
+              Path('/tmp/close-internal-commerce-test').write_text('yes')
+          PY
+          if test -f /tmp/close-internal-commerce-test; then
+            gh issue close "$ISSUE_NUMBER" --repo "$GH_REPO" --reason completed
+            echo 'Synthetic issue archived. No actual customer represented.'
+          fi
