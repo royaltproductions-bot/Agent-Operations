@@ -299,6 +299,8 @@ def run():
         target = receipt_path(sid)
         if target.exists():
             continue
+        if not verified_unreversed_payment(session):
+            continue
         # Same buyer may have multiple paid orders. Require an explicit
         # Checkout Session / PaymentIntent reference when orders are ambiguous.
         buyer = ((session.get("customer_details") or {}).get("email") or session.get("customer_email") or "").lower()
@@ -306,10 +308,22 @@ def run():
             (((order.get("customer_details") or {}).get("email") or order.get("customer_email") or "").lower() == buyer)]
         matched = find_customer_file(session, messages)
         if not matched:
-            continue
-        # A completed checkout alone is insufficient: never fulfill a
-        # refunded, reversed, or otherwise unsettled PaymentIntent.
-        if not verified_unreversed_payment(session):
+            # A legitimate paid buyer might not have supplied the required CSV.
+            # Send no more than one private, idempotent instructions email.
+            email = (session.get("customer_details") or {}).get("email") or session.get("customer_email")
+            notice_subject = "VendorSettle input required — order " + sid
+            if email and not DRY_RUN and not previously_sent(notice_subject):
+                sent_notice = agent_send(
+                    email, notice_subject,
+                    "Thank you for your VendorSettle Desk order. To prepare your report, "
+                    "please reply with one anonymized CSV (up to 500 sales rows) containing "
+                    "date,vendor,item,transaction_id,gross,refund,fee,vendor_rate. "
+                    "Please exclude customers' personal data, bank details and card numbers. "
+                    "Your report is typically delivered within three business days after "
+                    "the usable file arrives. Questions? Reply privately to this email.",
+                    [], order_id=sid + "-intake-request")
+                if sent_notice:
+                    report["buyer_outreach"] += 1
             continue
         if len(same_buyer_orders) > 1:
             incoming_subject = str(matched[0].get("subject") or "")
@@ -335,7 +349,7 @@ def run():
             report["status"] = "sent_without_receipt_needs_reconciliation"
             continue
         sent = agent_send(recipient, subject,
-          "Attached are your vendor summary and transaction audit CSVs, plus review notes if needed. Please review all calculations and flags against original records before paying vendors.", list(files.items()), order_id=sid)
+          "Attached are your vendor summary and transaction audit CSVs, plus review notes if needed. Please review all calculations and flags against original records before paying vendors.", list(files.items()), order_id=sid + "-delivery")
         # Public record contains NO PII, CSV data, email addresses or attachments.
         record = {"schema_version": 1, "actor": "independent_github_actions",
                   "order_id_sha256": safe_key(sid), "paid_verified": True,
