@@ -156,6 +156,20 @@ class CommerceOperatorTests(unittest.TestCase):
                 op.run()
                 sent.assert_not_called()
 
+
+    def test_inbox_discards_spoofed_blocked_and_self_sent_file(self):
+        normal={"message_id":"<legitimate@test>","from":"buyer@example.test",
+                "labels":["received"],"attachments":[{"filename":"report.csv","size":100}],
+                "authentication_results":{"spf":"pass","dkim":"pass"}}
+        bad={**normal,"message_id":"<fake@test>","authentication_results":{"spf":"fail","dkim":"fail"}}
+        pending={**normal,"message_id":"<pending@test>","agent_armor":{"status":"pending"}}
+        outbound={**normal,"message_id":"<self@test>","from":op.INBOX,"labels":["received","sent"]}
+        with patch.object(op,"agent_get",return_value={"messages":[normal,bad,pending,outbound]}) as mocked:
+            items=op.read_inbound()
+            self.assertEqual(len(items),1)
+            self.assertEqual(items[0]["message_id"],"<legitimate@test>")
+            self.assertEqual(mocked.call_args.args[0],"messages")
+
     def test_no_credentials_means_no_emails(self):
         with patch.dict(os.environ,{},clear=True),patch.object(op,"DRY_RUN",True),\
              patch("sys.stdout",new_callable=io.StringIO) as output:
