@@ -13,7 +13,6 @@ on:
       - 'products/vendorsettle-desk/engine.js'
 permissions:
   contents: write
-  models: read
 concurrency:
   group: independent-full-commerce-operator
   cancel-in-progress: false
@@ -33,9 +32,7 @@ jobs:
           python3 -m py_compile tools/commerce_operator.py tools/commerce_ai_qualifier.py
           node --check products/vendorsettle-desk/engine.js
           python3 -m unittest discover -s tests -p 'test_commerce_operator.py' -v
-      - name: AI analysis of genuine paid opportunities
-        env:
-          GH_MODELS_TOKEN: ${{ github.token }}
+      - name: Screen opportunities using evidence, not retired GitHub Models
         run: python3 tools/commerce_ai_qualifier.py
       - name: Poll ONLY verified existing live Stripe service payments and customer intake
         env:
