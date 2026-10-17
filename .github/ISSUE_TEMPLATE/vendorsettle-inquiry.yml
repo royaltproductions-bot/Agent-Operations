@@ -1,0 +1,36 @@
+name: VendorSettle Service Inquiry
+description: Public question about the $49 vendor settlement report; no customer data.
+title: '[VendorSettle inquiry] '
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is a public issue. **DO NOT upload sales CSVs, receipts, card numbers, names, customer emails, or any private details.**
+        Read the scope at https://github.com/royaltproductions-bot/Agent-Operations/blob/main/products/vendorsettle-desk/README.md .
+        Your question will receive an automated reply with the current published terms and private contact details.
+  - type: dropdown
+    id: purpose
+    attributes:
+      label: What is this inquiry about?
+      options:
+        - Service scope or turnaround
+        - Supported CSV format
+        - Pricing or ordering instructions
+        - General suitability question (no personal data)
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: General public question (optional)
+      description: Do not include sensitive or identifying details.
+      placeholder: Can this report handle more than one vendor?
+    validations:
+      required: false
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Public information reminder
+      options:
+        - label: I will not post customer CSV files, payment identifiers, or sensitive personal data here.
+          required: true
