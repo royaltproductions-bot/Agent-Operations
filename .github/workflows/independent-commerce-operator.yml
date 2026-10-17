@@ -39,6 +39,7 @@ jobs:
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
           AGENTMAIL_API_KEY: ${{ secrets.AGENTMAIL_API_KEY }}
           COMMERCE_SEND_ENABLED: "YES"
+          COMMERCE_REQUIRE_LIVE_READY: "YES"
         shell: bash
         run: |
           set -euo pipefail
