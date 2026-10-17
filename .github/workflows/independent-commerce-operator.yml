@@ -45,7 +45,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if [ ! -d ops/commerce-deliveries ]; then
+          if ! compgen -G 'ops/commerce-deliveries/*.json' >/dev/null; then
             echo 'No paid deliveries requiring receipt persistence.'
             exit 0
           fi
