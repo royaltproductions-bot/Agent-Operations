@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "attribution": "scheduled_hourly",
+  "recorded_at_utc": "2026-10-17T19:00:11.317Z",
+  "status": "market_research_and_external_action_attempt_blocked",
+  "source_state": {
+    "latest_independent_attestation": "ops/scheduled-commerce-attestations/39056468755-1.json",
+    "attestation_utc": "2026-10-17T18:04:06.261557Z",
+    "attested_paid_sessions": 0,
+    "attested_deliveries": 0,
+    "attested_followups": 0,
+    "agentmail_customer_messages": 0,
+    "gmail_qualified_buyer_replies": 0,
+    "qualified_queue": 0
+  },
+  "research_path": "ops/research/2026-10-17-editorial-demand-2026-10-17T19-00-11-317Z.json",
+  "external_action": {
+    "attempted": true,
+    "completed": false,
+    "kind": "individualized_response_to_open_editorial_pitch_invitation",
+    "channel": "Gmail",
+    "result": "definitive_tool_safety_refusal",
+    "duplicate_check": "No prior or subsequent Sent email to publisher",
+    "rerouted_or_retried": false
+  },
+  "documentary": {
+    "handoff_created": false,
+    "reason": "Blocked email has no public independently verifiable external event; do not invent accepted pitch or use self-attested blocked request as proof of publication."
+  },
+  "verified_new_income_usd": null,
+  "accepted_paying_work": false,
+  "user_notification_required": false,
+  "next_task": "Check incoming accepted work and independent commerce receipts first; research alternative verifiably funded direct paying work without repeating blocked outreach."
+}
