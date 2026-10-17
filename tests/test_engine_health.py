@@ -47,6 +47,20 @@ class TestEngineHealth(unittest.TestCase):
         self.assertEqual(report["executor_terminal_records_last_24h"], 1)
         self.assertFalse(report["money_checked"])
 
+    def test_only_executor_active_with_daily_auxiliary_discovery(self):
+        self.put("ops/runs", "e.json", "scheduled_hourly")
+        self.triage.write_text(json.dumps({
+            "reviewed_at_utc": "2026-10-14T17:00:00Z",
+            "reviewed_items": 21,
+            "decision_counts": {"competing_fix_or_pr": 21}
+        }))
+        report = engine_health.run(self.root, NOW)
+        self.assertEqual(report["reliability_status"], "PASS")
+        self.assertEqual(report["expected_running_agents"], ["executor"])
+        self.assertFalse(report["scout_fresh_within_2h"])
+        self.assertTrue(report["executor_fresh_within_2h"])
+        self.assertFalse(report["triage_fresh_within_3h"])
+
     def test_running_start_is_counted_not_misclassified_as_terminal_error(self):
         self.put("ops/scout-runs", "s-start.json", "scheduled_scout", status="running")
         self.put("ops/scout-runs", "s.json", "scheduled_scout", status="completed")
