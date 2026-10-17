@@ -35,6 +35,7 @@ jobs:
           source = root / 'creative-source'
           destination = root / 'media'
           destination.mkdir(parents=True, exist_ok=True)
+          existing_mp4 = {p.name for p in destination.glob('*.mp4')}
           sources = sorted(source.glob('*.svg'))
           if not sources:
               raise RuntimeError('No SVG sources found.')
@@ -67,15 +68,37 @@ jobs:
               if video.stat().st_size < 1000:
                   raise RuntimeError('Generated MP4 unexpectedly small: ' + video.name)
               print('VIDEO:', video, video.stat().st_size, 'bytes')
+          new_video_files = sorted(str(p) for p in destination.glob('*.mp4') if p.name not in existing_mp4)
+          Path('/tmp/oddly-new-videos.txt').write_text('\\n'.join(new_video_files) + ('\\n' if new_video_files else ''), encoding='utf-8')
+          print('NEW_RENDERED_VIDEOS:', new_video_files)
           PY
-      - name: Commit public PNG assets
+      - name: Prepare eligible AI experiment documentary posts
+        run: python3 tools/oddly_auto_publish.py
+      - name: Commit public PNG, MP4 and new post manifests
         shell: bash
         run: |
           set -euo pipefail
-          git add campaigns/oddly-useful-stuff/media/*.png campaigns/oddly-useful-stuff/media/*.mp4
+          git add campaigns/oddly-useful-stuff/media/*.png campaigns/oddly-useful-stuff/media/*.mp4 campaigns/oddly-useful-stuff/posts/*.json
           if git diff --cached --quiet; then
             echo 'No new media to commit.'
           else
             git -c user.name='oddly-useful-bot' -c user.email='ari-operations@agentmail.to' commit -m 'Render free promotional PNG assets for Oddly Useful Stuff'
             git push
           fi
+
+      - name: Submit newly rendered opted-in episodes to Buffer
+        env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -s /tmp/oddly-ready-posts.txt ]; then
+            echo 'No eligible new documentary episode; skipping Buffer.'
+            exit 0
+          fi
+          test -f campaigns/oddly-useful-stuff/.enable-live-publishing || { echo 'Live gate disabled'; exit 1; }
+          test -n "$BUFFER_API_KEY" || { echo 'Missing Buffer key'; exit 1; }
+          while IFS= read -r file; do
+            [ -n "$file" ] || continue
+            BUFFER_QUEUE_ENABLED=YES python3 tools/buffer_publisher.py --mode queue --input "$file"
+          done < /tmp/oddly-ready-posts.txt
