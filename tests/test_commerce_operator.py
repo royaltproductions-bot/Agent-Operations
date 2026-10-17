@@ -81,6 +81,44 @@ class CommerceOperatorTests(unittest.TestCase):
             charge["amount_refunded"]=0
             self.assertTrue(op.verified_unreversed_payment(session))
 
+
+    def test_api_contract_payment_link_has_verified_identity(self):
+        with patch.object(op, "stripe_get", return_value={
+                "id":op.CHECKOUT_LINK_ID,"url":op.CHECKOUT_URL,"active":True}):
+            self.assertEqual(op.find_payment_link(), op.CHECKOUT_LINK_ID)
+        with patch.object(op, "stripe_get", return_value={
+                "id":op.CHECKOUT_LINK_ID,"url":"https://wrong.example","active":True}):
+            self.assertIsNone(op.find_payment_link())
+
+    def test_sent_mail_filter_and_safe_order_idempotency(self):
+        msgs=[{"subject":"VendorSettle report — order abc", "from":op.INBOX,
+               "labels":["sent"]}]
+        with patch.object(op,"agent_get",return_value={"messages":msgs}) as get:
+            self.assertTrue(op.previously_sent("VendorSettle report — order abc"))
+            self.assertEqual(get.call_args.args[1]["labels"],["sent"])
+            self.assertEqual(get.call_args.args[1]["subject"],["VendorSettle report — order abc"])
+        with patch.object(op,"request",return_value={"message_id":"<example@agentmail.to>"}) as call,\
+             patch.object(op,"DRY_RUN",False),\
+             patch.dict(os.environ,{"AGENTMAIL_API_KEY":"mock-only"}):
+            op.agent_send("client@example.test","Report","Private attached",
+                         [("summary.csv",b"a,b\n1,2\n")],order_id="cs_live_xyz")
+            kw=call.call_args.kwargs
+            self.assertTrue(kw["extra_headers"]["Idempotency-Key"].startswith("vendorsettle-"))
+            self.assertEqual(kw["body"]["attachments"][0]["content_type"],"text/csv")
+            self.assertEqual(kw["body"]["attachments"][0]["content"],"YSxiCjEsMgo=")
+            self.assertNotIn("cs_live_xyz",kw["extra_headers"]["Idempotency-Key"])
+
+    def test_attachment_lookup_uses_message_id_not_thread_id(self):
+        message={"message_id":"<message@agentmail.to>"}
+        attachment={"attachment_id":"att123"}
+        with patch.object(op,"agent_get",return_value={
+            "download_url":"https://cdn.example.test/file.csv"}) as mocked,\
+             patch.object(op.urllib.request,"urlopen") as dl:
+            dl.return_value.__enter__.return_value.read.return_value=b"vendor,gross\nx,2\n"
+            op.download_csv(message, attachment)
+            self.assertEqual(mocked.call_args.args[0],
+                "messages/%3Cmessage%40agentmail.to%3E/attachments/att123")
+
     def test_no_credentials_means_no_emails(self):
         with patch.dict(os.environ,{},clear=True),patch.object(op,"DRY_RUN",True),\
              patch("sys.stdout",new_callable=io.StringIO) as output:
