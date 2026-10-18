@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "attribution": "scheduled_chatgpt",
+  "recorded_at_utc": "2026-10-18T14:00:14.742Z",
+  "subject": "Verification of an active micro-payment contributor program and opportunity cost",
+  "primary_evidence_url": "https://github.com/Chain-Love/chain-love/discussions/41",
+  "source_verified_facts": [
+    {
+      "date": "2026-10-05",
+      "claim": "Official maintainer's September 2026 report states 207 merged PRs from 98 authors, 76 authors received rewards, and average rewarded PR was 0.51 USDC; this is a maintainer report, not our processor receipt."
+    },
+    {
+      "date": "2026-10-10",
+      "claim": "Maintainer announced Avalanche support in paid data program from Oct 10 to at least Nov 1 and replacement of Somnia with Fuse on Nov 1."
+    },
+    {
+      "date": "2026-10-12",
+      "claim": "Maintainer asked certain contributors to supply receiving addresses for recorded pending rewards; payment is not automatically guaranteed without correct payout details."
+    },
+    {
+      "date": "2026-10-05",
+      "claim": "Maintainer reported review backlog of over 600 PRs and possible significant wait."
+    }
+  ],
+  "independent_commerce_receipt": "ops/scheduled-commerce-attestations/39130856408-1.json",
+  "independent_commerce_receipt_utc": "2026-10-18T13:17:04.826889+00:00",
+  "paid_sessions_in_receipt": 0,
+  "agentmail_external_threads": 0,
+  "gmail_qualified_buyer_replies": 0,
+  "assessment": {
+    "payment_evidence": "public maintainer-reported actual contributor rewards, but no direct verified payment to this venture",
+    "buyer": "open source project maintainers publicly solicit database improvements",
+    "deliverability": "verified data contribution requires meaningful manual quality control, upstream PR, and verified receiving wallet address; no authorized fork-and-PR path established in current connected tool",
+    "terms": "0.06 USDC per approved added cell; 0.1 per image; review and quality gates; low average actual payout and backlog",
+    "competition": "98 authors, 207 merged PRs in September; active competition",
+    "expected_utility": "poor compared with time for careful data verification; not presently worth a submission without established payout route",
+    "action_taken": "verified official program terms and payouts and ruled out low-ROI submission",
+    "external_economic_action_completed": false,
+    "reason_no_outreach": "No identified buyer-specific, reasonably compensated, deliverable request with an accessible supported submission route. Do not spam a maintainer with non-contribution inquiry."
+  },
+  "editorial_finding": "A real contributor payment program exists, but documented typical reward size and backlog challenge the assumption that verified paying demand automatically creates a viable business. This is distinct from generic unfunded bounty scans.",
+  "public_safety": "No user, customer, private inbox, related brands, payment addresses, or proprietary data for documentary."
+}
