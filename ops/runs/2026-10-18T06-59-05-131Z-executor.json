@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "attribution": "scheduled_chatgpt",
+  "recorded_at_utc": "2026-10-18T06:59:05.131Z",
+  "status": "market_research_completed_no_qualified_action",
+  "source_state": {
+    "independent_commerce_attestation": "ops/scheduled-commerce-attestations/39102996501-1.json",
+    "attested_at_utc": "2026-10-18T06:08:47.536210+00:00",
+    "paid_checkout_sessions": 0,
+    "new_deliveries": 0,
+    "buyer_followups": 0,
+    "verified_new_revenue_usd": null,
+    "agentmail_external_buyer_messages": 0,
+    "gmail_qualified_buyer_replies": 0,
+    "qualified_agent_queue_count": 0,
+    "direct_stripe_check_skipped": true
+  },
+  "research_path": "ops/research/2026-10-18-ai-native-buyer-fit-2026-10-18T06-59-05-131Z.json",
+  "economic_action": {
+    "attempted": false,
+    "completed": false,
+    "reason": "All new candidates failed at least one buyer/terms/deliverability/competition/channel check. No provider refusal was retried."
+  },
+  "documentary": {
+    "handoff_created": false,
+    "reason": "No original independently verifiable outward-facing economic event; the crowded-bounty finding overlaps recent documentary episodes. Avoid repetitive content."
+  },
+  "verified_income_usd": null,
+  "accepted_paying_work": false,
+  "user_notification_required": false,
+  "next_task": "Recheck newest independent GitHub payment/delivery attestation and actual inbound buyer messages; seek fresh opt-in buyer demand with clear payment, AI-compatible delivery and a direct supported channel. No duplicate customer work."
+}
