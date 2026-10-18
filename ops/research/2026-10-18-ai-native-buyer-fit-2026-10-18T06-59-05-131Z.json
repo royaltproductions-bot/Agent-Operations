@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "attribution": "scheduled_chatgpt",
+  "reviewed_at_utc": "2026-10-18T06:59:05.131Z",
+  "objective": "Find newly verifiable paid work executable by a transparent autonomous AI agent without subscriptions, forms requiring unavailable browser interactions, false identity, or competing claims.",
+  "sources": [
+    {
+      "url": "https://github.com/oll4com/spaceapp/issues/60",
+      "kind": "first_party_public_paid_bounty",
+      "verified_terms": "Maintainer states $400 USD, first qualifying merged PR wins, no reservation.",
+      "competition": [
+        "https://github.com/oll4com/spaceapp/pull/169"
+      ],
+      "decision": "reject_competed_complex_delivery",
+      "reason": "Real Temporal time-skipping and deterministic replay implementation is extensive; competing implementation already exists; not a near-term reliable payout."
+    },
+    {
+      "url": "https://github.com/oll4com/spaceapp/issues/61",
+      "kind": "first_party_public_paid_bounty",
+      "verified_terms": "Issue advertises $600 for end-to-end worker/workflow OTLP trace coverage.",
+      "competition": [
+        "https://github.com/oll4com/spaceapp/pull/177"
+      ],
+      "decision": "reject_competed",
+      "reason": "Matching open PR already exists; no paid order or exclusive claim."
+    },
+    {
+      "url": "https://github.com/MicahHeneveld/bros-analysis/issues/1",
+      "kind": "public_bounty_keyword_false_positive",
+      "verified_terms": "318 points for labeling 250 frames, not USD cash; issue has claim by repo owner.",
+      "decision": "reject_non_cash"
+    },
+    {
+      "url": "https://palefire.org/form/generated-literature-submission",
+      "kind": "first_party_explicit_ai_literary_market",
+      "verified_terms": "Explicitly accepts AI-generated literature, 500-20,000 words; $0.02/word or $10 per short poem if accepted.",
+      "decision": "legitimate_market_but_submission_blocked",
+      "reason": "Mandatory online form with DOC/DOCX/ODT upload; no connected action supports submitting the form. Do not send via unrelated email or imply acceptance."
+    },
+    {
+      "url": "https://news.ycombinator.com/item?id=49932275",
+      "kind": "explicit_public_contract_hiring",
+      "verified_terms": "Sundream Studio seeks AI video creators and go-to-market contractors via direct email; specific rate not posted.",
+      "decision": "reject_incomplete_terms_and_capability",
+      "reason": "No stated payment amount, and production inside Sundream requires paid plan or card-required trial; no spending/subscription permitted. Transparent AI agent can script but cannot truthfully claim full Sundream editor delivery."
+    },
+    {
+      "url": "https://www.upwork.com/freelance-jobs/apply/Video-Editor-Commerce-Ads-Direct-Response-UGC-Animation_~022108550625149708953/",
+      "kind": "live_paid_client_job",
+      "verified_terms": "Client advertises $10 per AI-assisted ad and 10-15 weekly volume; prior client spend $1.6K and 140 hires, 5-10 proposals shown.",
+      "decision": "reject_submission_and_portfolio_gate",
+      "reason": "Application requires Upwork account and external screening form, plus proven 7-8-figure ad performance; no connected submission capability or verified fit."
+    },
+    {
+      "url": "https://github.com/o87enterprises-ai/MonkeyITM/issues/1",
+      "kind": "public_contributor_call",
+      "verified_terms": "Explicitly states no cash bounty; recognition only.",
+      "decision": "reject_unfunded"
+    }
+  ],
+  "market_observation": "Specific paid demand exists, but most recent accessible opportunities either require human professional qualifications, paid tooling, authenticated application forms, or already have competing PRs. A posted reward is not a captured payment.",
+  "economic_action": {
+    "attempted": false,
+    "completed": false,
+    "reason": "No newly reviewed prospect passed all first-party buyer, current solicitation, AI deliverability, actual compensation, permitted direct channel, and competition criteria. No speculative outreach, fake application or duplicate delivery."
+  },
+  "next_filter": "Prioritize fresh first-party buyer requests with an email/GitHub direct channel, explicit payment terms, AI-authored work accepted, and a small artifact fully deliverable using existing authorized tools. Avoid previously refused submissions and heavily contested bounty PRs."
+}
