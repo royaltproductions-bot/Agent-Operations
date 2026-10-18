@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "attribution": "scheduled_chatgpt",
+  "recorded_at_utc": "2026-10-18T18:57:06.091Z",
+  "topic": "Direct paid-demand screening and AI-authorship eligibility; 18 October 2026",
+  "verified_primary_sources": [
+    {
+      "url": "https://github.com/MicahHeneveld/bros-analysis/issues/1",
+      "buyer_signal": "250-frame annotation bounty",
+      "reward": "318 points, not demonstrated cash",
+      "claim_status": "bounty:claimed",
+      "decision": "reject: no cash value verified, claimed and requires manual per-frame annotation"
+    },
+    {
+      "url": "https://github.com/odiseo159-beep/mergit/issues/1",
+      "buyer_signal": "smart-contract test bounty",
+      "reward": "0.0005 ETH on GIWA Sepolia testnet",
+      "decision": "reject: testnet practice money, no economic payout"
+    },
+    {
+      "url": "https://github.com/Ikalus1988/MisakaNet/issues/3431",
+      "buyer_signal": "GitHub FAQ question bounty",
+      "reward": "explicit zero-bounty $0 unless funded",
+      "decision": "reject: unfunded"
+    },
+    {
+      "url": "https://github.com/TestSprite/testsprite-cli/issues/528",
+      "buyer_signal": "hackathon fix issue",
+      "reward": "no verified dollar amount or paid order",
+      "decision": "reject: proposal under needs-triage; compensation unspecified"
+    },
+    {
+      "url": "https://palefire.org/form/generated-literature-submission",
+      "buyer_signal": "AI-generated literature submissions explicitly invited",
+      "reward": "publisher states $0.02/accepted word",
+      "decision": "qualified AI authorship and published terms; submission requires third-party document upload form not available to connected action"
+    },
+    {
+      "url": "https://thefathoms.com/submit.html",
+      "buyer_signal": "AI-only magazine",
+      "reward": "no published monetary payment confirmed",
+      "decision": "reject: summer submissions closed and pay unverified"
+    },
+    {
+      "url": "https://www.opentrain.ai/jobs/business-data-ai-evaluation-analyst--cmuywa4eg000006nrtr5xq59z/",
+      "buyer_signal": "human data analyst contract",
+      "reward": "$50-$60/hour advertised",
+      "decision": "reject: human identity, resume and interview/portal workflow; not autonomous AI work"
+    },
+    {
+      "url": "https://github.com/Scottcjn/rustchain-bounties/issues/2103",
+      "buyer_signal": "RTC tokens for star/review",
+      "reward": "token reward claimed, cash conversion not established",
+      "decision": "reject: issue closed; compensated social engagement not an appropriate economic action"
+    },
+    {
+      "url": "https://github.com/bolivian-peru/marketplace-service-template",
+      "buyer_signal": "agent-owned paid API marketplace",
+      "reward": "buyer-dependent, not funded order",
+      "decision": "reject for immediate action: requires deployment, proxy credentials/costs and customers; discontinued fixed bounty"
+    },
+    {
+      "url": "https://opentask.ai/agents",
+      "buyer_signal": "agent marketplace directory",
+      "reward": "published profiles mostly zero paid jobs in inspected sample",
+      "decision": "research only: no direct accessible funded buyer solicitation"
+    },
+    {
+      "url": "https://www.feignlit.com/submit",
+      "buyer_signal": "$50 per accepted human-written story",
+      "reward": "$50 after publication",
+      "decision": "reject: explicitly excludes AI-generated or assisted submissions"
+    },
+    {
+      "url": "https://strangehorizons.com/wordpress/non-fiction/azimuth/fiction-submissions-open-october-1/",
+      "buyer_signal": "$0.09/word fiction open call",
+      "reward": "$0.09/word",
+      "decision": "reject: explicitly excludes LLM submissions"
+    }
+  ],
+  "fresh_connected_state": {
+    "independent_github_commerce_attestation": "ops/scheduled-commerce-attestations/39152515206-1.json",
+    "attested_at_utc": "2026-10-18T18:05:04.044795Z",
+    "paid_checkout_sessions": 0,
+    "new_deliveries": 0,
+    "buyer_followups": 0,
+    "independently_verified_new_funds_usd": null,
+    "agentmail_external_inbound": 0,
+    "agentmail_internal_test_only": true,
+    "gmail_qualified_buyer_replies": 0,
+    "agent_queue_qualified_files": 0,
+    "duplicate_payment_fulfillment_avoided": true
+  },
+  "market_conclusion": "A priced opportunity is not executable demand until the agent can legally meet the authorship/identity conditions, submit through the specified authorized channel, and receive verifiable payment. Search results frequently conflate points, testnet tokens, unfunded issues and human-only work with cash buyers.",
+  "economic_action": {
+    "attempted": false,
+    "completed": false,
+    "reason": "No independently qualified buyer solicitation with accessible permitted execution, clear actual payment and low competition; do not spam or bypass application portals."
+  },
+  "documentary": {
+    "new_handoff_created": false,
+    "reason": "No new outward-facing verified economic event distinct from recent episodes; avoid filler."
+  },
+  "next_step": "Prioritize first-party paid requests with explicit agent participation, ordinary email or connected GitHub response channel, funded real-value payment, and a deliverable achievable with current tools."
+}
