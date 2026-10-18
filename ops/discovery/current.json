@@ -16,8 +16,20 @@
     "testing": 25
   },
   "lane_errors": {},
-  "unique_candidates": 2,
+  "unique_candidates": 7,
   "top_candidates": [
+    {
+      "source": "github_public_issue",
+      "repo": "Gospelsam019/williams-contracts",
+      "title": "Keeper Bounty Token Selection Arbitrarily Favors First Token in Multi-Token Estates",
+      "url": "https://github.com/Gospelsam019/williams-contracts/issues/109",
+      "bounty_usd_hint_not_verified": 100000.0,
+      "score_for_review_only": 90,
+      "competition_indicator_comments": 1,
+      "created_at": "2026-10-17T17:34:58Z",
+      "status": "requires_manual_payment_and_claim_verification",
+      "discovered_lane": "testing"
+    },
     {
       "source": "github_public_issue",
       "repo": "alston-personal/agentmanager",
@@ -33,14 +45,62 @@
     {
       "source": "github_public_issue",
       "repo": "paraloom-labs/paraloom-core",
-      "title": "[BOUNTY] Medium: multi-account session desync — dApp swaps/balances use Account 1 when Account 2 active, plus onboarding session never saved (paraloom-wallet)",
-      "url": "https://github.com/paraloom-labs/paraloom-core/issues/929",
+      "title": "[BOUNTY] Medium: Non-atomic cross-CF deposit persistence & unvalidated leaf index gaps in PrivacyStorage, and unseeded vault rent-floor aborts in slash_validator & deposit_note",
+      "url": "https://github.com/paraloom-labs/paraloom-core/issues/1002",
       "bounty_usd_hint_not_verified": 150.0,
-      "score_for_review_only": 58,
-      "competition_indicator_comments": 9,
-      "created_at": "2026-10-15T16:42:28Z",
+      "score_for_review_only": 78,
+      "competition_indicator_comments": 2,
+      "created_at": "2026-10-18T04:21:23Z",
       "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "integration"
+      "discovered_lane": "cash"
+    },
+    {
+      "source": "github_public_issue",
+      "repo": "paraloom-labs/paraloom-core",
+      "title": "[BOUNTY] Medium: Unsynchronized swapOutputs & wallet storage read-modify-write races, cross-context reconcile/reshield double-execution, maybeAutoLock TOCTOU, unretried 429/408 swa",
+      "url": "https://github.com/paraloom-labs/paraloom-core/issues/1004",
+      "bounty_usd_hint_not_verified": 150.0,
+      "score_for_review_only": 78,
+      "competition_indicator_comments": 1,
+      "created_at": "2026-10-18T04:43:27Z",
+      "status": "requires_manual_payment_and_claim_verification",
+      "discovered_lane": "javascript"
+    },
+    {
+      "source": "github_public_issue",
+      "repo": "paraloom-labs/paraloom-core",
+      "title": "[BOUNTY] Medium: Unchecked withdrawal amount in transact_submit causes arithmetic negation overflow and sign inversion",
+      "url": "https://github.com/paraloom-labs/paraloom-core/issues/990",
+      "bounty_usd_hint_not_verified": 150.0,
+      "score_for_review_only": 78,
+      "competition_indicator_comments": 2,
+      "created_at": "2026-10-17T16:08:40Z",
+      "status": "requires_manual_payment_and_claim_verification",
+      "discovered_lane": "testing"
+    },
+    {
+      "source": "github_public_issue",
+      "repo": "paraloom-labs/paraloom-wallet",
+      "title": "[BOUNTY] Medium: Unsynchronized swapOutputs & wallet storage read-modify-write races, cross-context reconcile/reshield double-execution, maybeAutoLock TOCTOU, unretried 429/408 swa",
+      "url": "https://github.com/paraloom-labs/paraloom-wallet/issues/93",
+      "bounty_usd_hint_not_verified": 150.0,
+      "score_for_review_only": 78,
+      "competition_indicator_comments": 1,
+      "created_at": "2026-10-18T04:43:26Z",
+      "status": "requires_manual_payment_and_claim_verification",
+      "discovered_lane": "javascript"
+    },
+    {
+      "source": "github_public_issue",
+      "repo": "BasedHardware/omi",
+      "title": "[Bounty proposal] fix(database): sanitize uid and protect announcement streams against store failures ( proposed)",
+      "url": "https://github.com/BasedHardware/omi/issues/22091",
+      "bounty_usd_hint_not_verified": 50.0,
+      "score_for_review_only": 73,
+      "competition_indicator_comments": 0,
+      "created_at": "2026-10-18T04:56:02Z",
+      "status": "requires_manual_payment_and_claim_verification",
+      "discovered_lane": "python"
     }
   ]
 }

@@ -1,15 +1,36 @@
 {
   "schema_version": 1,
-  "reviewed_at_utc": "2026-10-17T10:29:47.862127Z",
-  "source_items": 2,
-  "reviewed_items": 2,
+  "reviewed_at_utc": "2026-10-18T10:29:58.651818Z",
+  "source_items": 7,
+  "reviewed_items": 7,
   "decision_counts": {
-    "competing_fix_or_pr": 1,
-    "uncontested_not_funding_verified": 1
+    "competing_fix_or_pr": 3,
+    "incomplete_pr_pagination": 2,
+    "uncontested_not_funding_verified": 2
   },
   "verified_paid_orders": 0,
   "verified_funding": 0,
   "results": [
+    {
+      "url": "https://github.com/BasedHardware/omi/issues/22091",
+      "decision": "incomplete_pr_pagination",
+      "competing_pr_urls": [],
+      "claim_signals": [],
+      "open_prs_inspected": 100,
+      "comments_inspected": 0,
+      "funds_independently_verified": false,
+      "qualifies_as_paid_order": false
+    },
+    {
+      "url": "https://github.com/Gospelsam019/williams-contracts/issues/109",
+      "decision": "uncontested_not_funding_verified",
+      "competing_pr_urls": [],
+      "claim_signals": [],
+      "open_prs_inspected": 0,
+      "comments_inspected": 0,
+      "funds_independently_verified": false,
+      "qualifies_as_paid_order": false
+    },
     {
       "url": "https://github.com/alston-personal/agentmanager/issues/2003",
       "decision": "uncontested_not_funding_verified",
@@ -21,21 +42,55 @@
       "qualifies_as_paid_order": false
     },
     {
-      "url": "https://github.com/paraloom-labs/paraloom-core/issues/929",
+      "url": "https://github.com/paraloom-labs/paraloom-core/issues/1002",
       "decision": "competing_fix_or_pr",
       "competing_pr_urls": [
-        "https://github.com/paraloom-labs/paraloom-core/pull/932",
-        "https://github.com/paraloom-labs/paraloom-core/pull/936",
-        "https://github.com/paraloom-labs/paraloom-wallet/pull/62",
-        "https://github.com/paraloom-labs/paraloom-wallet/pull/71"
+        "https://github.com/paraloom-labs/paraloom-core/pull/1003",
+        "https://github.com/paraloom-labs/paraloom-core/pull/1010"
       ],
       "claim_signals": [
-        "https://github.com/paraloom-labs/paraloom-core/issues/929#issuecomment-6199923963",
-        "https://github.com/paraloom-labs/paraloom-core/issues/929#issuecomment-6201387217",
-        "https://github.com/paraloom-labs/paraloom-core/issues/929#issuecomment-6201450009"
+        "https://github.com/paraloom-labs/paraloom-core/issues/1002#issuecomment-6246202724"
       ],
-      "open_prs_inspected": 87,
-      "comments_inspected": 9,
+      "open_prs_inspected": 100,
+      "comments_inspected": 2,
+      "funds_independently_verified": false,
+      "qualifies_as_paid_order": false
+    },
+    {
+      "url": "https://github.com/paraloom-labs/paraloom-core/issues/1004",
+      "decision": "incomplete_pr_pagination",
+      "competing_pr_urls": [],
+      "claim_signals": [],
+      "open_prs_inspected": 100,
+      "comments_inspected": 1,
+      "funds_independently_verified": false,
+      "qualifies_as_paid_order": false
+    },
+    {
+      "url": "https://github.com/paraloom-labs/paraloom-core/issues/990",
+      "decision": "competing_fix_or_pr",
+      "competing_pr_urls": [
+        "https://github.com/paraloom-labs/paraloom-core/pull/991"
+      ],
+      "claim_signals": [
+        "https://github.com/paraloom-labs/paraloom-core/issues/990#issuecomment-6236360415",
+        "https://github.com/paraloom-labs/paraloom-core/issues/990#issuecomment-6241889916"
+      ],
+      "open_prs_inspected": 100,
+      "comments_inspected": 2,
+      "funds_independently_verified": false,
+      "qualifies_as_paid_order": false
+    },
+    {
+      "url": "https://github.com/paraloom-labs/paraloom-wallet/issues/93",
+      "decision": "competing_fix_or_pr",
+      "competing_pr_urls": [
+        "https://github.com/paraloom-labs/paraloom-wallet/pull/94",
+        "https://github.com/paraloom-labs/paraloom-wallet/pull/95"
+      ],
+      "claim_signals": [],
+      "open_prs_inspected": 60,
+      "comments_inspected": 1,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
     }
