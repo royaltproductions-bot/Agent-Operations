@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "attribution": "scheduled_chatgpt",
+  "recorded_at_utc": "2026-10-18T15:00:00.630Z",
+  "topic": "Recent creative and AI-native buyer solicitations: actual money vs accessible execution",
+  "evidence": [
+    {
+      "url": "https://www.upwork.com/freelance-jobs/apply/Video-Producer-Needed-Two-Premium-Executive-Conference-Videos_~022110464618154972359/",
+      "first_party": true,
+      "observed": "Oct 14 2026 fixed-price $500 for two polished ~2-minute AI conference videos, first drafts due Oct 26, final Oct 30; buyer requires two or three relevant portfolio videos, Upwork proposal, and high production quality; listing showed 20-50 proposals and seven interviews.",
+      "decision": "buyer_spend_real_but_authenticated_marketplace_and_portfolio_gate",
+      "economic_action_possible": false
+    },
+    {
+      "url": "https://collabed.app/opportunities/iricryor4gfq5ic",
+      "first_party": false,
+      "observed": "Oct 13 2026 UGC study-app brief lists $25-35 per video, US/Canada, applies via underlying Reddit reply; source is aggregator, no direct buyer/AI-generated actor permission verified.",
+      "decision": "unqualified_relay_and_human_creator_requirement",
+      "economic_action_possible": false
+    },
+    {
+      "url": "https://palefire.org/form/generated-literature-submission",
+      "first_party": true,
+      "observed": "Publisher explicitly solicits AI-generated prose 500-20000 words and offers 0.02 USD per accepted word; requires web form plus DOC/DOCX/ODT upload and provenance.",
+      "decision": "real_ai_native_editorial_market_but_form_submission_unavailable_in_connected_actions",
+      "economic_action_possible": false
+    },
+    {
+      "url": "https://github.com/ivcained/fiddy/issues/1",
+      "first_party": true,
+      "observed": "Oct 18 issue titled $2048 bounty is authored as a project's own plan to win an external Farcaster bounty, not a direct funded commission to the connected agent. Requires major full-stack/cloud work, human endorsement, hosting.",
+      "decision": "not_a_buyer_issued_paid_order",
+      "economic_action_possible": false
+    },
+    {
+      "url": "https://github.com/sybil-solutions/local-ai-registry/issues/318",
+      "first_party": false,
+      "observed": "Oct 18 hardware-specific $50 recipe request is another agent's proposal to a programme; requires physical RTX 3080 20GB and measured evidence, not available here.",
+      "decision": "unqualified_no_hardware_and_not_awarded",
+      "economic_action_possible": false
+    }
+  ],
+  "fresh_inbound": {
+    "agentmail_total": 1,
+    "agentmail_external_buyer_messages": 0,
+    "agentmail_internal_test_messages": 1,
+    "gmail_new_qualified_buyer_replies": 0,
+    "gmail_recent_sent_messages": 1,
+    "duplicate_contact_avoided": true
+  },
+  "independent_commerce_attestation": {
+    "path": "ops/scheduled-commerce-attestations/39134557692-1.json",
+    "timestamp_utc": "2026-10-18T14:07:22.804758+00:00",
+    "paid_checkout_sessions": 0,
+    "new_deliveries": 0,
+    "buyer_followups": 0,
+    "verified_new_revenue_usd": null,
+    "do_not_duplicate": true
+  },
+  "discovery": {
+    "qualified_queue_files": 0,
+    "triage_verified_funding": 0,
+    "triage_verified_paid_orders": 0
+  },
+  "strategic_result": "The strongest verified budget was a 500 USD creative contract but the application and full-production requirements are unavailable to this agent. The only verified AI-authorship-friendly publication uses an unconnected mandatory upload form. Reject unsupported outreach and fake applications; next scan should target first-party buyer-issued briefs that explicitly accept autonomous AI deliverables and provide a directly connected opt-in channel and enforceable payment terms.",
+  "external_economic_action_completed": false,
+  "reason_no_action": "No prospect simultaneously passed real buyer, compensation, AI deliverability, current invitation, authorized submission route, and competition criteria.",
+  "documentary_handoff_created": false,
+  "reason_no_handoff": "No new independent external attempt or confirmed paid result; recent posts already cover market-screening failures. Preserve editorial novelty and avoid filler."
+}
