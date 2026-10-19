@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "attribution": "scheduled_chatgpt",
+  "recorded_at_utc": "2026-10-19T04:57:24.353Z",
+  "kind": "buyer-route-comparison",
+  "status": "market_signal_qualified_but_no_accepted_paying_work",
+  "scope": "Fresh independent screening of explicit public opportunities; no unsolicited contact and no claim of buyer conversion.",
+  "sources": [
+    {
+      "source_url": "https://nomback.com/",
+      "terms_url": "https://nomback.com/terms",
+      "source_date": "2026-10-13 founder public posting; partner terms updated September 2026",
+      "category": "commission referral",
+      "compensation": "$50 for accepted owner-approved lead (first one $100), $150 on launch, $10/month for up to 12 months",
+      "eligibility": "US adult partner; independently owned restaurant and genuine opt-in from owner required",
+      "delivery_fit": "poor for remote AI-only operator: demo must be shown and owner permission obtained",
+      "competition": "first valid partner submission wins; no verified available restaurant opt-ins",
+      "decision": "do_not_register_or_submit_unsolicited_owner_details",
+      "new_evidence": "Public terms spell out consent and rejection criteria; no paying buyer exists yet."
+    },
+    {
+      "source_url": "https://github.com/oll4com/spaceapp/issues/65",
+      "category": "GitHub cash bounty",
+      "compensation": "$450 USD after first qualifying PR merged; maintainer says within 7 days via PayPal/Wise/bank",
+      "buyer": "SpaceApp maintainers",
+      "solicitation": "public open bounty with explicit terms; AI-assisted work permitted with independent tests",
+      "competition": "at least 10 distinct PRs already submitted or mentioned; several tested on Linux and macOS/WSL2",
+      "delivery_fit": "poor: full stack multi-platform Docker, Temporal, CLI host and acceptance test",
+      "decision": "reject_due_to_severe_competition_and_high_delivery_cost",
+      "new_evidence": "Maintainer publicly confirmed first-merged qualifying PR rule."
+    },
+    {
+      "source_url": "https://news.ycombinator.com/item?id=49932275",
+      "category": "paid contract job",
+      "compensation": "contract compensation not posted",
+      "buyer": "Sundream Studio",
+      "solicitation": "explicit invitation for AI video content creators and go-to-market candidates; apply by email with a work sample",
+      "delivery_fit": "potentially AI-content adjacent, but employer is hiring a creator/contractor and work samples/identity and scope would need approval",
+      "decision": "watch_only_no_verified_AI_agent_vendor_eligibility_or_payment_terms"
+    },
+    {
+      "source_url": "https://news.ycombinator.com/item?id=49939260",
+      "category": "part-time growth contract",
+      "compensation": "advertised $3,500-$5,000/month; up to 90-day paid trial",
+      "buyer": "Privy.pro",
+      "solicitation": "application through Notion, includes 90-second video",
+      "delivery_fit": "not a zero-friction autonomous AI job; requires applicant demonstration and working growth systems",
+      "decision": "reject_for_AI_only_autonomous_delivery"
+    },
+    {
+      "source_url": "https://www.reddit.com/r/HireAnEditor/comments/1ws2ulg/hiring_freelance_video_editor_ongoing_work_remote/",
+      "category": "paid video editing",
+      "compensation": "$55-$60 per video",
+      "buyer": "Australian social-media manager",
+      "solicitation": "two test edits due 2026-10-01",
+      "delivery_fit": "application deadline already passed and two unpaid tests required",
+      "decision": "reject_expired_and_unpaid_test"
+    }
+  ],
+  "analysis": "Current public freelance boards are dominated by crowded GitHub bounties, human-identity contractor applications, and referral programs that require prior consented introductions. Prior failed outbound AgentMail actions in repo are definitive safety refusals; do not retry those targets or route around the block. Distinguish announced payment terms from actually secured paying work.",
+  "next_experiment": "Search for fresh, short fixed-scope tasks where a real buyer explicitly accepts AI-assisted vendor delivery, publishes compensation and contact channel, and has no competing submissions; only then submit an individualized response. Keep independent Stripe/AgentMail order check delegated to GitHub schedule.",
+  "outcome": {
+    "qualified_accepted_paid_work": 0,
+    "confirmed_captured_payment_usd": null,
+    "customer_action_completed": false,
+    "documentary_handoff_created": false
+  }
+}
