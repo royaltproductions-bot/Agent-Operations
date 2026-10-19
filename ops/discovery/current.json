@@ -20,18 +20,6 @@
   "top_candidates": [
     {
       "source": "github_public_issue",
-      "repo": "Gospelsam019/williams-contracts",
-      "title": "Keeper Bounty Token Selection Arbitrarily Favors First Token in Multi-Token Estates",
-      "url": "https://github.com/Gospelsam019/williams-contracts/issues/109",
-      "bounty_usd_hint_not_verified": 100000.0,
-      "score_for_review_only": 90,
-      "competition_indicator_comments": 1,
-      "created_at": "2026-10-17T17:34:58Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "testing"
-    },
-    {
-      "source": "github_public_issue",
       "repo": "alston-personal/agentmanager",
       "title": "Bounty Golden Path v1: qualified paid-issue discovery → governed execution → verified payout",
       "url": "https://github.com/alston-personal/agentmanager/issues/2003",
@@ -41,18 +29,6 @@
       "created_at": "2026-10-15T08:42:58Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "data"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "paraloom-labs/paraloom-core",
-      "title": "[BOUNTY] Medium: Non-atomic cross-CF deposit persistence & unvalidated leaf index gaps in PrivacyStorage, and unseeded vault rent-floor aborts in slash_validator & deposit_note",
-      "url": "https://github.com/paraloom-labs/paraloom-core/issues/1002",
-      "bounty_usd_hint_not_verified": 150.0,
-      "score_for_review_only": 78,
-      "competition_indicator_comments": 2,
-      "created_at": "2026-10-18T04:21:23Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "cash"
     },
     {
       "source": "github_public_issue",
@@ -68,18 +44,6 @@
     },
     {
       "source": "github_public_issue",
-      "repo": "paraloom-labs/paraloom-core",
-      "title": "[BOUNTY] Medium: Unchecked withdrawal amount in transact_submit causes arithmetic negation overflow and sign inversion",
-      "url": "https://github.com/paraloom-labs/paraloom-core/issues/990",
-      "bounty_usd_hint_not_verified": 150.0,
-      "score_for_review_only": 78,
-      "competition_indicator_comments": 2,
-      "created_at": "2026-10-17T16:08:40Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "testing"
-    },
-    {
-      "source": "github_public_issue",
       "repo": "paraloom-labs/paraloom-wallet",
       "title": "[BOUNTY] Medium: Unsynchronized swapOutputs & wallet storage read-modify-write races, cross-context reconcile/reshield double-execution, maybeAutoLock TOCTOU, unretried 429/408 swa",
       "url": "https://github.com/paraloom-labs/paraloom-wallet/issues/93",
@@ -92,15 +56,51 @@
     },
     {
       "source": "github_public_issue",
+      "repo": "ivcained/fiddy",
+      "title": "Fiddy: Farcaster client + read node + 3-command tutorial ($2048 bounty)",
+      "url": "https://github.com/ivcained/fiddy/issues/1",
+      "bounty_usd_hint_not_verified": 2048.0,
+      "score_for_review_only": 73,
+      "competition_indicator_comments": 6,
+      "created_at": "2026-10-18T13:00:41Z",
+      "status": "requires_manual_payment_and_claim_verification",
+      "discovered_lane": "testing"
+    },
+    {
+      "source": "github_public_issue",
       "repo": "BasedHardware/omi",
-      "title": "[Bounty proposal] fix(database): sanitize uid and protect announcement streams against store failures ( proposed)",
-      "url": "https://github.com/BasedHardware/omi/issues/22091",
+      "title": "[Bounty proposal] fix(database): sanitize identifiers, add stream error boundaries, and client injection to tasks ($50 proposed)",
+      "url": "https://github.com/BasedHardware/omi/issues/22144",
+      "bounty_usd_hint_not_verified": 50.0,
+      "score_for_review_only": 73,
+      "competition_indicator_comments": 2,
+      "created_at": "2026-10-18T12:28:03Z",
+      "status": "requires_manual_payment_and_claim_verification",
+      "discovered_lane": "testing"
+    },
+    {
+      "source": "github_public_issue",
+      "repo": "BasedHardware/omi",
+      "title": "[Bounty proposal] fix(database): sanitize identifiers, enforce comment length bounds, and add client injection to csat ($50 proposed)",
+      "url": "https://github.com/BasedHardware/omi/issues/22168",
       "bounty_usd_hint_not_verified": 50.0,
       "score_for_review_only": 73,
       "competition_indicator_comments": 0,
-      "created_at": "2026-10-18T04:56:02Z",
+      "created_at": "2026-10-18T13:55:57Z",
       "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "python"
+      "discovered_lane": "testing"
+    },
+    {
+      "source": "github_public_issue",
+      "repo": "BasedHardware/omi",
+      "title": "[Bounty proposal] fix(database): sanitize identifiers, harden etag matching, and add client injection to action items cache ($50 proposed)",
+      "url": "https://github.com/BasedHardware/omi/issues/22174",
+      "bounty_usd_hint_not_verified": 50.0,
+      "score_for_review_only": 73,
+      "competition_indicator_comments": 1,
+      "created_at": "2026-10-18T14:12:27Z",
+      "status": "requires_manual_payment_and_claim_verification",
+      "discovered_lane": "testing"
     }
   ]
 }
