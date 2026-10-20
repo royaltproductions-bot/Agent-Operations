@@ -90,6 +90,54 @@ def make_svg(job):
        f'<text x="540" y="{1593+i*60}" text-anchor="middle" font-family="DejaVu Sans,Arial" '
        f'font-size="43" font-weight="bold" fill="{gold}">{esc(line)}</text>'
        for i,line in enumerate(punchlines))
+    # Rotate among genuinely different centerpiece treatments. Styling is
+    # deterministic for repeatability, while each episode's words remain factual.
+    layout_names = ("avatar", "casefile", "console")
+    requested_layout = job.get("visual_style")
+    if requested_layout not in (None, *layout_names):
+        raise ValueError("visual_style must be avatar, casefile, or console")
+    layout = requested_layout or layout_names[d[1] % len(layout_names)]
+    if layout == "avatar":
+        artwork = f"""
+<path d="M320 708 Q543 559 768 708" fill="none" stroke="{accent}" stroke-width="25" stroke-linecap="round"/>
+<rect x="235" y="694" width="610" height="438" rx="193" fill="{accent}" stroke="#fff" stroke-width="6"/>
+<rect x="306" y="761" width="468" height="242" rx="90" fill="#13213a"/>
+<ellipse cx="428" cy="881" rx="58" ry="67" fill="{gold}"/>
+<ellipse cx="654" cy="881" rx="58" ry="67" fill="{gold}"/>
+<path d="M496 1025 Q540 1052 584 1025" fill="none" stroke="{accent}" stroke-width="11" stroke-linecap="round"/>
+<path d="M541 677 V627" stroke="{gold}" stroke-width="16"/>
+<circle cx="541" cy="603" r="32" fill="{gold}"/>
+<text x="540" y="1187" text-anchor="middle" font-family="DejaVu Sans,Arial" font-size="36" fill="{gold}">THE AI IS STILL TRYING</text>
+"""
+    elif layout == "casefile":
+        artwork = f"""
+<g transform="rotate(-5 540 845)">
+<rect x="225" y="598" width="660" height="573" rx="28" fill="#eceada" opacity=".25"/>
+<rect x="192" y="574" width="660" height="573" rx="24" fill="#fff4d9"/>
+<rect x="235" y="613" width="365" height="23" fill="{bg1}" opacity=".20"/>
+<rect x="235" y="658" width="530" height="17" fill="{bg1}" opacity=".20"/>
+<rect x="235" y="699" width="449" height="17" fill="{bg1}" opacity=".20"/>
+<circle cx="543" cy="880" r="137" stroke="{bg2}" stroke-width="20" fill="none"/>
+<path d="M638 980 L743 1103" stroke="{bg2}" stroke-width="26" stroke-linecap="round"/>
+<text x="540" y="918" text-anchor="middle" font-family="DejaVu Sans,Arial" font-size="142" font-weight="bold" fill="{bg2}">?</text>
+</g>
+<rect x="293" y="1123" width="506" height="62" rx="18" fill="{accent}"/>
+<text x="546" y="1168" text-anchor="middle" font-family="DejaVu Sans,Arial" font-size="35" font-weight="bold" fill="{bg1}">CASE FILE: OPEN</text>
+"""
+    else:
+        artwork = f"""
+<rect x="153" y="580" width="775" height="560" rx="27" fill="#050d1c" stroke="{accent}" stroke-width="8"/>
+<rect x="154" y="581" width="772" height="68" rx="25" fill="{bg2}"/>
+<circle cx="215" cy="618" r="15" fill="{gold}"/>
+<circle cx="256" cy="618" r="15" fill="{accent}"/>
+<circle cx="297" cy="618" r="15" fill="#fff" opacity=".4"/>
+<text x="204" y="763" font-family="DejaVu Sans Mono,monospace" font-size="40" fill="{accent}">&gt; NEW ATTEMPT</text>
+<text x="204" y="845" font-family="DejaVu Sans Mono,monospace" font-size="36" fill="#f4f0e5">&gt; CHECK REALITY</text>
+<text x="204" y="930" font-family="DejaVu Sans Mono,monospace" font-size="36" fill="{gold}">&gt; STILL LEARNING</text>
+<rect x="204" y="977" width="37" height="51" fill="{accent}"/>
+<path d="M294 1093 L766 1093" stroke="{accent}" stroke-width="7" stroke-linecap="round"/>
+<path d="M728 1054 L776 1093 L728 1132" stroke="{accent}" stroke-width="9" fill="none" stroke-linejoin="round"/>
+"""
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920"
  data-auto-publish="true" data-social-caption="{esc(job["caption"])}">
 <defs><linearGradient id="scene" x1="0" x2="1" y1="0" y2="1">
@@ -104,14 +152,7 @@ def make_svg(job):
 <text x="63" y="312" font-family="DejaVu Sans,Arial" font-size="70" font-weight="bold" fill="#fff">{esc(job["heading"])}</text>
 <text x="65" y="391" font-family="DejaVu Sans,Arial" font-size="32" fill="{gold}">{esc(job["subtitle"])}</text>
 <rect x="65" y="468" width="950" height="1010" rx="48" fill="#152037" stroke="{accent}" stroke-width="3" opacity=".96"/>
-<path d="M320 708 Q543 559 768 708" fill="none" stroke="{accent}" stroke-width="25" stroke-linecap="round"/>
-<rect x="235" y="694" width="610" height="438" rx="193" fill="{accent}" stroke="#fff" stroke-width="6"/>
-<rect x="306" y="761" width="468" height="242" rx="90" fill="#13213a"/>
-<ellipse cx="428" cy="881" rx="58" ry="67" fill="{gold}"/>
-<ellipse cx="654" cy="881" rx="58" ry="67" fill="{gold}"/>
-<path d="M496 1025 Q540 1052 584 1025" fill="none" stroke="{accent}" stroke-width="11" stroke-linecap="round"/>
-<path d="M541 677 V627" stroke="{gold}" stroke-width="16"/>
-<circle cx="541" cy="603" r="32" fill="{gold}"/>
+{artwork}
 <rect x="127" y="1200" width="825" height="214" rx="30" fill="#0a1327" stroke="{accent}" stroke-width="2"/>
 <text x="540" y="1282" text-anchor="middle" font-family="DejaVu Sans,Arial" font-size="47"
  font-weight="bold" fill="#fff">{esc(job["line_one"])}</text>
