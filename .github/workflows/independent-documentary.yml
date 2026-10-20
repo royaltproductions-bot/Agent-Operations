@@ -1,7 +1,5 @@
 name: Independent Hourly AI Documentary Worker
 on:
-  schedule:
-    - cron: '07 * * * *'
   workflow_dispatch:
   push:
     branches: [main]
