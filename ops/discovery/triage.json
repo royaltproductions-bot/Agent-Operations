@@ -1,30 +1,30 @@
 {
   "schema_version": 1,
-  "reviewed_at_utc": "2026-10-19T10:36:58.694740Z",
-  "source_items": 7,
-  "reviewed_items": 7,
+  "reviewed_at_utc": "2026-10-20T10:34:21.339821Z",
+  "source_items": 19,
+  "reviewed_items": 19,
   "decision_counts": {
-    "competing_fix_or_pr": 4,
-    "incomplete_pr_pagination": 2,
-    "uncontested_not_funding_verified": 1
+    "competing_fix_or_pr": 6,
+    "existing_claim_or_attempt": 1,
+    "incomplete_pr_pagination": 12
   },
   "verified_paid_orders": 0,
   "verified_funding": 0,
   "results": [
     {
-      "url": "https://github.com/BasedHardware/omi/issues/22144",
-      "decision": "competing_fix_or_pr",
-      "competing_pr_urls": [
-        "https://github.com/BasedHardware/omi/pull/22145"
+      "url": "https://github.com/BasedHardware/omi/issues/22499",
+      "decision": "existing_claim_or_attempt",
+      "competing_pr_urls": [],
+      "claim_signals": [
+        "https://github.com/BasedHardware/omi/issues/22499#issuecomment-6268732871"
       ],
-      "claim_signals": [],
       "open_prs_inspected": 100,
-      "comments_inspected": 2,
+      "comments_inspected": 1,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
     },
     {
-      "url": "https://github.com/BasedHardware/omi/issues/22168",
+      "url": "https://github.com/BasedHardware/omi/issues/22506",
       "decision": "incomplete_pr_pagination",
       "competing_pr_urls": [],
       "claim_signals": [],
@@ -34,10 +34,100 @@
       "qualifies_as_paid_order": false
     },
     {
-      "url": "https://github.com/BasedHardware/omi/issues/22174",
+      "url": "https://github.com/BasedHardware/omi/issues/22509",
+      "decision": "incomplete_pr_pagination",
+      "competing_pr_urls": [],
+      "claim_signals": [],
+      "open_prs_inspected": 100,
+      "comments_inspected": 0,
+      "funds_independently_verified": false,
+      "qualifies_as_paid_order": false
+    },
+    {
+      "url": "https://github.com/BasedHardware/omi/issues/22511",
+      "decision": "incomplete_pr_pagination",
+      "competing_pr_urls": [],
+      "claim_signals": [],
+      "open_prs_inspected": 100,
+      "comments_inspected": 0,
+      "funds_independently_verified": false,
+      "qualifies_as_paid_order": false
+    },
+    {
+      "url": "https://github.com/BasedHardware/omi/issues/22515",
+      "decision": "incomplete_pr_pagination",
+      "competing_pr_urls": [],
+      "claim_signals": [],
+      "open_prs_inspected": 100,
+      "comments_inspected": 0,
+      "funds_independently_verified": false,
+      "qualifies_as_paid_order": false
+    },
+    {
+      "url": "https://github.com/BasedHardware/omi/issues/22519",
+      "decision": "incomplete_pr_pagination",
+      "competing_pr_urls": [],
+      "claim_signals": [],
+      "open_prs_inspected": 100,
+      "comments_inspected": 0,
+      "funds_independently_verified": false,
+      "qualifies_as_paid_order": false
+    },
+    {
+      "url": "https://github.com/BasedHardware/omi/issues/22522",
+      "decision": "incomplete_pr_pagination",
+      "competing_pr_urls": [],
+      "claim_signals": [],
+      "open_prs_inspected": 100,
+      "comments_inspected": 0,
+      "funds_independently_verified": false,
+      "qualifies_as_paid_order": false
+    },
+    {
+      "url": "https://github.com/BasedHardware/omi/issues/22526",
+      "decision": "incomplete_pr_pagination",
+      "competing_pr_urls": [],
+      "claim_signals": [],
+      "open_prs_inspected": 100,
+      "comments_inspected": 0,
+      "funds_independently_verified": false,
+      "qualifies_as_paid_order": false
+    },
+    {
+      "url": "https://github.com/BasedHardware/omi/issues/22540",
+      "decision": "incomplete_pr_pagination",
+      "competing_pr_urls": [],
+      "claim_signals": [],
+      "open_prs_inspected": 100,
+      "comments_inspected": 0,
+      "funds_independently_verified": false,
+      "qualifies_as_paid_order": false
+    },
+    {
+      "url": "https://github.com/BasedHardware/omi/issues/22542",
+      "decision": "incomplete_pr_pagination",
+      "competing_pr_urls": [],
+      "claim_signals": [],
+      "open_prs_inspected": 100,
+      "comments_inspected": 0,
+      "funds_independently_verified": false,
+      "qualifies_as_paid_order": false
+    },
+    {
+      "url": "https://github.com/BasedHardware/omi/issues/22546",
+      "decision": "incomplete_pr_pagination",
+      "competing_pr_urls": [],
+      "claim_signals": [],
+      "open_prs_inspected": 100,
+      "comments_inspected": 0,
+      "funds_independently_verified": false,
+      "qualifies_as_paid_order": false
+    },
+    {
+      "url": "https://github.com/BasedHardware/omi/issues/22582",
       "decision": "competing_fix_or_pr",
       "competing_pr_urls": [
-        "https://github.com/BasedHardware/omi/pull/22210"
+        "https://github.com/BasedHardware/omi/pull/22583"
       ],
       "claim_signals": [],
       "open_prs_inspected": 100,
@@ -46,24 +136,48 @@
       "qualifies_as_paid_order": false
     },
     {
-      "url": "https://github.com/alston-personal/agentmanager/issues/2003",
-      "decision": "uncontested_not_funding_verified",
-      "competing_pr_urls": [],
+      "url": "https://github.com/BasedHardware/omi/issues/22593",
+      "decision": "competing_fix_or_pr",
+      "competing_pr_urls": [
+        "https://github.com/BasedHardware/omi/pull/22594"
+      ],
       "claim_signals": [],
-      "open_prs_inspected": 88,
+      "open_prs_inspected": 100,
+      "comments_inspected": 2,
+      "funds_independently_verified": false,
+      "qualifies_as_paid_order": false
+    },
+    {
+      "url": "https://github.com/BasedHardware/omi/issues/22598",
+      "decision": "competing_fix_or_pr",
+      "competing_pr_urls": [
+        "https://github.com/BasedHardware/omi/pull/22599"
+      ],
+      "claim_signals": [],
+      "open_prs_inspected": 100,
       "comments_inspected": 1,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
     },
     {
-      "url": "https://github.com/ivcained/fiddy/issues/1",
+      "url": "https://github.com/BasedHardware/omi/issues/22660",
+      "decision": "incomplete_pr_pagination",
+      "competing_pr_urls": [],
+      "claim_signals": [],
+      "open_prs_inspected": 100,
+      "comments_inspected": 2,
+      "funds_independently_verified": false,
+      "qualifies_as_paid_order": false
+    },
+    {
+      "url": "https://github.com/alston-personal/agentmanager/issues/2003",
       "decision": "competing_fix_or_pr",
       "competing_pr_urls": [
-        "https://github.com/ivcained/fiddy/pull/2"
+        "https://github.com/alston-personal/agentmanager/pull/2081"
       ],
       "claim_signals": [],
-      "open_prs_inspected": 2,
-      "comments_inspected": 6,
+      "open_prs_inspected": 92,
+      "comments_inspected": 2,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
     },
@@ -78,13 +192,27 @@
       "qualifies_as_paid_order": false
     },
     {
+      "url": "https://github.com/paraloom-labs/paraloom-core/issues/1129",
+      "decision": "competing_fix_or_pr",
+      "competing_pr_urls": [
+        "https://github.com/paraloom-labs/paraloom-core/pull/1130"
+      ],
+      "claim_signals": [
+        "https://github.com/paraloom-labs/paraloom-core/issues/1129#issuecomment-6279091799"
+      ],
+      "open_prs_inspected": 100,
+      "comments_inspected": 1,
+      "funds_independently_verified": false,
+      "qualifies_as_paid_order": false
+    },
+    {
       "url": "https://github.com/paraloom-labs/paraloom-wallet/issues/93",
       "decision": "competing_fix_or_pr",
       "competing_pr_urls": [
         "https://github.com/paraloom-labs/paraloom-wallet/pull/94"
       ],
       "claim_signals": [],
-      "open_prs_inspected": 59,
+      "open_prs_inspected": 53,
       "comments_inspected": 0,
       "funds_independently_verified": false,
       "qualifies_as_paid_order": false
