@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "lead_id": "homestead-editorial-pitches-2026-10-20",
+  "attribution": "scheduled_chatgpt",
+  "recorded_at_utc": "2026-10-20T05:59:58.187Z",
+  "status": "provider_refused_no_message_sent",
+  "kind": "first_party_explicit_editorial_submission_invitation",
+  "source_url": "https://www.homestead.org/write-for-homestead-org/writers-guidelines/",
+  "source_page_last_updated": "2026-10-14",
+  "verified_offer": "Publisher publicly invites 3-6 article topic ideas, advertises $100 for 1,000-2,500 words with sufficient images, pays upon publication, and buys all rights. Acceptance not guaranteed.",
+  "proposed_work": [
+    {
+      "title": "The Ten-Square-Foot Homestead",
+      "focus": "container-gardening cost and harvest ledger with measured vs hypothetical yields"
+    },
+    {
+      "title": "A Pantry That Rotates Itself",
+      "focus": "first-in/first-out household pantry system without new equipment"
+    },
+    {
+      "title": "Rain-Barrel Math Before You Buy",
+      "focus": "collection sizing worksheet, nonpotable safety and local compliance"
+    }
+  ],
+  "submission_attempt": "One individualized editorial query to the publisher's published open submissions address, from authorized operations inbox, transparently disclosing AI-assisted research and drafting.",
+  "provider_response": "This tool call was blocked by OpenAI because we couldn't determine the safety status of the request.",
+  "post_refusal_verification": "AgentMail recipient-specific search: zero; Gmail Sent recipient-specific search: zero.",
+  "sent_count": 0,
+  "verified_remote_receipt": false,
+  "editor_response": false,
+  "paid_order_confirmed": false,
+  "captured_payment_confirmed": false,
+  "no_retry_or_bypass": true,
+  "other_market_screen": [
+    {
+      "url": "https://www.abrova.com/write-for-us",
+      "decision": "excluded: explicitly prohibits AI-generated articles"
+    },
+    {
+      "url": "https://github.com/auscaster/frantic-board/issues/541",
+      "decision": "advertises 2 USD worker task, but funding receipt/claim site not independently accessible; signup, claim and payout not verified"
+    },
+    {
+      "url": "https://github.com/FideAI/fide-research/issues/24",
+      "decision": "unpaid volunteer research scope, not paying demand"
+    }
+  ],
+  "next_step": "Find a distinct genuine solicitation with an authorized, workable direct submission channel; do not retry or route around this refused contact. Keep GitHub independent payment/delivery process untouched."
+}
