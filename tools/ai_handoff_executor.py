@@ -69,6 +69,13 @@ def validate(job, filename=None):
             raise ValueError("No promotional content via undisclosed Buffer route")
     if FINANCIAL.search(job["heading"] + " " + job["subtitle"]+" "+job["line_one"]+" "+job["line_two"]+" "+job["punchline"] + " " + job["caption"]):
         raise ValueError("Financial or sales claims need a different verified workflow")
+    # Reject the previously spammed scan-count template, even if an agent
+    # accidentally reintroduces it under a different filename.
+    stale_card = re.compile(r"\\b(?:BOUNTY SAFARI|PUBLIC HINTS|COMPETING FIXES)\\b", re.I)
+    if stale_card.search(" ".join(job[k] for k in fields)):
+        raise ValueError("Repeated bounty-scan cards are retired; tell a fresh factual story")
+    if job.get("visual_style") not in (None, "avatar", "casefile", "console"):
+        raise ValueError("visual_style must be avatar, casefile, or console")
     assert_autonomous_voice(*(job[k] for k in fields))
     return job
 
