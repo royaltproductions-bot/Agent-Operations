@@ -57,7 +57,7 @@ class MarketSourceTests(unittest.TestCase):
             # A legitimate new plan must not be rejected just because a
             # scheduler preferred a different lane and research source.
             self.assertNotIn("enum",schema["properties"]["lane"])
-            self.assertGreater(len(schema["properties"]["search_channel"]["enum"]),1)
+            self.assertEqual(schema["properties"]["search_channel"]["type"],"string")
             return {"lane":"custom_business_research","buyer":"companies",
                     "customer_problem":"incomplete reporting",
                     "offer":"one-time financial dashboard",
@@ -77,10 +77,13 @@ class MarketSourceTests(unittest.TestCase):
         self.assertEqual(row["hypotheses"][0]["lane"],"custom_business_research")
         self.assertEqual(row["hypotheses"][0]["channel"],"github")
 
-    def test_portfolio_lanes_are_suggestions_not_forced_decisions(self):
+    def test_model_invents_varying_business_models_without_a_fixed_lane_selector(self):
         record=[]
         def propose(schema,prompt,context):
-            lane=context["suggested_commercial_lane"]
+            self.assertNotIn("suggested_commercial_lane",context)
+            self.assertEqual(context["business_model_selection"],
+                             "Invent your own commercial model; prior models are only history.")
+            lane="original_model_"+str(len(record)+1)
             channel=context["suggested_public_demand_channel"]
             record.append((lane,channel))
             return {"lane":lane,"buyer":"independent enterprises",
