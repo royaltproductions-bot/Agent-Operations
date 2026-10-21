@@ -57,13 +57,13 @@ def api(method, path, data=None, opener=None):
                     "/services/"+SERVICE_ID+"/deploys") and not re.fullmatch(
             "/services/"+SERVICE_ID+r"/deploys/dep-[a-z0-9]+", path):
         raise ValueError("render_endpoint_not_permitted")
-    key=os.environ.get("RENDER_API_KEY", "").strip()
-    if not key:
-        raise RuntimeError("render_api_key_not_configured")
     if method not in ("GET", "POST"):
         raise ValueError("render_method_not_permitted")
     if method=="POST" and path!="/services/"+SERVICE_ID+"/deploys":
         raise ValueError("render_write_not_permitted")
+    key=os.environ.get("RENDER_API_KEY", "").strip()
+    if not key:
+        raise RuntimeError("render_api_key_not_configured")
     headers={"Authorization":"Bearer "+key,"Accept":"application/json"}
     payload=None
     if data is not None:
