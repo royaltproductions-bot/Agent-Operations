@@ -85,7 +85,7 @@ def model_json(schema, prompt, observation, opener=None):
     """Real locally hosted Ollama inference, no API key, no simulated decision."""
     req=urllib.request.Request(base.OLLAMA,method="POST",data=json.dumps({
         "model":MODEL,"stream":False,"format":schema,
-        "options":{"temperature":0.35,"num_ctx":3072,"num_predict":380},
+        "options":{"temperature":0,"num_ctx":4096,"num_predict":650},
         "messages":[{"role":"system","content":prompt},
                     {"role":"user","content":json.dumps(observation,ensure_ascii=False)}]
     }).encode("utf-8"),headers={"Content-Type":"application/json"})
@@ -364,7 +364,10 @@ def main():
     try:
         row=run(live=live)
     except (ValueError,KeyError,TypeError,RuntimeError,urllib.error.URLError) as exc:
-        print("ENTERPRISE AGENT FAILED:",type(exc).__name__,file=sys.stderr)
+        # Only report controlled diagnostic codes; never disclose provider bodies, PII or tokens.
+        known={"model_no_structured_content","model_malformed_json","model_schema_mismatch",
+               "model_invalid_field","model_invalid_action"}
+        print("ENTERPRISE AGENT FAILED:",str(exc) if str(exc) in known else type(exc).__name__,file=sys.stderr)
         raise SystemExit(1)
     ROOT.mkdir(parents=True,exist_ok=True)
     runid=re.sub(r"[^A-Za-z0-9_-]","",os.environ.get("GITHUB_RUN_ID","local"))
