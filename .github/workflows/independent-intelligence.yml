@@ -87,8 +87,9 @@ jobs:
             echo 'No new authorized intelligence output.'
             exit 0
           fi
-          git -c user.name='independent-commerce-model' -c user.email='ari-operations@agentmail.to' \
-            commit -m 'Record independently executed model decisions and customer-facing actions'
+          git config user.name 'independent-commerce-model'
+          git config user.email 'ari-operations@agentmail.to'
+          git commit -m 'Record independently executed model decisions and customer-facing actions'
           for attempt in 1 2 3; do
             if git push origin HEAD:main; then exit 0; fi
             git fetch origin main
