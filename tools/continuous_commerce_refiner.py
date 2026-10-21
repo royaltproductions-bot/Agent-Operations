@@ -145,7 +145,7 @@ def main():
         raise SystemExit("tracked_worktree_not_clean")
     baseline=validation()
     history=run("git","log","-18","--format=%h %s",timeout=30).stdout[:3000]
-    core=read_targets([p for p in CORE_FILES if (ROOT/p).is_file()])
+    core={p:text[:1800] for p,text in read_targets([p for p in CORE_FILES if (ROOT/p).is_file()]).items()}
     objective={
       "mission":"Continuously improve the autonomous revenue engine until it can originate, distribute, sell, fulfill, and learn from legitimate commercial transactions with minimal owner intervention.",
       "nonnegotiable":["No predetermined business-model menu","No fake buyers or fake revenue","No prompt-only work presented as execution","Use only authorized accounts/integrations","Preserve privacy and security controls"],
