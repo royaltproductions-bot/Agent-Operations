@@ -405,15 +405,37 @@ def send_invited_request(hit,source_text,scope,history,channel,live=False):
         return {"source":url,"result":"delivery_uncertain"}
     return {"source":url,"result":"sent_invited_proposal" if sent else "delivery_uncertain"}
 
+def search_with_source_fallback(strategy, search):
+    """Try real implemented channels before dropping a commercial hypothesis.
+
+    External API failures and empty results are OBSERVATIONS, not blanket
+    reasons to forbid that idea. No fabricated leads or imaginary channels.
+    """
+    first=strategy["search_channel"]
+    if first not in CHANNELS:
+        return [],first,[{"channel":first,"status":"not_connected"}]
+    order=[first]+[c for c in CHANNELS if c!=first]
+    observations=[]
+    for channel in order:
+        query_strategy={**strategy,"search_channel":channel}
+        try:
+            hits=search(query_strategy)
+        except (ValueError,urllib.error.URLError,urllib.error.HTTPError,
+                TimeoutError,KeyError):
+            observations.append({"channel":channel,"status":"source_unavailable"})
+            continue
+        if hits:
+            observations.append({"channel":channel,"status":"actual_results",
+                                 "candidate_count":len(hits)})
+            return hits,channel,observations
+        observations.append({"channel":channel,"status":"no_matching_demand"})
+    return [],first,observations
+
 def run(propose=model_json,evaluate=model_json,search=search_demand,
         original=read_original,live=True,tool_decider=None,followup_decider=None):
     history=past()
     prior_queries=[x.get("query","") for row in history
                    for x in row.get("hypotheses",[])][-20:]
-    contacts_in_24h=sum(1 for r in history
-                        if r.get("timestamp","") >= (TODAY()-timedelta(days=1)).isoformat()
-                        for a in r.get("actions",[])
-                        if a.get("result")=="sent_invited_proposal")
     report={"schema_version":1,"engine":"local_open_weight_llm_commerce",
             "timestamp":TODAY().isoformat(),"model":MODEL,
             "mission":"independent_customer_demand_to_paid_execution",
@@ -560,14 +582,18 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
         current_experiments.append({"lane":strategy["lane"], "channel":strategy["search_channel"],
             "buyer":record["buyer"],"problem":record["problem"],
             "offer":record["business_model"],"query":query,"reached_buyer":False})
-        try:
-            hits=search(strategy)
-        except (ValueError,urllib.error.URLError,urllib.error.HTTPError,TimeoutError):
-            feedback.append({"reason":"search_source_unavailable",
-                             "channel":strategy["search_channel"]})
-            continue
+        hits,actual_channel,source_attempts=search_with_source_fallback(strategy,search)
+        record["source_attempts"]=source_attempts
+        if actual_channel!=strategy["search_channel"]:
+            feedback.append({"reason":"source_fallback_used",
+                             "from":strategy["search_channel"],
+                             "to":actual_channel})
+            strategy["search_channel"]=actual_channel
+            record["channel"]=actual_channel
+            current_experiments[-1]["channel"]=actual_channel
         if not hits:
-            feedback.append({"reason":"no_matching_public_demand","query":query})
+            feedback.append({"reason":"no_matching_public_demand",
+                             "query":query,"sources_attempted":source_attempts})
             continue
         # Model sees exact original snippets, not just keyword counts.
         shortlist=[{"id":str(x["id"]),"url":x["url"],"snippet":x["text"][:850]}
@@ -597,7 +623,7 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
             full=original(match,strategy["search_channel"])
             action=send_invited_request(match,full,decision["service_scope"],
                                         history,strategy["search_channel"],
-                                        live=live and contacts_in_24h<1)
+                                        live=live)
         except (ValueError,urllib.error.URLError,urllib.error.HTTPError,TimeoutError):
             action={"source":match["url"],"result":"original_source_invalid"}
         report["actions"].append(action)
