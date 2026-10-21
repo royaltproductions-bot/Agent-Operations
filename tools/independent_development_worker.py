@@ -16,16 +16,34 @@ def infer(messages):
 def main():
     if run("git","status","--porcelain").stdout.strip():
         raise SystemExit("Working tree must be clean")
-    history=run("git","log","-5","--format=%s").stdout[:800]
+    history=run("git","log","-12","--format=%s").stdout[:1800]
+    observations=[]
+    for folder in ("ops/enterprise-runs","ops/scheduled-commerce-attestations"):
+        root=ROOT/folder
+        if root.is_dir():
+            for receipt in sorted(root.glob("*.json"),reverse=True)[:8]:
+                try:
+                    row=json.loads(receipt.read_text())
+                    observations.append({"source":folder,"status":row.get("status"),
+                        "scorecard":row.get("economic_scorecard"),
+                        "blockers":row.get("failures_or_blockers",[])[:5],
+                        "hypotheses":len(row.get("hypotheses",[])),
+                        "qualified_contacts":row.get("qualified_external_contacts",0)})
+                except (OSError,ValueError,TypeError): pass
+    objectives={"mission":"Continuously refine the complete autonomous revenue engine",
+        "success":["real buyer reach","verified payment","fulfilled deliverable","repeatable positive economics"],
+        "capabilities":["open-ended discovery","offer invention","asset creation","distribution","dynamic checkout","fulfillment","feedback learning"]}
     files={p:(ROOT/p).read_text()[:12000] if (ROOT/p).exists() else "" for p in TARGETS}
-    task=("Implement ONE substantive general-purpose commerce execution primitive, not a prompt-only change. Create a new module if needed. "
-          "Prefer reusable original digital deliverable creation or dynamic offer catalog infrastructure. "
-          "Keep existing public interfaces backward compatible. No hardcoded business niches. "
-          "Do not alter credentials, workflows, security controls or unrelated files. "
-          "Choose exactly one of the allowed Python files, including new modules. Return its COMPLETE replacement source. "
-          "No external network requests or purchases in generated code. Existing payment and customer data stay private.")
+    task=("You are a CONTINUOUS COMMERCE REFINER, not a one-off code generator. "
+          "Each run analyze observed operational results, identify the highest-impact execution gap, "
+          "and implement one measurable improvement toward autonomous end-to-end commercial operation. "
+          "Business models and strategies are OPEN ENDED; do not hardcode any niche or product. "
+          "Prioritize working distribution, dynamic offers, verified payments and fulfillment over prompts or dashboards. "
+          "You may create a new allowed module. Preserve working behavior, tests and security controls. "
+          "Never invent customers, transactions or provider capabilities. "
+          "Return exactly one allowed Python path and its complete source.")
     result=infer([{"role":"system","content":task},
-       {"role":"user","content":json.dumps({"recent_commits":history,"files":files})}])
+       {"role":"user","content":json.dumps({"recent_commits":history,"observations":observations,"objectives":objectives,"files":files})}])
     path=result["path"]
     if path not in TARGETS or not isinstance(result["content"],str) or len(result["content"])<500:
         raise SystemExit("Invalid model output")
@@ -40,12 +58,12 @@ def main():
             (ROOT/path).write_text(original) if original is not None else (ROOT/path).unlink()
             print("Validation rejected candidate:",check)
             return
-    diff=run("git","diff","--numstat","--",path).stdout.strip()
+    diff=run("git","diff","--numstat","--",path).stdout.strip() if original is not None else "new module"
     if (not diff and original is not None) or len(result["content"])>len(original or "")*2+18000:
-        (ROOT/path).write_text(original)
+        (ROOT/path).write_text(original) if original is not None else (ROOT/path).unlink()
         print("Candidate rejected: empty or oversized")
         return
     print(json.dumps({"changed_file":path,"diff_numstat":diff,
        "rationale":str(result.get("rationale",""))[:350],
-       "status":"validated_candidate_for_pull_request"}))
+       "status":"validated_refinement_for_pull_request"}))
 if __name__=="__main__": main()
