@@ -182,29 +182,58 @@ def main():
         raise SystemExit("diagnosis_selected_too_much_existing_source")
     change_schema={"type":"object","properties":{
       "changes":{"type":"array","minItems":1,"maxItems":MAX_FILES,"items":{
-        "type":"object","properties":{"path":{"type":"string"},"content":{"type":"string"},
-        "reason":{"type":"string"}},"required":["path","content","reason"],"additionalProperties":False}},
+        "type":"object","properties":{"path":{"type":"string"},"reason":{"type":"string"},
+        "content":{"type":"string"},"replacements":{"type":"array","items":{
+          "type":"object","properties":{"old":{"type":"string"},"new":{"type":"string"}},
+          "required":["old","new"],"additionalProperties":False},"maxItems":4}},
+        "required":["path","reason","content","replacements"],"additionalProperties":False}},
       "verification":{"type":"string"}},
       "required":["changes","verification"],"additionalProperties":False}
     implementation=infer(change_schema,
-      "Implement the diagnosed refinement, not another plan. Return COMPLETE replacement contents for each changed file. Keep scope bounded to selected targets. Preserve compatible public interfaces unless the evidence requires a deliberate migration. Do not weaken tests or security gates. Do not fabricate provider access, sales, customers, metrics, or success. Do not add spending, account creation, bulk unsolicited messaging, credential extraction, restriction bypasses, or destructive operations. Prefer reusable general capabilities over a hardcoded business niche.",
+      "Implement the diagnosed refinement, not another plan. For an EXISTING file, leave content empty and return 1-4 exact old/new text replacements; old text must occur exactly once in the supplied source. For a NEW file, return complete content and an empty replacements array. This patch mode exists so large core modules are never truncated. Keep scope bounded to selected targets. Preserve compatible public interfaces. Do not weaken tests or security gates. Do not fabricate provider access, sales, customers, metrics, or success. Do not add spending, account creation, bulk unsolicited messaging, credential extraction, restriction bypasses, or destructive operations. Prefer reusable general capabilities over a hardcoded business niche.",
       {"objective":objective,"diagnosis":diagnosis,"selected_sources":sources,
        "baseline_validation":baseline},9000)
     changes=implementation.get("changes",[])
-    if not 1<=len(changes)<=MAX_FILES:
+    if not isinstance(changes,list) or not 1<=len(changes)<=MAX_FILES:
         raise SystemExit("invalid_change_count")
-    seen=set(); total=0; originals={}
+    seen=set(); total=0; originals={}; finals={}
     for ch in changes:
         path=ch.get("path")
         if path not in targets or path in seen: raise SystemExit("change_outside_diagnosed_targets")
-        guard_content(path,ch.get("content"))
-        seen.add(path); total+=len(ch["content"].encode())
-        originals[path]=(ROOT/path).read_text(encoding="utf-8") if (ROOT/path).is_file() else None
-        if path.startswith("tests/") and originals[path] is not None:
+        seen.add(path)
+        p=ROOT/path
+        original=p.read_text(encoding="utf-8") if p.is_file() else None
+        originals[path]=original
+        if path.startswith("tests/") and original is not None:
             raise SystemExit("existing_tests_are_immutable_to_refiner")
+        replacements=ch.get("replacements")
+        content=ch.get("content")
+        if original is None:
+            if replacements not in ([],None):
+                raise SystemExit("new_file_must_not_use_replacements")
+            final=content
+        else:
+            if content not in ("",None):
+                raise SystemExit("existing_file_requires_exact_patch_mode")
+            if not isinstance(replacements,list) or not 1<=len(replacements)<=4:
+                raise SystemExit("invalid_replacement_count")
+            final=original
+            for replacement in replacements:
+                old=replacement.get("old") if isinstance(replacement,dict) else None
+                new=replacement.get("new") if isinstance(replacement,dict) else None
+                if not isinstance(old,str) or not old or not isinstance(new,str):
+                    raise SystemExit("invalid_exact_replacement")
+                if final.count(old)!=1:
+                    raise SystemExit("replacement_anchor_not_unique")
+                final=final.replace(old,new,1)
+            if final==original:
+                raise SystemExit("patch_made_no_change")
+        guard_content(path,final)
+        finals[path]=final
+        total+=len(final.encode())
     if total>MAX_TOTAL_BYTES: raise SystemExit("candidate_too_large")
-    for ch in changes:
-        p=ROOT/ch["path"]; p.parent.mkdir(parents=True,exist_ok=True); p.write_text(ch["content"],encoding="utf-8")
+    for path,final in finals.items():
+        p=ROOT/path; p.parent.mkdir(parents=True,exist_ok=True); p.write_text(final,encoding="utf-8")
     try:
         changed_file_checks(list(seen))
         after=validation()
