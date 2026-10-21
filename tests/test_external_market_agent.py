@@ -33,6 +33,21 @@ class OperatorTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "model_choice_not_in_allowlist"):
             agent.llm_turn(context, urlopen=bad)
 
+    def test_evidence_is_not_rediscovered_in_next_run(self):
+        context = {"inbound": [], "existing_site_faq_published": True,
+                   "public_candidate_hints": {
+                       "hiring":[{"id":"49939260"},{"id":"49982803"}],
+                       "issues":[]},
+                   "previous_actions":[{"tool":"inspect_hiring",
+                                        "target":"49939260",
+                                        "result":"public_post_not_verified_paid_contract"}],
+                   "this_run":[{"selected_action":"inspect_hiring",
+                                "tool_result":{"id":"49982803"}}]}
+        options=agent.allowed_choices(context)
+        self.assertNotIn("inspect_hiring|49939260",options)
+        self.assertNotIn("inspect_hiring|49982803",options)
+        self.assertIn("finish",options)
+
     def test_invalid_targets_and_outbound_blocked(self):
         with self.assertRaises(ValueError):
             agent.inspect_hiring("12", [])
