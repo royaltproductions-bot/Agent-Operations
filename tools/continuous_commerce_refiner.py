@@ -95,6 +95,7 @@ def validation():
     commands=[
       ("compile",("python3","-m","compileall","-q","tools","tests")),
       ("tests",("python3","-m","unittest","discover","-s","tests","-v")),
+      ("capability_smoke",("python3","tools/connected_commerce_tools.py")),
     ]
     for name,cmd in commands:
         p=run(*cmd,timeout=360)
