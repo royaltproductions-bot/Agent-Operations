@@ -116,7 +116,7 @@ class RecoveryTests(unittest.TestCase):
                              original=lambda *a:"",
                              tool_decider=invalid_tool,
                              live=False)
-        self.assertEqual(result["tool_actions"][0]["status"],"invalid_model_choice_skipped")
+        self.assertEqual(result["tool_actions"][0]["status"],"recovered_to_connected_tool")
         self.assertEqual(len(result["hypotheses"]),1)
         self.assertEqual(result["qualified_external_contacts"],0)
 
