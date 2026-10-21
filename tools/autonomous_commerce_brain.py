@@ -35,6 +35,11 @@ working, lawful, low-cost commercial operation that earns real money. Choose you
 market, offer, business model, customer group, demand source and distribution tactics;
 do not assume VendorSettle or any previous experiment is your required venture.
 
+Never invent a specific customer, city, urgency, or willingness to pay: buyer fields
+are market hypotheses until independently evidenced. SEARCH buyer requests for work
+before designing a product. Avoid generic speculative microproducts and imaginary
+traffic. Use 2-4 simple topic keywords in search_query, not OR, site:, dates or DSL.
+
 You operate on a GitHub Actions Linux runner with Python, JavaScript, public web
 HTTP, GitHub, Stripe payment/order-monitoring, an authorized AgentMail business
 inbox and a deployed Render storefront. Paid-order fulfillment is already handled
@@ -127,27 +132,48 @@ def get_public_json(url, host):
     with urllib.request.urlopen(request,timeout=22) as response:
         return json.loads(response.read(350000).decode("utf-8"))
 
+def compact_search_terms(raw):
+    """Translate model prose to supported short API keywords, never a query DSL."""
+    result=[]
+    for segment in re.split(r"\s+OR\s+",raw,flags=re.I)[:3]:
+        clean=re.sub(r"(?i)\bsite:\S+|\b(?:in|within)\s+(?:the\s+)?last\s+\d+\s+days\b",
+                     " ",segment)
+        clean=re.sub(r"[^a-zA-Z0-9 +#-]+"," ",clean)
+        words=[w for w in clean.split() if w.lower() not in
+               {"or","and","site","hackernews","reddit","recent","latest","posts"}]
+        term=" ".join(words[:4]).strip()
+        if len(term)>=4 and term.lower() not in {x.lower() for x in result}:
+            result.append(term)
+    return result[:3]
+
+
 def search_demand(strategy):
     query=re.sub(r"[\r\n\t]+"," ",strategy["search_query"]).strip()[:100]
     if len(query)<4:
         raise ValueError("search_query_too_short")
     if strategy["search_channel"]=="hackernews":
         from_utc=int((TODAY()-timedelta(days=45)).timestamp())
-        args=urllib.parse.urlencode({"query":query,"tags":"comment","hitsPerPage":25,
-                                     "numericFilters":"created_at_i>"+str(from_utc)})
-        data=get_public_json("https://hn.algolia.com/api/v1/search_by_date?"+args,
-                             "hn.algolia.com")
         hits=[]
-        for x in data.get("hits",[]):
-            key=str(x.get("objectID",""))
-            if not key.isdigit():continue
-            preview=clean_html(x.get("comment_text") or "")[:1050]
-            if not preview:continue
-            hits.append({"id":key,"url":"https://news.ycombinator.com/item?id="+key,
-                         "text":preview,"created_at":x.get("created_at")})
+        seen=set()
+        for term in compact_search_terms(query):
+            args=urllib.parse.urlencode({"query":term,"tags":"comment","hitsPerPage":25,
+                                         "numericFilters":"created_at_i>"+str(from_utc)})
+            data=get_public_json("https://hn.algolia.com/api/v1/search_by_date?"+args,
+                                 "hn.algolia.com")
+            for x in data.get("hits",[]):
+                key=str(x.get("objectID",""))
+                if not key.isdigit() or key in seen:continue
+                preview=clean_html(x.get("comment_text") or "")[:1050]
+                if not preview:continue
+                seen.add(key)
+                hits.append({"id":key,"url":"https://news.ycombinator.com/item?id="+key,
+                             "text":preview,"created_at":x.get("created_at")})
+            if len(hits)>=12:break
         return hits[:12]
     if strategy["search_channel"]=="github":
-        term=query[:85]+" in:title,body is:issue is:open"
+        terms=compact_search_terms(query)
+        if not terms:raise ValueError("no_valid_search_terms")
+        term=terms[0][:85]+" in:title,body is:issue is:open"
         args=urllib.parse.urlencode({"q":term,"sort":"updated","order":"desc","per_page":12})
         data=get_public_json("https://api.github.com/search/issues?"+args,"api.github.com")
         hits=[]
