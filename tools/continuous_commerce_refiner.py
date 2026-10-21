@@ -162,6 +162,7 @@ def main():
     objective={
       "mission":"Continuously improve the autonomous revenue engine until it can originate, distribute, sell, fulfill, and learn from legitimate commercial transactions with minimal owner intervention.",
       "nonnegotiable":["No predetermined business-model menu","No fake buyers or fake revenue","No prompt-only work presented as execution","Use only authorized accounts/integrations","Preserve privacy and security controls"],
+      "required_capabilities":["open-ended opportunity invention","offer and deliverable creation","real external distribution","dynamic payment checkout","verified paid-order fulfillment","cross-run outcome learning"],
       "success_evidence":["verified external buyer reach","verified buyer response","verified paid order","verified fulfillment","measured conversion/revenue feedback"],
       "refiner_role":"Observe -> diagnose highest-leverage bottleneck -> implement -> validate -> integrate -> observe again."
     }
