@@ -116,6 +116,7 @@ EXAMPLE_REFLECTION_SCHEMA = {
 
 STRUCTURAL_FAILURE_REASONS = {
     "distribution_connector_not_yet_available",
+    "engine_runtime_failure",
 }
 
 def classify_execution_feedback(feedback):
@@ -135,7 +136,7 @@ def classify_execution_feedback(feedback):
 TOOL_SCHEMA = {
     "type": "object", "properties": {
         "tool": {"type": "string",
-                 "enum": ["skip", "stripe_offers", "buffer_distribution", "repository_assets", "render_status", "render_deployment"]},
+                 "enum": ["stripe_offers", "buffer_distribution", "repository_assets", "render_status", "render_deployment"]},
         "reason": {"type": "string"}
     },
     "required": ["tool", "reason"], "additionalProperties": False
