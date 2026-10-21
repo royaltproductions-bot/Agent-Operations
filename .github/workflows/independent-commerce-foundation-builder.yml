@@ -70,13 +70,13 @@ jobs:
       - name: Observe, diagnose and implement refinement
         id: refine
         run: python3 tools/continuous_commerce_refiner.py
-      - name: Persist rejected refinement evidence
+      - name: Persist refiner failure evidence
         if: steps.refine.outputs.failed == 'true'
         shell: bash
         run: |
           set -euo pipefail
           git add ops/refiner-runs/*.json
-          git -c user.name="commerce-refiner-bot" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "Record rejected autonomous refinement for next cycle"
+          git -c user.name="commerce-refiner-bot" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "Record autonomous refiner execution failure for next cycle"
           for attempt in 1 2 3; do
             if git push origin HEAD:main; then exit 0; fi
             git fetch origin main
@@ -90,7 +90,7 @@ jobs:
         run: |
           set -euo pipefail
           if [ -z "$(git status --porcelain -- tools tests products storefront ventures ops/refiner-runs)" ]; then
-            echo "No validated code change."
+            echo "No experimental code change."
             exit 0
           fi
           git add tools tests products storefront ventures ops/refiner-runs
@@ -108,6 +108,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: gh workflow run independent-intelligence.yml --ref main --repo "$GITHUB_REPOSITORY"
-      - name: Surface rejected refinement as workflow failure
+      - name: Surface refiner execution failure
         if: steps.refine.outputs.failed == 'true'
         run: exit 1
