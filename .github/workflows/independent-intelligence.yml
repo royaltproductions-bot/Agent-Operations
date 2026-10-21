@@ -1,0 +1,101 @@
+name: Independent On-Runner Intelligence - Commerce
+on:
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/independent-intelligence.yml'
+      - 'tools/external_market_agent.py'
+      - 'tests/test_external_market_agent.py'
+  pull_request:
+    paths:
+      - '.github/workflows/independent-intelligence.yml'
+      - 'tools/external_market_agent.py'
+      - 'tests/test_external_market_agent.py'
+permissions:
+  contents: write
+concurrency:
+  group: independent-on-runner-intelligence
+  cancel-in-progress: false
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test tool guards and model response handling
+        run: |
+          python3 -m py_compile tools/external_market_agent.py
+          python3 -m unittest discover -s tests -p 'test_external_market_agent.py' -v
+
+  autonomous-operation:
+    if: github.event_name != 'pull_request'
+    needs: unit-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 38
+    env:
+      LOCAL_MODEL: qwen3:4b-instruct-2507-q4_K_M
+      OLLAMA_MODELS: ${{ github.workspace }}/.ollama-cache/models
+      OLLAMA_NUM_PARALLEL: '1'
+      OLLAMA_MAX_LOADED_MODELS: '1'
+      OLLAMA_HOST: 127.0.0.1:11434
+      AGENTMAIL_API_KEY: ${{ secrets.AGENTMAIL_API_KEY }}
+      COMMERCE_SEND_ENABLED: 'YES'
+      AGENTMAIL_AGENT_REPLIES_ENABLED: 'YES'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 5
+          persist-credentials: true
+      - name: Restore local open-weight model cache
+        uses: actions/cache@v4
+        with:
+          path: .ollama-cache/models
+          key: ollama-openweight-qwen3-4b-instruct-2507-q4-v1
+      - name: Install model runtime locally, no sign-in or paid inference API
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location https://ollama.com/install.sh -o /tmp/install-ollama.sh
+          sh /tmp/install-ollama.sh
+          sudo systemctl stop ollama.service 2>/dev/null || true
+          mkdir -p "$OLLAMA_MODELS"
+          nohup ollama serve >/tmp/ollama-runner.log 2>&1 &
+          for attempt in $(seq 1 45); do
+            if curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then break; fi
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:11434/api/tags >/dev/null
+          ollama pull "$LOCAL_MODEL"
+          ollama list
+      - name: Let independent model select and execute actual tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/external_market_agent.py
+          test -s "ops/external-intelligence-runs/$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT.json"
+      - name: Persist model-originated tool receipts and owned-site output
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add ops/external-intelligence-runs/ storefront/index.html
+          if test -d storefront/guide; then git add storefront/guide/; fi
+          if git diff --cached --quiet; then
+            echo 'No new authorized intelligence output.'
+            exit 0
+          fi
+          git -c user.name='independent-commerce-model' -c user.email='ari-operations@agentmail.to' \
+            commit -m 'Record independently executed model decisions and customer-facing actions'
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              exit 1
+            fi
+            sleep 2
+          done
+          exit 1
