@@ -23,6 +23,7 @@ import urllib.parse
 import urllib.request
 
 from tools import external_market_agent as base
+from tools.connected_commerce_tools import capability_status, execute_tool, TOOL_DEFINITIONS
 from tools.hn_contract_invitations import clean_html
 
 ROOT = Path("ops/enterprise-runs")
@@ -75,6 +76,16 @@ STRATEGY_SCHEMA = {
                 "route_to_buyer","search_channel","search_query","reason"],
     "additionalProperties":False
 }
+
+TOOL_SCHEMA = {
+    "type": "object", "properties": {
+        "tool": {"type": "string",
+                 "enum": ["skip", "stripe_offers", "buffer_distribution", "repository_assets"]},
+        "reason": {"type": "string"}
+    },
+    "required": ["tool", "reason"], "additionalProperties": False
+}
+
 EVALUATE_SCHEMA = {
     "type":"object","properties":{
         "candidate_id":{"type":"string"},
@@ -302,7 +313,7 @@ def send_invited_request(hit,source_text,scope,history,channel,live=False):
     return {"source":url,"result":"sent_invited_proposal" if sent else "delivery_uncertain"}
 
 def run(propose=model_json,evaluate=model_json,search=search_demand,
-        original=read_original,live=True):
+        original=read_original,live=True,tool_decider=None):
     history=past()
     prior_queries=[x.get("query","") for row in history
                    for x in row.get("hypotheses",[])][-20:]
@@ -313,9 +324,50 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
     report={"schema_version":1,"engine":"local_open_weight_llm_commerce",
             "timestamp":TODAY().isoformat(),"model":MODEL,
             "mission":"independent_customer_demand_to_paid_execution",
-            "model_invoked":False,"hypotheses":[],"actions":[],
+            "model_invoked":False,"hypotheses":[],"actions":[],"tool_actions":[],
             "verified_payment_usd":None,"new_paid_orders":None,
             "notes":"Public evidence or a sent proposal is not an accepted contract, customer or sale."}
+    # Give the model real authenticated access to already-connected providers
+    # through tightly scoped executors, not a fictitious list in its prompt.
+    # No repeated status polling when the same provider was inspected recently.
+    tool_context = {}
+    if tool_decider:
+        available = capability_status()
+        inspected = {a.get("tool")
+                     for row in history[:3] for a in row.get("tool_actions", [])}
+        supported = [
+            k for k in ("stripe_offers", "buffer_distribution", "repository_assets")
+            if k not in inspected
+            and (k != "stripe_offers" or available.get("stripe"))
+            and (k != "buffer_distribution" or available.get("buffer"))
+        ]
+        if supported:
+            tool_schema = {
+                "type": "object",
+                "properties": {"tool":{"type":"string","enum":["skip"]+supported},
+                               "reason":{"type":"string"}},
+                "required":["tool","reason"],
+                "additionalProperties":False
+            }
+            choice = tool_decider(tool_schema, MISSION+"\nChoose ONE real provider tool "
+                 "only when its output can materially affect the next commercial action.",
+                 {"tools":{k:TOOL_DEFINITIONS[k] for k in supported},
+                  "goal":"Make a real business decision, not another research-only report.",
+                  "recent_tools":list(inspected)})
+            report["model_invoked"]=True
+            if choice["tool"] != "skip":
+                try:
+                    actual=execute_tool(choice["tool"])
+                    public={"tool":choice["tool"],"status":actual.get("status","unknown")}
+                    if choice["tool"]=="stripe_offers":
+                        public["offer_count"]=actual.get("offer_count",0)
+                    report["tool_actions"].append(public)
+                    # A local observation, not a public record of private customer data.
+                    tool_context={"tool":choice["tool"],"observation":actual}
+                except (RuntimeError,ValueError,KeyError,urllib.error.URLError,
+                        TimeoutError,OSError):
+                    report["tool_actions"].append({"tool":choice["tool"],
+                                                    "status":"tool_execution_failed"})
     feedback=[]
     for attempt in range(MAX_SEARCHES):
         strategy=propose(STRATEGY_SCHEMA,MISSION,
@@ -325,6 +377,8 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
                           "previous_queries_to_avoid":prior_queries[-14:],
                           "recent_failures":feedback,
                           "available_search_channels":["hackernews","github"],
+                          "connected_service_observation":tool_context,
+                          "capability_inventory":capability_status(),
                           "existing_capabilities":["python","nodejs","CSV processing",
                             "render site","AgentMail opted-in replies",
                             "GitHub public discovery","Stripe paid-order fulfillment already active"]})
@@ -388,7 +442,7 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
 def main():
     live=os.environ.get("ENTERPRISE_OUTREACH_ENABLED")=="YES"
     try:
-        row=run(live=live)
+        row=run(live=live,tool_decider=model_json)
     except (ValueError,KeyError,TypeError,RuntimeError,urllib.error.URLError) as exc:
         # Only report controlled diagnostic codes; never disclose provider bodies, PII or tokens.
         known={"model_no_structured_content","model_malformed_json","model_schema_mismatch",
