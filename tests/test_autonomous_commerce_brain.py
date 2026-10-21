@@ -12,6 +12,14 @@ class BrainTests(unittest.TestCase):
         self.assertNotIn("VendorSettle-only classifier",brain.MISSION)
         self.assertGreaterEqual(brain.MAX_SEARCHES,2)
 
+    def test_model_generated_queries_are_cleaned_for_real_sources(self):
+        result=brain.compact_search_terms(
+            "coffee shop inventory automation OR small business inventory tool in last 30 days")
+        self.assertEqual(result,["coffee shop inventory automation","small business inventory tool"])
+        result=brain.compact_search_terms(
+            "personal finance tracker OR budgeting tool site:hackernews.com in last 30 days")
+        self.assertEqual(result,["personal finance tracker","budgeting tool"])
+
     def test_public_invitation_requires_explicit_consent_and_one_email(self):
         good=("We are seeking a contractor for paid Python automation projects. "
               "To apply, email opportunities@buyercompany.com with a brief proposal.")
