@@ -25,6 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          fetch-depth: 30
           persist-credentials: true
       - name: Cache local model
         uses: actions/cache@v4
