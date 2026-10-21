@@ -1,5 +1,5 @@
 name: Continuous Autonomous Commerce Refiner
-# Refiner self-edits do not recursively trigger; the hourly clock provides the next cycle.\n# Dedicated coder model; inference stays bounded for the hosted runner.
+# Refiner self-edits do not recursively trigger; the hourly clock provides the next cycle.\n# Dedicated coder model; action-first repair uses structural validation while advisory tests cannot suppress fixes.
 on:
   workflow_dispatch:
   schedule:
