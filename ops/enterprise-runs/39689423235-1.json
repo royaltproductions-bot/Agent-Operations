@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "engine": "local_open_weight_llm_commerce",
+  "timestamp": "2026-10-21T23:05:40.613004+00:00",
+  "model": "qwen3:8b",
+  "mission": "independent_customer_demand_to_paid_execution",
+  "model_invoked": true,
+  "hypotheses": [],
+  "actions": [],
+  "tool_actions": [],
+  "structural_failures": [
+    {
+      "reason": "engine_runtime_failure",
+      "detail": "TimeoutError"
+    }
+  ],
+  "commercial_outcomes": [],
+  "qualified_external_contacts": 0,
+  "verified_payment_usd": null,
+  "new_paid_orders": null,
+  "notes": "Execution failed structurally; receipt preserved for autonomous repair."
+}
