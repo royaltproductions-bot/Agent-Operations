@@ -1,0 +1,22 @@
+# Optional Render Blueprint: deploy the existing public checkout page only.
+# This file does not create a Render account or deploy anything on its own.
+# Stripe and private customer fulfillment remain in their existing systems.
+services:
+  - type: web
+    name: vendorsettle-checkout
+    runtime: static
+    repo: https://github.com/royaltproductions-bot/Agent-Operations
+    branch: main
+    buildCommand: test -s storefront/index.html
+    staticPublishPath: ./storefront
+    autoDeployTrigger: commit
+    buildFilter:
+      paths:
+        - storefront/**
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
