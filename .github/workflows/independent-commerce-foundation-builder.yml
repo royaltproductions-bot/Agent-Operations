@@ -21,6 +21,11 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: true
+      - name: Cache local model
+        uses: actions/cache@v4
+        with:
+          path: ~/.ollama/models
+          key: ollama-qwen3-4b-instruct-2507-q4-k-m-v1
       - name: Install local inference runtime
         run: |
           curl -fsSL https://ollama.com/install.sh | sh
