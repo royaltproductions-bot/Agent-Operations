@@ -1,5 +1,5 @@
 name: Commerce Refiner
-# Structural repairs use only the newest commerce receipt; commercial patterns use cross-run evidence.
+# Structural repairs use only the newest commerce receipt; commercial patterns use cross-run evidence. Stale refiner runs are cancelled.
 on:
   schedule:
     - cron: '7 * * * *'
