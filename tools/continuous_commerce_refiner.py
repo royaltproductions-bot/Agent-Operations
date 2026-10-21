@@ -97,6 +97,7 @@ def sanitized_receipts():
               "changed_files":(row.get("changed_files") or [])[:6],
               "qualified_external_contacts":row.get("qualified_external_contacts"),
               "refinement_goal":row.get("refinement_goal"),
+              "reason":row.get("reason"),
             })
     delivery=ROOT/"ops/commerce-deliveries"
     out.append({"source":"ops/commerce-deliveries",
