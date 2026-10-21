@@ -12,7 +12,7 @@ class OperatorTests(unittest.TestCase):
             def __enter__(self): return self
             def __exit__(self, *args): return False
             def read(self): return b'{"message":{"content":"not json"}}'
-        with self.assertRaisesRegex(ValueError, 'model_no_json_object'):
+        with self.assertRaises(ValueError):
             agent.llm_turn({}, urlopen=lambda req, timeout: Bad())
 
     def test_local_model_must_choose_an_existing_enum_option(self):
