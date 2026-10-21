@@ -35,9 +35,11 @@ jobs:
       - name: Install local inference runtime
         run: |
           curl -fsSL https://ollama.com/install.sh | sh
+          sudo systemctl stop ollama.service 2>/dev/null || true
+          mkdir -p "$OLLAMA_MODELS"
           ollama serve >/tmp/ollama.log 2>&1 &
           sleep 5
-          ollama pull qwen3:4b-instruct-2507-q4_K_M
+          ollama pull "$LOCAL_MODEL"
       - name: Observe, diagnose, implement and validate refinement
         id: refine
         run: python3 tools/continuous_commerce_refiner.py
