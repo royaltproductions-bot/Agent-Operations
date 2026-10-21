@@ -1,5 +1,5 @@
 name: Continuous Autonomous Commerce Refiner
-# Refiner self-edits do not recursively trigger; the hourly clock provides the next cycle.\n# Local inference is deliberately bounded so every refinement cycle can finish on the hosted runner.
+# Refiner self-edits do not recursively trigger; the hourly clock provides the next cycle.\n# Local inference is deliberately bounded and retries compactly so every refinement cycle can finish on the hosted runner.
 on:
   workflow_dispatch:
   schedule:
