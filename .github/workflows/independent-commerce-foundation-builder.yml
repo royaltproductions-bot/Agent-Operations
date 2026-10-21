@@ -3,6 +3,10 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '37 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/independent-commerce-foundation-builder.yml'
 permissions:
   contents: write
   pull-requests: write
