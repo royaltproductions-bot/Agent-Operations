@@ -59,6 +59,7 @@ jobs:
           done
           exit 1
       - name: Verify integrated refinement
+        if: steps.refine.outputs.changed == 'true'
         shell: bash
         run: |
           set -euo pipefail
