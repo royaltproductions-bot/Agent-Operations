@@ -1,5 +1,5 @@
 name: Continuous Autonomous Commerce Refiner
-# Refiner self-edits do not recursively trigger; the hourly clock provides the next cycle.\n# Dedicated coder model; refinements go straight to production commerce, where real outcomes validate them.
+# Refiner self-edits do not recursively trigger; the hourly clock provides the next cycle.\n# Dedicated coder model; schema-enforced refinements go straight to production commerce, where real outcomes validate them.
 on:
   workflow_dispatch:
   schedule:
