@@ -20,7 +20,7 @@ import urllib.error
 import urllib.request
 
 ROOT=Path.cwd()
-MODEL=os.getenv("LOCAL_MODEL","qwen3:4b-instruct-2507-q4_K_M")
+MODEL=os.getenv("REFINER_MODEL") or os.getenv("LOCAL_MODEL","qwen2.5-coder:7b-instruct")
 SAFE_ROOTS=("tools","tests","products","storefront","ventures")
 FORBIDDEN_PARTS=(".git",".github","node_modules","__pycache__",".venv","venv")
 CONTROL_PLANE={"tools/continuous_commerce_refiner.py"}
