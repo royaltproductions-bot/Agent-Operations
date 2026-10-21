@@ -304,7 +304,7 @@ def explicit_invite(text,channel):
     content=text[:6000]
     if channel not in ("hackernews","reddit_forhire"):
         return None  # A repo issue is not a public authorization for email.
-    if channel=="reddit_forhire" and not re.match(r"^s*[s*hirings*]",content,re.I):
+    if channel=="reddit_forhire" and not re.match(r"^\s*\[\s*hiring\s*\]",content,re.I):
         return None
     if channel=="hackernews" and not re.search(r"\b(contract(?:or)?|freelanc(?:e|er)|paid pilot|consult(?:ing|ant)|project.based)\b",
                      content,re.I):
