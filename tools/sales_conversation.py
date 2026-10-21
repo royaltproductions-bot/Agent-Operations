@@ -131,7 +131,7 @@ def followup_opportunity(history,choose,model_prompt,enabled=False):
     """Model selects from legitimate inquiry IDs/kinds only; no freeform outbound."""
     pending=pending_replies(history)
     if not pending:return None
-    choices=["skip"]
+    choices=[]
     for m in pending:
         for kind in REPLIES:
             choices.append(m["id"]+"|"+kind)
@@ -144,7 +144,6 @@ def followup_opportunity(history,choose,model_prompt,enabled=False):
                   "message. Do not accept contracts or invent deliverables.",
                   {"messages":observations,"choices":choices})
     val=choice["choice"]
-    if val=="skip":return {"tool":"reply_verified_buyer","result":"model_deferred"}
     if val not in choices:raise ValueError("model_choice_outside_verified_replies")
     ident,kind=val.split("|")
     item=next(x for x in pending if x["id"]==ident)
