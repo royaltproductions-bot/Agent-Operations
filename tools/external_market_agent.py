@@ -395,7 +395,8 @@ def main():
         record = operate(dry_run=args.dry_run)
     except Exception as exc:
         # A failed inference must fail the workflow; no fake successful "model" receipt.
-        print("EXTERNAL INTELLIGENCE FAILED:", type(exc).__name__,\n              str(exc)[:90] if str(exc).startswith("model_") else "non-model-error", file=sys.stderr)
+        print("EXTERNAL INTELLIGENCE FAILED:", type(exc).__name__,
+              str(exc)[:90] if str(exc).startswith("model_") else "non-model-error", file=sys.stderr)
         raise SystemExit(1)
     RECEIPT_DIR.mkdir(parents=True, exist_ok=True)
     run_id = re.sub(r"[^0-9a-zA-Z_-]", "", os.environ.get("GITHUB_RUN_ID", "local"))
