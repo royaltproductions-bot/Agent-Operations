@@ -23,8 +23,7 @@ import urllib.parse
 import urllib.request
 
 from tools import external_market_agent as base
-from tools.connected_commerce_tools import capability_status, execute_tool, TOOL_DEFINITIONS
-from tools.render_direct_api import render_status
+from tools.connected_commerce_tools import capability_status
 from tools.hn_contract_invitations import clean_html
 from tools.commercial_outcomes import metrics as commercial_metrics
 from tools.sales_conversation import followup_opportunity
@@ -34,7 +33,7 @@ ROOT = Path("ops/enterprise-runs")
 MODEL = os.environ.get("COMMERCE_MODEL") or os.environ.get("LOCAL_MODEL", "qwen3:8b")
 INBOX = base.INBOX
 TODAY = lambda: datetime.now(timezone.utc)
-MAX_SEARCHES = 3
+MAX_SEARCHES = 2
 MISSION = """You are the INDEPENDENT ENTREPRENEUR responsible for developing an actually
 working, lawful, low-cost commercial operation that earns real money. Choose your own
 market, offer, business model, customer group, demand source and distribution tactics;
@@ -128,7 +127,7 @@ def model_json(schema, prompt, observation, opener=None):
     """Real locally hosted Ollama inference, no API key, no simulated decision."""
     req=urllib.request.Request(base.OLLAMA,method="POST",data=json.dumps({
         "model":MODEL,"stream":False,"format":schema,"think":False,
-        "options":{"temperature":0,"num_ctx":6144,"num_predict":800},
+        "options":{"temperature":0,"num_ctx":4096,"num_predict":420},
         "messages":[{"role":"system","content":prompt},
                     {"role":"user","content":json.dumps(observation,ensure_ascii=False)}]
     }).encode("utf-8"),headers={"Content-Type":"application/json"})
@@ -448,7 +447,7 @@ def search_with_source_fallback(strategy, search):
     return [],first,observations
 
 def run(propose=model_json,evaluate=model_json,search=search_demand,
-        original=read_original,live=True,tool_decider=None,followup_decider=None):
+        original=read_original,live=True,followup_decider=None):
     history=past()
     prior_queries=[x.get("query","") for row in history
                    for x in row.get("hypotheses",[])][-20:]
@@ -471,65 +470,8 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
                                       "result":"inbound_followup_not_executed"})
     # Outcomes are externally checked, not inferred from the model's own words.
     report["verified_provider_outcomes"]=commercial_metrics(history)
-    # Give the model real authenticated access to already-connected providers
-    # through tightly scoped executors, not a fictitious list in its prompt.
-    # No repeated status polling when the same provider was inspected recently.
-    tool_context = {}
-    if tool_decider:
-        available = capability_status()
-        inspected = {a.get("tool")
-                     for row in history[:3] for a in row.get("tool_actions", [])}
-        # Provider API status is always accessible with the existing secret.
-        # Deployment is offered only if the CURRENT committed site is not live.
-        render_pending = False
-        if available.get("render"):
-            try:
-                render_pending = render_status()["needs_deployment"]
-            except (RuntimeError, ValueError, OSError):
-                render_pending = False
-        supported = [
-            k for k in ("stripe_offers", "buffer_distribution", "repository_assets",
-                        "render_status", "render_deployment")
-            if (k not in inspected or k=="render_deployment")
-            and (k != "stripe_offers" or available.get("stripe"))
-            and (k != "buffer_distribution" or available.get("buffer"))
-            and (k != "render_status" or available.get("render"))
-            and (k != "render_deployment" or (available.get("render") and render_pending))
-        ]
-        if supported:
-            tool_schema = {
-                "type": "object",
-                "properties": {"tool":{"type":"string","enum":supported},
-                               "reason":{"type":"string"}},
-                "required":["tool","reason"],
-                "additionalProperties":False
-            }
-            report["model_invoked"]=True
-            try:
-                choice = tool_decider(tool_schema, MISSION+"\nChoose ONE real provider tool "
-                     "only when its output can materially affect the next commercial action.",
-                     {"tools":{k:TOOL_DEFINITIONS[k] for k in supported},
-                      "goal":"Make a real business decision, not another research-only report.",
-                      "recent_tools":list(inspected)})
-            except (ValueError,TypeError,KeyError,RuntimeError):
-                # Invalid selection is not permission for inaction. Fall through
-                # to a real connected observation and keep the commerce cycle moving.
-                choice={"tool":supported[0],"reason":"deterministic recovery from invalid selection"}
-                report["tool_actions"].append({"tool":"selection",
-                                                "status":"recovered_to_connected_tool",
-                                                "selected":choice["tool"]})
-            try:
-                actual=execute_tool(choice["tool"])
-                public={"tool":choice["tool"],"status":actual.get("status","unknown")}
-                if choice["tool"]=="stripe_offers":
-                    public["offer_count"]=actual.get("offer_count",0)
-                report["tool_actions"].append(public)
-                # A local observation, not a public record of private customer data.
-                tool_context={"tool":choice["tool"],"observation":actual}
-            except (RuntimeError,ValueError,KeyError,urllib.error.URLError,
-                    TimeoutError,OSError):
-                report["tool_actions"].append({"tool":choice["tool"],
-                                                "status":"tool_execution_failed"})
+    # Provider-grounded outcomes are collected directly above. Do not spend a
+    # separate LLM call deciding which status/inventory endpoint to inspect.
     feedback=[]
     current_experiments=[]
     for attempt in range(MAX_SEARCHES):
@@ -675,7 +617,7 @@ def main():
     if path.exists():
         raise SystemExit("Cannot overwrite enterprise decision receipt")
     try:
-        row=run(live=live,tool_decider=model_json,followup_decider=model_json)
+        row=run(live=live,followup_decider=model_json)
     except (ValueError,KeyError,TypeError,RuntimeError,urllib.error.URLError,TimeoutError) as exc:
         # A failed experiment still produces repair evidence. Never leak provider
         # bodies, credentials or private data into the public receipt.
