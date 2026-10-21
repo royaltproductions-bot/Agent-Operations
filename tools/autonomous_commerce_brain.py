@@ -100,7 +100,7 @@ STRATEGY_SCHEMA = {
 # There are no fixed example URLs, favored ventures, or assumed income claims.
 EXAMPLE_QUERY_SCHEMA = {
     "type":"object", "properties":{
-        "decision":{"type":"string","enum":["search","skip"]},
+        "decision":{"type":"string","enum":["search"]},
         "query":{"type":"string"},
         "reason":{"type":"string"}},
     "required":["decision","query","reason"],"additionalProperties":False
@@ -456,10 +456,13 @@ def search_with_source_fallback(strategy, search):
     reasons to forbid that idea. No fabricated leads or imaginary channels.
     """
     first=strategy["search_channel"]
-    if first not in CHANNELS:
-        return [],first,[{"channel":first,"status":"not_connected"}]
-    order=[first]+[c for c in CHANNELS if c!=first]
     observations=[]
+    if first not in CHANNELS:
+        observations.append({"channel":first,"status":"preferred_source_not_connected",
+                             "fallback_to_connected_sources":True})
+        order=list(CHANNELS)
+    else:
+        order=[first]+[c for c in CHANNELS if c!=first]
     for channel in order:
         query_strategy={**strategy,"search_channel":channel}
         try:
@@ -501,8 +504,6 @@ def observe_other_agent_experiments(history, decider, search_provider,
                     "not copied businesses or revenue claims."})
     except (RuntimeError,ValueError,TypeError,KeyError):
         return {"status":"query_decision_invalid"}
-    if choice["decision"]=="skip":
-        return {"status":"model_deferred"}
     query=choice["query"].strip()
     try:
         observed=search_provider(query,previously_seen=previous_urls)
@@ -587,7 +588,7 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
         if supported:
             tool_schema = {
                 "type": "object",
-                "properties": {"tool":{"type":"string","enum":["skip"]+supported},
+                "properties": {"tool":{"type":"string","enum":supported},
                                "reason":{"type":"string"}},
                 "required":["tool","reason"],
                 "additionalProperties":False
@@ -600,23 +601,24 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
                       "goal":"Make a real business decision, not another research-only report.",
                       "recent_tools":list(inspected)})
             except (ValueError,TypeError,KeyError,RuntimeError):
-                # Failure to choose an OPTIONAL tool must not stop revenue discovery.
+                # Invalid selection is not permission for inaction. Fall through
+                # to a real connected observation and keep the commerce cycle moving.
+                choice={"tool":supported[0],"reason":"deterministic recovery from invalid selection"}
                 report["tool_actions"].append({"tool":"selection",
-                                                "status":"invalid_model_choice_skipped"})
-                choice={"tool":"skip"}
-            if choice["tool"] != "skip":
-                try:
-                    actual=execute_tool(choice["tool"])
-                    public={"tool":choice["tool"],"status":actual.get("status","unknown")}
-                    if choice["tool"]=="stripe_offers":
-                        public["offer_count"]=actual.get("offer_count",0)
-                    report["tool_actions"].append(public)
-                    # A local observation, not a public record of private customer data.
-                    tool_context={"tool":choice["tool"],"observation":actual}
-                except (RuntimeError,ValueError,KeyError,urllib.error.URLError,
-                        TimeoutError,OSError):
-                    report["tool_actions"].append({"tool":choice["tool"],
-                                                    "status":"tool_execution_failed"})
+                                                "status":"recovered_to_connected_tool",
+                                                "selected":choice["tool"]})
+            try:
+                actual=execute_tool(choice["tool"])
+                public={"tool":choice["tool"],"status":actual.get("status","unknown")}
+                if choice["tool"]=="stripe_offers":
+                    public["offer_count"]=actual.get("offer_count",0)
+                report["tool_actions"].append(public)
+                # A local observation, not a public record of private customer data.
+                tool_context={"tool":choice["tool"],"observation":actual}
+            except (RuntimeError,ValueError,KeyError,urllib.error.URLError,
+                    TimeoutError,OSError):
+                report["tool_actions"].append({"tool":choice["tool"],
+                                                "status":"tool_execution_failed"})
     # Observe other agents' current attempts before strategy generation.
     # No research success is required for revenue execution to proceed.
     research_context={}
@@ -801,21 +803,34 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
 
 def main():
     live=os.environ.get("ENTERPRISE_OUTREACH_ENABLED")=="YES"
-    try:
-        row=run(live=live,tool_decider=model_json,followup_decider=model_json,
-                inspiration_decider=model_json)
-    except (ValueError,KeyError,TypeError,RuntimeError,urllib.error.URLError) as exc:
-        # Only report controlled diagnostic codes; never disclose provider bodies, PII or tokens.
-        known={"model_no_structured_content","model_malformed_json","model_schema_mismatch",
-               "model_invalid_field","model_invalid_action"}
-        print("ENTERPRISE AGENT FAILED:",str(exc) if str(exc) in known else type(exc).__name__,file=sys.stderr)
-        raise SystemExit(1)
     ROOT.mkdir(parents=True,exist_ok=True)
     runid=re.sub(r"[^A-Za-z0-9_-]","",os.environ.get("GITHUB_RUN_ID","local"))
     attempt=re.sub(r"[^A-Za-z0-9_-]","",os.environ.get("GITHUB_RUN_ATTEMPT","1"))
     path=ROOT/(runid+"-"+attempt+".json")
     if path.exists():
         raise SystemExit("Cannot overwrite enterprise decision receipt")
+    try:
+        row=run(live=live,tool_decider=model_json,followup_decider=model_json,
+                inspiration_decider=model_json)
+    except (ValueError,KeyError,TypeError,RuntimeError,urllib.error.URLError,TimeoutError) as exc:
+        # A failed experiment still produces repair evidence. Never leak provider
+        # bodies, credentials or private data into the public receipt.
+        known={"model_no_structured_content","model_malformed_json","model_schema_mismatch",
+               "model_invalid_field","model_invalid_action"}
+        reason=str(exc) if str(exc) in known else type(exc).__name__
+        row={"schema_version":1,"engine":"local_open_weight_llm_commerce",
+             "timestamp":TODAY().isoformat(),"model":MODEL,
+             "mission":"independent_customer_demand_to_paid_execution",
+             "model_invoked":True,"hypotheses":[],"actions":[],"tool_actions":[],
+             "structural_failures":[{"reason":"engine_runtime_failure","detail":reason}],
+             "commercial_outcomes":[],"failures_or_blockers":[
+                 {"reason":"engine_runtime_failure","detail":reason}],
+             "qualified_external_contacts":0,"verified_payment_usd":None,
+             "new_paid_orders":None,
+             "notes":"Execution failed structurally; receipt preserved for autonomous repair."}
+        path.write_text(json.dumps(row,indent=2)+"\n",encoding="utf-8")
+        print("ENTERPRISE AGENT FAILED:",reason,file=sys.stderr)
+        raise SystemExit(1)
     path.write_text(json.dumps(row,indent=2)+"\n",encoding="utf-8")
     print(json.dumps({"engine":row["engine"],"strategies":len(row["hypotheses"]),
                       "actions":len(row["actions"]),
