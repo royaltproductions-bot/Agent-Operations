@@ -94,6 +94,12 @@ jobs:
           assert isinstance(row,dict) and 'capabilities' in row and 'assets' in row
           print('integrated commerce smoke verified')
           PY
+      - name: Hand validated refinement to production commerce engine
+        if: steps.refine.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: gh workflow run independent-intelligence.yml --ref main --repo "$GITHUB_REPOSITORY"
       - name: Surface rejected refinement as workflow failure
         if: steps.refine.outputs.failed == 'true'
         run: exit 1
