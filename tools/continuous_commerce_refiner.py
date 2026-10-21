@@ -12,6 +12,7 @@ import os
 from pathlib import Path
 import re
 import subprocess
+import urllib.error
 import urllib.request
 
 ROOT=Path.cwd()
@@ -37,8 +38,12 @@ def infer(schema,system,observation,num_predict=1800):
       "options":{"temperature":0.05,"num_ctx":24576,"num_predict":num_predict}}).encode()
     req=urllib.request.Request("http://127.0.0.1:11434/api/chat",data=payload,
                                headers={"Content-Type":"application/json"})
-    with urllib.request.urlopen(req,timeout=600) as response:
-        raw=json.load(response).get("message",{}).get("content","")
+    try:
+        with urllib.request.urlopen(req,timeout=600) as response:
+            raw=json.load(response).get("message",{}).get("content","")
+    except urllib.error.HTTPError as exc:
+        detail=exc.read(800).decode("utf-8","replace")
+        raise RuntimeError("ollama_http_"+str(exc.code)+":"+detail[:500]) from None
     obj=json.loads(raw)
     if not isinstance(obj,dict):
         raise ValueError("model_output_not_object")
