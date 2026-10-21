@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "engine": "on_runner_ollama",
+  "model": "qwen3:4b-instruct-2507-q4_K_M",
+  "model_invoked": true,
+  "recorded_at_utc": "2026-10-21T06:02:13.799001+00:00",
+  "github_run_id": "39552769799",
+  "github_attempt": "1",
+  "actions": [
+    {
+      "tool": "publish_faq",
+      "target": "scope",
+      "result": "customer_facing_site_files_written",
+      "evidence": {
+        "result": "customer_facing_site_files_written",
+        "topic": "scope",
+        "path": "storefront/guide/index.html"
+      }
+    },
+    {
+      "tool": "inspect_issue",
+      "target": "https://github.com/BasedHardware/omi/issues/22506",
+      "result": "unverified_paid_issue",
+      "evidence": {
+        "source": "https://github.com/BasedHardware/omi/issues/22506",
+        "status": "unverified_paid_issue",
+        "checked": true
+      }
+    }
+  ],
+  "errors": [],
+  "live_outbound_sent": 0,
+  "owned_site_files_written": 1,
+  "paid_order_count": null,
+  "verified_revenue_usd": null,
+  "note": "External CPU model made bounded tool decisions. Read/website actions do not prove customers or revenue."
+}
