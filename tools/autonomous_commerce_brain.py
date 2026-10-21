@@ -165,6 +165,12 @@ def model_json(schema, prompt, observation, opener=None):
         if any(clean.get(field,"").strip().lower() in placeholders
                for field in strategy_required):
             raise ValueError("model_placeholder_strategy")
+        if len(re.findall(r"[A-Za-z0-9]+",clean.get("buyer",""))) < 2:
+            raise ValueError("model_underspecified_buyer")
+        if len(re.findall(r"[A-Za-z0-9]+",clean.get("customer_problem",""))) < 3:
+            raise ValueError("model_underspecified_problem")
+        if len(re.findall(r"[A-Za-z0-9]+",clean.get("offer",""))) < 3:
+            raise ValueError("model_underspecified_offer")
     obj=clean
     return obj
 
@@ -183,8 +189,11 @@ def get_public_json(url, host):
     parts=urllib.parse.urlsplit(url)
     if parts.scheme!="https" or parts.hostname!=host or parts.username or parts.password:
         raise ValueError("external_target_not_allowed")
-    request=urllib.request.Request(url,headers={"User-Agent":"independent-commerce/1.0",
-                                                 "Accept":"application/json"})
+    headers={"User-Agent":"independent-commerce/1.0","Accept":"application/json"}
+    if host=="api.github.com" and os.environ.get("GH_TOKEN"):
+        headers["Authorization"]="Bearer "+os.environ["GH_TOKEN"]
+        headers["X-GitHub-Api-Version"]="2022-11-28"
+    request=urllib.request.Request(url,headers=headers)
     with urllib.request.urlopen(request,timeout=22) as response:
         return json.loads(response.read(350000).decode("utf-8"))
 
@@ -196,11 +205,27 @@ def compact_search_terms(raw):
                      " ",segment)
         clean=re.sub(r"[^a-zA-Z0-9 +#-]+"," ",clean)
         words=[w for w in clean.split() if w.lower() not in
-               {"or","and","site","hackernews","reddit","recent","latest","posts"}]
+               {"a","an","the","for","to","with","or","and","site","hackernews",
+                "reddit","recent","latest","posts","need","needs","verified"}]
         term=" ".join(words[:4]).strip()
         if len(term)>=4 and term.lower() not in {x.lower() for x in result}:
             result.append(term)
     return result[:3]
+
+def alternate_search_query(strategy,previous):
+    """Use a different angle when the model repeats a search within/recently across runs."""
+    seen={str(x).strip().lower() for x in previous if str(x).strip()}
+    candidates=[
+        strategy.get("customer_problem",""),
+        strategy.get("offer",""),
+        str(strategy.get("buyer",""))+" "+str(strategy.get("customer_problem","")),
+        str(strategy.get("route_to_buyer",""))+" "+str(strategy.get("customer_problem","")),
+    ]
+    for raw in candidates:
+        for candidate in compact_search_terms(raw):
+            if candidate.lower() not in seen:
+                return candidate
+    return None
 
 
 def search_demand(strategy):
@@ -231,8 +256,20 @@ def search_demand(strategy):
         # retrieved again separately before any eligible solicited application.
         args=urllib.parse.urlencode({"q":query,"restrict_sr":"1","sort":"new",
                                      "t":"month","limit":30,"raw_json":"1"})
-        obj=get_public_json("https://www.reddit.com/r/forhire/search.json?"+args,
-                            "www.reddit.com")
+        feed_fallback=False
+        try:
+            obj=get_public_json("https://www.reddit.com/r/forhire/search.json?"+args,
+                                "www.reddit.com")
+        except (urllib.error.HTTPError,urllib.error.URLError,TimeoutError):
+            feed_args=urllib.parse.urlencode({"limit":100,"raw_json":"1"})
+            try:
+                obj=get_public_json("https://www.reddit.com/r/forhire/new.json?"+feed_args,
+                                    "www.reddit.com")
+            except (urllib.error.HTTPError,urllib.error.URLError,TimeoutError):
+                obj=get_public_json("https://old.reddit.com/r/forhire/new.json?"+feed_args,
+                                    "old.reddit.com")
+            feed_fallback=True
+        query_words={w.lower() for phrase in compact_search_terms(query) for w in phrase.split()}
         found=[]
         for child in ((obj.get("data") or {}).get("children") or []):
             entry=child.get("data") or {}
@@ -249,6 +286,11 @@ def search_demand(strategy):
             body=str(entry.get("selftext") or "")[:900]
             if len(body)<20:
                 continue
+            if feed_fallback and query_words:
+                hay=(title+" "+body).lower()
+                matches=sum(word in hay for word in query_words)
+                if matches < (2 if len(query_words)>=4 else 1):
+                    continue
             found.append({"id":ident,"url":"https://www.reddit.com/r/forhire/comments/"+ident+"/",
                           "text":title+"\n"+body,
                           "created_at":entry.get("created_utc")})
@@ -503,8 +545,9 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
                           "existing_capabilities":["python","nodejs","CSV processing",
                             "render site","AgentMail opted-in replies",
                             "GitHub public discovery","Stripe payment verification"]})
-        except (ValueError,TypeError,KeyError,RuntimeError):
-            feedback.append({"reason":"model_strategy_invalid","attempt":attempt+1})
+        except (ValueError,TypeError,KeyError,RuntimeError) as exc:
+            feedback.append({"reason":"model_strategy_invalid","attempt":attempt+1,
+                             "detail":str(exc)[:100]})
             continue
         requested_source=strategy["search_channel"]
         query=strategy["search_query"].strip()
@@ -517,12 +560,15 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
         # delivery method, or independent piece of evidence appears.
         if repeat:
             feedback.append({"reason":"repetition_warning","signal":repeat})
-        if query.lower() in {x.lower() for x in prior_queries} and            strategy["search_channel"]==channel:
-            alternatives=[c for c in CHANNELS if c!=channel]
-            if alternatives:
-                strategy["search_channel"]=alternatives[attempt%len(alternatives)]
-                feedback.append({"reason":"repeat_query_source_pivot",
-                                 "source":strategy["search_channel"]})
+        if query.lower() in {x.lower() for x in prior_queries}:
+            alternate=alternate_search_query(strategy,prior_queries)
+            if alternate:
+                query=alternate
+                strategy["search_query"]=query
+                feedback.append({"reason":"repeat_query_rewritten","query":query})
+            else:
+                feedback.append({"reason":"duplicate_strategy_no_new_query"})
+                continue
         prior_queries.append(query)
         record={"attempt":attempt+1,
                 "business_model":strategy["offer"][:200],
