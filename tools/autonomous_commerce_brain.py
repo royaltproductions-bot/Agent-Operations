@@ -419,7 +419,7 @@ def send_invited_request(hit,source_text,scope,history,channel,live=False):
     if not os.environ.get("AGENTMAIL_API_KEY"):
         return {"source":url,"result":"agentmail_key_unavailable"}
     # A nonbinding inquiry, not acceptance of a job or a fabricated human resume.
-    from tools.commerce_operator import agent_get,agent_send
+    from tools.connected_commerce_tools import agent_get,agent_send
     ident=hashlib.sha256(url.encode()).hexdigest()[:18]
     subject="Regarding your public contract invitation ["+ident+"]"
     remote=agent_get("messages",{"limit":100,"subject":[subject],"labels":["sent"]})
