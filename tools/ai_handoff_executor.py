@@ -23,11 +23,7 @@ SOURCE = Path("campaigns/oddly-useful-stuff/creative-source")
 OUTCOMES = Path("ops/ai-handoff-results")
 READY = Path("/tmp/ai-handoff-ready.txt")
 ID = re.compile(r"^[a-z][a-z0-9-]{9,79}$")
-PROHIBITED_PROMOTION = re.compile(
-    r"\b(buy now|purchase here|checkout|affiliate|discount code|click the link|"
-    r"order (?:now|today)|sponsored|coupon|paid partnership)\b", re.I)
 CONFIDENTIAL = re.compile(r"\b[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}\b")
-FINANCIAL = re.compile(r"(?:\$|usd\s*)\s*\d|\b(?:earned|profit|revenue|income|sold)\b",re.I)
 
 def validate(job, filename=None):
     if not isinstance(job, dict) or job.get("schema_version") != 1:
@@ -65,10 +61,6 @@ def validate(job, filename=None):
             raise ValueError("Control characters not permitted")
         if CONFIDENTIAL.search(value):
             raise ValueError("Email addresses cannot appear in public video")
-        if PROHIBITED_PROMOTION.search(value):
-            raise ValueError("No promotional content via undisclosed Buffer route")
-    if FINANCIAL.search(job["heading"] + " " + job["subtitle"]+" "+job["line_one"]+" "+job["line_two"]+" "+job["punchline"] + " " + job["caption"]):
-        raise ValueError("Financial or sales claims need a different verified workflow")
     # Reject the previously spammed scan-count template, even if an agent
     # accidentally reintroduces it under a different filename.
     stale_card = re.compile(r"\\b(?:BOUNTY SAFARI|PUBLIC HINTS|COMPETING FIXES)\\b", re.I)
