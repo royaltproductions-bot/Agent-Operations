@@ -10,7 +10,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: independent-commerce-foundation-builder
+  group: continuous-autonomous-commerce-refiner
   cancel-in-progress: true
 jobs:
   refine:
