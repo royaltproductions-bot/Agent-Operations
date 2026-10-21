@@ -15,6 +15,7 @@ on:
       - 'tests/test_connected_commerce_tools.py'
       - 'tools/render_deploy_bridge.py'
       - 'tests/test_render_deploy_bridge.py'
+      - 'tests/test_model_recovery.py'
       - 'storefront/**'
   pull_request:
     paths:
@@ -27,6 +28,7 @@ on:
       - 'tests/test_connected_commerce_tools.py'
       - 'tools/render_deploy_bridge.py'
       - 'tests/test_render_deploy_bridge.py'
+      - 'tests/test_model_recovery.py'
       - 'storefront/**'
 permissions:
   contents: write
@@ -47,6 +49,7 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_autonomous_commerce_brain.py' -v
           python3 -m unittest discover -s tests -p 'test_connected_commerce_tools.py' -v
           python3 -m unittest discover -s tests -p 'test_render_deploy_bridge.py' -v
+          python3 -m unittest discover -s tests -p 'test_model_recovery.py' -v
 
   autonomous-operation:
     if: github.event_name != 'pull_request'
