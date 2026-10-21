@@ -19,6 +19,7 @@ on:
       - 'storefront/**'
 permissions:
   contents: write
+  actions: write
 concurrency:
   group: independent-on-runner-intelligence-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'production' }}
   cancel-in-progress: false
@@ -71,12 +72,45 @@ jobs:
           ollama pull "$COMMERCE_MODEL"
           ollama list
       - name: Let independent model select and execute actual tools
+        id: commerce
         shell: bash
         run: |
-          set -euo pipefail
+          set +e
           python3 -m tools.autonomous_commerce_brain
-          test -s "ops/enterprise-runs/$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT.json"
+          code=$?
+          receipt="ops/enterprise-runs/$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT.json"
+          if [ ! -s "$receipt" ]; then
+            mkdir -p ops/enterprise-runs
+            python3 - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          p=f"ops/enterprise-runs/{os.environ['GITHUB_RUN_ID']}-{os.environ['GITHUB_RUN_ATTEMPT']}.json"
+          row={
+            "schema_version":1,
+            "engine":"local_open_weight_llm_commerce",
+            "timestamp":datetime.now(timezone.utc).isoformat(),
+            "model":os.environ.get("COMMERCE_MODEL","unknown"),
+            "mission":"independent_customer_demand_to_paid_execution",
+            "model_invoked":True,
+            "hypotheses":[],
+            "actions":[],
+            "tool_actions":[],
+            "structural_failures":[{"reason":"engine_process_failure"}],
+            "commercial_outcomes":[],
+            "failures_or_blockers":[{"reason":"engine_process_failure"}],
+            "qualified_external_contacts":0,
+            "verified_payment_usd":None,
+            "new_paid_orders":None,
+            "notes":"Commerce process failed before a normal receipt; preserved for autonomous repair."
+          }
+          with open(p,"w") as f:
+              json.dump(row,f,indent=2); f.write("\n")
+          PY
+          fi
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
       - name: Persist model-originated tool receipts and owned-site output
+        if: always()
         shell: bash
         run: |
           set -euo pipefail
@@ -99,6 +133,15 @@ jobs:
             sleep 2
           done
           exit 1
+      - name: Launch autonomous repair immediately after structural commerce failure
+        if: steps.commerce.outputs.exit_code != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run independent-commerce-foundation-builder.yml --ref main --repo "$GITHUB_REPOSITORY"
       - name: Independently publish committed storefront revision if needed
-        if: success()
+        if: steps.commerce.outputs.exit_code == '0'
+        continue-on-error: true
         run: python3 -m tools.render_direct_api --deploy
+      - name: Surface structural commerce failure after repair handoff
+        if: steps.commerce.outputs.exit_code != '0'
+        run: exit 1
