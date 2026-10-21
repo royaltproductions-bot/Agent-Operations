@@ -507,7 +507,7 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
         report["model_invoked"]=True
         try:
             strategy=propose(schema,MISSION,
-                             {"assigned_commercial_lane":lane,
+                             {"suggested_commercial_lane":lane,
                               "commercial_lane_opportunity":LANES[lane],
                               "suggested_public_demand_channel":channel,
                               "cross_run_strategy_diagnostics":diagnostics(history,current_experiments),
