@@ -93,3 +93,6 @@ jobs:
           assert isinstance(row,dict) and 'capabilities' in row and 'assets' in row
           print('integrated commerce smoke verified')
           PY
+      - name: Surface rejected refinement as workflow failure
+        if: steps.refine.outputs.failed == 'true'
+        run: exit 1
