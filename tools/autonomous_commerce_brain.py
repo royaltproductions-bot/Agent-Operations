@@ -656,12 +656,12 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
     report["commercial_outcomes"]=commercial_outcomes
     report["portfolio_diagnostics"]=diagnostics(history,current_experiments)
     report["economic_scorecard"]=scorecard(report)
-    if report["verified_provider_outcomes"]["stripe"]["status"]=="verified_live_stripe":
+    if report.get("verified_provider_outcomes", {}).get("stripe", {}).get("status") == "verified_live_stripe":
         report["economic_scorecard"]["paid_orders_verified"]=(
             report["verified_provider_outcomes"]["stripe"]["verified_paid_sessions"])
         report["economic_scorecard"]["cumulative_confirmed_gross_usd"]=(
             report["verified_provider_outcomes"]["stripe"]["confirmed_gross_usd"])
-    if report["verified_provider_outcomes"]["buyer_correspondence"]["status"]=="verified_live_agentmail":
+    if report.get("verified_provider_outcomes", {}).get("buyer_correspondence", {}).get("status") == "verified_live_agentmail":
         report["economic_scorecard"]["verified_reply_threads_to_sent_invitations"]=(
             report["verified_provider_outcomes"]["buyer_correspondence"]["verified_buyer_replies"])
     report["qualified_external_contacts"]=sum(

@@ -1,0 +1,12 @@
+{
+  "actor": "commerce_refiner",
+  "status": "deployed",
+  "model": "qwen2.5-coder:7b-instruct",
+  "basis_receipt": "39689423235-1.json",
+  "signal_kind": "structural",
+  "signal_reason": "engine_runtime_failure",
+  "signal_occurrences": 1,
+  "changed_file": "tools/autonomous_commerce_brain.py",
+  "model_calls": 1,
+  "commercial_proof": "next production commerce outcomes"
+}
