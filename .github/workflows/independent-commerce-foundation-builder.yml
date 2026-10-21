@@ -29,6 +29,24 @@ jobs:
         with:
           fetch-depth: 30
           persist-credentials: true
+      - name: Record independently started refinement cycle
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p ops/refiner-runs
+          python3 - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          path=f"ops/refiner-runs/{os.environ['GITHUB_RUN_ID']}-started.json"
+          with open(path,"w") as f:
+              json.dump({"actor":"continuous_autonomous_commerce_refiner",
+                         "status":"started","run_id":os.environ["GITHUB_RUN_ID"],
+                         "started_at_utc":datetime.now(timezone.utc).isoformat()},f,indent=2)
+              f.write("\n")
+          PY
+          git add ops/refiner-runs/*-started.json
+          git -c user.name="commerce-refiner-bot" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "Record autonomous refiner cycle start"
+          git push origin HEAD:main
       - name: Cache local model
         uses: actions/cache@v4
         with:
