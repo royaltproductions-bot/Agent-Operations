@@ -30,6 +30,7 @@ MAX_CONTEXT_CHARS=19000
 LEGACY_STRUCTURAL_REASONS={"distribution_connector_not_yet_available"}
 COMMERCIAL_REFINEMENT_MIN_RUNS=3
 COMMERCIAL_REFINEMENT_MIN_STREAK=3
+COMMERCIAL_REFINEMENT_COOLDOWN_CYCLES=3
 
 def run(*cmd,timeout=300):
     return subprocess.run(cmd,cwd=ROOT,text=True,capture_output=True,timeout=timeout)
@@ -147,6 +148,13 @@ def evidence_state():
         fulfilled=max(fulfilled,len(list(delivery.glob("*.json"))))
     refiner_failures=[str(x.get("reason",""))[:180] for x in refiner
                       if x.get("status")=="refinement_failed_or_rejected"][:6]
+    recently_refined_patterns=[
+        str(x.get("commercial_pattern_reason"))
+        for x in refiner[:COMMERCIAL_REFINEMENT_COOLDOWN_CYCLES]
+        if x.get("status")=="validated_refinement"
+        and x.get("trigger_kind")=="persistent_commercial_pattern"
+        and x.get("commercial_pattern_reason")
+    ]
     return {
       "enterprise_runs_seen":len(enterprise),
       "structural_failure_counts":dict(Counter(structural).most_common(10)),
@@ -168,6 +176,7 @@ def evidence_state():
           "paid_checkout_sessions":x.get("paid_checkout_sessions"),
           "new_deliveries":x.get("new_deliveries")} for x in scheduled[:3]],
       "recent_refiner_failures":refiner_failures,
+      "recently_refined_commercial_patterns":recently_refined_patterns,
     }
 
 def diagnose(state):
@@ -200,9 +209,16 @@ def diagnose(state):
     if not persistent:
         return None
 
+    # Do not rewrite the same business practice every hour. A validated
+    # commercial refinement gets several cycles to produce new evidence first.
+    cooling=set(state.get("recently_refined_commercial_patterns") or [])
+    eligible=[x for x in persistent if x[0] not in cooling]
+    if not eligible:
+        return None
+
     # Pick the most persistent recurring business-practice failure. This is a
     # refinement signal, never an execution veto.
-    reason,runs,streak=max(persistent,key=lambda x:(x[2],x[1],x[0]))
+    reason,runs,streak=max(eligible,key=lambda x:(x[2],x[1],x[0]))
     evidence=f"{reason} appeared in {runs} recent runs; current consecutive streak={streak}"
     if reason in {"no_matching_public_demand","model_rejected_candidates",
                   "repetition_warning","repeat_query_source_pivot",
@@ -211,6 +227,7 @@ def diagnose(state):
                   "model_selected_unlisted_candidate"}:
         return {
           "trigger_kind":"persistent_commercial_pattern",
+          "commercial_pattern_reason":reason,
           "bottleneck":"A commercial decision pattern is repeatedly failing to advance toward qualified demand.",
           "evidence":evidence,
           "goal":"Improve market selection, search/pivot reasoning, and candidate qualification while preserving open-ended experimentation. Do not forbid the failed idea class; improve how evidence is gathered and acted on.",
@@ -475,6 +492,7 @@ def main():
       "actor":"continuous_autonomous_commerce_refiner",
       "status":"validated_refinement",
       "trigger_kind":diagnosis.get("trigger_kind"),
+      "commercial_pattern_reason":diagnosis.get("commercial_pattern_reason"),
       "bottleneck":diagnosis["bottleneck"],
       "evidence":diagnosis["evidence"],
       "refinement_goal":diagnosis["goal"],
