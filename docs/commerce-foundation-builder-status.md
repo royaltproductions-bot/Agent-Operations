@@ -1,11 +1,23 @@
-# Continuous autonomous commerce refiner status
+# Autonomous commerce system
 
-The active refiner is `tools/continuous_commerce_refiner.py`, executed by `.github/workflows/independent-commerce-foundation-builder.yml` every hour and on manual dispatch. The former narrow development worker is only a compatibility entrypoint.
+The active revenue system has two workflows and three responsibilities.
 
-Purpose: continuously inspect privacy-safe commercial outcomes and repository state, identify the highest-impact execution bottleneck, implement a bounded system improvement, run the full Python regression suite plus capability smoke checks, obtain a second adversarial model review, record a refinement receipt, and integrate only a validated change.
+## Commerce engine
 
-Scope is open-ended commercial infrastructure rather than a predetermined business model. Existing regression tests cannot be modified by the refiner. Existing source files are changed by exact anchored patches instead of whole-file regeneration; new modules may be created only in bounded repository roots. Workflow files, credentials, ops evidence, and unrelated projects are outside model write scope.
+`.github/workflows/independent-intelligence.yml` runs `tools/autonomous_commerce_brain.py` at :23 each hour and on manual dispatch.
 
-The separate Independent On-Runner Intelligence workflow remains the production entrepreneur/executor. It supplies the refiner with real outcome evidence including demand-search failures, buyer reach, live Stripe aggregate outcomes, AgentMail reply aggregates, fulfillment evidence, and portfolio stagnation diagnostics. The refiner improves the engine; it is not itself evidence of customers, sales, or revenue.
+Its job is to discover real demand, choose an open-ended commercial model, use connected provider tools, reach authorized buyers when possible, observe real Stripe/AgentMail outcomes, and write one commerce receipt.
 
-Completion standard for any refinement is code change + regression validation + capability smoke + adversarial approval + persisted receipt + successful main-branch integration. Commercial success remains separately evidenced by provider/outcome receipts.
+## Refiner
+
+`.github/workflows/independent-commerce-foundation-builder.yml` runs `tools/continuous_commerce_refiner.py` at :07 each hour and on manual dispatch.
+
+It reads recent commerce receipts. A structural execution failure may trigger immediate repair; a commercial pattern must recur across multiple runs before it can trigger a refinement. The refiner patches one core file and sends the changed system back to commerce. Production outcomes—not duplicate test gates—determine whether the change helped.
+
+## Provider layer
+
+`tools/connected_commerce_tools.py` owns connected Stripe, AgentMail, Buffer, repository-asset, and Render access. It exposes capabilities but does not choose business strategy.
+
+The system has no predetermined business-model lanes. Technical connectors are finite; commercial ideas are not.
+
+Historical receipts may remain in `ops/`, but old health monitors, fixed VendorSettle automation, ten-lane radar, agent queues, compatibility workers, and their workflows are no longer part of the active revenue architecture.
