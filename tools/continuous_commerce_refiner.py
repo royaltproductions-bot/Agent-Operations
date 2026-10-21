@@ -147,7 +147,7 @@ def evidence_state():
     if delivery.is_dir():
         fulfilled=max(fulfilled,len(list(delivery.glob("*.json"))))
     refiner_failures=[str(x.get("reason",""))[:180] for x in refiner
-                      if x.get("status")=="refiner_execution_failed"][:6]
+                      if x.get("status")=="refiner_attempt_unusable"][:6]
     recently_refined_patterns=[
         str(x.get("commercial_pattern_reason"))
         for x in refiner[:COMMERCIAL_REFINEMENT_COOLDOWN_CYCLES]
