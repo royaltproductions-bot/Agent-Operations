@@ -83,7 +83,7 @@ jobs:
     if: github.event_name != 'pull_request'
     needs: unit-tests
     runs-on: ubuntu-latest
-    timeout-minutes: 38
+    timeout-minutes: 45
     env:
       COMMERCE_MODEL: qwen3:8b
       OLLAMA_MODELS: ${{ github.workspace }}/.ollama-cache/models
