@@ -51,6 +51,17 @@ class ContinuousCommerceRefinerTests(unittest.TestCase):
         }
         self.assertIsNone(r.diagnose(state))
 
+
+    def test_recent_commercial_refinement_gets_cooldown_before_same_pattern_rewrites_again(self):
+        state={
+            "structural_failure_counts":{},
+            "commercial_outcome_counts":{"no_matching_public_demand":12},
+            "commercial_run_counts":{"no_matching_public_demand":4},
+            "commercial_streaks":{"no_matching_public_demand":4},
+            "recently_refined_commercial_patterns":["no_matching_public_demand"],
+        }
+        self.assertIsNone(r.diagnose(state))
+
     def test_structural_capability_gap_can_trigger_refinement(self):
         state={
             "structural_failure_counts":{
