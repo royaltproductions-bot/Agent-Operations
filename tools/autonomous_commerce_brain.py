@@ -203,6 +203,9 @@ def explicit_invite(text,channel):
     if not re.search(r"\b(contract(?:or)?|freelanc(?:e|er)|paid pilot|consult(?:ing|ant)|project.based)\b",
                      content,re.I):
         return None
+    # A contract keyword alone is not proof of compensation.
+    if not re.search(r"\b(paid|payment|budget|hourly rate|compensation|\\$\\s*\\d)\b", content, re.I):
+        return None
     if not re.search(r"\b(apply|email|contact|reach out|send (?:your|us)|inquire)\b",
                      content,re.I):
         return None
