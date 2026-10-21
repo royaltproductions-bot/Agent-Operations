@@ -85,7 +85,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 38
     env:
-      LOCAL_MODEL: qwen3:4b-instruct-2507-q4_K_M
+      COMMERCE_MODEL: qwen3:8b
       OLLAMA_MODELS: ${{ github.workspace }}/.ollama-cache/models
       OLLAMA_NUM_PARALLEL: '1'
       OLLAMA_MAX_LOADED_MODELS: '1'
@@ -109,7 +109,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .ollama-cache/models
-          key: ollama-openweight-qwen3-4b-instruct-2507-q4-v1
+          key: ollama-commerce-qwen3-8b-v1
       - name: Install model runtime locally, no sign-in or paid inference API
         shell: bash
         run: |
@@ -124,7 +124,7 @@ jobs:
             sleep 1
           done
           curl -fsS http://127.0.0.1:11434/api/tags >/dev/null
-          ollama pull "$LOCAL_MODEL"
+          ollama pull "$COMMERCE_MODEL"
           ollama list
       - name: Let independent model select and execute actual tools
         shell: bash
