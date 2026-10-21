@@ -1,0 +1,43 @@
+name: Independent Commerce Foundation Builder
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '37 * * * *'
+permissions:
+  contents: write
+  pull-requests: write
+concurrency:
+  group: independent-commerce-foundation-builder
+  cancel-in-progress: false
+jobs:
+  develop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Install local inference runtime
+        run: |
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama serve >/tmp/ollama.log 2>&1 &
+          sleep 5
+          ollama pull qwen3:4b-instruct-2507-q4_K_M
+      - name: Develop and validate candidate
+        run: python3 tools/independent_development_worker.py
+      - name: Open reviewable pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet; then
+            echo "No validated code change."
+            exit 0
+          fi
+          branch="auto/commerce-foundation-${GITHUB_RUN_ID}"
+          git switch -c "$branch"
+          git add tools/connected_commerce_tools.py tools/autonomous_commerce_brain.py tools/commerce_operator.py
+          git -c user.name="commerce-foundation-bot" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "Develop reusable commerce execution primitive"
+          git push origin "$branch"
+          gh pr create --base main --head "$branch" --title "Commerce foundation: independently generated validated primitive" --body "Automated Qwen-generated change. Validation passed; human review required before merging. This does not establish live commercial execution or sales."
