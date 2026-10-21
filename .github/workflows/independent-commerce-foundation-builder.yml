@@ -17,6 +17,12 @@ jobs:
   refine:
     runs-on: ubuntu-latest
     timeout-minutes: 55
+    env:
+      LOCAL_MODEL: qwen3:4b-instruct-2507-q4_K_M
+      OLLAMA_MODELS: ${{ github.workspace }}/.ollama-cache/models
+      OLLAMA_NUM_PARALLEL: '1'
+      OLLAMA_MAX_LOADED_MODELS: '1'
+      OLLAMA_HOST: 127.0.0.1:11434
     steps:
       - uses: actions/checkout@v4
         with:
@@ -24,7 +30,7 @@ jobs:
       - name: Cache local model
         uses: actions/cache@v4
         with:
-          path: ~/.ollama/models
+          path: .ollama-cache/models
           key: ollama-qwen3-4b-instruct-2507-q4-k-m-v1
       - name: Install local inference runtime
         run: |
