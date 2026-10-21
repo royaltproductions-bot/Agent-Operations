@@ -5,6 +5,49 @@ from unittest.mock import patch
 from tools import autonomous_commerce_brain as brain
 
 class RecoveryTests(unittest.TestCase):
+    def test_rephrased_prior_market_warning_does_not_block_new_evidence(self):
+        prior=[{"hypotheses":[{
+            "lane":"commissioned_services","buyer":"A Portland bakery seeking inventory tracking",
+            "problem":"Bakery stock spoilage","business_model":"Python inventory system",
+            "query":"bakery inventory automation","channel":"hackernews"}]}]
+        def propose(schema,prompt,context):
+            return {"lane":"commissioned_services","buyer":"Independent cafes",
+                    "customer_problem":"Bakery inventory stock spoilage",
+                    "offer":"Python inventory monitoring system",
+                    "delivery_using_existing_tools":"Python CSV",
+                    "route_to_buyer":"public paid invitation",
+                    "search_channel":"github",
+                    "search_query":"bakery stock inventory tool",
+                    "reason":"Check a different independently evidenced source"}
+        with patch.object(brain,"past",return_value=prior), \
+             patch.object(brain,"MAX_SEARCHES",1):
+            row=brain.run(propose=propose,evaluate=lambda *a:None,
+                          search=lambda s:[],original=lambda *a:"",
+                          live=False)
+        self.assertEqual(len(row["hypotheses"]),1)
+        self.assertIn("repetition_warning",
+                      [f["reason"] for f in row["failures_or_blockers"]])
+
+    def test_model_json_accepts_ignored_extra_fields_and_missing_optional_lane(self):
+        class FakeResponse:
+            def __enter__(self):return self
+            def __exit__(self,*args):return False
+            def read(self,n=-1):
+                return json.dumps({"message":{"content":json.dumps({
+                    "buyer":"businesses","customer_problem":"manual reports",
+                    "offer":"paid Python script",
+                    "delivery_using_existing_tools":"Python",
+                    "route_to_buyer":"public buyer invitation",
+                    "search_channel":"hackernews",
+                    "search_query":"paid python contract",
+                    "reason":"real demand hypothesis",
+                    "unexpected_comment":"harmless extra output"})}}).encode()
+        obj=brain.model_json(brain.STRATEGY_SCHEMA,brain.MISSION,
+                             {},opener=lambda req,timeout:FakeResponse())
+        self.assertNotIn("unexpected_comment",obj)
+        self.assertNotIn("lane",obj)
+        self.assertEqual(obj["search_channel"],"hackernews")
+
     def test_invalid_provider_selection_does_not_abort_business_loop(self):
         proposal={
             "buyer":"shops","customer_problem":"manual CSV processing",

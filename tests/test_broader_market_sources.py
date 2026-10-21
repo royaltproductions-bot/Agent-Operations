@@ -52,11 +52,36 @@ class MarketSourceTests(unittest.TestCase):
         self.assertFalse(brain.can_execute("licensed attorney","paid video editor"))
         self.assertTrue(brain.can_execute("Python CSV automation","paid contractor job"))
 
-    def test_planner_forced_to_selected_lanes_and_channels(self):
+    def test_new_commercial_category_and_alternate_source_are_not_vetoed(self):
+        def propose(schema,prompt,context):
+            # A legitimate new plan must not be rejected just because a
+            # scheduler preferred a different lane and research source.
+            self.assertNotIn("enum",schema["properties"]["lane"])
+            self.assertGreater(len(schema["properties"]["search_channel"]["enum"]),1)
+            return {"lane":"custom_business_research","buyer":"companies",
+                    "customer_problem":"incomplete reporting",
+                    "offer":"one-time financial dashboard",
+                    "delivery_using_existing_tools":"Python CSV",
+                    "route_to_buyer":"publicly announced paid project",
+                    "search_channel":"github",
+                    "search_query":"paid data dashboard contractor",
+                    "reason":"new commercial segment"}
+        with patch.object(brain,"past",return_value=[]), \
+             patch.object(brain,"commercial_metrics",return_value={
+                "stripe":{"status":"not_checked"},
+                "buyer_correspondence":{"status":"not_checked"}}), \
+             patch.object(brain,"MAX_SEARCHES",1):
+            row=brain.run(propose=propose,evaluate=lambda *a:{},
+                          search=lambda s:[],original=lambda *a:"",live=False)
+        self.assertEqual(len(row["hypotheses"]),1)
+        self.assertEqual(row["hypotheses"][0]["lane"],"custom_business_research")
+        self.assertEqual(row["hypotheses"][0]["channel"],"github")
+
+    def test_portfolio_lanes_are_suggestions_not_forced_decisions(self):
         record=[]
         def propose(schema,prompt,context):
-            lane=context["assigned_commercial_lane"]
-            channel=context["assigned_public_demand_channel"]
+            lane=context["suggested_commercial_lane"]
+            channel=context["suggested_public_demand_channel"]
             record.append((lane,channel))
             return {"lane":lane,"buyer":"independent enterprises",
                     "customer_problem":"manual invoices",
