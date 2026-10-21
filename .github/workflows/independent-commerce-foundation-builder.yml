@@ -10,6 +10,7 @@ on:
       - '.github/workflows/independent-commerce-foundation-builder.yml'
 permissions:
   contents: write
+  actions: write
 concurrency:
   group: continuous-autonomous-commerce-refiner
   cancel-in-progress: true
