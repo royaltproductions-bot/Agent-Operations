@@ -114,6 +114,26 @@ EXAMPLE_REFLECTION_SCHEMA = {
                 "limits_and_unverified_claims"],"additionalProperties":False
 }
 
+STRUCTURAL_FAILURE_REASONS = {
+    "distribution_connector_not_yet_available",
+    "search_sources_unavailable",
+    "tool_execution_failed",
+}
+
+def classify_execution_feedback(feedback):
+    """Separate system defects/capability gaps from ordinary commercial evidence."""
+    structural=[]
+    commercial=[]
+    for item in feedback:
+        if not isinstance(item,dict):
+            continue
+        row=dict(item)
+        if row.get("reason") in STRUCTURAL_FAILURE_REASONS:
+            structural.append(row)
+        else:
+            commercial.append(row)
+    return structural,commercial
+
 TOOL_SCHEMA = {
     "type": "object", "properties": {
         "tool": {"type": "string",
@@ -640,7 +660,8 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
                           "Propose a market, executable delivery, and original search. "
                           "Choose another route if last one failed.",
                           "previous_queries_to_avoid":prior_queries[-14:],
-                          "recent_failures":feedback,
+                          "recent_execution_signals":feedback,
+                          "recent_commercial_outcomes":[x for row in history[:4] for x in row.get("commercial_outcomes",[])][:12],
                            "new_market_findings":report.get("open_market_discoveries",[])[-3:],
                           "currently_working_public_search_adapters":list(CHANNELS),
                            "other_markets_may_be_proposed":"Invented distribution models are welcome, "
@@ -716,7 +737,11 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
             record["channel"]=actual_channel
             current_experiments[-1]["channel"]=actual_channel
         if not hits:
-            feedback.append({"reason":"no_matching_public_demand",
+            statuses={str(x.get("status","")) for x in source_attempts if isinstance(x,dict)}
+            reason=("search_sources_unavailable"
+                    if statuses and statuses <= {"source_unavailable"}
+                    else "no_matching_public_demand")
+            feedback.append({"reason":reason,
                              "query":query,"sources_attempted":source_attempts})
             continue
         # Model sees exact original snippets, not just keyword counts.
@@ -755,7 +780,13 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
             current_experiments[-1]["reached_buyer"]=True
             break
         feedback.append({"reason":action["result"],"query":query})
-    report["failures_or_blockers"]=feedback
+    structural_failures,commercial_outcomes=classify_execution_feedback(feedback)
+    # "Blocker" is reserved for structural inability to execute. Ordinary market
+    # misses, rejected candidates, weak strategies and non-conversion remain
+    # commercial evidence for the commerce brain to learn from and pivot on.
+    report["structural_failures"]=structural_failures
+    report["commercial_outcomes"]=commercial_outcomes
+    report["failures_or_blockers"]=structural_failures  # legacy compatibility
     report["portfolio_diagnostics"]=diagnostics(history,current_experiments)
     report["economic_scorecard"]=scorecard(report)
     if report["verified_provider_outcomes"]["stripe"]["status"]=="verified_live_stripe":
