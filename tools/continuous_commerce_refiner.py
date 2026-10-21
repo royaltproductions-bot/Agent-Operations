@@ -58,6 +58,10 @@ def safe_path(raw):
         return False
     if p.suffix.lower() not in {".py",".js",".json",".md",".html",".css",".txt",".csv"}:
         return False
+    try:
+        (ROOT/p).resolve().relative_to(ROOT.resolve())
+    except ValueError:
+        return False
     return True
 
 def inventory():
