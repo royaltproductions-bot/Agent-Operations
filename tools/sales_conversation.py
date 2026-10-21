@@ -12,7 +12,7 @@ import hashlib
 import os
 import re
 
-from tools.commerce_operator import INBOX, agent_get, agent_send
+from tools.connected_commerce_tools import INBOX, agent_get, agent_send
 
 REPLIES={
     "clarify_scope": (
