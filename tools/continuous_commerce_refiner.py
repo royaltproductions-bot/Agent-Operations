@@ -65,21 +65,54 @@ def choose_signal():
                 "target":CORE[target],"basis_receipt":latest_name}
     else:
         persistent=[(reason,count) for reason,count in commercial_runs.items() if count>=3]
-        if not persistent:
-            return None
-        reason,count=max(persistent,key=lambda x:(x[1],x[0]))
-        target=("providers" if any(word in reason for word in
-                ("provider","distribution","tool_execution")) else "engine")
-        signal={"kind":"persistent_commercial_pattern","reason":reason,
-                "occurrences":count,"target":CORE[target],
-                "basis_receipt":latest_name}
+        if persistent:
+            reason,count=max(persistent,key=lambda x:(x[1],x[0]))
+            target=("providers" if any(word in reason for word in
+                    ("provider","distribution","tool_execution")) else "engine")
+            signal={"kind":"persistent_commercial_pattern","reason":reason,
+                    "occurrences":count,"target":CORE[target],
+                    "basis_receipt":latest_name}
+        else:
+            # Different tactics can all fail in different ways. If four recent
+            # experiments show no buyer reach and no movement in provider-grounded
+            # paid/reply counts, refine the commercial decision process itself.
+            recent=commerce[:4]
+            if len(recent)<4:
+                return None
+            contacts=[int(row.get("qualified_external_contacts") or 0) for _,row in recent]
+            paid=[]
+            replies=[]
+            for _,row in recent:
+                providers=row.get("verified_provider_outcomes") or {}
+                stripe=providers.get("stripe") or {}
+                mail=providers.get("buyer_correspondence") or {}
+                paid.append(stripe.get("verified_paid_sessions"))
+                replies.append(mail.get("verified_buyer_replies"))
+            known_paid=[x for x in paid if isinstance(x,int)]
+            known_replies=[x for x in replies if isinstance(x,int)]
+            no_movement=(
+                not any(contacts)
+                and len(set(known_paid))<=1
+                and len(set(known_replies))<=1
+            )
+            if not no_movement:
+                return None
+            signal={"kind":"persistent_commercial_pattern",
+                    "reason":"no_economic_progress",
+                    "occurrences":4,"target":CORE["engine"],
+                    "basis_receipt":latest_name}
 
-    # Do not refine the same evidence twice. New commerce evidence reopens it.
-    for _,row in receipts("ops/refiner-runs",5):
-        if (row.get("status")=="deployed"
-                and row.get("basis_receipt")==signal["basis_receipt"]
-                and row.get("signal_reason")==signal["reason"]):
-            return None
+    # Structural breakage can be repaired again immediately. Commercial changes
+    # get three fresh production runs before the same problem may rewrite code again.
+    if signal["kind"]=="persistent_commercial_pattern":
+        names=[name for name,_ in commerce]
+        for _,row in receipts("ops/refiner-runs",6):
+            if row.get("status")!="deployed" or row.get("signal_reason")!=signal["reason"]:
+                continue
+            previous=row.get("basis_receipt")
+            if previous in names and names.index(previous)<3:
+                return None
+            break
     return signal
 
 def source(path):
