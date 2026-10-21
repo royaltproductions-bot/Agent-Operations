@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "engine": "local_open_weight_llm_commerce",
+  "timestamp": "2026-10-21T07:08:31.056892+00:00",
+  "model": "qwen3:4b-instruct-2507-q4_K_M",
+  "mission": "independent_customer_demand_to_paid_execution",
+  "model_invoked": true,
+  "hypotheses": [],
+  "actions": [],
+  "tool_actions": [
+    {
+      "tool": "repository_assets",
+      "status": "repository_checked"
+    }
+  ],
+  "verified_payment_usd": null,
+  "new_paid_orders": null,
+  "notes": "Public evidence or a sent proposal is not an accepted contract, customer or sale.",
+  "failures_or_blockers": [
+    {
+      "reason": "duplicate_or_unusable_search"
+    },
+    {
+      "reason": "duplicate_or_unusable_search"
+    }
+  ],
+  "qualified_external_contacts": 0
+}
