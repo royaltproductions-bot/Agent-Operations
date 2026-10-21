@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "engine": "local_open_weight_llm_commerce",
+  "timestamp": "2026-10-21T19:06:54.441156+00:00",
+  "model": "qwen3:4b-instruct-2507-q4_K_M",
+  "mission": "independent_customer_demand_to_paid_execution",
+  "model_invoked": true,
+  "hypotheses": [
+    {
+      "attempt": 2,
+      "lane": "none",
+      "requested_distribution_source": "none",
+      "business_model": "none",
+      "buyer": "none",
+      "problem": "none",
+      "channel": "github",
+      "query": "none",
+      "delivery": "none",
+      "distribution": "none",
+      "source_attempts": [
+        {
+          "channel": "github",
+          "status": "actual_results",
+          "candidate_count": 12
+        }
+      ]
+    },
+    {
+      "attempt": 3,
+      "lane": "none",
+      "requested_distribution_source": "none",
+      "business_model": "none",
+      "buyer": "none",
+      "problem": "none",
+      "channel": "hackernews",
+      "query": "none",
+      "delivery": "none",
+      "distribution": "none",
+      "source_attempts": [
+        {
+          "channel": "hackernews",
+          "status": "actual_results",
+          "candidate_count": 12
+        }
+      ]
+    }
+  ],
+  "actions": [],
+  "tool_actions": [
+    {
+      "tool": "buffer_distribution",
+      "status": "provider_inventory_queried"
+    }
+  ],
+  "portfolio_scope": "open_commercial_exploration",
+  "verified_payment_usd": null,
+  "new_paid_orders": null,
+  "notes": "Public evidence or a sent proposal is not an accepted contract, customer or sale.",
+  "verified_provider_outcomes": {
+    "stripe": {
+      "status": "verified_live_stripe",
+      "verified_paid_sessions": 0,
+      "confirmed_gross_usd": 0,
+      "new_revenue_this_run_usd": null,
+      "important": "Cumulative confirmed paid orders on the existing VendorSettle link only."
+    },
+    "buyer_correspondence": {
+      "status": "verified_live_agentmail",
+      "verified_buyer_replies": 0,
+      "note": "Only replies referencing independently sent invited proposals; no private content logged."
+    },
+    "fulfillment_receipt_files_present": null,
+    "merchant_scope": "existing_owned_checkout_only",
+    "all_other_businesses_revenue_verified": null
+  },
+  "agent_observations": {
+    "status": "model_deferred"
+  },
+  "failures_or_blockers": [
+    {
+      "reason": "model_strategy_invalid",
+      "attempt": 1
+    },
+    {
+      "reason": "distribution_connector_not_yet_available",
+      "requested_source": "none",
+      "using_connected_public_sources_instead": true
+    },
+    {
+      "reason": "repetition_warning",
+      "signal": "repeat_exact_search",
+      "lane": "none"
+    },
+    {
+      "reason": "repeat_query_source_pivot",
+      "source": "github"
+    },
+    {
+      "reason": "model_rejected_candidates",
+      "query": "none"
+    },
+    {
+      "reason": "distribution_connector_not_yet_available",
+      "requested_source": "none",
+      "using_connected_public_sources_instead": true
+    },
+    {
+      "reason": "repetition_warning",
+      "signal": "repeat_exact_search",
+      "lane": "none"
+    },
+    {
+      "reason": "repeat_query_source_pivot",
+      "source": "hackernews"
+    },
+    {
+      "reason": "model_rejected_candidates",
+      "query": "none"
+    }
+  ],
+  "portfolio_diagnostics": {
+    "recent_experiments": 20,
+    "recent_unvalidated_experiments": 20,
+    "unique_lanes": 2,
+    "unique_demand_channels": 2,
+    "research_loop_alert": true,
+    "instruction": "STOP building speculative products; force different buyer route and an authorized real contact"
+  },
+  "economic_scorecard": {
+    "research_attempts": 2,
+    "externally_sent_verified_invitations": 0,
+    "buyer_replies_verified": 0,
+    "paid_orders_verified": null,
+    "revenue_collected_usd_verified": null,
+    "paid_deliverables_sent_verified": 0,
+    "distribution_exposure_verified": null,
+    "economic_outcome_this_run": false,
+    "note": "An invitation sent is external outreach, not acceptance, conversion, a customer, or money.",
+    "paid_orders_verified_on_existing_link": 0,
+    "cumulative_confirmed_gross_usd_on_existing_link": 0,
+    "verified_reply_threads_to_sent_invitations": 0
+  },
+  "qualified_external_contacts": 0
+}
