@@ -23,8 +23,8 @@ jobs:
           ollama serve >/tmp/ollama.log 2>&1 &
           sleep 5
           ollama pull qwen3:4b-instruct-2507-q4_K_M
-      - name: Develop and validate candidate
-        run: python3 tools/independent_development_worker.py
+      - name: Observe, diagnose, implement and validate refinement
+        run: python3 tools/continuous_commerce_refiner.py
       - name: Integrate validated refinement into main
         env:
           GH_TOKEN: ${{ github.token }}
@@ -35,7 +35,7 @@ jobs:
             echo "No validated code change."
             exit 0
           fi
-          git add tools/connected_commerce_tools.py tools/autonomous_commerce_brain.py tools/commerce_operator.py tools/dynamic_offer_catalog.py tools/digital_artifact_factory.py tools/commerce_distribution.py tools/general_order_fulfillment.py
+          git add tools tests products storefront ventures ops/refiner-runs
           git -c user.name="commerce-refiner-bot" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "Refine autonomous commerce execution from operational evidence"
           for attempt in 1 2 3; do
             if git push origin HEAD:main; then exit 0; fi
