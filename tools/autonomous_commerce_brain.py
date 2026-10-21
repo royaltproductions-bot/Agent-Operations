@@ -27,6 +27,7 @@ from tools.connected_commerce_tools import capability_status, execute_tool, TOOL
 from tools.render_direct_api import render_status
 from tools.hn_contract_invitations import clean_html
 from tools.commercial_outcomes import metrics as commercial_metrics
+from tools.sales_conversation import followup_opportunity
 from tools.commerce_portfolio import (LANES, CHANNELS, choose_lane, choose_channel,
     reject_repetition, diagnostics, scorecard)
 
@@ -398,7 +399,7 @@ def send_invited_request(hit,source_text,scope,history,channel,live=False):
     return {"source":url,"result":"sent_invited_proposal" if sent else "delivery_uncertain"}
 
 def run(propose=model_json,evaluate=model_json,search=search_demand,
-        original=read_original,live=True,tool_decider=None):
+        original=read_original,live=True,tool_decider=None,followup_decider=None):
     history=past()
     prior_queries=[x.get("query","") for row in history
                    for x in row.get("hypotheses",[])][-20:]
@@ -413,6 +414,16 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
             "portfolio_scope":list(LANES),
             "verified_payment_usd":None,"new_paid_orders":None,
             "notes":"Public evidence or a sent proposal is not an accepted contract, customer or sale."}
+    # Prioritize genuine replies to verified solicited buyer outreach.
+    if followup_decider is not None:
+        try:
+            reply=followup_opportunity(history,followup_decider,MISSION,enabled=live)
+            if reply:
+                report["model_invoked"]=True
+                report["actions"].append(reply)
+        except (RuntimeError,ValueError,KeyError,TypeError):
+            report["actions"].append({"tool":"reply_verified_buyer",
+                                      "result":"inbound_followup_not_executed"})
     # Outcomes are externally checked, not inferred from the model's own words.
     report["verified_provider_outcomes"]=commercial_metrics(history)
     # Give the model real authenticated access to already-connected providers
@@ -594,7 +605,7 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
 def main():
     live=os.environ.get("ENTERPRISE_OUTREACH_ENABLED")=="YES"
     try:
-        row=run(live=live,tool_decider=model_json)
+        row=run(live=live,tool_decider=model_json,followup_decider=model_json)
     except (ValueError,KeyError,TypeError,RuntimeError,urllib.error.URLError) as exc:
         # Only report controlled diagnostic codes; never disclose provider bodies, PII or tokens.
         known={"model_no_structured_content","model_malformed_json","model_schema_mismatch",
