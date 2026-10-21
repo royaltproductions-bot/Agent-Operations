@@ -28,6 +28,8 @@ MAX_CHANGES=2
 MAX_NEW_FILE_BYTES=32000
 MAX_CONTEXT_CHARS=19000
 LEGACY_STRUCTURAL_REASONS={"distribution_connector_not_yet_available"}
+COMMERCIAL_REFINEMENT_MIN_RUNS=3
+COMMERCIAL_REFINEMENT_MIN_STREAK=3
 
 def run(*cmd,timeout=300):
     return subprocess.run(cmd,cwd=ROOT,text=True,capture_output=True,timeout=timeout)
@@ -83,16 +85,23 @@ def evidence_state():
     scheduled=read_jsons("ops/scheduled-commerce-attestations",6)
     structural=[]
     commercial=[]
+    commercial_run_counts=Counter()
+    commercial_streaks=Counter()
+    streak_open={}
     contacts=replies=paid=fulfilled=0
     latest_scorecard={}
     latest_provider={}
     research_loop=False
-    for row in enterprise:
+
+    # enterprise is newest-first. Track commercial reasons by DISTINCT run so
+    # three misses inside one run do not masquerade as a persistent pattern.
+    for index,row in enumerate(enterprise):
         latest_scorecard=latest_scorecard or (row.get("economic_scorecard") or {})
         latest_provider=latest_provider or (row.get("verified_provider_outcomes") or {})
         contacts+=int(row.get("qualified_external_contacts") or 0)
         diagnostic=row.get("portfolio_diagnostics") or {}
         research_loop=research_loop or diagnostic.get("research_loop_alert") is True
+
         explicit=row.get("structural_failures")
         if isinstance(explicit,list):
             for item in explicit[:12]:
@@ -104,9 +113,29 @@ def evidence_state():
             for item in (row.get("failures_or_blockers") or [])[:12]:
                 if isinstance(item,dict) and item.get("reason") in LEGACY_STRUCTURAL_REASONS:
                     structural.append(str(item["reason"])[:100])
-        for item in (row.get("commercial_outcomes") or [])[:12]:
+
+        reasons=set()
+        for item in (row.get("commercial_outcomes") or [])[:20]:
             if isinstance(item,dict) and item.get("reason"):
-                commercial.append(str(item["reason"])[:100])
+                reason=str(item["reason"])[:100]
+                commercial.append(reason)
+                reasons.add(reason)
+        for reason in reasons:
+            commercial_run_counts[reason]+=1
+
+        # Newest-first consecutive-run streak. A missing reason closes its streak.
+        if index==0:
+            for reason in reasons:
+                streak_open[reason]=True
+                commercial_streaks[reason]=1
+        else:
+            for reason in list(streak_open):
+                if streak_open[reason]:
+                    if reason in reasons:
+                        commercial_streaks[reason]+=1
+                    else:
+                        streak_open[reason]=False
+
     if latest_scorecard:
         replies=int(latest_scorecard.get("buyer_replies_verified") or
                     latest_scorecard.get("verified_reply_threads_to_sent_invitations") or 0)
@@ -123,6 +152,8 @@ def evidence_state():
       "structural_failure_counts":dict(Counter(structural).most_common(10)),
       "recent_structural_failures":structural[:14],
       "commercial_outcome_counts":dict(Counter(commercial).most_common(10)),
+      "commercial_run_counts":dict(commercial_run_counts.most_common(12)),
+      "commercial_streaks":dict(commercial_streaks.most_common(12)),
       "recent_commercial_outcomes":commercial[:14],
       "research_loop_alert":research_loop,
       "qualified_external_contacts_recent":contacts,
@@ -140,21 +171,55 @@ def evidence_state():
     }
 
 def diagnose(state):
-    """Return a code-refinement target only for structural execution failures.
+    """Diagnose immediate structural defects or persistent commercial patterns.
 
-    Market misses, rejected candidates, non-conversion and other economic outcomes
-    belong to the commerce brain. They must never trigger code changes by themselves.
+    Structural execution defects may trigger repair immediately. Commercial misses
+    NEVER block the commerce engine; they become refiner evidence only after the same
+    failure pattern persists across multiple independent runs.
     """
-    counts=state["structural_failure_counts"]
-    missing_distribution=counts.get("distribution_connector_not_yet_available",0)
+    structural=state["structural_failure_counts"]
+    missing_distribution=structural.get("distribution_connector_not_yet_available",0)
     if missing_distribution:
         return {
+          "trigger_kind":"structural_execution_failure",
           "bottleneck":"A required execution capability is not implemented in the connected commerce layer.",
           "evidence":f"distribution_connector_not_yet_available={missing_distribution}",
           "goal":"Implement a reusable authorized execution capability for model-selected distribution routes without hardcoding a business model.",
           "target":"tools/connected_commerce_tools.py",
           "measurable_effect":"A previously selected legitimate distribution route becomes executable and provider-verifiable."
         }
+
+    run_counts=state.get("commercial_run_counts") or {}
+    streaks=state.get("commercial_streaks") or {}
+    persistent=[
+        (reason,int(run_counts.get(reason,0)),int(streaks.get(reason,0)))
+        for reason in run_counts
+        if int(run_counts.get(reason,0))>=COMMERCIAL_REFINEMENT_MIN_RUNS
+        and int(streaks.get(reason,0))>=COMMERCIAL_REFINEMENT_MIN_STREAK
+    ]
+    if not persistent:
+        return None
+
+    # Pick the most persistent recurring business-practice failure. This is a
+    # refinement signal, never an execution veto.
+    reason,runs,streak=max(persistent,key=lambda x:(x[2],x[1],x[0]))
+    evidence=f"{reason} appeared in {runs} recent runs; current consecutive streak={streak}"
+    if reason in {"no_matching_public_demand","model_rejected_candidates",
+                  "repetition_warning","repeat_query_source_pivot",
+                  "unusable_search_term","model_strategy_invalid",
+                  "model_candidate_evaluation_invalid",
+                  "model_selected_unlisted_candidate"}:
+        return {
+          "trigger_kind":"persistent_commercial_pattern",
+          "bottleneck":"A commercial decision pattern is repeatedly failing to advance toward qualified demand.",
+          "evidence":evidence,
+          "goal":"Improve market selection, search/pivot reasoning, and candidate qualification while preserving open-ended experimentation. Do not forbid the failed idea class; improve how evidence is gathered and acted on.",
+          "target":"tools/autonomous_commerce_brain.py",
+          "measurable_effect":"The repeated failure pattern declines across later independent runs while commercial experimentation continues."
+        }
+
+    # Unknown recurring commercial signals are evidence, but not enough to let
+    # deterministic diagnosis guess which subsystem to rewrite.
     return None
 
 def lexical_tokens(text):
@@ -214,6 +279,9 @@ that moves the measured funnel over prompt-only commentary."""
                  "operational_evidence":{
                     "structural_failure_counts":state["structural_failure_counts"],
                     "recent_structural_failures":state["recent_structural_failures"],
+                    "commercial_run_counts":state["commercial_run_counts"],
+                    "commercial_streaks":state["commercial_streaks"],
+                    "recent_commercial_outcomes":state["recent_commercial_outcomes"],
                     "contacts":state["qualified_external_contacts_recent"],
                     "replies":state["buyer_replies_verified"],
                     "paid":state["paid_orders_verified"],
@@ -367,11 +435,13 @@ def main():
     if diagnosis is None:
         receipt={
           "actor":"continuous_autonomous_commerce_refiner",
-          "status":"no_structural_refinement_required",
+          "status":"no_refinement_required_this_cycle",
           "model":MODEL,
           "commercial_outcomes_observed":state["commercial_outcome_counts"],
+          "commercial_run_counts":state["commercial_run_counts"],
+          "commercial_streaks":state["commercial_streaks"],
           "structural_failures_observed":state["structural_failure_counts"],
-          "note":"Commercial outcomes are owned by the commerce engine and did not trigger code refinement.",
+          "note":"No immediate structural defect or sufficiently persistent cross-run commercial pattern warranted a code change.",
         }
         receipt_path().write_text(json.dumps(receipt,indent=2)+"\n",encoding="utf-8")
         write_output("changed","false")
@@ -404,6 +474,7 @@ def main():
     receipt={
       "actor":"continuous_autonomous_commerce_refiner",
       "status":"validated_refinement",
+      "trigger_kind":diagnosis.get("trigger_kind"),
       "bottleneck":diagnosis["bottleneck"],
       "evidence":diagnosis["evidence"],
       "refinement_goal":diagnosis["goal"],
