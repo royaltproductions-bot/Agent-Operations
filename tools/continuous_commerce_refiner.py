@@ -147,7 +147,7 @@ def evidence_state():
     if delivery.is_dir():
         fulfilled=max(fulfilled,len(list(delivery.glob("*.json"))))
     refiner_failures=[str(x.get("reason",""))[:180] for x in refiner
-                      if x.get("status")=="refinement_failed_or_rejected"][:6]
+                      if x.get("status")=="refiner_execution_failed"][:6]
     recently_refined_patterns=[
         str(x.get("commercial_pattern_reason"))
         for x in refiner[:COMMERCIAL_REFINEMENT_COOLDOWN_CYCLES]
@@ -220,7 +220,7 @@ def diagnose(state):
     if not persistent:
         return None
 
-    # Do not rewrite the same business practice every hour. A validated
+    # Do not rewrite the same business practice every hour. A deployed
     # commercial refinement gets several cycles to produce new evidence first.
     cooling=set(state.get("recently_refined_commercial_patterns") or [])
     eligible=[x for x in persistent if x[0] not in cooling]
@@ -497,7 +497,7 @@ if __name__=="__main__":
             raise
         reason=type(exc).__name__+":"+str(exc)[:220]
         receipt={"actor":"continuous_autonomous_commerce_refiner",
-                 "status":"refinement_failed_or_rejected","model":MODEL,
+                 "status":"refiner_execution_failed","model":MODEL,
                  "reason":reason}
         try:
             receipt_path().write_text(json.dumps(receipt,indent=2)+"\n",encoding="utf-8")
