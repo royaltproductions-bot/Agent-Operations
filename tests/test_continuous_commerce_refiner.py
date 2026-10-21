@@ -22,13 +22,32 @@ class ContinuousCommerceRefinerTests(unittest.TestCase):
         r.guard_content("tools/x.py", "def useful():\n    return 1\n")
 
 
-    def test_commercial_outcomes_do_not_trigger_code_refinement(self):
+    def test_single_run_commercial_misses_do_not_trigger_code_refinement(self):
         state={
             "structural_failure_counts":{},
-            "commercial_outcome_counts":{
-                "no_matching_public_demand":4,
-                "model_rejected_candidates":3,
-            },
+            "commercial_outcome_counts":{"no_matching_public_demand":4},
+            "commercial_run_counts":{"no_matching_public_demand":1},
+            "commercial_streaks":{"no_matching_public_demand":1},
+        }
+        self.assertIsNone(r.diagnose(state))
+
+    def test_persistent_cross_run_commercial_failure_can_trigger_refinement(self):
+        state={
+            "structural_failure_counts":{},
+            "commercial_outcome_counts":{"no_matching_public_demand":9},
+            "commercial_run_counts":{"no_matching_public_demand":3},
+            "commercial_streaks":{"no_matching_public_demand":3},
+        }
+        diagnosis=r.diagnose(state)
+        self.assertEqual(diagnosis["trigger_kind"],"persistent_commercial_pattern")
+        self.assertEqual(diagnosis["target"],"tools/autonomous_commerce_brain.py")
+
+    def test_commercial_failure_without_consecutive_persistence_does_not_refine(self):
+        state={
+            "structural_failure_counts":{},
+            "commercial_outcome_counts":{"model_rejected_candidates":8},
+            "commercial_run_counts":{"model_rejected_candidates":4},
+            "commercial_streaks":{"model_rejected_candidates":1},
         }
         self.assertIsNone(r.diagnose(state))
 
@@ -38,8 +57,11 @@ class ContinuousCommerceRefinerTests(unittest.TestCase):
                 "distribution_connector_not_yet_available":2,
             },
             "commercial_outcome_counts":{},
+            "commercial_run_counts":{},
+            "commercial_streaks":{},
         }
         diagnosis=r.diagnose(state)
+        self.assertEqual(diagnosis["trigger_kind"],"structural_execution_failure")
         self.assertEqual(diagnosis["target"],"tools/connected_commerce_tools.py")
 
 if __name__=="__main__":
