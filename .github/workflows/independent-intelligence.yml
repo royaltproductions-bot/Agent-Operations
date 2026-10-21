@@ -75,7 +75,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 tools/external_market_agent.py
+          python3 -m tools.external_market_agent
           test -s "ops/external-intelligence-runs/$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT.json"
       - name: Persist model-originated tool receipts and owned-site output
         shell: bash
