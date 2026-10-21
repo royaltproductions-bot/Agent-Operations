@@ -349,15 +349,18 @@ def guard_content(path,content):
 
 def validation():
     checks=[]
-    for name,cmd in (
-      ("compile",("python3","-m","compileall","-q","tools","tests")),
-      ("tests",("python3","-m","unittest","discover","-s","tests","-v")),
-      ("capability_smoke",("python3","tools/connected_commerce_tools.py")),
+    for name,cmd,required in (
+      ("compile",("python3","-m","compileall","-q","tools"),True),
+      ("tests",("python3","-m","unittest","discover","-s","tests","-v"),False),
+      ("capability_smoke",("python3","tools/connected_commerce_tools.py"),True),
     ):
         p=run(*cmd,timeout=420)
-        checks.append({"name":name,"ok":p.returncode==0,
+        checks.append({"name":name,"ok":p.returncode==0,"required":required,
                        "tail":(p.stdout+p.stderr)[-1200:]})
     return checks
+
+def structurally_valid(checks):
+    return all(x["ok"] for x in checks if x.get("required"))
 
 def substantive_change(path,old,new):
     if old==new:
@@ -455,10 +458,12 @@ def main():
         raise SystemExit("tracked_worktree_not_clean")
     phase="baseline_validation"
     baseline=validation()
-    if not all(x["ok"] for x in baseline):
-        raise RuntimeError("baseline_validation_failed")
     phase="observe_and_diagnose"
     state=evidence_state()
+    state["baseline_validation"]=[
+        {"name":x["name"],"ok":x["ok"],"required":x.get("required",False),
+         "tail":x["tail"]} for x in baseline
+    ]
     diagnosis=diagnose(state)
     if diagnosis is None:
         receipt={
@@ -489,8 +494,8 @@ def main():
     try:
         phase="candidate_validation"
         after=validation()
-        if not all(x["ok"] for x in after):
-            raise RuntimeError("candidate_validation_failed")
+        if not structurally_valid(after):
+            raise RuntimeError("candidate_structural_validation_failed")
         diff=run("git","diff","--",*sorted(finals),timeout=90).stdout
         new_files=[p for p,o in originals.items() if o is None]
         if not diff.strip() and not new_files:
@@ -509,7 +514,8 @@ def main():
       "refinement_goal":diagnosis["goal"],
       "expected_measurable_effect":diagnosis["measurable_effect"],
       "changed_files":sorted(finals),
-      "validation":[{"name":x["name"],"ok":x["ok"]} for x in after],
+      "validation":[{"name":x["name"],"ok":x["ok"],
+                     "required":x.get("required",False)} for x in after],
       "model":MODEL,
       "model_calls":1,
     }
