@@ -1,5 +1,5 @@
 name: Continuous Autonomous Commerce Refiner
-# Refiner self-edits do not recursively trigger; the hourly clock provides the next cycle.\n# Local inference is deliberately bounded and retries compactly so every refinement cycle can finish on the hosted runner.
+# Refiner self-edits do not recursively trigger; the hourly clock provides the next cycle.\n# Dedicated coder model; inference stays bounded for the hosted runner.
 on:
   workflow_dispatch:
   schedule:
@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 55
     env:
-      LOCAL_MODEL: qwen3:4b-instruct-2507-q4_K_M
+      REFINER_MODEL: qwen2.5-coder:7b-instruct
       OLLAMA_MODELS: ${{ github.workspace }}/.ollama-cache/models
       OLLAMA_NUM_PARALLEL: '1'
       OLLAMA_MAX_LOADED_MODELS: '1'
@@ -58,7 +58,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .ollama-cache/models
-          key: ollama-openweight-qwen3-4b-instruct-2507-q4-v1
+          key: ollama-refiner-qwen2-5-coder-7b-instruct-v1
       - name: Install local inference runtime
         run: |
           curl -fsSL https://ollama.com/install.sh | sh
@@ -66,7 +66,7 @@ jobs:
           mkdir -p "$OLLAMA_MODELS"
           ollama serve >/tmp/ollama.log 2>&1 &
           sleep 5
-          ollama pull "$LOCAL_MODEL"
+          ollama pull "$REFINER_MODEL"
       - name: Observe, diagnose, implement and validate refinement
         id: refine
         run: python3 tools/continuous_commerce_refiner.py
