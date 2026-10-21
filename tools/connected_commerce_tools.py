@@ -18,7 +18,8 @@ TOOL_DEFINITIONS = {
     "stripe_offers": "Inspect LIVE existing Stripe payment-link inventory using repository secret; read-only, not an order or a sale.",
     "buffer_distribution": "Inspect connected Buffer TikTok channel, queue and delivery status; provider status alone is not public reach.",
     "repository_assets": "Inspect actual digital products, deployable code and venture artifacts in this repository.",
-    "render_deployment": "Publish an updated existing Render site: submit a verified immutable deploy request to the already-connected Render watchdog (NOT a live deploy until provider confirms).",
+    "render_status": "Directly inspect verified service and real deployment status through Render API, without ChatGPT as intermediary.",
+    "render_deployment": "Directly deploy the latest committed site revision using the Render API only when not already live or building. Verify exact deploy ID; accepted is not live.",
     "dispatch_existing_workflow": "Dispatch an existing approved GitHub operational workflow (requires an applicable verified need)."
 }
 
@@ -31,7 +32,7 @@ def capability_status():
         "stripe": bool(os.environ.get("STRIPE_SECRET_KEY")),
         "agentmail": bool(os.environ.get("AGENTMAIL_API_KEY")),
         "buffer": bool(os.environ.get("BUFFER_API_KEY")),
-        "render": "model_can_request; existing_chatgpt_watchdog_dispatches_via_Render_connector",
+        "render": bool(os.environ.get("RENDER_API_KEY")),
         "gmail": "not_directly_connected; AgentMail_is_approved_inbox_equivalent",
         "tools": TOOL_DEFINITIONS
     }
@@ -110,9 +111,12 @@ def execute_tool(name,argument=""):
         return inspect_buffer()
     if name=="repository_assets":
         return inspect_assets()
+    if name=="render_status":
+        from tools.render_direct_api import render_status
+        return render_status()
     if name=="render_deployment":
-        from tools.render_deploy_bridge import request_render_deployment
-        return request_render_deployment()
+        from tools.render_direct_api import deploy_site_if_needed
+        return deploy_site_if_needed()
     if name=="dispatch_existing_workflow":
         return dispatch_workflow(argument)
     raise ValueError("Unknown commerce tool")

@@ -24,7 +24,7 @@ import urllib.request
 
 from tools import external_market_agent as base
 from tools.connected_commerce_tools import capability_status, execute_tool, TOOL_DEFINITIONS
-from tools.render_deploy_bridge import render_status
+from tools.render_direct_api import render_status
 from tools.hn_contract_invitations import clean_html
 
 ROOT = Path("ops/enterprise-runs")
@@ -81,7 +81,7 @@ STRATEGY_SCHEMA = {
 TOOL_SCHEMA = {
     "type": "object", "properties": {
         "tool": {"type": "string",
-                 "enum": ["skip", "stripe_offers", "buffer_distribution", "repository_assets", "render_deployment"]},
+                 "enum": ["skip", "stripe_offers", "buffer_distribution", "repository_assets", "render_status", "render_deployment"]},
         "reason": {"type": "string"}
     },
     "required": ["tool", "reason"], "additionalProperties": False
@@ -343,18 +343,22 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
         available = capability_status()
         inspected = {a.get("tool")
                      for row in history[:3] for a in row.get("tool_actions", [])}
-        # Keep Render available only if this repo has a newer published-site revision.
-        try:
-            render_pending = render_status()["needs_deployment"]
-        except (RuntimeError, ValueError, OSError):
-            render_pending = False
+        # Provider API status is always accessible with the existing secret.
+        # Deployment is offered only if the CURRENT committed site is not live.
+        render_pending = False
+        if available.get("render"):
+            try:
+                render_pending = render_status()["needs_deployment"]
+            except (RuntimeError, ValueError, OSError):
+                render_pending = False
         supported = [
             k for k in ("stripe_offers", "buffer_distribution", "repository_assets",
-                        "render_deployment")
-            if k not in inspected
+                        "render_status", "render_deployment")
+            if (k not in inspected or k=="render_deployment")
             and (k != "stripe_offers" or available.get("stripe"))
             and (k != "buffer_distribution" or available.get("buffer"))
-            and (k != "render_deployment" or render_pending)
+            and (k != "render_status" or available.get("render"))
+            and (k != "render_deployment" or (available.get("render") and render_pending))
         ]
         if supported:
             tool_schema = {
