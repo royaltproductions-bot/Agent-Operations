@@ -15,6 +15,24 @@ class OperatorTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'model_no_json_object'):
             agent.llm_turn({}, urlopen=lambda req, timeout: Bad())
 
+    def test_local_model_must_choose_an_existing_enum_option(self):
+        class Response:
+            def __init__(self, value):
+                self.value = value
+            def __enter__(self): return self
+            def __exit__(self, *args): return False
+            def read(self): return json.dumps({"message": {"content": self.value}}).encode()
+        context = {"inbound": [], "existing_site_faq_published": False,
+                   "public_candidate_hints": {"hiring": [], "issues": []},
+                   "previous_actions": [], "this_run": []}
+        good = lambda req, timeout: Response('{"choice":"publish_faq|privacy"}')
+        selected = agent.llm_turn(context, urlopen=good)
+        self.assertEqual(selected["action"], "publish_faq")
+        self.assertEqual(selected["target"], "privacy")
+        bad = lambda req, timeout: Response('{"choice":"delete_repository"}')
+        with self.assertRaisesRegex(ValueError, "model_choice_not_in_allowlist"):
+            agent.llm_turn(context, urlopen=bad)
+
     def test_invalid_targets_and_outbound_blocked(self):
         with self.assertRaises(ValueError):
             agent.inspect_hiring("12", [])
