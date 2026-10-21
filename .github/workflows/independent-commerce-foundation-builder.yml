@@ -1,6 +1,8 @@
 name: Independent Commerce Foundation Builder
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '37 * * * *'
 permissions:
   contents: write
   pull-requests: write
@@ -35,7 +37,7 @@ jobs:
           fi
           branch="auto/commerce-foundation-${GITHUB_RUN_ID}"
           git switch -c "$branch"
-          git add tools/connected_commerce_tools.py tools/autonomous_commerce_brain.py tools/commerce_operator.py
+          git add tools/connected_commerce_tools.py tools/autonomous_commerce_brain.py tools/commerce_operator.py tools/dynamic_offer_catalog.py tools/digital_artifact_factory.py tools/commerce_distribution.py tools/general_order_fulfillment.py
           git -c user.name="commerce-foundation-bot" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "Develop reusable commerce execution primitive"
           git push origin "$branch"
           gh pr create --base main --head "$branch" --title "Commerce foundation: independently generated validated primitive" --body "Automated Qwen-generated change. Validation passed; human review required before merging. This does not establish live commercial execution or sales."
