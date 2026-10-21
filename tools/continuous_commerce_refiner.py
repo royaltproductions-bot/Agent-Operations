@@ -168,7 +168,7 @@ def main():
       "required":["bottleneck","evidence","refinement_goal","target_paths","expected_measurable_effect"],
       "additionalProperties":False}
     diagnosis=infer(diagnose_schema,
-      "Act as the system-level refining engineer. Select the highest-impact CURRENT execution gap from evidence, not a favorite product or fixed business model. Code/test/deployment gaps are valid only when they block real commercial execution. Choose 1-3 safe repository paths to change; keep combined existing target source under 40KB; new files are allowed under tools/tests/products/storefront/ventures. Never choose .github, ops receipts, credentials, or unrelated projects.",
+      "Act as the system-level refining engineer. Select the highest-impact CURRENT execution gap from evidence, not a favorite product or fixed business model. Code/test/deployment gaps are valid only when they block real commercial execution. Choose 1-3 safe repository paths to change; keep combined existing target source under 40KB; new files are allowed under tools/tests/products/storefront/ventures. Never choose .github, ops receipts, credentials, or unrelated projects. Existing tests are immutable; create a new test file when additional coverage is needed.",
       {"objective":objective,"operational_evidence":sanitized_receipts(),
        "baseline_validation":baseline,"recent_commits":history,
        "repository_inventory":inventory(),"core_sources":core},1600)
