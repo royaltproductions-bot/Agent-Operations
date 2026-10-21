@@ -26,7 +26,7 @@ class RecoveryTests(unittest.TestCase):
                           live=False)
         self.assertEqual(len(row["hypotheses"]),1)
         self.assertIn("repetition_warning",
-                      [f["reason"] for f in row["failures_or_blockers"]])
+                      [f["reason"] for f in row["commercial_outcomes"]])
 
     def test_model_json_accepts_ignored_extra_fields_and_missing_optional_lane(self):
         class FakeResponse:
@@ -130,7 +130,7 @@ class RecoveryTests(unittest.TestCase):
                              live=False)
         self.assertEqual(len(result["hypotheses"]),0)
         self.assertTrue(result["model_invoked"])
-        self.assertEqual([x["reason"] for x in result["failures_or_blockers"]],
+        self.assertEqual([x["reason"] for x in result["commercial_outcomes"]],
                          ["model_strategy_invalid","model_strategy_invalid"])
         self.assertIsNone(result["verified_payment_usd"])
 
@@ -147,7 +147,7 @@ class RecoveryTests(unittest.TestCase):
                    evaluate=lambda *a:(_ for _ in ()).throw(ValueError("invalid")),
                    search=lambda *a:[hit],original=lambda *a:"",live=True)
         self.assertFalse(result["actions"])
-        self.assertEqual(result["failures_or_blockers"][0]["reason"],
+        self.assertEqual(result["commercial_outcomes"][0]["reason"],
                          "model_candidate_evaluation_invalid")
 
 if __name__=="__main__":
