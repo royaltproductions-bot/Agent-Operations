@@ -180,7 +180,7 @@ def main():
     implementation=infer(change_schema,
       "Implement the diagnosed refinement, not another plan. Return COMPLETE replacement contents for each changed file. Keep scope bounded to selected targets. Preserve compatible public interfaces unless the evidence requires a deliberate migration. Do not weaken tests or security gates. Do not fabricate provider access, sales, customers, metrics, or success. Do not add spending, account creation, bulk unsolicited messaging, credential extraction, restriction bypasses, or destructive operations. Prefer reusable general capabilities over a hardcoded business niche.",
       {"objective":objective,"diagnosis":diagnosis,"selected_sources":sources,
-       "baseline_validation":baseline},7000)
+       "baseline_validation":baseline},9000)
     changes=implementation.get("changes",[])
     if not 1<=len(changes)<=MAX_FILES:
         raise SystemExit("invalid_change_count")
