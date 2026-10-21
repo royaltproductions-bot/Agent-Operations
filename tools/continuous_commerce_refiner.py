@@ -208,7 +208,13 @@ def main():
         after=validation()
         if not all(x["ok"] for x in after):
             raise RuntimeError("full_validation_failed")
-        diff=run("git","diff","--",*sorted(seen),timeout=60).stdout
+        diff_parts=[]
+        for path in sorted(seen):
+            if originals[path] is None:
+                diff_parts.append("NEW FILE "+path+"\\n"+(ROOT/path).read_text(encoding="utf-8")[:16000])
+            else:
+                diff_parts.append(run("git","diff","--",path,timeout=60).stdout)
+        diff="\\n".join(diff_parts)
         if not diff.strip(): raise RuntimeError("no_material_change")
         critic_schema={"type":"object","properties":{"decision":{"type":"string","enum":["approve","reject"]},
           "reason":{"type":"string"},"risk":{"type":"string"}},"required":["decision","reason","risk"],
