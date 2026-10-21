@@ -51,7 +51,21 @@ class BrainTests(unittest.TestCase):
         self.assertEqual(row["actions"],[])
         self.assertTrue(row["model_invoked"])
         self.assertIn("model_selected_unlisted_candidate",
-                      [x["reason"] for x in row["failures_or_blockers"]])
+                      [x["reason"] for x in row["commercial_outcomes"]])
+        self.assertNotIn("model_selected_unlisted_candidate",
+                         [x["reason"] for x in row["structural_failures"]])
+
+
+    def test_feedback_classification_keeps_market_results_out_of_blockers(self):
+        structural,commercial=brain.classify_execution_feedback([
+            {"reason":"no_matching_public_demand"},
+            {"reason":"model_rejected_candidates"},
+            {"reason":"distribution_connector_not_yet_available"},
+        ])
+        self.assertEqual([x["reason"] for x in structural],
+                         ["distribution_connector_not_yet_available"])
+        self.assertEqual([x["reason"] for x in commercial],
+                         ["no_matching_public_demand","model_rejected_candidates"])
 
     def test_actual_bounded_tool_called_after_model_decision(self):
         strategy={"buyer":"small SaaS","customer_problem":"need CSV cleaning",
