@@ -118,8 +118,15 @@ def model_json(schema, prompt, observation, opener=None):
     if not isinstance(obj,dict) or set(obj)!=set(schema["required"]):
         raise ValueError("model_schema_mismatch")
     for field, rule in schema["properties"].items():
-        if not isinstance(obj[field],str) or len(obj[field])>650:
-            raise ValueError("model_invalid_field")
+        if not isinstance(obj[field],str):
+            # A small local model occasionally emits null for explanatory fields.
+            # Normalize it to empty prose only; NEVER guess enum actions/targets.
+            if obj[field] is None and "enum" not in rule:
+                obj[field] = ""
+            else:
+                raise ValueError("model_invalid_field")
+        if len(obj[field])>650:
+            obj[field]=obj[field][:650]
         if "enum" in rule and obj[field] not in rule["enum"]:
             raise ValueError("model_invalid_action")
     return obj
@@ -357,12 +364,18 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
                 "required":["tool","reason"],
                 "additionalProperties":False
             }
-            choice = tool_decider(tool_schema, MISSION+"\nChoose ONE real provider tool "
-                 "only when its output can materially affect the next commercial action.",
-                 {"tools":{k:TOOL_DEFINITIONS[k] for k in supported},
-                  "goal":"Make a real business decision, not another research-only report.",
-                  "recent_tools":list(inspected)})
             report["model_invoked"]=True
+            try:
+                choice = tool_decider(tool_schema, MISSION+"\nChoose ONE real provider tool "
+                     "only when its output can materially affect the next commercial action.",
+                     {"tools":{k:TOOL_DEFINITIONS[k] for k in supported},
+                      "goal":"Make a real business decision, not another research-only report.",
+                      "recent_tools":list(inspected)})
+            except (ValueError,TypeError,KeyError,RuntimeError):
+                # Failure to choose an OPTIONAL tool must not stop revenue discovery.
+                report["tool_actions"].append({"tool":"selection",
+                                                "status":"invalid_model_choice_skipped"})
+                choice={"tool":"skip"}
             if choice["tool"] != "skip":
                 try:
                     actual=execute_tool(choice["tool"])
@@ -378,8 +391,10 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
                                                     "status":"tool_execution_failed"})
     feedback=[]
     for attempt in range(MAX_SEARCHES):
-        strategy=propose(STRATEGY_SCHEMA,MISSION,
-                         {"instruction":"Find new, reachable paying customer demand using tools available now. "
+        report["model_invoked"]=True
+        try:
+            strategy=propose(STRATEGY_SCHEMA,MISSION,
+                             {"instruction":"Find new, reachable paying customer demand using tools available now. "
                           "Propose a market, executable delivery, and original search. "
                           "Choose another route if last one failed.",
                           "previous_queries_to_avoid":prior_queries[-14:],
@@ -390,7 +405,9 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
                           "existing_capabilities":["python","nodejs","CSV processing",
                             "render site","AgentMail opted-in replies",
                             "GitHub public discovery","Stripe paid-order fulfillment already active"]})
-        report["model_invoked"]=True
+        except (ValueError,TypeError,KeyError,RuntimeError):
+            feedback.append({"reason":"model_strategy_invalid","attempt":attempt+1})
+            continue
         query=strategy["search_query"].strip()
         if len(query)<4 or query.lower() in {x.lower() for x in prior_queries}:
             feedback.append({"reason":"duplicate_or_unusable_search"})
@@ -414,15 +431,18 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
         # Model sees exact original snippets, not just keyword counts.
         shortlist=[{"id":str(x["id"]),"url":x["url"],"snippet":x["text"][:850]}
                    for x in hits[:8]]
-        decision=evaluate(EVALUATE_SCHEMA,
-                          MISSION+"\nSelect only an independently solicited, paid, "
+        try:
+            decision=evaluate(EVALUATE_SCHEMA,
+                              MISSION+"\nSelect only an independently solicited, paid, "
                           "actually deliverable project with public contact details. "
                           "Reject otherwise. Do not invent facts or a lead.",
                           {"strategy":record,"candidates":shortlist,
                            "instruction":"Return an existing candidate_id OR empty string and "
                            "contact_invited_buyer only if explicit legitimate invitation. "
                            "Your proposed service scope must fit Python/Node tools."})
-        report["model_invoked"]=True
+        except (ValueError,TypeError,KeyError,RuntimeError):
+            feedback.append({"reason":"model_candidate_evaluation_invalid","query":query})
+            continue
         if decision["action"]!="contact_invited_buyer":
             feedback.append({"reason":"model_rejected_candidates",
                              "query":query})
