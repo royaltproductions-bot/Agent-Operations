@@ -26,6 +26,7 @@ from tools import external_market_agent as base
 from tools.connected_commerce_tools import capability_status, execute_tool, TOOL_DEFINITIONS
 from tools.render_direct_api import render_status
 from tools.hn_contract_invitations import clean_html
+from tools.commercial_outcomes import metrics as commercial_metrics
 from tools.commerce_portfolio import (LANES, CHANNELS, choose_lane, choose_channel,
     reject_repetition, diagnostics, scorecard)
 
@@ -412,6 +413,8 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
             "portfolio_scope":list(LANES),
             "verified_payment_usd":None,"new_paid_orders":None,
             "notes":"Public evidence or a sent proposal is not an accepted contract, customer or sale."}
+    # Outcomes are externally checked, not inferred from the model's own words.
+    report["verified_provider_outcomes"]=commercial_metrics(history)
     # Give the model real authenticated access to already-connected providers
     # through tightly scoped executors, not a fictitious list in its prompt.
     # No repeated status polling when the same provider was inspected recently.
@@ -489,6 +492,7 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
                               "commercial_lane_mission":LANES[lane],
                               "assigned_public_demand_channel":channel,
                               "cross_run_strategy_diagnostics":diagnostics(history,current_experiments),
+                          "verified_provider_outcomes":report["verified_provider_outcomes"],
                               "instruction":"Find REAL buyer demand and viable economics. No named hypothetical buyers. "
                           "Propose a market, executable delivery, and original search. "
                           "Choose another route if last one failed.",
@@ -575,6 +579,14 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
     report["failures_or_blockers"]=feedback
     report["portfolio_diagnostics"]=diagnostics(history,current_experiments)
     report["economic_scorecard"]=scorecard(report)
+    if report["verified_provider_outcomes"]["stripe"]["status"]=="verified_live_stripe":
+        report["economic_scorecard"]["paid_orders_verified_on_existing_link"]=(
+            report["verified_provider_outcomes"]["stripe"]["verified_paid_sessions"])
+        report["economic_scorecard"]["cumulative_confirmed_gross_usd_on_existing_link"]=(
+            report["verified_provider_outcomes"]["stripe"]["confirmed_gross_usd"])
+    if report["verified_provider_outcomes"]["buyer_correspondence"]["status"]=="verified_live_agentmail":
+        report["economic_scorecard"]["verified_reply_threads_to_sent_invitations"]=(
+            report["verified_provider_outcomes"]["buyer_correspondence"]["verified_buyer_replies"])
     report["qualified_external_contacts"]=sum(
         a.get("result")=="sent_invited_proposal" for a in report["actions"])
     return report
