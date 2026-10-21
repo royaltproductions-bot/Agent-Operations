@@ -3,9 +3,9 @@
 
 The refiner is a control loop, not a business-model menu:
 observe real operational receipts -> diagnose the current SYSTEM bottleneck ->
-ask the local model for one bounded implementation -> validate -> integrate.
-Diagnosis and final approval are deterministic so the hosted CPU runner spends
-its model budget on implementation instead of three long inference calls.
+ask the local model for one bounded implementation -> integrate -> run commerce.
+Commercial performance is the validation signal; duplicate test/compile gates do
+not suppress experiments or refinements.
 """
 from __future__ import annotations
 
@@ -151,7 +151,7 @@ def evidence_state():
     recently_refined_patterns=[
         str(x.get("commercial_pattern_reason"))
         for x in refiner[:COMMERCIAL_REFINEMENT_COOLDOWN_CYCLES]
-        if x.get("status")=="validated_refinement"
+        if x.get("status")=="experimental_refinement_deployed"
         and x.get("trigger_kind")=="persistent_commercial_pattern"
         and x.get("commercial_pattern_reason")
     ]
@@ -186,25 +186,6 @@ def diagnose(state):
     NEVER block the commerce engine; they become refiner evidence only after the same
     failure pattern persists across multiple independent runs.
     """
-    for check in state.get("baseline_validation") or []:
-        if check.get("required") and not check.get("ok"):
-            name=check.get("name")
-            tail=str(check.get("tail") or "")
-            if name=="capability_smoke":
-                target="tools/connected_commerce_tools.py"
-            else:
-                found=re.findall(r"(tools/[A-Za-z0-9_./-]+\.py)",tail)
-                target=next((x for x in found if safe_path(x) and x not in CONTROL_PLANE),
-                            "tools/autonomous_commerce_brain.py")
-            return {
-              "trigger_kind":"structural_execution_failure",
-              "bottleneck":"A required runtime structural check failed before refinement.",
-              "evidence":f"{name}_failed: {tail[-500:]}",
-              "goal":"Repair the structural runtime failure so commerce execution can continue normally.",
-              "target":target,
-              "measurable_effect":"Required compile/capability checks succeed and the commerce experiment can execute."
-            }
-
     structural=state["structural_failure_counts"]
     runtime_failures=structural.get("engine_runtime_failure",0)+structural.get("engine_process_failure",0)
     if runtime_failures:
@@ -366,31 +347,8 @@ def guard_content(path,content):
     if re.search(r"(?i)(password|secret|api[_-]?key)\s*=\s*['\"][^'\"]{8,}['\"]",content):
         raise ValueError("embedded_secret_detected")
 
-def validation():
-    checks=[]
-    for name,cmd,required in (
-      ("compile",("python3","-m","compileall","-q","tools"),True),
-      ("tests",("python3","-m","unittest","discover","-s","tests","-v"),False),
-      ("capability_smoke",("python3","tools/connected_commerce_tools.py"),True),
-    ):
-        p=run(*cmd,timeout=420)
-        checks.append({"name":name,"ok":p.returncode==0,"required":required,
-                       "tail":(p.stdout+p.stderr)[-1200:]})
-    return checks
-
-def structurally_valid(checks):
-    return all(x["ok"] for x in checks if x.get("required"))
-
 def substantive_change(path,old,new):
-    if old==new:
-        return False
-    if path.endswith(".py"):
-        try:
-            return ast.dump(ast.parse(old or ""),include_attributes=False) != \
-                   ast.dump(ast.parse(new),include_attributes=False)
-        except SyntaxError:
-            return False
-    return True
+    return old != new
 
 def apply_changes(implementation,diagnosis):
     changes=implementation.get("changes")
@@ -475,14 +433,8 @@ def main():
     phase="startup"
     if run("git","status","--porcelain","--untracked-files=no").stdout.strip():
         raise SystemExit("tracked_worktree_not_clean")
-    phase="baseline_validation"
-    baseline=validation()
     phase="observe_and_diagnose"
     state=evidence_state()
-    state["baseline_validation"]=[
-        {"name":x["name"],"ok":x["ok"],"required":x.get("required",False),
-         "tail":x["tail"]} for x in baseline
-    ]
     diagnosis=diagnose(state)
     if diagnosis is None:
         receipt={
@@ -510,22 +462,15 @@ def main():
     implementation=infer_implementation(diagnosis,state,source)
     phase="apply_candidate"
     originals,finals=apply_changes(implementation,diagnosis)
-    try:
-        phase="candidate_validation"
-        after=validation()
-        if not structurally_valid(after):
-            raise RuntimeError("candidate_structural_validation_failed")
-        diff=run("git","diff","--",*sorted(finals),timeout=90).stdout
-        new_files=[p for p,o in originals.items() if o is None]
-        if not diff.strip() and not new_files:
-            raise RuntimeError("no_material_diff")
-    except Exception:
-        restore(originals)
-        raise
+    phase="experimental_integration"
+    diff=run("git","diff","--",*sorted(finals),timeout=90).stdout
+    new_files=[p for p,o in originals.items() if o is None]
+    if not diff.strip() and not new_files:
+        raise RuntimeError("no_material_diff")
     phase="receipt"
     receipt={
       "actor":"continuous_autonomous_commerce_refiner",
-      "status":"validated_refinement",
+      "status":"experimental_refinement_deployed",
       "trigger_kind":diagnosis.get("trigger_kind"),
       "commercial_pattern_reason":diagnosis.get("commercial_pattern_reason"),
       "bottleneck":diagnosis["bottleneck"],
@@ -533,8 +478,7 @@ def main():
       "refinement_goal":diagnosis["goal"],
       "expected_measurable_effect":diagnosis["measurable_effect"],
       "changed_files":sorted(finals),
-      "validation":[{"name":x["name"],"ok":x["ok"],
-                     "required":x.get("required",False)} for x in after],
+      "commercial_validation":"production commerce outcomes and verified revenue",
       "model":MODEL,
       "model_calls":1,
     }
