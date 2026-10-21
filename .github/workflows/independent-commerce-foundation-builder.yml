@@ -35,7 +35,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if git diff --quiet; then
+          if [ -z "$(git status --porcelain -- tools tests products storefront ventures ops/refiner-runs)" ]; then
             echo "No validated code change."
             exit 0
           fi
