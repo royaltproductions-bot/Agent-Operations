@@ -48,6 +48,54 @@ class RecoveryTests(unittest.TestCase):
         self.assertNotIn("lane",obj)
         self.assertEqual(obj["search_channel"],"hackernews")
 
+    def test_demand_search_switches_source_when_original_source_fails(self):
+        strategy={"search_channel":"hackernews","search_query":"real paid contract"}
+        called=[]
+        def search(s):
+            called.append(s["search_channel"])
+            if s["search_channel"]=="hackernews":
+                raise ValueError("source_rejected")
+            if s["search_channel"]=="reddit_forhire":
+                return []
+            return [{"id":"https://github.com/public/example/issues/1",
+                     "url":"https://github.com/public/example/issues/1",
+                     "text":"Paid task","created_at":"2026-10-21"}]
+        hits,source,observations=brain.search_with_source_fallback(strategy,search)
+        self.assertEqual(source,"github")
+        self.assertEqual(called,["hackernews","reddit_forhire","github"])
+        self.assertEqual(observations[0]["status"],"source_unavailable")
+        self.assertEqual(observations[-1]["status"],"actual_results")
+        self.assertEqual(len(hits),1)
+
+    def test_multiple_historical_contacts_do_not_disable_new_explicit_invitation(self):
+        history=[{"timestamp":brain.TODAY().isoformat(),
+                  "actions":[{"result":"sent_invited_proposal"}]}]
+        observed=[]
+        def propose(schema,prompt,context):
+            return {"lane":"commissioned_services","buyer":"existing real companies",
+                    "customer_problem":"manual report checking",
+                    "offer":"Python reporting help","delivery_using_existing_tools":"Python",
+                    "route_to_buyer":"explicit invitation",
+                    "search_channel":"hackernews","search_query":"paid python contract",
+                    "reason":"real source"}
+        def evaluate(schema,prompt,context):
+            return {"candidate_id":"123","action":"contact_invited_buyer",
+                    "service_scope":"Python reporting","reason":"paid request"}
+        def safe_send(*args,**kwargs):
+            observed.append(kwargs.get("live"))
+            return {"result":"sent_invited_proposal","source":"https://news.ycombinator.com/item?id=123"}
+        with patch.object(brain,"past",return_value=history), \
+             patch.object(brain,"send_invited_request",side_effect=safe_send), \
+             patch.object(brain,"MAX_SEARCHES",1):
+            result=brain.run(propose=propose,evaluate=evaluate,
+                             search=lambda st:[{"id":"123",
+                               "url":"https://news.ycombinator.com/item?id=123",
+                               "text":"We pay Python contractors","created_at":"2026-10-21"}],
+                             original=lambda h,c:"Paid Python work. Apply at buyer@example.org",
+                             live=True)
+        self.assertEqual(observed,[True])
+        self.assertEqual(result["qualified_external_contacts"],1)
+
     def test_invalid_provider_selection_does_not_abort_business_loop(self):
         proposal={
             "buyer":"shops","customer_problem":"manual CSV processing",
