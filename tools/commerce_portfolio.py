@@ -102,7 +102,7 @@ def overlap(a,b):
 
 def prior_experiments(history):
     rows=[]
-    for receipt in history:
+    for receipt in reversed(history):
         for x in receipt.get("hypotheses",[]):
             if isinstance(x,dict):
                 rows.append({
@@ -162,9 +162,9 @@ def reject_repetition(proposal,history,current=()):
         old_combined=" ".join((old.get("buyer",""),old.get("problem",""),old.get("offer","")))
         if query.strip().lower()==old_query.strip().lower():
             return "repeat_exact_search"
-        if proposal.get("search_channel")==old.get("channel") and overlap(query,old_query)>=0.7:
+        if proposal.get("search_channel")==old.get("channel") and overlap(query,old_query)>=0.60:
             return "repeat_rephrased_search"
-        if (overlap(combined,old_combined)>=0.6
+        if (overlap(combined,old_combined)>=0.50
             and not old.get("reached_buyer") and old.get("lane")==proposal.get("lane")):
             return "recycled_unvalidated_market"
     return None
