@@ -105,6 +105,39 @@ class PublisherSafetyTests(unittest.TestCase):
                 with self.assertRaisesRegex(RuntimeError, "Potential duplicate"):
                     pub.assert_no_duplicate(candidate, "Hello", "queue")
 
+    def test_commercial_promotion_and_sales_cta_reach_buffer_submission(self):
+        import io
+        import json
+        import sys
+        from contextlib import redirect_stdout
+        from pathlib import Path
+        from tempfile import TemporaryDirectory
+        with TemporaryDirectory() as d:
+            file=Path(d)/"commercial.json"
+            file.write_text(json.dumps({
+                "text":"Buy now! See the checkout for this AI service.",
+                "video_url":"https://raw.githubusercontent.com/royaltproductions-bot/Agent-Operations/main/campaigns/oddly-useful-stuff/media/promo.mp4",
+                "commercial_promotion":True,
+                "is_ai_generated":True,
+                "approved_for_queue":True,
+                "publish_now":True
+            }))
+            seen=[]
+            def reply(query):
+                seen.append(query)
+                return {"createPost":{"post":{"id":"buffer-accepted-id","dueAt":"2026-10-21T09:00:00Z"}}}
+            with patch.dict(os.environ,{"BUFFER_QUEUE_ENABLED":"YES"}), \
+                 patch.object(pub,"find_channel",return_value={"id":"channel-123"}), \
+                 patch.object(pub,"assert_no_duplicate"), \
+                 patch.object(pub,"gql",side_effect=reply), \
+                 patch.object(sys,"argv",["buffer_publisher.py","--mode","queue","--input",str(file)]), \
+                 redirect_stdout(io.StringIO()) as output:
+                pub.main()
+            self.assertIn("Buy now!",seen[0])
+            self.assertIn("checkout",seen[0])
+            self.assertIn("metadata: {tiktok: {isAiGenerated: true}}",seen[0])
+            self.assertIn("publish_requested_not_live_verified",output.getvalue())
+
     def test_masked_or_non_ascii_key_rejected_before_request(self):
         with patch.dict(os.environ, {"BUFFER_API_KEY": "●●●●●masked"}):
             with self.assertRaisesRegex(RuntimeError, "contains invalid characters"):

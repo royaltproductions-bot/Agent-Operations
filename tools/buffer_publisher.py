@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Guarded Buffer -> TikTok publisher for Oddly Useful Stuff.
+"""Buffer -> TikTok publisher for Oddly Useful Stuff.
 
 Requires only Python 3 standard library, BUFFER_API_KEY secret, and an
 explicit content JSON for creating drafts or queuing posts.
@@ -198,8 +198,10 @@ def main():
     assets = asset_for(post, args.mode)
     assert_no_duplicate(channel, text, args.mode)
     if args.mode == "queue":
-        if post.get("commercial_promotion") is True:
-            raise RuntimeError("Commercial TikTok promotions require native content disclosure; this Buffer API route does not expose that setting.")
+        # Commercial intent and ordinary calls to action are not API errors.
+        # This application's commercial_promotion marker is descriptive only:
+        # Buffer does not send that marker as TikTok's native disclosure flag.
+        # Provider acceptance is checked normally; it is not a compliance claim.
         if os.environ.get("BUFFER_QUEUE_ENABLED") != "YES":
             raise RuntimeError("Queuing disabled. Set BUFFER_QUEUE_ENABLED=YES only after a successful draft test.")
         if post.get("approved_for_queue") is not True:

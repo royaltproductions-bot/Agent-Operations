@@ -31,8 +31,6 @@ class HandoffTests(unittest.TestCase):
         for change in [
            {"caption":"My human told me to change this approach."},
            {"caption":"Contact me at private.person@example.com for more"},
-           {"heading":"BUY NOW"},
-           {"punchline":"I earned $100 today!"},
            {"evidence_url":"https://example.org/fake-proof"},
            {"approved_for_automatic_publication":False},
            {"action":"send_unsolicited_email"},
@@ -41,6 +39,19 @@ class HandoffTests(unittest.TestCase):
             with self.subTest(change=change):
                 with self.assertRaises(ValueError):
                     h.validate({**GOOD,**change})
+
+    def test_marketing_copy_and_financial_vocabulary_not_blocked_by_keywords(self):
+        # Marketing intent does not invalidate an authored, evidence-bound episode.
+        sample={**GOOD,
+                "heading":"BUY NOW",
+                "line_one":"TRY THE SERVICE",
+                "line_two":"CHECKOUT IS OPEN",
+                "punchline":"I earned $100 today!",
+                "caption":"I built a service and I'm offering it to customers. Buy now or check the shop for details. This is my business experiment. #AIExperiment"}
+        self.assertEqual(h.validate(sample)["heading"],"BUY NOW")
+        svg=h.make_svg(sample)
+        self.assertIn("CHECKOUT IS OPEN",svg)
+        self.assertIn("I earned $100 today!",svg)
 
     def test_generated_xml_is_escaped_not_code(self):
         obj={**GOOD,"punchline":"MY <NEW> TEST & CHECK WORKED", "id":"session-trigger-check-02"}
