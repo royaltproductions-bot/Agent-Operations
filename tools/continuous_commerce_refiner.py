@@ -36,7 +36,7 @@ def infer(schema,system,observation,num_predict=1800):
     payload=json.dumps({"model":MODEL,"messages":[{"role":"system","content":system},
       {"role":"user","content":json.dumps(observation,ensure_ascii=False)}],
       "stream":False,"format":"json",
-      "keep_alive":"30m","options":{"temperature":0.05,"num_ctx":12288,"num_predict":num_predict}}).encode()
+      "keep_alive":"30m","options":{"temperature":0.05,"num_ctx":16384,"num_predict":num_predict}}).encode()
     req=urllib.request.Request("http://127.0.0.1:11434/api/chat",data=payload,
                                headers={"Content-Type":"application/json"})
     try:
@@ -174,7 +174,7 @@ def main():
       "required":["bottleneck","evidence","refinement_goal","target_paths","expected_measurable_effect"],
       "additionalProperties":False}
     diagnosis=infer(diagnose_schema,
-      "Act as the system-level refining engineer. Select the highest-impact CURRENT execution gap from evidence, not a favorite product or fixed business model. Code/test/deployment gaps are valid only when they block real commercial execution. Choose 1-2 safe repository paths to change; keep combined existing target source under 35KB; new files are allowed under tools/tests/products/storefront/ventures. Never choose .github, ops receipts, credentials, or unrelated projects. Existing tests are immutable; create a new test file when additional coverage is needed.",
+      "Act as the system-level refining engineer. Select the highest-impact CURRENT execution gap from evidence, not a favorite product or fixed business model. Code/test/deployment gaps are valid only when they block real commercial execution. Choose 1-2 safe repository paths to change; a single target may be up to 50KB, while two combined targets must stay under 35KB; new files are allowed under tools/tests/products/storefront/ventures. Never choose .github, ops receipts, credentials, or unrelated projects. Existing tests are immutable; create a new test file when additional coverage is needed.",
       {"objective":objective,"operational_evidence":sanitized_receipts(),
        "baseline_validation":baseline,"recent_commits":history,
        "repository_inventory":inventory(),"core_sources":core},900)
