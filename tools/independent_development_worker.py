@@ -14,7 +14,7 @@ def infer(messages):
     with urllib.request.urlopen(req,timeout=420) as response:
         return json.loads(json.load(response)["message"]["content"])
 def main():
-    if run("git","status","--porcelain").stdout.strip():
+    if run("git","status","--porcelain","--untracked-files=no").stdout.strip():
         raise SystemExit("Working tree must be clean")
     history=run("git","log","-12","--format=%s").stdout[:1800]
     observations=[]
