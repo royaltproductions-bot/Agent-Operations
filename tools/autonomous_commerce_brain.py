@@ -137,7 +137,7 @@ EVALUATE_SCHEMA = {
 def model_json(schema, prompt, observation, opener=None):
     """Real locally hosted Ollama inference, no API key, no simulated decision."""
     req=urllib.request.Request(base.OLLAMA,method="POST",data=json.dumps({
-        "model":MODEL,"stream":False,"format":schema,
+        "model":MODEL,"stream":False,"format":schema,"think":False,
         "options":{"temperature":0,"num_ctx":6144,"num_predict":800},
         "messages":[{"role":"system","content":prompt},
                     {"role":"user","content":json.dumps(observation,ensure_ascii=False)}]
