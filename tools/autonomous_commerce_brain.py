@@ -306,7 +306,7 @@ def explicit_invite(text,channel):
         return None  # A repo issue is not a public authorization for email.
     if channel=="reddit_forhire" and not re.match(r"^s*[s*hirings*]",content,re.I):
         return None
-    if not re.search(r"\b(contract(?:or)?|freelanc(?:e|er)|paid pilot|consult(?:ing|ant)|project.based)\b",
+    if channel=="hackernews" and not re.search(r"\b(contract(?:or)?|freelanc(?:e|er)|paid pilot|consult(?:ing|ant)|project.based)\b",
                      content,re.I):
         return None
     # A contract keyword alone is not proof of compensation.
@@ -332,9 +332,18 @@ def can_execute(scope,text):
     if re.search(r"\b(medical|clinical|therapy|licensed attorney|legal representation|"
                  r"employment verification|onsite|on-site|security clearance)\b",s):
         return False
-    return bool(re.search(r"\b(python|javascript|script|automation|spreadsheet|csv|"
+    engineering=bool(re.search(r"\b(python|javascript|script|automation|spreadsheet|csv|"
                           r"data processing|website|frontend|api|reporting|software|"
                           r"workflow|integrat|quality assurance|testing)\b",scope,re.I))
+    creative=bool(re.search(r"\b(original video|video editing|short.form video|"
+                            r"animation|motion graphics|comedy sketch|"
+                            r"scriptwriting|short.form content)\b",scope,re.I))
+    if creative:
+        # Creative production capability originates from actual owned assets.
+        media=Path("campaigns/oddly-useful-stuff/media")
+        return media.is_dir() and any(x.is_file() and x.suffix==".mp4"
+                                      for x in media.glob("*.mp4"))
+    return engineering
 
 def outreach_seen(history,source):
     for row in history:
@@ -365,14 +374,20 @@ def send_invited_request(hit,source_text,scope,history,channel,live=False):
         return {"source":url,"result":"remote_already_sent"}
     # Explicitly disclose AI operation; do not promise an unknown capability
     # or impersonate the owner. Contact only a source-published address.
-    body=("Hello,\n\nI found your public invitation for independent project work: "
-          +url+".\n\nI'm an AI-operated software service able to perform bounded "
-          "Python/JavaScript scripting, CSV/data processing, reporting and workflow "
-          "automation tasks with verifiable outputs. I would like to clarify whether "
-          "you have a contained paid project matching this delivery capability. "
-          "I won't assume any engagement, rates or acceptance without your reply. "
-          "If appropriate, please share a concrete brief, budget and acceptance criteria.\n\n"
-          "Regards,\nIndependent Commerce Operations")
+    creative=bool(re.search(r"\b(original video|video editing|short.form video|"
+                            r"animation|motion graphics|comedy sketch|"
+                            r"scriptwriting|short.form content)\b",scope,re.I))
+    description=("original short-form videos and video editing using existing "
+                 "owned creative assets" if creative else
+                 "bounded Python/JavaScript scripting, CSV/data processing, "
+                 "reporting and workflow automation")
+    body=("Hello,\n\nI found your public invitation for independent paid project work: "
+          +url+".\n\nI'm an AI-operated production service with capabilities in "
+          +description+". Would you consider a contained paid project matching "
+          "that scope? I don't assume we have an agreement, nor do I claim "
+          "skills, examples or qualifications not independently established. "
+          "If there is a fit, please share the specific deliverable, budget "
+          "and acceptance criteria.\n\nRegards,\nIndependent Commerce Operations")
     try:
         sent=agent_send(email,subject,body,[],
                         order_id="public-invitation-"+ident)
@@ -530,9 +545,10 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
                           "actually deliverable project with public contact details. "
                           "Reject otherwise. Do not invent facts or a lead.",
                           {"strategy":record,"candidates":shortlist,
-                           "instruction":"Return an existing candidate_id OR empty string and "
-                           "contact_invited_buyer only if explicit legitimate invitation. "
-                           "Your proposed service scope must fit Python/Node tools."})
+                           "instruction":"Select an exact listed candidate_id or empty. "
+                           "Only contact with explicit original paid invitation, a public email, "
+                           "and achievable software/automation OR owned original creative deliverables. "
+                           "Never invent credentials, client, budget, contact or completion."})
         except (ValueError,TypeError,KeyError,RuntimeError):
             feedback.append({"reason":"model_candidate_evaluation_invalid","query":query})
             continue
