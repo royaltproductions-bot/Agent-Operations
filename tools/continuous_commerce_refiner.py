@@ -200,6 +200,8 @@ def main():
         guard_content(path,ch.get("content"))
         seen.add(path); total+=len(ch["content"].encode())
         originals[path]=(ROOT/path).read_text(encoding="utf-8") if (ROOT/path).is_file() else None
+        if path.startswith("tests/") and originals[path] is not None:
+            raise SystemExit("existing_tests_are_immutable_to_refiner")
     if total>MAX_TOTAL_BYTES: raise SystemExit("candidate_too_large")
     for ch in changes:
         p=ROOT/ch["path"]; p.parent.mkdir(parents=True,exist_ok=True); p.write_text(ch["content"],encoding="utf-8")
