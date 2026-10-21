@@ -33,6 +33,7 @@ jobs:
           sleep 5
           ollama pull qwen3:4b-instruct-2507-q4_K_M
       - name: Observe, diagnose, implement and validate refinement
+        id: refine
         run: python3 tools/continuous_commerce_refiner.py
       - name: Integrate validated refinement into main
         env:
