@@ -87,7 +87,7 @@ STRATEGY_SCHEMA = {
         "offer":{"type":"string"},
         "delivery_using_existing_tools":{"type":"string"},
         "route_to_buyer":{"type":"string"},
-        "search_channel":{"type":"string","enum":list(CHANNELS)},
+        "search_channel":{"type":"string"},
         "search_query":{"type":"string"},
         "reason":{"type":"string"}
     },
@@ -633,7 +633,10 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
                           "Choose another route if last one failed.",
                           "previous_queries_to_avoid":prior_queries[-14:],
                           "recent_failures":feedback,
-                          "available_search_channels":list(CHANNELS),
+                           "new_market_findings":report.get("open_market_discoveries",[])[-3:],
+                          "currently_working_public_search_adapters":list(CHANNELS),
+                           "other_markets_may_be_proposed":"Invented distribution models are welcome, "
+                               "even when direct posting/listing connectors need to be built.",
                           "connected_service_observation":tool_context,
                            "optional_live_agent_case_research":research_context,
                           "capability_inventory":capability_status(),
@@ -646,10 +649,27 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
         # New commercial categories are welcome; the known lanes are examples.
         # A search channel must still have a functioning connector to execute.
         strategy["lane"]=strategy.get("lane") or "original_independent_business"
-        if strategy["search_channel"] not in CHANNELS:
-            feedback.append({"reason":"new_source_requires_connector",
-                             "source":strategy["search_channel"][:80]})
-            continue
+        requested_source=strategy["search_channel"]
+        if requested_source not in CHANNELS:
+            # A new auction site, art marketplace or creator community is not
+            # an invalid BUSINESS IDEA. Search wider public context where
+            # possible and keep the requested route visible for future tools.
+            feedback.append({"reason":"distribution_connector_not_yet_available",
+                             "requested_source":requested_source[:80],
+                             "using_connected_public_sources_instead":True})
+            try:
+                research=discover_agent_examples(strategy["search_query"])
+                examples=[{"title":x["title"],"url":x["url"]}
+                          for x in research.get("sources",[])[:4]]
+                if examples:
+                    report.setdefault("open_market_discoveries",[]).append({
+                        "intended_market":requested_source[:80],
+                        "research_query":strategy["search_query"][:120],
+                        "public_examples":examples})
+            except (ValueError,TypeError,KeyError,RuntimeError,
+                    urllib.error.URLError,TimeoutError,OSError):
+                pass
+            strategy["search_channel"]=channel
         query=strategy["search_query"].strip()
         if len(query)<4:
             feedback.append({"reason":"unusable_search_term"})
@@ -668,7 +688,8 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
                 feedback.append({"reason":"repeat_query_source_pivot",
                                  "source":strategy["search_channel"]})
         prior_queries.append(query)
-        record={"attempt":attempt+1,"lane":strategy["lane"],"business_model":strategy["offer"][:200],
+        record={"attempt":attempt+1,"lane":strategy["lane"],
+                "requested_distribution_source":requested_source[:80],"business_model":strategy["offer"][:200],
                 "buyer":strategy["buyer"][:150],"problem":strategy["customer_problem"][:200],
                 "channel":strategy["search_channel"],"query":query,
                 "delivery":strategy["delivery_using_existing_tools"][:200],
