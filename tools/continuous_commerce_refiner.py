@@ -19,7 +19,7 @@ ROOT=Path.cwd()
 MODEL=os.getenv("LOCAL_MODEL","qwen3:4b-instruct-2507-q4_K_M")
 SAFE_ROOTS=("tools","tests","products","storefront","ventures")
 FORBIDDEN_PARTS=(".git",".github","node_modules","__pycache__",".venv","venv")
-MAX_FILES=3
+MAX_FILES=2
 MAX_FILE_BYTES=60000
 MAX_TOTAL_BYTES=140000
 CORE_FILES=(
@@ -36,7 +36,7 @@ def infer(schema,system,observation,num_predict=1800):
     payload=json.dumps({"model":MODEL,"messages":[{"role":"system","content":system},
       {"role":"user","content":json.dumps(observation,ensure_ascii=False)}],
       "stream":False,"format":"json",
-      "options":{"temperature":0.05,"num_ctx":24576,"num_predict":num_predict}}).encode()
+      "keep_alive":"30m","options":{"temperature":0.05,"num_ctx":12288,"num_predict":num_predict}}).encode()
     req=urllib.request.Request("http://127.0.0.1:11434/api/chat",data=payload,
                                headers={"Content-Type":"application/json"})
     try:
@@ -76,7 +76,7 @@ def inventory():
                 try: size=p.stat().st_size
                 except OSError: continue
                 rows.append({"path":rel,"bytes":size})
-    return sorted(rows,key=lambda x:x["path"])[:400]
+    return sorted(rows,key=lambda x:x["path"])[:220]
 
 def sanitized_receipts():
     out=[]
@@ -102,7 +102,7 @@ def sanitized_receipts():
     delivery=ROOT/"ops/commerce-deliveries"
     out.append({"source":"ops/commerce-deliveries",
                 "privacy_safe_receipt_count":len(list(delivery.glob("*.json"))) if delivery.is_dir() else 0})
-    return out[:28]
+    return out[:16]
 
 def validation():
     checks=[]
@@ -159,7 +159,7 @@ def main():
         raise SystemExit("tracked_worktree_not_clean")
     baseline=validation()
     history=run("git","log","-18","--format=%h %s",timeout=30).stdout[:3000]
-    core={p:text[:1800] for p,text in read_targets([p for p in CORE_FILES if (ROOT/p).is_file()]).items()}
+    core={p:text[:900] for p,text in read_targets([p for p in CORE_FILES if (ROOT/p).is_file()]).items()}
     objective={
       "mission":"Continuously improve the autonomous revenue engine until it can originate, distribute, sell, fulfill, and learn from legitimate commercial transactions with minimal owner intervention.",
       "nonnegotiable":["No predetermined business-model menu","No fake buyers or fake revenue","No prompt-only work presented as execution","Use only authorized accounts/integrations","Preserve privacy and security controls"],
@@ -174,17 +174,17 @@ def main():
       "required":["bottleneck","evidence","refinement_goal","target_paths","expected_measurable_effect"],
       "additionalProperties":False}
     diagnosis=infer(diagnose_schema,
-      "Act as the system-level refining engineer. Select the highest-impact CURRENT execution gap from evidence, not a favorite product or fixed business model. Code/test/deployment gaps are valid only when they block real commercial execution. Choose 1-3 safe repository paths to change; keep combined existing target source under 70KB; new files are allowed under tools/tests/products/storefront/ventures. Never choose .github, ops receipts, credentials, or unrelated projects. Existing tests are immutable; create a new test file when additional coverage is needed.",
+      "Act as the system-level refining engineer. Select the highest-impact CURRENT execution gap from evidence, not a favorite product or fixed business model. Code/test/deployment gaps are valid only when they block real commercial execution. Choose 1-2 safe repository paths to change; keep combined existing target source under 35KB; new files are allowed under tools/tests/products/storefront/ventures. Never choose .github, ops receipts, credentials, or unrelated projects. Existing tests are immutable; create a new test file when additional coverage is needed.",
       {"objective":objective,"operational_evidence":sanitized_receipts(),
        "baseline_validation":baseline,"recent_commits":history,
-       "repository_inventory":inventory(),"core_sources":core},1600)
+       "repository_inventory":inventory(),"core_sources":core},900)
     targets=[]
     for p in diagnosis.get("target_paths",[]):
         if safe_path(p) and p not in targets: targets.append(p)
     if not targets or len(targets)>MAX_FILES:
         raise SystemExit("diagnosis_selected_unsafe_targets")
     sources=read_targets(targets)
-    if sum(len(v.encode()) for v in sources.values())>70000:
+    if sum(len(v.encode()) for v in sources.values())>35000:
         raise SystemExit("diagnosis_selected_too_much_existing_source")
     change_schema={"type":"object","properties":{
       "changes":{"type":"array","minItems":1,"maxItems":MAX_FILES,"items":{
@@ -198,7 +198,7 @@ def main():
     implementation=infer(change_schema,
       "Implement the diagnosed refinement, not another plan. For an EXISTING file, leave content empty and return 1-4 exact old/new text replacements; old text must occur exactly once in the supplied source. For a NEW file, return complete content and an empty replacements array. This patch mode exists so large core modules are never truncated. Keep scope bounded to selected targets. Preserve compatible public interfaces. Do not weaken tests or security gates. Do not fabricate provider access, sales, customers, metrics, or success. Do not add spending, account creation, bulk unsolicited messaging, credential extraction, restriction bypasses, or destructive operations. Prefer reusable general capabilities over a hardcoded business niche.",
       {"objective":objective,"diagnosis":diagnosis,"selected_sources":sources,
-       "baseline_validation":baseline},3500)
+       "baseline_validation":baseline},2200)
     changes=implementation.get("changes",[])
     if not isinstance(changes,list) or not 1<=len(changes)<=MAX_FILES:
         raise SystemExit("invalid_change_count")
@@ -259,7 +259,7 @@ def main():
         critic=infer(critic_schema,
           "You are the final adversarial reviewer for an autonomous commerce-system refinement. Reject if the patch is prompt-only, unrelated to the diagnosed bottleneck, hardcodes a business model unnecessarily, weakens safety/tests, invents evidence, exposes secrets/PII, adds unauthorized spending or mass outreach, or cannot plausibly improve execution. Approve only a concrete, test-passing system improvement.",
           {"objective":objective,"diagnosis":diagnosis,"diff":diff[:24000],
-           "validation":after},1200)
+           "validation":after},700)
         if critic.get("decision")!="approve":
             raise RuntimeError("critic_rejected:"+str(critic.get("reason",""))[:160])
     except Exception:
