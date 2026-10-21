@@ -20,8 +20,8 @@ MODEL=os.getenv("LOCAL_MODEL","qwen3:4b-instruct-2507-q4_K_M")
 SAFE_ROOTS=("tools","tests","products","storefront","ventures")
 FORBIDDEN_PARTS=(".git",".github","node_modules","__pycache__",".venv","venv")
 MAX_FILES=3
-MAX_FILE_BYTES=35000
-MAX_TOTAL_BYTES=70000
+MAX_FILE_BYTES=60000
+MAX_TOTAL_BYTES=140000
 CORE_FILES=(
  "tools/autonomous_commerce_brain.py","tools/connected_commerce_tools.py",
  "tools/commerce_operator.py","tools/commercial_outcomes.py","tools/commerce_portfolio.py",
@@ -168,7 +168,7 @@ def main():
       "required":["bottleneck","evidence","refinement_goal","target_paths","expected_measurable_effect"],
       "additionalProperties":False}
     diagnosis=infer(diagnose_schema,
-      "Act as the system-level refining engineer. Select the highest-impact CURRENT execution gap from evidence, not a favorite product or fixed business model. Code/test/deployment gaps are valid only when they block real commercial execution. Choose 1-3 safe repository paths to change; keep combined existing target source under 40KB; new files are allowed under tools/tests/products/storefront/ventures. Never choose .github, ops receipts, credentials, or unrelated projects. Existing tests are immutable; create a new test file when additional coverage is needed.",
+      "Act as the system-level refining engineer. Select the highest-impact CURRENT execution gap from evidence, not a favorite product or fixed business model. Code/test/deployment gaps are valid only when they block real commercial execution. Choose 1-3 safe repository paths to change; keep combined existing target source under 70KB; new files are allowed under tools/tests/products/storefront/ventures. Never choose .github, ops receipts, credentials, or unrelated projects. Existing tests are immutable; create a new test file when additional coverage is needed.",
       {"objective":objective,"operational_evidence":sanitized_receipts(),
        "baseline_validation":baseline,"recent_commits":history,
        "repository_inventory":inventory(),"core_sources":core},1600)
@@ -178,7 +178,7 @@ def main():
     if not targets or len(targets)>MAX_FILES:
         raise SystemExit("diagnosis_selected_unsafe_targets")
     sources=read_targets(targets)
-    if sum(len(v.encode()) for v in sources.values())>40000:
+    if sum(len(v.encode()) for v in sources.values())>70000:
         raise SystemExit("diagnosis_selected_too_much_existing_source")
     change_schema={"type":"object","properties":{
       "changes":{"type":"array","minItems":1,"maxItems":MAX_FILES,"items":{
