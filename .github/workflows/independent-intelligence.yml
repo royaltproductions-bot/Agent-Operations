@@ -51,7 +51,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: independent-on-runner-intelligence
+  group: independent-on-runner-intelligence-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'production' }}
   cancel-in-progress: false
 
 jobs:
