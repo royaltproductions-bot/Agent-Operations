@@ -18,9 +18,9 @@ ROOT=Path.cwd()
 MODEL=os.getenv("LOCAL_MODEL","qwen3:4b-instruct-2507-q4_K_M")
 SAFE_ROOTS=("tools","tests","products","storefront","ventures")
 FORBIDDEN_PARTS=(".git",".github","node_modules","__pycache__",".venv","venv")
-MAX_FILES=4
-MAX_FILE_BYTES=50000
-MAX_TOTAL_BYTES=120000
+MAX_FILES=3
+MAX_FILE_BYTES=35000
+MAX_TOTAL_BYTES=70000
 CORE_FILES=(
  "tools/autonomous_commerce_brain.py","tools/connected_commerce_tools.py",
  "tools/commerce_operator.py","tools/commercial_outcomes.py","tools/commerce_portfolio.py",
