@@ -10,6 +10,8 @@ on:
       - 'tools/external_market_agent.py'
       - 'tests/test_external_market_agent.py'
       - 'tools/autonomous_commerce_brain.py'
+      - 'tools/agent_commerce_observations.py'
+      - 'tests/test_agent_commerce_observations.py'
       - 'tests/test_autonomous_commerce_brain.py'
       - 'tools/connected_commerce_tools.py'
       - 'tests/test_connected_commerce_tools.py'
@@ -32,6 +34,8 @@ on:
       - 'tools/external_market_agent.py'
       - 'tests/test_external_market_agent.py'
       - 'tools/autonomous_commerce_brain.py'
+      - 'tools/agent_commerce_observations.py'
+      - 'tests/test_agent_commerce_observations.py'
       - 'tests/test_autonomous_commerce_brain.py'
       - 'tools/connected_commerce_tools.py'
       - 'tests/test_connected_commerce_tools.py'
@@ -62,9 +66,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Test tool guards and model response handling
         run: |
-          python3 -m py_compile tools/external_market_agent.py tools/autonomous_commerce_brain.py tools/connected_commerce_tools.py tools/render_deploy_bridge.py tools/render_direct_api.py tools/commerce_portfolio.py tools/commercial_outcomes.py tools/sales_conversation.py
+          python3 -m py_compile tools/external_market_agent.py tools/autonomous_commerce_brain.py tools/connected_commerce_tools.py tools/render_deploy_bridge.py tools/render_direct_api.py tools/commerce_portfolio.py tools/commercial_outcomes.py tools/sales_conversation.py tools/agent_commerce_observations.py
           python3 -m unittest discover -s tests -p 'test_external_market_agent.py' -v
           python3 -m unittest discover -s tests -p 'test_autonomous_commerce_brain.py' -v
+          python3 -m unittest discover -s tests -p 'test_agent_commerce_observations.py' -v
           python3 -m unittest discover -s tests -p 'test_connected_commerce_tools.py' -v
           python3 -m unittest discover -s tests -p 'test_render_deploy_bridge.py' -v
           python3 -m unittest discover -s tests -p 'test_render_direct_api.py' -v
