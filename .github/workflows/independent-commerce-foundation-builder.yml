@@ -36,6 +36,7 @@ jobs:
         id: refine
         run: python3 tools/continuous_commerce_refiner.py
       - name: Integrate validated refinement into main
+        if: steps.refine.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
