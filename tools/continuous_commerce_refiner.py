@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
-"""Evidence-driven continuous refiner for the autonomous commerce system.
+"""Continuous evidence-driven refiner for the autonomous commerce engine.
 
-The refiner is deliberately separate from the revenue operator. It studies privacy-safe
-operational receipts and repository state, chooses the highest-impact system bottleneck,
-implements a bounded multi-file improvement, validates it, and emits an auditable receipt.
-It never invents revenue, customers, provider access, or commercial outcomes.
+The refiner is a control loop, not a business-model menu:
+observe real operational receipts -> diagnose the current SYSTEM bottleneck ->
+ask the local model for one bounded implementation -> validate -> integrate.
+Diagnosis and final approval are deterministic so the hosted CPU runner spends
+its model budget on implementation instead of three long inference calls.
 """
 from __future__ import annotations
+
+from collections import Counter
+import ast
 import json
 import os
 from pathlib import Path
@@ -19,44 +23,13 @@ ROOT=Path.cwd()
 MODEL=os.getenv("LOCAL_MODEL","qwen3:4b-instruct-2507-q4_K_M")
 SAFE_ROOTS=("tools","tests","products","storefront","ventures")
 FORBIDDEN_PARTS=(".git",".github","node_modules","__pycache__",".venv","venv")
-MAX_FILES=2
-MAX_FILE_BYTES=60000
-MAX_TOTAL_BYTES=140000
-CORE_FILES=(
- "tools/autonomous_commerce_brain.py","tools/connected_commerce_tools.py",
- "tools/commerce_operator.py","tools/commercial_outcomes.py","tools/commerce_portfolio.py",
- "tools/render_direct_api.py","tools/continuous_commerce_refiner.py",
-)
+CONTROL_PLANE={"tools/continuous_commerce_refiner.py"}
+MAX_CHANGES=2
+MAX_NEW_FILE_BYTES=32000
+MAX_CONTEXT_CHARS=19000
 
-def run(*cmd,timeout=240):
+def run(*cmd,timeout=300):
     return subprocess.run(cmd,cwd=ROOT,text=True,capture_output=True,timeout=timeout)
-
-def infer(schema,system,observation,num_predict=1800):
-    system=system+"\\nReturn ONLY valid JSON matching this required structure: "+json.dumps(schema,separators=(",",":"))
-    user=json.dumps(observation,ensure_ascii=False)
-    for attempt in range(2):
-        ctx=16384 if attempt==0 else 12288
-        predict=num_predict if attempt==0 else min(num_predict,1200)
-        payload=json.dumps({"model":MODEL,"messages":[{"role":"system","content":system},
-          {"role":"user","content":user}],"stream":False,"format":"json","keep_alive":"30m",
-          "options":{"temperature":0.05,"num_ctx":ctx,"num_predict":predict}}).encode()
-        req=urllib.request.Request("http://127.0.0.1:11434/api/chat",data=payload,
-                                   headers={"Content-Type":"application/json"})
-        try:
-            with urllib.request.urlopen(req,timeout=420) as response:
-                raw=json.load(response).get("message",{}).get("content","")
-            obj=json.loads(raw)
-            if not isinstance(obj,dict):
-                raise ValueError("model_output_not_object")
-            return obj
-        except TimeoutError:
-            if attempt==0:
-                continue
-            raise TimeoutError("ollama_inference_timeout_after_compact_retry") from None
-        except urllib.error.HTTPError as exc:
-            detail=exc.read(800).decode("utf-8","replace")
-            raise RuntimeError("ollama_http_"+str(exc.code)+":"+detail[:500]) from None
-    raise TimeoutError("ollama_inference_timeout")
 
 def safe_path(raw):
     p=Path(str(raw))
@@ -76,85 +49,324 @@ def inventory():
     rows=[]
     for root_name in SAFE_ROOTS:
         root=ROOT/root_name
-        if not root.exists(): continue
+        if not root.is_dir():
+            continue
         for p in root.rglob("*"):
-            if not p.is_file() or any(x in p.parts for x in FORBIDDEN_PARTS): continue
+            if not p.is_file() or any(x in p.parts for x in FORBIDDEN_PARTS):
+                continue
             rel=str(p.relative_to(ROOT))
             if safe_path(rel):
-                try: size=p.stat().st_size
-                except OSError: continue
-                rows.append({"path":rel,"bytes":size})
-    return sorted(rows,key=lambda x:x["path"])[:220]
+                try:
+                    rows.append({"path":rel,"bytes":p.stat().st_size})
+                except OSError:
+                    pass
+    return sorted(rows,key=lambda x:x["path"])[:260]
 
-def sanitized_receipts():
-    out=[]
-    for folder in ("ops/enterprise-runs","ops/scheduled-commerce-attestations","ops/refiner-runs"):
-        root=ROOT/folder
-        if not root.is_dir(): continue
-        for p in sorted(root.glob("*.json"),reverse=True)[:10]:
-            try: row=json.loads(p.read_text(encoding="utf-8"))
-            except (OSError,ValueError,TypeError): continue
-            out.append({
-              "source":folder,
-              "status":row.get("status") or row.get("result"),
-              "scorecard":row.get("economic_scorecard"),
-              "portfolio_diagnostics":row.get("portfolio_diagnostics"),
-              "provider_outcomes":row.get("verified_provider_outcomes"),
-              "tool_actions":(row.get("tool_actions") or [])[:5],
-              "blockers":(row.get("failures_or_blockers") or [])[:8],
-              "changed_files":(row.get("changed_files") or [])[:6],
-              "qualified_external_contacts":row.get("qualified_external_contacts"),
-              "refinement_goal":row.get("refinement_goal"),
-              "reason":row.get("reason"),
-            })
+def read_jsons(folder,limit):
+    root=ROOT/folder
+    rows=[]
+    if not root.is_dir():
+        return rows
+    for p in sorted(root.glob("*.json"),reverse=True)[:limit]:
+        try:
+            row=json.loads(p.read_text(encoding="utf-8"))
+        except (OSError,ValueError,TypeError):
+            continue
+        if isinstance(row,dict):
+            rows.append(row)
+    return rows
+
+def evidence_state():
+    enterprise=read_jsons("ops/enterprise-runs",12)
+    refiner=read_jsons("ops/refiner-runs",12)
+    scheduled=read_jsons("ops/scheduled-commerce-attestations",6)
+    blockers=[]
+    contacts=replies=paid=fulfilled=0
+    latest_scorecard={}
+    latest_provider={}
+    research_loop=False
+    for row in enterprise:
+        latest_scorecard=latest_scorecard or (row.get("economic_scorecard") or {})
+        latest_provider=latest_provider or (row.get("verified_provider_outcomes") or {})
+        contacts+=int(row.get("qualified_external_contacts") or 0)
+        diagnostic=row.get("portfolio_diagnostics") or {}
+        research_loop=research_loop or diagnostic.get("research_loop_alert") is True
+        for b in (row.get("failures_or_blockers") or [])[:12]:
+            if isinstance(b,dict) and b.get("reason"):
+                blockers.append(str(b["reason"])[:100])
+    if latest_scorecard:
+        replies=int(latest_scorecard.get("buyer_replies_verified") or
+                    latest_scorecard.get("verified_reply_threads_to_sent_invitations") or 0)
+        paid=int(latest_scorecard.get("paid_orders_verified_on_existing_link") or
+                 latest_scorecard.get("paid_orders_verified") or 0)
+        fulfilled=int(latest_scorecard.get("paid_deliverables_sent_verified") or 0)
     delivery=ROOT/"ops/commerce-deliveries"
-    out.append({"source":"ops/commerce-deliveries",
-                "privacy_safe_receipt_count":len(list(delivery.glob("*.json"))) if delivery.is_dir() else 0})
-    return out[:16]
+    if delivery.is_dir():
+        fulfilled=max(fulfilled,len(list(delivery.glob("*.json"))))
+    refiner_failures=[str(x.get("reason",""))[:180] for x in refiner
+                      if x.get("status")=="refinement_failed_or_rejected"][:6]
+    return {
+      "enterprise_runs_seen":len(enterprise),
+      "blocker_counts":dict(Counter(blockers).most_common(10)),
+      "recent_blockers":blockers[:14],
+      "research_loop_alert":research_loop,
+      "qualified_external_contacts_recent":contacts,
+      "buyer_replies_verified":replies,
+      "paid_orders_verified":paid,
+      "fulfillment_receipts_verified":fulfilled,
+      "latest_scorecard":latest_scorecard,
+      "latest_provider_outcomes":latest_provider,
+      "scheduled_provider_checks":[{
+          "commerce_status":x.get("commerce_status"),
+          "independent_auth_verified":x.get("independent_stripe_and_agentmail_auth_verified"),
+          "paid_checkout_sessions":x.get("paid_checkout_sessions"),
+          "new_deliveries":x.get("new_deliveries")} for x in scheduled[:3]],
+      "recent_refiner_failures":refiner_failures,
+    }
 
-def validation():
-    checks=[]
-    commands=[
-      ("compile",("python3","-m","compileall","-q","tools","tests")),
-      ("tests",("python3","-m","unittest","discover","-s","tests","-v")),
-      ("capability_smoke",("python3","tools/connected_commerce_tools.py")),
-    ]
-    for name,cmd in commands:
-        p=run(*cmd,timeout=360)
-        checks.append({"name":name,"ok":p.returncode==0,
-          "tail":(p.stdout+p.stderr)[-1800:]})
-    return checks
+def diagnose(state):
+    counts=state["blocker_counts"]
+    invalid=sum(counts.get(x,0) for x in
+                ("model_strategy_invalid","model_candidate_evaluation_invalid",
+                 "model_selected_unlisted_candidate","unusable_search_term"))
+    missing_distribution=counts.get("distribution_connector_not_yet_available",0)
+    rejected=counts.get("model_rejected_candidates",0)
+    no_demand=counts.get("no_matching_public_demand",0)
+    contacts=state["qualified_external_contacts_recent"]
+    replies=state["buyer_replies_verified"]
+    paid=state["paid_orders_verified"]
+    fulfilled=state["fulfillment_receipts_verified"]
 
-def changed_file_checks(paths):
-    for path in paths:
-        p=ROOT/path
-        if path.endswith(".py"):
-            q=run("python3","-m","py_compile",path,timeout=90)
-            if q.returncode: raise RuntimeError("python_syntax_failed:"+path)
-        elif path.endswith(".js"):
-            q=run("node","--check",path,timeout=90)
-            if q.returncode: raise RuntimeError("javascript_syntax_failed:"+path)
-        elif path.endswith(".json"):
-            json.loads(p.read_text(encoding="utf-8"))
+    if invalid or state["research_loop_alert"] or (contacts==0 and rejected+no_demand>0):
+        return {
+          "bottleneck":"Commercial reasoning is stalling before verified buyer reach.",
+          "evidence":f"invalid={invalid}; rejected={rejected}; no_demand={no_demand}; contacts={contacts}; research_loop={state['research_loop_alert']}",
+          "goal":"Improve the open-ended commerce brain so it produces concrete executable strategies, pivots from dead searches, and reaches genuinely qualified external demand instead of placeholder or research-loop output.",
+          "target":"tools/autonomous_commerce_brain.py",
+          "measurable_effect":"Fewer invalid/repeated strategies and at least one evidence-qualified external action when legitimate demand exists."
+        }
+    if missing_distribution:
+        return {
+          "bottleneck":"Open-ended strategies are proposing distribution routes the runtime cannot execute.",
+          "evidence":f"distribution_connector_not_yet_available={missing_distribution}",
+          "goal":"Expand reusable connected-commerce execution so novel strategies can reach real external markets through already authorized accounts without hardcoding a business model.",
+          "target":"tools/connected_commerce_tools.py",
+          "measurable_effect":"A larger share of model-selected distribution routes become executable and provider-verifiable."
+        }
+    if contacts>0 and replies==0:
+        return {
+          "bottleneck":"Verified buyer reach is not converting to buyer replies.",
+          "evidence":f"contacts={contacts}; replies={replies}",
+          "goal":"Improve truthful offer framing, qualification, and follow-up behavior for already-authorized buyer contact while preserving anti-spam and invitation checks.",
+          "target":"tools/sales_conversation.py",
+          "measurable_effect":"Verified reply threads increase without increasing uninvited contact."
+        }
+    if replies>0 and paid==0:
+        return {
+          "bottleneck":"Buyer engagement is not converting to a verified paid transaction.",
+          "evidence":f"replies={replies}; paid={paid}",
+          "goal":"Improve general checkout/offer handoff so an accepted legitimate offer can receive a correctly scoped dynamic payment path and remain auditable.",
+          "target":"tools/connected_commerce_tools.py",
+          "measurable_effect":"Verified paid checkout conversion becomes possible for more than one hardcoded offer."
+        }
+    if paid>fulfilled:
+        return {
+          "bottleneck":"Verified paid demand exceeds verified fulfillment.",
+          "evidence":f"paid={paid}; fulfilled={fulfilled}",
+          "goal":"Generalize paid-order fulfillment so supported original digital deliverables can be produced and delivered safely beyond one fixed product.",
+          "target":"tools/commerce_operator.py",
+          "measurable_effect":"Every supported verified paid order reaches an auditable fulfillment receipt."
+        }
+    return {
+      "bottleneck":"The engine lacks enough verified commercial outcome evidence to optimize a later funnel stage.",
+      "evidence":f"contacts={contacts}; replies={replies}; paid={paid}; fulfilled={fulfilled}",
+      "goal":"Strengthen the general commerce brain's ability to convert open-ended market hypotheses into an executable buyer-reaching experiment using existing authorized infrastructure.",
+      "target":"tools/autonomous_commerce_brain.py",
+      "measurable_effect":"A concrete provider-verifiable commercial action replaces another research-only cycle."
+    }
+
+def lexical_tokens(text):
+    return {x for x in re.findall(r"[a-z0-9_]{4,}",text.lower())
+            if x not in {"this","that","with","from","into","when","than","true","false",
+                         "engine","commerce","system","verified","actual","current"}}
+
+def compact_source(path,goal):
+    p=ROOT/path
+    if not p.is_file():
+        return ""
+    text=p.read_text(encoding="utf-8")
+    if len(text)<=MAX_CONTEXT_CHARS:
+        return text
+    lines=text.splitlines(True)
+    chunks=[]
+    size=90
+    terms=lexical_tokens(goal)
+    for start in range(0,len(lines),size):
+        block="".join(lines[start:start+size])
+        score=len(terms & lexical_tokens(block))
+        chunks.append((score,start,block))
+    selected={0}
+    for _,start,_ in sorted(chunks,key=lambda x:(x[0],-x[1]),reverse=True)[:5]:
+        selected.add(start)
+    out=[]
+    for _,start,block in sorted((x for x in chunks if x[1] in selected),key=lambda x:x[1]):
+        out.append(f"\n# --- source lines {start+1}-{start+block.count(chr(10))} ---\n")
+        out.append(block)
+    return "".join(out)[:MAX_CONTEXT_CHARS]
+
+def infer_implementation(diagnosis,state,source):
+    schema={"type":"object","properties":{
+      "changes":{"type":"array","minItems":1,"maxItems":MAX_CHANGES,"items":{
+        "type":"object","properties":{
+          "path":{"type":"string"},"reason":{"type":"string"},
+          "content":{"type":"string"},
+          "replacements":{"type":"array","maxItems":4,"items":{
+            "type":"object","properties":{"old":{"type":"string"},"new":{"type":"string"}},
+            "required":["old","new"],"additionalProperties":False}},
+        },"required":["path","reason","content","replacements"],"additionalProperties":False}},
+      "verification":{"type":"string"}},
+      "required":["changes","verification"],"additionalProperties":False}
+    prompt="""You are the implementation engineer inside a continuous autonomous-commerce
+refiner. Implement the diagnosed SYSTEM improvement, not a plan or business-model menu.
+For the supplied existing target, return exact old/new replacements copied from the
+source excerpts; leave content empty. You may additionally create ONE new reusable file
+under tools/, products/, storefront/, or ventures/ by supplying complete content and an
+empty replacements array. Do not edit the refiner control plane or existing tests.
+Preserve security checks, privacy, truthful evidence standards, anti-spam rules, and
+backward-compatible public interfaces. Do not fabricate buyers, revenue, provider access,
+credentials, or completed work. Do not add spending, account creation, restriction
+bypasses, destructive behavior, or bulk unsolicited messaging. Prefer executable code
+that moves the measured funnel over prompt-only commentary."""
+    system=prompt+"\nReturn ONLY JSON matching: "+json.dumps(schema,separators=(",",":"))
+    observation={"diagnosis":diagnosis,
+                 "operational_evidence":{
+                    "blocker_counts":state["blocker_counts"],
+                    "research_loop_alert":state["research_loop_alert"],
+                    "contacts":state["qualified_external_contacts_recent"],
+                    "replies":state["buyer_replies_verified"],
+                    "paid":state["paid_orders_verified"],
+                    "fulfilled":state["fulfillment_receipts_verified"]},
+                 "target_path":diagnosis["target"],
+                 "target_source_excerpts":source}
+    payload=json.dumps({"model":MODEL,
+      "messages":[{"role":"system","content":system},
+                  {"role":"user","content":json.dumps(observation,ensure_ascii=False)}],
+      "stream":False,"format":"json","keep_alive":"20m",
+      "options":{"temperature":0.05,"num_ctx":8192,"num_predict":1700}}).encode()
+    req=urllib.request.Request("http://127.0.0.1:11434/api/chat",data=payload,
+                               headers={"Content-Type":"application/json"})
+    try:
+        with urllib.request.urlopen(req,timeout=600) as response:
+            raw=json.load(response).get("message",{}).get("content","")
+    except urllib.error.HTTPError as exc:
+        raise RuntimeError("ollama_http_"+str(exc.code)) from None
+    except TimeoutError:
+        raise TimeoutError("implementation_inference_timeout") from None
+    obj=json.loads(raw)
+    if not isinstance(obj,dict):
+        raise ValueError("model_output_not_object")
+    return obj
 
 def guard_content(path,content):
+    if not safe_path(path) or path in CONTROL_PLANE:
+        raise ValueError("unsafe_path")
     if not isinstance(content,str) or not content.strip():
         raise ValueError("empty_content")
-    if len(content.encode())>MAX_FILE_BYTES:
-        raise ValueError("file_too_large")
+    if len(content.encode())>MAX_NEW_FILE_BYTES and not (ROOT/path).is_file():
+        raise ValueError("new_file_too_large")
     if re.search(r"(?:sk_live_|rk_live_|ghp_|github_pat_|AKIA)[A-Za-z0-9_\-]{8,}",content):
         raise ValueError("credential_literal_detected")
     if re.search(r"(?i)(password|secret|api[_-]?key)\s*=\s*['\"][^'\"]{8,}['\"]",content):
         raise ValueError("embedded_secret_detected")
-    if not safe_path(path):
-        raise ValueError("unsafe_path")
 
-def read_targets(paths):
-    result={}
-    for path in paths:
+def validation():
+    checks=[]
+    for name,cmd in (
+      ("compile",("python3","-m","compileall","-q","tools","tests")),
+      ("tests",("python3","-m","unittest","discover","-s","tests","-v")),
+      ("capability_smoke",("python3","tools/connected_commerce_tools.py")),
+    ):
+        p=run(*cmd,timeout=420)
+        checks.append({"name":name,"ok":p.returncode==0,
+                       "tail":(p.stdout+p.stderr)[-1200:]})
+    return checks
+
+def substantive_change(path,old,new):
+    if old==new:
+        return False
+    if path.endswith(".py"):
+        try:
+            return ast.dump(ast.parse(old or ""),include_attributes=False) != \
+                   ast.dump(ast.parse(new),include_attributes=False)
+        except SyntaxError:
+            return False
+    return True
+
+def apply_changes(implementation,diagnosis):
+    changes=implementation.get("changes")
+    if not isinstance(changes,list) or not 1<=len(changes)<=MAX_CHANGES:
+        raise ValueError("invalid_change_count")
+    target=diagnosis["target"]
+    originals={}
+    finals={}
+    seen=set()
+    touched_target=False
+    for change in changes:
+        if not isinstance(change,dict):
+            raise ValueError("invalid_change")
+        path=str(change.get("path") or "")
+        if path in seen or not safe_path(path) or path in CONTROL_PLANE:
+            raise ValueError("unsafe_or_duplicate_change")
+        seen.add(path)
         p=ROOT/path
-        result[path]=p.read_text(encoding="utf-8")[:MAX_FILE_BYTES] if p.is_file() else ""
-    return result
+        old=p.read_text(encoding="utf-8") if p.is_file() else None
+        if old is not None and path.startswith("tests/"):
+            raise ValueError("existing_tests_immutable")
+        if old is not None and path!=target:
+            raise ValueError("existing_change_outside_diagnosed_target")
+        if old is None:
+            if path.startswith("tests/"):
+                raise ValueError("model_may_not_author_its_own_acceptance_test")
+            if change.get("replacements") not in ([],None):
+                raise ValueError("new_file_with_replacements")
+            final=change.get("content")
+        else:
+            touched_target=True
+            if change.get("content") not in ("",None):
+                raise ValueError("existing_file_requires_patch_mode")
+            reps=change.get("replacements")
+            if not isinstance(reps,list) or not 1<=len(reps)<=4:
+                raise ValueError("invalid_replacement_count")
+            final=old
+            for rep in reps:
+                old_text=rep.get("old") if isinstance(rep,dict) else None
+                new_text=rep.get("new") if isinstance(rep,dict) else None
+                if not isinstance(old_text,str) or not old_text or not isinstance(new_text,str):
+                    raise ValueError("invalid_replacement")
+                if final.count(old_text)!=1:
+                    raise ValueError("replacement_anchor_not_unique")
+                final=final.replace(old_text,new_text,1)
+        guard_content(path,final)
+        if not substantive_change(path,old,final):
+            raise ValueError("non_substantive_change")
+        originals[path]=old
+        finals[path]=final
+    if not touched_target:
+        raise ValueError("diagnosed_target_not_improved")
+    for path,final in finals.items():
+        p=ROOT/path
+        p.parent.mkdir(parents=True,exist_ok=True)
+        p.write_text(final,encoding="utf-8")
+    return originals,finals
+
+def restore(originals):
+    for path,old in originals.items():
+        p=ROOT/path
+        if old is None:
+            if p.exists():
+                p.unlink()
+        else:
+            p.write_text(old,encoding="utf-8")
 
 def write_output(name,value):
     out=os.getenv("GITHUB_OUTPUT")
@@ -162,148 +374,79 @@ def write_output(name,value):
         with open(out,"a",encoding="utf-8") as f:
             f.write(f"{name}={value}\n")
 
+def receipt_path():
+    runid=re.sub(r"[^A-Za-z0-9_-]","",os.getenv("GITHUB_RUN_ID","local"))
+    attempt=re.sub(r"[^A-Za-z0-9_-]","",os.getenv("GITHUB_RUN_ATTEMPT","1"))
+    root=ROOT/"ops/refiner-runs"
+    root.mkdir(parents=True,exist_ok=True)
+    return root/f"{runid}-{attempt}.json"
+
 def main():
+    phase="startup"
     if run("git","status","--porcelain","--untracked-files=no").stdout.strip():
         raise SystemExit("tracked_worktree_not_clean")
+    phase="baseline_validation"
     baseline=validation()
-    history=run("git","log","-18","--format=%h %s",timeout=30).stdout[:3000]
-    core={p:text[:900] for p,text in read_targets([p for p in CORE_FILES if (ROOT/p).is_file()]).items()}
-    objective={
-      "mission":"Continuously improve the autonomous revenue engine until it can originate, distribute, sell, fulfill, and learn from legitimate commercial transactions with minimal owner intervention.",
-      "nonnegotiable":["No predetermined business-model menu","No fake buyers or fake revenue","No prompt-only work presented as execution","Use only authorized accounts/integrations","Preserve privacy and security controls"],
-      "required_capabilities":["open-ended opportunity invention","offer and deliverable creation","real external distribution","dynamic payment checkout","verified paid-order fulfillment","cross-run outcome learning"],
-      "success_evidence":["verified external buyer reach","verified buyer response","verified paid order","verified fulfillment","measured conversion/revenue feedback"],
-      "refiner_role":"Observe -> diagnose highest-leverage bottleneck -> implement -> validate -> integrate -> observe again."
-    }
-    diagnose_schema={"type":"object","properties":{
-      "bottleneck":{"type":"string"},"evidence":{"type":"string"},"refinement_goal":{"type":"string"},
-      "target_paths":{"type":"array","items":{"type":"string"},"minItems":1,"maxItems":MAX_FILES},
-      "expected_measurable_effect":{"type":"string"}},
-      "required":["bottleneck","evidence","refinement_goal","target_paths","expected_measurable_effect"],
-      "additionalProperties":False}
-    diagnosis=infer(diagnose_schema,
-      "Act as the system-level refining engineer. Select the highest-impact CURRENT execution gap from evidence, not a favorite product or fixed business model. Code/test/deployment gaps are valid only when they block real commercial execution. Choose 1-2 safe repository paths to change; a single target may be up to 50KB, while two combined targets must stay under 35KB; new files are allowed under tools/tests/products/storefront/ventures. Never choose .github, ops receipts, credentials, or unrelated projects. Existing tests are immutable; create a new test file when additional coverage is needed.",
-      {"objective":objective,"operational_evidence":sanitized_receipts(),
-       "baseline_validation":baseline,"recent_commits":history,
-       "repository_inventory":inventory(),"core_sources":core},900)
-    targets=[]
-    for p in diagnosis.get("target_paths",[]):
-        if safe_path(p) and p not in targets: targets.append(p)
-    if not targets or len(targets)>MAX_FILES:
-        raise SystemExit("diagnosis_selected_unsafe_targets")
-    sources=read_targets(targets)
-    if sum(len(v.encode()) for v in sources.values())>35000:
-        raise SystemExit("diagnosis_selected_too_much_existing_source")
-    change_schema={"type":"object","properties":{
-      "changes":{"type":"array","minItems":1,"maxItems":MAX_FILES,"items":{
-        "type":"object","properties":{"path":{"type":"string"},"reason":{"type":"string"},
-        "content":{"type":"string"},"replacements":{"type":"array","items":{
-          "type":"object","properties":{"old":{"type":"string"},"new":{"type":"string"}},
-          "required":["old","new"],"additionalProperties":False},"maxItems":4}},
-        "required":["path","reason","content","replacements"],"additionalProperties":False}},
-      "verification":{"type":"string"}},
-      "required":["changes","verification"],"additionalProperties":False}
-    implementation=infer(change_schema,
-      "Implement the diagnosed refinement, not another plan. For an EXISTING file, leave content empty and return 1-4 exact old/new text replacements; old text must occur exactly once in the supplied source. For a NEW file, return complete content and an empty replacements array. This patch mode exists so large core modules are never truncated. Keep scope bounded to selected targets. Preserve compatible public interfaces. Do not weaken tests or security gates. Do not fabricate provider access, sales, customers, metrics, or success. Do not add spending, account creation, bulk unsolicited messaging, credential extraction, restriction bypasses, or destructive operations. Prefer reusable general capabilities over a hardcoded business niche.",
-      {"objective":objective,"diagnosis":diagnosis,"selected_sources":sources,
-       "baseline_validation":baseline},2200)
-    changes=implementation.get("changes",[])
-    if not isinstance(changes,list) or not 1<=len(changes)<=MAX_FILES:
-        raise SystemExit("invalid_change_count")
-    seen=set(); total=0; originals={}; finals={}
-    for ch in changes:
-        path=ch.get("path")
-        if path not in targets or path in seen: raise SystemExit("change_outside_diagnosed_targets")
-        seen.add(path)
-        p=ROOT/path
-        original=p.read_text(encoding="utf-8") if p.is_file() else None
-        originals[path]=original
-        if path.startswith("tests/") and original is not None:
-            raise SystemExit("existing_tests_are_immutable_to_refiner")
-        replacements=ch.get("replacements")
-        content=ch.get("content")
-        if original is None:
-            if replacements not in ([],None):
-                raise SystemExit("new_file_must_not_use_replacements")
-            final=content
-        else:
-            if content not in ("",None):
-                raise SystemExit("existing_file_requires_exact_patch_mode")
-            if not isinstance(replacements,list) or not 1<=len(replacements)<=4:
-                raise SystemExit("invalid_replacement_count")
-            final=original
-            for replacement in replacements:
-                old=replacement.get("old") if isinstance(replacement,dict) else None
-                new=replacement.get("new") if isinstance(replacement,dict) else None
-                if not isinstance(old,str) or not old or not isinstance(new,str):
-                    raise SystemExit("invalid_exact_replacement")
-                if final.count(old)!=1:
-                    raise SystemExit("replacement_anchor_not_unique")
-                final=final.replace(old,new,1)
-            if final==original:
-                raise SystemExit("patch_made_no_change")
-        guard_content(path,final)
-        finals[path]=final
-        total+=len(final.encode())
-    if total>MAX_TOTAL_BYTES: raise SystemExit("candidate_too_large")
-    for path,final in finals.items():
-        p=ROOT/path; p.parent.mkdir(parents=True,exist_ok=True); p.write_text(final,encoding="utf-8")
+    if not all(x["ok"] for x in baseline):
+        raise RuntimeError("baseline_validation_failed")
+    phase="observe_and_diagnose"
+    state=evidence_state()
+    diagnosis=diagnose(state)
+    target=diagnosis["target"]
+    if not safe_path(target) or not (ROOT/target).is_file():
+        raise RuntimeError("diagnosed_target_unavailable")
+    source=compact_source(target,diagnosis["goal"]+" "+diagnosis["evidence"])
+    if not source:
+        raise RuntimeError("target_context_empty")
+    phase="implementation_inference"
+    implementation=infer_implementation(diagnosis,state,source)
+    phase="apply_candidate"
+    originals,finals=apply_changes(implementation,diagnosis)
     try:
-        changed_file_checks(list(seen))
+        phase="candidate_validation"
         after=validation()
         if not all(x["ok"] for x in after):
-            raise RuntimeError("full_validation_failed")
-        diff_parts=[]
-        for path in sorted(seen):
-            if originals[path] is None:
-                diff_parts.append("NEW FILE "+path+"\\n"+(ROOT/path).read_text(encoding="utf-8")[:16000])
-            else:
-                diff_parts.append(run("git","diff","--",path,timeout=60).stdout)
-        diff="\\n".join(diff_parts)
-        if not diff.strip(): raise RuntimeError("no_material_change")
-        critic_schema={"type":"object","properties":{"decision":{"type":"string","enum":["approve","reject"]},
-          "reason":{"type":"string"},"risk":{"type":"string"}},"required":["decision","reason","risk"],
-          "additionalProperties":False}
-        critic=infer(critic_schema,
-          "You are the final adversarial reviewer for an autonomous commerce-system refinement. Reject if the patch is prompt-only, unrelated to the diagnosed bottleneck, hardcodes a business model unnecessarily, weakens safety/tests, invents evidence, exposes secrets/PII, adds unauthorized spending or mass outreach, or cannot plausibly improve execution. Approve only a concrete, test-passing system improvement.",
-          {"objective":objective,"diagnosis":diagnosis,"diff":diff[:24000],
-           "validation":after},700)
-        if critic.get("decision")!="approve":
-            raise RuntimeError("critic_rejected:"+str(critic.get("reason",""))[:160])
+            raise RuntimeError("candidate_validation_failed")
+        diff=run("git","diff","--",*sorted(finals),timeout=90).stdout
+        new_files=[p for p,o in originals.items() if o is None]
+        if not diff.strip() and not new_files:
+            raise RuntimeError("no_material_diff")
     except Exception:
-        for path,old in originals.items():
-            p=ROOT/path
-            if old is None:
-                if p.exists(): p.unlink()
-            else: p.write_text(old,encoding="utf-8")
+        restore(originals)
         raise
-    receipt_dir=ROOT/"ops/refiner-runs"; receipt_dir.mkdir(parents=True,exist_ok=True)
-    runid=re.sub(r"[^A-Za-z0-9_-]","",os.getenv("GITHUB_RUN_ID","local"))
-    receipt={"actor":"continuous_autonomous_commerce_refiner","status":"validated_refinement",
-      "bottleneck":str(diagnosis.get("bottleneck",""))[:500],
-      "refinement_goal":str(diagnosis.get("refinement_goal",""))[:500],
-      "expected_measurable_effect":str(diagnosis.get("expected_measurable_effect",""))[:500],
-      "changed_files":sorted(seen),"validation":[{"name":x["name"],"ok":x["ok"]} for x in after],
-      "critic":{"decision":"approve","risk":str(critic.get("risk",""))[:300]}}
-    (receipt_dir/(runid+".json")).write_text(json.dumps(receipt,indent=2)+"\n",encoding="utf-8")
+    phase="receipt"
+    receipt={
+      "actor":"continuous_autonomous_commerce_refiner",
+      "status":"validated_refinement",
+      "bottleneck":diagnosis["bottleneck"],
+      "evidence":diagnosis["evidence"],
+      "refinement_goal":diagnosis["goal"],
+      "expected_measurable_effect":diagnosis["measurable_effect"],
+      "changed_files":sorted(finals),
+      "validation":[{"name":x["name"],"ok":x["ok"]} for x in after],
+      "model_calls":1,
+    }
+    receipt_path().write_text(json.dumps(receipt,indent=2)+"\n",encoding="utf-8")
     write_output("changed","true")
     write_output("failed","false")
-    write_output("changed_files",",".join(sorted(seen)))
+    write_output("changed_files",",".join(sorted(finals)))
     print(json.dumps(receipt))
 
 if __name__=="__main__":
+    phase="entry"
     try:
         main()
     except BaseException as exc:
         if isinstance(exc,KeyboardInterrupt):
             raise
         reason=type(exc).__name__+":"+str(exc)[:220]
-        receipt_dir=ROOT/"ops/refiner-runs"
-        receipt_dir.mkdir(parents=True,exist_ok=True)
-        runid=re.sub(r"[^A-Za-z0-9_-]","",os.getenv("GITHUB_RUN_ID","local"))
         receipt={"actor":"continuous_autonomous_commerce_refiner",
-                 "status":"refinement_failed_or_rejected","reason":reason}
-        (receipt_dir/(runid+".json")).write_text(json.dumps(receipt,indent=2)+"\n",encoding="utf-8")
+                 "status":"refinement_failed_or_rejected",
+                 "reason":reason}
+        try:
+            receipt_path().write_text(json.dumps(receipt,indent=2)+"\n",encoding="utf-8")
+        except OSError:
+            pass
         write_output("changed","false")
         write_output("failed","true")
         print(json.dumps(receipt))
