@@ -1,5 +1,7 @@
 # VendorSettle Desk — consignment payout reports
 
+**[Open the public VendorSettle order page →](https://vendorsettle-checkout.onrender.com/)** · Existing secure Stripe checkout · Email-delivered settlement report.
+
 **One-time statement preparation for consignment retailers — $49 per reporting period**
 
 Tired of calculating vendor payouts in spreadsheets? VendorSettle Desk prepares a vendor-by-vendor settlement summary and transaction-level audit CSV using your anonymized sales export and vendor commission percentages.
