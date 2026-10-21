@@ -29,7 +29,7 @@ STRIPE_LINK = "https://buy.stripe.com/eVq9AS63KcrdfUe3AP7Re00"
 RECEIPT_DIR = Path("ops/external-intelligence-runs")
 SITE = Path("storefront")
 FAQ = SITE / "guide" / "index.html"
-MAX_STEPS = 3
+MAX_STEPS = 2
 DEFAULT_RECENT_DAYS = 14
 TOPICS = ("scope", "csv_format", "privacy", "turnaround")
 REPLIES = ("price", "csv_format", "turnaround", "privacy", "scope")
@@ -86,54 +86,89 @@ def public_http_json(url, allowed_host):
     with urllib.request.urlopen(req, timeout=20) as response:
         return json.loads(response.read(170000).decode("utf-8"))
 
+def allowed_choices(observation):
+    """Dynamically build an enumerated action vocabulary from trusted tools."""
+    choices = ["finish"]
+    for m in observation.get("inbound", [])[:2]:
+        if re.fullmatch(r"[0-9a-f]{16}", m.get("id", "")):
+            choices += ["reply_inbound|" + m["id"] + "|" + k for k in REPLIES]
+    if not observation.get("existing_site_faq_published"):
+        choices += ["publish_faq|" + k for k in TOPICS]
+    for m in observation.get("public_candidate_hints", {}).get("hiring", [])[:5]:
+        if str(m.get("id", "")).isdigit():
+            choices.append("inspect_hiring|" + str(m["id"]))
+    for m in observation.get("public_candidate_hints", {}).get("issues", [])[:4]:
+        if re.fullmatch(r"https://github\.com/[\w.-]+/[\w.-]+/issues/\d+",
+                        str(m.get("id", ""))):
+            choices.append("inspect_issue|" + m["id"])
+    prior = {x.get("tool", "") + "|" + x.get("target", "")
+             for x in observation.get("previous_actions", [])
+             if x.get("result") in {"sent", "customer_facing_site_files_written"}}
+    return [ch for ch in choices if ch not in prior]
+
+
 def llm_turn(observation, urlopen=None):
-    """A real LLM inference request; errors are never disguised as a model action."""
+    """One real local-model choice from a hard enumerated list. No freeform JSON."""
+    choices = allowed_choices(observation)
+    if not choices:
+        raise ValueError("model_no_permitted_choices")
+    schema = {"type": "object", "properties":
+              {"choice": {"type": "string", "enum": choices}},
+              "required": ["choice"], "additionalProperties": False}
+    # A one-field answer avoids freeform prose exhausting tiny CPU inference budgets.
+    short_observation = {
+        "mission": observation.get("mission"),
+        "inbound": observation.get("inbound", [])[:2],
+        "hiring": observation.get("public_candidate_hints", {}).get("hiring", [])[:5],
+        "issues": observation.get("public_candidate_hints", {}).get("issues", [])[:4],
+        "faq_exists": observation.get("existing_site_faq_published"),
+        "previous_step_results": observation.get("this_run", [])[-2:],
+        "prior_successes": observation.get("previous_actions", [])[-3:],
+        "choices": choices
+    }
     req = urllib.request.Request(
         OLLAMA, method="POST", data=json.dumps({
-            "model": MODEL, "stream": False, "format": FORMAT,
-            "options": {"temperature": 0, "num_ctx": 3072, "num_predict": 170},
+            "model": MODEL, "stream": False, "format": schema,
+            "options": {"temperature": 0, "num_ctx": 2304, "num_predict": 72},
             "messages": [
-                {"role": "system", "content": SYSTEM},
-                {"role": "user", "content": json.dumps(observation, ensure_ascii=False)}
+                {"role": "system", "content":
+                 "You are an independent commercial operator. Choose ONE eligible "
+                 "tool from the options supplied. Prioritize an authentic customer inquiry; "
+                 "otherwise inspect current public work opportunities or publish the "
+                 "existing service's missing FAQ once. External hints are not paid orders. "
+                 "Do not repeat this_run actions. Return only JSON of this exact form: "
+                 '{"choice":"EXACT_OPTION_FROM_LIST"}. No explanation.'},
+                {"role": "user", "content": json.dumps(short_observation, ensure_ascii=False)}
             ]
         }).encode(), headers={"Content-Type": "application/json"})
     opener = urlopen or urllib.request.urlopen
-    with opener(req, timeout=240) as stream:
+    with opener(req, timeout=180) as stream:
         result = json.load(stream)
-    text = result.get("message", {}).get("content")
-    if not isinstance(text, str):
-        raise RuntimeError("Local model produced no message content")
+    raw = result.get("message", {}).get("content")
+    if not isinstance(raw, str):
+        raise ValueError("model_no_content")
     try:
-        parsed = json.loads(text)
+        payload = json.loads(raw)
     except json.JSONDecodeError:
-        # A model may wrap a schema-compliant object in explanatory text.
-        # Only extract an actual JSON object; never execute arbitrary output.
-        start = text.find("{")
-        if start < 0:
-            raise ValueError("model_no_json_object") from None
+        start = raw.find("{")
         try:
-            parsed, _ = json.JSONDecoder().raw_decode(text[start:])
-        except json.JSONDecodeError:
-            raise ValueError("model_malformed_json_object") from None
-    if not isinstance(parsed, dict):
-        raise ValueError("model_json_not_object")
-    # Optional presentation fields may be omitted; NEVER infer a tool name,
-    # recipient, URL, action target or forbidden operation from text.
-    action = {
-        "action": parsed.get("action"),
-        "target": parsed.get("target", ""),
-        "reply_kind": parsed.get("reply_kind", "none"),
-        "reason": parsed.get("reason", "")
-    }
-    if action["action"] not in FORMAT["properties"]["action"]["enum"]:
-        raise ValueError("model_unknown_tool")
-    if action["reply_kind"] not in FORMAT["properties"]["reply_kind"]["enum"]:
-        raise ValueError("model_unknown_reply_template")
-    if not all(isinstance(action[k], str) for k in action):
-        raise ValueError("model_invalid_field_type")
-    if len(action["target"]) > 220 or len(action["reason"]) > 800:
-        raise ValueError("model_oversized_action")
-    return action
+            payload, _ = json.JSONDecoder().raw_decode(raw[start:])
+        except (ValueError, IndexError):
+            raise ValueError("model_invalid_single_choice_json") from None
+    choice = payload.get("choice") if isinstance(payload, dict) else None
+    if choice not in choices:
+        raise ValueError("model_choice_not_in_allowlist")
+    parts = choice.split("|")
+    if len(parts) == 1:
+        return {"action": "finish", "target": "", "reply_kind": "none",
+                "reason": "Local model chose finish"}
+    if len(parts) == 2:
+        return {"action": parts[0], "target": parts[1], "reply_kind": "none",
+                "reason": "Local model selected permitted public/owned-site tool"}
+    if len(parts) == 3 and parts[0] == "reply_inbound":
+        return {"action": parts[0], "target": parts[1], "reply_kind": parts[2],
+                "reason": "Local model selected approved inbound FAQ template"}
+    raise ValueError("model_choice_encoding_invalid")
 
 def candidates():
     """Returns only explicitly unverified public hints, never invented qualified leads."""
