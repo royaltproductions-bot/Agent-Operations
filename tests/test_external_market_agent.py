@@ -12,7 +12,7 @@ class OperatorTests(unittest.TestCase):
             def __enter__(self): return self
             def __exit__(self, *args): return False
             def read(self): return b'{"message":{"content":"not json"}}'
-        with self.assertRaises(json.JSONDecodeError):
+        with self.assertRaisesRegex(ValueError, 'model_no_json_object'):
             agent.llm_turn({}, urlopen=lambda req, timeout: Bad())
 
     def test_invalid_targets_and_outbound_blocked(self):
