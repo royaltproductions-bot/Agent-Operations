@@ -6,6 +6,14 @@ on:
       - tools/buffer_publisher.py
       - tests/test_buffer_publisher.py
       - .github/workflows/buffer-code-tests.yml
+  pull_request:
+    paths:
+      - tools/buffer_publisher.py
+      - tools/oddly_auto_publish.py
+      - tools/ai_handoff_executor.py
+      - tests/test_buffer_publisher.py
+      - tests/test_ai_handoff_executor.py
+      - .github/workflows/buffer-code-tests.yml
   workflow_dispatch:
 permissions:
   contents: read
@@ -16,6 +24,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Syntax check
-        run: python3 -m py_compile tools/buffer_publisher.py
-      - name: Offline publisher tests (no API key; nothing published)
-        run: python3 -m unittest discover -s tests -p 'test_buffer_publisher.py' -v
+        run: python3 -m py_compile tools/buffer_publisher.py tools/oddly_auto_publish.py tools/ai_handoff_executor.py
+      - name: Offline publishing and handoff tests (no API key; nothing published)
+        run: |
+          python3 -m unittest discover -s tests -p 'test_buffer_publisher.py' -v
+          python3 -m unittest discover -s tests -p 'test_ai_handoff_executor.py' -v
