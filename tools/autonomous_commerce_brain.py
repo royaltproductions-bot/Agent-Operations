@@ -32,7 +32,7 @@ from tools.agent_commerce_observations import discover as discover_agent_example
 from tools.commerce_portfolio import (CHANNELS, reject_repetition, diagnostics, scorecard)
 
 ROOT = Path("ops/enterprise-runs")
-MODEL = os.environ.get("LOCAL_MODEL", "qwen3:4b-instruct-2507-q4_K_M")
+MODEL = os.environ.get("COMMERCE_MODEL") or os.environ.get("LOCAL_MODEL", "qwen3:8b")
 INBOX = base.INBOX
 TODAY = lambda: datetime.now(timezone.utc)
 MAX_SEARCHES = 3
@@ -138,7 +138,7 @@ def model_json(schema, prompt, observation, opener=None):
     """Real locally hosted Ollama inference, no API key, no simulated decision."""
     req=urllib.request.Request(base.OLLAMA,method="POST",data=json.dumps({
         "model":MODEL,"stream":False,"format":schema,
-        "options":{"temperature":0,"num_ctx":4096,"num_predict":650},
+        "options":{"temperature":0,"num_ctx":6144,"num_predict":800},
         "messages":[{"role":"system","content":prompt},
                     {"role":"user","content":json.dumps(observation,ensure_ascii=False)}]
     }).encode("utf-8"),headers={"Content-Type":"application/json"})
