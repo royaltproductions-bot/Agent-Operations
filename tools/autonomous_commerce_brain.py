@@ -29,8 +29,7 @@ from tools.hn_contract_invitations import clean_html
 from tools.commercial_outcomes import metrics as commercial_metrics
 from tools.sales_conversation import followup_opportunity
 from tools.agent_commerce_observations import discover as discover_agent_examples
-from tools.commerce_portfolio import (LANES, CHANNELS, choose_lane, choose_channel,
-    reject_repetition, diagnostics, scorecard)
+from tools.commerce_portfolio import (CHANNELS, reject_repetition, diagnostics, scorecard)
 
 ROOT = Path("ops/enterprise-runs")
 MODEL = os.environ.get("LOCAL_MODEL", "qwen3:4b-instruct-2507-q4_K_M")
@@ -42,11 +41,11 @@ working, lawful, low-cost commercial operation that earns real money. Choose you
 market, offer, business model, customer group, demand source and distribution tactics;
 do not assume VendorSettle or any previous experiment is your required venture.
 
-Your portfolio has SEVEN possible lanes: paid commissioned services, sales of
-existing checkout offers, owned digital asset licensing, original creator
-commissions, funded software tasks, distribution partnerships, and closing/
-fulfillment/conversion for actual customers. DO NOT default to freelance jobs,
-VendorSettle, a new speculative microproduct, or a favored demographic.
+Business models are not a finite menu. Independently invent economically
+useful transactions, including original digital goods, collectibles, auctions,
+licensing, services, code and combinations nobody preselected. These examples
+are illustrations, not categories or instructions to favor a particular idea.
+Consider realistic creation, discovery, payment and delivery routes.
 Distinguish *market hypothesis* from *observed demand*, *authorized contact*,
 *accepted paid job*, *confirmed payment*, and *delivered work*. Across hours,
 different commercial methods must genuinely compete for resources. Revenue,
@@ -56,9 +55,9 @@ Document the experiment through existing owned creator channels only when
 evidence warrants it, using truthful, permitted publication methods.
 
 Never invent a specific customer, city, urgency, or willingness to pay: buyer fields
-are market hypotheses until independently evidenced. SEARCH buyer requests for work
-before designing a product. Avoid generic speculative microproducts and imaginary
-traffic. Use 2-4 simple topic keywords in search_query, not OR, site:, dates or DSL.
+are market hypotheses until independently evidenced. You may investigate customer demand before building an asset, or create an
+original asset and investigate a suitable market. Avoid assuming traffic
+without an actual distribution route. Use 2-4 simple topic keywords in search_query, not OR, site:, dates or DSL.
 
 You operate on a GitHub Actions Linux runner with Python, JavaScript, public web
 HTTP, GitHub, Stripe payment/order-monitoring, an authorized AgentMail business
@@ -88,7 +87,7 @@ STRATEGY_SCHEMA = {
         "offer":{"type":"string"},
         "delivery_using_existing_tools":{"type":"string"},
         "route_to_buyer":{"type":"string"},
-        "search_channel":{"type":"string","enum":list(CHANNELS)},
+        "search_channel":{"type":"string"},
         "search_query":{"type":"string"},
         "reason":{"type":"string"}
     },
@@ -519,7 +518,7 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
             "timestamp":TODAY().isoformat(),"model":MODEL,
             "mission":"independent_customer_demand_to_paid_execution",
             "model_invoked":False,"hypotheses":[],"actions":[],"tool_actions":[],
-            "portfolio_scope":list(LANES),
+            "portfolio_scope":"open_commercial_exploration",
             "verified_payment_usd":None,"new_paid_orders":None,
             "notes":"Public evidence or a sent proposal is not an accepted contract, customer or sale."}
     # Prioritize genuine replies to verified solicited buyer outreach.
@@ -613,14 +612,11 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
                        "outside income claims are unverified."
         }
     feedback=[]
-    attempted_lanes=[]
-    attempted_channels=[]
     current_experiments=[]
     for attempt in range(MAX_SEARCHES):
-        lane=choose_lane(history,attempted=attempted_lanes)
-        channel=choose_channel(history,lane,attempted=attempted_channels)
-        attempted_lanes.append(lane)
-        attempted_channels.append(channel)
+        # Rotation concerns CURRENT search connectors only, not business ideas.
+        # The LLM invents its commercial category without a fixed lane menu.
+        channel=CHANNELS[attempt % len(CHANNELS)]
         # These are suggestions, not mandatory instructions. The independent
         # model may choose an unexpected business category or any implemented
         # source. Only the actual connector's capabilities remain binding.
@@ -628,8 +624,7 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
         report["model_invoked"]=True
         try:
             strategy=propose(schema,MISSION,
-                             {"suggested_commercial_lane":lane,
-                              "commercial_lane_opportunity":LANES[lane],
+                             {"business_model_selection":"Invent your own commercial model; prior models are only history.",
                               "suggested_public_demand_channel":channel,
                               "cross_run_strategy_diagnostics":diagnostics(history,current_experiments),
                           "verified_provider_outcomes":report["verified_provider_outcomes"],
@@ -638,7 +633,10 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
                           "Choose another route if last one failed.",
                           "previous_queries_to_avoid":prior_queries[-14:],
                           "recent_failures":feedback,
-                          "available_search_channels":list(CHANNELS),
+                           "new_market_findings":report.get("open_market_discoveries",[])[-3:],
+                          "currently_working_public_search_adapters":list(CHANNELS),
+                           "other_markets_may_be_proposed":"Invented distribution models are welcome, "
+                               "even when direct posting/listing connectors need to be built.",
                           "connected_service_observation":tool_context,
                            "optional_live_agent_case_research":research_context,
                           "capability_inventory":capability_status(),
@@ -650,11 +648,28 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
             continue
         # New commercial categories are welcome; the known lanes are examples.
         # A search channel must still have a functioning connector to execute.
-        strategy["lane"]=strategy.get("lane") or lane
-        if strategy["search_channel"] not in CHANNELS:
-            feedback.append({"reason":"new_source_requires_connector",
-                             "source":strategy["search_channel"][:80]})
-            continue
+        strategy["lane"]=strategy.get("lane") or "original_independent_business"
+        requested_source=strategy["search_channel"]
+        if requested_source not in CHANNELS:
+            # A new auction site, art marketplace or creator community is not
+            # an invalid BUSINESS IDEA. Search wider public context where
+            # possible and keep the requested route visible for future tools.
+            feedback.append({"reason":"distribution_connector_not_yet_available",
+                             "requested_source":requested_source[:80],
+                             "using_connected_public_sources_instead":True})
+            try:
+                research=discover_agent_examples(strategy["search_query"])
+                examples=[{"title":x["title"],"url":x["url"]}
+                          for x in research.get("sources",[])[:4]]
+                if examples:
+                    report.setdefault("open_market_discoveries",[]).append({
+                        "intended_market":requested_source[:80],
+                        "research_query":strategy["search_query"][:120],
+                        "public_examples":examples})
+            except (ValueError,TypeError,KeyError,RuntimeError,
+                    urllib.error.URLError,TimeoutError,OSError):
+                pass
+            strategy["search_channel"]=channel
         query=strategy["search_query"].strip()
         if len(query)<4:
             feedback.append({"reason":"unusable_search_term"})
@@ -673,7 +688,8 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
                 feedback.append({"reason":"repeat_query_source_pivot",
                                  "source":strategy["search_channel"]})
         prior_queries.append(query)
-        record={"attempt":attempt+1,"lane":strategy["lane"],"business_model":strategy["offer"][:200],
+        record={"attempt":attempt+1,"lane":strategy["lane"],
+                "requested_distribution_source":requested_source[:80],"business_model":strategy["offer"][:200],
                 "buyer":strategy["buyer"][:150],"problem":strategy["customer_problem"][:200],
                 "channel":strategy["search_channel"],"query":query,
                 "delivery":strategy["delivery_using_existing_tools"][:200],
