@@ -96,6 +96,7 @@ STRATEGY_SCHEMA = {
 STRUCTURAL_FAILURE_REASONS = {
     "distribution_connector_not_yet_available",
     "engine_runtime_failure",
+    "search_connectors_degraded",
 }
 
 def classify_execution_feedback(feedback):
@@ -459,34 +460,37 @@ def send_invited_request(hit,source_text,scope,history,channel,live=False):
         return {"source":url,"result":"delivery_uncertain"}
     return {"source":url,"result":"sent_invited_proposal" if sent else "delivery_uncertain"}
 
-def search_with_source_fallback(strategy, search):
-    """Try real implemented channels before dropping a commercial hypothesis.
+def search_all_sources(strategy,search):
+    """Search every implemented demand connector and combine the evidence.
 
-    External API failures and empty results are OBSERVATIONS, not blanket
-    reasons to forbid that idea. No fabricated leads or imaginary channels.
+    A source returning hits does not imply those hits are useful; candidate
+    qualification happens after all reachable sources have contributed.
     """
     first=strategy["search_channel"]
+    order=[first]+[channel for channel in CHANNELS if channel!=first]
     observations=[]
-    if first not in CHANNELS:
-        observations.append({"channel":first,"status":"preferred_source_not_connected",
-                             "fallback_to_connected_sources":True})
-        order=list(CHANNELS)
-    else:
-        order=[first]+[c for c in CHANNELS if c!=first]
+    combined=[]
     for channel in order:
         query_strategy={**strategy,"search_channel":channel}
         try:
             hits=search(query_strategy)
         except (ValueError,urllib.error.URLError,urllib.error.HTTPError,
-                TimeoutError,KeyError):
-            observations.append({"channel":channel,"status":"source_unavailable"})
+                TimeoutError,KeyError) as exc:
+            detail=("http_"+str(exc.code) if isinstance(exc,urllib.error.HTTPError)
+                    else type(exc).__name__)
+            observations.append({"channel":channel,"status":"source_unavailable",
+                                 "detail":detail})
             continue
-        if hits:
-            observations.append({"channel":channel,"status":"actual_results",
-                                 "candidate_count":len(hits)})
-            return hits,channel,observations
-        observations.append({"channel":channel,"status":"no_matching_demand"})
-    return [],first,observations
+        if not hits:
+            observations.append({"channel":channel,"status":"no_matching_demand"})
+            continue
+        observations.append({"channel":channel,"status":"actual_results",
+                             "candidate_count":len(hits)})
+        for hit in hits[:6]:
+            row=dict(hit)
+            row["channel"]=channel
+            combined.append(row)
+    return combined[:18],observations
 
 def run(propose=model_json,evaluate=model_json,search=search_demand,
         original=read_original,live=True,followup_decider=None):
@@ -516,10 +520,13 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
     # separate LLM call deciding which status/inventory endpoint to inspect.
     feedback=[]
     current_experiments=[]
-    for attempt in range(MAX_SEARCHES):
-        # Rotation concerns CURRENT search connectors only, not business ideas.
-        # The LLM invents its commercial model; only executable search connectors are finite.
-        channel=CHANNELS[attempt % len(CHANNELS)]
+    generated=0
+    executed=0
+    max_generation_calls=MAX_SEARCHES*2
+    while executed < MAX_SEARCHES and generated < max_generation_calls:
+        # Invalid model output does not consume a real market experiment.
+        channel=CHANNELS[generated % len(CHANNELS)]
+        generated+=1
         # These are suggestions, not mandatory instructions. The independent
         # model may choose an unexpected business category or any implemented
         # source. Only the actual connector's capabilities remain binding.
@@ -546,7 +553,7 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
                             "render site","AgentMail opted-in replies",
                             "GitHub public discovery","Stripe payment verification"]})
         except (ValueError,TypeError,KeyError,RuntimeError) as exc:
-            feedback.append({"reason":"model_strategy_invalid","attempt":attempt+1,
+            feedback.append({"reason":"model_strategy_invalid","generation":generated,
                              "detail":str(exc)[:100]})
             continue
         requested_source=strategy["search_channel"]
@@ -570,40 +577,44 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
                 feedback.append({"reason":"duplicate_strategy_no_new_query"})
                 continue
         prior_queries.append(query)
-        record={"attempt":attempt+1,
+        executed+=1
+        record={"attempt":executed,
                 "business_model":strategy["offer"][:200],
                 "buyer":strategy["buyer"][:150],"problem":strategy["customer_problem"][:200],
-                "channel":strategy["search_channel"],"query":query,
+                "preferred_channel":strategy["search_channel"],"query":query,
                 "delivery":strategy["delivery_using_existing_tools"][:200],
                 "distribution":strategy["route_to_buyer"][:180]}
         report["hypotheses"].append(record)
         current_experiments.append({"channel":strategy["search_channel"],
             "buyer":record["buyer"],"problem":record["problem"],
             "offer":record["business_model"],"query":query,"reached_buyer":False})
-        hits,actual_channel,source_attempts=search_with_source_fallback(strategy,search)
+
+        hits,source_attempts=search_all_sources(strategy,search)
         record["source_attempts"]=source_attempts
-        if actual_channel!=strategy["search_channel"]:
-            feedback.append({"reason":"source_fallback_used",
-                             "from":strategy["search_channel"],
-                             "to":actual_channel})
-            strategy["search_channel"]=actual_channel
-            record["channel"]=actual_channel
-            current_experiments[-1]["channel"]=actual_channel
+        record["channels_with_results"]=[
+            item["channel"] for item in source_attempts
+            if item.get("status")=="actual_results"
+        ]
         if not hits:
-            statuses={str(x.get("status","")) for x in source_attempts if isinstance(x,dict)}
-            reason=("search_sources_unavailable"
-                    if statuses and statuses <= {"source_unavailable"}
-                    else "no_matching_public_demand")
-            feedback.append({"reason":reason,
+            unavailable=[x["channel"] for x in source_attempts
+                         if x.get("status")=="source_unavailable"]
+            feedback.append({"reason":"no_matching_public_demand",
                              "query":query,"sources_attempted":source_attempts})
+            if len(unavailable)>=2:
+                feedback.append({"reason":"search_connectors_degraded",
+                                 "channels":unavailable})
             continue
-        # Model sees exact original snippets, not just keyword counts.
-        shortlist=[{"id":str(x["id"]),"url":x["url"],"snippet":x["text"][:850]}
-                   for x in hits[:8]]
+
+        # One model decision across candidates from every reachable source.
+        shortlist=[{"id":str(x["id"]),"url":x["url"],
+                    "channel":x["channel"],
+                    "contact_route_possible":x["channel"] in ("hackernews","reddit_forhire"),
+                    "snippet":x["text"][:850]} for x in hits]
         try:
             decision=evaluate(EVALUATE_SCHEMA,
                               MISSION+"\nSelect only an independently solicited, paid, "
-                          "actually deliverable project with public contact details. "
+                          "actually deliverable project with a public contact route. "
+                          "Candidates marked contact_route_possible=false are demand evidence only, not outreach targets. "
                           "Reject otherwise. Do not invent facts or a lead.",
                           {"strategy":record,"candidates":shortlist,
                            "instruction":"Select an exact listed candidate_id or empty. "
@@ -614,18 +625,21 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
             feedback.append({"reason":"model_candidate_evaluation_invalid","query":query})
             continue
         if decision["action"]!="contact_invited_buyer":
-            feedback.append({"reason":"model_rejected_candidates",
-                             "query":query})
+            feedback.append({"reason":"model_rejected_candidates","query":query})
             continue
         match=next((x for x in hits if str(x["id"])==decision["candidate_id"]),None)
         if match is None:
             feedback.append({"reason":"model_selected_unlisted_candidate"})
             continue
+        candidate_channel=match["channel"]
+        if candidate_channel not in ("hackernews","reddit_forhire"):
+            feedback.append({"reason":"selected_candidate_has_no_executable_contact_route",
+                             "channel":candidate_channel})
+            continue
         try:
-            full=original(match,strategy["search_channel"])
+            full=original(match,candidate_channel)
             action=send_invited_request(match,full,decision["service_scope"],
-                                        history,strategy["search_channel"],
-                                        live=live)
+                                        history,candidate_channel,live=live)
         except (ValueError,urllib.error.URLError,urllib.error.HTTPError,TimeoutError):
             action={"source":match["url"],"result":"original_source_invalid"}
         report["actions"].append(action)
@@ -633,6 +647,7 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
             current_experiments[-1]["reached_buyer"]=True
             break
         feedback.append({"reason":action["result"],"query":query})
+
     structural_failures,commercial_outcomes=classify_execution_feedback(feedback)
     # "Blocker" is reserved for structural inability to execute. Ordinary market
     # misses, rejected candidates, weak strategies and non-conversion remain
