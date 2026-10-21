@@ -1,8 +1,6 @@
 name: Independent Commerce Foundation Builder
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '37 * * * *'
 permissions:
   contents: write
   pull-requests: write
