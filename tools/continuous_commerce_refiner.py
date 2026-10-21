@@ -27,7 +27,7 @@ CONTROL_PLANE={"tools/continuous_commerce_refiner.py"}
 MAX_CHANGES=2
 MAX_NEW_FILE_BYTES=32000
 MAX_CONTEXT_CHARS=19000
-LEGACY_STRUCTURAL_REASONS={"distribution_connector_not_yet_available"}
+LEGACY_STRUCTURAL_REASONS={"distribution_connector_not_yet_available","engine_runtime_failure"}
 COMMERCIAL_REFINEMENT_MIN_RUNS=3
 COMMERCIAL_REFINEMENT_MIN_STREAK=3
 COMMERCIAL_REFINEMENT_COOLDOWN_CYCLES=3
@@ -187,6 +187,17 @@ def diagnose(state):
     failure pattern persists across multiple independent runs.
     """
     structural=state["structural_failure_counts"]
+    runtime_failures=structural.get("engine_runtime_failure",0)
+    if runtime_failures:
+        return {
+          "trigger_kind":"structural_execution_failure",
+          "bottleneck":"The commerce engine encountered a runtime failure and could not complete its experiment.",
+          "evidence":f"engine_runtime_failure={runtime_failures}",
+          "goal":"Repair the commerce runtime so the interrupted experiment path can execute and produce provider-grounded evidence on the next cycle.",
+          "target":"tools/autonomous_commerce_brain.py",
+          "measurable_effect":"The commerce engine completes its experiment cycle instead of terminating structurally."
+        }
+
     missing_distribution=structural.get("distribution_connector_not_yet_available",0)
     if missing_distribution:
         return {
