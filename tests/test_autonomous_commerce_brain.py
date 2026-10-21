@@ -74,6 +74,18 @@ class BrainTests(unittest.TestCase):
         self.assertIsNone(row["verified_payment_usd"])
         self.assertNotIn("contact@samplefirm.org",json.dumps(row))
 
+    def test_model_rejects_placeholder_commerce_strategy(self):
+        strategy={field:"none" for field in brain.STRATEGY_SCHEMA["required"]}
+        strategy["lane"]="none"
+        payload=json.dumps({"message":{"content":json.dumps(strategy)}}).encode()
+        class Response:
+            def __enter__(self): return self
+            def __exit__(self,*args): return False
+            def read(self,*args): return payload
+        def opener(request,timeout=0): return Response()
+        with self.assertRaisesRegex(ValueError,"model_placeholder_strategy"):
+            brain.model_json(brain.STRATEGY_SCHEMA,"plan",{},opener=opener)
+
     def test_never_email_uninvited_or_unsafe_work(self):
         hit={"url":"https://news.ycombinator.com/item?id=444"}
         text="Contract web scraping work needed. Contact buyer@project.io"
