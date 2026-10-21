@@ -48,3 +48,16 @@ jobs:
             sleep 2
           done
           exit 1
+      - name: Verify integrated refinement
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m compileall -q tools tests
+          python3 -m unittest discover -s tests -v
+          python3 tools/connected_commerce_tools.py >/tmp/commerce-refiner-smoke.json
+          python3 - <<'PY'
+          import json
+          row=json.load(open('/tmp/commerce-refiner-smoke.json'))
+          assert isinstance(row,dict) and 'capabilities' in row and 'assets' in row
+          print('integrated commerce smoke verified')
+          PY
