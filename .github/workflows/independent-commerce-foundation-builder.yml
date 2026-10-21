@@ -12,7 +12,7 @@ permissions:
   pull-requests: write
 concurrency:
   group: independent-commerce-foundation-builder
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   develop:
     runs-on: ubuntu-latest
