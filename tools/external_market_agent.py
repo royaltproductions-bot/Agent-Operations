@@ -101,9 +101,27 @@ def allowed_choices(observation):
         if re.fullmatch(r"https://github\.com/[\w.-]+/[\w.-]+/issues/\d+",
                         str(m.get("id", ""))):
             choices.append("inspect_issue|" + m["id"])
+    # Do not revisit the same public hint in another hour, or twice in a run.
     prior = {x.get("tool", "") + "|" + x.get("target", "")
-             for x in observation.get("previous_actions", [])
-             if x.get("result") in {"sent", "customer_facing_site_files_written"}}
+             for x in observation.get("previous_actions", [])}
+    for step in observation.get("this_run", []):
+        tool = step.get("selected_action", "")
+        result = step.get("tool_result") or {}
+        target = result.get("id") or result.get("source") or result.get("topic")
+        if tool and isinstance(target, str):
+            prior.add(tool + "|" + target)
+    # Reply templates are alternate phrasings for the SAME private inquiry.
+    # Never choose another template after any previous send to that inquiry.
+    for step in observation.get("previous_actions", []):
+        if step.get("tool") == "reply_inbound":
+            prior.update("reply_inbound|" + step.get("target", "") + "|" + kind
+                         for kind in REPLIES)
+    for step in observation.get("this_run", []):
+        if step.get("selected_action") == "reply_inbound":
+            result = step.get("tool_result") or {}
+            ident = result.get("id")
+            if ident:
+                prior.update("reply_inbound|" + ident + "|" + kind for kind in REPLIES)
     return [ch for ch in choices if ch not in prior]
 
 
@@ -183,6 +201,7 @@ def candidates():
             {"id": str(x["comment_id"]), "headline": str(x.get("headline", ""))[:180],
              "url": str(x.get("primary_url", "")), "paid_verified": False}
             for x in hiring if str(x.get("comment_id", "")).isdigit()
+            and str(x.get("comment_id")) != "49932275"
         ],
         "issues": [
             {"id": x["url"], "decision": x.get("decision"),
