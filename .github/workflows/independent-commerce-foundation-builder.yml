@@ -1,110 +1,75 @@
-name: Continuous Autonomous Commerce Refiner
-# Refiner self-edits do not recursively trigger; the hourly clock provides the next cycle.\n# Dedicated coder model; schema-enforced refinements go straight to production commerce, where real outcomes validate them.
+name: Commerce Refiner
 on:
-  workflow_dispatch:
   schedule:
     - cron: '7 * * * *'
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
       - '.github/workflows/independent-commerce-foundation-builder.yml'
+
 permissions:
   contents: write
   actions: write
+
 concurrency:
-  group: continuous-autonomous-commerce-refiner
+  group: commerce-refiner
   cancel-in-progress: true
+
 jobs:
   refine:
     runs-on: ubuntu-latest
-    timeout-minutes: 55
+    timeout-minutes: 45
     env:
       REFINER_MODEL: qwen2.5-coder:7b-instruct
       OLLAMA_MODELS: ${{ github.workspace }}/.ollama-cache/models
       OLLAMA_NUM_PARALLEL: '1'
       OLLAMA_MAX_LOADED_MODELS: '1'
       OLLAMA_HOST: 127.0.0.1:11434
+
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 30
+          fetch-depth: 12
           persist-credentials: true
-      - name: Record independently started refinement cycle
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name "commerce-refiner-bot"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          mkdir -p ops/refiner-runs
-          python3 - <<'PY'
-          import json, os
-          from datetime import datetime, timezone
-          path=f"ops/refiner-runs/{os.environ['GITHUB_RUN_ID']}-started.json"
-          with open(path,"w") as f:
-              json.dump({"actor":"continuous_autonomous_commerce_refiner",
-                         "status":"started","run_id":os.environ["GITHUB_RUN_ID"],
-                         "started_at_utc":datetime.now(timezone.utc).isoformat()},f,indent=2)
-              f.write("\n")
-          PY
-          git add ops/refiner-runs/*-started.json
-          git commit -m "Record autonomous refiner cycle start"
-          for attempt in 1 2 3; do
-            if git push origin HEAD:main; then break; fi
-            git fetch origin main
-            git rebase origin/main
-            sleep 2
-          done
-      - name: Cache local model
-        uses: actions/cache@v4
+
+      - uses: actions/cache@v4
         with:
           path: .ollama-cache/models
           key: ollama-refiner-qwen2-5-coder-7b-instruct-v1
-      - name: Install local inference runtime
-        run: |
-          curl -fsSL https://ollama.com/install.sh | sh
-          sudo systemctl stop ollama.service 2>/dev/null || true
-          mkdir -p "$OLLAMA_MODELS"
-          ollama serve >/tmp/ollama.log 2>&1 &
-          sleep 5
-          ollama pull "$REFINER_MODEL"
-      - name: Observe, diagnose and implement refinement
-        id: refine
-        run: python3 tools/continuous_commerce_refiner.py
-      - name: Persist unusable refinement evidence
-        if: steps.refine.outputs.failed == 'true'
+
+      - name: Start refiner model
         shell: bash
         run: |
           set -euo pipefail
-          git add ops/refiner-runs/*.json
-          git -c user.name="commerce-refiner-bot" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "Record unusable refinement attempt for next cycle"
-          for attempt in 1 2 3; do
-            if git push origin HEAD:main; then exit 0; fi
-            git fetch origin main
-            if ! git rebase origin/main; then git rebase --abort || true; exit 1; fi
-            sleep 2
+          curl -fsSL https://ollama.com/install.sh | sh
+          sudo systemctl stop ollama.service 2>/dev/null || true
+          mkdir -p "$OLLAMA_MODELS"
+          nohup ollama serve >/tmp/ollama.log 2>&1 &
+          for attempt in $(seq 1 45); do
+            curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1 && break
+            sleep 1
           done
-          exit 1
-      - name: Integrate experimental refinement into main
+          ollama pull "$REFINER_MODEL"
+
+      - name: Refine from commercial evidence
+        id: refine
+        run: python3 tools/continuous_commerce_refiner.py
+
+      - name: Deploy refinement
         if: steps.refine.outputs.changed == 'true'
         shell: bash
         run: |
           set -euo pipefail
-          if [ -z "$(git status --porcelain -- tools tests products storefront ventures ops/refiner-runs)" ]; then
-            echo "No experimental code change."
-            exit 0
-          fi
-          git add tools tests products storefront ventures ops/refiner-runs
-          git -c user.name="commerce-refiner-bot" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "Deploy autonomous commerce refinement from operational evidence"
+          git add tools/autonomous_commerce_brain.py tools/connected_commerce_tools.py ops/refiner-runs/
+          git -c user.name='commerce-refiner' -c user.email='ari-operations@agentmail.to'             commit -m 'Refine commerce engine from market evidence'
           for attempt in 1 2 3; do
-            if git push origin HEAD:main; then exit 0; fi
+            if git push origin HEAD:main; then
+              gh workflow run independent-intelligence.yml --ref main --repo "$GITHUB_REPOSITORY"
+              exit 0
+            fi
             git fetch origin main
-            if ! git rebase origin/main; then git rebase --abort || true; exit 1; fi
+            git rebase origin/main || { git rebase --abort || true; exit 1; }
             sleep 2
           done
           exit 1
-      - name: Continue production commerce regardless of refiner outcome
-        if: always()
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: gh workflow run independent-intelligence.yml --ref main --repo "$GITHUB_REPOSITORY"
