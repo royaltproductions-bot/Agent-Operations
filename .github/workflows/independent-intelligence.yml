@@ -1,4 +1,4 @@
-name: Independent On-Runner Intelligence - Commerce
+name: Commerce Engine
 on:
   schedule:
     - cron: '23 * * * *'
@@ -6,26 +6,28 @@ on:
   push:
     branches: [main]
     paths:
-      - '.github/workflows/independent-intelligence.yml'
-      - 'tools/external_market_agent.py'
       - 'tools/autonomous_commerce_brain.py'
-      - 'tools/agent_commerce_observations.py'
       - 'tools/connected_commerce_tools.py'
-      - 'tools/render_deploy_bridge.py'
-      - 'tools/render_direct_api.py'
-      - 'tools/commerce_portfolio.py'
       - 'tools/commercial_outcomes.py'
       - 'tools/sales_conversation.py'
+      - 'tools/commerce_portfolio.py'
+      - 'tools/agent_commerce_observations.py'
+      - 'tools/external_market_agent.py'
+      - 'tools/hn_contract_invitations.py'
+      - 'tools/render_direct_api.py'
       - 'storefront/**'
+      - '.github/workflows/independent-intelligence.yml'
+
 permissions:
   contents: write
   actions: write
+
 concurrency:
-  group: independent-on-runner-intelligence-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'production' }}
+  group: commerce-engine-production
   cancel-in-progress: false
 
 jobs:
-  autonomous-operation:
+  run:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
@@ -42,36 +44,33 @@ jobs:
       COMMERCE_SEND_ENABLED: 'YES'
       AGENTMAIL_AGENT_REPLIES_ENABLED: 'YES'
       ENTERPRISE_OUTREACH_ENABLED: 'YES'
+
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 5
           persist-credentials: true
-      - name: Observe Render deployment status without gating commerce
-        continue-on-error: true
-        run: python3 -m tools.render_direct_api --check
-      - name: Restore local open-weight model cache
-        uses: actions/cache@v4
+
+      - uses: actions/cache@v4
         with:
           path: .ollama-cache/models
           key: ollama-commerce-qwen3-8b-v1
-      - name: Install model runtime locally, no sign-in or paid inference API
+
+      - name: Start commerce model
         shell: bash
         run: |
           set -euo pipefail
-          curl --fail --silent --show-error --location https://ollama.com/install.sh -o /tmp/install-ollama.sh
-          sh /tmp/install-ollama.sh
+          curl -fsSL https://ollama.com/install.sh | sh
           sudo systemctl stop ollama.service 2>/dev/null || true
           mkdir -p "$OLLAMA_MODELS"
-          nohup ollama serve >/tmp/ollama-runner.log 2>&1 &
+          nohup ollama serve >/tmp/ollama.log 2>&1 &
           for attempt in $(seq 1 45); do
-            if curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then break; fi
+            curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1 && break
             sleep 1
           done
-          curl -fsS http://127.0.0.1:11434/api/tags >/dev/null
           ollama pull "$COMMERCE_MODEL"
-          ollama list
-      - name: Let independent model select and execute actual tools
+
+      - name: Run commercial experiment
         id: commerce
         shell: bash
         run: |
@@ -84,61 +83,41 @@ jobs:
             python3 - <<'PY'
           import json, os
           from datetime import datetime, timezone
-          p=f"ops/enterprise-runs/{os.environ['GITHUB_RUN_ID']}-{os.environ['GITHUB_RUN_ATTEMPT']}.json"
-          row={
+          path=f"ops/enterprise-runs/{os.environ['GITHUB_RUN_ID']}-{os.environ['GITHUB_RUN_ATTEMPT']}.json"
+          data={
             "schema_version":1,
             "engine":"local_open_weight_llm_commerce",
             "timestamp":datetime.now(timezone.utc).isoformat(),
             "model":os.environ.get("COMMERCE_MODEL","unknown"),
-            "mission":"independent_customer_demand_to_paid_execution",
-            "model_invoked":True,
-            "hypotheses":[],
-            "actions":[],
-            "tool_actions":[],
+            "hypotheses":[],"actions":[],"tool_actions":[],
             "structural_failures":[{"reason":"engine_process_failure"}],
             "commercial_outcomes":[],
-            "failures_or_blockers":[{"reason":"engine_process_failure"}],
             "qualified_external_contacts":0,
             "verified_payment_usd":None,
-            "new_paid_orders":None,
-            "notes":"Commerce process failed before a normal receipt; preserved for autonomous repair."
           }
-          with open(p,"w") as f:
-              json.dump(row,f,indent=2); f.write("\n")
+          with open(path,"w") as f:
+              json.dump(data,f,indent=2); f.write("\n")
           PY
           fi
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           exit 0
-      - name: Persist model-originated tool receipts and owned-site output
-        if: always()
+
+      - name: Persist experiment receipt
         shell: bash
         run: |
           set -euo pipefail
           git add ops/enterprise-runs/
-          if test -d ops/render-deploy-requests; then git add ops/render-deploy-requests/; fi
-          if git diff --cached --quiet; then
-            echo 'No new authorized intelligence output.'
-            exit 0
-          fi
-          git config user.name 'independent-commerce-model'
-          git config user.email 'ari-operations@agentmail.to'
-          git commit -m 'Record independently executed model decisions and customer-facing actions'
+          if git diff --cached --quiet; then exit 0; fi
+          git -c user.name='commerce-engine' -c user.email='ari-operations@agentmail.to'             commit -m 'Record commerce experiment outcome'
           for attempt in 1 2 3; do
-            if git push origin HEAD:main; then exit 0; fi
+            git push origin HEAD:main && exit 0
             git fetch origin main
-            if ! git rebase origin/main; then
-              git rebase --abort || true
-              exit 1
-            fi
+            git rebase origin/main || { git rebase --abort || true; exit 1; }
             sleep 2
           done
           exit 1
-      - name: Launch autonomous repair immediately after structural commerce failure
+
+      - name: Send structural failure to refiner
         if: steps.commerce.outputs.exit_code != '0'
-        env:
-          GH_TOKEN: ${{ github.token }}
+        shell: bash
         run: gh workflow run independent-commerce-foundation-builder.yml --ref main --repo "$GITHUB_REPOSITORY"
-      - name: Independently publish committed storefront revision if needed
-        if: steps.commerce.outputs.exit_code == '0'
-        continue-on-error: true
-        run: python3 -m tools.render_direct_api --deploy
