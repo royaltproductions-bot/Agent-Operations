@@ -499,7 +499,6 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
                           "currently_working_public_search_adapters":list(CHANNELS),
                            "other_markets_may_be_proposed":"Invented distribution models are welcome, "
                                "even when direct posting/listing connectors need to be built.",
-                          "connected_service_observation":tool_context,
                           "capability_inventory":capability_status(),
                           "existing_capabilities":["python","nodejs","CSV processing",
                             "render site","AgentMail opted-in replies",
