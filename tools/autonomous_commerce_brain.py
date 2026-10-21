@@ -534,7 +534,7 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
     current_experiments=[]
     for attempt in range(MAX_SEARCHES):
         # Rotation concerns CURRENT search connectors only, not business ideas.
-        # The LLM invents its commercial category without a fixed lane menu.
+        # The LLM invents its commercial model; only executable search connectors are finite.
         channel=CHANNELS[attempt % len(CHANNELS)]
         # These are suggestions, not mandatory instructions. The independent
         # model may choose an unexpected business category or any implemented
