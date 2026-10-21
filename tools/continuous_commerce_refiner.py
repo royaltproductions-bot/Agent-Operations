@@ -197,7 +197,7 @@ def main():
     implementation=infer(change_schema,
       "Implement the diagnosed refinement, not another plan. For an EXISTING file, leave content empty and return 1-4 exact old/new text replacements; old text must occur exactly once in the supplied source. For a NEW file, return complete content and an empty replacements array. This patch mode exists so large core modules are never truncated. Keep scope bounded to selected targets. Preserve compatible public interfaces. Do not weaken tests or security gates. Do not fabricate provider access, sales, customers, metrics, or success. Do not add spending, account creation, bulk unsolicited messaging, credential extraction, restriction bypasses, or destructive operations. Prefer reusable general capabilities over a hardcoded business niche.",
       {"objective":objective,"diagnosis":diagnosis,"selected_sources":sources,
-       "baseline_validation":baseline},9000)
+       "baseline_validation":baseline},3500)
     changes=implementation.get("changes",[])
     if not isinstance(changes,list) or not 1<=len(changes)<=MAX_FILES:
         raise SystemExit("invalid_change_count")
