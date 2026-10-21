@@ -131,7 +131,7 @@ def read_targets(paths):
     result={}
     for path in paths:
         p=ROOT/path
-        result[path]=p.read_text(encoding="utf-8")[:30000] if p.is_file() else ""
+        result[path]=p.read_text(encoding="utf-8")[:MAX_FILE_BYTES] if p.is_file() else ""
     return result
 
 def write_output(name,value):
