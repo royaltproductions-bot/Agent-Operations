@@ -303,8 +303,11 @@ credentials, or completed work. Do not add spending, account creation, restricti
 bypasses, destructive behavior, or bulk unsolicited messaging. Prefer executable code
 that moves the measured funnel over prompt-only commentary."""
     if recovery_note:
-        prompt += "\nThe previous implementation payload was unusable: "+recovery_note[:220]+
-                  "\nRECOVER NOW: return EXACTLY ONE change, and it MUST patch target_path using exact replacements from the supplied source. Do not return an empty changes array."
+        prompt += (
+            "\nThe previous implementation payload was unusable: "+recovery_note[:220]+
+            "\nRECOVER NOW: return EXACTLY ONE change, and it MUST patch target_path "
+            "using exact replacements from the supplied source. Do not return an empty changes array."
+        )
     system=prompt+"\nReturn ONLY JSON matching: "+json.dumps(schema,separators=(",",":"))
     observation={"diagnosis":diagnosis,
                  "operational_evidence":{
@@ -322,7 +325,7 @@ that moves the measured funnel over prompt-only commentary."""
     payload=json.dumps({"model":MODEL,
       "messages":[{"role":"system","content":system},
                   {"role":"user","content":json.dumps(observation,ensure_ascii=False)}],
-      "stream":False,"format":"json","keep_alive":"20m",
+      "stream":False,"format":schema,"keep_alive":"20m",
       "options":{"temperature":0.05,"num_ctx":8192,"num_predict":1700}}).encode()
     req=urllib.request.Request("http://127.0.0.1:11434/api/chat",data=payload,
                                headers={"Content-Type":"application/json"})
