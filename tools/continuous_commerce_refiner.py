@@ -66,7 +66,7 @@ def inventory():
                 try: size=p.stat().st_size
                 except OSError: continue
                 rows.append({"path":rel,"bytes":size})
-    return sorted(rows,key=lambda x:x["path"])[:700]
+    return sorted(rows,key=lambda x:x["path"])[:400]
 
 def sanitized_receipts():
     out=[]
