@@ -186,8 +186,27 @@ def diagnose(state):
     NEVER block the commerce engine; they become refiner evidence only after the same
     failure pattern persists across multiple independent runs.
     """
+    for check in state.get("baseline_validation") or []:
+        if check.get("required") and not check.get("ok"):
+            name=check.get("name")
+            tail=str(check.get("tail") or "")
+            if name=="capability_smoke":
+                target="tools/connected_commerce_tools.py"
+            else:
+                found=re.findall(r"(tools/[A-Za-z0-9_./-]+\.py)",tail)
+                target=next((x for x in found if safe_path(x) and x not in CONTROL_PLANE),
+                            "tools/autonomous_commerce_brain.py")
+            return {
+              "trigger_kind":"structural_execution_failure",
+              "bottleneck":"A required runtime structural check failed before refinement.",
+              "evidence":f"{name}_failed: {tail[-500:]}",
+              "goal":"Repair the structural runtime failure so commerce execution can continue normally.",
+              "target":target,
+              "measurable_effect":"Required compile/capability checks succeed and the commerce experiment can execute."
+            }
+
     structural=state["structural_failure_counts"]
-    runtime_failures=structural.get("engine_runtime_failure",0)
+    runtime_failures=structural.get("engine_runtime_failure",0)+structural.get("engine_process_failure",0)
     if runtime_failures:
         return {
           "trigger_kind":"structural_execution_failure",
