@@ -42,11 +42,11 @@ working, lawful, low-cost commercial operation that earns real money. Choose you
 market, offer, business model, customer group, demand source and distribution tactics;
 do not assume VendorSettle or any previous experiment is your required venture.
 
-Your portfolio has SEVEN possible lanes: paid commissioned services, sales of
-existing checkout offers, owned digital asset licensing, original creator
-commissions, funded software tasks, distribution partnerships, and closing/
-fulfillment/conversion for actual customers. DO NOT default to freelance jobs,
-VendorSettle, a new speculative microproduct, or a favored demographic.
+Business models are not a finite menu. Independently invent economically
+useful transactions, including original digital goods, collectibles, auctions,
+licensing, services, code and combinations nobody preselected. These examples
+are illustrations, not categories or instructions to favor a particular idea.
+Consider realistic creation, discovery, payment and delivery routes.
 Distinguish *market hypothesis* from *observed demand*, *authorized contact*,
 *accepted paid job*, *confirmed payment*, and *delivered work*. Across hours,
 different commercial methods must genuinely compete for resources. Revenue,
@@ -56,9 +56,9 @@ Document the experiment through existing owned creator channels only when
 evidence warrants it, using truthful, permitted publication methods.
 
 Never invent a specific customer, city, urgency, or willingness to pay: buyer fields
-are market hypotheses until independently evidenced. SEARCH buyer requests for work
-before designing a product. Avoid generic speculative microproducts and imaginary
-traffic. Use 2-4 simple topic keywords in search_query, not OR, site:, dates or DSL.
+are market hypotheses until independently evidenced. You may investigate customer demand before building an asset, or create an
+original asset and investigate a suitable market. Avoid assuming traffic
+without an actual distribution route. Use 2-4 simple topic keywords in search_query, not OR, site:, dates or DSL.
 
 You operate on a GitHub Actions Linux runner with Python, JavaScript, public web
 HTTP, GitHub, Stripe payment/order-monitoring, an authorized AgentMail business
@@ -519,7 +519,7 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
             "timestamp":TODAY().isoformat(),"model":MODEL,
             "mission":"independent_customer_demand_to_paid_execution",
             "model_invoked":False,"hypotheses":[],"actions":[],"tool_actions":[],
-            "portfolio_scope":list(LANES),
+            "portfolio_scope":"open_commercial_exploration",
             "verified_payment_usd":None,"new_paid_orders":None,
             "notes":"Public evidence or a sent proposal is not an accepted contract, customer or sale."}
     # Prioritize genuine replies to verified solicited buyer outreach.
@@ -628,8 +628,8 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
         report["model_invoked"]=True
         try:
             strategy=propose(schema,MISSION,
-                             {"suggested_commercial_lane":lane,
-                              "commercial_lane_opportunity":LANES[lane],
+                             {"suggested_commercial_lane":"model_chosen_unrestricted_market",
+                              "commercial_lane_opportunity":"The historical portfolio examples do not limit new ventures.",
                               "suggested_public_demand_channel":channel,
                               "cross_run_strategy_diagnostics":diagnostics(history,current_experiments),
                           "verified_provider_outcomes":report["verified_provider_outcomes"],
@@ -650,7 +650,7 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
             continue
         # New commercial categories are welcome; the known lanes are examples.
         # A search channel must still have a functioning connector to execute.
-        strategy["lane"]=strategy.get("lane") or lane
+        strategy["lane"]=strategy.get("lane") or "original_independent_business"
         if strategy["search_channel"] not in CHANNELS:
             feedback.append({"reason":"new_source_requires_connector",
                              "source":strategy["search_channel"][:80]})
