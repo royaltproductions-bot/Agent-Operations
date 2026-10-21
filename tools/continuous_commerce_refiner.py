@@ -41,14 +41,17 @@ def choose_signal():
     if not commerce:
         return None
 
-    latest_name=commerce[0][0]
+    latest_name,latest_row=commerce[0]
     structural=Counter()
     commercial_runs=Counter()
 
+    # Structural repair is about what is broken NOW, not historical crashes
+    # that may already have been superseded by a newer engine revision.
+    for item in latest_row.get("structural_failures") or []:
+        if isinstance(item,dict) and item.get("reason"):
+            structural[str(item["reason"])]+=1
+
     for _,row in commerce:
-        for item in row.get("structural_failures") or []:
-            if isinstance(item,dict) and item.get("reason"):
-                structural[str(item["reason"])]+=1
         seen=set()
         for item in row.get("commercial_outcomes") or []:
             if isinstance(item,dict) and item.get("reason"):
@@ -56,7 +59,7 @@ def choose_signal():
         for reason in seen:
             commercial_runs[reason]+=1
 
-    # Machinery failures are repair work immediately.
+    # Machinery failures in the latest run are repair work immediately.
     if structural:
         reason,count=structural.most_common(1)[0]
         target=("providers" if any(word in reason for word in
