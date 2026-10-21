@@ -27,6 +27,7 @@ CONTROL_PLANE={"tools/continuous_commerce_refiner.py"}
 MAX_CHANGES=2
 MAX_NEW_FILE_BYTES=32000
 MAX_CONTEXT_CHARS=19000
+LEGACY_STRUCTURAL_REASONS={"distribution_connector_not_yet_available"}
 
 def run(*cmd,timeout=300):
     return subprocess.run(cmd,cwd=ROOT,text=True,capture_output=True,timeout=timeout)
@@ -80,7 +81,8 @@ def evidence_state():
     enterprise=read_jsons("ops/enterprise-runs",12)
     refiner=read_jsons("ops/refiner-runs",12)
     scheduled=read_jsons("ops/scheduled-commerce-attestations",6)
-    blockers=[]
+    structural=[]
+    commercial=[]
     contacts=replies=paid=fulfilled=0
     latest_scorecard={}
     latest_provider={}
@@ -91,9 +93,20 @@ def evidence_state():
         contacts+=int(row.get("qualified_external_contacts") or 0)
         diagnostic=row.get("portfolio_diagnostics") or {}
         research_loop=research_loop or diagnostic.get("research_loop_alert") is True
-        for b in (row.get("failures_or_blockers") or [])[:12]:
-            if isinstance(b,dict) and b.get("reason"):
-                blockers.append(str(b["reason"])[:100])
+        explicit=row.get("structural_failures")
+        if isinstance(explicit,list):
+            for item in explicit[:12]:
+                if isinstance(item,dict) and item.get("reason"):
+                    structural.append(str(item["reason"])[:100])
+        else:
+            # Old receipts mixed market outcomes with failures. Only known
+            # structural capability gaps survive legacy migration.
+            for item in (row.get("failures_or_blockers") or [])[:12]:
+                if isinstance(item,dict) and item.get("reason") in LEGACY_STRUCTURAL_REASONS:
+                    structural.append(str(item["reason"])[:100])
+        for item in (row.get("commercial_outcomes") or [])[:12]:
+            if isinstance(item,dict) and item.get("reason"):
+                commercial.append(str(item["reason"])[:100])
     if latest_scorecard:
         replies=int(latest_scorecard.get("buyer_replies_verified") or
                     latest_scorecard.get("verified_reply_threads_to_sent_invitations") or 0)
@@ -107,8 +120,10 @@ def evidence_state():
                       if x.get("status")=="refinement_failed_or_rejected"][:6]
     return {
       "enterprise_runs_seen":len(enterprise),
-      "blocker_counts":dict(Counter(blockers).most_common(10)),
-      "recent_blockers":blockers[:14],
+      "structural_failure_counts":dict(Counter(structural).most_common(10)),
+      "recent_structural_failures":structural[:14],
+      "commercial_outcome_counts":dict(Counter(commercial).most_common(10)),
+      "recent_commercial_outcomes":commercial[:14],
       "research_loop_alert":research_loop,
       "qualified_external_contacts_recent":contacts,
       "buyer_replies_verified":replies,
@@ -125,65 +140,22 @@ def evidence_state():
     }
 
 def diagnose(state):
-    counts=state["blocker_counts"]
-    invalid=sum(counts.get(x,0) for x in
-                ("model_strategy_invalid","model_candidate_evaluation_invalid",
-                 "model_selected_unlisted_candidate","unusable_search_term"))
-    missing_distribution=counts.get("distribution_connector_not_yet_available",0)
-    rejected=counts.get("model_rejected_candidates",0)
-    no_demand=counts.get("no_matching_public_demand",0)
-    contacts=state["qualified_external_contacts_recent"]
-    replies=state["buyer_replies_verified"]
-    paid=state["paid_orders_verified"]
-    fulfilled=state["fulfillment_receipts_verified"]
+    """Return a code-refinement target only for structural execution failures.
 
-    if invalid or state["research_loop_alert"] or (contacts==0 and rejected+no_demand>0):
-        return {
-          "bottleneck":"Commercial reasoning is stalling before verified buyer reach.",
-          "evidence":f"invalid={invalid}; rejected={rejected}; no_demand={no_demand}; contacts={contacts}; research_loop={state['research_loop_alert']}",
-          "goal":"Improve the open-ended commerce brain so it produces concrete executable strategies, pivots from dead searches, and reaches genuinely qualified external demand instead of placeholder or research-loop output.",
-          "target":"tools/autonomous_commerce_brain.py",
-          "measurable_effect":"Fewer invalid/repeated strategies and at least one evidence-qualified external action when legitimate demand exists."
-        }
+    Market misses, rejected candidates, non-conversion and other economic outcomes
+    belong to the commerce brain. They must never trigger code changes by themselves.
+    """
+    counts=state["structural_failure_counts"]
+    missing_distribution=counts.get("distribution_connector_not_yet_available",0)
     if missing_distribution:
         return {
-          "bottleneck":"Open-ended strategies are proposing distribution routes the runtime cannot execute.",
+          "bottleneck":"A required execution capability is not implemented in the connected commerce layer.",
           "evidence":f"distribution_connector_not_yet_available={missing_distribution}",
-          "goal":"Expand reusable connected-commerce execution so novel strategies can reach real external markets through already authorized accounts without hardcoding a business model.",
+          "goal":"Implement a reusable authorized execution capability for model-selected distribution routes without hardcoding a business model.",
           "target":"tools/connected_commerce_tools.py",
-          "measurable_effect":"A larger share of model-selected distribution routes become executable and provider-verifiable."
+          "measurable_effect":"A previously selected legitimate distribution route becomes executable and provider-verifiable."
         }
-    if contacts>0 and replies==0:
-        return {
-          "bottleneck":"Verified buyer reach is not converting to buyer replies.",
-          "evidence":f"contacts={contacts}; replies={replies}",
-          "goal":"Improve truthful offer framing, qualification, and follow-up behavior for already-authorized buyer contact while preserving anti-spam and invitation checks.",
-          "target":"tools/sales_conversation.py",
-          "measurable_effect":"Verified reply threads increase without increasing uninvited contact."
-        }
-    if replies>0 and paid==0:
-        return {
-          "bottleneck":"Buyer engagement is not converting to a verified paid transaction.",
-          "evidence":f"replies={replies}; paid={paid}",
-          "goal":"Improve general checkout/offer handoff so an accepted legitimate offer can receive a correctly scoped dynamic payment path and remain auditable.",
-          "target":"tools/connected_commerce_tools.py",
-          "measurable_effect":"Verified paid checkout conversion becomes possible for more than one hardcoded offer."
-        }
-    if paid>fulfilled:
-        return {
-          "bottleneck":"Verified paid demand exceeds verified fulfillment.",
-          "evidence":f"paid={paid}; fulfilled={fulfilled}",
-          "goal":"Generalize paid-order fulfillment so supported original digital deliverables can be produced and delivered safely beyond one fixed product.",
-          "target":"tools/commerce_operator.py",
-          "measurable_effect":"Every supported verified paid order reaches an auditable fulfillment receipt."
-        }
-    return {
-      "bottleneck":"The engine lacks enough verified commercial outcome evidence to optimize a later funnel stage.",
-      "evidence":f"contacts={contacts}; replies={replies}; paid={paid}; fulfilled={fulfilled}",
-      "goal":"Strengthen the general commerce brain's ability to convert open-ended market hypotheses into an executable buyer-reaching experiment using existing authorized infrastructure.",
-      "target":"tools/autonomous_commerce_brain.py",
-      "measurable_effect":"A concrete provider-verifiable commercial action replaces another research-only cycle."
-    }
+    return None
 
 def lexical_tokens(text):
     return {x for x in re.findall(r"[a-z0-9_]{4,}",text.lower())
@@ -240,8 +212,8 @@ that moves the measured funnel over prompt-only commentary."""
     system=prompt+"\nReturn ONLY JSON matching: "+json.dumps(schema,separators=(",",":"))
     observation={"diagnosis":diagnosis,
                  "operational_evidence":{
-                    "blocker_counts":state["blocker_counts"],
-                    "research_loop_alert":state["research_loop_alert"],
+                    "structural_failure_counts":state["structural_failure_counts"],
+                    "recent_structural_failures":state["recent_structural_failures"],
                     "contacts":state["qualified_external_contacts_recent"],
                     "replies":state["buyer_replies_verified"],
                     "paid":state["paid_orders_verified"],
@@ -392,6 +364,20 @@ def main():
     phase="observe_and_diagnose"
     state=evidence_state()
     diagnosis=diagnose(state)
+    if diagnosis is None:
+        receipt={
+          "actor":"continuous_autonomous_commerce_refiner",
+          "status":"no_structural_refinement_required",
+          "model":MODEL,
+          "commercial_outcomes_observed":state["commercial_outcome_counts"],
+          "structural_failures_observed":state["structural_failure_counts"],
+          "note":"Commercial outcomes are owned by the commerce engine and did not trigger code refinement.",
+        }
+        receipt_path().write_text(json.dumps(receipt,indent=2)+"\n",encoding="utf-8")
+        write_output("changed","false")
+        write_output("failed","false")
+        print(json.dumps(receipt))
+        return
     target=diagnosis["target"]
     if not safe_path(target) or not (ROOT/target).is_file():
         raise RuntimeError("diagnosed_target_unavailable")
