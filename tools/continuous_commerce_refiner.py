@@ -279,7 +279,7 @@ def compact_source(path,goal):
         out.append(block)
     return "".join(out)[:MAX_CONTEXT_CHARS]
 
-def infer_implementation(diagnosis,state,source):
+def infer_implementation(diagnosis,state,source,recovery_note=""):
     schema={"type":"object","properties":{
       "changes":{"type":"array","minItems":1,"maxItems":MAX_CHANGES,"items":{
         "type":"object","properties":{
@@ -302,6 +302,9 @@ backward-compatible public interfaces. Do not fabricate buyers, revenue, provide
 credentials, or completed work. Do not add spending, account creation, restriction
 bypasses, destructive behavior, or bulk unsolicited messaging. Prefer executable code
 that moves the measured funnel over prompt-only commentary."""
+    if recovery_note:
+        prompt += "\nThe previous implementation payload was unusable: "+recovery_note[:220]+
+                  "\nRECOVER NOW: return EXACTLY ONE change, and it MUST patch target_path using exact replacements from the supplied source. Do not return an empty changes array."
     system=prompt+"\nReturn ONLY JSON matching: "+json.dumps(schema,separators=(",",":"))
     observation={"diagnosis":diagnosis,
                  "operational_evidence":{
@@ -352,6 +355,13 @@ def substantive_change(path,old,new):
 
 def apply_changes(implementation,diagnosis):
     changes=implementation.get("changes")
+    if isinstance(changes,list) and len(changes)>MAX_CHANGES:
+        target=diagnosis["target"]
+        target_changes=[x for x in changes if isinstance(x,dict) and x.get("path")==target]
+        other_changes=[x for x in changes if x not in target_changes]
+        changes=(target_changes+other_changes)[:MAX_CHANGES]
+        implementation=dict(implementation)
+        implementation["changes"]=changes
     if not isinstance(changes,list) or not 1<=len(changes)<=MAX_CHANGES:
         raise ValueError("invalid_change_count")
     target=diagnosis["target"]
@@ -460,8 +470,18 @@ def main():
         raise RuntimeError("target_context_empty")
     phase="implementation_inference"
     implementation=infer_implementation(diagnosis,state,source)
+    model_calls=1
     phase="apply_candidate"
-    originals,finals=apply_changes(implementation,diagnosis)
+    try:
+        originals,finals=apply_changes(implementation,diagnosis)
+    except ValueError as exc:
+        # A malformed model patch is a recoverable generation error, not a reason
+        # to stop the autonomous system.
+        phase="implementation_recovery"
+        implementation=infer_implementation(diagnosis,state,source,recovery_note=str(exc))
+        model_calls=2
+        phase="apply_recovered_candidate"
+        originals,finals=apply_changes(implementation,diagnosis)
     phase="experimental_integration"
     diff=run("git","diff","--",*sorted(finals),timeout=90).stdout
     new_files=[p for p,o in originals.items() if o is None]
@@ -480,7 +500,7 @@ def main():
       "changed_files":sorted(finals),
       "commercial_validation":"production commerce outcomes and verified revenue",
       "model":MODEL,
-      "model_calls":1,
+      "model_calls":model_calls,
     }
     receipt_path().write_text(json.dumps(receipt,indent=2)+"\n",encoding="utf-8")
     write_output("changed","true")
@@ -497,12 +517,14 @@ if __name__=="__main__":
             raise
         reason=type(exc).__name__+":"+str(exc)[:220]
         receipt={"actor":"continuous_autonomous_commerce_refiner",
-                 "status":"refiner_execution_failed","model":MODEL,
-                 "reason":reason}
+                 "status":"refiner_attempt_unusable","model":MODEL,
+                 "reason":reason,
+                 "note":"Refinement attempt did not produce a deployable patch; commerce must continue."}
         try:
             receipt_path().write_text(json.dumps(receipt,indent=2)+"\n",encoding="utf-8")
         except OSError:
             pass
         write_output("changed","false")
         write_output("failed","true")
+        write_output("changed","false")
         print(json.dumps(receipt))
