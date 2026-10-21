@@ -33,6 +33,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          git config user.name "commerce-refiner-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           mkdir -p ops/refiner-runs
           python3 - <<'PY'
           import json, os
@@ -45,8 +47,13 @@ jobs:
               f.write("\n")
           PY
           git add ops/refiner-runs/*-started.json
-          git -c user.name="commerce-refiner-bot" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "Record autonomous refiner cycle start"
-          git push origin HEAD:main
+          git commit -m "Record autonomous refiner cycle start"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then break; fi
+            git fetch origin main
+            git rebase origin/main
+            sleep 2
+          done
       - name: Cache local model
         uses: actions/cache@v4
         with:
