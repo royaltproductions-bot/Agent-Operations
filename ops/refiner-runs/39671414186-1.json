@@ -1,0 +1,6 @@
+{
+  "actor": "continuous_autonomous_commerce_refiner",
+  "status": "refinement_failed_or_rejected",
+  "model": "qwen2.5-coder:7b-instruct",
+  "reason": "ValueError:invalid_change_count"
+}
