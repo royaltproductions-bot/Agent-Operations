@@ -29,8 +29,7 @@ from tools.hn_contract_invitations import clean_html
 from tools.commercial_outcomes import metrics as commercial_metrics
 from tools.sales_conversation import followup_opportunity
 from tools.agent_commerce_observations import discover as discover_agent_examples
-from tools.commerce_portfolio import (LANES, CHANNELS, choose_lane, choose_channel,
-    reject_repetition, diagnostics, scorecard)
+from tools.commerce_portfolio import (CHANNELS, reject_repetition, diagnostics, scorecard)
 
 ROOT = Path("ops/enterprise-runs")
 MODEL = os.environ.get("LOCAL_MODEL", "qwen3:4b-instruct-2507-q4_K_M")
@@ -613,14 +612,11 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
                        "outside income claims are unverified."
         }
     feedback=[]
-    attempted_lanes=[]
-    attempted_channels=[]
     current_experiments=[]
     for attempt in range(MAX_SEARCHES):
-        lane=choose_lane(history,attempted=attempted_lanes)
-        channel=choose_channel(history,lane,attempted=attempted_channels)
-        attempted_lanes.append(lane)
-        attempted_channels.append(channel)
+        # Rotation concerns CURRENT search connectors only, not business ideas.
+        # The LLM invents its commercial category without a fixed lane menu.
+        channel=CHANNELS[attempt % len(CHANNELS)]
         # These are suggestions, not mandatory instructions. The independent
         # model may choose an unexpected business category or any implemented
         # source. Only the actual connector's capabilities remain binding.
@@ -628,8 +624,7 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
         report["model_invoked"]=True
         try:
             strategy=propose(schema,MISSION,
-                             {"suggested_commercial_lane":"model_chosen_unrestricted_market",
-                              "commercial_lane_opportunity":"The historical portfolio examples do not limit new ventures.",
+                             {"business_model_selection":"Invent your own commercial model; prior models are only history.",
                               "suggested_public_demand_channel":channel,
                               "cross_run_strategy_diagnostics":diagnostics(history,current_experiments),
                           "verified_provider_outcomes":report["verified_provider_outcomes"],
