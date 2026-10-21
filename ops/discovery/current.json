@@ -16,7 +16,7 @@
     "testing": 25
   },
   "lane_errors": {},
-  "unique_candidates": 19,
+  "unique_candidates": 13,
   "top_candidates": [
     {
       "source": "github_public_issue",
@@ -44,18 +44,6 @@
     },
     {
       "source": "github_public_issue",
-      "repo": "paraloom-labs/paraloom-core",
-      "title": "[BOUNTY] Medium: deactivate_validator strands dual-stake SPL collateral permanently & slash_validator omits min_token_stake deactivation floor",
-      "url": "https://github.com/paraloom-labs/paraloom-core/issues/1129",
-      "bounty_usd_hint_not_verified": 150.0,
-      "score_for_review_only": 78,
-      "competition_indicator_comments": 1,
-      "created_at": "2026-10-19T22:45:47Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "cash"
-    },
-    {
-      "source": "github_public_issue",
       "repo": "paraloom-labs/paraloom-wallet",
       "title": "[BOUNTY] Medium: Unsynchronized swapOutputs & wallet storage read-modify-write races, cross-context reconcile/reshield double-execution, maybeAutoLock TOCTOU, unretried 429/408 swa",
       "url": "https://github.com/paraloom-labs/paraloom-wallet/issues/93",
@@ -65,6 +53,30 @@
       "created_at": "2026-10-18T04:43:26Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "javascript"
+    },
+    {
+      "source": "github_public_issue",
+      "repo": "BasedHardware/omi",
+      "title": "Bounty Proposal: Reusable Deploy Ancestry Guard & CI Pipeline Hardening ($100 - $125 USD)",
+      "url": "https://github.com/BasedHardware/omi/issues/22860",
+      "bounty_usd_hint_not_verified": 125.0,
+      "score_for_review_only": 78,
+      "competition_indicator_comments": 0,
+      "created_at": "2026-10-20T12:39:50Z",
+      "status": "requires_manual_payment_and_claim_verification",
+      "discovered_lane": "documentation"
+    },
+    {
+      "source": "github_public_issue",
+      "repo": "paraloom-labs/paraloom-core",
+      "title": "[BOUNTY] Medium: CommitmentGenerator scheme mismatch (Poseidon vs Pedersen), proof_codec trailing-byte/endianness bugs, transaction validation gaps, and Coordinator HA failover tas",
+      "url": "https://github.com/paraloom-labs/paraloom-core/issues/1160",
+      "bounty_usd_hint_not_verified": 150.0,
+      "score_for_review_only": 73,
+      "competition_indicator_comments": 3,
+      "created_at": "2026-10-21T06:27:09Z",
+      "status": "requires_manual_payment_and_claim_verification",
+      "discovered_lane": "documentation"
     },
     {
       "source": "github_public_issue",
@@ -85,7 +97,7 @@
       "url": "https://github.com/BasedHardware/omi/issues/22509",
       "bounty_usd_hint_not_verified": 50.0,
       "score_for_review_only": 73,
-      "competition_indicator_comments": 0,
+      "competition_indicator_comments": 1,
       "created_at": "2026-10-19T15:00:23Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "testing"
@@ -97,7 +109,7 @@
       "url": "https://github.com/BasedHardware/omi/issues/22511",
       "bounty_usd_hint_not_verified": 50.0,
       "score_for_review_only": 73,
-      "competition_indicator_comments": 0,
+      "competition_indicator_comments": 1,
       "created_at": "2026-10-19T15:03:43Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "testing"
@@ -109,7 +121,7 @@
       "url": "https://github.com/BasedHardware/omi/issues/22515",
       "bounty_usd_hint_not_verified": 50.0,
       "score_for_review_only": 73,
-      "competition_indicator_comments": 0,
+      "competition_indicator_comments": 1,
       "created_at": "2026-10-19T15:20:22Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "testing"
@@ -121,34 +133,10 @@
       "url": "https://github.com/BasedHardware/omi/issues/22519",
       "bounty_usd_hint_not_verified": 50.0,
       "score_for_review_only": 73,
-      "competition_indicator_comments": 0,
+      "competition_indicator_comments": 1,
       "created_at": "2026-10-19T15:23:01Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "testing"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "BasedHardware/omi",
-      "title": "[Bounty proposal] Harden backend/database/dream_canary.py against malformed snapshots, invalid UIDs, and non-numeric failure counts ($50 proposed)",
-      "url": "https://github.com/BasedHardware/omi/issues/22522",
-      "bounty_usd_hint_not_verified": 50.0,
-      "score_for_review_only": 73,
-      "competition_indicator_comments": 0,
-      "created_at": "2026-10-19T15:26:35Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "cash"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "BasedHardware/omi",
-      "title": "[Bounty proposal] Harden desktop_prompts router against malformed Firestore prompt documents and store errors ($50 proposed)",
-      "url": "https://github.com/BasedHardware/omi/issues/22526",
-      "bounty_usd_hint_not_verified": 50.0,
-      "score_for_review_only": 73,
-      "competition_indicator_comments": 0,
-      "created_at": "2026-10-19T15:30:10Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "python"
     },
     {
       "source": "github_public_issue",
@@ -157,7 +145,7 @@
       "url": "https://github.com/BasedHardware/omi/issues/22540",
       "bounty_usd_hint_not_verified": 50.0,
       "score_for_review_only": 73,
-      "competition_indicator_comments": 0,
+      "competition_indicator_comments": 2,
       "created_at": "2026-10-19T15:42:12Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "testing"
@@ -165,26 +153,14 @@
     {
       "source": "github_public_issue",
       "repo": "BasedHardware/omi",
-      "title": "[Bounty proposal] Harden announcements router with constant-time admin key verification, document/query validation, and store error boundaries ($50 proposed)",
-      "url": "https://github.com/BasedHardware/omi/issues/22542",
-      "bounty_usd_hint_not_verified": 50.0,
-      "score_for_review_only": 73,
+      "title": "[Bounty proposal] fix(linear-app): exception text leaks into chat tool responses across 7 tools ($100 proposed)",
+      "url": "https://github.com/BasedHardware/omi/issues/22984",
+      "bounty_usd_hint_not_verified": 100.0,
+      "score_for_review_only": 70,
       "competition_indicator_comments": 0,
-      "created_at": "2026-10-19T15:45:04Z",
+      "created_at": "2026-10-21T05:28:10Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "cash"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "BasedHardware/omi",
-      "title": "[Bounty proposal] Harden omi-cli OAuth token exchange/refresh and local webhook receiver against transport, JSON, and socket errors ($50 proposed)",
-      "url": "https://github.com/BasedHardware/omi/issues/22546",
-      "bounty_usd_hint_not_verified": 50.0,
-      "score_for_review_only": 73,
-      "competition_indicator_comments": 0,
-      "created_at": "2026-10-19T15:56:53Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "python"
     },
     {
       "source": "github_public_issue",
@@ -192,57 +168,9 @@
       "title": "[Bounty proposal] fix(mcp_oauth): coerce naive and ISO-8601 timestamps to UTC in grant and token paths ($50 proposed)",
       "url": "https://github.com/BasedHardware/omi/issues/22660",
       "bounty_usd_hint_not_verified": 50.0,
-      "score_for_review_only": 73,
-      "competition_indicator_comments": 2,
+      "score_for_review_only": 68,
+      "competition_indicator_comments": 4,
       "created_at": "2026-10-20T00:32:35Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "python"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "BasedHardware/omi",
-      "title": "[Bounty proposal] fix(conversations): coerce ISO strings and naive timestamps in meeting context pack prior meetings sorting ($50 proposed)",
-      "url": "https://github.com/BasedHardware/omi/issues/22499",
-      "bounty_usd_hint_not_verified": 50.0,
-      "score_for_review_only": 65,
-      "competition_indicator_comments": 1,
-      "created_at": "2026-10-19T13:45:57Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "cash"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "BasedHardware/omi",
-      "title": "[Bounty proposal] Fix TypeError and skipped ISO bounds when folding and replaying memory ledger commits ($50 proposed)",
-      "url": "https://github.com/BasedHardware/omi/issues/22582",
-      "bounty_usd_hint_not_verified": 50.0,
-      "score_for_review_only": 65,
-      "competition_indicator_comments": 1,
-      "created_at": "2026-10-19T17:30:43Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "python"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "BasedHardware/omi",
-      "title": "[Bounty proposal] Fix TypeError and dropped ISO timestamps in screen frame notes evidence ($50 proposed)",
-      "url": "https://github.com/BasedHardware/omi/issues/22593",
-      "bounty_usd_hint_not_verified": 50.0,
-      "score_for_review_only": 65,
-      "competition_indicator_comments": 2,
-      "created_at": "2026-10-19T17:37:49Z",
-      "status": "requires_manual_payment_and_claim_verification",
-      "discovered_lane": "python"
-    },
-    {
-      "source": "github_public_issue",
-      "repo": "BasedHardware/omi",
-      "title": "[Bounty proposal] Fix TypeError, KeyError, and ValueError on mixed timestamps in proactivity producers ($50 proposed)",
-      "url": "https://github.com/BasedHardware/omi/issues/22598",
-      "bounty_usd_hint_not_verified": 50.0,
-      "score_for_review_only": 65,
-      "competition_indicator_comments": 1,
-      "created_at": "2026-10-19T17:46:50Z",
       "status": "requires_manual_payment_and_claim_verification",
       "discovered_lane": "python"
     }
