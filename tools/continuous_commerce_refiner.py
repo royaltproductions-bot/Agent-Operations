@@ -34,7 +34,7 @@ def infer(schema,system,observation,num_predict=1800):
     payload=json.dumps({"model":MODEL,"messages":[{"role":"system","content":system},
       {"role":"user","content":json.dumps(observation,ensure_ascii=False)}],
       "stream":False,"format":schema,
-      "options":{"temperature":0.05,"num_ctx":12288,"num_predict":num_predict}}).encode()
+      "options":{"temperature":0.05,"num_ctx":24576,"num_predict":num_predict}}).encode()
     req=urllib.request.Request("http://127.0.0.1:11434/api/chat",data=payload,
                                headers={"Content-Type":"application/json"})
     with urllib.request.urlopen(req,timeout=600) as response:
