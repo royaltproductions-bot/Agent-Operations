@@ -9,7 +9,6 @@ on:
       - '.github/workflows/independent-commerce-foundation-builder.yml'
 permissions:
   contents: write
-  pull-requests: write
 concurrency:
   group: independent-commerce-foundation-builder
   cancel-in-progress: true
@@ -43,8 +42,6 @@ jobs:
         run: python3 tools/continuous_commerce_refiner.py
       - name: Integrate validated refinement into main
         if: steps.refine.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
