@@ -32,9 +32,10 @@ def run(*cmd,timeout=240):
     return subprocess.run(cmd,cwd=ROOT,text=True,capture_output=True,timeout=timeout)
 
 def infer(schema,system,observation,num_predict=1800):
+    system=system+"\\nReturn ONLY valid JSON matching this required structure: "+json.dumps(schema,separators=(",",":"))
     payload=json.dumps({"model":MODEL,"messages":[{"role":"system","content":system},
       {"role":"user","content":json.dumps(observation,ensure_ascii=False)}],
-      "stream":False,"format":schema,
+      "stream":False,"format":"json",
       "options":{"temperature":0.05,"num_ctx":24576,"num_predict":num_predict}}).encode()
     req=urllib.request.Request("http://127.0.0.1:11434/api/chat",data=payload,
                                headers={"Content-Type":"application/json"})
