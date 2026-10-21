@@ -33,22 +33,30 @@ def run(*cmd,timeout=240):
 
 def infer(schema,system,observation,num_predict=1800):
     system=system+"\\nReturn ONLY valid JSON matching this required structure: "+json.dumps(schema,separators=(",",":"))
-    payload=json.dumps({"model":MODEL,"messages":[{"role":"system","content":system},
-      {"role":"user","content":json.dumps(observation,ensure_ascii=False)}],
-      "stream":False,"format":"json",
-      "keep_alive":"30m","options":{"temperature":0.05,"num_ctx":16384,"num_predict":num_predict}}).encode()
-    req=urllib.request.Request("http://127.0.0.1:11434/api/chat",data=payload,
-                               headers={"Content-Type":"application/json"})
-    try:
-        with urllib.request.urlopen(req,timeout=600) as response:
-            raw=json.load(response).get("message",{}).get("content","")
-    except urllib.error.HTTPError as exc:
-        detail=exc.read(800).decode("utf-8","replace")
-        raise RuntimeError("ollama_http_"+str(exc.code)+":"+detail[:500]) from None
-    obj=json.loads(raw)
-    if not isinstance(obj,dict):
-        raise ValueError("model_output_not_object")
-    return obj
+    user=json.dumps(observation,ensure_ascii=False)
+    for attempt in range(2):
+        ctx=16384 if attempt==0 else 12288
+        predict=num_predict if attempt==0 else min(num_predict,1200)
+        payload=json.dumps({"model":MODEL,"messages":[{"role":"system","content":system},
+          {"role":"user","content":user}],"stream":False,"format":"json","keep_alive":"30m",
+          "options":{"temperature":0.05,"num_ctx":ctx,"num_predict":predict}}).encode()
+        req=urllib.request.Request("http://127.0.0.1:11434/api/chat",data=payload,
+                                   headers={"Content-Type":"application/json"})
+        try:
+            with urllib.request.urlopen(req,timeout=420) as response:
+                raw=json.load(response).get("message",{}).get("content","")
+            obj=json.loads(raw)
+            if not isinstance(obj,dict):
+                raise ValueError("model_output_not_object")
+            return obj
+        except TimeoutError:
+            if attempt==0:
+                continue
+            raise TimeoutError("ollama_inference_timeout_after_compact_retry") from None
+        except urllib.error.HTTPError as exc:
+            detail=exc.read(800).decode("utf-8","replace")
+            raise RuntimeError("ollama_http_"+str(exc.code)+":"+detail[:500]) from None
+    raise TimeoutError("ollama_inference_timeout")
 
 def safe_path(raw):
     p=Path(str(raw))
