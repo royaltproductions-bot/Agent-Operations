@@ -424,6 +424,7 @@ def main():
       "expected_measurable_effect":diagnosis["measurable_effect"],
       "changed_files":sorted(finals),
       "validation":[{"name":x["name"],"ok":x["ok"]} for x in after],
+      "model":MODEL,
       "model_calls":1,
     }
     receipt_path().write_text(json.dumps(receipt,indent=2)+"\n",encoding="utf-8")
@@ -441,7 +442,7 @@ if __name__=="__main__":
             raise
         reason=type(exc).__name__+":"+str(exc)[:220]
         receipt={"actor":"continuous_autonomous_commerce_refiner",
-                 "status":"refinement_failed_or_rejected",
+                 "status":"refinement_failed_or_rejected","model":MODEL,
                  "reason":reason}
         try:
             receipt_path().write_text(json.dumps(receipt,indent=2)+"\n",encoding="utf-8")
