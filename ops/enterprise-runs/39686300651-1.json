@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "engine": "local_open_weight_llm_commerce",
+  "timestamp": "2026-10-21T22:27:15.481481+00:00",
+  "model": "qwen3:8b",
+  "hypotheses": [],
+  "actions": [],
+  "tool_actions": [],
+  "structural_failures": [
+    {
+      "reason": "engine_process_failure"
+    }
+  ],
+  "commercial_outcomes": [],
+  "qualified_external_contacts": 0,
+  "verified_payment_usd": null
+}
