@@ -3,7 +3,7 @@
 import json, os, pathlib, subprocess, urllib.request
 ROOT=pathlib.Path.cwd()
 MODEL=os.getenv("LOCAL_MODEL","qwen3:4b-instruct-2507-q4_K_M")
-TARGETS=("tools/connected_commerce_tools.py","tools/autonomous_commerce_brain.py","tools/commerce_operator.py")
+TARGETS=("tools/connected_commerce_tools.py","tools/autonomous_commerce_brain.py","tools/commerce_operator.py","tools/dynamic_offer_catalog.py","tools/digital_artifact_factory.py","tools/commerce_distribution.py","tools/general_order_fulfillment.py")
 def run(*cmd,timeout=90):
     return subprocess.run(cmd,cwd=ROOT,text=True,capture_output=True,timeout=timeout)
 def infer(messages):
@@ -17,30 +17,31 @@ def main():
     if run("git","status","--porcelain").stdout.strip():
         raise SystemExit("Working tree must be clean")
     history=run("git","log","-5","--format=%s").stdout[:800]
-    files={p:(ROOT/p).read_text()[:12000] for p in TARGETS}
-    task=("Implement ONE substantive general-purpose commerce execution primitive, not a prompt-only change. "
+    files={p:(ROOT/p).read_text()[:12000] if (ROOT/p).exists() else "" for p in TARGETS}
+    task=("Implement ONE substantive general-purpose commerce execution primitive, not a prompt-only change. Create a new module if needed. "
           "Prefer reusable original digital deliverable creation or dynamic offer catalog infrastructure. "
           "Keep existing public interfaces backward compatible. No hardcoded business niches. "
           "Do not alter credentials, workflows, security controls or unrelated files. "
-          "Choose exactly one of the allowed existing Python files. Return its COMPLETE replacement source. "
+          "Choose exactly one of the allowed Python files, including new modules. Return its COMPLETE replacement source. "
           "No external network requests or purchases in generated code. Existing payment and customer data stay private.")
     result=infer([{"role":"system","content":task},
        {"role":"user","content":json.dumps({"recent_commits":history,"files":files})}])
     path=result["path"]
     if path not in TARGETS or not isinstance(result["content"],str) or len(result["content"])<500:
         raise SystemExit("Invalid model output")
-    original=(ROOT/path).read_text()
+    original=(ROOT/path).read_text() if (ROOT/path).exists() else None
+    (ROOT/path).parent.mkdir(parents=True,exist_ok=True)
     (ROOT/path).write_text(result["content"])
     checks=[("python3","-m","py_compile",path),
             ("python3","-m","unittest","discover","-s","tests","-p","test_commerce_operator.py")]
     for check in checks:
         p=run(*check,timeout=180)
         if p.returncode:
-            (ROOT/path).write_text(original)
+            (ROOT/path).write_text(original) if original is not None else (ROOT/path).unlink()
             print("Validation rejected candidate:",check)
             return
     diff=run("git","diff","--numstat","--",path).stdout.strip()
-    if not diff or len(result["content"])>len(original)*2+18000:
+    if (not diff and original is not None) or len(result["content"])>len(original or "")*2+18000:
         (ROOT/path).write_text(original)
         print("Candidate rejected: empty or oversized")
         return
