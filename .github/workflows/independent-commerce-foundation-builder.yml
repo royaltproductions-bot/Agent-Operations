@@ -1,4 +1,5 @@
 name: Continuous Autonomous Commerce Refiner
+# Refiner self-edits do not recursively trigger; the hourly clock provides the next cycle.
 on:
   workflow_dispatch:
   schedule:
