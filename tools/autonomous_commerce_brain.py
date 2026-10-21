@@ -171,6 +171,14 @@ def model_json(schema, prompt, observation, opener=None):
     if any(not clean.get(field) for field in schema["required"]
            if field in ("search_channel","search_query")):
         raise ValueError("model_missing_executable_search")
+    strategy_required=set(STRATEGY_SCHEMA["required"])
+    if set(schema.get("required",()))==strategy_required:
+        placeholders={"none","null","n/a","na","unknown","skip","nothing"}
+        if any(clean.get(field,"").strip().lower() in placeholders
+               for field in strategy_required):
+            raise ValueError("model_placeholder_strategy")
+        if clean.get("lane","").strip().lower() in placeholders:
+            clean["lane"]=""
     obj=clean
     return obj
 
