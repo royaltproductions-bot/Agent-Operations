@@ -116,8 +116,6 @@ EXAMPLE_REFLECTION_SCHEMA = {
 
 STRUCTURAL_FAILURE_REASONS = {
     "distribution_connector_not_yet_available",
-    "search_sources_unavailable",
-    "tool_execution_failed",
 }
 
 def classify_execution_feedback(feedback):
