@@ -278,13 +278,23 @@ def main():
       "critic":{"decision":"approve","risk":str(critic.get("risk",""))[:300]}}
     (receipt_dir/(runid+".json")).write_text(json.dumps(receipt,indent=2)+"\n",encoding="utf-8")
     write_output("changed","true")
+    write_output("failed","false")
     write_output("changed_files",",".join(sorted(seen)))
     print(json.dumps(receipt))
 
 if __name__=="__main__":
-    try: main()
-    except Exception as exc:
+    try:
+        main()
+    except BaseException as exc:
+        if isinstance(exc,KeyboardInterrupt):
+            raise
+        reason=type(exc).__name__+":"+str(exc)[:220]
+        receipt_dir=ROOT/"ops/refiner-runs"
+        receipt_dir.mkdir(parents=True,exist_ok=True)
+        runid=re.sub(r"[^A-Za-z0-9_-]","",os.getenv("GITHUB_RUN_ID","local"))
+        receipt={"actor":"continuous_autonomous_commerce_refiner",
+                 "status":"refinement_failed_or_rejected","reason":reason}
+        (receipt_dir/(runid+".json")).write_text(json.dumps(receipt,indent=2)+"\n",encoding="utf-8")
         write_output("changed","false")
-        print(json.dumps({"actor":"continuous_autonomous_commerce_refiner","status":"no_integrated_change",
-                          "reason":type(exc).__name__+":"+str(exc)[:220]}))
-        raise
+        write_output("failed","true")
+        print(json.dumps(receipt))
