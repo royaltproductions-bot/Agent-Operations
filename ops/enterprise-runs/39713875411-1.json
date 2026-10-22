@@ -1,0 +1,31 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-22T02:56:40.110970+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 2,
+    "source_errors": []
+  },
+  "offer": {
+    "source_url": "https://news.ycombinator.com/item?id=49930656",
+    "title": "Calypso System Architecture Diagram",
+    "scope": "Create a high-level architecture diagram for a Calypso-based trading system, including integration points with Java-based order management systems and FX processing modules.",
+    "price_cents": 15000,
+    "offer_id": "1fce7ea598891565a54f6d91",
+    "payment_link_id": "plink_1UTCCXBto3o776uyPMZWcKak"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://news.ycombinator.com/item?id=49930656"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
