@@ -350,7 +350,7 @@ def choose_offer(rows):
         "human credentials, employment claims, or owner intervention. Prefer a small "
         "objective deliverable that can be completed after payment. If none fit, reject. "
         "For an offer, define a narrow scope, concrete deliverable, truthful short pitch, "
-        "and one-time price from $5 to $500. Return only schema-compliant JSON."
+        "and one-time price from $5 to $500. In price_cents return digits only, e.g. 5000 for $50. Return only schema-compliant JSON."
     )
     plan=model_json(
         PLAN_SCHEMA,system,{"candidates":visible},
