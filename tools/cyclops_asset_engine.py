@@ -59,7 +59,7 @@ EMPLOYMENT=re.compile(
     r"\b(full[- ]time|salary|annual compensation|annual salary|benefits|"
     r"employee|employment|equity|stock options|401k|pto|visa sponsorship)\b",re.I)
 
-ASSET_SCHEMA={
+CONCEPT_SCHEMA={
     "type":"object",
     "properties":{
         "title":{"type":"string"},
@@ -71,20 +71,36 @@ ASSET_SCHEMA={
             "type":"array","minItems":3,"maxItems":8,
             "items":{"type":"string"},
         },
-        "files":{
-            "type":"array","minItems":1,"maxItems":3,
+        "core_points":{
+            "type":"array","minItems":5,"maxItems":12,
+            "items":{"type":"string"},
+        },
+        "file_specs":{
+            "type":"array","minItems":1,"maxItems":2,
             "items":{
                 "type":"object",
                 "properties":{
                     "filename":{"type":"string"},
-                    "content":{"type":"string"},
+                    "purpose":{"type":"string"},
+                    "columns":{
+                        "type":"array","maxItems":10,
+                        "items":{"type":"string"},
+                    },
                 },
-                "required":["filename","content"],
+                "required":["filename","purpose","columns"],
                 "additionalProperties":False,
             },
         },
     },
-    "required":["title","description","audience","pitch","price_cents","target_terms","files"],
+    "required":["title","description","audience","pitch","price_cents",
+                "target_terms","core_points","file_specs"],
+    "additionalProperties":False,
+}
+
+FILE_SCHEMA={
+    "type":"object",
+    "properties":{"content":{"type":"string"}},
+    "required":["content"],
     "additionalProperties":False,
 }
 
@@ -202,58 +218,157 @@ def asset_id(plan):
           "|".join(sorted(str(x).lower() for x in plan["target_terms"]))).encode()
     return hashlib.sha256(seed).hexdigest()[:20]
 
-def active_asset():
+def active_assets():
+    assets=[]
     if not ROOT.is_dir():
-        return None
-    manifests=sorted(ROOT.glob("*/manifest.json"))
-    for path in manifests:
+        return assets
+    for path in sorted(ROOT.glob("*/manifest.json")):
         try:
             row=json.loads(path.read_text(encoding="utf-8"))
         except (OSError,ValueError):
             continue
         if row.get("status")=="active" and row.get("asset_id"):
             row["_dir"]=str(path.parent)
-            return row
-    return None
+            assets.append(row)
+    return assets
 
-def create_asset(rows):
-    visible=[{
+def demand_view(rows,limit=5,width=700):
+    return [{
         "candidate_id":r["id"],
         "source_url":r["source_url"],
-        "excerpt":r["text"][:1100],
-    } for r in rows[:8]]
+        "excerpt":r["text"][:width],
+    } for r in rows[:limit]]
+
+def choose_asset_concept(rows):
+    visible=demand_view(rows)
     if not visible:
         raise ValueError("no_current_demand")
     system=(
-        "You create ONE finished reusable digital asset that can be sold repeatedly without "
-        "custom work. Infer a recurring practical need visible across the supplied current "
-        "independent-contract demand. The asset must be immediately useful to multiple similar "
-        "buyers, require no private data or buyer input, and be fully contained in the files you "
-        "return. Do not make a custom deliverable for one posting. Do not claim access, results, "
-        "credentials, or experience you do not have. Use only .txt and .csv files. The files must "
-        "contain the actual finished product, not a plan to create it. Keep the sales pitch short "
-        "and natural. target_terms must be concrete phrases useful for matching future buyers. "
-        "Choose a one-time price between $5 and $99. In price_cents return digits only, e.g. 1900 "
-        "for $19. Return only schema-compliant JSON."
+        "Choose ONE reusable digital product from recurring practical needs visible in the "
+        "current independent-contract demand. This is product selection only; do not write "
+        "the finished files yet. It must be useful to multiple similar buyers without buyer "
+        "input, private data, custom work, credentials, or access. file_specs may use only "
+        ".txt and .csv. core_points must contain the substantive knowledge/instructions needed "
+        "to build a useful fallback asset if later generation fails. For CSV specs, columns "
+        "must name the actual useful worksheet fields; for TXT specs, columns must be empty. "
+        "Choose a one-time price from $5 to $99. price_cents must be digits only. Keep every "
+        "field concise. Return only schema-compliant JSON."
     )
-    plan=model_json(ASSET_SCHEMA,system,{"current_paid_demand":visible})
-    price=normalize_price(plan.get("price_cents"))
+    attempts=[
+        (visible,180,3072,650),
+        (demand_view(rows,limit=3,width=450),300,2560,520),
+    ]
+    last=None
+    for observation,timeout,ctx,predict in attempts:
+        try:
+            plan=model_json(CONCEPT_SCHEMA,system,
+                            {"current_paid_demand":observation},
+                            timeout=timeout,num_ctx=ctx,num_predict=predict)
+            break
+        except Exception as exc:
+            last=exc
+    else:
+        raise RuntimeError("concept_generation_failed:"+
+                           (str(last) or type(last).__name__)[:100])
+
+    plan["price_cents"]=normalize_price(plan.get("price_cents"))
     for field in ("title","description","audience","pitch"):
         if len(str(plan.get(field) or "").strip())<12:
             raise ValueError("asset_underspecified")
-    files=[]
-    for item in plan.get("files") or []:
-        name=str(item.get("filename") or "")
-        content=str(item.get("content") or "")
+    specs=[]
+    for spec in plan.get("file_specs") or []:
+        name=str(spec.get("filename") or "")
+        purpose=str(spec.get("purpose") or "").strip()
+        columns=[str(x).strip() for x in (spec.get("columns") or []) if str(x).strip()]
         if (not re.fullmatch(r"[A-Za-z0-9_.-]{1,72}\.(?:txt|csv)",name)
-                or not content or len(content)>120000):
-            raise ValueError("invalid_asset_file")
-        files.append((name,content))
-    if not files:
-        raise ValueError("empty_asset")
-    plan["price_cents"]=price
-    plan["_files"]=files
+                or len(purpose)<8):
+            raise ValueError("invalid_asset_spec")
+        if name.endswith(".csv") and not columns:
+            raise ValueError("csv_columns_missing")
+        if name.endswith(".txt"):
+            columns=[]
+        specs.append({"filename":name,"purpose":purpose,"columns":columns})
+    if not specs:
+        raise ValueError("empty_asset_spec")
+    plan["file_specs"]=specs
     plan["asset_id"]=asset_id(plan)
+    return plan
+
+def fallback_file(plan,spec):
+    name=spec["filename"]
+    if name.endswith(".csv"):
+        columns=spec.get("columns") or ["item","status","notes"]
+        return ",".join(columns)+"\n"
+    lines=[
+        str(plan["title"]),
+        "="*min(72,max(12,len(str(plan["title"])))),
+        "",
+        str(plan["description"]),
+        "",
+        "Who this is for:",
+        str(plan["audience"]),
+        "",
+        "How to use this asset:",
+        str(spec["purpose"]),
+        "",
+        "Core operating points:",
+    ]
+    lines.extend("- "+str(point).strip() for point in plan.get("core_points") or [])
+    lines.extend([
+        "",
+        "Use these points as a working checklist/template and adapt the placeholders "
+        "to the specific project; no private access or custom service is included.",
+        "",
+    ])
+    return "\n".join(lines)
+
+def generate_asset_file(plan,spec,rows):
+    system=(
+        "Write the finished contents of exactly one reusable digital asset file. "
+        "Use the supplied product concept, core points, file purpose, and current demand "
+        "only as context. Do not write commentary around the file. Do not claim results, "
+        "experience, credentials, private access, or buyer-specific work. For .csv output "
+        "valid CSV beginning with exactly the requested columns and include a few generic "
+        "example/template rows only when useful. For .txt output create a practical standalone "
+        "toolkit, checklist, guide, or template that a buyer can use immediately. Keep it "
+        "compact enough to finish reliably."
+    )
+    observation={
+        "product":{
+            "title":plan["title"],
+            "description":plan["description"],
+            "audience":plan["audience"],
+            "core_points":plan["core_points"],
+        },
+        "file":spec,
+        "demand_context":demand_view(rows,limit=3,width=350),
+    }
+    attempts=[(180,3072,850),(300,2560,600)]
+    for timeout,ctx,predict in attempts:
+        try:
+            obj=model_json(FILE_SCHEMA,system,observation,
+                           timeout=timeout,num_ctx=ctx,num_predict=predict)
+            content=str(obj.get("content") or "").strip()
+            if content and len(content)<=80000:
+                if spec["filename"].endswith(".csv"):
+                    header=content.splitlines()[0] if content.splitlines() else ""
+                    expected=",".join(spec.get("columns") or [])
+                    if expected and header.replace(" ","")!=expected.replace(" ",""):
+                        continue
+                return content+"\n"
+        except Exception:
+            pass
+    return fallback_file(plan,spec)
+
+def create_asset(rows):
+    plan=choose_asset_concept(rows)
+    files=[]
+    for spec in plan["file_specs"]:
+        content=generate_asset_file(plan,spec,rows)
+        if not content.strip():
+            content=fallback_file(plan,spec)
+        files.append((spec["filename"],content))
+    plan["_files"]=files
     return plan
 
 def cyclops_checkout(plan):
@@ -290,18 +405,32 @@ def github_put(path,text):
     if not token or "/" not in repo:
         raise RuntimeError("github_write_unavailable")
     url="https://api.github.com/repos/"+repo+"/contents/"+urllib.parse.quote(path,safe="/")
-    body=json.dumps({
-        "message":"Publish Cyclops reusable asset",
-        "content":base64.b64encode(text.encode()).decode(),
-        "branch":"main",
-    }).encode()
-    req=urllib.request.Request(url,data=body,method="PUT",headers={
+    headers={
         "Authorization":"Bearer "+token,
         "Accept":"application/vnd.github+json",
         "X-GitHub-Api-Version":"2022-11-28",
         "Content-Type":"application/json",
         "User-Agent":"cyclops-commerce/1.0",
-    })
+    }
+    sha=None
+    try:
+        req=urllib.request.Request(url,headers=headers)
+        with urllib.request.urlopen(req,timeout=20) as response:
+            current=json.load(response)
+            sha=current.get("sha")
+    except urllib.error.HTTPError as exc:
+        if exc.code!=404:
+            raise RuntimeError("github_asset_read_http_"+str(exc.code)) from None
+
+    body={
+        "message":"Publish Cyclops reusable asset",
+        "content":base64.b64encode(text.encode()).decode(),
+        "branch":"main",
+    }
+    if isinstance(sha,str) and sha:
+        body["sha"]=sha
+    req=urllib.request.Request(url,data=json.dumps(body).encode(),method="PUT",
+                               headers=headers)
     try:
         with urllib.request.urlopen(req,timeout=30) as response:
             return json.load(response)
@@ -436,6 +565,8 @@ def send_asset_offer(rows,asset):
     sent=recent_sent_subjects()
     ranked=sorted(rows,key=lambda r:(-prospect_score(r,asset),r["source_url"]))
     for row in ranked:
+        if prospect_score(row,asset)<=0:
+            continue
         marker=hashlib.sha256((asset["asset_id"]+"|"+row["source_url"]).encode()).hexdigest()[:18]
         subject="Useful fixed asset ["+marker+"]"
         if subject in sent:
@@ -494,8 +625,19 @@ def run():
         rows=[]
         receipt["discovery"]={"candidate_count":0,"reason":type(exc).__name__}
 
-    asset=active_asset()
-    if not asset and rows:
+    assets=active_assets()
+    asset=None
+    if rows and assets:
+        ranked_assets=[]
+        for existing in assets:
+            best=max((prospect_score(row,existing) for row in rows),default=0)
+            ranked_assets.append((best,existing))
+        ranked_assets.sort(key=lambda item:(-item[0],str(item[1].get("asset_id") or "")))
+        if ranked_assets and ranked_assets[0][0]>0:
+            asset=ranked_assets[0][1]
+
+    # No current product fits this demand: manufacture a new reusable asset.
+    if rows and asset is None:
         try:
             plan=create_asset(rows)
             checkout=cyclops_checkout(plan)
