@@ -33,6 +33,7 @@ from tools.connected_commerce_tools import (
     autonomous_paid_orders,
     ensure_autonomous_checkout,
     recent_sent_subjects,
+    stripe_usd_unit_amount,
     sent_subject_exists,
 )
 
@@ -67,12 +68,12 @@ PLAN_SCHEMA={
         "title":{"type":"string"},
         "scope":{"type":"string"},
         "deliverable":{"type":"string"},
-        "price_cents":{"type":"string"},
+        "price_usd":{"type":"string"},
         "pitch":{"type":"string"},
         "reason":{"type":"string"},
     },
     "required":["candidate_id","action","title","scope","deliverable",
-                "price_cents","pitch","reason"],
+                "price_usd","pitch","reason"],
     "additionalProperties":False,
 }
 
@@ -229,29 +230,19 @@ def already_contacted(candidate,sent_subjects):
     marker=offer_marker(candidate["source_url"])
     return "Contained paid offer ["+marker+"]" in sent_subjects
 
-def normalize_price_cents(value):
-    """Normalize a freely chosen USD price without imposing a business price band.
-
-    The price_cents schema means INTEGER CENTS, never guessed dollars. Explicit
-    dollar notation or a decimal amount is converted to cents precisely.
-    Nonnegative, finite monetary values are passed to the connected checkout
-    provider, which enforces the payment method's real constraints.
-    """
+def normalize_price_usd(value):
+    """Normalize the model's freely chosen US-dollar price, without price bands."""
     raw=str(value if value is not None else "").strip().lower().replace(",","")
-    if not raw:
-        raise ValueError("model_price_missing")
-    dollars=raw.startswith("$") or raw.endswith("usd") or "." in raw
     raw=raw.removeprefix("$").removesuffix("usd").strip()
     try:
-        number=Decimal(raw)
-        if not number.is_finite() or number<0:
-            raise ValueError("model_price_invalid")
-        amount=number*100 if dollars else number
-        if amount!=amount.to_integral_value():
-            raise ValueError("model_price_fractional_cent")
-        return int(amount)
+        dollars=Decimal(raw)
     except InvalidOperation:
         raise ValueError("model_price_invalid") from None
+    if not dollars.is_finite() or dollars<0:
+        raise ValueError("model_price_invalid")
+    if dollars*100!=(dollars*100).to_integral_value():
+        raise ValueError("model_price_subcent_precision")
+    return format(dollars,".2f")
 
 
 def choose_offer(rows):
@@ -287,8 +278,8 @@ def choose_offer(rows):
         "Do not promise private access, employment, credentials, or human delivery. "
         "For any genuine offer define specific scope, usable deliverable, truthful "
         "pitch, and a commercially justifiable price chosen from the real scope. "
-        "The price_cents field is an integer string in US cents. Do not "
-        "impose a predetermined minimum, maximum, or price tier. "
+        "The price_usd field is a decimal string in US DOLLARS (e.g. 49.95). "
+        "Do not impose a predetermined minimum, maximum, or price tier. "
         "Return only schema-compliant JSON."
     )
     plan=model_json(
@@ -303,18 +294,18 @@ def choose_offer(rows):
         # Research without a public contact is still useful; it is never an
         # authorization to manufacture a customer address.
         return None,{"reason":"no_public_contact_for_selected_action"}
-    price=normalize_price_cents(plan.get("price_cents"))
+    price=normalize_price_usd(plan.get("price_usd"))
     for field in ("title","scope","deliverable","pitch"):
         if len(str(plan.get(field) or "").strip())<12:
             raise ValueError("model_offer_underspecified")
-    plan["price_cents"]=str(price)
+    plan["price_usd"]=price
     return chosen,plan
 
 def send_offer(candidate,plan,checkout):
     if not candidate.get("contact"):
         return {"result":"no_public_contact_for_action","channel":"none"}
     marker=offer_marker(candidate["source_url"])
-    price=int(plan["price_cents"])/100
+    price=Decimal(plan["price_usd"])
     body=(
         str(plan["pitch"]).strip()+"\n\n"
         "I can deliver: "+str(plan["deliverable"]).strip()+"\n"
@@ -454,12 +445,13 @@ def run():
                 checkout=ensure_autonomous_checkout(
                     candidate["source_url"],
                     plan["title"],plan["deliverable"],plan["scope"],
-                    int(plan["price_cents"]))
+                    plan["price_usd"])
                 receipt["offer"]={
                     "source_url":candidate["source_url"],
                     "title":plan["title"][:160],
                     "scope":plan["scope"][:400],
-                    "price_cents":int(plan["price_cents"]),
+                    "price_usd":plan["price_usd"],
+                    "price_cents":stripe_usd_unit_amount(plan["price_usd"]),
                     "offer_id":checkout["offer_id"],
                     "payment_link_id":checkout["payment_link_id"],
                 }
