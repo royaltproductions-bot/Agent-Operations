@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-22T23:35:34.208401+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "candidate_count": 5,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "bing": 1
+    },
+    "source_errors": [],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 4,
+    "search_queries": [
+      "",
+      "Power Automate for file management automation"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "Power Automate templates for social media scheduling",
+        "Power Automate for file management automation",
+        "Power Automate for customer support automation",
+        "Power Automate for invoice processing automation"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 114,
+      "known_pages": 98
+    }
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "asset_creation_failed",
+      "detail": "asset_creation_incomplete_this_run:asset_file_generation_failed:take_care_of_synonyms_antonyms_guide.csv"
+    }
+  ],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0
+  }
+}
