@@ -1,0 +1,86 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-22T18:13:36.516930+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "bing": 16
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 16,
+    "search_queries": [
+      "How can AI-generated content be used to create personalized educational materials for underprivileged students?",
+      "What are the challenges of deploying autonomous digital production systems in rural areas with limited internet access?",
+      "Are there emerging markets for AI-driven content that can be used in virtual reality environments for therapy and mental health?",
+      "What are the unmet needs in the production of low-cost, high-quality digital assets for small businesses in developing countries?"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "How can AI-generated content be used to create personalized educational materials for underprivileged students?",
+        "What are the challenges of deploying autonomous digital production systems in rural areas with limited internet access?",
+        "Are there emerging markets for AI-driven content that can be used in virtual reality environments for therapy and mental health?",
+        "What are the unmet needs in the production of low-cost, high-quality digital assets for small businesses in developing countries?"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 2,
+      "known_pages": 16
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "offer_selection_failed",
+      "detail": "timed out"
+    },
+    {
+      "reason": "no_feasible_contained_offer"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
