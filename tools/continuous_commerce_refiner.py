@@ -41,81 +41,77 @@ def choose_signal():
     if not commerce:
         return None
 
-    latest_name,latest_row=commerce[0]
-    structural=Counter()
-    commercial_runs=Counter()
+    latest_name,latest=commerce[0]
 
-    # Structural repair is about what is broken NOW, not historical crashes
-    # that may already have been superseded by a newer engine revision.
-    for item in latest_row.get("structural_failures") or []:
-        if isinstance(item,dict) and item.get("reason"):
-            structural[str(item["reason"])]+=1
-
-    for _,row in commerce:
-        seen=set()
-        for item in row.get("commercial_outcomes") or []:
-            if isinstance(item,dict) and item.get("reason"):
-                seen.add(str(item["reason"]))
-        for reason in seen:
-            commercial_runs[reason]+=1
-
-    # Machinery failures in the latest run are repair work immediately.
-    if structural:
-        reason,count=structural.most_common(1)[0]
+    # Broken transaction machinery is repair work immediately.
+    structural=[
+        str(item.get("reason"))
+        for item in (latest.get("structural_failures") or [])
+        if isinstance(item,dict) and item.get("reason")
+    ]
+    fulfillment_failures=[
+        item for item in (latest.get("fulfillment") or [])
+        if isinstance(item,dict) and item.get("result")=="fulfillment_failed"
+    ]
+    if structural or fulfillment_failures:
+        reason=(structural[0] if structural else "fulfillment_failed")
         target=("providers" if any(word in reason for word in
-                ("provider","distribution","connector","tool")) else "engine")
-        signal={"kind":"structural","reason":reason,"occurrences":count,
+                ("stripe","payment","provider","checkout","mail","fulfillment"))
+                else "engine")
+        return {"kind":"structural","reason":reason,"occurrences":1,
                 "target":CORE[target],"basis_receipt":latest_name}
-    else:
-        persistent=[(reason,count) for reason,count in commercial_runs.items() if count>=3]
-        if persistent:
-            reason,count=max(persistent,key=lambda x:(x[1],x[0]))
-            target=("providers" if any(word in reason for word in
-                    ("provider","distribution","tool_execution")) else "engine")
-            signal={"kind":"persistent_commercial_pattern","reason":reason,
-                    "occurrences":count,"target":CORE[target],
-                    "basis_receipt":latest_name}
-        else:
-            # Different tactics can all fail in different ways. If four recent
-            # experiments show no buyer reach and no movement in provider-grounded
-            # paid/reply counts, refine the commercial decision process itself.
-            recent=commerce[:4]
-            if len(recent)<4:
-                return None
-            contacts=[int(row.get("qualified_external_contacts") or 0) for _,row in recent]
-            paid=[]
-            replies=[]
-            for _,row in recent:
-                providers=row.get("verified_provider_outcomes") or {}
-                stripe=providers.get("stripe") or {}
-                mail=providers.get("buyer_correspondence") or {}
-                paid.append(stripe.get("verified_paid_sessions"))
-                replies.append(mail.get("verified_buyer_replies"))
-            known_paid=[x for x in paid if isinstance(x,int)]
-            known_replies=[x for x in replies if isinstance(x,int)]
-            no_movement=(
-                not any(contacts)
-                and len(set(known_paid))<=1
-                and len(set(known_replies))<=1
-            )
-            if not no_movement:
-                return None
-            signal={"kind":"persistent_commercial_pattern",
-                    "reason":"no_economic_progress",
-                    "occurrences":4,"target":CORE["engine"],
-                    "basis_receipt":latest_name}
 
-    # Structural breakage can be repaired again immediately. Commercial changes
-    # get three fresh production runs before the same problem may rewrite code again.
-    if signal["kind"]=="persistent_commercial_pattern":
-        names=[name for name,_ in commerce]
-        for _,row in receipts("ops/refiner-runs",6):
-            if row.get("status")!="deployed" or row.get("signal_reason")!=signal["reason"]:
-                continue
-            previous=row.get("basis_receipt")
-            if previous in names and names.index(previous)<3:
-                return None
-            break
+    # Count commercial evidence by independent run.
+    reasons=Counter()
+    for _,row in commerce:
+        for reason in {
+            str(item.get("reason"))
+            for item in (row.get("commercial_outcomes") or [])
+            if isinstance(item,dict) and item.get("reason")
+        }:
+            reasons[reason]+=1
+
+    persistent=[(reason,count) for reason,count in reasons.items() if count>=3]
+    if persistent:
+        reason,count=max(persistent,key=lambda x:(x[1],x[0]))
+        signal={"kind":"persistent_commercial_pattern",
+                "reason":reason,"occurrences":count,
+                "target":CORE["engine"],"basis_receipt":latest_name}
+    else:
+        recent=commerce[:4]
+        if len(recent)<3:
+            return None
+        offers=[
+            int((row.get("economic_result") or {}).get("new_offers_sent") or 0)
+            for _,row in recent
+        ]
+        revenue=[
+            int((row.get("economic_result") or {}).get(
+                "verified_autonomous_revenue_cents_seen") or 0)
+            for _,row in recent
+        ]
+        if not any(offers):
+            signal={"kind":"persistent_commercial_pattern",
+                    "reason":"no_transaction_progress",
+                    "occurrences":len(recent),
+                    "target":CORE["engine"],"basis_receipt":latest_name}
+        elif not any(revenue):
+            signal={"kind":"persistent_commercial_pattern",
+                    "reason":"offers_not_converting",
+                    "occurrences":len(recent),
+                    "target":CORE["engine"],"basis_receipt":latest_name}
+        else:
+            return None
+
+    # Give a commercial change three fresh autonomous runs to prove itself.
+    names=[name for name,_ in commerce]
+    for _,row in receipts("ops/refiner-runs",6):
+        if row.get("status")!="deployed" or row.get("signal_reason")!=signal["reason"]:
+            continue
+        previous=row.get("basis_receipt")
+        if previous in names and names.index(previous)<3:
+            return None
+        break
     return signal
 
 def source(path):
