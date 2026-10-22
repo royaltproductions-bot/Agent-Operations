@@ -444,8 +444,12 @@ def run():
             candidate,plan=choose_offer(rows)
         except Exception as exc:
             candidate,plan=None,None
+            detail=(str(exc) or type(exc).__name__)[:160]
+            receipt["structural_failures"].append({
+                "reason":"offer_selection_execution_failed",
+                "detail":detail})
             receipt["commercial_outcomes"].append({
-                "reason":"offer_selection_failed","detail":(str(exc) or type(exc).__name__)[:160]})
+                "reason":"offer_selection_failed","detail":detail})
         if candidate and plan:
             try:
                 checkout=ensure_autonomous_checkout(
