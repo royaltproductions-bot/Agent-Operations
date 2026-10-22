@@ -16,7 +16,7 @@ permissions:
 
 concurrency:
   group: autonomous-revenue-production
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   run:
