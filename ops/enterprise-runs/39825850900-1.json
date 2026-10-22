@@ -1,0 +1,108 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-22T17:52:20.716581+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 24,
+    "source_counts": {
+      "open_web": 24
+    },
+    "search_provider_counts": {
+      "bing": 24
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "duckduckgo",
+        "reason": "URLError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "duckduckgo",
+        "reason": "URLError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "duckduckgo",
+        "reason": "URLError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "duckduckgo",
+        "reason": "URLError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "duckduckgo",
+        "reason": "URLError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "duckduckgo",
+        "reason": "URLError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "duckduckgo",
+        "reason": "URLError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "duckduckgo",
+        "reason": "URLError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 17,
+    "candidates_without_email": 24,
+    "search_queries": [
+      "How can AI tools help small businesses automate content creation for social media without hiring a full team?",
+      "What are the most pressing challenges in digital content production for local governments?",
+      "Are there untapped markets for AI-generated educational materials in non-English languages?",
+      "What are the current pain points for creators using stock media in video production?",
+      "What are the emerging trends in AI-driven video editing for content creators?"
+    ]
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_feasible_contained_offer"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
