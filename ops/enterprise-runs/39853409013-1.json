@@ -1,0 +1,88 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-22T21:01:00.691886+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 22,
+    "source_counts": {
+      "open_web": 22
+    },
+    "search_provider_counts": {
+      "followup": 2,
+      "bing": 20
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 22,
+    "search_queries": [
+      "",
+      "What are the ethical concerns surrounding the use of AI in the creation of digital content for children's media?",
+      "Are there opportunities to use autonomous digital production for creating interactive art installations in public spaces?",
+      "What are the current discussions around the use of AI in the creation of digital content for religious or spiritual communities in non-English-speaking regions of the world?",
+      "How can autonomous digital production tools be integrated with existing supply chains for on-demand manufacturing of physical goods?"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 22,
+      "skipped_revisits": 4,
+      "executed_queries": [
+        "How can autonomous digital production tools be integrated with existing supply chains for on-demand manufacturing of physical goods?",
+        "What are the ethical concerns surrounding the use of AI in the creation of digital content for children's media?",
+        "Are there opportunities to use autonomous digital production for creating interactive art installations in public spaces?",
+        "What are the current discussions around the use of AI in the creation of digital content for religious or spiritual communities in non-English-speaking regions of the world?"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 27,
+      "known_pages": 38
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "offer_selection_failed",
+      "detail": "timed out"
+    },
+    {
+      "reason": "no_feasible_contained_offer"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
