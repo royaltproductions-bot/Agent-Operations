@@ -1,0 +1,31 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-22T02:44:28.019515+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 13,
+    "source_errors": []
+  },
+  "offer": {
+    "source_url": "https://news.ycombinator.com/item?id=49931746",
+    "title": "Product Engineer Role Analysis",
+    "scope": "Analyze the Product Engineer role at Search Atlas, including responsibilities, requirements, and company overview, using public data from the provided source.",
+    "price_cents": 1500,
+    "offer_id": "25c5d4c0bc9e5e5f0b2b41a5",
+    "payment_link_id": "plink_1UTC1LBto3o776uysdqGj5ng"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://news.ycombinator.com/item?id=49931746"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
