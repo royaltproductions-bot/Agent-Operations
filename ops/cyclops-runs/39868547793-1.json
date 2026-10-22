@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-22T23:00:41.521429+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "bing": 8
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 12,
+    "search_queries": [
+      "",
+      "My Best Buy Credit Card",
+      "Power Automate Community",
+      "Sell Buy Marketplace"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 5,
+      "executed_queries": [
+        "Buy Business Financing",
+        "Sell Buy Marketplace",
+        "My Best Buy Credit Card",
+        "Power Automate Community"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 89,
+      "known_pages": 79
+    }
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "asset_creation_failed",
+      "detail": "asset_creation_incomplete_this_run:quality_floor_csv_too_shallow:idiom_usage_frequency.csv:2_rows"
+    }
+  ],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0
+  }
+}
