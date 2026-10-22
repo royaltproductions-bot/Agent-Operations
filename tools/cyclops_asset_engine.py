@@ -365,6 +365,56 @@ def generate_asset_file(plan,spec,rows):
             pass
     raise RuntimeError("asset_file_generation_failed:"+str(spec["filename"]))
 
+def revise_asset_file(plan,spec,rows,previous,feedback):
+    """Improve a real generated deliverable using the actual rejection reason.
+
+    This is continued production work, not a mock test. Never invent customer
+    records or pad a spreadsheet with imaginary transactions to satisfy QA.
+    """
+    system=(
+        "You are revising a real commercial digital product that failed an "
+        "actual quality review. Return its full corrected finished file, not "
+        "an explanation. Correct the precise rejection reason. Keep the file "
+        "directly relevant to the cited market evidence and reusable by real "
+        "buyers without private access. For CSV output, make each record a "
+        "substantive reusable instruction, method, acceptance criterion or "
+        "verified reference; do NOT fabricate users, sales, revenue, dates, "
+        "results or production configurations. Match the exact CSV columns. "
+        "For TXT output, deliver a useful complete guide, not filler or a "
+        "list of generic platitudes. Retain any valid work from the previous "
+        "draft, but correct thin, inaccurate, or irrelevant sections. "
+        "Use only provided information or general verifiable methods."
+    )
+    context={
+        "product":{
+            "title":plan["title"],"description":plan["description"],
+            "audience":plan["audience"],"core_points":plan["core_points"],
+            "evidence_source_url":plan.get("evidence_source_url")},
+        "file":spec,
+        "actual_rejection":feedback[:450],
+        "previous_file_content":previous[:16000],
+        "public_research":demand_view(rows,limit=3,width=500),
+    }
+    response=model_json(FILE_SCHEMA,system,context,num_ctx=5120,num_predict=2200)
+    updated=str(response.get("content") or "").strip()
+    if not updated or len(updated)>80000:
+        raise RuntimeError("revised_file_missing_or_oversized")
+    if spec["filename"].endswith(".csv"):
+        from io import StringIO
+        import csv
+        try:
+            parsed=list(csv.reader(StringIO(updated)))
+        except csv.Error:
+            raise RuntimeError("revised_csv_unparseable") from None
+        actual=[str(x).strip() for x in parsed[0]] if parsed else []
+        expected=[str(x).strip() for x in spec.get("columns") or []]
+        if actual!=expected:
+            raise RuntimeError("revised_csv_header_mismatch")
+        if any(len(row)!=len(expected) for row in parsed[1:]):
+            raise RuntimeError("revised_csv_columns_misaligned")
+    return updated+"\\n"
+
+
 def objective_quality_floor(plan,files):
     total_chars=sum(len(content.strip()) for _,content in files)
     # Do not reject a genuinely usable table solely for an arbitrary character
@@ -425,28 +475,41 @@ def buyer_quality_check(plan,files,rows):
     return str(result.get("reason") or "passed")[:140]
 
 def create_asset(rows,existing_assets=None):
-    # A failed live product must not trigger three complete expensive CPU
-    # manufacturing loops in one execution. Reject it and explore new real
-    # evidence in the next independent run; do not ship an unfinished asset.
-    failures=[]
-    for attempt in range(1,2):
+    """Manufacture one real evidence-backed product and revise real QA failures.
+
+    Preserve completed drafting work between revisions. Invalid products are
+    never published; the 45-minute GitHub job remains the execution boundary.
+    """
+    plan=choose_asset_concept(rows,existing_assets)
+    specs={spec["filename"]:spec for spec in plan["file_specs"]}
+    files=[]
+    for name,spec in specs.items():
+        content=generate_asset_file(plan,spec,rows)
+        if not content.strip():
+            raise RuntimeError("empty_generated_asset_file")
+        files.append((name,content))
+
+    last_failure=""
+    for revision in range(3):
         try:
-            plan=choose_asset_concept(rows,existing_assets)
-            files=[]
-            for spec in plan["file_specs"]:
-                content=generate_asset_file(plan,spec,rows)
-                if not content.strip():
-                    raise RuntimeError("empty_generated_asset_file")
-                files.append((spec["filename"],content))
             objective_quality_floor(plan,files)
             plan["_quality_reason"]=buyer_quality_check(plan,files,rows)
             plan["_files"]=files
-            plan["_manufacturing_attempt"]=attempt
+            plan["_manufacturing_attempt"]=revision+1
             return plan
-        except Exception as exc:
-            failures.append((str(exc) or type(exc).__name__)[:120])
-    raise RuntimeError(
-        "asset_creation_incomplete_this_run:"+" | ".join(failures))
+        except (RuntimeError,ValueError) as exc:
+            last_failure=(str(exc) or type(exc).__name__)[:300]
+            if revision>=2:
+                break
+            # Repair the actual files and rerun the real buyer/structural review.
+            # Do not throw away the idea, start a new unrelated research lane,
+            # or pass an insufficient asset to Stripe.
+            files=[
+                (name,revise_asset_file(plan,specs[name],rows,content,last_failure))
+                for name,content in files
+            ]
+    raise RuntimeError("asset_quality_unresolved:"+last_failure)
+
 
 def cyclops_checkout(plan):
     # The agent selects dollars; this is the only provider-boundary conversion.
