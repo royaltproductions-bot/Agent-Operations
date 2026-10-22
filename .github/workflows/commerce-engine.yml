@@ -84,15 +84,21 @@ jobs:
           from datetime import datetime, timezone
           path=f"ops/enterprise-runs/{os.environ['GITHUB_RUN_ID']}-{os.environ['GITHUB_RUN_ATTEMPT']}.json"
           data={
-            "schema_version":1,
-            "engine":"local_open_weight_llm_commerce",
+            "schema_version":2,
+            "engine":"autonomous_revenue_engine",
             "timestamp":datetime.now(timezone.utc).isoformat(),
             "model":os.environ.get("COMMERCE_MODEL","unknown"),
-            "hypotheses":[],"actions":[],"tool_actions":[],
+            "fulfillment":[],
+            "discovery":{},
+            "offer":None,
+            "external_action":None,
             "structural_failures":[{"reason":"engine_process_failure"}],
             "commercial_outcomes":[],
-            "qualified_external_contacts":0,
-            "verified_payment_usd":None,
+            "economic_result":{
+              "new_offers_sent":0,
+              "fulfilled_orders_seen":0,
+              "verified_autonomous_revenue_cents_seen":0
+            }
           }
           with open(path,"w") as f:
               json.dump(data,f,indent=2); f.write("\n")
