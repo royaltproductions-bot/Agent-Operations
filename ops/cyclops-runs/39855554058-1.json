@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-22T21:36:02.075308+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "query_planner",
+        "reason": "TimeoutError"
+      }
+    ],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 4,
+    "search_queries": [
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "organize personal professional tasks without to-do list app",
+        "tools managing digital workspaces across devices",
+        "build habit consistent daily productivity",
+        "reduce cognitive load working multiple apps"
+      ],
+      "next_query_queue": 8,
+      "frontier_size": 55,
+      "known_pages": 44
+    }
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "asset_creation_failed",
+      "detail": "asset_creation_incomplete_this_run:buyer_quality_rejected:The product contains thin examples and generic filler, with many idioms that are either too infor"
+    }
+  ],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0
+  }
+}
