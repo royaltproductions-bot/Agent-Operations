@@ -42,7 +42,7 @@ def _request(url, bearer="", method="GET", body=None, basic=False, extra_headers
         headers["Content-Type"]="application/json"
     req=urllib.request.Request(url,data=data,headers=headers,method=method)
     try:
-        with urllib.request.urlopen(req,timeout=25) as response:
+        with urllib.request.urlopen(req) as response:
             return json.loads(response.read(2_000_000).decode())
     except urllib.error.HTTPError as exc:
         host=urllib.parse.urlsplit(url).hostname or "provider"
@@ -157,7 +157,7 @@ def stripe_post(path,fields,idempotency_key=""):
     req=urllib.request.Request("https://api.stripe.com/v1/"+path,data=data,
                                headers=headers,method="POST")
     try:
-        with urllib.request.urlopen(req,timeout=30) as response:
+        with urllib.request.urlopen(req) as response:
             return json.loads(response.read(2_000_000).decode())
     except urllib.error.HTTPError as exc:
         raise RuntimeError("stripe_write_http_"+str(exc.code)) from None
