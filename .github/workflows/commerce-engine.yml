@@ -20,9 +20,10 @@ on:
 permissions:
   contents: write
   actions: write
+  issues: write
 
 concurrency:
-  group: commerce-engine-production-v3
+  group: autonomous-revenue-production
   cancel-in-progress: true
 
 jobs:
