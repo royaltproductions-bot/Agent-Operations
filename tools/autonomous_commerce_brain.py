@@ -388,18 +388,12 @@ def choose_offer(rows):
 def send_offer(candidate,plan,checkout):
     marker=offer_marker(candidate["source_url"])
     price=int(plan["price_cents"])/100
-    disclosure=(
-        "This is an AI-operated production service offering a contained fixed-scope "
-        "digital deliverable; no employment relationship or unlisted credentials are implied.")
     body=(
         str(plan["pitch"]).strip()+"\n\n"
-        "Scope: "+str(plan["scope"]).strip()+"\n"
-        "Deliverable: "+str(plan["deliverable"]).strip()+"\n"
+        "I can deliver: "+str(plan["deliverable"]).strip()+"\n"
         "Fixed price: $"+format(price,".2f")+"\n"
-        "Checkout: "+checkout["checkout_url"]+"\n\n"
-        +disclosure+"\n"
-        "Payment is treated as acceptance of this contained scope. "
-        "The completed digital deliverable is sent to the email used at checkout."
+        "If useful, you can order it here: "+checkout["checkout_url"]+"\n\n"
+        "I’ll send the completed deliverable to the email used at checkout."
     )
     subject="Contained paid offer ["+marker+"]"
     if sent_subject_exists(subject):
