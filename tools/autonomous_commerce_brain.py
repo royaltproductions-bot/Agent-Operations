@@ -92,7 +92,7 @@ FULFILL_SCHEMA={
     "additionalProperties":False,
 }
 
-def model_json(schema,system,observation,timeout=240):
+def model_json(schema,system,observation,timeout=180,num_ctx=4096,num_predict=700):
     req=urllib.request.Request(
         OLLAMA,method="POST",
         data=json.dumps({
@@ -100,7 +100,7 @@ def model_json(schema,system,observation,timeout=240):
             "stream":False,
             "format":schema,
             "think":False,
-            "options":{"temperature":0.15,"num_ctx":6144,"num_predict":1200},
+            "options":{"temperature":0.15,"num_ctx":num_ctx,"num_predict":num_predict},
             "messages":[
                 {"role":"system","content":system},
                 {"role":"user","content":json.dumps(observation,ensure_ascii=False)},
@@ -268,37 +268,68 @@ def already_contacted(candidate,sent_subjects):
     marker=offer_marker(candidate["source_url"])
     return "Contained paid offer ["+marker+"]" in sent_subjects
 
+def opportunity_score(row):
+    """Cheap deterministic ranking before the model defines the transaction."""
+    text=str(row.get("text") or "").lower()
+    score=0
+    positive={
+        "script":8,"automation":10,"workflow":9,"api":8,"csv":8,
+        "spreadsheet":7,"data":6,"report":6,"frontend":7,"html":5,
+        "javascript":7,"python":8,"testing":6,"documentation":5,
+        "video editing":7,"short-form":6,"research":4,"fixed":4,
+        "project":4,"bounty":8,"budget":7,"paid":6,"$":5,
+    }
+    negative={
+        "full-time":-12,"full time":-12,"salary":-10,"senior":-8,
+        "staff engineer":-12,"years experience":-9,"long-term":-7,
+        "long term":-7,"join our team":-10,"employment":-10,
+        "equity":-5,"onsite":-12,"on-site":-12,
+    }
+    for token,value in positive.items():
+        if token in text:
+            score+=value
+    for token,value in negative.items():
+        if token in text:
+            score+=value
+    try:
+        posted=datetime.fromisoformat(str(row.get("created_at")).replace("Z","+00:00"))
+        age=max(0,(NOW()-posted).days)
+        score+=max(0,10-min(age,10))
+    except (TypeError,ValueError):
+        pass
+    return score
+
 def choose_offer(rows):
-    visible=[]
     sent_subjects=recent_sent_subjects()
-    for row in rows:
-        if already_contacted(row,sent_subjects):
-            continue
-        visible.append({
-            "candidate_id":row["id"],
-            "source_url":row["source_url"],
-            "channel":row["channel"],
-            "excerpt":row["text"][:1800],
-        })
-        if len(visible)>=10:
-            break
+    ranked=sorted(
+        (row for row in rows if not already_contacted(row,sent_subjects)),
+        key=lambda row:(-opportunity_score(row),str(row.get("source_url") or ""))
+    )
+    visible=[{
+        "candidate_id":row["id"],
+        "source_url":row["source_url"],
+        "excerpt":row["text"][:900],
+    } for row in ranked[:3]]
     if not visible:
         return None,None
+
     system=(
-        "You operate an autonomous commercial production service. Choose at most one "
-        "current public paid invitation that can be satisfied with a contained digital "
-        "deliverable you can produce entirely with text/code/data generation. Do not "
-        "claim human credentials, employment history, external software access, or work "
-        "requiring private systems. Reject unsafe, ambiguous, open-ended staff roles, "
-        "or work that cannot be completed from the public brief. If a feasible candidate "
-        "exists, define a SMALL fixed-scope deliverable with objective boundaries and "
-        "a fair one-time price from $5 to $500. The transaction must make sense without "
-        "manual owner intervention. Return only schema-compliant JSON."
+        "You operate an autonomous fixed-scope digital production service. "
+        "The candidates were already ranked from current public paid invitations. "
+        "Choose ONE only if a useful deliverable can be produced entirely from public "
+        "information plus text/code/data generation, without private-system access, "
+        "human credentials, employment claims, or owner intervention. Prefer a small "
+        "objective deliverable that can be completed after payment. If none fit, reject. "
+        "For an offer, define a narrow scope, concrete deliverable, truthful short pitch, "
+        "and one-time price from $5 to $500. Return only schema-compliant JSON."
     )
-    plan=model_json(PLAN_SCHEMA,system,{"candidates":visible})
+    plan=model_json(
+        PLAN_SCHEMA,system,{"candidates":visible},
+        timeout=150,num_ctx=3072,num_predict=420
+    )
     if plan.get("action")!="offer":
         return None,plan
-    chosen=next((r for r in rows if r["id"]==plan.get("candidate_id")),None)
+    chosen=next((r for r in ranked if r["id"]==plan.get("candidate_id")),None)
     if not chosen:
         raise ValueError("model_selected_unknown_candidate")
     price=int(str(plan.get("price_cents") or "0"))
@@ -351,7 +382,7 @@ def create_deliverable(order):
         "public_source":source,
         "amount_paid_cents":order["amount_total"],
         "currency":order["currency"],
-    },timeout=300)
+    },timeout=300,num_ctx=6144,num_predict=1800)
     files=[]
     for item in result.get("files") or []:
         name=str(item.get("filename") or "")
