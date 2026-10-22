@@ -35,6 +35,8 @@ from tools.connected_commerce_tools import (
     stripe_post,
 )
 
+from tools.open_web_discovery import open_web_paid_candidates
+
 MODEL=os.getenv("CYCLOPS_MODEL","qwen3:8b")
 OLLAMA="http://127.0.0.1:11434/api/chat"
 ROOT=Path("products/cyclops")
@@ -164,43 +166,63 @@ def source_age_ok(timestamp,days=45):
         return False
 
 def demand_candidates():
-    args=urllib.parse.urlencode({
-        "tags":"story","query":"Ask HN: Who is hiring?","hitsPerPage":30})
-    index=public_json("https://hn.algolia.com/api/v1/search_by_date?"+args,
-                      "hn.algolia.com")
-    stories=[]
-    for row in index.get("hits") or []:
-        title=str(row.get("title") or "")
-        ident=str(row.get("objectID") or "")
-        if ident.isdigit() and re.match(r"^Ask HN:\s*Who is hiring\?",title,re.I):
-            stories.append((int(row.get("created_at_i") or 0),ident))
-    if not stories:
-        return []
-    _,story=max(stories)
-    thread=public_json("https://hn.algolia.com/api/v1/items/"+story,"hn.algolia.com")
     rows=[]
-    for item in thread.get("children") or []:
-        ident=str(item.get("id") or "")
-        text=clean_html(item.get("text") or "")[:6000]
-        if (not ident.isdigit() or not text or RISKY.search(text)
-                or not CONTRACT.search(text) or not CAPABLE.search(text)
-                or EMPLOYMENT.search(text)
-                or not re.search(r"\b(apply|email|contact|reach out|send|write to|"
-                                 r"interested|inquire)\b",text,re.I)):
-            continue
-        contact=safe_email(text)
-        if not contact or not source_age_ok(item.get("created_at")):
-            continue
-        rows.append({
-            "id":"hn:"+ident,
-            "source_url":"https://news.ycombinator.com/item?id="+ident,
-            "contact":contact,
-            "text":text,
-            "created_at":item.get("created_at"),
-        })
-        if len(rows)>=14:
-            break
-    return rows
+    seen=set()
+
+    # General open web first: arbitrary public domains returned by search.
+    try:
+        web_rows,_=open_web_paid_candidates(max_candidates=18)
+        for row in web_rows:
+            if row.get("source_url") not in seen:
+                rows.append(row)
+                seen.add(row.get("source_url"))
+    except Exception:
+        pass
+
+    # HN remains one supplemental public source rather than the whole market.
+    try:
+        args=urllib.parse.urlencode({
+            "tags":"story","query":"Ask HN: Who is hiring?","hitsPerPage":30})
+        index=public_json("https://hn.algolia.com/api/v1/search_by_date?"+args,
+                          "hn.algolia.com")
+        stories=[]
+        for row in index.get("hits") or []:
+            title=str(row.get("title") or "")
+            ident=str(row.get("objectID") or "")
+            if ident.isdigit() and re.match(r"^Ask HN:\s*Who is hiring\?",title,re.I):
+                stories.append((int(row.get("created_at_i") or 0),ident))
+        if stories:
+            _,story=max(stories)
+            thread=public_json(
+                "https://hn.algolia.com/api/v1/items/"+story,"hn.algolia.com")
+            for item in thread.get("children") or []:
+                ident=str(item.get("id") or "")
+                text=clean_html(item.get("text") or "")[:6000]
+                if (not ident.isdigit() or not text or RISKY.search(text)
+                        or not CONTRACT.search(text) or not CAPABLE.search(text)
+                        or EMPLOYMENT.search(text)
+                        or not re.search(
+                            r"\b(apply|email|contact|reach out|send|write to|"
+                            r"interested|inquire)\b",text,re.I)):
+                    continue
+                contact=safe_email(text)
+                url="https://news.ycombinator.com/item?id="+ident
+                if not contact or not source_age_ok(item.get("created_at")) or url in seen:
+                    continue
+                rows.append({
+                    "id":"hn:"+ident,
+                    "source":"hackernews",
+                    "source_url":url,
+                    "contact":contact,
+                    "text":text,
+                    "created_at":item.get("created_at"),
+                })
+                seen.add(url)
+                if len(rows)>=24:
+                    break
+    except Exception:
+        pass
+    return rows[:24]
 
 def normalize_price(value):
     raw=str(value or "").strip().lower().replace(",","")
@@ -620,14 +642,25 @@ def prospect_score(row,asset):
             score+=2
     return score
 
+def asset_offer_subject(row,asset):
+    marker=hashlib.sha256(
+        (asset["asset_id"]+"|"+row["source_url"]).encode()).hexdigest()[:18]
+    return "Useful fixed asset ["+marker+"]"
+
+def has_uncontacted_matching_prospect(rows,asset,sent_subjects):
+    for row in rows:
+        if prospect_score(row,asset)>0 and asset_offer_subject(row,asset) not in sent_subjects:
+            return True
+    return False
+
 def send_asset_offer(rows,asset):
     sent=recent_sent_subjects()
     ranked=sorted(rows,key=lambda r:(-prospect_score(r,asset),r["source_url"]))
     for row in ranked:
         if prospect_score(row,asset)<=0:
             continue
-        marker=hashlib.sha256((asset["asset_id"]+"|"+row["source_url"]).encode()).hexdigest()[:18]
-        subject="Useful fixed asset ["+marker+"]"
+        subject=asset_offer_subject(row,asset)
+        marker=subject.rsplit("[",1)[-1].rstrip("]")
         if subject in sent:
             continue
         price=int(asset["price_cents"])/100
@@ -687,11 +720,15 @@ def run():
     assets=active_assets()
     asset=None
     if rows and assets:
+        sent_subjects=recent_sent_subjects()
         ranked_assets=[]
         for existing in assets:
+            if not has_uncontacted_matching_prospect(rows,existing,sent_subjects):
+                continue
             best=max((prospect_score(row,existing) for row in rows),default=0)
             ranked_assets.append((best,existing))
-        ranked_assets.sort(key=lambda item:(-item[0],str(item[1].get("asset_id") or "")))
+        ranked_assets.sort(
+            key=lambda item:(-item[0],str(item[1].get("asset_id") or "")))
         if ranked_assets and ranked_assets[0][0]>0:
             asset=ranked_assets[0][1]
 
