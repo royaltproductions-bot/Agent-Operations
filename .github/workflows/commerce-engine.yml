@@ -40,37 +40,65 @@ jobs:
           persist-credentials: true
 
       - uses: actions/cache@v4
+        continue-on-error: true
         with:
           path: .ollama-cache/models
           key: ollama-commerce-qwen3-8b-v1
 
       - name: Start commerce model
+        id: model
         shell: bash
         run: |
-          set -euo pipefail
-          curl -fsSL https://ollama.com/install.sh | sh
+          set +e
+          ready=false
+          curl -fsSL https://ollama.com/install.sh | sh &&
           sudo systemctl stop ollama.service 2>/dev/null || true
           mkdir -p "$OLLAMA_MODELS"
           nohup ollama serve >/tmp/ollama.log 2>&1 &
           for attempt in $(seq 1 45); do
-            curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1 && break
+            if curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
+              ready=true
+              break
+            fi
             sleep 1
           done
-          ollama pull "$COMMERCE_MODEL"
+          if [ "$ready" = true ]; then
+            ollama pull "$COMMERCE_MODEL" || ready=false
+          fi
+          echo "ready=$ready" >> "$GITHUB_OUTPUT"
+          exit 0
 
       - name: Run commercial experiment
         id: commerce
+        if: steps.model.outputs.ready == 'true'
         shell: bash
         run: |
           set +e
           python3 -m tools.autonomous_commerce_brain
           code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Persist experiment receipt
+        if: always()
+        shell: bash
+        env:
+          MODEL_READY: ${{ steps.model.outputs.ready }}
+          COMMERCE_OUTCOME: ${{ steps.commerce.outcome }}
+          COMMERCE_EXIT_CODE: ${{ steps.commerce.outputs.exit_code }}
+        run: |
+          set -euo pipefail
           receipt="ops/enterprise-runs/$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT.json"
           if [ ! -s "$receipt" ]; then
             mkdir -p ops/enterprise-runs
             python3 - <<'PY'
           import json, os
           from datetime import datetime, timezone
+          reason="engine_process_failure"
+          if os.environ.get("MODEL_READY")!="true":
+              reason="model_startup_failure"
+          elif os.environ.get("COMMERCE_OUTCOME")=="skipped":
+              reason="commerce_step_skipped"
           path=f"ops/enterprise-runs/{os.environ['GITHUB_RUN_ID']}-{os.environ['GITHUB_RUN_ATTEMPT']}.json"
           data={
             "schema_version":2,
@@ -81,7 +109,7 @@ jobs:
             "discovery":{},
             "offer":None,
             "external_action":None,
-            "structural_failures":[{"reason":"engine_process_failure"}],
+            "structural_failures":[{"reason":reason}],
             "commercial_outcomes":[],
             "economic_result":{
               "new_offers_sent":0,
@@ -93,15 +121,6 @@ jobs:
               json.dump(data,f,indent=2); f.write("\n")
           PY
           fi
-          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
-          exit 0
-
-      - name: Persist experiment receipt
-        shell: bash
-        run: |
-          set -euo pipefail
-          receipt="ops/enterprise-runs/$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT.json"
-          test -s "$receipt"
           encoded="$(base64 -w0 "$receipt")"
           gh api --method PUT "repos/$GITHUB_REPOSITORY/contents/$receipt" \
             -f message='Record commerce experiment outcome' \
@@ -109,6 +128,15 @@ jobs:
             -f branch='main' >/dev/null
 
       - name: Send structural failure to refiner
-        if: steps.commerce.outputs.exit_code != '0'
+        if: always()
         shell: bash
-        run: gh workflow run commerce-refiner.yml --ref main --repo "$GITHUB_REPOSITORY"
+        run: |
+          receipt="ops/enterprise-runs/$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT.json"
+          if python3 - "$receipt" <<'PY'
+          import json,sys
+          row=json.load(open(sys.argv[1]))
+          raise SystemExit(0 if row.get("structural_failures") else 1)
+          PY
+          then
+            gh workflow run commerce-refiner.yml --ref main --repo "$GITHUB_REPOSITORY"
+          fi
