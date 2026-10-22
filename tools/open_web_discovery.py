@@ -189,8 +189,9 @@ def open_web_candidates(max_candidates=24, queries=None):
     errors=[]
     streams=[]
     providers=(("bing",bing_rss),("duckduckgo",duckduckgo_html))
-    for query in queries:
-        for provider,search in providers:
+    # Alternate research directions before exhausting one query's providers.
+    for provider,search in providers:
+        for query in queries:
             try:
                 hits=search(query,limit=6)
                 if hits:
