@@ -1,0 +1,5 @@
+System_ID,Order_Routing_Method,FX_Market_Data_Source,Fixed_Income_Asset_Class,Execution_Priority,System_Role,Permission_Level,Integration_Point,Performance_Metric,Scalability_Profile
+CALYPSO-001,Direct,Reuters,Corporate Bonds,High,Trader,Medium,Market Data Feed,Latency < 50ms,Horizontal
+CALYPSO-002,Indirect,Refinitiv,Government Bonds,Medium,Admin,High,Order Management System,Throughput > 10k TPS,Vertical
+CALYPSO-003,Smart Router, Bloomberg, Municipal Bonds,Low,Observer,Low,External API,Error Rate < 0.1%,Horizontal
+CALYPSO-004,Direct,FX All,Equity Derivatives,High,Operator,Medium,Internal Data Store,Latency < 100ms,Vertical
