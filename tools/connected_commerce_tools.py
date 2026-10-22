@@ -11,6 +11,7 @@ import base64
 import hashlib
 import json
 import os
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
 import re
 import urllib.error
@@ -183,17 +184,35 @@ def existing_autonomous_offer(offer_id):
             }
     return None
 
-def ensure_autonomous_checkout(source_url,title,description,scope,price_cents):
+def stripe_usd_unit_amount(price_usd):
+    """Convert a dollar-denominated decision into Stripe's USD minor units.
+
+    This is a provider transport conversion, NOT an autonomous price limit.
+    It rejects currency-format errors instead of silently rounding a price.
+    """
+    raw=str(price_usd).strip().lower().replace(",","")
+    raw=raw.removeprefix("$").removesuffix("usd").strip()
+    try:
+        dollars=Decimal(raw)
+    except InvalidOperation:
+        raise ValueError("checkout_price_invalid_usd") from None
+    if not dollars.is_finite() or dollars<0:
+        raise ValueError("checkout_price_invalid_usd")
+    cents=dollars*100
+    if cents!=cents.to_integral_value():
+        raise ValueError("checkout_price_subcent_precision")
+    return int(cents)
+
+
+def ensure_autonomous_checkout(source_url,title,description,scope,price_usd):
     """Create or recover one Stripe checkout for an autonomous digital offer."""
     offer_id=_offer_id(source_url)
     existing=existing_autonomous_offer(offer_id)
     if existing and existing.get("checkout_url"):
         return existing
-    amount=int(price_cents)
-    if amount<0:
-        raise ValueError("checkout_price_must_be_nonnegative")
-    # No invented price range. Stripe validates the actual amount and
-    # payment method; preserve its response instead of restricting the agent.
+    amount=stripe_usd_unit_amount(price_usd)
+    # Provider-boundary conversion only; no invented commercial price range.
+    # Stripe validates actual checkout eligibility.
     safe_title=re.sub(r"\s+"," ",str(title)).strip()[:120]
     safe_desc=re.sub(r"\s+"," ",str(description)).strip()[:400]
     safe_scope=re.sub(r"\s+"," ",str(scope)).strip()[:450]
