@@ -36,6 +36,11 @@ from tools.connected_commerce_tools import (
     sent_subject_exists,
 )
 
+from tools.open_web_discovery import (
+    fetch_public_text,
+    open_web_paid_candidates,
+)
+
 MODEL=os.getenv("COMMERCE_MODEL","qwen3:8b")
 OLLAMA="http://127.0.0.1:11434/api/chat"
 ROOT=Path("ops/enterprise-runs")
@@ -241,20 +246,38 @@ def github_candidates():
     return list(out.values())
 
 def candidates():
-    """Return only explicit public invitations for independent paid work.
+    """Discover explicit paid-work invitations across the open public web.
 
-    GitHub issues are intentionally excluded from autonomous outreach here:
-    product pricing, subscription/payment implementation, and ordinary issue
-    discussion are not evidence that the issue author is buying our service.
+    No site is the economic boundary. HN and GitHub are supplemental sources;
+    general web search may return any public domain. Execution still requires a
+    concrete paid need plus a legitimate public contact route.
     """
     rows=[]
     errors=[]
     try:
+        web_rows,web_errors=open_web_paid_candidates(max_candidates=18)
+        rows.extend(web_rows)
+        errors.extend(web_errors)
+    except Exception as exc:
+        errors.append({"source":"open_web","reason":type(exc).__name__})
+    try:
         rows.extend(hn_candidates())
     except Exception as exc:
         errors.append({"source":"hackernews","reason":type(exc).__name__})
-    rows=[r for r in rows if _source_age_ok(r.get("created_at"))]
-    return rows[:20],errors
+    try:
+        rows.extend(github_candidates())
+    except Exception as exc:
+        errors.append({"source":"github","reason":type(exc).__name__})
+
+    dedup={}
+    for row in rows:
+        created=row.get("created_at")
+        if created and not _source_age_ok(created):
+            continue
+        url=str(row.get("source_url") or "")
+        if url:
+            dedup[url]=row
+    return list(dedup.values())[:30],errors
 
 def read_source(candidate):
     url=candidate["source_url"]
@@ -265,13 +288,18 @@ def read_source(candidate):
             raise ValueError("source_no_longer_active")
         return clean_html(row.get("text") or "")[:7000]
     match=re.fullmatch(r"https://github\.com/([\w.-]+)/([\w.-]+)/issues/(\d+)",url)
-    if not match:
-        raise ValueError("unsupported_source")
-    owner,repo,num=match.groups()
-    row=github_json("repos/"+owner+"/"+repo+"/issues/"+num)
-    if row.get("state")!="open" or row.get("pull_request"):
-        raise ValueError("source_no_longer_active")
-    return (str(row.get("title") or "")+"\n"+str(row.get("body") or ""))[:7000]
+    if match:
+        owner,repo,num=match.groups()
+        row=github_json("repos/"+owner+"/"+repo+"/issues/"+num)
+        if row.get("state")!="open" or row.get("pull_request"):
+            raise ValueError("source_no_longer_active")
+        return (str(row.get("title") or "")+"\n"+str(row.get("body") or ""))[:7000]
+    if url.startswith(("https://","http://")):
+        _,text=fetch_public_text(url)
+        if not text:
+            raise ValueError("source_no_longer_active")
+        return text[:7000]
+    raise ValueError("unsupported_source")
 
 def offer_marker(source_url):
     return hashlib.sha256(source_url.encode()).hexdigest()[:18]
