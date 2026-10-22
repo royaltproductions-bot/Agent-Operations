@@ -1,0 +1,85 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-22T18:08:00.976651+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 24,
+    "source_counts": {
+      "open_web": 24
+    },
+    "search_provider_counts": {
+      "bing": 24
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 24,
+    "search_queries": [
+      "How can AI tools help small businesses automate content creation for social media without hiring a full team?",
+      "What are the most common pain points for creators using AI to generate video content for YouTube?",
+      "Are there any emerging markets for AI-powered tools that help users create personalized digital products at scale?",
+      "What are the biggest challenges in scaling a digital product business using AI automation?",
+      "How do creators in niche markets like niche gaming or indie music use AI to produce content efficiently?",
+      "What are the current trends in AI-driven digital product creation for the education sector?"
+    ]
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "offer_selection_failed",
+      "detail": "timed out"
+    },
+    {
+      "reason": "no_feasible_contained_offer"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
