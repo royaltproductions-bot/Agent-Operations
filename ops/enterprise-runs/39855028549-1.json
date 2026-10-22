@@ -1,0 +1,71 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-22T21:15:16.404384+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "bing": 8
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 8,
+    "candidates_without_email": 10,
+    "search_queries": [
+      "",
+      "\u5728\u82f1\u8bed\u8bcd\u5178\u4e2d\u67e5\u770b current \u7684\u91ca\u4e49",
+      "Current Deposit Account Agreement",
+      "Current Build Card Rates Fees"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "\u5728\u82f1\u8bed\u8bcd\u5178\u4e2d\u67e5\u770b current \u7684\u91ca\u4e49",
+        "Current Deposit Account Agreement",
+        "Current Build Card Rates Fees",
+        "Current Boost Terms and Conditions"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 34,
+      "known_pages": 66
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "No explicit invitation for a relevant outside provider, no public business contact route, and no requested work that could be delivered usin"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
