@@ -36,6 +36,7 @@ from tools.connected_commerce_tools import (
 )
 
 from tools.open_web_discovery import open_web_candidates
+from tools.research_memory import ResearchMemory
 
 MODEL=os.getenv("CYCLOPS_MODEL","qwen3:8b")
 OLLAMA="http://127.0.0.1:11434/api/chat"
@@ -132,7 +133,7 @@ def model_json(schema,system,observation,timeout=240,num_ctx=6144,num_predict=18
         raise ValueError("model_not_object")
     return obj
 
-def discovery_queries():
+def discovery_queries(memory):
     """Choose broad product-market research directions at runtime."""
     system=(
         "You are Cyclops, researching opportunities for useful reusable digital "
@@ -143,20 +144,27 @@ def discovery_queries():
         "need not appear as a paid job posting or contain a price or contact email. "
         "Do not restrict research to preset niches, websites, job boards, template "
         "categories or marketplaces. Include a particular site only when genuinely "
-        "relevant. Return schema-compliant JSON with varied independent searches."
+        "relevant. Continue promising earlier avenues, develop queued unexplored "
+        "sources, avoid repeating recent exhausted queries, and revisit pages only "
+        "when changing evidence warrants it. Return schema-compliant JSON."
     )
     result=model_json(
         SEARCH_SCHEMA,system,
         {"utc_date":NOW().date().isoformat(),
-         "mission":"find viable reusable digital-product demand from anywhere on the public web"},
-        timeout=90,num_ctx=2048,num_predict=260)
+         "mission":"find viable reusable digital-product demand from anywhere on the public web",
+         "research_history":memory.plan_context()},
+        timeout=100,num_ctx=3072,num_predict=320)
     return [str(q).strip() for q in result.get("queries") or [] if str(q).strip()]
 
 
-def demand_candidates():
-    """Keep open-web demand evidence, even without a buyer post or email."""
-    queries=discovery_queries()
-    return open_web_candidates(max_candidates=24,queries=queries)
+def demand_candidates(memory):
+    """Continue market research where previous real executions left off."""
+    queries=memory.choose_queries(discovery_queries(memory))
+    budget=memory.budget()
+    return open_web_candidates(
+        max_candidates=budget["max_candidates"],queries=queries,
+        memory=memory,max_search_seconds=budget["max_seconds"],
+        max_pages=budget["max_pages"])
 
 
 def normalize_price(value):
@@ -688,8 +696,9 @@ def run():
             "reason":"fulfillment_scan_failed",
             "detail":(str(exc) or type(exc).__name__)[:160]})
 
+    memory=ResearchMemory("cyclops")
     try:
-        rows,search_errors=demand_candidates()
+        rows,search_errors=demand_candidates(memory)
         source_counts={}
         provider_counts={}
         for row in rows:
@@ -710,6 +719,10 @@ def run():
     except Exception as exc:
         rows=[]
         receipt["discovery"]={"candidate_count":0,"reason":type(exc).__name__}
+
+    # Write true research progression before product manufacturing spends the
+    # remaining runner time, so an interrupted run does not repeat the crawl.
+    receipt["discovery"]["research_memory"]=memory.save()
 
     assets=active_assets()
     asset=None
@@ -763,6 +776,8 @@ def run():
                 if x.get("result") in ("fulfilled","already_fulfilled"))
     receipt["economic_result"]["fulfilled_orders_seen"]=fulfilled
     receipt["economic_result"]["verified_cyclops_revenue_cents_seen"]=revenue
+    memory.note_outcome(receipt)
+    receipt["discovery"]["research_memory"]=memory.save()
     write_receipt(receipt)
     print(json.dumps(receipt,indent=2))
 
