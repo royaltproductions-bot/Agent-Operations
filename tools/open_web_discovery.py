@@ -90,13 +90,13 @@ def public_links(html,base_url):
     """Identify relevant outgoing public links without fixed website lists."""
     found=[]
     seen=set()
-    pattern=r'<a\\b[^>]*\\bhref\\s*=\\s*([\\x22\\x27])(.*?)\\1[^>]*>(.*?)</a>'
+    pattern=r'<a\b[^>]*\bhref\s*=\s*(["\x27])(.*?)\1[^>]*>(.*?)</a>'
     for match in re.finditer(pattern,html,flags=re.I|re.S):
         href=unescape(match.group(2).strip())
         url=urllib.parse.urljoin(base_url,href).split("#",1)[0]
         if not _public_url(url) or len(url)>1200 or url in seen:
             continue
-        if re.search(r"\\.(?:png|jpe?g|gif|webp|svg|ico|mp4|mp3|zip|pdf)(?:\\?|$)",url,re.I):
+        if re.search(r"\.(?:png|jpe?g|gif|webp|svg|ico|mp4|mp3|zip|pdf)(?:\?|$)",url,re.I):
             continue
         anchor=clean_html(match.group(3))[:160]
         if len(anchor)<5:
@@ -288,7 +288,7 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
                 })
         if final in results:
             continue
-        evidence=(title+"\\n"+snippet+"\\n"+page).strip()
+        evidence=(title+"\n"+snippet+"\n"+page).strip()
         if not evidence:
             continue
         contact=safe_email(evidence)
