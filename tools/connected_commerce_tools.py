@@ -222,7 +222,6 @@ def ensure_autonomous_checkout(source_url,title,description,scope,price_cents):
         "metadata[autonomous_offer_id]":offer_id,
         "metadata[source_url]":safe_source,
         "metadata[scope]":safe_scope,
-        "payment_intent_data[metadata][autonomous_offer_id]":offer_id,
     },"auto-link-"+offer_id)
     link_id=link.get("id")
     url=link.get("url")
