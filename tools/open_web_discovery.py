@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Open-web commercial discovery shared by autonomous revenue lanes.
+"""Broad open-web research shared by autonomous revenue lanes.
 
-Search is intentionally domain-agnostic. Search-engine results may point to any
-public website; deterministic qualification decides whether a result is usable.
+Search results from any public domain are retained as research signals. Market
+relevance and external-action authorization are assessed by the calling agent.
 """
 from __future__ import annotations
 
@@ -19,24 +19,6 @@ import xml.etree.ElementTree as ET
 NOW=lambda: datetime.now(timezone.utc)
 
 EMAIL=re.compile(r"(?<![\w.+-])[\w.+-]{1,60}@[\w.-]{3,100}\.[A-Za-z]{2,16}\b")
-PAID=re.compile(
-    r"\b(paid|budget|compensation|fee|rate|fixed[- ]price|bounty|contract)\b|"
-    r"\$\s?\d|\bUSD\b",re.I)
-BUYER_INTENT=re.compile(
-    r"\b(looking for|seeking|need(?:ing)?|wanted|request(?:ing)?|"
-    r"hire|hiring|contractor|freelancer|consultant|project|"
-    r"request for proposal|\brfp\b|bounty)\b",re.I)
-EMPLOYMENT=re.compile(
-    r"\b(full[- ]time|salary|annual compensation|annual salary|benefits|"
-    r"employee|employment|equity|stock options|401k|pto|visa sponsorship)\b",re.I)
-INDEPENDENT=re.compile(
-    r"\b(contractor|freelanc(?:e|er)|consult(?:ing|ant)|project[- ]based|"
-    r"fixed[- ]price|paid task|paid project|bounty|request for proposal|rfp)\b",re.I)
-RISKY=re.compile(
-    r"\b(cve|exploit|malware|ransomware|phishing|credential theft|weapon|"
-    r"medical diagnosis|therapy|legal representation|tax advice|security clearance|"
-    r"adult content|gambling|controlled substance)\b",re.I)
-
 def _public_url(url):
     parts=urllib.parse.urlsplit(str(url or ""))
     if parts.scheme not in ("http","https") or not parts.hostname:
@@ -122,19 +104,6 @@ def safe_email(text):
             return matches[0]
     return None
 
-def _fallback_queries():
-    """Broad fallback only; callers normally supply fresh model-generated queries."""
-    year=str(NOW().year)
-    month=NOW().strftime("%B")
-    return [
-        f'"looking for" paid project contact {month} {year}',
-        f'"seeking" contractor budget contact {year}',
-        f'"request for proposal" budget email {year}',
-        f'"paid task" project contact {year}',
-        f'"need help with" budget freelancer {year}',
-        f'"fixed price" project contact {year}',
-    ]
-
 def _normalize_queries(queries):
     out=[]
     seen=set()
@@ -150,7 +119,7 @@ def _normalize_queries(queries):
         out.append(q)
         if len(out)>=8:
             break
-    return out or _fallback_queries()
+    return out
 
 def bing_rss(query,limit=8):
     params=urllib.parse.urlencode({"q":query,"format":"rss","count":str(limit)})
@@ -205,58 +174,84 @@ def duckduckgo_html(query,limit=6):
             break
     return out
 
-def open_web_paid_candidates(max_candidates=18,queries=None):
-    """Search arbitrary public domains using caller-generated or fallback queries."""
-    results={}
+def open_web_candidates(max_candidates=24, queries=None):
+    """Discover relevant public pages across the open web, with no topic/contact gate.
+
+    Query planning belongs to each agent. Search engines are discovery transports,
+    not preferred markets or a hard-coded set of buyer websites. Pages without
+    prices, buyer language, or email addresses remain legitimate research signals.
+    Public-source and contact validation belong to downstream commercial actions.
+    """
+    queries=_normalize_queries(queries)
+    if not queries:
+        return [], [{"source":"open_web_search","reason":"no_model_queries"}]
+
     errors=[]
-    pages_checked=0
+    streams=[]
     providers=(("bing",bing_rss),("duckduckgo",duckduckgo_html))
-    for query in _normalize_queries(queries):
+    for query in queries:
         for provider,search in providers:
             try:
                 hits=search(query,limit=6)
+                if hits:
+                    streams.append((query,provider,hits))
             except Exception as exc:
                 errors.append({
                     "source":"open_web_search",
                     "provider":provider,
                     "reason":type(exc).__name__,
                 })
-                continue
-            for hit in hits:
-                url=hit["source_url"]
-                if url in results:
-                    continue
-                pages_checked+=1
-                if pages_checked>48:
-                    return list(results.values()),errors
-                try:
-                    final,text=fetch_public_text(url)
-                except Exception:
-                    continue
-                combined=(hit.get("title","")+"\n"+hit.get("snippet","")+"\n"+text)[:16000]
-                if RISKY.search(combined):
-                    continue
-                # Do not throw away legitimate contract/RFP pages merely because
-                # they also mention employment somewhere else on the page.
-                if EMPLOYMENT.search(combined) and not INDEPENDENT.search(combined):
-                    continue
-                if not BUYER_INTENT.search(combined) or not PAID.search(combined):
-                    continue
-                contact=safe_email(combined)
-                if not contact:
-                    continue
-                ident=hashlib.sha256(final.encode()).hexdigest()[:18]
-                results[final]={
-                    "id":"web:"+ident,
-                    "channel":"email",
-                    "source":"open_web",
-                    "search_provider":provider,
-                    "search_query":query,
-                    "source_url":final,
-                    "contact":contact,
-                    "text":text[:8000],
-                    "created_at":None,
-                }
-                if len(results)>=max_candidates:
-                    return list(results.values()),errors
+
+    # Interleave searches so one query or search provider cannot consume the
+    # entire result budget before other ideas have been investigated.
+    queue=[]
+    for index in range(max((len(hits) for _,_,hits in streams),default=0)):
+        for query,provider,hits in streams:
+            if index<len(hits):
+                queue.append((query,provider,hits[index]))
+
+    results={}
+    visited=set()
+    page_budget=min(72,max(24,max_candidates*3))
+    for query,provider,hit in queue:
+        if len(results)>=max_candidates or len(visited)>=page_budget:
+            break
+        url=str(hit.get("source_url") or "")
+        if not _public_url(url) or url in visited:
+            continue
+        visited.add(url)
+        title=str(hit.get("title") or "")
+        snippet=str(hit.get("snippet") or "")
+        try:
+            final,page=fetch_public_text(url)
+        except Exception as exc:
+            # Preserve the search-engine observation when a site refuses
+            # automated fetching, rather than erasing an otherwise useful lead.
+            final,page=url,""
+            if len(errors)<18:
+                errors.append({
+                    "source":"public_page_fetch",
+                    "reason":type(exc).__name__,
+                })
+        if final in results:
+            continue
+        evidence=(title+"\n"+snippet+"\n"+page).strip()
+        if not evidence:
+            continue
+        contact=safe_email(evidence)
+        ident=hashlib.sha256(final.encode()).hexdigest()[:18]
+        results[final]={
+            "id":"web:"+ident,
+            "channel":"email" if contact else None,
+            "source":"open_web",
+            "search_provider":provider,
+            "search_query":query,
+            "source_url":final,
+            "title":title[:500],
+            "snippet":snippet[:1600],
+            "contact":contact,
+            "text":evidence[:8000],
+            "page_fetched":bool(page),
+            "created_at":None,
+        }
     return list(results.values()),errors
