@@ -246,11 +246,17 @@ def choose_asset_concept(rows,existing_assets=None):
         ".txt and .csv. core_points must contain the substantive knowledge/instructions needed "
         "to build a useful fallback asset if later generation fails. For CSV specs, columns "
         "must name the actual useful worksheet fields; for TXT specs, columns must be empty. "
-        "Choose a one-time price from $5 to $99. price_cents must be digits only. Keep every "
-        "field concise. Return only schema-compliant JSON."
+        "Choose a one-time price from $5 to $99. price_cents must be digits only. "
+        "Build a genuinely usable product, not an abstract concept or filler. "
+        "Use concrete tasks and repeatable outputs supported by the cited market "
+        "evidence. Prefer a single deliverable whose purpose, instructions and "
+        "completion criteria are unambiguous; do not invent customers or records. "
+        "Return only schema-compliant JSON."
     )
-    # One bounded concept decision: save CPU for producing the actual product.
-    attempts=[(visible,90,2560,500)]
+    # CPU-hosted Qwen3:8b requires enough time to complete a structured
+    # concept; a 90-second cold-inference deadline caused run #42 to fail.
+    # One substantive attempt, not three entire manufacturing restarts.
+    attempts=[(visible,300,4096,1050)]
     last=None
     for observation,timeout,ctx,predict in attempts:
         try:
@@ -301,12 +307,16 @@ def generate_asset_file(plan,spec,rows):
         "Use the supplied product concept, core points, file purpose, and current demand "
         "only as context. Do not write commentary around the file. Do not claim results, "
         "experience, credentials, private access, or buyer-specific work. For .csv output "
-        "valid CSV beginning with exactly the requested columns and include a few generic "
-        "template rows that are numerous and substantive enough to make the CSV useful on its own. "
-        "Never invent production-ready configuration values for real systems. For .txt output "
+        "valid CSV beginning with exactly the requested columns. Each CSV row must "
+        "provide real reusable operational value (steps, rules, criteria or formulas), "
+        "not invented customers, sales, financial outcomes or production configurations. "
+        "Do not pad a file with dummy data to reach a length threshold. "
+        "For .txt output "
         "create a detailed practical standalone toolkit, guide, worksheet, or template that a "
-        "buyer can use immediately. The paid file must contain real working substance, not a "
-        "demo or outline. Keep it compact enough to finish reliably."
+        "buyer can use immediately. Include concrete methods, instructions and "
+        "decisions rather than idioms, motivational padding or vague bullet lists. "
+        "The paid file must contain real working substance, not a demo or outline. "
+        "Keep it compact enough to finish reliably."
     )
     observation={
         "product":{
@@ -319,7 +329,7 @@ def generate_asset_file(plan,spec,rows):
         "demand_context":demand_view(rows,limit=3,width=350),
     }
     # Avoid a second long, lower-output model call after a failed generation.
-    attempts=[(120,3072,900)]
+    attempts=[(240,3072,1100)]
     for timeout,ctx,predict in attempts:
         try:
             obj=model_json(FILE_SCHEMA,system,observation,
@@ -389,7 +399,7 @@ def buyer_quality_check(plan,files,rows):
     }
     result=model_json(
         QUALITY_SCHEMA,system,observation,
-        timeout=90,num_ctx=3072,num_predict=140)
+        timeout=150,num_ctx=3072,num_predict=170)
     if result.get("verdict")!="pass":
         raise RuntimeError(
             "buyer_quality_rejected:"+
