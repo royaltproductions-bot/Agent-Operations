@@ -18,6 +18,7 @@ import os
 from pathlib import Path
 import re
 import sys
+import subprocess
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -198,6 +199,24 @@ def get_public_json(url, host):
     with urllib.request.urlopen(request,timeout=22) as response:
         return json.loads(response.read(350000).decode("utf-8"))
 
+def github_json(endpoint,params=None):
+    """Authenticated GitHub API through the runner's native gh client."""
+    token=os.environ.get("GH_TOKEN","")
+    if token:
+        cmd=["gh","api","--method","GET","-H","Accept: application/vnd.github+json",
+             "-H","X-GitHub-Api-Version: 2022-11-28",endpoint]
+        for key,value in (params or {}).items():
+            cmd.extend(["-f",str(key)+"="+str(value)])
+        result=subprocess.run(cmd,text=True,capture_output=True,timeout=30,check=False)
+        if result.returncode==0 and result.stdout.strip():
+            try:
+                return json.loads(result.stdout)
+            except json.JSONDecodeError:
+                pass
+    query=urllib.parse.urlencode(params or {},doseq=True)
+    return get_public_json("https://api.github.com/"+endpoint+
+                           ("?"+query if query else ""),"api.github.com")
+
 def compact_search_terms(raw):
     """Translate model prose to supported short API keywords, never a query DSL."""
     result=[]
@@ -234,84 +253,67 @@ def search_demand(strategy):
     if len(query)<4:
         raise ValueError("search_query_too_short")
     if strategy["search_channel"]=="hackernews":
-        from_utc=int((TODAY()-timedelta(days=45)).timestamp())
+        # Search the latest monthly employer thread first. Top-level comments
+        # there are actual hiring/contract invitations, not arbitrary HN chatter.
+        args=urllib.parse.urlencode({"tags":"story","query":"Ask HN: Who is hiring?",
+                                     "hitsPerPage":30})
+        index=get_public_json("https://hn.algolia.com/api/v1/search_by_date?"+args,
+                              "hn.algolia.com")
+        stories=[]
+        for item in index.get("hits",[]):
+            title=str(item.get("title") or "")
+            ident=str(item.get("objectID") or "")
+            if ident.isdigit() and re.match(r"^Ask HN:\s*Who is hiring\?",title,re.I):
+                stories.append((int(item.get("created_at_i") or 0),ident))
+        if not stories:
+            return []
+        _,story_id=max(stories)
+        thread=get_public_json("https://hn.algolia.com/api/v1/items/"+story_id,
+                               "hn.algolia.com")
+        terms={word.lower() for phrase in compact_search_terms(query)
+               for word in phrase.split() if len(word)>=3}
         hits=[]
-        seen=set()
-        for term in compact_search_terms(query):
-            args=urllib.parse.urlencode({"query":term,"tags":"comment","hitsPerPage":25,
-                                         "numericFilters":"created_at_i>"+str(from_utc)})
-            data=get_public_json("https://hn.algolia.com/api/v1/search_by_date?"+args,
-                                 "hn.algolia.com")
-            for x in data.get("hits",[]):
-                key=str(x.get("objectID",""))
-                if not key.isdigit() or key in seen:continue
-                preview=clean_html(x.get("comment_text") or "")[:1050]
-                if not preview:continue
-                seen.add(key)
-                hits.append({"id":key,"url":"https://news.ycombinator.com/item?id="+key,
-                             "text":preview,"created_at":x.get("created_at")})
-            if len(hits)>=12:break
-        return hits[:12]
-    if strategy["search_channel"]=="reddit_forhire":
-        # Public brief discovery, not permission to DM or spam. Original post is
-        # retrieved again separately before any eligible solicited application.
-        args=urllib.parse.urlencode({"q":query,"restrict_sr":"1","sort":"new",
-                                     "t":"month","limit":30,"raw_json":"1"})
-        feed_fallback=False
-        try:
-            obj=get_public_json("https://www.reddit.com/r/forhire/search.json?"+args,
-                                "www.reddit.com")
-        except (urllib.error.HTTPError,urllib.error.URLError,TimeoutError):
-            feed_args=urllib.parse.urlencode({"limit":100,"raw_json":"1"})
-            try:
-                obj=get_public_json("https://www.reddit.com/r/forhire/new.json?"+feed_args,
-                                    "www.reddit.com")
-            except (urllib.error.HTTPError,urllib.error.URLError,TimeoutError):
-                obj=get_public_json("https://old.reddit.com/r/forhire/new.json?"+feed_args,
-                                    "old.reddit.com")
-            feed_fallback=True
-        query_words={w.lower() for phrase in compact_search_terms(query) for w in phrase.split()}
-        found=[]
-        for child in ((obj.get("data") or {}).get("children") or []):
-            entry=child.get("data") or {}
-            ident=str(entry.get("id") or "")
-            if not re.fullmatch(r"[a-z0-9]{4,12}", ident):
+        for item in thread.get("children") or []:
+            ident=str(item.get("id") or "")
+            text=clean_html(item.get("text") or "")[:5000]
+            if not ident.isdigit() or not text:
                 continue
-            if str(entry.get("subreddit","")).lower()!="forhire":
+            if not re.search(r"\b(contract(?:or)?|freelanc(?:e|er)|consult(?:ing|ant)|"
+                             r"project[- ]based|paid pilot|part[- ]time)\b",text,re.I):
                 continue
-            if entry.get("removed_by_category") or entry.get("over_18"):
-                continue
-            title=str(entry.get("title",""))[:180]
-            if not re.match(r"^\s*\[\s*hiring\s*\]",title,re.I):
-                continue
-            body=str(entry.get("selftext") or "")[:900]
-            if len(body)<20:
-                continue
-            if feed_fallback and query_words:
-                hay=(title+" "+body).lower()
-                matches=sum(word in hay for word in query_words)
-                if matches < (2 if len(query_words)>=4 else 1):
+            if terms:
+                hay=text.lower()
+                matches=sum(word in hay for word in terms)
+                if matches<1:
                     continue
-            found.append({"id":ident,"url":"https://www.reddit.com/r/forhire/comments/"+ident+"/",
-                          "text":title+"\n"+body,
-                          "created_at":entry.get("created_utc")})
-        return found[:12]
+            hits.append({"id":ident,
+                         "url":"https://news.ycombinator.com/item?id="+ident,
+                         "text":text[:1200],"created_at":item.get("created_at")})
+            if len(hits)>=12:
+                break
+        return hits
     if strategy["search_channel"]=="github":
         terms=compact_search_terms(query)
         if not terms:raise ValueError("no_valid_search_terms")
-        term=terms[0][:85]+" in:title,body is:issue is:open"
-        args=urllib.parse.urlencode({"q":term,"sort":"updated","order":"desc","per_page":12})
-        data=get_public_json("https://api.github.com/search/issues?"+args,"api.github.com")
-        hits=[]
-        for x in data.get("items",[]):
-            if x.get("pull_request"):continue
-            url=x.get("html_url","")
-            m=re.fullmatch(r"https://github\.com/[\w.-]+/[\w.-]+/issues/\d+",url)
-            if not m:continue
-            hits.append({"id":url,"url":url,
-                         "text":str(x.get("title",""))[:180]+"\n"+str(x.get("body") or "")[:800],
-                         "created_at":x.get("created_at")})
-        return hits[:12]
+        hits={}
+        # Paid/bounty/contract terms are searched explicitly; ordinary feature
+        # requests are demand evidence but not useful commercial invitations.
+        for intent in ("bounty","paid","contract"):
+            q=terms[0][:70]+" "+intent+" in:title,body is:issue is:open"
+            data=github_json("search/issues",
+                             {"q":q,"sort":"updated","order":"desc","per_page":12})
+            for x in data.get("items",[]):
+                if x.get("pull_request"):continue
+                url=str(x.get("html_url") or "")
+                if not re.fullmatch(r"https://github\.com/[\w.-]+/[\w.-]+/issues/\d+",url):
+                    continue
+                text=(str(x.get("title") or "")[:180]+"\n"+
+                      str(x.get("body") or "")[:1800])
+                hits[url]={"id":url,"url":url,"text":text,
+                           "created_at":x.get("created_at")}
+            if len(hits)>=12:
+                break
+        return list(hits.values())[:12]
     raise ValueError("unsupported_channel")
 
 def read_original(hit,channel):
@@ -345,8 +347,7 @@ def read_original(hit,channel):
         m=re.fullmatch(r"https://github\.com/([\w.-]+)/([\w.-]+)/issues/(\d+)",url)
         if not m:raise ValueError("invalid_issue")
         owner,repo,num=m.groups()
-        obj=get_public_json("https://api.github.com/repos/"+owner+"/"+repo+"/issues/"+num,
-                            "api.github.com")
+        obj=github_json("repos/"+owner+"/"+repo+"/issues/"+num)
         if obj.get("state")!="open" or obj.get("pull_request"):
             raise ValueError("not_open_eligible_issue")
         text=(str(obj.get("title") or "")+"\n"+str(obj.get("body") or ""))[:6000]
@@ -366,9 +367,7 @@ def explicit_invite(text,channel):
     customer invitation. A bounty claim is not verified funding or buyer consent.
     """
     content=text[:6000]
-    if channel not in ("hackernews","reddit_forhire"):
-        return None  # A repo issue is not a public authorization for email.
-    if channel=="reddit_forhire" and not re.match(r"^\s*\[\s*hiring\s*\]",content,re.I):
+    if channel not in ("hackernews","github"):
         return None
     if channel=="hackernews" and not re.search(r"\b(contract(?:or)?|freelanc(?:e|er)|paid pilot|consult(?:ing|ant)|project.based)\b",
                      content,re.I):
@@ -557,14 +556,19 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
                              "detail":str(exc)[:100]})
             continue
         requested_source=strategy["search_channel"]
-        query=strategy["search_query"].strip()
-        if len(query)<4:
+        terms=compact_search_terms(strategy["search_query"])
+        if not terms:
             feedback.append({"reason":"unusable_search_term"})
             continue
+        query=next((term for term in terms
+                    if term.lower() not in {x.lower() for x in prior_queries}),terms[0])
+        strategy["search_query"]=query
         repeat=reject_repetition(strategy,history,current=current_experiments)
-        # Repetition is an ADVISORY rather than censorship: a previously
-        # unsuccessful idea can be worthwhile when a new source, buyer,
-        # delivery method, or independent piece of evidence appears.
+        if repeat in {"repeat_exact_search","repeat_rephrased_search",
+                      "recycled_unvalidated_market"}:
+            feedback.append({"reason":"strategy_pivot_from_repetition",
+                             "signal":repeat})
+            continue
         if repeat:
             feedback.append({"reason":"repetition_warning","signal":repeat})
         if query.lower() in {x.lower() for x in prior_queries}:
@@ -608,7 +612,7 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
         # One model decision across candidates from every reachable source.
         shortlist=[{"id":str(x["id"]),"url":x["url"],
                     "channel":x["channel"],
-                    "contact_route_possible":x["channel"] in ("hackernews","reddit_forhire"),
+                    "contact_route_possible":x["channel"] in ("hackernews","github"),
                     "snippet":x["text"][:850]} for x in hits]
         try:
             decision=evaluate(EVALUATE_SCHEMA,
@@ -632,7 +636,7 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
             feedback.append({"reason":"model_selected_unlisted_candidate"})
             continue
         candidate_channel=match["channel"]
-        if candidate_channel not in ("hackernews","reddit_forhire"):
+        if candidate_channel not in ("hackernews","github"):
             feedback.append({"reason":"selected_candidate_has_no_executable_contact_route",
                              "channel":candidate_channel})
             continue
