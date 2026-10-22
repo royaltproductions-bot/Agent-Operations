@@ -139,6 +139,155 @@ def verified_paid_totals(max_pages=3):
             break
     return {"verified_paid_sessions":count,"confirmed_gross_usd":round(gross_usd/100,2)}
 
+
+def stripe_post(path,fields,idempotency_key=""):
+    """Stripe form-encoded mutation with deterministic idempotency."""
+    key=os.environ.get("STRIPE_SECRET_KEY","")
+    if not key.startswith(("sk_live_","rk_live_","sk_test_","rk_test_")):
+        raise RuntimeError("stripe_key_unavailable")
+    headers={
+        "Accept":"application/json",
+        "User-Agent":"autonomous-commerce/3.0",
+        "Authorization":"Basic "+base64.b64encode((key+":").encode()).decode(),
+        "Content-Type":"application/x-www-form-urlencoded",
+    }
+    if idempotency_key:
+        headers["Idempotency-Key"]=idempotency_key[:255]
+    data=urllib.parse.urlencode(fields,doseq=True).encode()
+    req=urllib.request.Request("https://api.stripe.com/v1/"+path,data=data,
+                               headers=headers,method="POST")
+    try:
+        with urllib.request.urlopen(req,timeout=30) as response:
+            return json.loads(response.read(2_000_000).decode())
+    except urllib.error.HTTPError as exc:
+        raise RuntimeError("stripe_write_http_"+str(exc.code)) from None
+    except (urllib.error.URLError,TimeoutError):
+        raise RuntimeError("stripe_write_unavailable") from None
+
+def _offer_id(source_url):
+    return hashlib.sha256(str(source_url).encode()).hexdigest()[:24]
+
+def existing_autonomous_offer(offer_id):
+    """Find an already-created payment link by stable autonomous offer id."""
+    page=stripe_get("payment_links",{"limit":100})
+    for link in page.get("data") or []:
+        if not isinstance(link,dict):
+            continue
+        metadata=link.get("metadata") or {}
+        if metadata.get("autonomous_offer_id")==offer_id:
+            return {
+                "offer_id":offer_id,
+                "payment_link_id":link.get("id"),
+                "checkout_url":link.get("url"),
+                "active":link.get("active") is True,
+            }
+    return None
+
+def ensure_autonomous_checkout(source_url,title,description,scope,price_cents):
+    """Create or recover one Stripe checkout for an autonomous digital offer."""
+    offer_id=_offer_id(source_url)
+    existing=existing_autonomous_offer(offer_id)
+    if existing and existing.get("checkout_url"):
+        return existing
+    amount=int(price_cents)
+    if amount<500 or amount>50000:
+        raise ValueError("autonomous_price_out_of_range")
+    safe_title=re.sub(r"\s+"," ",str(title)).strip()[:120]
+    safe_desc=re.sub(r"\s+"," ",str(description)).strip()[:400]
+    safe_scope=re.sub(r"\s+"," ",str(scope)).strip()[:450]
+    safe_source=str(source_url)[:450]
+    product=stripe_post("products",{
+        "name":safe_title,
+        "description":safe_desc,
+        "metadata[autonomous_revenue]":"yes",
+        "metadata[autonomous_offer_id]":offer_id,
+        "metadata[source_url]":safe_source,
+        "metadata[scope]":safe_scope,
+    },"auto-product-"+offer_id)
+    product_id=product.get("id")
+    if not isinstance(product_id,str) or not product_id.startswith("prod_"):
+        raise RuntimeError("stripe_product_creation_unconfirmed")
+    price=stripe_post("prices",{
+        "unit_amount":amount,
+        "currency":"usd",
+        "product":product_id,
+    },"auto-price-"+offer_id)
+    price_id=price.get("id")
+    if not isinstance(price_id,str) or not price_id.startswith("price_"):
+        raise RuntimeError("stripe_price_creation_unconfirmed")
+    link=stripe_post("payment_links",{
+        "line_items[0][price]":price_id,
+        "line_items[0][quantity]":"1",
+        "metadata[autonomous_revenue]":"yes",
+        "metadata[autonomous_offer_id]":offer_id,
+        "metadata[source_url]":safe_source,
+        "metadata[scope]":safe_scope,
+        "payment_intent_data[metadata][autonomous_offer_id]":offer_id,
+    },"auto-link-"+offer_id)
+    link_id=link.get("id")
+    url=link.get("url")
+    if not isinstance(link_id,str) or not link_id.startswith("plink_") or not str(url).startswith("https://"):
+        raise RuntimeError("stripe_payment_link_creation_unconfirmed")
+    return {"offer_id":offer_id,"payment_link_id":link_id,
+            "checkout_url":url,"active":link.get("active") is True}
+
+def _verified_session(session):
+    if (not isinstance(session,dict) or session.get("status")!="complete"
+            or session.get("payment_status")!="paid" or session.get("mode")!="payment"):
+        return False
+    intent=session.get("payment_intent")
+    if not isinstance(intent,str) or not intent.startswith("pi_"):
+        return False
+    pi=stripe_get("payment_intents/"+urllib.parse.quote(intent,safe=""))
+    charge_id=pi.get("latest_charge")
+    if pi.get("status")!="succeeded" or not isinstance(charge_id,str) or not charge_id.startswith("ch_"):
+        return False
+    charge=stripe_get("charges/"+urllib.parse.quote(charge_id,safe=""))
+    return bool(charge.get("paid") and not charge.get("refunded")
+                and int(charge.get("amount_refunded") or 0)==0
+                and charge.get("status")=="succeeded")
+
+def autonomous_paid_orders(limit=100):
+    """Verified paid autonomous orders with private fulfillment details in memory only."""
+    page=stripe_get("checkout/sessions",{"limit":min(int(limit),100)})
+    orders=[]
+    link_cache={}
+    for session in page.get("data") or []:
+        link_id=session.get("payment_link")
+        if not isinstance(link_id,str) or not link_id.startswith("plink_"):
+            continue
+        link=link_cache.get(link_id)
+        if link is None:
+            link=stripe_get("payment_links/"+urllib.parse.quote(link_id,safe=""))
+            link_cache[link_id]=link
+        metadata=link.get("metadata") or {}
+        if metadata.get("autonomous_revenue")!="yes":
+            continue
+        try:
+            if not _verified_session(session):
+                continue
+        except RuntimeError:
+            continue
+        customer=(session.get("customer_details") or {}).get("email") or session.get("customer_email")
+        if not re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+",str(customer or "")):
+            continue
+        orders.append({
+            "session_id":session.get("id"),
+            "offer_id":metadata.get("autonomous_offer_id"),
+            "source_url":metadata.get("source_url"),
+            "scope":metadata.get("scope"),
+            "customer_email":customer,
+            "amount_total":int(session.get("amount_total") or 0),
+            "currency":session.get("currency"),
+        })
+    return orders
+
+def sent_subject_exists(subject):
+    """Provider-grounded duplicate protection for autonomous outreach/fulfillment."""
+    result=agent_get("messages",{"limit":100,"labels":["sent"],"subject":[subject]})
+    return any(str(m.get("subject") or "")==subject and "sent" in (m.get("labels") or [])
+               for m in result.get("messages") or [])
+
 def capability_status():
     return {
         "github_actions":True,
