@@ -38,31 +38,13 @@ from tools.connected_commerce_tools import (
 
 from tools.open_web_discovery import (
     fetch_public_text,
-    open_web_paid_candidates,
+    open_web_candidates,
 )
 
 MODEL=os.getenv("COMMERCE_MODEL","qwen3:8b")
 OLLAMA="http://127.0.0.1:11434/api/chat"
 ROOT=Path("ops/enterprise-runs")
 NOW=lambda: datetime.now(timezone.utc)
-
-RISKY=re.compile(
-    r"\b(cve|exploit|malware|ransomware|phishing|credential theft|weapon|"
-    r"medical diagnosis|therapy|legal representation|tax advice|onsite|on-site|"
-    r"security clearance|adult content|gambling|controlled substance)\b",re.I)
-CAPABLE=re.compile(
-    r"\b(python|javascript|typescript|script|automation|workflow|api|csv|"
-    r"spreadsheet|data|report|website|frontend|html|css|integration|testing|"
-    r"quality assurance|video edit|short[- ]form|animation|motion graphics|"
-    r"content|marketing automation|research|documentation)\b",re.I)
-CONTRACT=re.compile(
-    r"\b(contract(?:or)?(?:\s+(?:role|project|work|position))?|"
-    r"freelanc(?:e|er)|consult(?:ing|ant)|project[- ]based|"
-    r"paid pilot|paid task|paid project)\b",re.I)
-EMPLOYMENT=re.compile(
-    r"\b(full[- ]time|salary|annual compensation|annual salary|benefits|"
-    r"employee|employment|equity|stock options|401k|pto|visa sponsorship)\b",re.I)
-EMAIL=re.compile(r"(?<![\w.+-])[\w.+-]{1,60}@[\w.-]{3,100}\.[A-Za-z]{2,16}\b")
 
 SEARCH_SCHEMA={
     "type":"object",
@@ -169,152 +151,31 @@ def clean_html(raw):
     text=re.sub(r"<[^>]+>"," ",text)
     return re.sub(r"[ \t]+"," ",unescape(text)).strip()
 
-def _safe_email(text):
-    emails=[x.lower() for x in EMAIL.findall(text)
-            if not x.lower().endswith((".png",".jpg",".jpeg",".example",".test"))]
-    return sorted(set(emails))[0] if len(set(emails))==1 else None
-
-def _source_age_ok(timestamp,days=45):
-    try:
-        dt=datetime.fromisoformat(str(timestamp).replace("Z","+00:00"))
-        return NOW()-dt<=timedelta(days=days)
-    except (TypeError,ValueError):
-        return False
-
-def hn_candidates():
-    args=urllib.parse.urlencode({
-        "tags":"story","query":"Ask HN: Who is hiring?","hitsPerPage":30})
-    index=public_json("https://hn.algolia.com/api/v1/search_by_date?"+args,
-                      "hn.algolia.com")
-    stories=[]
-    for row in index.get("hits") or []:
-        title=str(row.get("title") or "")
-        ident=str(row.get("objectID") or "")
-        if ident.isdigit() and re.match(r"^Ask HN:\s*Who is hiring\?",title,re.I):
-            stories.append((int(row.get("created_at_i") or 0),ident))
-    if not stories:
-        return []
-    _,story=max(stories)
-    thread=public_json("https://hn.algolia.com/api/v1/items/"+story,"hn.algolia.com")
-    out=[]
-    for item in thread.get("children") or []:
-        ident=str(item.get("id") or "")
-        text=clean_html(item.get("text") or "")[:6000]
-        if (not ident.isdigit() or not text or RISKY.search(text)
-                or not CONTRACT.search(text) or not CAPABLE.search(text)
-                or EMPLOYMENT.search(text)
-                or not re.search(r"\b(apply|email|contact|reach out|send|write to|"
-                                 r"interested|inquire)\b",text,re.I)):
-            continue
-        email=_safe_email(text)
-        if not email:
-            continue
-        out.append({
-            "id":"hn:"+ident,
-            "channel":"email",
-            "source_url":"https://news.ycombinator.com/item?id="+ident,
-            "contact":email,
-            "text":text,
-            "created_at":item.get("created_at"),
-        })
-        if len(out)>=12:
-            break
-    return out
-
-def github_candidates():
-    out={}
-    for intent in ("bounty","paid contract","paid task","freelance"):
-        data=github_json("search/issues",{
-            "q":intent+" in:title,body is:issue is:open",
-            "sort":"updated","order":"desc","per_page":20})
-        for item in data.get("items") or []:
-            if item.get("pull_request"):
-                continue
-            url=str(item.get("html_url") or "")
-            if not re.fullmatch(r"https://github\.com/[\w.-]+/[\w.-]+/issues/\d+",url):
-                continue
-            text=(str(item.get("title") or "")+"\n"+
-                  str(item.get("body") or ""))[:6000]
-            if RISKY.search(text) or not CAPABLE.search(text):
-                continue
-            if not re.search(r"\b(bounty|paid|payment|budget|\$\s*\d|usd|compensation)\b",
-                             text,re.I):
-                continue
-            email=_safe_email(text)
-            if not email:
-                continue
-            out[url]={
-                "id":"gh:"+hashlib.sha256(url.encode()).hexdigest()[:16],
-                "channel":"email",
-                "source_url":url,
-                "contact":email,
-                "text":text,
-                "created_at":item.get("created_at"),
-            }
-            if len(out)>=12:
-                break
-        if len(out)>=12:
-            break
-    return list(out.values())
-
 def discovery_queries():
-    """Let the lane choose fresh search language instead of a permanent source list."""
+    """Let the agent formulate fresh research directions without a fixed search niche."""
     system=(
-        "Generate diverse public-web search queries for CURRENT explicit paid requests "
-        "that a small autonomous digital production service could realistically fulfill. "
-        "Search for buyer intent, not generic business ideas or job-search advice. Do not "
-        "limit yourself to named platforms, industries, or preselected business models. "
-        "Vary the wording substantially so different communities and domains can surface. "
-        "Favor queries likely to reveal a public contact route and concrete budget/payment "
-        "language. Include the current year or month when useful for freshness. Return only "
-        "schema-compliant JSON."
+        "You are researching the open internet for viable legitimate commercial "
+        "opportunities for an autonomous digital production business. Invent diverse, "
+        "current searches based on unmet needs, active discussions, practical problems, "
+        "new demand, products, businesses and services, communities, and expressed "
+        "requests. Explore unfamiliar subjects; do not restrict yourself to known "
+        "websites, job boards, industries, keywords, email availability, existing "
+        "products, or a particular business format. Choose queries yourself, including "
+        "specific sites only where the context justifies them. Return schema JSON."
     )
     result=model_json(
         SEARCH_SCHEMA,system,
         {"utc_date":NOW().date().isoformat(),
-         "mission":"find legitimate reachable paid digital work across the public web"},
+         "mission":"discover commercially useful possibilities anywhere on the public web"},
         timeout=90,num_ctx=2048,num_predict=260)
     return [str(q).strip() for q in result.get("queries") or [] if str(q).strip()]
 
+
 def candidates():
-    """Discover explicit paid-work invitations across the open public web.
+    """Gather research signals from the whole public web, without inquiry gates."""
+    queries=discovery_queries()
+    return open_web_candidates(max_candidates=24,queries=queries)
 
-    No site is the economic boundary. HN and GitHub are supplemental sources;
-    general web search may return any public domain. Execution still requires a
-    concrete paid need plus a legitimate public contact route.
-    """
-    rows=[]
-    errors=[]
-    queries=None
-    try:
-        queries=discovery_queries()
-    except Exception as exc:
-        errors.append({"source":"query_planner","reason":type(exc).__name__})
-    try:
-        web_rows,web_errors=open_web_paid_candidates(
-            max_candidates=24,queries=queries)
-        rows.extend(web_rows)
-        errors.extend(web_errors)
-    except Exception as exc:
-        errors.append({"source":"open_web","reason":type(exc).__name__})
-    try:
-        rows.extend(hn_candidates())
-    except Exception as exc:
-        errors.append({"source":"hackernews","reason":type(exc).__name__})
-    try:
-        rows.extend(github_candidates())
-    except Exception as exc:
-        errors.append({"source":"github","reason":type(exc).__name__})
-
-    dedup={}
-    for row in rows:
-        created=row.get("created_at")
-        if created and not _source_age_ok(created):
-            continue
-        url=str(row.get("source_url") or "")
-        if url:
-            dedup[url]=row
-    return list(dedup.values())[:30],errors
 
 def read_source(candidate):
     url=candidate["source_url"]
@@ -344,37 +205,6 @@ def offer_marker(source_url):
 def already_contacted(candidate,sent_subjects):
     marker=offer_marker(candidate["source_url"])
     return "Contained paid offer ["+marker+"]" in sent_subjects
-
-def opportunity_score(row):
-    """Cheap deterministic ranking before the model defines the transaction."""
-    text=str(row.get("text") or "").lower()
-    score=0
-    positive={
-        "script":8,"automation":10,"workflow":9,"api":8,"csv":8,
-        "spreadsheet":7,"data":6,"report":6,"frontend":7,"html":5,
-        "javascript":7,"python":8,"testing":6,"documentation":5,
-        "video editing":7,"short-form":6,"research":4,"fixed":4,
-        "project":4,"bounty":8,"budget":7,"paid":6,"$":5,
-    }
-    negative={
-        "full-time":-12,"full time":-12,"salary":-10,"senior":-8,
-        "staff engineer":-12,"years experience":-9,"long-term":-7,
-        "long term":-7,"join our team":-10,"employment":-10,
-        "equity":-5,"onsite":-12,"on-site":-12,
-    }
-    for token,value in positive.items():
-        if token in text:
-            score+=value
-    for token,value in negative.items():
-        if token in text:
-            score+=value
-    try:
-        posted=datetime.fromisoformat(str(row.get("created_at")).replace("Z","+00:00"))
-        age=max(0,(NOW()-posted).days)
-        score+=max(0,10-min(age,10))
-    except (TypeError,ValueError):
-        pass
-    return score
 
 def normalize_price_cents(value):
     """Accept model prices as cents or ordinary dollar notation."""
@@ -406,33 +236,35 @@ def normalize_price_cents(value):
 
 def choose_offer(rows):
     sent_subjects=recent_sent_subjects()
-    ranked=sorted(
-        (row for row in rows if not already_contacted(row,sent_subjects)),
-        key=lambda row:(-opportunity_score(row),str(row.get("source_url") or ""))
-    )
+    # Relevance is assessed by the model using real evidence, not a fixed
+    # industry/technology keyword score or a paid-ad vocabulary gate.
+    ranked=[row for row in rows if not already_contacted(row,sent_subjects)]
     visible=[{
         "candidate_id":row["id"],
         "source_url":row["source_url"],
-        "excerpt":row["text"][:650],
-    } for row in ranked[:6]]
+        "title":row.get("title") or "",
+        "excerpt":row["text"][:700],
+        "contact_available":bool(row.get("contact")),
+        "page_fetched":bool(row.get("page_fetched")),
+    } for row in ranked[:16]]
     if not visible:
         return None,None
 
     system=(
-        "You operate an autonomous fixed-scope digital production service. "
-        "The candidates are explicit contract/freelance/consulting invitations, not job ads. "
-        "Choose ONE only when the proposed offer DIRECTLY advances the work the buyer "
-        "requested. Never sell analysis, summary, review, or explanation of the posting "
-        "itself unless that exact artifact was requested. When the invitation describes "
-        "an ongoing contract role rather than one task, you MAY offer a small fixed-price "
-        "PAID TRIAL deliverable that uses the stated stack/work and lets the buyer evaluate "
-        "the service before broader engagement. The trial must be concrete and directly "
-        "relevant to the requested work, not invented busywork. The deliverable must be "
-        "producible entirely from public information plus text/code/data generation, "
-        "without private-system access, human credentials, employment claims, or owner "
-        "intervention. If the post is employment/full-time/salaried, reject it. "
-        "For an offer, define a narrow scope, concrete deliverable, truthful short pitch, "
-        "and one-time price from $5 to $500. In price_cents return digits only, e.g. 5000 for $50. Return only schema-compliant JSON."
+        "You are Wolverine, an autonomous digital production operator researching "
+        "open-web signals from any industry or community. The pages are research "
+        "signals, NOT necessarily paid requests. Assess what people actually want, "
+        "do not invent a buyer, a solicitation or a problem. You can develop a "
+        "concrete paid service offer only when a source actually invites a relevant "
+        "outside provider, has a public appropriate business contact route, and the "
+        "requested work could be delivered using authorized tools. No unsolicited "
+        "sales messages to unrelated site email addresses. Otherwise reject the "
+        "available outreach while retaining the discovery evidence. A paid trial is "
+        "reasonable when explicitly aligned with a buyer's own public request. "
+        "Do not promise private access, employment, credentials, or human delivery. "
+        "For any genuine offer define specific scope, usable deliverable, truthful "
+        "pitch, and one-time price $5 to $500. price_cents digits only. "
+        "Return only schema-compliant JSON."
     )
     plan=model_json(
         PLAN_SCHEMA,system,{"candidates":visible},
@@ -443,6 +275,10 @@ def choose_offer(rows):
     chosen=next((r for r in ranked if r["id"]==plan.get("candidate_id")),None)
     if not chosen:
         raise ValueError("model_selected_unknown_candidate")
+    if not chosen.get("contact"):
+        # Research without a public contact is still useful; it is never an
+        # authorization to manufacture a customer address.
+        return None,{"reason":"no_public_contact_for_selected_action"}
     price=normalize_price_cents(plan.get("price_cents"))
     for field in ("title","scope","deliverable","pitch"):
         if len(str(plan.get(field) or "").strip())<12:
@@ -451,6 +287,8 @@ def choose_offer(rows):
     return chosen,plan
 
 def send_offer(candidate,plan,checkout):
+    if not candidate.get("contact"):
+        return {"result":"no_public_contact_for_action","channel":"none"}
     marker=offer_marker(candidate["source_url"])
     price=int(plan["price_cents"])/100
     body=(
@@ -562,6 +400,9 @@ def run():
             "source_counts":source_counts,
             "search_provider_counts":provider_counts,
             "source_errors":errors,
+            "fetched_public_pages":sum(bool(r.get("page_fetched")) for r in rows),
+            "candidates_without_email":sum(not bool(r.get("contact")) for r in rows),
+            "search_queries":list(dict.fromkeys(str(r.get("search_query") or "") for r in rows))[:12],
         }
     except Exception as exc:
         rows=[]
@@ -605,7 +446,7 @@ def run():
             receipt["commercial_outcomes"].append({
                 "reason":"no_feasible_contained_offer"})
     else:
-        receipt["commercial_outcomes"].append({"reason":"no_current_paid_demand_found"})
+        receipt["commercial_outcomes"].append({"reason":"no_research_results_found"})
 
     fulfilled=sum(x.get("result")=="fulfilled" for x in receipt["fulfillment"])
     revenue=sum(int(x.get("amount_cents") or 0)
