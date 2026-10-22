@@ -793,6 +793,10 @@ def run():
     receipt["discovery"]["research_memory"]=memory.save()
     write_receipt(receipt)
     print(json.dumps(receipt,indent=2))
+    # Preserve the actual receipt before signaling a production error.
+    # Finding no demand or customer is NOT an infrastructure failure.
+    if receipt["structural_failures"]:
+        raise SystemExit(2)
 
 if __name__=="__main__":
     try:
