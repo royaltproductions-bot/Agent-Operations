@@ -1,0 +1,82 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-22T23:00:42.822001+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "bing": 12
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 14,
+    "search_queries": [
+      "",
+      "all there",
+      "get there",
+      "hang in (there)"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "3 Letter Words Starting With C",
+        "all there",
+        "get there",
+        "hang in (there)"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 62,
+      "known_pages": 109
+    }
+  },
+  "offer": {
+    "source_url": "https://www.ivysurrogacy.com/genetically-connected-to-embryo-gestational-surrogate/",
+    "title": "Content Creation for Surrogacy Education",
+    "scope": "Create informative and engaging blog content tailored for gestational surrogates, focusing on topics like genetic connection, legal aspects, emotional support, and the surrogacy process.",
+    "price_cents": 15000,
+    "offer_id": "44f149707f6e27d8517c048e",
+    "payment_link_id": "plink_1UTV0FBto3o776uy2L1IC5Vb"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://www.ivysurrogacy.com/genetically-connected-to-embryo-gestational-surrogate/"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
