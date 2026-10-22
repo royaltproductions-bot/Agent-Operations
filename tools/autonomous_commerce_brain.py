@@ -64,6 +64,18 @@ EMPLOYMENT=re.compile(
     r"employee|employment|equity|stock options|401k|pto|visa sponsorship)\b",re.I)
 EMAIL=re.compile(r"(?<![\w.+-])[\w.+-]{1,60}@[\w.-]{3,100}\.[A-Za-z]{2,16}\b")
 
+SEARCH_SCHEMA={
+    "type":"object",
+    "properties":{
+        "queries":{
+            "type":"array","minItems":4,"maxItems":8,
+            "items":{"type":"string"},
+        },
+    },
+    "required":["queries"],
+    "additionalProperties":False,
+}
+
 PLAN_SCHEMA={
     "type":"object",
     "properties":{
@@ -245,6 +257,25 @@ def github_candidates():
             break
     return list(out.values())
 
+def discovery_queries():
+    """Let the lane choose fresh search language instead of a permanent source list."""
+    system=(
+        "Generate diverse public-web search queries for CURRENT explicit paid requests "
+        "that a small autonomous digital production service could realistically fulfill. "
+        "Search for buyer intent, not generic business ideas or job-search advice. Do not "
+        "limit yourself to named platforms, industries, or preselected business models. "
+        "Vary the wording substantially so different communities and domains can surface. "
+        "Favor queries likely to reveal a public contact route and concrete budget/payment "
+        "language. Include the current year or month when useful for freshness. Return only "
+        "schema-compliant JSON."
+    )
+    result=model_json(
+        SEARCH_SCHEMA,system,
+        {"utc_date":NOW().date().isoformat(),
+         "mission":"find legitimate reachable paid digital work across the public web"},
+        timeout=90,num_ctx=2048,num_predict=260)
+    return [str(q).strip() for q in result.get("queries") or [] if str(q).strip()]
+
 def candidates():
     """Discover explicit paid-work invitations across the open public web.
 
@@ -254,8 +285,14 @@ def candidates():
     """
     rows=[]
     errors=[]
+    queries=None
     try:
-        web_rows,web_errors=open_web_paid_candidates(max_candidates=18)
+        queries=discovery_queries()
+    except Exception as exc:
+        errors.append({"source":"query_planner","reason":type(exc).__name__})
+    try:
+        web_rows,web_errors=open_web_paid_candidates(
+            max_candidates=24,queries=queries)
         rows.extend(web_rows)
         errors.extend(web_errors)
     except Exception as exc:
@@ -376,8 +413,8 @@ def choose_offer(rows):
     visible=[{
         "candidate_id":row["id"],
         "source_url":row["source_url"],
-        "excerpt":row["text"][:900],
-    } for row in ranked[:3]]
+        "excerpt":row["text"][:650],
+    } for row in ranked[:6]]
     if not visible:
         return None,None
 
@@ -399,7 +436,7 @@ def choose_offer(rows):
     )
     plan=model_json(
         PLAN_SCHEMA,system,{"candidates":visible},
-        timeout=150,num_ctx=3072,num_predict=420
+        timeout=150,num_ctx=4096,num_predict=500
     )
     if plan.get("action")!="offer":
         return None,plan
@@ -512,7 +549,20 @@ def run():
 
     try:
         rows,errors=candidates()
-        receipt["discovery"]={"candidate_count":len(rows),"source_errors":errors}
+        source_counts={}
+        provider_counts={}
+        for row in rows:
+            source=str(row.get("source") or "supplemental")
+            source_counts[source]=source_counts.get(source,0)+1
+            provider=str(row.get("search_provider") or "")
+            if provider:
+                provider_counts[provider]=provider_counts.get(provider,0)+1
+        receipt["discovery"]={
+            "candidate_count":len(rows),
+            "source_counts":source_counts,
+            "search_provider_counts":provider_counts,
+            "source_errors":errors,
+        }
     except Exception as exc:
         rows=[]
         receipt["discovery"]={"candidate_count":0,
