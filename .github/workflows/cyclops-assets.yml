@@ -1,0 +1,120 @@
+name: Cyclops Reusable Assets
+on:
+  schedule:
+    - cron: '47 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/cyclops_asset_engine.py'
+      - '.github/workflows/cyclops-assets.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cyclops-reusable-assets
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      CYCLOPS_MODEL: qwen3:8b
+      OLLAMA_MODELS: ${{ github.workspace }}/.ollama-cache/models
+      OLLAMA_NUM_PARALLEL: '1'
+      OLLAMA_MAX_LOADED_MODELS: '1'
+      OLLAMA_HOST: 127.0.0.1:11434
+      AGENTMAIL_API_KEY: ${{ secrets.AGENTMAIL_API_KEY }}
+      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+      GH_TOKEN: ${{ github.token }}
+      COMMERCE_SEND_ENABLED: 'YES'
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 3
+          persist-credentials: true
+
+      - uses: actions/cache@v4
+        continue-on-error: true
+        with:
+          path: .ollama-cache/models
+          key: ollama-commerce-qwen3-8b-v1
+
+      - name: Start Cyclops model
+        id: model
+        shell: bash
+        run: |
+          set +e
+          ready=false
+          curl -fsSL https://ollama.com/install.sh | sh
+          sudo systemctl stop ollama.service 2>/dev/null || true
+          mkdir -p "$OLLAMA_MODELS"
+          nohup ollama serve >/tmp/ollama.log 2>&1 &
+          for attempt in $(seq 1 45); do
+            if curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
+              ready=true
+              break
+            fi
+            sleep 1
+          done
+          if [ "$ready" = true ]; then
+            ollama pull "$CYCLOPS_MODEL" || ready=false
+          fi
+          echo "ready=$ready" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Run Cyclops
+        id: cyclops
+        if: steps.model.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set +e
+          python3 -m tools.cyclops_asset_engine
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Persist Cyclops receipt
+        if: always()
+        shell: bash
+        env:
+          MODEL_READY: ${{ steps.model.outputs.ready }}
+          CYCLOPS_OUTCOME: ${{ steps.cyclops.outcome }}
+        run: |
+          set -euo pipefail
+          receipt="ops/cyclops-runs/$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT.json"
+          if [ ! -s "$receipt" ]; then
+            mkdir -p ops/cyclops-runs
+            python3 - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          reason="cyclops_process_failure"
+          if os.environ.get("MODEL_READY")!="true":
+              reason="model_startup_failure"
+          elif os.environ.get("CYCLOPS_OUTCOME")=="skipped":
+              reason="cyclops_step_skipped"
+          path=f"ops/cyclops-runs/{os.environ['GITHUB_RUN_ID']}-{os.environ['GITHUB_RUN_ATTEMPT']}.json"
+          data={
+            "schema_version":1,
+            "lane":"cyclops_reusable_assets",
+            "timestamp":datetime.now(timezone.utc).isoformat(),
+            "structural_failures":[{"reason":reason}],
+            "economic_result":{
+              "new_asset_created":0,
+              "new_product_offers_sent":0,
+              "fulfilled_orders_seen":0,
+              "verified_cyclops_revenue_cents_seen":0
+            }
+          }
+          with open(path,"w") as f:
+              json.dump(data,f,indent=2); f.write("\n")
+          PY
+          fi
+          encoded="$(base64 -w0 "$receipt")"
+          gh api --method PUT "repos/$GITHUB_REPOSITORY/contents/$receipt" \
+            -f message='Record Cyclops economic outcome' \
+            -f content="$encoded" \
+            -f branch='main' >/dev/null
