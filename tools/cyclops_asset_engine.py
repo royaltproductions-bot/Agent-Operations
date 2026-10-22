@@ -416,28 +416,34 @@ def revise_asset_file(plan,spec,rows,previous,feedback):
 
 
 def objective_quality_floor(plan,files):
-    total_chars=sum(len(content.strip()) for _,content in files)
-    # Do not reject a genuinely usable table solely for an arbitrary character
-    # target based on its price. File-level usefulness gates still apply below.
-    if not files or total_chars<300:
-        raise RuntimeError("quality_floor_empty_or_incomplete")
+    """Reject malformed/empty deliverables; let buyer QA judge substance.
 
+    Number of rows, columns or words is not proof of commercial usefulness.
+    A valid file's practical value is evaluated by buyer_quality_check.
+    """
+    if not files or any(not content.strip() for _,content in files):
+        raise RuntimeError("quality_floor_empty_or_incomplete")
+    by_name={spec["filename"]:spec for spec in plan.get("file_specs") or []}
     for name,content in files:
-        lines=[line for line in content.splitlines() if line.strip()]
         if name.endswith(".csv"):
-            # A paid standalone CSV should be more than a header plus a few examples.
-            if len(lines)<10:
-                raise RuntimeError(
-                    f"quality_floor_csv_too_shallow:{name}:{len(lines)-1}_rows")
-            columns=[x.strip() for x in lines[0].split(",") if x.strip()]
-            if len(columns)<4:
-                raise RuntimeError(
-                    f"quality_floor_csv_too_narrow:{name}:{len(columns)}_columns")
+            import csv
+            from io import StringIO
+            try:
+                parsed=list(csv.reader(StringIO(content)))
+            except csv.Error:
+                raise RuntimeError("quality_floor_invalid_csv:"+name) from None
+            expected=[str(c).strip() for c in by_name[name].get("columns") or []]
+            if not parsed or [c.strip() for c in parsed[0]]!=expected:
+                raise RuntimeError("quality_floor_csv_headers_invalid:"+name)
+            if len(parsed)<2 or any(len(row)!=len(expected) for row in parsed[1:]):
+                raise RuntimeError("quality_floor_csv_rows_invalid:"+name)
+            if not any(any(value.strip() for value in row) for row in parsed[1:]):
+                raise RuntimeError("quality_floor_csv_content_empty:"+name)
         elif name.endswith(".txt"):
-            words=len(re.findall(r"\b\w+\b",content))
-            if words<250:
-                raise RuntimeError(
-                    f"quality_floor_text_too_short:{name}:{words}_words")
+            if not content.strip():
+                raise RuntimeError("quality_floor_text_empty:"+name)
+
+
 
 def buyer_quality_check(plan,files,rows):
     system=(
