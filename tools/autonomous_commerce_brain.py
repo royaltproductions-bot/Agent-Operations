@@ -230,32 +230,29 @@ def already_contacted(candidate,sent_subjects):
     return "Contained paid offer ["+marker+"]" in sent_subjects
 
 def normalize_price_cents(value):
-    """Accept model prices as cents or ordinary dollar notation."""
-    raw=str(value or "").strip().lower().replace(",","")
+    """Normalize a freely chosen USD price without imposing a business price band.
+
+    The price_cents schema means INTEGER CENTS, never guessed dollars. Explicit
+    dollar notation or a decimal amount is converted to cents precisely.
+    Nonnegative, finite monetary values are passed to the connected checkout
+    provider, which enforces the payment method's real constraints.
+    """
+    raw=str(value if value is not None else "").strip().lower().replace(",","")
     if not raw:
         raise ValueError("model_price_missing")
-    dollars=False
-    if raw.startswith("$"):
-        dollars=True
-        raw=raw[1:].strip()
-    if raw.endswith("usd"):
-        dollars=True
-        raw=raw[:-3].strip()
+    dollars=raw.startswith("$") or raw.endswith("usd") or "." in raw
+    raw=raw.removeprefix("$").removesuffix("usd").strip()
     try:
         number=Decimal(raw)
+        if not number.is_finite() or number<0:
+            raise ValueError("model_price_invalid")
+        amount=number*100 if dollars else number
+        if amount!=amount.to_integral_value():
+            raise ValueError("model_price_fractional_cent")
+        return int(amount)
     except InvalidOperation:
         raise ValueError("model_price_invalid") from None
-    if number<=0:
-        raise ValueError("model_price_invalid")
-    # Explicit dollar notation/decimals are dollars. Small whole numbers are
-    # also interpreted as dollars because sub-$5 offers are not permitted.
-    if dollars or "." in raw or number < 500:
-        cents=int((number*100).quantize(Decimal("1")))
-    else:
-        cents=int(number)
-    if not 500<=cents<=50000:
-        raise ValueError("model_price_out_of_range")
-    return cents
+
 
 def choose_offer(rows):
     sent_subjects=recent_sent_subjects()
@@ -289,7 +286,9 @@ def choose_offer(rows):
         "reasonable when explicitly aligned with a buyer's own public request. "
         "Do not promise private access, employment, credentials, or human delivery. "
         "For any genuine offer define specific scope, usable deliverable, truthful "
-        "pitch, and one-time price $5 to $500. price_cents digits only. "
+        "pitch, and a commercially justifiable price chosen from the real scope. "
+        "The price_cents field is an integer string in US cents. Do not "
+        "impose a predetermined minimum, maximum, or price tier. "
         "Return only schema-compliant JSON."
     )
     plan=model_json(
