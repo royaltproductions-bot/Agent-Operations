@@ -97,7 +97,7 @@ FULFILL_SCHEMA={
     "additionalProperties":False,
 }
 
-def model_json(schema,system,observation,timeout=180,num_ctx=4096,num_predict=700):
+def model_json(schema,system,observation,num_ctx=4096,num_predict=700):
     req=urllib.request.Request(
         OLLAMA,method="POST",
         data=json.dumps({
@@ -112,7 +112,7 @@ def model_json(schema,system,observation,timeout=180,num_ctx=4096,num_predict=70
             ],
         }).encode(),
         headers={"Content-Type":"application/json"})
-    with urllib.request.urlopen(req,timeout=timeout) as response:
+    with urllib.request.urlopen(req) as response:
         raw=json.load(response).get("message",{}).get("content","")
     if not isinstance(raw,str):
         raise ValueError("model_no_content")
@@ -130,7 +130,7 @@ def public_json(url,host):
         headers["Authorization"]="Bearer "+os.environ["GH_TOKEN"]
         headers["X-GitHub-Api-Version"]="2022-11-28"
     req=urllib.request.Request(url,headers=headers)
-    with urllib.request.urlopen(req,timeout=25) as response:
+    with urllib.request.urlopen(req) as response:
         return json.loads(response.read(500000).decode())
 
 def github_json(endpoint,params=None):
@@ -140,7 +140,7 @@ def github_json(endpoint,params=None):
              "-H","X-GitHub-Api-Version: 2022-11-28",endpoint]
         for key,value in (params or {}).items():
             cmd.extend(["-f",str(key)+"="+str(value)])
-        p=subprocess.run(cmd,capture_output=True,text=True,timeout=35,check=False)
+        p=subprocess.run(cmd,capture_output=True,text=True,check=False)
         if p.returncode==0 and p.stdout.strip():
             return json.loads(p.stdout)
     query=urllib.parse.urlencode(params or {},doseq=True)
@@ -174,8 +174,7 @@ def discovery_queries(memory):
         SEARCH_SCHEMA,system,
         {"utc_date":NOW().date().isoformat(),
          "mission":"discover commercially useful possibilities anywhere on the public web",
-         "research_history":memory.plan_context()},
-        timeout=45,num_ctx=2048,num_predict=170)
+         "research_history":memory.plan_context()},num_ctx=2048,num_predict=170)
     return [str(q).strip() for q in result.get("queries") or [] if str(q).strip()]
 
 
@@ -196,8 +195,7 @@ def candidates(memory):
             queries=memory.choose_queries(memory.evidence_queries())
     budget=memory.budget()
     rows,errors=open_web_candidates(
-        max_candidates=budget["max_candidates"],queries=queries,
-        memory=memory,max_search_seconds=budget["max_seconds"],
+        max_candidates=budget["max_candidates"],queries=queries ,memory=memory,
         max_pages=budget["max_pages"])
     return rows,issues+errors
 
@@ -295,8 +293,7 @@ def choose_offer(rows):
         "Return only schema-compliant JSON."
     )
     plan=model_json(
-        PLAN_SCHEMA,system,{"candidates":visible},
-        timeout=85,num_ctx=2048,num_predict=265
+        PLAN_SCHEMA,system,{"candidates":visible},num_ctx=2048,num_predict=265
     )
     if plan.get("action")!="offer":
         return None,{"reason":str(plan.get("reason") or "model_rejected_candidates")[:140]}
@@ -352,7 +349,7 @@ def create_deliverable(order):
         "public_source":source,
         "amount_paid_cents":order["amount_total"],
         "currency":order["currency"],
-    },timeout=300,num_ctx=6144,num_predict=1800)
+    },num_ctx=6144,num_predict=1800)
     files=[]
     for item in result.get("files") or []:
         name=str(item.get("filename") or "")
