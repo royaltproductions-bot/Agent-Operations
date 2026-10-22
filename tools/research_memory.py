@@ -100,7 +100,7 @@ def _remote(lane):
 def _get(lane):
     path,url,headers=_remote(lane)
     try:
-        with urllib.request.urlopen(urllib.request.Request(url,headers=headers),timeout=25) as response:
+        with urllib.request.urlopen(urllib.request.Request(url,headers=headers)) as response:
             obj=json.load(response)
     except urllib.error.HTTPError as exc:
         if exc.code==404:
@@ -164,10 +164,10 @@ class ResearchMemory:
         yield_rates=[int(q.get("new_pages") or 0) for q in recent if isinstance(q,dict)]
         avg=(sum(yield_rates)/len(yield_rates)) if yield_rates else 2
         if avg<=0.5:
-            return {"max_queries":5,"max_candidates":12,"max_pages":24,"max_seconds":155}
+            return {"max_queries":5,"max_candidates":12,"max_pages":24}
         if avg>=3:
-            return {"max_queries":4,"max_candidates":24,"max_pages":36,"max_seconds":195}
-        return {"max_queries":4,"max_candidates":16,"max_pages":30,"max_seconds":170}
+            return {"max_queries":4,"max_candidates":24,"max_pages":36}
+        return {"max_queries":4,"max_candidates":16,"max_pages":30}
 
     def choose_queries(self,proposed):
         budget=self.budget()["max_queries"]
@@ -341,7 +341,7 @@ class ResearchMemory:
                         **headers,"Content-Type":"application/json"
                     },method="PUT")
                 try:
-                    with urllib.request.urlopen(request,timeout=35):
+                    with urllib.request.urlopen(request):
                         pass
                     self.state=current
                     self.last_persisted=True
