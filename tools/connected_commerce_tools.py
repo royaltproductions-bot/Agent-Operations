@@ -190,8 +190,10 @@ def ensure_autonomous_checkout(source_url,title,description,scope,price_cents):
     if existing and existing.get("checkout_url"):
         return existing
     amount=int(price_cents)
-    if amount<500 or amount>50000:
-        raise ValueError("autonomous_price_out_of_range")
+    if amount<0:
+        raise ValueError("checkout_price_must_be_nonnegative")
+    # No invented price range. Stripe validates the actual amount and
+    # payment method; preserve its response instead of restricting the agent.
     safe_title=re.sub(r"\s+"," ",str(title)).strip()[:120]
     safe_desc=re.sub(r"\s+"," ",str(description)).strip()[:400]
     safe_scope=re.sub(r"\s+"," ",str(scope)).strip()[:450]
