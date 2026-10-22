@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-22T21:01:04.635432+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "candidate_count": 24,
+    "source_counts": {
+      "open_web": 24
+    },
+    "search_provider_counts": {
+      "followup": 5,
+      "bing": 19
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 23,
+    "search_queries": [
+      "",
+      "ways to reduce cognitive load when working with multiple apps",
+      "how to build a habit of consistent daily productivity",
+      "how to organize personal and professional tasks without a to-do list app",
+      "tools for managing digital workspaces across devices"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 24,
+      "skipped_revisits": 4,
+      "executed_queries": [
+        "ways to reduce cognitive load when working with multiple apps",
+        "how to build a habit of consistent daily productivity",
+        "tools for managing digital workspaces across devices",
+        "how to organize personal and professional tasks without a to-do list app"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 51,
+      "known_pages": 40
+    }
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "asset_creation_failed",
+      "detail": "manufacturing_exhausted_after_3_full_restarts:asset_file_generation_failed:keyword_trend_data.csv | quality_floor_too_thin:1155<2400 | asset_file_generation_fai"
+    }
+  ],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0
+  }
+}
