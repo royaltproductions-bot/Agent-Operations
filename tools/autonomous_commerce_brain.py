@@ -15,6 +15,7 @@ protection, public evidence and provider truth.
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
+from decimal import Decimal, InvalidOperation
 from html import unescape
 import hashlib
 import json
@@ -299,6 +300,34 @@ def opportunity_score(row):
         pass
     return score
 
+def normalize_price_cents(value):
+    """Accept model prices as cents or ordinary dollar notation."""
+    raw=str(value or "").strip().lower().replace(",","")
+    if not raw:
+        raise ValueError("model_price_missing")
+    dollars=False
+    if raw.startswith("$"):
+        dollars=True
+        raw=raw[1:].strip()
+    if raw.endswith("usd"):
+        dollars=True
+        raw=raw[:-3].strip()
+    try:
+        number=Decimal(raw)
+    except InvalidOperation:
+        raise ValueError("model_price_invalid") from None
+    if number<=0:
+        raise ValueError("model_price_invalid")
+    # Explicit dollar notation/decimals are dollars. Small whole numbers are
+    # also interpreted as dollars because sub-$5 offers are not permitted.
+    if dollars or "." in raw or number < 500:
+        cents=int((number*100).quantize(Decimal("1")))
+    else:
+        cents=int(number)
+    if not 500<=cents<=50000:
+        raise ValueError("model_price_out_of_range")
+    return cents
+
 def choose_offer(rows):
     sent_subjects=recent_sent_subjects()
     ranked=sorted(
@@ -332,12 +361,11 @@ def choose_offer(rows):
     chosen=next((r for r in ranked if r["id"]==plan.get("candidate_id")),None)
     if not chosen:
         raise ValueError("model_selected_unknown_candidate")
-    price=int(str(plan.get("price_cents") or "0"))
-    if not 500<=price<=50000:
-        raise ValueError("model_price_out_of_range")
+    price=normalize_price_cents(plan.get("price_cents"))
     for field in ("title","scope","deliverable","pitch"):
         if len(str(plan.get(field) or "").strip())<12:
             raise ValueError("model_offer_underspecified")
+    plan["price_cents"]=str(price)
     return chosen,plan
 
 def send_offer(candidate,plan,checkout):
