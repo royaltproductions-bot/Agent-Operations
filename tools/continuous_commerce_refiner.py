@@ -225,6 +225,12 @@ def apply(obj,signal):
     if re.search(r"(?i)(password|secret|api[_-]?key)\s*=\s*['\"][^'\"]{8,}['\"]",final):
         raise ValueError("embedded_secret")
 
+    # Never let model-generated Python corrupt the working commerce kernel.
+    try:
+        compile(final,str(path),"exec")
+    except SyntaxError as exc:
+        raise ValueError(f"syntax_error_line_{exc.lineno}:{exc.msg}") from None
+
     path.write_text(final,encoding="utf-8")
     return str(path.relative_to(ROOT))
 
