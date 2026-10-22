@@ -52,7 +52,7 @@ CAPABLE=re.compile(
     r"content|marketing automation|research|documentation)\b",re.I)
 CONTRACT=re.compile(
     r"\b(contract(?:or)?|freelanc(?:e|er)|consult(?:ing|ant)|project[- ]based|"
-    r"paid pilot|part[- ]time|bounty|paid task|paid project)\b",re.I)
+    r"paid pilot|paid task|paid project)\b",re.I)
 EMAIL=re.compile(r"(?<![\w.+-])[\w.+-]{1,60}@[\w.-]{3,100}\.[A-Za-z]{2,16}\b")
 
 PLAN_SCHEMA={
@@ -180,7 +180,9 @@ def hn_candidates():
         ident=str(item.get("id") or "")
         text=clean_html(item.get("text") or "")[:6000]
         if (not ident.isdigit() or not text or RISKY.search(text)
-                or not CONTRACT.search(text) or not CAPABLE.search(text)):
+                or not CONTRACT.search(text) or not CAPABLE.search(text)
+                or not re.search(r"\b(apply|email|contact|reach out|send|write to|"
+                                 r"interested|inquire)\b",text,re.I)):
             continue
         email=_safe_email(text)
         if not email:
@@ -234,14 +236,18 @@ def github_candidates():
     return list(out.values())
 
 def candidates():
+    """Return only explicit public invitations for independent paid work.
+
+    GitHub issues are intentionally excluded from autonomous outreach here:
+    product pricing, subscription/payment implementation, and ordinary issue
+    discussion are not evidence that the issue author is buying our service.
+    """
     rows=[]
     errors=[]
-    for name,fn in (("hackernews",hn_candidates),("github",github_candidates)):
-        try:
-            found=fn()
-            rows.extend(found)
-        except Exception as exc:
-            errors.append({"source":name,"reason":type(exc).__name__})
+    try:
+        rows.extend(hn_candidates())
+    except Exception as exc:
+        errors.append({"source":"hackernews","reason":type(exc).__name__})
     rows=[r for r in rows if _source_age_ok(r.get("created_at"))]
     return rows[:20],errors
 
