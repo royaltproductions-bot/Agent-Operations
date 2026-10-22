@@ -1,0 +1,55 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-22T21:55:57.043544+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "query_planner",
+        "reason": "TimeoutError"
+      }
+    ],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 4,
+    "search_queries": [
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "Current Boost Terms Conditions",
+        "Current Points Terms",
+        "training needs analysis",
+        "hierarchy of needs"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 34,
+      "known_pages": 70
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_contactable_public_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
