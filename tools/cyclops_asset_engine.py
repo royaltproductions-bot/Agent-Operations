@@ -111,7 +111,7 @@ QUALITY_SCHEMA={
     "additionalProperties":False,
 }
 
-def model_json(schema,system,observation,timeout=240,num_ctx=6144,num_predict=1800):
+def model_json(schema,system,observation,num_ctx=6144,num_predict=1800):
     req=urllib.request.Request(
         OLLAMA,method="POST",
         data=json.dumps({
@@ -126,7 +126,7 @@ def model_json(schema,system,observation,timeout=240,num_ctx=6144,num_predict=18
             ],
         }).encode(),
         headers={"Content-Type":"application/json"})
-    with urllib.request.urlopen(req,timeout=timeout) as response:
+    with urllib.request.urlopen(req) as response:
         raw=json.load(response).get("message",{}).get("content","")
     obj=json.loads(raw)
     if not isinstance(obj,dict):
@@ -157,8 +157,7 @@ def discovery_queries(memory):
         SEARCH_SCHEMA,system,
         {"utc_date":NOW().date().isoformat(),
          "mission":"find viable reusable digital-product demand from anywhere on the public web",
-         "research_history":memory.plan_context()},
-        timeout=45,num_ctx=2048,num_predict=170)
+         "research_history":memory.plan_context()},num_ctx=2048,num_predict=170)
     return [str(q).strip() for q in result.get("queries") or [] if str(q).strip()]
 
 
@@ -180,7 +179,7 @@ def demand_candidates(memory):
     budget=memory.budget()
     rows,errors=open_web_candidates(
         max_candidates=budget["max_candidates"],queries=queries,
-        memory=memory,max_search_seconds=budget["max_seconds"],
+        memory=memory,
         max_pages=budget["max_pages"])
     return rows,issues+errors
 
@@ -253,12 +252,11 @@ def choose_asset_concept(rows,existing_assets=None):
         "completion criteria are unambiguous; do not invent customers or records. "
         "Return only schema-compliant JSON."
     )
-    # CPU-hosted Qwen3:8b requires enough time to complete a structured
-    # concept; a 90-second cold-inference deadline caused run #42 to fail.
-    # One substantive attempt, not three entire manufacturing restarts.
-    attempts=[(visible,300,4096,1050)]
+    # One substantive concept attempt. The 45-minute GitHub job is the
+    # execution boundary, not a separate inference clock.
+    attempts=[(visible,4096,1050)]
     last=None
-    for observation,timeout,ctx,predict in attempts:
+    for observation,ctx,predict in attempts:
         try:
             existing=[{
                 "title":str(a.get("title") or "")[:120],
@@ -269,7 +267,7 @@ def choose_asset_concept(rows,existing_assets=None):
                             {"observed_market_signals":observation,
                              "existing_catalog":existing,
                              "constraint":"Create a materially different product from the existing catalog; do not repeat or lightly rename an exhausted asset."},
-                            timeout=timeout,num_ctx=ctx,num_predict=predict)
+                            num_ctx=ctx,num_predict=predict)
             break
         except Exception as exc:
             last=exc
@@ -328,12 +326,12 @@ def generate_asset_file(plan,spec,rows):
         "file":spec,
         "demand_context":demand_view(rows,limit=3,width=350),
     }
-    # Avoid a second long, lower-output model call after a failed generation.
-    attempts=[(240,3072,1100)]
-    for timeout,ctx,predict in attempts:
+    # Do not restart a complete manufacturing cycle on an invalid file.
+    attempts=[(3072,1100)]
+    for ctx,predict in attempts:
         try:
             obj=model_json(FILE_SCHEMA,system,observation,
-                           timeout=timeout,num_ctx=ctx,num_predict=predict)
+                           num_ctx=ctx,num_predict=predict)
             content=str(obj.get("content") or "").strip()
             if content and len(content)<=80000:
                 if spec["filename"].endswith(".csv"):
@@ -398,8 +396,7 @@ def buyer_quality_check(plan,files,rows):
         "demand_context":demand_view(rows,limit=3,width=500),
     }
     result=model_json(
-        QUALITY_SCHEMA,system,observation,
-        timeout=150,num_ctx=3072,num_predict=170)
+        QUALITY_SCHEMA,system,observation,num_ctx=3072,num_predict=170)
     if result.get("verdict")!="pass":
         raise RuntimeError(
             "buyer_quality_rejected:"+
@@ -474,7 +471,7 @@ def github_put(path,text):
     sha=None
     try:
         req=urllib.request.Request(url,headers=headers)
-        with urllib.request.urlopen(req,timeout=20) as response:
+        with urllib.request.urlopen(req) as response:
             current=json.load(response)
             sha=current.get("sha")
     except urllib.error.HTTPError as exc:
@@ -491,7 +488,7 @@ def github_put(path,text):
     req=urllib.request.Request(url,data=json.dumps(body).encode(),method="PUT",
                                headers=headers)
     try:
-        with urllib.request.urlopen(req,timeout=30) as response:
+        with urllib.request.urlopen(req) as response:
             return json.load(response)
     except urllib.error.HTTPError as exc:
         raise RuntimeError("github_asset_write_http_"+str(exc.code)) from None
@@ -660,8 +657,7 @@ def can_contact_for_asset(row,asset):
         decision=model_json(
             PROSPECT_SCHEMA,system,
             {"source_url":row["source_url"],"evidence":row["text"][:2600],
-             "asset_title":asset["title"],"asset_description":asset["description"]},
-            timeout=90,num_ctx=3072,num_predict=140)
+             "asset_title":asset["title"],"asset_description":asset["description"]},num_ctx=3072,num_predict=140)
         return decision.get("invited") is True
     except Exception:
         return False
