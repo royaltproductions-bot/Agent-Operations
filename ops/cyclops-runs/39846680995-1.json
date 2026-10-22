@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-22T20:14:06.481219+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "candidate_count": 0,
+    "reason": "TimeoutError",
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 0,
+      "skipped_revisits": 0,
+      "executed_queries": [],
+      "next_query_queue": 4,
+      "frontier_size": 28,
+      "known_pages": 16
+    }
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0
+  }
+}
