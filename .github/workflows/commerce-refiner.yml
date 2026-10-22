@@ -27,6 +27,7 @@ jobs:
       OLLAMA_NUM_PARALLEL: '1'
       OLLAMA_MAX_LOADED_MODELS: '1'
       OLLAMA_HOST: 127.0.0.1:11434
+      GH_TOKEN: ${{ github.token }}
 
     steps:
       - uses: actions/checkout@v4
