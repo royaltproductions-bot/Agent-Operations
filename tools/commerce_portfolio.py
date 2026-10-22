@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import re
 
-CHANNELS=("hackernews","reddit_forhire","github")
+CHANNELS=("hackernews","github")
 
 STOPWORDS=set("""a an and are as at be but by can do for from have how i in into is it
 its of on or our out paid please real seeking service small software the their them
