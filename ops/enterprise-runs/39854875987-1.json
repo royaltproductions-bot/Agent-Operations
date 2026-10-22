@@ -1,0 +1,63 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-22T21:12:41.718011+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 9,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "bing": 5
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 9,
+    "search_queries": [
+      "",
+      "emerging markets AI-driven content virtual reality environments therapy mental health",
+      "challenges deploying autonomous digital production systems rural areas limited internet",
+      "AI-generated content create personalized educational materials underprivileged students"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "unmet needs production low-cost high-quality digital assets small businesses developing",
+        "emerging markets AI-driven content virtual reality environments therapy mental health",
+        "challenges deploying autonomous digital production systems rural areas limited internet",
+        "AI-generated content create personalized educational materials underprivileged students"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 37,
+      "known_pages": 54
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_contactable_public_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
