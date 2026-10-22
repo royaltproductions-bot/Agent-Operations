@@ -1,0 +1,31 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-22T02:40:42.484697+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 13,
+    "source_errors": []
+  },
+  "offer": {
+    "source_url": "https://github.com/zcxy-dev/fineframe/issues/177",
+    "title": "Launch Skeleton Documentation Summary",
+    "scope": "Extract and summarize the launch skeleton documentation from the provided GitHub issue, including key decisions and workflows.",
+    "price_cents": 1500,
+    "offer_id": "2542b5c460fe90cb1af71eb4",
+    "payment_link_id": "plink_1UTBxqBto3o776uyfp3robHe"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://github.com/zcxy-dev/fineframe/issues/177"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
