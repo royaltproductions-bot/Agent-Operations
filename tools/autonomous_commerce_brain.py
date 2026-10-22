@@ -215,11 +215,14 @@ def github_candidates():
             if not re.search(r"\b(bounty|paid|payment|budget|\$\s*\d|usd|compensation)\b",
                              text,re.I):
                 continue
+            email=_safe_email(text)
+            if not email:
+                continue
             out[url]={
                 "id":"gh:"+hashlib.sha256(url.encode()).hexdigest()[:16],
-                "channel":"github_issue",
+                "channel":"email",
                 "source_url":url,
-                "contact":"",
+                "contact":email,
                 "text":text,
                 "created_at":item.get("created_at"),
             }
@@ -261,20 +264,9 @@ def read_source(candidate):
 def offer_marker(source_url):
     return hashlib.sha256(source_url.encode()).hexdigest()[:18]
 
-def github_comment_exists(url,marker):
-    m=re.fullmatch(r"https://github\.com/([\w.-]+)/([\w.-]+)/issues/(\d+)",url)
-    if not m:
-        return False
-    owner,repo,num=m.groups()
-    data=github_json("repos/"+owner+"/"+repo+"/issues/"+num+"/comments",
-                     {"per_page":100})
-    return any(marker in str(row.get("body") or "") for row in data or [])
-
 def already_contacted(candidate):
     marker=offer_marker(candidate["source_url"])
-    if candidate["channel"]=="email":
-        return sent_subject_exists("Contained paid offer ["+marker+"]")
-    return github_comment_exists(candidate["source_url"],"[auto-offer:"+marker+"]")
+    return sent_subject_exists("Contained paid offer ["+marker+"]")
 
 def choose_offer(rows):
     visible=[]
@@ -316,24 +308,6 @@ def choose_offer(rows):
             raise ValueError("model_offer_underspecified")
     return chosen,plan
 
-def post_github_proposal(candidate,body):
-    m=re.fullmatch(r"https://github\.com/([\w.-]+)/([\w.-]+)/issues/(\d+)",
-                   candidate["source_url"])
-    if not m:
-        raise ValueError("invalid_github_issue")
-    owner,repo,num=m.groups()
-    p=subprocess.run(
-        ["gh","api","--method","POST",
-         "repos/"+owner+"/"+repo+"/issues/"+num+"/comments",
-         "-f","body="+body],
-        capture_output=True,text=True,timeout=35,check=False)
-    if p.returncode:
-        raise RuntimeError("github_proposal_not_confirmed")
-    obj=json.loads(p.stdout)
-    if not str(obj.get("html_url") or "").startswith("https://github.com/"):
-        raise RuntimeError("github_proposal_not_confirmed")
-    return obj["html_url"]
-
 def send_offer(candidate,plan,checkout):
     marker=offer_marker(candidate["source_url"])
     price=int(plan["price_cents"])/100
@@ -350,18 +324,12 @@ def send_offer(candidate,plan,checkout):
         "Payment is treated as acceptance of this contained scope. "
         "The completed digital deliverable is sent to the email used at checkout."
     )
-    if candidate["channel"]=="email":
-        subject="Contained paid offer ["+marker+"]"
-        if sent_subject_exists(subject):
-            return {"result":"already_contacted","channel":"email"}
-        agent_send(candidate["contact"],subject,body,[],
-                   order_id="autonomous-offer-"+marker)
-        return {"result":"offer_sent","channel":"email"}
-    tag="[auto-offer:"+marker+"]"
-    if github_comment_exists(candidate["source_url"],tag):
-        return {"result":"already_contacted","channel":"github_issue"}
-    url=post_github_proposal(candidate,body+"\n\n"+tag)
-    return {"result":"offer_sent","channel":"github_issue","proposal_url":url}
+    subject="Contained paid offer ["+marker+"]"
+    if sent_subject_exists(subject):
+        return {"result":"already_contacted","channel":"email"}
+    agent_send(candidate["contact"],subject,body,[],
+               order_id="autonomous-offer-"+marker)
+    return {"result":"offer_sent","channel":"email"}
 
 def fulfillment_subject(session_id):
     marker=hashlib.sha256(str(session_id).encode()).hexdigest()[:18]
