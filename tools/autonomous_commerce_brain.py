@@ -32,6 +32,7 @@ from tools.connected_commerce_tools import (
     autonomous_paid_orders,
     ensure_autonomous_checkout,
     existing_autonomous_offer,
+    recent_sent_subjects,
     sent_subject_exists,
 )
 
@@ -264,14 +265,15 @@ def read_source(candidate):
 def offer_marker(source_url):
     return hashlib.sha256(source_url.encode()).hexdigest()[:18]
 
-def already_contacted(candidate):
+def already_contacted(candidate,sent_subjects):
     marker=offer_marker(candidate["source_url"])
-    return sent_subject_exists("Contained paid offer ["+marker+"]")
+    return "Contained paid offer ["+marker+"]" in sent_subjects
 
 def choose_offer(rows):
     visible=[]
+    sent_subjects=recent_sent_subjects()
     for row in rows:
-        if already_contacted(row):
+        if already_contacted(row,sent_subjects):
             continue
         visible.append({
             "candidate_id":row["id"],
