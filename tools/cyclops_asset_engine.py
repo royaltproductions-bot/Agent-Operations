@@ -33,6 +33,7 @@ from tools.connected_commerce_tools import (
     sent_subject_exists,
     stripe_get,
     stripe_post,
+    stripe_usd_unit_amount,
 )
 
 from tools.open_web_discovery import open_web_candidates
@@ -63,7 +64,7 @@ CONCEPT_SCHEMA={
         "description":{"type":"string"},
         "audience":{"type":"string"},
         "pitch":{"type":"string"},
-        "price_cents":{"type":"string"},
+        "price_usd":{"type":"string"},
         "target_terms":{
             "type":"array","minItems":3,"maxItems":8,
             "items":{"type":"string"},
@@ -89,7 +90,7 @@ CONCEPT_SCHEMA={
             },
         },
     },
-    "required":["title","description","audience","pitch","price_cents",
+    "required":["title","description","audience","pitch","price_usd",
                 "target_terms","core_points","file_specs"],
     "additionalProperties":False,
 }
@@ -184,29 +185,19 @@ def demand_candidates(memory):
     return rows,issues+errors
 
 
-def normalize_price(value):
-    """Normalize the model-chosen nonnegative USD price; never set a business price band.
-
-    The price_cents field uses exact integer US cents. Explicit dollar notation
-    (a leading dollar sign, a USD suffix, or a decimal point) is also accepted
-    without guessing whether small integers represent dollars.
-    The payment provider, not this agent, decides acceptable checkout amounts.
-    """
+def normalize_price_usd(value):
+    """Normalize the agent-selected price in dollars without imposing any range."""
     raw=str(value if value is not None else "").strip().lower().replace(",","")
-    if not raw:
-        raise ValueError("price_missing")
-    dollars=raw.startswith("$") or raw.endswith("usd") or "." in raw
     raw=raw.removeprefix("$").removesuffix("usd").strip()
     try:
-        number=Decimal(raw)
-        if not number.is_finite() or number<0:
-            raise ValueError("price_invalid")
-        amount=number*100 if dollars else number
-        if amount!=amount.to_integral_value():
-            raise ValueError("price_fractional_cent")
-        return int(amount)
+        dollars=Decimal(raw)
     except InvalidOperation:
         raise ValueError("price_invalid") from None
+    if not dollars.is_finite() or dollars<0:
+        raise ValueError("price_invalid")
+    if dollars*100!=(dollars*100).to_integral_value():
+        raise ValueError("price_subcent_precision")
+    return format(dollars,".2f")
 
 
 def asset_id(plan):
@@ -250,8 +241,8 @@ def choose_asset_concept(rows,existing_assets=None):
         "to build a useful fallback asset if later generation fails. For CSV specs, columns "
         "must name the actual useful worksheet fields; for TXT specs, columns must be empty. "
         "Choose a commercially defensible one-time price for the actual deliverable. "
-        "price_cents must be an integer string in US CENTS (e.g. 2900 means $29), "
-        "never dollars in the cents field. No preset product price band. "
+        "price_usd must be a decimal string in US DOLLARS (e.g. 29.00 or 49.95). "
+        "No preset product price band, minimum or maximum. "
         "Build a genuinely usable product, not an abstract concept or filler. "
         "Use concrete tasks and repeatable outputs supported by the cited market "
         "evidence. Prefer a single deliverable whose purpose, instructions and "
@@ -282,7 +273,7 @@ def choose_asset_concept(rows,existing_assets=None):
             "concept_generation_failed:"+
             (str(last) or type(last).__name__)[:100])
 
-    plan["price_cents"]=normalize_price(plan.get("price_cents"))
+    plan["price_usd"]=normalize_price_usd(plan.get("price_usd"))
     for field in ("title","description","audience","pitch"):
         if len(str(plan.get(field) or "").strip())<12:
             raise ValueError("asset_underspecified")
@@ -351,7 +342,6 @@ def generate_asset_file(plan,spec,rows):
     raise RuntimeError("asset_file_generation_failed:"+str(spec["filename"]))
 
 def objective_quality_floor(plan,files):
-    price=int(plan["price_cents"])
     total_chars=sum(len(content.strip()) for _,content in files)
     # Do not reject a genuinely usable table solely for an arbitrary character
     # target based on its price. File-level usefulness gates still apply below.
@@ -392,7 +382,7 @@ def buyer_quality_check(plan,files,rows):
             "description":plan["description"],
             "audience":plan["audience"],
             "pitch":plan["pitch"],
-            "price_cents":int(plan["price_cents"]),
+            "price_usd":plan["price_usd"],
             "target_terms":plan["target_terms"],
         },
         "files":[{
@@ -434,6 +424,9 @@ def create_asset(rows,existing_assets=None):
         "asset_creation_incomplete_this_run:"+" | ".join(failures))
 
 def cyclops_checkout(plan):
+    # The agent selects dollars; this is the only provider-boundary conversion.
+    # Keep cents in persisted manifests for existing fulfillment compatibility.
+    plan["price_cents"]=stripe_usd_unit_amount(plan["price_usd"])
     ident=plan["asset_id"]
     page=stripe_get("payment_links",{"limit":100})
     for link in page.get("data") or []:
@@ -513,6 +506,7 @@ def persist_asset(plan,checkout):
         "description":plan["description"],
         "audience":plan["audience"],
         "pitch":plan["pitch"],
+        "price_usd":plan["price_usd"],
         "price_cents":plan["price_cents"],
         "target_terms":plan["target_terms"],
         "files":[name for name,_ in plan["_files"]],
