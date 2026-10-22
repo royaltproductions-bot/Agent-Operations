@@ -260,17 +260,20 @@ def choose_offer(rows):
     sent_subjects=recent_sent_subjects()
     # Relevance is assessed by the model using real evidence, not a fixed
     # industry/technology keyword score or a paid-ad vocabulary gate.
-    ranked=[row for row in rows if not already_contacted(row,sent_subjects)]
+    researched=[row for row in rows if not already_contacted(row,sent_subjects)]
+    # Keep all findings in research memory, but never spend slow CPU inference
+    # trying to send a paid offer to a page with no genuine response channel.
+    actionable=[row for row in researched
+                if row.get("page_fetched") and row.get("contact")]
+    if not actionable:
+        return None,{"reason":"no_contactable_public_invitation"}
+    ranked=actionable
     visible=[{
         "candidate_id":row["id"],
         "source_url":row["source_url"],
         "title":row.get("title") or "",
-        "excerpt":row["text"][:700],
-        "contact_available":bool(row.get("contact")),
-        "page_fetched":bool(row.get("page_fetched")),
-    } for row in ranked[:16]]
-    if not visible:
-        return None,None
+        "excerpt":row["text"][:420],
+    } for row in ranked[:5]]
 
     system=(
         "You are Wolverine, an autonomous digital production operator researching "
@@ -290,10 +293,10 @@ def choose_offer(rows):
     )
     plan=model_json(
         PLAN_SCHEMA,system,{"candidates":visible},
-        timeout=150,num_ctx=4096,num_predict=500
+        timeout=85,num_ctx=2048,num_predict=265
     )
     if plan.get("action")!="offer":
-        return None,plan
+        return None,{"reason":str(plan.get("reason") or "model_rejected_candidates")[:140]}
     chosen=next((r for r in ranked if r["id"]==plan.get("candidate_id")),None)
     if not chosen:
         raise ValueError("model_selected_unknown_candidate")
@@ -471,7 +474,7 @@ def run():
                     "detail":(str(exc) or type(exc).__name__)[:160]})
         else:
             receipt["commercial_outcomes"].append({
-                "reason":"no_feasible_contained_offer"})
+                "reason":str((plan or {}).get("reason") or "no_feasible_contained_offer")[:140]})
     else:
         receipt["commercial_outcomes"].append({"reason":"no_research_results_found"})
 
