@@ -35,31 +35,13 @@ from tools.connected_commerce_tools import (
     stripe_post,
 )
 
-from tools.open_web_discovery import open_web_paid_candidates
+from tools.open_web_discovery import open_web_candidates
 
 MODEL=os.getenv("CYCLOPS_MODEL","qwen3:8b")
 OLLAMA="http://127.0.0.1:11434/api/chat"
 ROOT=Path("products/cyclops")
 RECEIPTS=Path("ops/cyclops-runs")
 NOW=lambda: datetime.now(timezone.utc)
-
-EMAIL=re.compile(r"(?<![\w.+-])[\w.+-]{1,60}@[\w.-]{3,100}\.[A-Za-z]{2,16}\b")
-RISKY=re.compile(
-    r"\b(cve|exploit|malware|ransomware|phishing|credential theft|weapon|"
-    r"medical diagnosis|therapy|legal representation|tax advice|onsite|on-site|"
-    r"security clearance|adult content|gambling|controlled substance)\b",re.I)
-CAPABLE=re.compile(
-    r"\b(python|javascript|typescript|script|automation|workflow|api|csv|"
-    r"spreadsheet|data|report|website|frontend|html|css|integration|testing|"
-    r"quality assurance|content|marketing automation|research|documentation|"
-    r"operations|process|template|checklist|planning)\b",re.I)
-CONTRACT=re.compile(
-    r"\b(contract(?:or)?(?:\s+(?:role|project|work|position))?|"
-    r"freelanc(?:e|er)|consult(?:ing|ant)|project[- ]based|"
-    r"paid pilot|paid task|paid project)\b",re.I)
-EMPLOYMENT=re.compile(
-    r"\b(full[- ]time|salary|annual compensation|annual salary|benefits|"
-    r"employee|employment|equity|stock options|401k|pto|visa sponsorship)\b",re.I)
 
 SEARCH_SCHEMA={
     "type":"object",
@@ -150,115 +132,32 @@ def model_json(schema,system,observation,timeout=240,num_ctx=6144,num_predict=18
         raise ValueError("model_not_object")
     return obj
 
-def public_json(url,host):
-    parts=urllib.parse.urlsplit(url)
-    if parts.scheme!="https" or parts.hostname!=host or parts.username or parts.password:
-        raise ValueError("public_target_not_allowed")
-    req=urllib.request.Request(url,headers={
-        "Accept":"application/json","User-Agent":"cyclops-commerce/1.0"})
-    with urllib.request.urlopen(req,timeout=25) as response:
-        return json.loads(response.read(500000).decode())
-
-def clean_html(raw):
-    text=re.sub(r"<br\s*/?>","\n",str(raw or ""),flags=re.I)
-    text=re.sub(r"<[^>]+>"," ",text)
-    return re.sub(r"[ \t]+"," ",unescape(text)).strip()
-
-def safe_email(text):
-    emails=[x.lower() for x in EMAIL.findall(text)
-            if not x.lower().endswith((".png",".jpg",".jpeg",".example",".test"))]
-    unique=sorted(set(emails))
-    return unique[0] if len(unique)==1 else None
-
-def source_age_ok(timestamp,days=45):
-    try:
-        dt=datetime.fromisoformat(str(timestamp).replace("Z","+00:00"))
-        return NOW()-dt<=timedelta(days=days)
-    except (TypeError,ValueError):
-        return False
-
 def discovery_queries():
-    """Generate fresh web-search language for reusable-product demand."""
+    """Choose broad product-market research directions at runtime."""
     system=(
-        "Generate diverse public-web search queries for CURRENT explicit paid needs "
-        "where a reusable digital asset, toolkit, template, worksheet, reference, data "
-        "resource, or similar finished product might solve a recurring problem for more "
-        "than one buyer. Do not limit yourself to named platforms, industries, or a fixed "
-        "menu of product types. Search for real buyer intent and budget/payment language, "
-        "not generic product ideas. Vary the wording substantially so unrelated public "
-        "domains and communities can surface. Include current date language when useful. "
-        "Return only schema-compliant JSON."
+        "You are Cyclops, researching opportunities for useful reusable digital "
+        "products that can be sold to many buyers. Invent diverse current web "
+        "searches about pain points, recurring work, unmet needs, active communities, "
+        "new technology, customer frustrations, emerging interests and practical "
+        "problems. Explore any legitimate industry and unfamiliar market. A need "
+        "need not appear as a paid job posting or contain a price or contact email. "
+        "Do not restrict research to preset niches, websites, job boards, template "
+        "categories or marketplaces. Include a particular site only when genuinely "
+        "relevant. Return schema-compliant JSON with varied independent searches."
     )
     result=model_json(
         SEARCH_SCHEMA,system,
         {"utc_date":NOW().date().isoformat(),
-         "mission":"discover broad reusable-product demand across the public web"},
+         "mission":"find viable reusable digital-product demand from anywhere on the public web"},
         timeout=90,num_ctx=2048,num_predict=260)
     return [str(q).strip() for q in result.get("queries") or [] if str(q).strip()]
 
+
 def demand_candidates():
-    rows=[]
-    seen=set()
+    """Keep open-web demand evidence, even without a buyer post or email."""
+    queries=discovery_queries()
+    return open_web_candidates(max_candidates=24,queries=queries)
 
-    # General open web first: arbitrary public domains returned by fresh model searches.
-    queries=None
-    try:
-        queries=discovery_queries()
-    except Exception:
-        pass
-    try:
-        web_rows,_=open_web_paid_candidates(max_candidates=24,queries=queries)
-        for row in web_rows:
-            if row.get("source_url") not in seen:
-                rows.append(row)
-                seen.add(row.get("source_url"))
-    except Exception:
-        pass
-
-    # HN remains one supplemental public source rather than the whole market.
-    try:
-        args=urllib.parse.urlencode({
-            "tags":"story","query":"Ask HN: Who is hiring?","hitsPerPage":30})
-        index=public_json("https://hn.algolia.com/api/v1/search_by_date?"+args,
-                          "hn.algolia.com")
-        stories=[]
-        for row in index.get("hits") or []:
-            title=str(row.get("title") or "")
-            ident=str(row.get("objectID") or "")
-            if ident.isdigit() and re.match(r"^Ask HN:\s*Who is hiring\?",title,re.I):
-                stories.append((int(row.get("created_at_i") or 0),ident))
-        if stories:
-            _,story=max(stories)
-            thread=public_json(
-                "https://hn.algolia.com/api/v1/items/"+story,"hn.algolia.com")
-            for item in thread.get("children") or []:
-                ident=str(item.get("id") or "")
-                text=clean_html(item.get("text") or "")[:6000]
-                if (not ident.isdigit() or not text or RISKY.search(text)
-                        or not CONTRACT.search(text) or not CAPABLE.search(text)
-                        or EMPLOYMENT.search(text)
-                        or not re.search(
-                            r"\b(apply|email|contact|reach out|send|write to|"
-                            r"interested|inquire)\b",text,re.I)):
-                    continue
-                contact=safe_email(text)
-                url="https://news.ycombinator.com/item?id="+ident
-                if not contact or not source_age_ok(item.get("created_at")) or url in seen:
-                    continue
-                rows.append({
-                    "id":"hn:"+ident,
-                    "source":"hackernews",
-                    "source_url":url,
-                    "contact":contact,
-                    "text":text,
-                    "created_at":item.get("created_at"),
-                })
-                seen.add(url)
-                if len(rows)>=24:
-                    break
-    except Exception:
-        pass
-    return rows[:24]
 
 def normalize_price(value):
     raw=str(value or "").strip().lower().replace(",","")
@@ -312,9 +211,11 @@ def choose_asset_concept(rows,existing_assets=None):
     if not visible:
         raise ValueError("no_current_demand")
     system=(
-        "Choose ONE reusable digital product from recurring practical needs visible in the "
-        "current independent-contract demand. This is product selection only; do not write "
-        "the finished files yet. It must be useful to multiple similar buyers without buyer "
+        "Choose ONE reusable digital product addressing an evidence-backed recurring "
+        "practical problem observed across the open-web market research. This is "
+        "product selection only; do not write the finished files yet. Market pages "
+        "are signals rather than necessarily paid solicitations. It must be useful "
+        "to multiple similar buyers without buyer "
         "input, private data, custom work, credentials, or access. file_specs may use only "
         ".txt and .csv. core_points must contain the substantive knowledge/instructions needed "
         "to build a useful fallback asset if later generation fails. For CSV specs, columns "
@@ -335,7 +236,7 @@ def choose_asset_concept(rows,existing_assets=None):
                 "target_terms":[str(x)[:60] for x in (a.get("target_terms") or [])[:8]],
             } for a in (existing_assets or [])[:12]]
             plan=model_json(CONCEPT_SCHEMA,system,
-                            {"current_paid_demand":observation,
+                            {"observed_market_signals":observation,
                              "existing_catalog":existing,
                              "constraint":"Create a materially different product from the existing catalog; do not repeat or lightly rename an exhausted asset."},
                             timeout=timeout,num_ctx=ctx,num_predict=predict)
@@ -681,15 +582,9 @@ def prospect_score(row,asset):
         if term and term in text:
             target_hits+=1
             score+=8
-    # Generic commerce words are only tie-breakers after a real product-term match.
-    # They must never make an unrelated prospect look like a match for an old asset.
-    if target_hits==0:
-        return 0
-    for token in ("project","contract","consult","freelance","automation","data",
-                  "documentation","report","workflow","template"):
-        if token in text:
-            score+=2
-    return score
+    # The product's own model-selected terms, not a fixed list of industries
+    # or paid-contract vocabulary, determine similarity to new evidence.
+    return score if target_hits else 0
 
 def asset_offer_subject(row,asset):
     marker=hashlib.sha256(
@@ -698,19 +593,53 @@ def asset_offer_subject(row,asset):
 
 def has_uncontacted_matching_prospect(rows,asset,sent_subjects):
     for row in rows:
-        if prospect_score(row,asset)>0 and asset_offer_subject(row,asset) not in sent_subjects:
+        if (row.get("contact") and prospect_score(row,asset)>0
+                and asset_offer_subject(row,asset) not in sent_subjects):
             return True
     return False
+
+PROSPECT_SCHEMA={
+    "type":"object",
+    "properties":{
+        "invited":{"type":"boolean"},
+        "reason":{"type":"string"},
+    },
+    "required":["invited","reason"],
+    "additionalProperties":False,
+}
+
+def can_contact_for_asset(row,asset):
+    """Assess a specific outreach action; never narrow discovery itself."""
+    if not row.get("contact") or not row.get("page_fetched"):
+        return False
+    system=(
+        "Determine if this specific page EXPLICITLY invites outside commercial "
+        "providers to propose or send a product like the supplied asset to the "
+        "listed contact. Be conservative. An email address in a website footer, "
+        "an informational article, a general discussion of a problem or a "
+        "job post is NOT permission to send a sales pitch. If no explicit "
+        "relevant invitation appears in the provided evidence, invited=false. "
+        "Return schema-compliant JSON, no speculation."
+    )
+    try:
+        decision=model_json(
+            PROSPECT_SCHEMA,system,
+            {"source_url":row["source_url"],"evidence":row["text"][:2600],
+             "asset_title":asset["title"],"asset_description":asset["description"]},
+            timeout=90,num_ctx=3072,num_predict=140)
+        return decision.get("invited") is True
+    except Exception:
+        return False
 
 def send_asset_offer(rows,asset):
     sent=recent_sent_subjects()
     ranked=sorted(rows,key=lambda r:(-prospect_score(r,asset),r["source_url"]))
     for row in ranked:
-        if prospect_score(row,asset)<=0:
+        if prospect_score(row,asset)<=0 or not row.get("contact"):
             continue
         subject=asset_offer_subject(row,asset)
         marker=subject.rsplit("[",1)[-1].rstrip("]")
-        if subject in sent:
+        if subject in sent or not can_contact_for_asset(row,asset):
             continue
         price=int(asset["price_cents"])/100
         body=(
@@ -724,7 +653,7 @@ def send_asset_offer(rows,asset):
                    order_id="cyclops-offer-"+marker)
         return {"result":"offer_sent","source_url":row["source_url"],
                 "asset_id":asset["asset_id"],"score":prospect_score(row,asset)}
-    return {"result":"no_new_matching_contact","asset_id":asset["asset_id"]}
+    return {"result":"no_relevant_opt_in_buyer","asset_id":asset["asset_id"]}
 
 def write_receipt(receipt):
     RECEIPTS.mkdir(parents=True,exist_ok=True)
@@ -760,7 +689,7 @@ def run():
             "detail":(str(exc) or type(exc).__name__)[:160]})
 
     try:
-        rows=demand_candidates()
+        rows,search_errors=demand_candidates()
         source_counts={}
         provider_counts={}
         for row in rows:
@@ -773,6 +702,10 @@ def run():
             "candidate_count":len(rows),
             "source_counts":source_counts,
             "search_provider_counts":provider_counts,
+            "source_errors":search_errors,
+            "fetched_public_pages":sum(bool(r.get("page_fetched")) for r in rows),
+            "candidates_without_email":sum(not bool(r.get("contact")) for r in rows),
+            "search_queries":list(dict.fromkeys(str(r.get("search_query") or "") for r in rows))[:12],
         }
     except Exception as exc:
         rows=[]
