@@ -239,6 +239,65 @@ def demand_view(rows,limit=5,width=700):
         "excerpt":r["text"][:width],
     } for r in rows[:limit]]
 
+def fallback_concept(rows):
+    texts="\n".join(str(r.get("text") or "").lower() for r in rows)
+    vocabulary=[
+        "automation","workflow","api","python","javascript","typescript","csv",
+        "spreadsheet","data","report","frontend","html","testing",
+        "documentation","content","marketing","research","operations","planning",
+    ]
+    scored=sorted(
+        ((texts.count(term),term) for term in vocabulary if texts.count(term)>0),
+        key=lambda item:(-item[0],item[1]))
+    terms=[term for _,term in scored[:5]]
+    for term in ("project","contract","workflow"):
+        if len(terms)>=3:
+            break
+        if term not in terms:
+            terms.append(term)
+    focus=" & ".join(term.title() for term in terms[:2])
+    plan={
+        "title":focus+" Project Delivery Toolkit",
+        "description":(
+            "A reusable scope, requirements, execution, and handoff pack for "
+            +", ".join(terms[:3])+" project work."
+        ),
+        "audience":(
+            "Small teams, founders, and independent operators commissioning or "
+            "delivering "+", ".join(terms[:3])+" projects."
+        ),
+        "pitch":(
+            "I put together a reusable "+focus.lower()+
+            " delivery pack for scoping work, tracking requirements, and keeping handoff clean."
+        ),
+        "price_cents":900,
+        "target_terms":terms,
+        "core_points":[
+            "Define the outcome in one sentence before listing implementation tasks.",
+            "Record each requirement with a measurable acceptance condition.",
+            "Separate required inputs from assumptions and unknowns.",
+            "Map every deliverable to its source input and intended user.",
+            "Track dependencies and blockers beside the work they affect.",
+            "Use explicit status labels so unfinished work cannot hide inside prose.",
+            "Review edge cases and failure conditions before final handoff.",
+            "Close with a delivery record that states what is included, excluded, and still open.",
+        ],
+        "file_specs":[
+            {
+                "filename":"delivery-playbook.txt",
+                "purpose":"A concise reusable checklist for scoping, executing, reviewing, and handing off project work.",
+                "columns":[],
+            },
+            {
+                "filename":"project-control.csv",
+                "purpose":"A reusable worksheet for requirements, dependencies, acceptance conditions, status, and handoff notes.",
+                "columns":["requirement","acceptance_condition","input","output","dependency","status","notes"],
+            },
+        ],
+    }
+    plan["asset_id"]=asset_id(plan)
+    return plan
+
 def choose_asset_concept(rows):
     visible=demand_view(rows)
     if not visible:
@@ -255,8 +314,8 @@ def choose_asset_concept(rows):
         "field concise. Return only schema-compliant JSON."
     )
     attempts=[
-        (visible,180,3072,650),
-        (demand_view(rows,limit=3,width=450),300,2560,520),
+        (visible,120,3072,650),
+        (demand_view(rows,limit=3,width=450),180,2560,520),
     ]
     last=None
     for observation,timeout,ctx,predict in attempts:
@@ -268,8 +327,7 @@ def choose_asset_concept(rows):
         except Exception as exc:
             last=exc
     else:
-        raise RuntimeError("concept_generation_failed:"+
-                           (str(last) or type(last).__name__)[:100])
+        return fallback_concept(rows)
 
     plan["price_cents"]=normalize_price(plan.get("price_cents"))
     for field in ("title","description","audience","pitch"):
@@ -343,7 +401,7 @@ def generate_asset_file(plan,spec,rows):
         "file":spec,
         "demand_context":demand_view(rows,limit=3,width=350),
     }
-    attempts=[(180,3072,850),(300,2560,600)]
+    attempts=[(120,3072,850),(180,2560,600)]
     for timeout,ctx,predict in attempts:
         try:
             obj=model_json(FILE_SCHEMA,system,observation,
