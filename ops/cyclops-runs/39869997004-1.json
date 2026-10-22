@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-22T23:14:06.857194+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "candidate_count": 5,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "bing": 1
+    },
+    "source_errors": [],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 5,
+    "search_queries": [
+      "",
+      "Microsoft Power Automate best practices for repetitive tasks"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "Power Automate workflow templates for data entry automation",
+        "Microsoft Power Automate best practices for repetitive tasks",
+        "Power Automate integration with Google Workspace",
+        "Power Automate for email automation without coding"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 93
+    }
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "asset_creation_failed",
+      "detail": "asset_creation_incomplete_this_run:quality_floor_csv_too_shallow:cambridge_idiom_usage.csv:3_rows"
+    }
+  ],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0
+  }
+}
