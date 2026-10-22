@@ -65,6 +65,7 @@ CONCEPT_SCHEMA={
         "audience":{"type":"string"},
         "pitch":{"type":"string"},
         "price_usd":{"type":"string"},
+        "evidence_candidate_id":{"type":"string"},
         "target_terms":{
             "type":"array","minItems":3,"maxItems":8,
             "items":{"type":"string"},
@@ -91,7 +92,7 @@ CONCEPT_SCHEMA={
         },
     },
     "required":["title","description","audience","pitch","price_usd",
-                "target_terms","core_points","file_specs"],
+                "evidence_candidate_id","target_terms","core_points","file_specs"],
     "additionalProperties":False,
 }
 
@@ -223,6 +224,7 @@ def demand_view(rows,limit=5,width=700):
     return [{
         "candidate_id":r["id"],
         "source_url":r["source_url"],
+        "title":str(r.get("title") or "")[:180],
         "excerpt":r["text"][:width],
     } for r in rows[:limit]]
 
@@ -231,8 +233,14 @@ def choose_asset_concept(rows,existing_assets=None):
     if not visible:
         raise ValueError("no_current_demand")
     system=(
-        "Choose ONE reusable digital product addressing an evidence-backed recurring "
-        "practical problem observed across the open-web market research. This is "
+        "Choose ONE reusable digital product addressing a concrete recurring buyer "
+        "problem present in the supplied REAL research pages. Ground your choice "
+        "in a SPECIFIC supplied candidate_id. Put that exact value in "
+        "evidence_candidate_id; never invent a citation. The title, purpose and "
+        "target terms MUST all be related to the cited page's real problem. "
+        "Do NOT switch to unrelated topics, idioms, or sample-content themes. "
+        "If the pages are weak, choose the most concretely useful problem "
+        "without pretending a customer requested a purchase. This is "
         "product selection only; do not write the finished files yet. Market pages "
         "are signals rather than necessarily paid solicitations. It must be useful "
         "to multiple similar buyers without buyer "
@@ -273,6 +281,21 @@ def choose_asset_concept(rows,existing_assets=None):
             "concept_generation_failed:"+
             (str(last) or type(last).__name__)[:100])
 
+    source_id=str(plan.get("evidence_candidate_id") or "")
+    allowed={r["id"]:r for r in rows[:5]}
+    source=allowed.get(source_id)
+    if source is None:
+        raise ValueError("product_source_not_in_real_research")
+    # Cheap, source-neutral grounding check: an arbitrary industry is fine;
+    # an unrelated product is not. No fixed niche/market whitelist.
+    from tools.open_web_discovery import root_terms
+    source_terms=root_terms(str(source.get("title") or "")+" "+str(source.get("text") or "")[:1200])
+    product_terms=root_terms(str(plan.get("title") or "")+" "+
+                             " ".join(str(x) for x in plan.get("target_terms") or []))
+    overlap=product_terms.intersection(source_terms)
+    if len(overlap)<2:
+        raise ValueError("product_unrelated_to_cited_public_evidence")
+    plan["evidence_source_url"]=source["source_url"]
     plan["price_usd"]=normalize_price_usd(plan.get("price_usd"))
     for field in ("title","description","audience","pitch"):
         if len(str(plan.get(field) or "").strip())<12:
@@ -322,6 +345,7 @@ def generate_asset_file(plan,spec,rows):
         },
         "file":spec,
         "demand_context":demand_view(rows,limit=3,width=350),
+        "grounded_source_url":plan.get("evidence_source_url"),
     }
     # Do not restart a complete manufacturing cycle on an invalid file.
     attempts=[(3072,1100)]
@@ -384,6 +408,7 @@ def buyer_quality_check(plan,files,rows):
             "pitch":plan["pitch"],
             "price_usd":plan["price_usd"],
             "target_terms":plan["target_terms"],
+            "evidence_source_url":plan.get("evidence_source_url"),
         },
         "files":[{
             "filename":name,
@@ -509,6 +534,7 @@ def persist_asset(plan,checkout):
         "price_usd":plan["price_usd"],
         "price_cents":plan["price_cents"],
         "target_terms":plan["target_terms"],
+        "evidence_source_url":plan.get("evidence_source_url"),
         "files":[name for name,_ in plan["_files"]],
         "quality_gate":"passed",
         "payment_link_id":checkout["id"],
