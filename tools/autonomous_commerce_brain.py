@@ -162,8 +162,11 @@ def discovery_queries(memory):
         "requests. Explore unfamiliar subjects; do not restrict yourself to known "
         "websites, job boards, industries, keywords, email availability, existing "
         "products, or a particular business format. Choose queries yourself, including "
-        "specific sites only where the context justifies them. Produce concise "
-        "search-engine phrases, not full question sentences. Use prior real "
+        "specific sites only where the context justifies them. Pursue evidence "
+        "of actual current buyers publicly requesting work, vendors, projects, "
+        "services or solutions rather than generic articles describing a topic. "
+        "Do not invent or assume a buyer exists. Search across any industry and "
+        "use short search-engine phrases, not abstract how/why questions. Use prior real "
         "research, avoid recently repeated searches, pursue unexplored links "
         "and pivot away from previously exhausted directions. Return schema JSON."
     )
