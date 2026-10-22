@@ -119,3 +119,19 @@ jobs:
             -f message='Record Cyclops economic outcome' \
             -f content="$encoded" \
             -f branch='main' >/dev/null
+
+      - name: Surface actual engine exit status
+        if: always()
+        shell: bash
+        env:
+          MODEL_READY: ${{ steps.model.outputs.ready }}
+          ENGINE_EXIT_CODE: ${{ steps.cyclops.outputs.exit_code }}
+        run: |
+          if [ "$MODEL_READY" != "true" ]; then
+            echo "::error::Cyclops model failed to start"
+            exit 1
+          fi
+          if [ "${ENGINE_EXIT_CODE:-}" != "0" ]; then
+            echo "::error::Cyclops ended with operational error code ${ENGINE_EXIT_CODE:-missing}"
+            exit 1
+          fi
