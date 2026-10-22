@@ -142,22 +142,41 @@ class ResearchMemory:
         self.search_errors=0
 
     def plan_context(self):
+        """Only external market research belongs in the search-planning prompt.
+
+        Injecting engine outcome fields into the research prompt previously
+        made Cyclops search for its own 'asset_creation_failed' error instead
+        of actual market demand. Keep those real diagnostics in durable state,
+        but out of external-inquiry planning.
+        """
         return {
-            "previous_executions":self.state.get("executions",1)-1,
-            "recent_queries":[{"q":x.get("query"),"new":x.get("new_pages",0)}
-                              for x in (self.state.get("queries") or [])[-32:]],
-            "recent_public_findings":[
+            "prior_market_searches":[
+                {"query":x.get("query"),"new_public_pages":x.get("new_pages",0)}
+                for x in (self.state.get("queries") or [])[-20:]
+                if not self._is_internal_query(x.get("query"))],
+            "public_market_pages":[
                 {"title":x.get("title"),"url":x.get("url"),"snippet":x.get("snippet")}
-                for x in (self.state.get("observations") or [])[-10:]],
-            "unexplored_links":[
+                for x in (self.state.get("observations") or [])[-8:]],
+            "unvisited_public_links":[
                 {"title":x.get("title"),"url":x.get("url")}
-                for x in (self.state.get("frontier") or [])[-8:]],
-            "recent_outcomes":(self.state.get("outcomes") or [])[-6:],
-            "related_peer_findings":[
+                for x in (self.state.get("frontier") or [])[-6:]],
+            "peer_public_pages":[
                 {"title":x.get("title"),"url":x.get("url")}
-                for x in self.peer[-4:]],
-            "directive":"Explore genuinely new lines of inquiry; develop earlier promising leads; revisit sources only when useful, and avoid repeating recently exhausted searches.",
+                for x in self.peer[-3:]],
+            "directive":"Investigate current real-world demand, not information about this agent, its code, logs, or diagnostics. Continue relevant prior investigations and diversify based on new public evidence.",
         }
+
+    @staticmethod
+    def _is_internal_query(value):
+        """Exclude exposed internal bookkeeping, never legitimate market niches."""
+        query=str(value or "").lower()
+        return bool(re.search(
+            r"asset_creation_failed|related_peer_findings|"
+            r"\b(?:provided data|these records|these entries)\b|"
+            r"\b(?:discovered|candidate_count) field\b|"
+            r"\b(?:runtime|structural) (?:failures|errors) in (?:this|the) (?:data|record)",
+            query,
+        ))
 
     def budget(self):
         recent=(self.state.get("queries") or [])[-18:]
@@ -178,7 +197,7 @@ class ResearchMemory:
         for q in list(queued)+list(proposed or []):
             q=re.sub(r"\s+"," ",str(q or "").strip())[:220]
             k=_key(q)
-            if len(q)<4 or k in seen:
+            if len(q)<4 or k in seen or self._is_internal_query(q):
                 continue
             seen.add(k)
             past=recent.get(k)
@@ -210,7 +229,7 @@ class ResearchMemory:
             words=re.findall(r"[\w-]+",str(row.get("query") or ""),re.UNICODE)
             kept=[w for w in words if len(w)>2 and w.lower() not in stop]
             q=" ".join(kept[:10]).strip()
-            if len(kept)>=3 and _key(q) not in known:
+            if len(kept)>=3 and _key(q) not in known and not self._is_internal_query(q):
                 known.add(_key(q))
                 proposed.append(q)
         # Public pages and queued links are actual observed evidence, not a
