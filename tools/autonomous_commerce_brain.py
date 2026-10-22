@@ -31,7 +31,6 @@ from tools.connected_commerce_tools import (
     agent_send,
     autonomous_paid_orders,
     ensure_autonomous_checkout,
-    existing_autonomous_offer,
     recent_sent_subjects,
     sent_subject_exists,
 )
@@ -411,7 +410,7 @@ def run():
     except Exception as exc:
         receipt["structural_failures"].append({
             "reason":"paid_order_fulfillment_scan_failed",
-            "detail":type(exc).__name__})
+            "detail":(str(exc) or type(exc).__name__)[:160]})
 
     try:
         rows,errors=candidates()
@@ -427,7 +426,7 @@ def run():
         except Exception as exc:
             candidate,plan=None,None
             receipt["commercial_outcomes"].append({
-                "reason":"offer_selection_failed","detail":type(exc).__name__})
+                "reason":"offer_selection_failed","detail":(str(exc) or type(exc).__name__)[:160]})
         if candidate and plan:
             try:
                 checkout=ensure_autonomous_checkout(
@@ -453,7 +452,7 @@ def run():
             except Exception as exc:
                 receipt["structural_failures"].append({
                     "reason":"transaction_execution_failed",
-                    "detail":type(exc).__name__})
+                    "detail":(str(exc) or type(exc).__name__)[:160]})
         else:
             receipt["commercial_outcomes"].append({
                 "reason":"no_feasible_contained_offer"})
