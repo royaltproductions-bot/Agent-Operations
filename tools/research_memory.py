@@ -72,6 +72,10 @@ def _merge(old,new,lane):
             merged[key]=[i for i in _latest_unique(values,field,limit) if _key(i.get("url")) not in visited]
         else:
             merged[key]=_latest_unique(values,field,limit)
+    # Preserve unexecuted plans through load/read and conflict merging.
+    merged["queued_queries"]=_latest_unique(
+        list(old.get("queued_queries") or [])+list(new.get("queued_queries") or []),
+        "query",30)
     merged["updated_at"]=NOW().isoformat()
     merged["executions"]=max(int(old.get("executions") or 0),int(new.get("executions") or 0))
     return merged
