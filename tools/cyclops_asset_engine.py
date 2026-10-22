@@ -239,65 +239,6 @@ def demand_view(rows,limit=5,width=700):
         "excerpt":r["text"][:width],
     } for r in rows[:limit]]
 
-def fallback_concept(rows):
-    texts="\n".join(str(r.get("text") or "").lower() for r in rows)
-    vocabulary=[
-        "automation","workflow","api","python","javascript","typescript","csv",
-        "spreadsheet","data","report","frontend","html","testing",
-        "documentation","content","marketing","research","operations","planning",
-    ]
-    scored=sorted(
-        ((texts.count(term),term) for term in vocabulary if texts.count(term)>0),
-        key=lambda item:(-item[0],item[1]))
-    terms=[term for _,term in scored[:5]]
-    for term in ("project","contract","workflow"):
-        if len(terms)>=3:
-            break
-        if term not in terms:
-            terms.append(term)
-    focus=" & ".join(term.title() for term in terms[:2])
-    plan={
-        "title":focus+" Project Delivery Toolkit",
-        "description":(
-            "A reusable scope, requirements, execution, and handoff pack for "
-            +", ".join(terms[:3])+" project work."
-        ),
-        "audience":(
-            "Small teams, founders, and independent operators commissioning or "
-            "delivering "+", ".join(terms[:3])+" projects."
-        ),
-        "pitch":(
-            "I put together a reusable "+focus.lower()+
-            " delivery pack for scoping work, tracking requirements, and keeping handoff clean."
-        ),
-        "price_cents":900,
-        "target_terms":terms,
-        "core_points":[
-            "Define the outcome in one sentence before listing implementation tasks.",
-            "Record each requirement with a measurable acceptance condition.",
-            "Separate required inputs from assumptions and unknowns.",
-            "Map every deliverable to its source input and intended user.",
-            "Track dependencies and blockers beside the work they affect.",
-            "Use explicit status labels so unfinished work cannot hide inside prose.",
-            "Review edge cases and failure conditions before final handoff.",
-            "Close with a delivery record that states what is included, excluded, and still open.",
-        ],
-        "file_specs":[
-            {
-                "filename":"delivery-playbook.txt",
-                "purpose":"A concise reusable checklist for scoping, executing, reviewing, and handing off project work.",
-                "columns":[],
-            },
-            {
-                "filename":"project-control.csv",
-                "purpose":"A reusable worksheet for requirements, dependencies, acceptance conditions, status, and handoff notes.",
-                "columns":["requirement","acceptance_condition","input","output","dependency","status","notes"],
-            },
-        ],
-    }
-    plan["asset_id"]=asset_id(plan)
-    return plan
-
 def choose_asset_concept(rows):
     visible=demand_view(rows)
     if not visible:
@@ -327,7 +268,9 @@ def choose_asset_concept(rows):
         except Exception as exc:
             last=exc
     else:
-        return fallback_concept(rows)
+        raise RuntimeError(
+            "concept_generation_failed:"+
+            (str(last) or type(last).__name__)[:100])
 
     plan["price_cents"]=normalize_price(plan.get("price_cents"))
     for field in ("title","description","audience","pitch"):
@@ -351,34 +294,6 @@ def choose_asset_concept(rows):
     plan["file_specs"]=specs
     plan["asset_id"]=asset_id(plan)
     return plan
-
-def fallback_file(plan,spec):
-    name=spec["filename"]
-    if name.endswith(".csv"):
-        columns=spec.get("columns") or ["item","status","notes"]
-        return ",".join(columns)+"\n"
-    lines=[
-        str(plan["title"]),
-        "="*min(72,max(12,len(str(plan["title"])))),
-        "",
-        str(plan["description"]),
-        "",
-        "Who this is for:",
-        str(plan["audience"]),
-        "",
-        "How to use this asset:",
-        str(spec["purpose"]),
-        "",
-        "Core operating points:",
-    ]
-    lines.extend("- "+str(point).strip() for point in plan.get("core_points") or [])
-    lines.extend([
-        "",
-        "Use these points as a working checklist/template and adapt the placeholders "
-        "to the specific project; no private access or custom service is included.",
-        "",
-    ])
-    return "\n".join(lines)
 
 def generate_asset_file(plan,spec,rows):
     system=(
@@ -416,18 +331,28 @@ def generate_asset_file(plan,spec,rows):
                 return content+"\n"
         except Exception:
             pass
-    return fallback_file(plan,spec)
+    raise RuntimeError("asset_file_generation_failed:"+str(spec["filename"]))
 
 def create_asset(rows):
-    plan=choose_asset_concept(rows)
-    files=[]
-    for spec in plan["file_specs"]:
-        content=generate_asset_file(plan,spec,rows)
-        if not content.strip():
-            content=fallback_file(plan,spec)
-        files.append((spec["filename"],content))
-    plan["_files"]=files
-    return plan
+    # If manufacturing fails at any point, restart the entire economic product
+    # decision from current demand rather than shipping a generic fallback.
+    failures=[]
+    for attempt in range(1,4):
+        try:
+            plan=choose_asset_concept(rows)
+            files=[]
+            for spec in plan["file_specs"]:
+                content=generate_asset_file(plan,spec,rows)
+                if not content.strip():
+                    raise RuntimeError("empty_generated_asset_file")
+                files.append((spec["filename"],content))
+            plan["_files"]=files
+            plan["_manufacturing_attempt"]=attempt
+            return plan
+        except Exception as exc:
+            failures.append((str(exc) or type(exc).__name__)[:120])
+    raise RuntimeError(
+        "manufacturing_exhausted_after_3_full_restarts:"+" | ".join(failures))
 
 def cyclops_checkout(plan):
     ident=plan["asset_id"]
