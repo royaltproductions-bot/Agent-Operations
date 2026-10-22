@@ -301,9 +301,24 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
     # A few previously discovered, unvisited public links also progress each
     # run. Keep new search discoveries in rotation, not a single-site crawl.
     if memory:
-        for i,front in enumerate(memory.frontier(limit=5)):
+        queued_followups=[]
+        for front in memory.frontier(limit=12):
+            parent=next((p for p in reversed(memory.state.get("pages") or [])
+                         if p.get("url")==front.get("from_url")),None)
+            origin_query=str((parent or {}).get("search_query") or "")
+            # Relevance is judged against the actual parent investigation.
+            # No domain or market category is prioritized.
+            if origin_query:
+                matching=root_terms(origin_query).intersection(
+                    root_terms(front.get("title") or ""))
+                if not matching:
+                    continue
             follow={"source_url":front.get("url"),"title":front.get("title"),
                     "snippet":"Linked from "+str(front.get("from_url") or "")}
+            queued_followups.append(follow)
+            if len(queued_followups)>=4:
+                break
+        for i,follow in enumerate(queued_followups):
             queue.insert(min(len(queue),i*4),("", "followup",follow))
 
     results={}
