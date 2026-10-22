@@ -1,0 +1,71 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-22T21:05:40.186581+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 7,
+    "source_counts": {
+      "open_web": 7
+    },
+    "search_provider_counts": {
+      "followup": 1,
+      "bing": 6
+    },
+    "source_errors": [
+      {
+        "source": "query_planner",
+        "reason": "TimeoutError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "URLError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 6,
+    "search_queries": [
+      "",
+      "current discussions around creation digital content religious spiritual communities non-English-speaking",
+      "opportunities autonomous digital production creating interactive art installations public spaces",
+      "autonomous digital production tools integrated existing supply chains on-demand manufacturing"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "current discussions around creation digital content religious spiritual communities non-English-speaking",
+        "opportunities autonomous digital production creating interactive art installations public spaces",
+        "ethical concerns surrounding creation digital content children media",
+        "autonomous digital production tools integrated existing supply chains on-demand manufacturing"
+      ],
+      "next_query_queue": 8,
+      "frontier_size": 35,
+      "known_pages": 45
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "offer_selection_failed",
+      "detail": "timed out"
+    },
+    {
+      "reason": "no_feasible_contained_offer"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
