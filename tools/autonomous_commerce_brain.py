@@ -162,7 +162,8 @@ def discovery_queries(memory):
         "requests. Explore unfamiliar subjects; do not restrict yourself to known "
         "websites, job boards, industries, keywords, email availability, existing "
         "products, or a particular business format. Choose queries yourself, including "
-        "specific sites only where the context justifies them. Use prior real "
+        "specific sites only where the context justifies them. Produce concise "
+        "search-engine phrases, not full question sentences. Use prior real "
         "research, avoid recently repeated searches, pursue unexplored links "
         "and pivot away from previously exhausted directions. Return schema JSON."
     )
@@ -171,18 +172,31 @@ def discovery_queries(memory):
         {"utc_date":NOW().date().isoformat(),
          "mission":"discover commercially useful possibilities anywhere on the public web",
          "research_history":memory.plan_context()},
-        timeout=100,num_ctx=3072,num_predict=320)
+        timeout=45,num_ctx=2048,num_predict=170)
     return [str(q).strip() for q in result.get("queries") or [] if str(q).strip()]
 
 
 def candidates(memory):
-    """Continue exploratory public-web research across independent live runs."""
-    queries=memory.choose_queries(discovery_queries(memory))
+    """Resume actual research first. Model planning is optional, never a blocker."""
+    issues=[]
+    # Queued queries are independent work discovered on earlier real runs.
+    # Do NOT ask the model to invent queries while ready-to-run work exists.
+    queries=memory.choose_queries([])
+    if not queries:
+        try:
+            proposals=discovery_queries(memory)
+            queries=memory.choose_queries(proposals)
+        except Exception as exc:
+            issues.append({"source":"query_planner","reason":type(exc).__name__})
+        if not queries:
+            # Only derive directions from past authentic source material.
+            queries=memory.choose_queries(memory.evidence_queries())
     budget=memory.budget()
-    return open_web_candidates(
+    rows,errors=open_web_candidates(
         max_candidates=budget["max_candidates"],queries=queries,
         memory=memory,max_search_seconds=budget["max_seconds"],
         max_pages=budget["max_pages"])
+    return rows,issues+errors
 
 
 def read_source(candidate):
