@@ -191,6 +191,40 @@ class ResearchMemory:
         self.state["queued_queries"]=[{"query":q} for q in fresh[budget:budget+30]]
         return self.run_queries
 
+    def evidence_queries(self):
+        """Recover fresh searches from *real* recorded topics when the model stalls.
+
+        Derived phrases are navigational continuations, never invented buyers
+        or fabricated demand. Avoid hard-wired categories or preferred websites.
+        """
+        stop={"how","can","what","where","when","why","which","are","there",
+              "is","the","a","an","to","of","for","in","on","by","and",
+              "with","be","being","used","use","from","that","these","this",
+              "it","do","does","their","could","would","should","best",
+              "practices","ways","about","into","who"}
+        known={_key(q.get("query")) for q in self.state.get("queries") or []}
+        known.update(_key(q.get("query")) for q in self.state.get("queued_queries") or [])
+        proposed=[]
+        evidence=list(reversed(self.state.get("queries") or []))
+        for row in evidence[-24:]:
+            words=re.findall(r"[\w-]+",str(row.get("query") or ""),re.UNICODE)
+            kept=[w for w in words if len(w)>2 and w.lower() not in stop]
+            q=" ".join(kept[:10]).strip()
+            if len(kept)>=3 and _key(q) not in known:
+                known.add(_key(q))
+                proposed.append(q)
+        # Public pages and queued links are actual observed evidence, not a
+        # templated business model. Relevant names may open new directions.
+        topics=list(reversed(self.state.get("frontier") or []))
+        for item in topics[-12:]:
+            title=re.sub(r"[^\w\s-]"," ",str(item.get("title") or ""))
+            words=title.split()
+            q=" ".join(words[:9])
+            if len(words)>=3 and _key(q) not in known:
+                known.add(_key(q))
+                proposed.append(q)
+        return proposed[:12]
+
     def eligible_url(self,url):
         match=next((p for p in reversed(self.state.get("pages") or [])
                     if _key(p.get("url"))==_key(url)),None)
