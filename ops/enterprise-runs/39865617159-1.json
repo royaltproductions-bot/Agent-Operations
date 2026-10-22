@@ -1,0 +1,68 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-22T22:36:53.725193+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 10,
+    "source_counts": {
+      "open_web": 10
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "bing": 6
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 10,
+    "search_queries": [
+      "",
+      "Vinted | Sell and buy clothes, shoes and accessories",
+      "The state of AI in 2023: Generative AI\u2019s breakout year",
+      "Gartner Says More Than 80% of Enterprises Will Have Used Generative AI APIs or Deployed Generative AI-Enabled Applications by 2026",
+      "The truth about successful generative AI Uncover the benefits of AI platforms that enable foundation model customization through technology, processes"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "Vinted | Sell and buy clothes, shoes and accessories",
+        "The state of AI in 2023: Generative AI\u2019s breakout year",
+        "Gartner Says More Than 80% of Enterprises Will Have Used Generative AI APIs or Deployed Generative AI-Enabled Applications by 2026",
+        "The truth about successful generative AI Uncover the benefits of AI platforms that enable foundation model customization through technology, processes"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 28,
+      "known_pages": 87
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_contactable_public_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
