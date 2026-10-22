@@ -227,10 +227,13 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
     streams=[]
     deadline=time.monotonic()+max(30,int(max_search_seconds))
     providers=(("bing",bing_rss),("duckduckgo",duckduckgo_html))
+    # Reserve meaningful time for reading actual pages and creating a usable
+    # market observation; do not let search-engine requests exhaust the run.
+    search_deadline=deadline-max(75,int(max_search_seconds*0.45))
     # Alternate search engines and independent research topics.
     for provider,search in providers:
         for query in queries:
-            if time.monotonic()>deadline-35:
+            if time.monotonic()>search_deadline:
                 break
             try:
                 hits=search(query,limit=6)
