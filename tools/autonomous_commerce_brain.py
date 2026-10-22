@@ -498,33 +498,6 @@ def run():
             receipt["commercial_outcomes"].append({
                 "reason":"offer_selection_failed","detail":(str(exc) or type(exc).__name__)[:160]})
         if candidate and plan:
-    try:
-        checkout=ensure_autonomous_checkout(
-            candidate["source_url"],
-            plan["title"],plan["deliverable"],plan["scope"],
-            int(plan["price_cents"]))
-        receipt["offer"]={
-            "source_url":candidate["source_url"],
-            "title":plan["title"][:160],
-            "scope":plan["scope"][:400],
-            "price_cents":int(plan["price_cents"]),
-            "offer_id":checkout["offer_id"],
-            "payment_link_id":checkout["payment_link_id"],
-        }
-        action=send_offer(candidate,plan,checkout)
-        receipt["external_action"]={
-            "result":action["result"],
-            "channel":action["channel"],
-            "source_url":candidate["source_url"],
-        }
-        if action["result"]!="offer_sent":
-            receipt["commercial_outcomes"].append({"reason":action["result"]})
-    except Exception as exc:
-        receipt["structural_failures"].append({
-            "reason":"transaction_execution_failed",
-            "detail":(str(exc) or type(exc).__name__)[:160]})
-else:
-    receipt["commercial_outcomes"].append({"reason":"no_feasible_contained_offer"})
             try:
                 checkout=ensure_autonomous_checkout(
                     candidate["source_url"],
