@@ -491,6 +491,50 @@ def search_all_sources(strategy,search):
             combined.append(row)
     return combined[:18],observations
 
+def direct_paid_demand():
+    """Current explicit paid-work invitations before speculative market ideation."""
+    candidates=[]
+    # The latest HN monthly hiring thread is already an invitation context.
+    try:
+        for hit in search_demand({"search_channel":"hackernews",
+                                  "search_query":"contract freelance consulting"}):
+            row=dict(hit)
+            row["channel"]="hackernews"
+            candidates.append(row)
+    except (ValueError,urllib.error.URLError,urllib.error.HTTPError,
+            TimeoutError,KeyError):
+        pass
+
+    # GitHub issues are actionable only later if the original issue itself
+    # explicitly publishes paid terms plus a contact route.
+    try:
+        seen={x["url"] for x in candidates}
+        for intent in ("bounty","paid contract","freelance"):
+            data=github_json("search/issues",
+                             {"q":intent+" in:title,body is:issue is:open",
+                              "sort":"updated","order":"desc","per_page":15})
+            for item in data.get("items",[]):
+                if item.get("pull_request"):
+                    continue
+                url=str(item.get("html_url") or "")
+                if url in seen or not re.fullmatch(
+                        r"https://github\.com/[\w.-]+/[\w.-]+/issues/\d+",url):
+                    continue
+                text=(str(item.get("title") or "")[:180]+"\n"+
+                      str(item.get("body") or "")[:1800])
+                candidates.append({"id":url,"url":url,"text":text,
+                                   "created_at":item.get("created_at"),
+                                   "channel":"github"})
+                seen.add(url)
+                if len(candidates)>=24:
+                    break
+            if len(candidates)>=24:
+                break
+    except (ValueError,RuntimeError,urllib.error.URLError,
+            urllib.error.HTTPError,TimeoutError,KeyError):
+        pass
+    return candidates[:24]
+
 def run(propose=model_json,evaluate=model_json,search=search_demand,
         original=read_original,live=True,followup_decider=None):
     history=past()
@@ -515,14 +559,61 @@ def run(propose=model_json,evaluate=model_json,search=search_demand,
                                       "result":"inbound_followup_not_executed"})
     # Outcomes are externally checked, not inferred from the model's own words.
     report["verified_provider_outcomes"]=commercial_metrics(history)
-    # Provider-grounded outcomes are collected directly above. Do not spend a
-    # separate LLM call deciding which status/inventory endpoint to inspect.
     feedback=[]
     current_experiments=[]
+
+    # Demand first: inspect explicit current paid invitations before inventing
+    # another speculative market. At most one external proposal is sent.
+    direct=direct_paid_demand()
+    if direct:
+        shortlist=[{"id":str(x["id"]),"url":x["url"],"channel":x["channel"],
+                    "contact_route_possible":True,
+                    "snippet":x["text"][:900]} for x in direct]
+        try:
+            decision=evaluate(
+                EVALUATE_SCHEMA,
+                MISSION+"\nThese are current explicit paid/contract invitation candidates. "
+                "Choose one only if our existing executable capabilities plausibly fit it. "
+                "Prefer a contained project that can be delivered without new accounts or spending.",
+                {"candidates":shortlist,
+                 "existing_capabilities":["Python/JavaScript automation","CSV/data processing",
+                     "web/frontend work","workflow/API integration",
+                     "original owned short-form creative production"],
+                 "instruction":"Select an exact candidate_id only when the posting itself "
+                     "supports paid independent work and a legitimate contact route."})
+        except (ValueError,TypeError,KeyError,RuntimeError):
+            decision={"action":"reject_and_pivot","candidate_id":"",
+                      "service_scope":"","reason":"direct demand evaluation unavailable"}
+        if decision.get("action")=="contact_invited_buyer":
+            match=next((x for x in direct
+                        if str(x["id"])==decision.get("candidate_id")),None)
+            if match is not None:
+                try:
+                    full=original(match,match["channel"])
+                    action=send_invited_request(
+                        match,full,decision["service_scope"],history,
+                        match["channel"],live=live)
+                except (ValueError,urllib.error.URLError,urllib.error.HTTPError,
+                        TimeoutError):
+                    action={"source":match["url"],"result":"original_source_invalid"}
+                report["actions"].append(action)
+                if action["result"]=="sent_invited_proposal":
+                    current_experiments.append({
+                        "channel":match["channel"],"buyer":"explicit paid invitation",
+                        "problem":"","offer":decision["service_scope"],
+                        "query":"direct_paid_demand","reached_buyer":True})
+                else:
+                    feedback.append({"reason":action["result"],
+                                     "query":"direct_paid_demand"})
+
+    # If a real buyer was reached, do not dilute the cycle with speculative research.
+    buyer_reached=any(a.get("result")=="sent_invited_proposal"
+                      for a in report["actions"])
     generated=0
     executed=0
     max_generation_calls=MAX_SEARCHES*2
-    while executed < MAX_SEARCHES and generated < max_generation_calls:
+    while (not buyer_reached and executed < MAX_SEARCHES
+           and generated < max_generation_calls):
         # Invalid model output does not consume a real market experiment.
         channel=CHANNELS[generated % len(CHANNELS)]
         generated+=1
