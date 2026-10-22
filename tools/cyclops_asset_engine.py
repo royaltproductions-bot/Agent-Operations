@@ -61,6 +61,18 @@ EMPLOYMENT=re.compile(
     r"\b(full[- ]time|salary|annual compensation|annual salary|benefits|"
     r"employee|employment|equity|stock options|401k|pto|visa sponsorship)\b",re.I)
 
+SEARCH_SCHEMA={
+    "type":"object",
+    "properties":{
+        "queries":{
+            "type":"array","minItems":4,"maxItems":8,
+            "items":{"type":"string"},
+        },
+    },
+    "required":["queries"],
+    "additionalProperties":False,
+}
+
 CONCEPT_SCHEMA={
     "type":"object",
     "properties":{
@@ -165,13 +177,37 @@ def source_age_ok(timestamp,days=45):
     except (TypeError,ValueError):
         return False
 
+def discovery_queries():
+    """Generate fresh web-search language for reusable-product demand."""
+    system=(
+        "Generate diverse public-web search queries for CURRENT explicit paid needs "
+        "where a reusable digital asset, toolkit, template, worksheet, reference, data "
+        "resource, or similar finished product might solve a recurring problem for more "
+        "than one buyer. Do not limit yourself to named platforms, industries, or a fixed "
+        "menu of product types. Search for real buyer intent and budget/payment language, "
+        "not generic product ideas. Vary the wording substantially so unrelated public "
+        "domains and communities can surface. Include current date language when useful. "
+        "Return only schema-compliant JSON."
+    )
+    result=model_json(
+        SEARCH_SCHEMA,system,
+        {"utc_date":NOW().date().isoformat(),
+         "mission":"discover broad reusable-product demand across the public web"},
+        timeout=90,num_ctx=2048,num_predict=260)
+    return [str(q).strip() for q in result.get("queries") or [] if str(q).strip()]
+
 def demand_candidates():
     rows=[]
     seen=set()
 
-    # General open web first: arbitrary public domains returned by search.
+    # General open web first: arbitrary public domains returned by fresh model searches.
+    queries=None
     try:
-        web_rows,_=open_web_paid_candidates(max_candidates=18)
+        queries=discovery_queries()
+    except Exception:
+        pass
+    try:
+        web_rows,_=open_web_paid_candidates(max_candidates=24,queries=queries)
         for row in web_rows:
             if row.get("source_url") not in seen:
                 rows.append(row)
@@ -271,7 +307,7 @@ def demand_view(rows,limit=5,width=700):
         "excerpt":r["text"][:width],
     } for r in rows[:limit]]
 
-def choose_asset_concept(rows):
+def choose_asset_concept(rows,existing_assets=None):
     visible=demand_view(rows)
     if not visible:
         raise ValueError("no_current_demand")
@@ -293,8 +329,15 @@ def choose_asset_concept(rows):
     last=None
     for observation,timeout,ctx,predict in attempts:
         try:
+            existing=[{
+                "title":str(a.get("title") or "")[:120],
+                "audience":str(a.get("audience") or "")[:160],
+                "target_terms":[str(x)[:60] for x in (a.get("target_terms") or [])[:8]],
+            } for a in (existing_assets or [])[:12]]
             plan=model_json(CONCEPT_SCHEMA,system,
-                            {"current_paid_demand":observation},
+                            {"current_paid_demand":observation,
+                             "existing_catalog":existing,
+                             "constraint":"Create a materially different product from the existing catalog; do not repeat or lightly rename an exhausted asset."},
                             timeout=timeout,num_ctx=ctx,num_predict=predict)
             break
         except Exception as exc:
@@ -428,13 +471,13 @@ def buyer_quality_check(plan,files,rows):
             str(result.get("reason") or "unspecified")[:140])
     return str(result.get("reason") or "passed")[:140]
 
-def create_asset(rows):
+def create_asset(rows,existing_assets=None):
     # If manufacturing fails at any point, restart the entire economic product
     # decision from current demand rather than shipping a generic fallback.
     failures=[]
     for attempt in range(1,4):
         try:
-            plan=choose_asset_concept(rows)
+            plan=choose_asset_concept(rows,existing_assets)
             files=[]
             for spec in plan["file_specs"]:
                 content=generate_asset_file(plan,spec,rows)
@@ -631,11 +674,17 @@ def fulfill_orders():
 
 def prospect_score(row,asset):
     text=str(row.get("text") or "").lower()
+    target_hits=0
     score=0
     for term in asset.get("target_terms") or []:
         term=str(term).strip().lower()
         if term and term in text:
+            target_hits+=1
             score+=8
+    # Generic commerce words are only tie-breakers after a real product-term match.
+    # They must never make an unrelated prospect look like a match for an old asset.
+    if target_hits==0:
+        return 0
     for token in ("project","contract","consult","freelance","automation","data",
                   "documentation","report","workflow","template"):
         if token in text:
@@ -712,7 +761,19 @@ def run():
 
     try:
         rows=demand_candidates()
-        receipt["discovery"]={"candidate_count":len(rows)}
+        source_counts={}
+        provider_counts={}
+        for row in rows:
+            source=str(row.get("source") or "supplemental")
+            source_counts[source]=source_counts.get(source,0)+1
+            provider=str(row.get("search_provider") or "")
+            if provider:
+                provider_counts[provider]=provider_counts.get(provider,0)+1
+        receipt["discovery"]={
+            "candidate_count":len(rows),
+            "source_counts":source_counts,
+            "search_provider_counts":provider_counts,
+        }
     except Exception as exc:
         rows=[]
         receipt["discovery"]={"candidate_count":0,"reason":type(exc).__name__}
@@ -735,7 +796,7 @@ def run():
     # No current product fits this demand: manufacture a new reusable asset.
     if rows and asset is None:
         try:
-            plan=create_asset(rows)
+            plan=create_asset(rows,assets)
             checkout=cyclops_checkout(plan)
             asset=persist_asset(plan,checkout)
             receipt["economic_result"]["new_asset_created"]=1
