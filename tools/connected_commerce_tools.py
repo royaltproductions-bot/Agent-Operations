@@ -247,20 +247,26 @@ def _verified_session(session):
                 and charge.get("status")=="succeeded")
 
 def autonomous_paid_orders(limit=100):
-    """Verified paid autonomous orders with private fulfillment details in memory only."""
+    """Verified paid autonomous orders; ignore unrelated Stripe history cheaply."""
+    links_page=stripe_get("payment_links",{"limit":100})
+    autonomous_links={}
+    for link in links_page.get("data") or []:
+        if not isinstance(link,dict):
+            continue
+        metadata=link.get("metadata") or {}
+        ident=link.get("id")
+        if (metadata.get("autonomous_revenue")=="yes"
+                and isinstance(ident,str) and ident.startswith("plink_")):
+            autonomous_links[ident]=metadata
+    if not autonomous_links:
+        return []
+
     page=stripe_get("checkout/sessions",{"limit":min(int(limit),100)})
     orders=[]
-    link_cache={}
     for session in page.get("data") or []:
         link_id=session.get("payment_link")
-        if not isinstance(link_id,str) or not link_id.startswith("plink_"):
-            continue
-        link=link_cache.get(link_id)
-        if link is None:
-            link=stripe_get("payment_links/"+urllib.parse.quote(link_id,safe=""))
-            link_cache[link_id]=link
-        metadata=link.get("metadata") or {}
-        if metadata.get("autonomous_revenue")!="yes":
+        metadata=autonomous_links.get(link_id)
+        if not metadata:
             continue
         try:
             if not _verified_session(session):
