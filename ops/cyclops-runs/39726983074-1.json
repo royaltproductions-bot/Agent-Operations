@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-22T05:16:58.175203+00:00",
+  "model": "qwen3:8b",
+  "asset": {
+    "asset_id": "99f02c1d73952651d100",
+    "title": "Calypso System Configuration Template",
+    "price_cents": 4995,
+    "payment_link_id": "plink_1UTDfHBto3o776uyl4QFcqnh"
+  },
+  "discovery": {
+    "candidate_count": 3
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "source_url": "https://news.ycombinator.com/item?id=49961551",
+    "asset_id": "99f02c1d73952651d100",
+    "score": 6
+  },
+  "fulfillment": [],
+  "structural_failures": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0
+  }
+}
