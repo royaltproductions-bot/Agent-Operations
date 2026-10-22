@@ -51,8 +51,12 @@ CAPABLE=re.compile(
     r"quality assurance|video edit|short[- ]form|animation|motion graphics|"
     r"content|marketing automation|research|documentation)\b",re.I)
 CONTRACT=re.compile(
-    r"\b(contract(?:or)?|freelanc(?:e|er)|consult(?:ing|ant)|project[- ]based|"
+    r"\b(contract(?:or)?(?:\s+(?:role|project|work|position))?|"
+    r"freelanc(?:e|er)|consult(?:ing|ant)|project[- ]based|"
     r"paid pilot|paid task|paid project)\b",re.I)
+EMPLOYMENT=re.compile(
+    r"\b(full[- ]time|salary|annual compensation|annual salary|benefits|"
+    r"employee|employment|equity|stock options|401k|pto|visa sponsorship)\b",re.I)
 EMAIL=re.compile(r"(?<![\w.+-])[\w.+-]{1,60}@[\w.-]{3,100}\.[A-Za-z]{2,16}\b")
 
 PLAN_SCHEMA={
@@ -181,6 +185,7 @@ def hn_candidates():
         text=clean_html(item.get("text") or "")[:6000]
         if (not ident.isdigit() or not text or RISKY.search(text)
                 or not CONTRACT.search(text) or not CAPABLE.search(text)
+                or EMPLOYMENT.search(text)
                 or not re.search(r"\b(apply|email|contact|reach out|send|write to|"
                                  r"interested|inquire)\b",text,re.I)):
             continue
@@ -350,11 +355,14 @@ def choose_offer(rows):
 
     system=(
         "You operate an autonomous fixed-scope digital production service. "
-        "The candidates were already ranked from current public paid invitations. "
-        "Choose ONE only if a useful deliverable can be produced entirely from public "
-        "information plus text/code/data generation, without private-system access, "
-        "human credentials, employment claims, or owner intervention. Prefer a small "
-        "objective deliverable that can be completed after payment. If none fit, reject. "
+        "The candidates are explicit independent paid-work invitations, not job ads. "
+        "Choose ONE only when the proposed offer DIRECTLY performs the work the buyer "
+        "requested. Never sell an analysis, summary, review, or explanation of the "
+        "posting itself unless the posting explicitly requested that exact deliverable. "
+        "The work must be producible entirely from public information plus text/code/data "
+        "generation, without private-system access, human credentials, employment claims, "
+        "or owner intervention. If the post is actually employment/full-time/salaried, "
+        "reject it. Prefer a small objective deliverable completed after payment. "
         "For an offer, define a narrow scope, concrete deliverable, truthful short pitch, "
         "and one-time price from $5 to $500. In price_cents return digits only, e.g. 5000 for $50. Return only schema-compliant JSON."
     )
