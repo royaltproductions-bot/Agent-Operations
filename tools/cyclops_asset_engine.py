@@ -104,6 +104,16 @@ FILE_SCHEMA={
     "additionalProperties":False,
 }
 
+QUALITY_SCHEMA={
+    "type":"object",
+    "properties":{
+        "verdict":{"type":"string","enum":["pass","reject"]},
+        "reason":{"type":"string"},
+    },
+    "required":["verdict","reason"],
+    "additionalProperties":False,
+}
+
 def model_json(schema,system,observation,timeout=240,num_ctx=6144,num_predict=1800):
     req=urllib.request.Request(
         OLLAMA,method="POST",
@@ -302,9 +312,11 @@ def generate_asset_file(plan,spec,rows):
         "only as context. Do not write commentary around the file. Do not claim results, "
         "experience, credentials, private access, or buyer-specific work. For .csv output "
         "valid CSV beginning with exactly the requested columns and include a few generic "
-        "example/template rows only when useful. For .txt output create a practical standalone "
-        "toolkit, checklist, guide, or template that a buyer can use immediately. Keep it "
-        "compact enough to finish reliably."
+        "template rows that are numerous and substantive enough to make the CSV useful on its own. "
+        "Never invent production-ready configuration values for real systems. For .txt output "
+        "create a detailed practical standalone toolkit, guide, worksheet, or template that a "
+        "buyer can use immediately. The paid file must contain real working substance, not a "
+        "demo or outline. Keep it compact enough to finish reliably."
     )
     observation={
         "product":{
@@ -333,6 +345,67 @@ def generate_asset_file(plan,spec,rows):
             pass
     raise RuntimeError("asset_file_generation_failed:"+str(spec["filename"]))
 
+def objective_quality_floor(plan,files):
+    price=int(plan["price_cents"])
+    total_chars=sum(len(content.strip()) for _,content in files)
+    # Higher prices must carry visibly more substance.
+    minimum_chars=1400 if price<2000 else 2400 if price<5000 else 3600
+    if total_chars<minimum_chars:
+        raise RuntimeError(
+            f"quality_floor_too_thin:{total_chars}<{minimum_chars}")
+
+    for name,content in files:
+        lines=[line for line in content.splitlines() if line.strip()]
+        if name.endswith(".csv"):
+            # A paid standalone CSV should be more than a header plus a few examples.
+            if len(lines)<10:
+                raise RuntimeError(
+                    f"quality_floor_csv_too_shallow:{name}:{len(lines)-1}_rows")
+            columns=[x.strip() for x in lines[0].split(",") if x.strip()]
+            if len(columns)<4:
+                raise RuntimeError(
+                    f"quality_floor_csv_too_narrow:{name}:{len(columns)}_columns")
+        elif name.endswith(".txt"):
+            words=len(re.findall(r"\b\w+\b",content))
+            if words<250:
+                raise RuntimeError(
+                    f"quality_floor_text_too_short:{name}:{words}_words")
+
+def buyer_quality_check(plan,files,rows):
+    system=(
+        "You are the final buyer-side quality check for a paid reusable digital product. "
+        "Reject it unless a reasonable buyer in the stated audience could use the delivered "
+        "files immediately and feel the price is defensible. Reject thin examples, generic "
+        "filler, made-up production configuration values, vague checklists, or marketing "
+        "claims stronger than what the files actually contain. The product must directly fit "
+        "the observed demand, stand alone without custom service or private access, and the "
+        "description/pitch must truthfully match the actual files. Do not rewrite the product. "
+        "Return pass or reject with one concise reason."
+    )
+    observation={
+        "product":{
+            "title":plan["title"],
+            "description":plan["description"],
+            "audience":plan["audience"],
+            "pitch":plan["pitch"],
+            "price_cents":int(plan["price_cents"]),
+            "target_terms":plan["target_terms"],
+        },
+        "files":[{
+            "filename":name,
+            "content":content[:12000],
+        } for name,content in files],
+        "demand_context":demand_view(rows,limit=3,width=500),
+    }
+    result=model_json(
+        QUALITY_SCHEMA,system,observation,
+        timeout=120,num_ctx=4096,num_predict=180)
+    if result.get("verdict")!="pass":
+        raise RuntimeError(
+            "buyer_quality_rejected:"+
+            str(result.get("reason") or "unspecified")[:140])
+    return str(result.get("reason") or "passed")[:140]
+
 def create_asset(rows):
     # If manufacturing fails at any point, restart the entire economic product
     # decision from current demand rather than shipping a generic fallback.
@@ -346,6 +419,8 @@ def create_asset(rows):
                 if not content.strip():
                     raise RuntimeError("empty_generated_asset_file")
                 files.append((spec["filename"],content))
+            objective_quality_floor(plan,files)
+            plan["_quality_reason"]=buyer_quality_check(plan,files,rows)
             plan["_files"]=files
             plan["_manufacturing_attempt"]=attempt
             return plan
@@ -437,6 +512,7 @@ def persist_asset(plan,checkout):
         "price_cents":plan["price_cents"],
         "target_terms":plan["target_terms"],
         "files":[name for name,_ in plan["_files"]],
+        "quality_gate":"passed",
         "payment_link_id":checkout["id"],
         "checkout_url":checkout["url"],
         "created_at":NOW().isoformat(),
