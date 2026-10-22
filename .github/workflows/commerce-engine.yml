@@ -22,7 +22,7 @@ permissions:
   actions: write
 
 concurrency:
-  group: commerce-engine-production-v2
+  group: commerce-engine-production-v3
   cancel-in-progress: true
 
 jobs:
