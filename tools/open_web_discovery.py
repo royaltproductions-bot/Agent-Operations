@@ -29,6 +29,9 @@ BUYER_INTENT=re.compile(
 EMPLOYMENT=re.compile(
     r"\b(full[- ]time|salary|annual compensation|annual salary|benefits|"
     r"employee|employment|equity|stock options|401k|pto|visa sponsorship)\b",re.I)
+INDEPENDENT=re.compile(
+    r"\b(contractor|freelanc(?:e|er)|consult(?:ing|ant)|project[- ]based|"
+    r"fixed[- ]price|paid task|paid project|bounty|request for proposal|rfp)\b",re.I)
 RISKY=re.compile(
     r"\b(cve|exploit|malware|ransomware|phishing|credential theft|weapon|"
     r"medical diagnosis|therapy|legal representation|tax advice|security clearance|"
@@ -88,7 +91,14 @@ def fetch_public_text(url):
     final,ctype,raw=_open(url)
     if not ("text/" in ctype or "html" in ctype or not ctype):
         raise ValueError("unsupported_public_content")
-    return final,clean_html(raw)[:12000]
+    # Preserve public email addresses that may exist only in mailto attributes.
+    decoded=raw.decode("utf-8","ignore")
+    mailto=" ".join(sorted(set(
+        re.findall(r"(?i)mailto:([^?\"'<>\s]+)",unescape(decoded)))))
+    text=clean_html(raw)
+    if mailto:
+        text+="\n"+mailto
+    return final,text[:12000]
 
 def safe_email(text):
     emails=[]
@@ -100,7 +110,17 @@ def safe_email(text):
             continue
         emails.append(value)
     unique=sorted(set(emails))
-    return unique[0] if len(unique)==1 else None
+    if len(unique)==1:
+        return unique[0]
+    # Public role inboxes are appropriate commercial contact routes even when
+    # a page also contains unrelated staff/support addresses.
+    priority=("projects","business","partnerships","partnership","sales",
+              "hello","contact","work","info","marketing")
+    for local in priority:
+        matches=[e for e in unique if e.split("@",1)[0] in (local,local+"s")]
+        if len(matches)==1:
+            return matches[0]
+    return None
 
 def _fallback_queries():
     """Broad fallback only; callers normally supply fresh model-generated queries."""
@@ -214,7 +234,11 @@ def open_web_paid_candidates(max_candidates=18,queries=None):
                 except Exception:
                     continue
                 combined=(hit.get("title","")+"\n"+hit.get("snippet","")+"\n"+text)[:16000]
-                if RISKY.search(combined) or EMPLOYMENT.search(combined):
+                if RISKY.search(combined):
+                    continue
+                # Do not throw away legitimate contract/RFP pages merely because
+                # they also mention employment somewhere else on the page.
+                if EMPLOYMENT.search(combined) and not INDEPENDENT.search(combined):
                     continue
                 if not BUYER_INTENT.search(combined) or not PAID.search(combined):
                     continue
