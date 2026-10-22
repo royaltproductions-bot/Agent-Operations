@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "lane": "cyclops",
-  "status": "active",
+  "status": "retired_low_quality",
   "asset_id": "8778cfd95d9d6fdc1ae2",
   "title": "Calypso System Configuration Template",
   "description": "A pre-configured CSV template for setting up Calypso systems in trading environments, including order routing, FX, and fixed income systems. No custom data required.",
@@ -20,5 +20,6 @@
   ],
   "payment_link_id": "plink_1UTDV3Bto3o776uy8i2uSvRn",
   "checkout_url": "https://buy.stripe.com/8x2fZgeAg3UH8rM9Zd7Re05",
-  "created_at": "2026-10-22T04:21:09.490897+00:00"
+  "created_at": "2026-10-22T04:21:09.490897+00:00",
+  "retired_reason": "Initial asset was too thin to meet current Cyclops quality floor."
 }
