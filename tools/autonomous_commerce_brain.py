@@ -40,6 +40,7 @@ from tools.open_web_discovery import (
     fetch_public_text,
     open_web_candidates,
 )
+from tools.research_memory import ResearchMemory
 
 MODEL=os.getenv("COMMERCE_MODEL","qwen3:8b")
 OLLAMA="http://127.0.0.1:11434/api/chat"
@@ -151,7 +152,7 @@ def clean_html(raw):
     text=re.sub(r"<[^>]+>"," ",text)
     return re.sub(r"[ \t]+"," ",unescape(text)).strip()
 
-def discovery_queries():
+def discovery_queries(memory):
     """Let the agent formulate fresh research directions without a fixed search niche."""
     system=(
         "You are researching the open internet for viable legitimate commercial "
@@ -161,20 +162,27 @@ def discovery_queries():
         "requests. Explore unfamiliar subjects; do not restrict yourself to known "
         "websites, job boards, industries, keywords, email availability, existing "
         "products, or a particular business format. Choose queries yourself, including "
-        "specific sites only where the context justifies them. Return schema JSON."
+        "specific sites only where the context justifies them. Use prior real "
+        "research, avoid recently repeated searches, pursue unexplored links "
+        "and pivot away from previously exhausted directions. Return schema JSON."
     )
     result=model_json(
         SEARCH_SCHEMA,system,
         {"utc_date":NOW().date().isoformat(),
-         "mission":"discover commercially useful possibilities anywhere on the public web"},
-        timeout=90,num_ctx=2048,num_predict=260)
+         "mission":"discover commercially useful possibilities anywhere on the public web",
+         "research_history":memory.plan_context()},
+        timeout=100,num_ctx=3072,num_predict=320)
     return [str(q).strip() for q in result.get("queries") or [] if str(q).strip()]
 
 
-def candidates():
-    """Gather research signals from the whole public web, without inquiry gates."""
-    queries=discovery_queries()
-    return open_web_candidates(max_candidates=24,queries=queries)
+def candidates(memory):
+    """Continue exploratory public-web research across independent live runs."""
+    queries=memory.choose_queries(discovery_queries(memory))
+    budget=memory.budget()
+    return open_web_candidates(
+        max_candidates=budget["max_candidates"],queries=queries,
+        memory=memory,max_search_seconds=budget["max_seconds"],
+        max_pages=budget["max_pages"])
 
 
 def read_source(candidate):
@@ -385,8 +393,9 @@ def run():
             "reason":"paid_order_fulfillment_scan_failed",
             "detail":(str(exc) or type(exc).__name__)[:160]})
 
+    memory=ResearchMemory("wolverine")
     try:
-        rows,errors=candidates()
+        rows,errors=candidates(memory)
         source_counts={}
         provider_counts={}
         for row in rows:
@@ -408,6 +417,10 @@ def run():
         rows=[]
         receipt["discovery"]={"candidate_count":0,
                               "source_errors":[{"reason":type(exc).__name__}]}
+
+    # Persist real search progress before offer/payment work can consume the
+    # remainder of the runner's execution window.
+    receipt["discovery"]["research_memory"]=memory.save()
 
     if rows:
         try:
@@ -457,6 +470,8 @@ def run():
         "fulfilled_orders_seen":fulfilled,
         "verified_autonomous_revenue_cents_seen":revenue,
     }
+    memory.note_outcome(receipt)
+    receipt["discovery"]["research_memory"]=memory.save()
     return receipt
 
 def main():
