@@ -12,7 +12,6 @@ import hashlib
 import ipaddress
 import os
 import re
-import time
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -43,14 +42,14 @@ class _SafeRedirect(urllib.request.HTTPRedirectHandler):
 
 _OPENER=urllib.request.build_opener(_SafeRedirect())
 
-def _open(url,accept="text/html,application/xhtml+xml",timeout=18,limit=450000):
+def _open(url,accept="text/html,application/xhtml+xml",limit=450000):
     if not _public_url(url):
         raise ValueError("public_url_required")
     req=urllib.request.Request(url,headers={
         "User-Agent":"Mozilla/5.0 compatible; autonomous-commerce-discovery/1.0",
         "Accept":accept,
     })
-    with _OPENER.open(req,timeout=timeout) as response:
+    with _OPENER.open(req) as response:
         final=response.geturl()
         if not _public_url(final):
             raise ValueError("final_url_not_public")
@@ -202,7 +201,7 @@ def _normalize_queries(queries):
 def bing_rss(query,limit=8):
     params=urllib.parse.urlencode({"q":query,"format":"rss","count":str(limit)})
     url="https://www.bing.com/search?"+params
-    _,_,raw=_open(url,accept="application/rss+xml,application/xml,text/xml,*/*",timeout=20)
+    _,_,raw=_open(url,accept="application/rss+xml,application/xml,text/xml,*/*")
     root=ET.fromstring(raw)
     out=[]
     for item in root.findall(".//item"):
@@ -228,7 +227,7 @@ def _ddg_target(href):
 
 def duckduckgo_html(query,limit=6):
     params=urllib.parse.urlencode({"q":query})
-    _,_,raw=_open("https://html.duckduckgo.com/html/?"+params,timeout=20)
+    _,_,raw=_open("https://html.duckduckgo.com/html/?"+params)
     html=raw.decode("utf-8","ignore")
     out=[]
     seen=set()
@@ -253,10 +252,10 @@ def duckduckgo_html(query,limit=6):
     return out
 
 def open_web_candidates(max_candidates=24, queries=None, memory=None,
-                        max_search_seconds=170,max_pages=32):
+                        max_pages=32):
     """Search model-generated topics and progress along prior link discoveries.
 
-    Budgets constrain only this execution's network/time use; researched URLs
+    Budgets constrain this execution's page count; researched URLs
     and unfinished directions are carried forward through persistent memory.
     The returned research has no mandatory keyword, site or email requirement.
     """
@@ -266,17 +265,11 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
 
     errors=[]
     streams=[]
-    deadline=time.monotonic()+max(30,int(max_search_seconds))
     providers=(("bing",bing_rss),("duckduckgo",duckduckgo_html))
-    # Reserve meaningful time for reading actual pages and creating a usable
-    # market observation; do not let search-engine requests exhaust the run.
-    search_deadline=deadline-max(75,int(max_search_seconds*0.45))
     # Alternate search engines and independent research topics.
     for index,query in enumerate(queries):
         order=providers if index%2==0 else providers[::-1]
         for provider,search in order:
-            if time.monotonic()>search_deadline:
-                break
             try:
                 hits=search(compact_query(query),limit=6)
                 qualified=[hit for hit in hits if relevant_hit(query,hit)]
@@ -325,8 +318,7 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
     visited=set()
     page_budget=max(4,int(max_pages))
     for query,provider,hit in queue:
-        if (len(results)>=max_candidates or len(visited)>=page_budget
-                or time.monotonic()>deadline):
+        if len(results)>=max_candidates or len(visited)>=page_budget:
             break
         url=str(hit.get("source_url") or "")
         if not _public_url(url) or url in visited:
