@@ -1,0 +1,57 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-22T22:54:24.094736+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 8,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "followup": 2,
+      "bing": 6
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 8,
+    "search_queries": [
+      "",
+      "surrogacy"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "surrogacy",
+        "snippet",
+        "Linked from https://dictionary.cambridge.org/us/dictionary/english/surrogacy",
+        "Starts With C & Ends With AN"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 39,
+      "known_pages": 94
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_contactable_public_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
