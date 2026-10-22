@@ -56,13 +56,11 @@ jobs:
           sudo systemctl stop ollama.service 2>/dev/null || true
           mkdir -p "$OLLAMA_MODELS"
           nohup ollama serve >/tmp/ollama.log 2>&1 &
-          for attempt in $(seq 1 45); do
-            if curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
-              ready=true
-              break
-            fi
+          # GitHub owns the execution deadline; no internal startup timeout.
+          until curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1; do
             sleep 1
           done
+          ready=true
           if [ "$ready" = true ]; then
             ollama pull "$COMMERCE_MODEL" || ready=false
           fi
