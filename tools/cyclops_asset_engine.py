@@ -144,7 +144,8 @@ def discovery_queries(memory):
         "need not appear as a paid job posting or contain a price or contact email. "
         "Do not restrict research to preset niches, websites, job boards, template "
         "categories or marketplaces. Include a particular site only when genuinely "
-        "relevant. Continue promising earlier avenues, develop queued unexplored "
+        "relevant. Use short meaningful search-engine phrases, not questions. "
+        "Continue promising earlier avenues, develop queued unexplored "
         "sources, avoid repeating recent exhausted queries, and revisit pages only "
         "when changing evidence warrants it. Return schema-compliant JSON."
     )
@@ -153,18 +154,31 @@ def discovery_queries(memory):
         {"utc_date":NOW().date().isoformat(),
          "mission":"find viable reusable digital-product demand from anywhere on the public web",
          "research_history":memory.plan_context()},
-        timeout=100,num_ctx=3072,num_predict=320)
+        timeout=45,num_ctx=2048,num_predict=170)
     return [str(q).strip() for q in result.get("queries") or [] if str(q).strip()]
 
 
 def demand_candidates(memory):
-    """Continue market research where previous real executions left off."""
-    queries=memory.choose_queries(discovery_queries(memory))
+    """Resume actual research first. Model planning is optional, never a blocker."""
+    issues=[]
+    # Queued queries are independent work discovered on earlier real runs.
+    # Do NOT ask the model to invent queries while ready-to-run work exists.
+    queries=memory.choose_queries([])
+    if not queries:
+        try:
+            proposals=discovery_queries(memory)
+            queries=memory.choose_queries(proposals)
+        except Exception as exc:
+            issues.append({"source":"query_planner","reason":type(exc).__name__})
+        if not queries:
+            # Only derive directions from past authentic source material.
+            queries=memory.choose_queries(memory.evidence_queries())
     budget=memory.budget()
-    return open_web_candidates(
+    rows,errors=open_web_candidates(
         max_candidates=budget["max_candidates"],queries=queries,
         memory=memory,max_search_seconds=budget["max_seconds"],
         max_pages=budget["max_pages"])
+    return rows,issues+errors
 
 
 def normalize_price(value):
