@@ -108,14 +108,55 @@ def public_links(html,base_url):
     return found
 
 
+# Linguistic stop words are not business filters or site restrictions.
+# They prevent a query such as "How can ..." from ranking a dictionary
+# definition of "can" ahead of an actual relevant market page.
+GRAMMAR=set((
+    "how what when where why which who whose whom are was were the this that "
+    "these those you your they their have has had with from into onto about "
+    "can could would should will shall may might do does did done a an and "
+    "but for not nor on to of in at by is it be been being there here some "
+    "than then more most best ways guide today new use using used without "
+    "current latest recent look looking example examples"
+).split())
+
+
+def search_terms(value):
+    words=re.findall(r"[a-z0-9]+",str(value or "").lower())
+    return [word for word in words if (len(word)>=3 or word=="ai")
+            and word not in GRAMMAR]
+
+
+def root_terms(value):
+    return set(word[:5] if len(word)>5 else word for word in search_terms(value))
+
+
+def compact_query(query):
+    """Translate a verbose question into source-neutral search engine terms."""
+    words=search_terms(query)
+    return " ".join(words[:10]) if words else str(query)[:140]
+
+
+def relevant_hit(query,hit):
+    """Discard obvious search mismatches, independent of market or domain."""
+    wanted=root_terms(query)
+    if not wanted:
+        return True
+    excerpt=str(hit.get("title") or "")+" "+str(hit.get("snippet") or "")
+    found=root_terms(excerpt)
+    shared=len(wanted.intersection(found))
+    # A longer market query must match more than a stray word like "tools".
+    return shared>=min(2,len(wanted))
+
+
 def relevant_links(links,query,limit=5):
     """Rank page links by this run's query, not fixed industry vocabulary."""
-    words=set(re.findall(r"[a-z0-9]{4,}",str(query).lower()))
+    words=root_terms(query)
     scored=[]
     for link in links:
         title=str(link.get("title") or "").lower()
-        overlap=len(words.intersection(re.findall(r"[a-z0-9]{4,}",title)))
-        if overlap:
+        overlap=len(words.intersection(root_terms(title)))
+        if overlap>=min(2,len(words)) and overlap>0:
             scored.append((overlap,link))
     scored.sort(key=lambda x:-x[0])
     return [link for _,link in scored[:limit]]
@@ -231,16 +272,18 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
     # market observation; do not let search-engine requests exhaust the run.
     search_deadline=deadline-max(75,int(max_search_seconds*0.45))
     # Alternate search engines and independent research topics.
-    for provider,search in providers:
-        for query in queries:
+    for index,query in enumerate(queries):
+        order=providers if index%2==0 else providers[::-1]
+        for provider,search in order:
             if time.monotonic()>search_deadline:
                 break
             try:
-                hits=search(query,limit=6)
-                if hits:
-                    streams.append((query,provider,hits))
+                hits=search(compact_query(query),limit=6)
+                qualified=[hit for hit in hits if relevant_hit(query,hit)]
+                if qualified:
+                    streams.append((query,provider,qualified))
                 if memory:
-                    memory.observe_search(query,provider,len(hits))
+                    memory.observe_search(query,provider,len(qualified))
             except Exception as exc:
                 errors.append({
                     "source":"open_web_search","provider":provider,
