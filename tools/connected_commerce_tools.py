@@ -281,11 +281,18 @@ def autonomous_paid_orders(limit=100):
         })
     return orders
 
+def recent_sent_subjects(limit=100):
+    """One provider read for duplicate protection across an autonomous run."""
+    result=agent_get("messages",{"limit":min(int(limit),100),"labels":["sent"]})
+    return {
+        str(m.get("subject") or "")
+        for m in result.get("messages") or []
+        if "sent" in (m.get("labels") or [])
+    }
+
 def sent_subject_exists(subject):
-    """Provider-grounded duplicate protection for autonomous outreach/fulfillment."""
-    result=agent_get("messages",{"limit":100,"labels":["sent"],"subject":[subject]})
-    return any(str(m.get("subject") or "")==subject and "sent" in (m.get("labels") or [])
-               for m in result.get("messages") or [])
+    """Provider-grounded duplicate protection for a single autonomous action."""
+    return str(subject) in recent_sent_subjects()
 
 def capability_status():
     return {
