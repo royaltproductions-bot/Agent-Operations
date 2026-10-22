@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-22T18:14:27.680759+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "bing": 16
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "candidates_without_email": 15,
+    "search_queries": [
+      "how to automate repetitive data entry tasks in excel without vba",
+      "best practices for managing multiple online accounts securely",
+      "tools for tracking time spent on different projects",
+      "how to create a personal knowledge base that scales"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "how to automate repetitive data entry tasks in excel without vba",
+        "best practices for managing multiple online accounts securely",
+        "tools for tracking time spent on different projects",
+        "how to create a personal knowledge base that scales"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 28,
+      "known_pages": 16
+    }
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "asset_creation_failed",
+      "detail": "manufacturing_exhausted_after_3_full_restarts:asset_file_generation_failed:workflow_audit_log_template.csv | quality_floor_too_thin:1366<2400 | asset_file_gener"
+    }
+  ],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0
+  }
+}
