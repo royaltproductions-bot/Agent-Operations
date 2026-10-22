@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-22T17:19:26.657539+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "candidate_count": 3
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "asset_creation_failed",
+      "detail": "manufacturing_exhausted_after_3_full_restarts:quality_floor_too_thin:1257<2400 | quality_floor_too_thin:890<2400 | quality_floor_too_thin:1047<2400"
+    }
+  ],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0
+  }
+}
