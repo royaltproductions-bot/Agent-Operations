@@ -412,7 +412,7 @@ def revise_asset_file(plan,spec,rows,previous,feedback):
             raise RuntimeError("revised_csv_header_mismatch")
         if any(len(row)!=len(expected) for row in parsed[1:]):
             raise RuntimeError("revised_csv_columns_misaligned")
-    return updated+"\\n"
+    return updated+"\n"
 
 
 def objective_quality_floor(plan,files):
