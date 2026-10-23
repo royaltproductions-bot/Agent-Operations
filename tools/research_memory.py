@@ -154,16 +154,16 @@ class ResearchMemory:
                 {"query":x.get("query"),"new_public_pages":x.get("new_pages",0)}
                 for x in (self.state.get("queries") or [])[-20:]
                 if not self._is_internal_query(x.get("query"))],
-            "public_market_pages":[
+            "recent_public_evidence_for_context_not_new_query_templates":[
                 {"title":x.get("title"),"url":x.get("url"),"snippet":x.get("snippet")}
-                for x in (self.state.get("observations") or [])[-8:]],
+                for x in (self.state.get("observations") or [])[-6:]],
             "unvisited_public_links":[
                 {"title":x.get("title"),"url":x.get("url")}
                 for x in (self.state.get("frontier") or [])[-6:]],
             "peer_public_pages":[
                 {"title":x.get("title"),"url":x.get("url")}
                 for x in self.peer[-3:]],
-            "directive":"Investigate current real-world demand, not information about this agent, its code, logs, or diagnostics. Continue relevant prior investigations and diversify based on new public evidence.",
+            "directive":"Choose independent new investigations of real-world needs. Previous page titles are not tasks or prompts to copy. Ignore unrelated dictionary/SEO pages and abandon trails that only produce lookups, not substantive buyer problems.",
         }
 
     @staticmethod
@@ -194,7 +194,9 @@ class ResearchMemory:
         queued=[q.get("query") for q in self.state.get("queued_queries",[]) if isinstance(q,dict)]
         fresh=[]
         seen=set()
-        for q in list(queued)+list(proposed or []):
+        # Model-authored current investigation takes priority over accumulated
+        # queued followups. The queue is a backup, never a compulsory itinerary.
+        for q in list(proposed or [])+list(queued):
             q=re.sub(r"\s+"," ",str(q or "").strip())[:220]
             k=_key(q)
             if len(q)<4 or k in seen or self._is_internal_query(q):
@@ -202,7 +204,7 @@ class ResearchMemory:
             seen.add(k)
             past=recent.get(k)
             # Any topic may be revisited after a cooling period; no permanent blacklist.
-            if past and NOW()-_datetime(past.get("at"))<timedelta(days=10):
+            if past and NOW()-_datetime(past.get("at"))<timedelta(days=1):
                 continue
             fresh.append(q)
         # Alternate queued continuations with newly generated research ideas.
@@ -225,7 +227,7 @@ class ResearchMemory:
         known.update(_key(q.get("query")) for q in self.state.get("queued_queries") or [])
         proposed=[]
         evidence=list(reversed(self.state.get("queries") or []))
-        for row in evidence[-24:]:
+        for row in evidence[:24]:
             words=re.findall(r"[\w-]+",str(row.get("query") or ""),re.UNICODE)
             kept=[w for w in words if len(w)>2 and w.lower() not in stop]
             q=" ".join(kept[:10]).strip()
@@ -235,7 +237,7 @@ class ResearchMemory:
         # Public pages and queued links are actual observed evidence, not a
         # templated business model. Relevant names may open new directions.
         topics=list(reversed(self.state.get("frontier") or []))
-        for item in topics[-12:]:
+        for item in topics[:12]:
             title=re.sub(r"[^\w\s-]"," ",str(item.get("title") or ""))
             words=title.split()
             q=" ".join(words[:9])
