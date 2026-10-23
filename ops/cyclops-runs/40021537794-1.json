@@ -1,0 +1,69 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-23T20:48:50.630790+00:00",
+  "model": "qwen3:8b",
+  "asset": {
+    "asset_id": "97bb09bf51eab6cfa0b3",
+    "title": "Credit Card Comparison Tool for Travel Rewards",
+    "price_usd": "29.99",
+    "price_cents": 2999,
+    "payment_link_id": "plink_1UTpXTBto3o776uyPvSJWpjn"
+  },
+  "discovery": {
+    "candidate_count": 6,
+    "research_deferred_for_product_completion": false,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "bing": 2
+    },
+    "source_errors": [],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 6,
+    "search_queries": [
+      "",
+      "put someone through something phrasal verb"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "bang someone up phrasal verb",
+        "bump into someone phrasal verb",
+        "camp out phrasal verb",
+        "put someone through something phrasal verb"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 137,
+      "known_pages": 234
+    },
+    "durable_contactable_sources": 3
+  },
+  "production": {
+    "result": "approved_and_published",
+    "asset_id": "97bb09bf51eab6cfa0b3"
+  },
+  "catalog": {
+    "result": "catalog_published",
+    "listed_products": 1
+  },
+  "external_action": {
+    "result": "no_relevant_opt_in_buyer",
+    "asset_id": "97bb09bf51eab6cfa0b3"
+  },
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 1,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
