@@ -1,0 +1,55 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-23T22:54:01.466529+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 2,
+    "source_counts": {
+      "open_web": 2
+    },
+    "search_provider_counts": {
+      "bing": 2
+    },
+    "source_errors": [],
+    "fetched_public_pages": 2,
+    "candidates_without_email": 2,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "launch private marketplace for vintage electronics sales",
+      "sell electronics online without marketplace"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 0,
+      "skipped_revisits": 7,
+      "executed_queries": [
+        "launch private marketplace for vintage electronics sales",
+        "sell vintage clothing online without using Etsy",
+        "launch a private handmade goods marketplace",
+        "private marketplace for artisan products without platform",
+        "sell electronics online without marketplace"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 136,
+      "known_pages": 235
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_contactable_public_source"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
