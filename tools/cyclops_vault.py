@@ -122,15 +122,38 @@ def asset_vault_path(asset_id):
     return REPO_ROOT+"/assets/"+asset_id+".json"
 
 
+def _normalize_file_record(item):
+    """Convert real bytes into an integrity-checked encrypted package record."""
+    if isinstance(item,dict):
+        name=str(item.get("filename") or "")
+        coded=str(item.get("content_b64") or "")
+        try:
+            data=base64.b64decode(coded,validate=True)
+        except (ValueError,base64.binascii.Error):
+            raise ValueError("artifact_invalid_base64:"+name) from None
+        if (not data or hashlib.sha256(data).hexdigest()!=item.get("sha256")
+                or len(data)!=item.get("size_bytes")):
+            raise ValueError("artifact_integrity_failed:"+name)
+        return {"filename":name,"content_b64":coded,"sha256":item["sha256"],
+                "size_bytes":len(data),"content_type":item.get("content_type") or "application/octet-stream"}
+    # Older plaintext drafts are supported only for recovery; new manufacture
+    # supplies authenticated bytes from the isolated production workshop.
+    if isinstance(item,(list,tuple)) and len(item)==2:
+        name,content=item
+        raw=str(content).encode("utf-8")
+        return {"filename":str(name),"content_b64":base64.b64encode(raw).decode(),
+                "sha256":hashlib.sha256(raw).hexdigest(),
+                "size_bytes":len(raw),"content_type":"text/plain"}
+    raise ValueError("invalid_artifact_record")
+
+
 def seal_asset(asset_id,plan):
-    """Must succeed BEFORE a payment checkout is made available."""
+    """Save and confirm fully finished binary-safe product before checkout."""
     path=asset_vault_path(asset_id)
-    # JSON turns Python tuples into lists; compare canonical file records.
-    expected=[[str(name),str(content)] for name,content in plan["_files"]]
+    expected=[_normalize_file_record(x) for x in plan["_files"]]
     save_private(path,{"asset_id":asset_id,"files":expected,
                        "price_usd":plan["price_usd"],
                        "title":plan["title"],"sealed":True})
-    # Verify the remote durable copy is readable and intact before checkout.
     persisted=read_private(path)
     if persisted is None or persisted.get("files")!=expected:
         raise RuntimeError("cyclops_vault_verification_failed")
@@ -141,7 +164,11 @@ def read_asset_files(asset_id):
     item=read_private(asset_vault_path(asset_id))
     if not item or not item.get("sealed") or item.get("asset_id")!=asset_id:
         raise RuntimeError("cyclops_paid_asset_unavailable")
-    return [(str(name),str(content).encode("utf-8")) for name,content in item["files"]]
+    files=[]
+    for entry in item["files"]:
+        record=_normalize_file_record(entry)
+        files.append((record["filename"],base64.b64decode(record["content_b64"],validate=True)))
+    return files
 
 
 def read_ledger():
