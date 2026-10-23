@@ -70,27 +70,18 @@ CONCEPT_SCHEMA={
         "pitch":{"type":"string"},
         "price_usd":{"type":"string"},
         "evidence_candidate_id":{"type":"string"},
-        "target_terms":{
-            "type":"array","minItems":3,"maxItems":8,
-            "items":{"type":"string"},
-        },
-        "core_points":{
-            "type":"array","minItems":5,"maxItems":12,
-            "items":{"type":"string"},
-        },
+        "target_terms":{"type":"array","items":{"type":"string"}},
+        "core_points":{"type":"array","items":{"type":"string"}},
         "file_specs":{
-            "type":"array","minItems":1,"maxItems":8,
+            "type":"array","minItems":1,
             "items":{
                 "type":"object",
                 "properties":{
                     "filename":{"type":"string"},
                     "purpose":{"type":"string"},
-                    "columns":{
-                        "type":"array","maxItems":10,
-                        "items":{"type":"string"},
-                    },
+                    "columns":{"type":"array","items":{"type":"string"}},
                 },
-                "required":["filename","purpose","columns"],
+                "required":["filename","purpose"],
                 "additionalProperties":False,
             },
         },
@@ -238,12 +229,16 @@ def choose_asset_concept(rows,existing_assets=None):
         "product selection only; do not write the finished files yet. Market pages "
         "are signals rather than necessarily paid solicitations. It must be useful "
         "to multiple similar buyers without buyer "
-        "input, private data, custom work, credentials, or access. file_specs may use only "
-        ".txt, .md, .csv, .json, .html, .css, .svg, .py, .js or .ts. "
-        "Choose the format suitable for the actual product rather than a preset "
-        "product category. core_points must contain the substantive instructions needed "
-        "to build a useful fallback asset if later generation fails. For CSV specs, columns "
-        "must name the actual useful worksheet fields; for TXT specs, columns must be empty. "
+        "input, private data, custom work, credentials, or access. "
+        "FIRST choose the useful product, THEN choose the deliverable file names "
+        "and media that actually implement it; no predetermined product categories "
+        "or preferred formats. The currently connected production model emits "
+        "UTF-8 source/content (including documents, code, web pages, data, and "
+        "vector designs), not raw binary images, video or audio. Never label "
+        "text as a binary file. If the product needs unavailable binary rendering, "
+        "select an honestly deliverable source format rather than fake media. "
+        "Only supply columns when the chosen file is genuinely a table. "
+        "core_points should describe how to implement the actual deliverable. "
         "Choose a commercially defensible one-time price for the actual deliverable. "
         "price_usd must be a decimal string in US DOLLARS (e.g. 29.00 or 49.95). "
         "No preset product price band, minimum or maximum. "
@@ -291,17 +286,26 @@ def choose_asset_concept(rows,existing_assets=None):
             raise ValueError("required_product_field_empty:"+field)
     specs=[]
     for spec in plan.get("file_specs") or []:
-        name=str(spec.get("filename") or "")
+        name=str(spec.get("filename") or "").strip()
         purpose=str(spec.get("purpose") or "").strip()
-        columns=[str(x).strip() for x in (spec.get("columns") or []) if str(x).strip()]
-        if (not re.fullmatch(r"[A-Za-z0-9_.-]{1,72}\.(?:txt|md|csv|json|html|css|svg|py|js|ts)",name)
-                or not purpose.strip()):
+        # A filename is a safe flat payload identifier, not a product category.
+        if (not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,126}\.[A-Za-z0-9]{1,12}",name)
+                or not purpose):
             raise ValueError("invalid_asset_spec")
-        if name.endswith(".csv") and not columns:
-            raise ValueError("csv_columns_missing")
-        if not name.endswith(".csv"):
-            columns=[]
-        specs.append({"filename":name,"purpose":purpose,"columns":columns})
+        mime,_=mimetypes.guess_type(name)
+        if (mime and not (
+                mime.startswith("text/") or mime.endswith(("+json","+xml"))
+                or mime in ("application/json","application/xml",
+                            "application/javascript","image/svg+xml",
+                            "application/x-yaml","application/yaml"))):
+            # The runner has a language model, not a binary media generator.
+            # Never sell a text blob masquerading as a PNG, PDF, MP4, etc.
+            raise ValueError("binary_artifact_requires_real_renderer:"+name)
+        columns=[str(x).strip() for x in (spec.get("columns") or []) if str(x).strip()]
+        if name.lower().endswith(".csv") and not columns:
+            raise ValueError("table_columns_missing:"+name)
+        specs.append({"filename":name,"purpose":purpose,
+                      "columns":columns if name.lower().endswith(".csv") else []})
     if not specs:
         raise ValueError("empty_asset_spec")
     plan["file_specs"]=specs
@@ -335,19 +339,24 @@ def _csv_document(spec,rows):
 def _draft_file(plan,spec,rows,feedback="",previous=""):
     is_csv=spec["filename"].endswith(".csv")
     system=(
-        "Produce one genuine, finished, reusable digital product component, "
-        "grounded in the actual public market evidence. Never invent customers, "
-        "orders, production URLs, revenues, benchmarks, results or credentials. "
-        "Generate practical, accurate substantive content, not marketing copy "
-        "or meaningless filler. This is a REAL commercial deliverable. "
-        "For CSV: return a JSON array of data rows, each containing EXACTLY "
-        "one string per specified column, in the exact declared order; do not "
-        "include the CSV header in rows. The program will encode the CSV. "
-        "For other text-based products: return the complete valid source/content "
-        "in content, not an explanation. Never execute generated code. "
-        "When repairing an earlier file, preserve genuinely valid work and "
-        "address the actual feedback; do not abandon its purpose."
+        "Create the complete, functional contents of the product's CHOSEN file. "
+        "This file is one component of the original product, not an example or "
+        "demo. Use the product specification and actual public evidence. "
+        "Write real practical content/source, not promotional padding. "
+        "Do not invent customer data, live URLs, performance results, or credentials. "
+        "Do not execute generated code. When revising, retain completed work "
+        "and correct the actual defect. Return only the specified output schema."
     )
+    if is_csv:
+        # An implementation adapter only: used iff the independent product
+        # designer selected tabular data, never as a product recommendation.
+        system+=(
+            " This specific file is a table. Return only the requested array "
+            "of row values in the exact declared column order. The program "
+            "handles serialization and escaping."
+        )
+    else:
+        system+=" Return the entire final file as the content string."
     context={
         "product":{"title":plan["title"],"audience":plan["audience"],
                    "description":plan["description"],
