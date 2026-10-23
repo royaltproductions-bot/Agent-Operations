@@ -165,7 +165,8 @@ def demand_candidates(memory):
     budget=memory.budget()
     rows,errors=open_web_candidates(
         max_candidates=budget["max_candidates"],queries=queries,
-        memory=memory,max_pages=budget["max_pages"])
+        memory=memory,max_pages=budget["max_pages"],
+        strict_relevance=False)
     if not rows:
         issues.append({
             "source":"research_coverage",
