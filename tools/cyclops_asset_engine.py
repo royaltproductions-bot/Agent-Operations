@@ -756,9 +756,15 @@ def paid_orders():
     if not links:
         return []
     orders=[]
+    completed=set((read_ledger().get("fulfilled") or {}).keys())
     for session in _stripe_pages("checkout/sessions"):
         ident=links.get(session.get("payment_link"))
         if not ident:
+            continue
+        marker=hashlib.sha256(str(session.get("id") or "").encode()).hexdigest()
+        if marker in completed:
+            # Already delivered, not a newly paid order. Avoid expensive
+            # repeat payment-intent/charge lookups each hourly execution.
             continue
         # Fail closed: only verified, settled, unrefunded real Stripe payments.
         if not verified_session(session):
