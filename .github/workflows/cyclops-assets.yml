@@ -7,6 +7,11 @@ on:
     branches: [main]
     paths:
       - 'tools/cyclops_asset_engine.py'
+      - 'tools/cyclops_workshop.py'
+      - 'tools/cyclops-workshop.Dockerfile'
+      - 'tools/cyclops_vault.py'
+      - 'tools/connected_commerce_tools.py'
+      - 'tools/research_memory.py'
       - 'tools/open_web_discovery.py'
       - '.github/workflows/cyclops-assets.yml'
 
