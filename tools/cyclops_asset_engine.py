@@ -290,271 +290,204 @@ def choose_asset_concept(rows,existing_assets=None):
     plan["asset_id"]=asset_id(plan)
     return plan
 
-def _csv_document(spec,rows):
-    """Encode structured AI content as RFC-compatible CSV with Python, not AI quoting."""
-    import csv
-    from io import StringIO
-    columns=[str(x).strip() for x in spec.get("columns") or []]
-    if not columns:
-        raise ValueError("csv_columns_missing")
-    out=StringIO(newline="")
-    writer=csv.writer(out)
-    writer.writerow(columns)
-    useful=0
-    for record in rows:
-        if not isinstance(record,list) or len(record)!=len(columns):
-            raise ValueError("csv_fields_do_not_match_columns")
-        values=[str(v).strip() for v in record]
-        if not any(values):
-            continue
-        writer.writerow(values)
-        useful+=1
-    if not useful:
-        raise ValueError("csv_no_useful_rows")
-    return out.getvalue()
-
-
-def _draft_file(plan,spec,rows,feedback="",previous=""):
-    is_csv=spec["filename"].endswith(".csv")
+def _make_build_script(plan,tools,evidence,previous="",failure=""):
+    """Ask the model HOW to use discovered tools for its OWN chosen product."""
     system=(
-        "Create the complete, functional contents of the product's CHOSEN file. "
-        "This file is one component of the original product, not an example or "
-        "demo. Use the product specification and actual public evidence. "
-        "Write real practical content/source, not promotional padding. "
-        "Do not invent customer data, live URLs, performance results, or credentials. "
-        "Do not execute generated code. When revising, retain completed work "
-        "and correct the actual defect. Return only the specified output schema."
+        "You are the hands-on production operator, not a sales reviewer. "
+        "Write one executable Python 3.12 build script that ACTUALLY creates "
+        "all the specified output_files in the current /work directory. "
+        "You may import any INSTALLED python modules or use INSTALLED command "
+        "line tools shown in the supplied live inventory. Do not assume "
+        "unlisted modules, network connectivity, credentials, or external "
+        "services. Choose and invoke whatever available tools accomplish "
+        "the PRODUCT as designed; Python is an orchestrator, not a product "
+        "format. Create parent directories as needed. Create REAL binary "
+        "media or documents through rendering tools when appropriate: never "
+        "pretend UTF-8 text is a binary file. Do not fabricate third-party "
+        "material, experimental results, customers, sales, or credentials. "
+        "Do not execute scripts downloaded from the internet. "
+        "Do not merely explain or describe production: the complete source "
+        "you return WILL BE EXECUTED inside an isolated container. "
+        "A previous attempt may be supplied with an actual error; repair "
+        "that same code and preserve working functionality. Return exactly "
+        "one schema-compliant script string, with no Markdown wrappers."
     )
-    if is_csv:
-        # An implementation adapter only: used iff the independent product
-        # designer selected tabular data, never as a product recommendation.
-        system+=(
-            " This specific file is a table. Return only the requested array "
-            "of row values in the exact declared column order. The program "
-            "handles serialization and escaping."
-        )
-    else:
-        system+=" Return the entire final file as the content string."
-    context={
-        "product":{"title":plan["title"],"audience":plan["audience"],
-                   "description":plan["description"],
-                   "core_points":plan["core_points"],
-                   "evidence_source_url":plan.get("evidence_source_url")},
-        "spec":spec,
-        "public_demand":demand_view(rows,limit=3,width=540),
-        "actual_review_feedback":feedback[:400],
-        "previous_work":previous[:14000],
+    observation={
+        "product":{"title":plan["title"],"description":plan["description"],
+                   "audience":plan["audience"],"production_goal":plan["production_goal"],
+                   "core_points":plan.get("core_points") or []},
+        "actual_installed_tools":tools,
+        "required_generated_artifacts":plan["output_files"],
+        "source_page":plan.get("evidence_source_url"),
+        "source_excerpts":demand_view(evidence,limit=2,width=380),
+        "prior_build_script":previous[-15000:],
+        "actual_execution_error":failure[-800:],
+        "output_capacity_note":"The present encrypted GitHub vault supports individual output files up to 950000 bytes and total package bytes up to 1400000."
     }
-    if is_csv:
-        # Constrained decoding must know the actual worksheet width.
-        # Python still performs the definitive CSV serialization/validation.
-        width=len(spec.get("columns") or [])
-        schema={
-            "type":"object","properties":{
-                "rows":{"type":"array","minItems":1,
-                        "items":{"type":"array","minItems":width,
-                                 "maxItems":width,"items":{"type":"string"}}}},
-            "required":["rows"],"additionalProperties":False,
-        }
-        reply=model_json(schema,system,context,num_ctx=5120,num_predict=2400)
-        result=_csv_document(spec,reply.get("rows") or [])
-    else:
-        reply=model_json(FILE_SCHEMA,system,context,num_ctx=5120,num_predict=2400)
-        result=str(reply.get("content") or "").strip()+"\n"
-    if not result.strip() or len(result)>120000:
-        raise RuntimeError("generated_file_incomplete")
-    return result
+    result=model_json(BUILD_SCRIPT_SCHEMA,system,observation,
+                      num_ctx=7168,num_predict=5600)
+    script=str(result.get("script") or "").strip()
+    if not script or len(script)>150000:
+        raise ValueError("production_script_empty_or_oversized")
+    if script.startswith("\`\`\`"):
+        raise ValueError("production_script_is_markdown_not_python")
+    import ast
+    try:
+        ast.parse(script,filename="build.py")
+    except SyntaxError as exc:
+        raise ValueError("production_script_syntax_invalid:"+
+                         str(exc.msg)[:100]) from None
+    return script
 
-
-def generate_asset_file(plan,spec,rows):
-    return _draft_file(plan,spec,rows)
-
-
-def revise_asset_file(plan,spec,rows,previous,feedback):
-    return _draft_file(plan,spec,rows,feedback=feedback,previous=previous)
 
 def objective_quality_floor(plan,files):
-    """Verify actual deliverable integrity, not projected buyer enthusiasm.
+    """Prove that REAL bytes were created with the promised names and structure.
 
-    Content quality is created by the production model. The publisher checks
-    what software can objectively check: files exist, declared formats parse,
-    and packages contain their promised components. No price, row-count,
-    arbitrary word-count, or subjective consumer-demand tests.
+    No invented product types, price heuristics or subjective buyer verdicts.
     """
-    if not files:
-        raise ValueError("missing_product_files")
-    specs={str(x["filename"]):x for x in plan.get("file_specs") or []}
-    delivered={name for name,_ in files}
-    if delivered!=set(specs):
-        raise ValueError("product_file_manifest_mismatch")
-    for name,content in files:
-        if not isinstance(content,str) or not content.strip():
-            raise ValueError("empty_deliverable:"+name)
-        if name.endswith(".csv"):
-            import csv
-            from io import StringIO
+    import io
+    import zipfile
+    import csv
+    import ast
+    expected=set(plan.get("output_files") or [])
+    if not files or {x.get("filename") for x in files}!=expected:
+        raise ValueError("artifact_output_manifest_mismatch")
+    for item in files:
+        name=str(item["filename"])
+        try:
+            content=base64.b64decode(item["content_b64"],validate=True)
+        except (ValueError,base64.binascii.Error):
+            raise ValueError("artifact_invalid_encoding:"+name) from None
+        if (not content or len(content)!=item.get("size_bytes")
+                or hashlib.sha256(content).hexdigest()!=item.get("sha256")):
+            raise ValueError("artifact_bytes_did_not_verify:"+name)
+        low=name.lower()
+        if low.endswith(".png") and not content.startswith(b"\x89PNG\r\n\x1a\n"):
+            raise ValueError("artifact_not_png:"+name)
+        if low.endswith((".jpg",".jpeg")) and not content.startswith(b"\xff\xd8"):
+            raise ValueError("artifact_not_jpeg:"+name)
+        if low.endswith(".pdf") and not content.startswith(b"%PDF-"):
+            raise ValueError("artifact_not_pdf:"+name)
+        if low.endswith(".gif") and not content.startswith((b"GIF87a",b"GIF89a")):
+            raise ValueError("artifact_not_gif:"+name)
+        if low.endswith((".mp4",".m4v",".mov")) and content[4:8]!=b"ftyp":
+            raise ValueError("artifact_not_video_container:"+name)
+        if low.endswith(".wav") and (content[:4]!=b"RIFF" or content[8:12]!=b"WAVE"):
+            raise ValueError("artifact_not_wave_audio:"+name)
+        if low.endswith((".zip",".docx",".xlsx",".pptx")):
             try:
-                reader=csv.reader(StringIO(content),strict=True)
-                records=list(reader)
-            except csv.Error:
-                raise ValueError("invalid_csv:"+name) from None
-            expected=[str(c).strip() for c in specs[name].get("columns") or []]
-            if not expected or not records or [c.strip() for c in records[0]]!=expected:
-                raise ValueError("csv_columns_mismatch:"+name)
-            if len(records)<2 or any(len(row)!=len(expected) for row in records[1:]):
-                raise ValueError("csv_records_invalid:"+name)
-            if not any(any(c.strip() for c in row) for row in records[1:]):
-                raise ValueError("csv_content_empty:"+name)
-        elif name.endswith(".json"):
+                with zipfile.ZipFile(io.BytesIO(content)) as archive:
+                    if archive.testzip() is not None or not archive.namelist():
+                        raise ValueError("artifact_zip_corrupt:"+name)
+            except zipfile.BadZipFile:
+                raise ValueError("artifact_invalid_zip_container:"+name) from None
+        if low.endswith((".json",".svg",".py",".csv")):
             try:
-                json.loads(content)
-            except ValueError:
-                raise ValueError("invalid_json:"+name) from None
-        elif name.endswith(".svg"):
-            import xml.etree.ElementTree as ET
-            try:
-                root=ET.fromstring(content)
-            except ET.ParseError:
-                raise ValueError("invalid_svg:"+name) from None
-            if root.tag.rsplit("}",1)[-1]!="svg":
-                raise ValueError("not_an_svg_document:"+name)
-        elif name.endswith(".py"):
-            import ast
-            try:
-                ast.parse(content,filename=name)
-            except SyntaxError:
-                raise ValueError("invalid_python_syntax:"+name) from None
-        elif name.endswith(".js"):
-            # Parsing is safe: --check does not run AI-produced JavaScript.
-            import subprocess
-            parsed=subprocess.run(["node","--check","-"],input=content,
-                                  text=True,capture_output=True,check=False)
-            if parsed.returncode!=0:
-                raise ValueError("invalid_javascript_syntax:"+name)
-        elif name.endswith(".html"):
-            from html.parser import HTMLParser
-            parser=HTMLParser(convert_charrefs=True)
-            try:
-                parser.feed(content)
-                parser.close()
-            except ValueError:
-                raise ValueError("invalid_html:"+name) from None
-        # Markdown, TXT, CSS and TS can contain valid non-executable data.
-        # Do not claim they have undergone dynamic functional testing.
-    return "required_files_present_and_format_checks_passed"
+                text_content=content.decode("utf-8-sig")
+            except UnicodeDecodeError:
+                raise ValueError("artifact_invalid_utf8:"+name) from None
+            if low.endswith(".json"):
+                try:
+                    json.loads(text_content)
+                except ValueError:
+                    raise ValueError("artifact_invalid_json:"+name) from None
+            elif low.endswith(".svg"):
+                import xml.etree.ElementTree as ET
+                try:
+                    root=ET.fromstring(text_content)
+                except ET.ParseError:
+                    raise ValueError("artifact_invalid_svg:"+name) from None
+                if root.tag.rsplit("}",1)[-1]!="svg":
+                    raise ValueError("artifact_wrong_svg_root:"+name)
+            elif low.endswith(".py"):
+                try:
+                    ast.parse(text_content,filename=name)
+                except SyntaxError:
+                    raise ValueError("artifact_invalid_python:"+name) from None
+            else:
+                try:
+                    parsed=list(csv.reader(io.StringIO(text_content),strict=True))
+                except csv.Error:
+                    raise ValueError("artifact_invalid_csv:"+name) from None
+                if not parsed or not all(len(row)==len(parsed[0]) for row in parsed):
+                    raise ValueError("artifact_inconsistent_csv:"+name)
+    return "generated_output_bytes_verified"
 
 
 class ProductionPending(RuntimeError):
-    """Durable draft has work left; not proof that product quality passed."""
+    """Saved source and execution diagnostics remain for the next tool attempt."""
 
 
 class ProductRetired(RuntimeError):
-    """Draft repeatedly failed objective checks and was archived securely."""
+    """No indefinitely blocked drafts; evidence is preserved in the vault."""
 
 
 def _retire_draft(checkpoint,reason):
-    """Release a permanently failing checkpoint without erasing evidence."""
-    from tools.cyclops_vault import save_private
     plan=checkpoint.get("plan") or {}
     ident=str(plan.get("asset_id") or hashlib.sha256(
         str(plan.get("title") or "unspecified").encode()).hexdigest()[:20])
     save_private("ops/cyclops-vault/retired/"+ident+".json",{
         "plan":plan,"files":checkpoint.get("files") or [],
+        "script":checkpoint.get("script") or "",
         "reason":reason,"attempts":checkpoint.get("attempts") or {},
-        "revisions":checkpoint.get("revision") or 0,
         "retired_at":NOW().isoformat(),
     })
     save_pending({"stage":"empty"})
-    raise ProductRetired("unusable_draft_retired:"+ident+":"+reason[:110])
+    raise ProductRetired("unusable_production_archived:"+ident+":"+reason[:120])
 
 
 def create_asset(rows,existing_assets=None):
-    """Create an artifact, verify file integrity, persist, and return it.
-
-    Technical defects receive one focused repair per execution and at most two
-    repairs total. Model/API failures are recorded and bounded as well. Neither
-    opinion about sales potential nor endless reviewer votes can block output.
-    """
+    """Plan with discovered tools, execute inside sandbox, verify actual output."""
     checkpoint=read_pending()
     stage=checkpoint.get("stage")
-    if stage in ("drafting","review","approved","sealed"):
-        plan=checkpoint["plan"]
+    plan=checkpoint.get("plan") or {}
+    if stage in ("drafting","review","approved","sealed","building"):
+        # Old fixed-format checkpoints are not executable recipes. Save the
+        # historical work, then choose a genuinely tool-driven production plan.
+        if not plan.get("output_files"):
+            _retire_draft(checkpoint,"legacy_non_executable_product_spec")
         evidence=checkpoint.get("research_rows") or rows
-        files=dict(checkpoint.get("files") or [])
     else:
         if not rows:
             raise ValueError("no_public_research_to_select_product")
         plan=choose_asset_concept(rows,existing_assets)
         evidence=rows[:8]
-        files={}
-        checkpoint={"stage":"drafting","plan":plan,"files":[],
-                    "research_rows":evidence,"revision":0,"attempts":{}}
+        checkpoint={"stage":"building","plan":plan,"research_rows":evidence,
+                    "files":[],"script":"","attempts":0,"feedback":""}
         save_pending(checkpoint)
 
-    # Retire the old draft trapped by the previous subjective review policy.
-    if int(checkpoint.get("revision") or 0)>2:
-        _retire_draft(checkpoint,"legacy_repeated_subjective_review")
+    if checkpoint.get("stage") in ("approved","sealed") and checkpoint.get("files"):
+        plan["_files"]=checkpoint["files"]
+        return plan
 
-    specs=plan["file_specs"]
-    attempts=dict(checkpoint.get("attempts") or {})
-    for spec in specs:
-        name=spec["filename"]
-        if name in files:
-            continue
-        try:
-            content=generate_asset_file(plan,spec,evidence)
-        except Exception as exc:
-            why="generation_failed:"+type(exc).__name__+":"+str(exc)[:95]
-            attempts[name]=int(attempts.get(name) or 0)+1
-            checkpoint.update({"stage":"drafting","attempts":attempts,
-                               "feedback":why,"files":list(files.items())})
-            save_pending(checkpoint)
-            if attempts[name]>=3:
-                _retire_draft(checkpoint,why)
-            raise ProductionPending(why) from exc
-        files[name]=content
-        checkpoint.update({"stage":"drafting","files":list(files.items()),
-                           "feedback":""})
-        save_pending(checkpoint)
-
-    ordered=[(spec["filename"],files[spec["filename"]]) for spec in specs]
+    tools=discover_tools()
+    prior=checkpoint.get("script") or ""
+    last_error=checkpoint.get("feedback") or ""
+    attempts=int(checkpoint.get("attempts") or 0)
+    if attempts>=3:
+        _retire_draft(checkpoint,last_error or "production_attempts_exhausted")
     try:
-        result=objective_quality_floor(plan,ordered)
-    except (ValueError,RuntimeError) as exc:
-        why=str(exc)[:200]
-        revisions=int(checkpoint.get("revision") or 0)
-        if revisions>=2:
-            _retire_draft(checkpoint,why)
-        # Only repair the actual defective file, not every completed component.
-        faulty=next((spec for spec in specs if spec["filename"] in why),None)
-        if faulty is None:
-            _retire_draft(checkpoint,why)
-        checkpoint.update({"stage":"review","revision":revisions+1,
-                           "feedback":why,"files":ordered})
+        script=_make_build_script(plan,tools,evidence,prior,last_error)
+        checkpoint.update({"stage":"building","script":script,
+                           "feedback":"","attempts":attempts})
         save_pending(checkpoint)
-        try:
-            files[faulty["filename"]]=revise_asset_file(
-                plan,faulty,evidence,files[faulty["filename"]],why)
-        except Exception as repair_exc:
-            checkpoint["feedback"]="repair_failed:"+type(repair_exc).__name__
-            save_pending(checkpoint)
-            raise ProductionPending(checkpoint["feedback"]) from repair_exc
-        ordered=[(spec["filename"],files[spec["filename"]]) for spec in specs]
-        checkpoint.update({"stage":"review","files":ordered})
+        files=manufacture(script,plan["output_files"])
+        reason=objective_quality_floor(plan,files)
+        checkpoint.update({"stage":"approved","files":files,
+                           "quality_reason":reason,"feedback":""})
         save_pending(checkpoint)
-        try:
-            result=objective_quality_floor(plan,ordered)
-        except (ValueError,RuntimeError) as check_exc:
-            checkpoint["feedback"]=str(check_exc)[:200]
-            save_pending(checkpoint)
-            raise ProductionPending(checkpoint["feedback"]) from check_exc
+        plan["_files"]=files
+        plan["_quality_reason"]=reason
+        return plan
+    except (RuntimeError,ValueError,OSError) as exc:
+        error=(type(exc).__name__+":"+str(exc))[-850:]
+        checkpoint.update({"stage":"building","feedback":error,
+                           "attempts":attempts+1})
+        save_pending(checkpoint)
+        if attempts+1>=3:
+            _retire_draft(checkpoint,error)
+        raise ProductionPending(error) from exc
 
-    plan["_files"]=ordered
-    plan["_quality_reason"]=result
-    checkpoint.update({"stage":"approved","plan":plan,
-                       "files":ordered,"feedback":""})
-    save_pending(checkpoint)
-    return plan
 
 def cyclops_checkout(plan):
     # The agent prices in dollars. Stripe consumes minor units at the boundary.
@@ -640,8 +573,8 @@ def persist_asset(plan,checkout):
         "price_cents":plan["price_cents"],
         "target_terms":plan["target_terms"],
         "evidence_source_url":plan.get("evidence_source_url"),
-        "files":[name for name,_ in plan["_files"]],
-        "quality_gate":"passed",
+        "files":[x["filename"] for x in plan["_files"]],
+        "quality_gate":"verified_generated_bytes",
         "delivery":"private_encrypted_vault",
         "vault_path":vault,
         "payment_link_id":checkout["id"],
@@ -664,7 +597,7 @@ def publish_finished_asset(plan):
         "title":plan["title"],"price_usd":plan["price_usd"],
         "files":plan["_files"]},sort_keys=True).encode()).hexdigest()[:20]
     plan["asset_id"]=digest
-    # If vault commit fails, NO Stripe checkout may be created.
+    # Preserve the ACTUAL tool-created output before creating checkout.
     seal_asset(digest,plan)
     checkpoint=read_pending()
     checkpoint.update({"stage":"sealed","plan":plan})
@@ -683,7 +616,7 @@ def publish_catalog():
     # accidentally advertise work that is already freely readable.
     ready=[a for a in manifests if a.get("vault_path")
            and a.get("delivery")=="private_encrypted_vault"
-           and a.get("quality_gate")=="passed"
+           and a.get("quality_gate")=="verified_generated_bytes"
            and str(a.get("checkout_url") or "").startswith("https://")]
     cards=[]
     for asset in sorted(ready,key=lambda a:str(a.get("created_at") or ""),reverse=True):
