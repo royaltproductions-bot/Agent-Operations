@@ -118,53 +118,61 @@ def model_json(schema,system,observation,num_ctx=6144,num_predict=1800):
     return obj
 
 def discovery_queries(memory):
-    """Choose broad product-market research directions at runtime."""
+    """Plan new open-web inquiries; old results inform, never dictate, the plan."""
     system=(
-        "You are Cyclops, researching opportunities for useful reusable digital "
-        "products that can be sold to many buyers. Invent diverse current web "
-        "searches about pain points, recurring work, unmet needs, active communities, "
-        "new technology, customer frustrations, emerging interests and practical "
-        "problems. Explore any legitimate industry and unfamiliar market. A need "
-        "need not appear as a paid job posting or contain a price or contact email. "
-        "Do not restrict research to preset niches, websites, job boards, template "
-        "categories or marketplaces. Include a particular site only when genuinely "
-        "relevant. Seek authentic evidence of repeatedly experienced problems "
-        "that people are already trying to solve, obtain or buy rather than "
-        "generic advice or dictionary pages. Let the market and products emerge "
-        "from findings, never from predetermined niches. Use short precise "
-        "search-engine phrases, not abstract how/why questions. Continue "
-        "promising earlier avenues, develop queued unexplored "
-        "sources, avoid repeating recent exhausted queries, and revisit pages only "
-        "when changing evidence warrants it. Return schema-compliant JSON."
+        "You are Cyclops's independent market researcher, not a format or "
+        "product-category recommender. Find authentic public evidence of things "
+        "people struggle to do, repeatedly attempt, seek, request, or need done. "
+        "Choose search inquiries from ANY legitimate industry or activity. "
+        "Find what real people are doing or asking, not just dictionary definitions, "
+        "generic advice, an arbitrary named product, or how to buy an item. "
+        "Your goal is concrete firsthand problems and workflows that may inspire "
+        "a reusable product, WITHOUT deciding the product in advance. "
+        "Historical titles and queries are diagnostic context: do NOT mechanically "
+        "turn them into new search terms. Ignore stale/unproductive trails and "
+        "pivot freely. Produce distinct search phrases, phrased to reach "
+        "substantive discussions, needs, comparisons, requests, or workflows "
+        "rather than dictionary entries and SEO aggregators. "
+        "Do not invent buyers or imply a page proves willingness to pay. "
+        "No predefined industries, product forms, sources, price bands or websites. "
+        "Return only schema-compliant JSON."
     )
     result=model_json(
         SEARCH_SCHEMA,system,
         {"utc_date":NOW().date().isoformat(),
-         "mission":"find viable reusable digital-product demand from anywhere on the public web",
-         "research_history":memory.plan_context()},num_ctx=2048,num_predict=170)
+         "mission":"discover real public evidence of unresolved, recurring or repeated human needs",
+         "research_history":memory.plan_context()},
+        num_ctx=2400,num_predict=420)
     return [str(q).strip() for q in result.get("queries") or [] if str(q).strip()]
 
 
 def demand_candidates(memory):
-    """Resume actual research first. Model planning is optional, never a blocker."""
+    """Search independently each new research run; history is a fallback, not a trap."""
     issues=[]
-    # Queued queries are independent work discovered on earlier real runs.
-    # Do NOT ask the model to invent queries while ready-to-run work exists.
-    queries=memory.choose_queries([])
+    proposals=[]
+    try:
+        proposals=discovery_queries(memory)
+    except Exception as exc:
+        issues.append({"source":"query_planner","reason":type(exc).__name__})
+
+    # Prioritize newly selected directions; do not let yesterday's queued
+    # dictionary/look-up trails override autonomous discovery every hour.
+    queries=memory.choose_queries(proposals)
     if not queries:
-        try:
-            proposals=discovery_queries(memory)
-            queries=memory.choose_queries(proposals)
-        except Exception as exc:
-            issues.append({"source":"query_planner","reason":type(exc).__name__})
-        if not queries:
-            # Only derive directions from past authentic source material.
-            queries=memory.choose_queries(memory.evidence_queries())
+        # A model outage does not erase real public evidence or halt the web
+        # research mechanism. Use observed prior leads only as a last resort.
+        queries=memory.choose_queries(memory.evidence_queries())
     budget=memory.budget()
     rows,errors=open_web_candidates(
         max_candidates=budget["max_candidates"],queries=queries,
-        memory=memory,
-        max_pages=budget["max_pages"])
+        memory=memory,max_pages=budget["max_pages"])
+    if not rows:
+        issues.append({
+            "source":"research_coverage",
+            "reason":"no_new_eligible_public_pages",
+            "queries_attempted":queries,
+            "prior_unvisited_links":len(memory.frontier(limit=140)),
+        })
     return rows,issues+errors
 
 
