@@ -314,6 +314,12 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
                     root_terms(front.get("title") or ""))
                 if not matching:
                     continue
+            # For outreach research, don't let previously crawled dictionary or
+            # shopping links revive irrelevant search topics from older runs.
+            # Compare against THIS run's independently chosen search directions.
+            if (strict_relevance and queries and
+                    not any(relevant_hit(q,front) for q in queries)):
+                continue
             if not _public_url(front.get("url")) or not memory.eligible_url(front["url"]):
                 continue
             follow={"source_url":front.get("url"),"title":front.get("title"),
