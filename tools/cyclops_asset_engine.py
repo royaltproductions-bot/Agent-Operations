@@ -329,7 +329,7 @@ def _make_build_script(plan,tools,evidence,previous="",failure=""):
     script=str(result.get("script") or "").strip()
     if not script or len(script)>150000:
         raise ValueError("production_script_empty_or_oversized")
-    if script.startswith("\`\`\`"):
+    if script.startswith("```"):
         raise ValueError("production_script_is_markdown_not_python")
     import ast
     try:
