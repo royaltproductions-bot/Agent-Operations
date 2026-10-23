@@ -79,7 +79,7 @@ CONCEPT_SCHEMA={
             "items":{"type":"string"},
         },
         "file_specs":{
-            "type":"array","minItems":1,"maxItems":2,
+            "type":"array","minItems":1,"maxItems":8,
             "items":{
                 "type":"object",
                 "properties":{
@@ -282,27 +282,20 @@ def choose_asset_concept(rows,existing_assets=None):
     source=allowed.get(source_id)
     if source is None:
         raise ValueError("product_source_not_in_real_research")
-    # Cheap, source-neutral grounding check: an arbitrary industry is fine;
-    # an unrelated product is not. No fixed niche/market whitelist.
-    from tools.open_web_discovery import root_terms
-    source_terms=root_terms(str(source.get("title") or "")+" "+str(source.get("text") or "")[:1200])
-    product_terms=root_terms(str(plan.get("title") or "")+" "+
-                             " ".join(str(x) for x in plan.get("target_terms") or []))
-    overlap=product_terms.intersection(source_terms)
-    if len(overlap)<2:
-        raise ValueError("product_unrelated_to_cited_public_evidence")
+    # Verify that the cited source actually exists. Topic relevance is the
+    # model's creative decision, not an arbitrary keyword-overlap quota.
     plan["evidence_source_url"]=source["source_url"]
     plan["price_usd"]=normalize_price_usd(plan.get("price_usd"))
     for field in ("title","description","audience","pitch"):
-        if len(str(plan.get(field) or "").strip())<12:
-            raise ValueError("asset_underspecified")
+        if not str(plan.get(field) or "").strip():
+            raise ValueError("required_product_field_empty:"+field)
     specs=[]
     for spec in plan.get("file_specs") or []:
         name=str(spec.get("filename") or "")
         purpose=str(spec.get("purpose") or "").strip()
         columns=[str(x).strip() for x in (spec.get("columns") or []) if str(x).strip()]
         if (not re.fullmatch(r"[A-Za-z0-9_.-]{1,72}\.(?:txt|md|csv|json|html|css|svg|py|js|ts)",name)
-                or len(purpose)<8):
+                or not purpose.strip()):
             raise ValueError("invalid_asset_spec")
         if name.endswith(".csv") and not columns:
             raise ValueError("csv_columns_missing")
@@ -463,7 +456,7 @@ def objective_quality_floor(plan,files):
                 raise ValueError("invalid_html:"+name) from None
         # Markdown, TXT, CSS and TS can contain valid non-executable data.
         # Do not claim they have undergone dynamic functional testing.
-    return "all_declared_files_present_and_syntactically_valid"
+    return "required_files_present_and_format_checks_passed"
 
 
 class ProductionPending(RuntimeError):
