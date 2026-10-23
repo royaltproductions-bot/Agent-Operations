@@ -1,0 +1,71 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-23T18:14:37.178429+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "candidate_count": 11,
+    "source_counts": {
+      "open_web": 11
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "bing": 7
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "candidates_without_email": 11,
+    "search_queries": [
+      "",
+      "Card comparison tool Compare credit cards side-by-side",
+      "leave someone something in the dust idiom"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 11,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "Card comparison tool Compare credit cards side-by-side",
+        "keep your shirt on idiom",
+        "My Best Buy Visa Card",
+        "exclude someone something from something",
+        "leave someone something in the dust idiom"
+      ],
+      "next_query_queue": 7,
+      "frontier_size": 136,
+      "known_pages": 201
+    },
+    "durable_contactable_sources": 2
+  },
+  "production": {
+    "result": "unfinished_resumes_next_run",
+    "stage": "review",
+    "last_issue": "draft_review_incomplete_resume_next_execution"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "durable_production_pending"
+    }
+  ],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
