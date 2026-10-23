@@ -574,6 +574,11 @@ def persist_asset(plan,checkout):
         "target_terms":plan["target_terms"],
         "evidence_source_url":plan.get("evidence_source_url"),
         "files":[x["filename"] for x in plan["_files"]],
+        "artifact_manifest":[{
+            "filename":x["filename"],"bytes":x["size_bytes"],
+            "sha256":x["sha256"],"content_type":x["content_type"]
+        } for x in plan["_files"]],
+        "production_tool":"isolated_tool_workshop",
         "quality_gate":"verified_generated_bytes",
         "delivery":"private_encrypted_vault",
         "vault_path":vault,
@@ -1054,8 +1059,18 @@ def run():
                 "price_usd":asset["price_usd"],"price_cents":asset["price_cents"],
                 "payment_link_id":asset["payment_link_id"],
             }
-            receipt["production"]={"result":"approved_and_published",
-                                   "asset_id":asset["asset_id"]}
+            receipt["production"]={
+                "result":"approved_and_published",
+                "asset_id":asset["asset_id"],
+                "production_tool":"isolated_tool_workshop",
+                "artifact_count":len(plan["_files"]),
+                "created_artifacts":[{
+                    "filename":x["filename"],
+                    "bytes":x["size_bytes"],
+                    "sha256":x["sha256"],
+                    "content_type":x["content_type"],
+                } for x in plan["_files"]],
+            }
             # The store listing and checkout can now progress even without email.
             receipt["catalog"]=publish_catalog()
             if distribution_rows and receipt["external_action"] is None:
