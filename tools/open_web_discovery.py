@@ -252,7 +252,7 @@ def duckduckgo_html(query,limit=6):
     return out
 
 def open_web_candidates(max_candidates=24, queries=None, memory=None,
-                        max_pages=32):
+                        max_pages=32, strict_relevance=True):
     """Search model-generated topics and progress along prior link discoveries.
 
     Budgets constrain this execution's page count; researched URLs
@@ -278,6 +278,8 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
                 # market researcher must see authentic hits even when our
                 # tiny token-overlap heuristic misunderstands the search.
                 ordered=sorted(hits,key=lambda hit:not relevant_hit(query,hit))
+                if strict_relevance:
+                    ordered=[hit for hit in ordered if relevant_hit(query,hit)]
                 if ordered:
                     streams.append((query,provider,ordered))
                 if memory:
