@@ -208,11 +208,11 @@ def candidates(memory):
 # A specific outside-work invitation may link to a separate contact page.
 # This identifies possible routes; it never authorizes unsolicited outreach.
 PUBLIC_INVITATION=re.compile(
-    r"(?i)\\b(?:request for proposals?|(?:open|accepting|seeking) (?:bids?|proposals?|vendors?|contractors?)"
+    r"(?i)\b(?:request for proposals?|(?:open|accepting|seeking) (?:bids?|proposals?|vendors?|contractors?)"
     r"|(?:submit|send) (?:your |a )?(?:bid|proposal|quote|estimate)"
     r"|(?:looking for|seeking|hiring) (?:an? |someone |outside |external )?"
     r"(?:developer|designer|writer|consultant|agency|freelancer|contractor|provider|specialist)"
-    r"|soliciting (?:proposals?|quotes?|bids?))\\b"
+    r"|soliciting (?:proposals?|quotes?|bids?))\b"
 )
 
 
