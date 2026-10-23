@@ -312,7 +312,7 @@ def choose_offer(rows):
     actionable=[row for row in researched
                 if row.get("page_fetched") and row.get("contact")]
     if not actionable:
-        return None,{"reason":"no_contactable_public_invitation"}
+        return None,{"reason":"no_contactable_public_source"}
     ranked=actionable
     visible=[{
         "candidate_id":row["id"],
@@ -343,7 +343,8 @@ def choose_offer(rows):
         PLAN_SCHEMA,system,{"candidates":visible},num_ctx=2048,num_predict=265
     )
     if plan.get("action")!="offer":
-        return None,{"reason":str(plan.get("reason") or "model_rejected_candidates")[:140]}
+        return None,{"reason":"no_verified_invitation:"+
+                            str(plan.get("reason") or "model_rejected_candidates")[:112]}
     chosen=next((r for r in ranked if r["id"]==plan.get("candidate_id")),None)
     if not chosen:
         raise ValueError("model_selected_unknown_candidate")
@@ -475,6 +476,9 @@ def run():
             "source_errors":errors,
             "fetched_public_pages":sum(bool(r.get("page_fetched")) for r in rows),
             "candidates_without_email":sum(not bool(r.get("contact")) for r in rows),
+            "contactable_sources":sum(bool(r.get("contact")) for r in rows),
+            "linked_requester_contacts":sum(bool(r.get("contact_source_url")) for r in rows),
+            "potential_invitation_signals":sum(bool(PUBLIC_INVITATION.search(str(r.get("text") or ""))) for r in rows),
             "search_queries":list(dict.fromkeys(str(r.get("search_query") or "") for r in rows))[:12],
         }
     except Exception as exc:
