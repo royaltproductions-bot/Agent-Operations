@@ -1052,6 +1052,18 @@ def run():
         # Drafts already carry their original source evidence. Continuing one
         # must not spend the runner's Qwen budget on unrelated new research.
         pending_at_start=read_pending()
+        if (pending_at_start.get("stage")=="review"
+                and int(pending_at_start.get("revision") or 0)>2):
+            # The old subjective reviewer created a permanently stuck draft.
+            # Retire it BEFORE deciding whether to search, so this same run
+            # can originate a fresh deliverable rather than wasting an hour.
+            try:
+                _retire_draft(pending_at_start,"legacy_subjective_review_loop")
+            except ProductRetired as retirement:
+                receipt["commercial_outcomes"].append({
+                    "reason":"legacy_unproductive_draft_archived",
+                    "detail":str(retirement)[:145]})
+            pending_at_start={"stage":"empty"}
         resuming=pending_at_start.get("stage") in ("drafting","review","approved","sealed")
         if resuming:
             rows,search_errors=[],[]
