@@ -37,6 +37,7 @@ from tools.connected_commerce_tools import (
 )
 
 from tools.open_web_discovery import open_web_candidates
+from tools.cyclops_workshop import discover_tools, manufacture, _safe_path
 from tools.research_memory import ResearchMemory
 from tools.cyclops_vault import (read_pending, save_pending, seal_asset,
                                  read_asset_files, asset_vault_path,
@@ -72,23 +73,19 @@ CONCEPT_SCHEMA={
         "evidence_candidate_id":{"type":"string"},
         "target_terms":{"type":"array","items":{"type":"string"}},
         "core_points":{"type":"array","items":{"type":"string"}},
-        "file_specs":{
-            "type":"array","minItems":1,
-            "items":{
-                "type":"object",
-                "properties":{
-                    "filename":{"type":"string"},
-                    "purpose":{"type":"string"},
-                    "columns":{"type":"array","items":{"type":"string"}},
-                },
-                "required":["filename","purpose"],
-                "additionalProperties":False,
-            },
-        },
+        "production_goal":{"type":"string"},
+        "output_files":{"type":"array","minItems":1,"items":{"type":"string"}},
     },
     "required":["title","description","audience","pitch","price_usd",
-                "evidence_candidate_id","target_terms","core_points","file_specs"],
+                "evidence_candidate_id","target_terms","core_points",
+                "production_goal","output_files"],
     "additionalProperties":False,
+}
+
+BUILD_SCRIPT_SCHEMA={
+    "type":"object",
+    "properties":{"script":{"type":"string"}},
+    "required":["script"],"additionalProperties":False,
 }
 
 FILE_SCHEMA={
@@ -217,35 +214,27 @@ def choose_asset_concept(rows,existing_assets=None):
     visible=demand_view(rows)
     if not visible:
         raise ValueError("no_current_demand")
+    actual_tools=discover_tools()
     system=(
-        "Choose ONE reusable digital product addressing a concrete recurring buyer "
-        "problem present in the supplied REAL research pages. Ground your choice "
-        "in a SPECIFIC supplied candidate_id. Put that exact value in "
-        "evidence_candidate_id; never invent a citation. The title, purpose and "
-        "target terms MUST all be related to the cited page's real problem. "
-        "Do NOT switch to unrelated topics, idioms, or sample-content themes. "
-        "If the pages are weak, choose the most concretely useful problem "
-        "without pretending a customer requested a purchase. This is "
-        "product selection only; do not write the finished files yet. Market pages "
-        "are signals rather than necessarily paid solicitations. It must be useful "
-        "to multiple similar buyers without buyer "
-        "input, private data, custom work, credentials, or access. "
-        "FIRST choose the useful product, THEN choose the deliverable file names "
-        "and media that actually implement it; no predetermined product categories "
-        "or preferred formats. The currently connected production model emits "
-        "UTF-8 source/content (including documents, code, web pages, data, and "
-        "vector designs), not raw binary images, video or audio. Never label "
-        "text as a binary file. If the product needs unavailable binary rendering, "
-        "select an honestly deliverable source format rather than fake media. "
-        "Only supply columns when the chosen file is genuinely a table. "
-        "core_points should describe how to implement the actual deliverable. "
-        "Choose a commercially defensible one-time price for the actual deliverable. "
-        "price_usd must be a decimal string in US DOLLARS (e.g. 29.00 or 49.95). "
-        "No preset product price band, minimum or maximum. "
-        "Build a genuinely usable product, not an abstract concept or filler. "
-        "Use concrete tasks and repeatable outputs supported by the cited market "
-        "evidence. Prefer a single deliverable whose purpose, instructions and "
-        "completion criteria are unambiguous; do not invent customers or records. "
+        "You independently invent and select one ORIGINAL reusable digital "
+        "product addressing an opportunity observed in the REAL supplied pages. "
+        "The consumer decides demand; you decide what to manufacture. "
+        "Cite exactly one supplied candidate_id in evidence_candidate_id. "
+        "First choose the product itself without preset business models or media. "
+        "Then determine what real artifact(s) achieve its purpose. "
+        "Inspect the ACTUAL discovered production tools supplied in context "
+        "and choose files those tools can genuinely create. "
+        "The subsequent builder writes a Python orchestrator that can USE "
+        "the actual installed libraries and commands within an isolated "
+        "production sandbox. That orchestration language is an implementation "
+        "tool, NOT a restriction on the consumer product's form. "
+        "Give specific production_goal instructions grounded in the product. "
+        "output_files must be the actual final output paths, not the build "
+        "script or example files; use simple relative paths only. "
+        "The vault's current per-file and total size limits are technical "
+        "storage capacity, not commercial or media preferences. "
+        "Pricing is a chosen USD-dollar decimal string without invented bands. "
+        "Don't invent customer records, fake external assets or claims. "
         "Return only schema-compliant JSON."
     )
     # One substantive concept attempt. The 45-minute GitHub job is the
@@ -261,6 +250,7 @@ def choose_asset_concept(rows,existing_assets=None):
             } for a in (existing_assets or [])[:12]]
             plan=model_json(CONCEPT_SCHEMA,system,
                             {"observed_market_signals":observation,
+                             "available_production_tools":actual_tools,
                              "existing_catalog":existing,
                              "constraint":"Create a materially different product from the existing catalog; do not repeat or lightly rename an exhausted asset."},
                             num_ctx=ctx,num_predict=predict)
@@ -284,31 +274,19 @@ def choose_asset_concept(rows,existing_assets=None):
     for field in ("title","description","audience","pitch"):
         if not str(plan.get(field) or "").strip():
             raise ValueError("required_product_field_empty:"+field)
-    specs=[]
-    for spec in plan.get("file_specs") or []:
-        name=str(spec.get("filename") or "").strip()
-        purpose=str(spec.get("purpose") or "").strip()
-        # A filename is a safe flat payload identifier, not a product category.
-        if (not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,126}\.[A-Za-z0-9]{1,12}",name)
-                or not purpose):
-            raise ValueError("invalid_asset_spec")
-        mime,_=mimetypes.guess_type(name)
-        if (mime and not (
-                mime.startswith("text/") or mime.endswith(("+json","+xml"))
-                or mime in ("application/json","application/xml",
-                            "application/javascript","image/svg+xml",
-                            "application/x-yaml","application/yaml"))):
-            # The runner has a language model, not a binary media generator.
-            # Never sell a text blob masquerading as a PNG, PDF, MP4, etc.
-            raise ValueError("binary_artifact_requires_real_renderer:"+name)
-        columns=[str(x).strip() for x in (spec.get("columns") or []) if str(x).strip()]
-        if name.lower().endswith(".csv") and not columns:
-            raise ValueError("table_columns_missing:"+name)
-        specs.append({"filename":name,"purpose":purpose,
-                      "columns":columns if name.lower().endswith(".csv") else []})
-    if not specs:
-        raise ValueError("empty_asset_spec")
-    plan["file_specs"]=specs
+    names=[str(n).strip() for n in plan.get("output_files") or []]
+    if not names or len(names)>30:
+        raise ValueError("product_output_manifest_invalid")
+    # Validate paths, not categories: any real output the toolchain can
+    # manufacture and the secure vault can hold is a potential product.
+    for name in names:
+        _safe_path(name)
+    if len(set(names))!=len(names):
+        raise ValueError("duplicate_product_output_path")
+    plan["output_files"]=names
+    if not str(plan.get("production_goal") or "").strip():
+        raise ValueError("product_production_goal_missing")
+    plan["tool_inventory_at_selection"]=actual_tools
     plan["asset_id"]=asset_id(plan)
     return plan
 
