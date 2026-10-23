@@ -1,0 +1,106 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-23T21:28:20.650309+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "bing": 16
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 16,
+    "search_queries": [
+      "How to manage credit card debt while planning for retirement",
+      "Struggling to balance cash-back rewards with long-term financial goals",
+      "How to avoid credit card debt while maximizing rewards",
+      "Credit card debt and its impact on estate planning"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 1,
+      "executed_queries": [
+        "How to manage credit card debt while planning for retirement",
+        "Struggling to balance cash-back rewards with long-term financial goals",
+        "Credit card debt and its impact on estate planning",
+        "How to avoid credit card debt while maximizing rewards"
+      ],
+      "next_query_queue": 8,
+      "frontier_size": 133,
+      "known_pages": 263
+    },
+    "durable_contactable_sources": 3
+  },
+  "production": {
+    "result": "objective_production_repair_pending",
+    "stage": "building",
+    "last_issue": "RuntimeError:production_tool_execution_failed:Traceback (most recent call last):\n  File \"/work/build.py\", line 2, in <module>\n    import requests\nModuleNotFoundError: No module named 'requests'\n",
+    "attempts": 1,
+    "revisions": 0,
+    "files_finished": 0,
+    "files_planned": 1
+  },
+  "catalog": {
+    "result": "catalog_published",
+    "listed_products": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
