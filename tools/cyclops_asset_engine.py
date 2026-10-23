@@ -713,31 +713,46 @@ def verified_session(session):
                 and not charge.get("refunded")
                 and int(charge.get("amount_refunded") or 0)==0)
 
+def _stripe_pages(endpoint):
+    """Follow Stripe's real has_more/starting_after cursor, not first 100 only."""
+    cursor=None
+    seen=set()
+    while True:
+        params={"limit":100}
+        if cursor:
+            params["starting_after"]=cursor
+        page=stripe_get(endpoint,params)
+        records=page.get("data") or []
+        for record in records:
+            yield record
+        if not page.get("has_more") or not records:
+            break
+        last=str(records[-1].get("id") or "")
+        if not last or last in seen:
+            raise RuntimeError("stripe_pagination_cursor_stalled")
+        seen.add(last)
+        cursor=last
+
+
 def paid_orders():
     links={}
-    page=stripe_get("payment_links",{"limit":100})
-    for link in page.get("data") or []:
+    for link in _stripe_pages("payment_links"):
         meta=link.get("metadata") or {}
         if meta.get("cyclops_asset")=="yes" and meta.get("cyclops_asset_id"):
             links[link.get("id")]=meta.get("cyclops_asset_id")
     if not links:
         return []
     orders=[]
-    sessions=stripe_get("checkout/sessions",{"limit":100})
-    for session in sessions.get("data") or []:
+    for session in _stripe_pages("checkout/sessions"):
         ident=links.get(session.get("payment_link"))
         if not ident:
             continue
-        try:
-            if not verified_session(session):
-                continue
-        except Exception:
+        # Fail closed: only verified, settled, unrefunded real Stripe payments.
+        if not verified_session(session):
             continue
         email=(session.get("customer_details") or {}).get("email") or session.get("customer_email")
-        if not re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+",str(email or "")):
-            continue
         orders.append({
-            "session_id":session.get("id"),
+            "session_id":session["id"],
             "asset_id":ident,
             "customer_email":email,
             "amount_total":int(session.get("amount_total") or 0),
@@ -745,37 +760,60 @@ def paid_orders():
         })
     return orders
 
+
 def fulfill_orders():
     results=[]
+    new_paid=0
+    new_delivered=0
     for order in paid_orders():
-        marker=hashlib.sha256(str(order["session_id"]).encode()).hexdigest()[:18]
+        session=order["session_id"]
+        amount=order["amount_total"]
+        if record_order(session,amount,"paid"):
+            new_paid+=amount
+        marker=hashlib.sha256(str(session).encode()).hexdigest()[:18]
         subject="Cyclops delivery ["+marker+"]"
-        if sent_subject_exists(subject):
-            results.append({"result":"already_fulfilled","asset_id":order["asset_id"],
-                            "amount_cents":order["amount_total"]})
+        if (hashlib.sha256(str(session).encode()).hexdigest()
+                in (read_ledger().get("fulfilled") or {})) or sent_subject_exists(subject):
+            record_order(session,amount,"fulfilled")
+            results.append({"result":"already_fulfilled",
+                            "asset_id":order["asset_id"],"amount_cents":amount})
             continue
-        folder=ROOT/order["asset_id"]
+        email=order.get("customer_email")
+        if not re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+",str(email or "")):
+            results.append({"result":"fulfillment_failed",
+                            "asset_id":order["asset_id"],
+                            "detail":"paid_order_has_no_valid_delivery_email",
+                            "amount_cents":amount})
+            continue
         try:
+            folder=ROOT/order["asset_id"]
             manifest=json.loads((folder/"manifest.json").read_text(encoding="utf-8"))
-            files=[]
-            for name in manifest.get("files") or []:
-                p=folder/name
-                files.append((name,p.read_bytes()))
+            if manifest.get("delivery")=="private_encrypted_vault":
+                # File content is authenticated/decrypted only after payment.
+                files=read_asset_files(order["asset_id"])
+            else:
+                # Backwards compatibility for pre-vault historic paid sessions.
+                files=[(name,(folder/name).read_bytes())
+                       for name in manifest.get("files") or []]
             if not files:
                 raise ValueError("asset_files_missing")
-            body=(
-                "Thanks for your purchase. Your files are attached.\n\n"
-                +str(manifest.get("title") or "Digital asset")
-            )
-            agent_send(order["customer_email"],subject,body,files,
-                       order_id="cyclops-delivery-"+str(order["session_id"]))
-            results.append({"result":"fulfilled","asset_id":order["asset_id"],
-                            "amount_cents":order["amount_total"]})
+            body=("Thanks for your purchase. Your files are attached.\n\n"
+                  +str(manifest.get("title") or "Digital asset"))
+            agent_send(email,subject,body,files,
+                       order_id="cyclops-delivery-"+str(session))
+            record_order(session,amount,"fulfilled")
+            new_delivered+=1
+            results.append({"result":"fulfilled",
+                            "asset_id":order["asset_id"],"amount_cents":amount})
         except Exception as exc:
-            results.append({"result":"fulfillment_failed","asset_id":order["asset_id"],
+            results.append({"result":"fulfillment_failed",
+                            "asset_id":order["asset_id"],
                             "detail":(str(exc) or type(exc).__name__)[:160],
-                            "amount_cents":order["amount_total"]})
-    return results
+                            "amount_cents":amount})
+    return {"orders":results,
+            "newly_observed_verified_paid_cents":new_paid,
+            "newly_fulfilled_orders":new_delivered}
+
 
 def prospect_score(row,asset):
     text=str(row.get("text") or "").lower()
