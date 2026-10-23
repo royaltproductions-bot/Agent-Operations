@@ -1,0 +1,28 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops",
+  "status": "active",
+  "asset_id": "97bb09bf51eab6cfa0b3",
+  "title": "Credit Card Comparison Tool for Travel Rewards",
+  "description": "A reusable digital product that helps users compare credit cards based on travel rewards, sign-up bonuses, and other relevant criteria.",
+  "audience": "Travelers looking for credit cards with the best travel rewards and benefits.",
+  "pitch": "This tool enables users to quickly compare credit cards from major issuers like Capital One, Chase, and Amex based on travel-related benefits such as airline miles, hotel points, and lounge access.",
+  "price_usd": "29.99",
+  "price_cents": 2999,
+  "target_terms": [
+    "travel rewards credit cards",
+    "best travel credit cards",
+    "airline miles credit cards",
+    "hotel points credit cards"
+  ],
+  "evidence_source_url": "https://upgradedpoints.com/credit-cards/guides/",
+  "files": [
+    "credit_card_travel_comparison.html"
+  ],
+  "quality_gate": "passed",
+  "delivery": "private_encrypted_vault",
+  "vault_path": "ops/cyclops-vault/assets/97bb09bf51eab6cfa0b3.json",
+  "payment_link_id": "plink_1UTpXTBto3o776uyPvSJWpjn",
+  "checkout_url": "https://buy.stripe.com/5kQ5kCdwc3UHdM65IX7Re08",
+  "created_at": "2026-10-23T20:58:11.151080+00:00"
+}
