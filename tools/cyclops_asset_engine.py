@@ -107,16 +107,6 @@ FILE_SCHEMA={
     "additionalProperties":False,
 }
 
-QUALITY_SCHEMA={
-    "type":"object",
-    "properties":{
-        "verdict":{"type":"string","enum":["pass","reject"]},
-        "reason":{"type":"string"},
-    },
-    "required":["verdict","reason"],
-    "additionalProperties":False,
-}
-
 def model_json(schema,system,observation,num_ctx=6144,num_predict=1800):
     req=urllib.request.Request(
         OLLAMA,method="POST",
@@ -1068,7 +1058,14 @@ def run():
 
     memory=ResearchMemory("cyclops")
     try:
-        rows,search_errors=demand_candidates(memory)
+        # Drafts already carry their original source evidence. Continuing one
+        # must not spend the runner's Qwen budget on unrelated new research.
+        pending_at_start=read_pending()
+        resuming=pending_at_start.get("stage") in ("drafting","review","approved","sealed")
+        if resuming:
+            rows,search_errors=[],[]
+        else:
+            rows,search_errors=demand_candidates(memory)
         source_counts={}
         provider_counts={}
         for row in rows:
@@ -1079,6 +1076,7 @@ def run():
                 provider_counts[provider]=provider_counts.get(provider,0)+1
         receipt["discovery"]={
             "candidate_count":len(rows),
+            "research_deferred_for_product_completion":resuming,
             "source_counts":source_counts,
             "search_provider_counts":provider_counts,
             "source_errors":search_errors,
@@ -1145,24 +1143,44 @@ def run():
         else:
             receipt["production"]={"result":"no_current_product_opportunity"}
     except (ValueError,RuntimeError) as exc:
-        reason=(str(exc) or type(exc).__name__)[:180]
+        reason=(str(exc) or type(exc).__name__)[:220]
         try:
             pending=read_pending()
             stage=pending.get("stage") or "empty"
         except Exception:
+            pending={}
             stage="unreadable"
-        if stage in ("drafting","review","approved","sealed"):
-            receipt["production"]={"result":"unfinished_resumes_next_run",
-                                   "stage":stage,"last_issue":reason}
-            receipt["commercial_outcomes"].append({"reason":"durable_production_pending"})
-        elif (reason.startswith(("no_public_demand_for_product_creation",
-                                 "product_unrelated_to_cited_public_evidence",
-                                 "product_source_not_in_real_research",
-                                 "asset_underspecified","csv_columns_missing",
-                                 "invalid_asset_spec","empty_asset_spec"))):
-            receipt["production"]={"result":"market_candidate_rejected",
+        if isinstance(exc,ProductRetired):
+            receipt["production"]={"result":"invalid_draft_retired",
+                                   "reason":reason,
+                                   "new_concept_eligible_next_run":True}
+        elif isinstance(exc,ProductionPending):
+            receipt["production"]={
+                "result":"objective_production_repair_pending",
+                "stage":stage,
+                "last_issue":str(pending.get("feedback") or reason)[:250],
+                "attempts":pending.get("attempts") or {},
+                "revisions":int(pending.get("revision") or 0),
+                "files_finished":len(pending.get("files") or []),
+                "files_planned":len((pending.get("plan") or {}).get("file_specs") or []),
+            }
+        elif stage in ("drafting","review","approved","sealed"):
+            receipt["production"]={
+                "result":"production_blocked",
+                "stage":stage,"last_issue":reason,
+                "revisions":int(pending.get("revision") or 0),
+            }
+            receipt["structural_failures"].append({
+                "reason":"production_stage_error","detail":reason})
+        elif reason.startswith(("no_public_research_to_select_product",
+                                "product_unrelated_to_cited_public_evidence",
+                                "product_source_not_in_real_research",
+                                "asset_underspecified","csv_columns_missing",
+                                "invalid_asset_spec","empty_asset_spec")):
+            receipt["production"]={"result":"concept_not_producible",
                                    "reason":reason}
         else:
+            receipt["production"]={"result":"production_error","reason":reason}
             receipt["structural_failures"].append({
                 "reason":"production_or_publication_failed","detail":reason})
     except Exception as exc:
