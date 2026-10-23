@@ -905,28 +905,51 @@ def write_receipt(receipt):
 
 def run():
     receipt={
-        "schema_version":1,
+        "schema_version":2,
         "lane":"cyclops_reusable_assets",
         "timestamp":NOW().isoformat(),
         "model":MODEL,
         "asset":None,
         "discovery":{},
+        "production":{},
+        "catalog":{},
         "external_action":None,
         "fulfillment":[],
         "structural_failures":[],
+        "commercial_outcomes":[],
         "economic_result":{
             "new_asset_created":0,
             "new_product_offers_sent":0,
             "fulfilled_orders_seen":0,
             "verified_cyclops_revenue_cents_seen":0,
+            "newly_observed_verified_paid_cents":0,
         },
     }
 
+    # These are independent business activities, not a mandatory single funnel.
+    # Payment verification and delivery always get first access to the runner.
     try:
-        receipt["fulfillment"]=fulfill_orders()
+        fulfillment=fulfill_orders()
+        receipt["fulfillment"]=fulfillment["orders"]
+        receipt["economic_result"]["fulfilled_orders_seen"]=fulfillment["newly_fulfilled_orders"]
+        receipt["economic_result"]["newly_observed_verified_paid_cents"]=(
+            fulfillment["newly_observed_verified_paid_cents"])
+        receipt["economic_result"]["verified_cyclops_revenue_cents_seen"]=(
+            fulfillment["newly_observed_verified_paid_cents"])
+        if any(x.get("result")=="fulfillment_failed" for x in fulfillment["orders"]):
+            receipt["structural_failures"].append({
+                "reason":"verified_customer_fulfillment_incomplete"})
     except Exception as exc:
         receipt["structural_failures"].append({
             "reason":"fulfillment_scan_failed",
+            "detail":(str(exc) or type(exc).__name__)[:160]})
+
+    # Catalog distribution does not require a new product or a new email lead.
+    try:
+        receipt["catalog"]=publish_catalog()
+    except Exception as exc:
+        receipt["structural_failures"].append({
+            "reason":"catalog_publication_failed",
             "detail":(str(exc) or type(exc).__name__)[:160]})
 
     memory=ResearchMemory("cyclops")
@@ -951,70 +974,84 @@ def run():
         }
     except Exception as exc:
         rows=[]
-        receipt["discovery"]={"candidate_count":0,"reason":type(exc).__name__}
-
-    # Write true research progression before product manufacturing spends the
-    # remaining runner time, so an interrupted run does not repeat the crawl.
+        receipt["discovery"]={"candidate_count":0,
+                              "reason":(str(exc) or type(exc).__name__)[:160]}
     receipt["discovery"]["research_memory"]=memory.save()
 
+    # Existing products are marketed independently of new manufacturing.
     assets=active_assets()
-    asset=None
-    if rows and assets:
-        sent_subjects=recent_sent_subjects()
-        ranked_assets=[]
-        for existing in assets:
-            if not has_uncontacted_matching_prospect(rows,existing,sent_subjects):
-                continue
-            best=max((prospect_score(row,existing) for row in rows),default=0)
-            ranked_assets.append((best,existing))
-        ranked_assets.sort(
-            key=lambda item:(-item[0],str(item[1].get("asset_id") or "")))
-        if ranked_assets and ranked_assets[0][0]>0:
-            asset=ranked_assets[0][1]
-
-    # No current product fits this demand: manufacture a new reusable asset.
-    if rows and asset is None:
+    marketable=[a for a in assets if a.get("status")=="active"
+                and a.get("vault_path")
+                and a.get("delivery")=="private_encrypted_vault"]
+    for existing in marketable:
+        if not rows:
+            break
         try:
-            plan=create_asset(rows,assets)
-            checkout=cyclops_checkout(plan)
-            asset=persist_asset(plan,checkout)
-            receipt["economic_result"]["new_asset_created"]=1
+            action=send_asset_offer(rows,existing)
+            if action.get("result")=="offer_sent":
+                receipt["external_action"]=action
+                receipt["economic_result"]["new_product_offers_sent"]+=1
+                break
         except Exception as exc:
             receipt["structural_failures"].append({
-                "reason":"asset_creation_failed",
+                "reason":"catalog_distribution_failed",
                 "detail":(str(exc) or type(exc).__name__)[:160]})
 
-    if asset:
-        receipt["asset"]={
-            "asset_id":asset["asset_id"],
-            "title":asset["title"],
-            "price_cents":int(asset["price_cents"]),
-            "payment_link_id":asset["payment_link_id"],
-        }
-        if rows:
-            try:
+    # Product work is checkpointed and resumable across runs. A rejected draft
+    # is unfinished work, not a reason to erase it or to stop existing sales.
+    try:
+        pending=read_pending()
+        should_produce=bool(rows) or pending.get("stage") not in (None,"empty")
+        if should_produce:
+            plan=create_asset(rows,assets)
+            asset=publish_finished_asset(plan)
+            receipt["economic_result"]["new_asset_created"]=1
+            receipt["asset"]={
+                "asset_id":asset["asset_id"],"title":asset["title"],
+                "price_usd":asset["price_usd"],"price_cents":asset["price_cents"],
+                "payment_link_id":asset["payment_link_id"],
+            }
+            receipt["production"]={"result":"approved_and_published",
+                                   "asset_id":asset["asset_id"]}
+            # The store listing and checkout can now progress even without email.
+            receipt["catalog"]=publish_catalog()
+            if rows and receipt["external_action"] is None:
                 action=send_asset_offer(rows,asset)
                 receipt["external_action"]=action
                 if action.get("result")=="offer_sent":
-                    receipt["economic_result"]["new_product_offers_sent"]=1
-            except Exception as exc:
-                receipt["structural_failures"].append({
-                    "reason":"product_distribution_failed",
-                    "detail":(str(exc) or type(exc).__name__)[:160]})
+                    receipt["economic_result"]["new_product_offers_sent"]+=1
+        else:
+            receipt["production"]={"result":"no_current_product_opportunity"}
+    except (ValueError,RuntimeError) as exc:
+        reason=(str(exc) or type(exc).__name__)[:180]
+        try:
+            pending=read_pending()
+            stage=pending.get("stage") or "empty"
+        except Exception:
+            stage="unreadable"
+        if stage in ("drafting","review","approved","sealed"):
+            receipt["production"]={"result":"unfinished_resumes_next_run",
+                                   "stage":stage,"last_issue":reason}
+            receipt["commercial_outcomes"].append({"reason":"durable_production_pending"})
+        elif (reason.startswith(("no_public_demand_for_product_creation",
+                                 "product_unrelated_to_cited_public_evidence",
+                                 "product_source_not_in_real_research",
+                                 "asset_underspecified","csv_columns_missing",
+                                 "invalid_asset_spec","empty_asset_spec"))):
+            receipt["production"]={"result":"market_candidate_rejected",
+                                   "reason":reason}
+        else:
+            receipt["structural_failures"].append({
+                "reason":"production_or_publication_failed","detail":reason})
+    except Exception as exc:
+        receipt["structural_failures"].append({
+            "reason":"production_unhandled_failure",
+            "detail":(str(exc) or type(exc).__name__)[:160]})
 
-    fulfilled=sum(x.get("result") in ("fulfilled","already_fulfilled")
-                  for x in receipt["fulfillment"])
-    revenue=sum(int(x.get("amount_cents") or 0)
-                for x in receipt["fulfillment"]
-                if x.get("result") in ("fulfilled","already_fulfilled"))
-    receipt["economic_result"]["fulfilled_orders_seen"]=fulfilled
-    receipt["economic_result"]["verified_cyclops_revenue_cents_seen"]=revenue
     memory.note_outcome(receipt)
     receipt["discovery"]["research_memory"]=memory.save()
     write_receipt(receipt)
     print(json.dumps(receipt,indent=2))
-    # Preserve the actual receipt before signaling a production error.
-    # Finding no demand or customer is NOT an infrastructure failure.
     if receipt["structural_failures"]:
         raise SystemExit(2)
 
