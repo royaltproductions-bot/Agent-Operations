@@ -406,131 +406,187 @@ def revise_asset_file(plan,spec,rows,previous,feedback):
     return _draft_file(plan,spec,rows,feedback=feedback,previous=previous)
 
 def objective_quality_floor(plan,files):
-    """Reject malformed/empty deliverables; let buyer QA judge substance.
+    """Verify actual deliverable integrity, not projected buyer enthusiasm.
 
-    Number of rows, columns or words is not proof of commercial usefulness.
-    A valid file's practical value is evaluated by buyer_quality_check.
+    Content quality is created by the production model. The publisher checks
+    what software can objectively check: files exist, declared formats parse,
+    and packages contain their promised components. No price, row-count,
+    arbitrary word-count, or subjective consumer-demand tests.
     """
-    if not files or any(not content.strip() for _,content in files):
-        raise RuntimeError("quality_floor_empty_or_incomplete")
-    by_name={spec["filename"]:spec for spec in plan.get("file_specs") or []}
+    if not files:
+        raise ValueError("missing_product_files")
+    specs={str(x["filename"]):x for x in plan.get("file_specs") or []}
+    delivered={name for name,_ in files}
+    if delivered!=set(specs):
+        raise ValueError("product_file_manifest_mismatch")
     for name,content in files:
+        if not isinstance(content,str) or not content.strip():
+            raise ValueError("empty_deliverable:"+name)
         if name.endswith(".csv"):
             import csv
             from io import StringIO
             try:
-                parsed=list(csv.reader(StringIO(content)))
+                reader=csv.reader(StringIO(content),strict=True)
+                records=list(reader)
             except csv.Error:
-                raise RuntimeError("quality_floor_invalid_csv:"+name) from None
-            expected=[str(c).strip() for c in by_name[name].get("columns") or []]
-            if not parsed or [c.strip() for c in parsed[0]]!=expected:
-                raise RuntimeError("quality_floor_csv_headers_invalid:"+name)
-            if len(parsed)<2 or any(len(row)!=len(expected) for row in parsed[1:]):
-                raise RuntimeError("quality_floor_csv_rows_invalid:"+name)
-            if not any(any(value.strip() for value in row) for row in parsed[1:]):
-                raise RuntimeError("quality_floor_csv_content_empty:"+name)
+                raise ValueError("invalid_csv:"+name) from None
+            expected=[str(c).strip() for c in specs[name].get("columns") or []]
+            if not expected or not records or [c.strip() for c in records[0]]!=expected:
+                raise ValueError("csv_columns_mismatch:"+name)
+            if len(records)<2 or any(len(row)!=len(expected) for row in records[1:]):
+                raise ValueError("csv_records_invalid:"+name)
+            if not any(any(c.strip() for c in row) for row in records[1:]):
+                raise ValueError("csv_content_empty:"+name)
         elif name.endswith(".json"):
             try:
                 json.loads(content)
             except ValueError:
-                raise RuntimeError("quality_floor_invalid_json:"+name) from None
+                raise ValueError("invalid_json:"+name) from None
         elif name.endswith(".svg"):
             import xml.etree.ElementTree as ET
             try:
-                ET.fromstring(content)
+                root=ET.fromstring(content)
             except ET.ParseError:
-                raise RuntimeError("quality_floor_invalid_svg:"+name) from None
-        elif not content.strip():
-            raise RuntimeError("quality_floor_text_empty:"+name)
+                raise ValueError("invalid_svg:"+name) from None
+            if root.tag.rsplit("}",1)[-1]!="svg":
+                raise ValueError("not_an_svg_document:"+name)
+        elif name.endswith(".py"):
+            import ast
+            try:
+                ast.parse(content,filename=name)
+            except SyntaxError:
+                raise ValueError("invalid_python_syntax:"+name) from None
+        elif name.endswith(".js"):
+            # Parsing is safe: --check does not run AI-produced JavaScript.
+            import subprocess
+            parsed=subprocess.run(["node","--check","-"],input=content,
+                                  text=True,capture_output=True,check=False)
+            if parsed.returncode!=0:
+                raise ValueError("invalid_javascript_syntax:"+name)
+        elif name.endswith(".html"):
+            from html.parser import HTMLParser
+            parser=HTMLParser(convert_charrefs=True)
+            try:
+                parser.feed(content)
+                parser.close()
+            except ValueError:
+                raise ValueError("invalid_html:"+name) from None
+        # Markdown, TXT, CSS and TS can contain valid non-executable data.
+        # Do not claim they have undergone dynamic functional testing.
+    return "all_declared_files_present_and_syntactically_valid"
 
 
+class ProductionPending(RuntimeError):
+    """Durable draft has work left; not proof that product quality passed."""
 
-def buyer_quality_check(plan,files,rows):
-    system=(
-        "You are the final buyer-side quality check for a paid reusable digital product. "
-        "Reject it unless a reasonable buyer in the stated audience could use the delivered "
-        "files immediately and feel the price is defensible. Reject thin examples, generic "
-        "filler, made-up production configuration values, vague checklists, or marketing "
-        "claims stronger than what the files actually contain. The product must directly fit "
-        "the observed demand, stand alone without custom service or private access, and the "
-        "description/pitch must truthfully match the actual files. Do not rewrite the product. "
-        "Return pass or reject with one concise reason."
-    )
-    observation={
-        "product":{
-            "title":plan["title"],
-            "description":plan["description"],
-            "audience":plan["audience"],
-            "pitch":plan["pitch"],
-            "price_usd":plan["price_usd"],
-            "target_terms":plan["target_terms"],
-            "evidence_source_url":plan.get("evidence_source_url"),
-        },
-        "files":[{
-            "filename":name,
-            "content":content[:12000],
-        } for name,content in files],
-        "demand_context":demand_view(rows,limit=3,width=500),
-    }
-    result=model_json(
-        QUALITY_SCHEMA,system,observation,num_ctx=3072,num_predict=170)
-    if result.get("verdict")!="pass":
-        raise RuntimeError(
-            "buyer_quality_rejected:"+
-            str(result.get("reason") or "unspecified")[:140])
-    return str(result.get("reason") or "passed")[:140]
+
+class ProductRetired(RuntimeError):
+    """Draft repeatedly failed objective checks and was archived securely."""
+
+
+def _retire_draft(checkpoint,reason):
+    """Release a permanently failing checkpoint without erasing evidence."""
+    from tools.cyclops_vault import save_private
+    plan=checkpoint.get("plan") or {}
+    ident=str(plan.get("asset_id") or hashlib.sha256(
+        str(plan.get("title") or "unspecified").encode()).hexdigest()[:20])
+    save_private("ops/cyclops-vault/retired/"+ident+".json",{
+        "plan":plan,"files":checkpoint.get("files") or [],
+        "reason":reason,"attempts":checkpoint.get("attempts") or {},
+        "revisions":checkpoint.get("revision") or 0,
+        "retired_at":NOW().isoformat(),
+    })
+    save_pending({"stage":"empty"})
+    raise ProductRetired("unusable_draft_retired:"+ident+":"+reason[:110])
+
 
 def create_asset(rows,existing_assets=None):
-    """Continue the actual commercial draft from its last persisted checkpoint."""
+    """Create an artifact, verify file integrity, persist, and return it.
+
+    Technical defects receive one focused repair per execution and at most two
+    repairs total. Model/API failures are recorded and bounded as well. Neither
+    opinion about sales potential nor endless reviewer votes can block output.
+    """
     checkpoint=read_pending()
-    if checkpoint.get("stage") in ("drafting","review","approved","sealed"):
+    stage=checkpoint.get("stage")
+    if stage in ("drafting","review","approved","sealed"):
         plan=checkpoint["plan"]
         evidence=checkpoint.get("research_rows") or rows
         files=dict(checkpoint.get("files") or [])
     else:
         if not rows:
-            raise ValueError("no_public_demand_for_product_creation")
+            raise ValueError("no_public_research_to_select_product")
         plan=choose_asset_concept(rows,existing_assets)
         evidence=rows[:8]
         files={}
         checkpoint={"stage":"drafting","plan":plan,"files":[],
-                    "research_rows":evidence,"revision":0}
+                    "research_rows":evidence,"revision":0,"attempts":{}}
         save_pending(checkpoint)
 
+    # Retire the old draft trapped by the previous subjective review policy.
+    if int(checkpoint.get("revision") or 0)>2:
+        _retire_draft(checkpoint,"legacy_repeated_subjective_review")
+
     specs=plan["file_specs"]
+    attempts=dict(checkpoint.get("attempts") or {})
     for spec in specs:
         name=spec["filename"]
-        if name not in files:
-            files[name]=generate_asset_file(plan,spec,evidence)
-            checkpoint.update({"stage":"drafting","files":list(files.items())})
-            save_pending(checkpoint)
-
-    if checkpoint["stage"] in ("approved","sealed"):
-        plan["_files"]=[(spec["filename"],files[spec["filename"]]) for spec in specs]
-        return plan
-
-    # Genuine buyer review can request a revision; save each stage so an
-    # interrupted GitHub job does not erase the product or its actual evidence.
-    for _ in range(2):
-        ordered=[(spec["filename"],files[spec["filename"]]) for spec in specs]
+        if name in files:
+            continue
         try:
-            objective_quality_floor(plan,ordered)
-            plan["_quality_reason"]=buyer_quality_check(plan,ordered,evidence)
-            plan["_files"]=ordered
-            checkpoint.update({"stage":"approved","files":ordered,"feedback":""})
+            content=generate_asset_file(plan,spec,evidence)
+        except Exception as exc:
+            why="generation_failed:"+type(exc).__name__+":"+str(exc)[:95]
+            attempts[name]=int(attempts.get(name) or 0)+1
+            checkpoint.update({"stage":"drafting","attempts":attempts,
+                               "feedback":why,"files":list(files.items())})
             save_pending(checkpoint)
-            return plan
-        except (RuntimeError,ValueError) as exc:
-            why=(str(exc) or type(exc).__name__)[:350]
-            checkpoint.update({"stage":"review","feedback":why,
-                               "revision":int(checkpoint.get("revision") or 0)+1})
+            if attempts[name]>=3:
+                _retire_draft(checkpoint,why)
+            raise ProductionPending(why) from exc
+        files[name]=content
+        checkpoint.update({"stage":"drafting","files":list(files.items()),
+                           "feedback":""})
+        save_pending(checkpoint)
+
+    ordered=[(spec["filename"],files[spec["filename"]]) for spec in specs]
+    try:
+        result=objective_quality_floor(plan,ordered)
+    except (ValueError,RuntimeError) as exc:
+        why=str(exc)[:200]
+        revisions=int(checkpoint.get("revision") or 0)
+        if revisions>=2:
+            _retire_draft(checkpoint,why)
+        # Only repair the actual defective file, not every completed component.
+        faulty=next((spec for spec in specs if spec["filename"] in why),None)
+        if faulty is None:
+            _retire_draft(checkpoint,why)
+        checkpoint.update({"stage":"review","revision":revisions+1,
+                           "feedback":why,"files":ordered})
+        save_pending(checkpoint)
+        try:
+            files[faulty["filename"]]=revise_asset_file(
+                plan,faulty,evidence,files[faulty["filename"]],why)
+        except Exception as repair_exc:
+            checkpoint["feedback"]="repair_failed:"+type(repair_exc).__name__
             save_pending(checkpoint)
-            for spec in specs:
-                name=spec["filename"]
-                files[name]=revise_asset_file(plan,spec,evidence,files[name],why)
-                checkpoint["files"]=list(files.items())
-                save_pending(checkpoint)
-    raise RuntimeError("draft_review_incomplete_resume_next_execution")
+            raise ProductionPending(checkpoint["feedback"]) from repair_exc
+        ordered=[(spec["filename"],files[spec["filename"]]) for spec in specs]
+        checkpoint.update({"stage":"review","files":ordered})
+        save_pending(checkpoint)
+        try:
+            result=objective_quality_floor(plan,ordered)
+        except (ValueError,RuntimeError) as check_exc:
+            checkpoint["feedback"]=str(check_exc)[:200]
+            save_pending(checkpoint)
+            raise ProductionPending(checkpoint["feedback"]) from check_exc
+
+    plan["_files"]=ordered
+    plan["_quality_reason"]=result
+    checkpoint.update({"stage":"approved","plan":plan,
+                       "files":ordered,"feedback":""})
+    save_pending(checkpoint)
+    return plan
 
 def cyclops_checkout(plan):
     # The agent prices in dollars. Stripe consumes minor units at the boundary.
