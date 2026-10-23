@@ -1,0 +1,21 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-23T08:44:08.856547+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {},
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [
+    {
+      "reason": "model_startup_failure"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
