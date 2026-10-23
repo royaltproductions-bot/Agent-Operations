@@ -321,8 +321,10 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
             queued_followups.append(follow)
             if len(queued_followups)>=4:
                 break
-        for i,follow in enumerate(queued_followups):
-            queue.insert(min(len(queue),i*4),("", "followup",follow))
+        # New independently selected searches lead. Older link trails
+        # supplement them when capacity remains, not displace them.
+        for follow in queued_followups:
+            queue.append(("", "followup",follow))
 
     results={}
     visited=set()
