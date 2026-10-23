@@ -10,6 +10,7 @@ from __future__ import annotations
 import base64
 import hashlib
 import json
+import mimetypes
 import os
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
@@ -81,7 +82,7 @@ def agent_send(to,subject,body,files=None,order_id=""):
     for name,content in files or []:
         attachments.append({
             "filename":name,
-            "content_type":"text/plain" if name.endswith(".txt") else "text/csv",
+            "content_type":mimetypes.guess_type(name)[0] or "text/plain",
             "content":base64.b64encode(content).decode(),
         })
     headers=None
