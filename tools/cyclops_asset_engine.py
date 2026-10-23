@@ -972,19 +972,19 @@ def run():
         # Drafts already carry their original source evidence. Continuing one
         # must not spend the runner's Qwen budget on unrelated new research.
         pending_at_start=read_pending()
-        if (pending_at_start.get("stage")=="review"
-                and int(pending_at_start.get("revision") or 0)>2):
+        if (pending_at_start.get("stage") in ("drafting","review","approved","sealed")
+                and not (pending_at_start.get("plan") or {}).get("output_files")):
             # The old subjective reviewer created a permanently stuck draft.
             # Retire it BEFORE deciding whether to search, so this same run
             # can originate a fresh deliverable rather than wasting an hour.
             try:
-                _retire_draft(pending_at_start,"legacy_subjective_review_loop")
+                _retire_draft(pending_at_start,"legacy_fixed_format_non_executable_draft")
             except ProductRetired as retirement:
                 receipt["commercial_outcomes"].append({
                     "reason":"legacy_unproductive_draft_archived",
                     "detail":str(retirement)[:145]})
             pending_at_start={"stage":"empty"}
-        resuming=pending_at_start.get("stage") in ("drafting","review","approved","sealed")
+        resuming=pending_at_start.get("stage") in ("building","drafting","review","approved","sealed")
         if resuming:
             rows,search_errors=[],[]
         else:
@@ -1085,9 +1085,9 @@ def run():
                 "attempts":pending.get("attempts") or {},
                 "revisions":int(pending.get("revision") or 0),
                 "files_finished":len(pending.get("files") or []),
-                "files_planned":len((pending.get("plan") or {}).get("file_specs") or []),
+                "files_planned":len((pending.get("plan") or {}).get("output_files") or []),
             }
-        elif stage in ("drafting","review","approved","sealed"):
+        elif stage in ("building","drafting","review","approved","sealed"):
             receipt["production"]={
                 "result":"production_blocked",
                 "stage":stage,"last_issue":reason,
@@ -1098,8 +1098,8 @@ def run():
         elif reason.startswith(("no_public_research_to_select_product",
                                 "product_unrelated_to_cited_public_evidence",
                                 "product_source_not_in_real_research",
-                                "asset_underspecified","csv_columns_missing",
-                                "invalid_asset_spec","empty_asset_spec")):
+                                "product_production_goal_missing","product_output_manifest_invalid",
+                                "invalid_asset_spec","duplicate_product_output_path")):
             receipt["production"]={"result":"concept_not_producible",
                                    "reason":reason}
         else:
