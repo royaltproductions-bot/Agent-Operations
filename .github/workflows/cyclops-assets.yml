@@ -51,7 +51,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          docker build -q -t cyclops-workshop:local -f tools/cyclops-workshop.Dockerfile .
+          docker build -q -t cyclops-workshop:local -f tools/cyclops-workshop.Dockerfile tools
 
       - name: Start Cyclops model
         id: model
