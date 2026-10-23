@@ -332,18 +332,6 @@ def _csv_document(spec,rows):
     return out.getvalue()
 
 
-CSV_ROWS_SCHEMA={
-    "type":"object",
-    "properties":{
-        "rows":{
-            "type":"array",
-            "items":{"type":"array","items":{"type":"string"}}
-        }
-    },
-    "required":["rows"],"additionalProperties":False,
-}
-
-
 def _draft_file(plan,spec,rows,feedback="",previous=""):
     is_csv=spec["filename"].endswith(".csv")
     system=(
@@ -371,7 +359,17 @@ def _draft_file(plan,spec,rows,feedback="",previous=""):
         "previous_work":previous[:14000],
     }
     if is_csv:
-        reply=model_json(CSV_ROWS_SCHEMA,system,context,num_ctx=5120,num_predict=2400)
+        # Constrained decoding must know the actual worksheet width.
+        # Python still performs the definitive CSV serialization/validation.
+        width=len(spec.get("columns") or [])
+        schema={
+            "type":"object","properties":{
+                "rows":{"type":"array","minItems":1,
+                        "items":{"type":"array","minItems":width,
+                                 "maxItems":width,"items":{"type":"string"}}}},
+            "required":["rows"],"additionalProperties":False,
+        }
+        reply=model_json(schema,system,context,num_ctx=5120,num_predict=2400)
         result=_csv_document(spec,reply.get("rows") or [])
     else:
         reply=model_json(FILE_SCHEMA,system,context,num_ctx=5120,num_predict=2400)
