@@ -272,7 +272,8 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
         order=providers if index%2==0 else providers[::-1]
         for provider,search in order:
             try:
-                hits=search(query,limit=8)
+                hits=search(compact_query(query) if strict_relevance else query,
+                            limit=6 if strict_relevance else 8)
                 total_provider_hits+=len(hits)
                 # Relevance is a ranking hint, not an exclusion gate: the
                 # market researcher must see authentic hits even when our
@@ -302,7 +303,7 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
     # run. Keep new search discoveries in rotation, not a single-site crawl.
     if memory:
         queued_followups=[]
-        for front in memory.frontier(limit=60):
+        for front in memory.frontier(limit=12 if strict_relevance else 60):
             parent=next((p for p in reversed(memory.state.get("pages") or [])
                          if p.get("url")==front.get("from_url")),None)
             origin_query=str((parent or {}).get("search_query") or "")
