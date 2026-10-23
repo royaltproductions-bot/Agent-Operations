@@ -1011,8 +1011,13 @@ def run():
             if provider:
                 provider_counts[provider]=provider_counts.get(provider,0)+1
         receipt["discovery"]={
+            "status":("deferred_for_existing_product" if resuming else
+                      "new_public_evidence" if rows else "no_new_eligible_public_evidence"),
             "candidate_count":len(rows),
+            "new_research_attempted":not resuming,
             "research_deferred_for_product_completion":resuming,
+            "previous_product_evidence_count":(
+                len(pending_at_start.get("research_rows") or []) if resuming else 0),
             "source_counts":source_counts,
             "search_provider_counts":provider_counts,
             "source_errors":search_errors,
@@ -1022,7 +1027,8 @@ def run():
         }
     except Exception as exc:
         rows=[]
-        receipt["discovery"]={"candidate_count":0,
+        receipt["discovery"]={"status":"research_runtime_error",
+                              "candidate_count":0,"new_research_attempted":True,
                               "reason":(str(exc) or type(exc).__name__)[:160]}
     receipt["discovery"]["research_memory"]=memory.save()
     try:
