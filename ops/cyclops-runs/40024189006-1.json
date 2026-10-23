@@ -1,0 +1,71 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-23T21:09:44.042482+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "candidate_count": 7,
+    "research_deferred_for_product_completion": false,
+    "source_counts": {
+      "open_web": 7
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "bing": 3
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 7,
+    "search_queries": [
+      "",
+      "come out phrasal verb",
+      "have the last word on something idiom"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "come out phrasal verb",
+        "patch something up phrasal verb",
+        "patch into something phrasal verb",
+        "have the last word on something idiom"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 136,
+      "known_pages": 241
+    },
+    "durable_contactable_sources": 3
+  },
+  "production": {
+    "result": "production_error",
+    "reason": "binary_artifact_requires_real_renderer:travel_rewards_credit_card_comparison.pdf"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "production_or_publication_failed",
+      "detail": "binary_artifact_requires_real_renderer:travel_rewards_credit_card_comparison.pdf"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
