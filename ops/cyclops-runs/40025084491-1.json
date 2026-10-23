@@ -1,0 +1,65 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-23T21:19:08.884281+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "candidate_count": 6,
+    "research_deferred_for_product_completion": false,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "bing": 2
+    },
+    "source_errors": [],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 6,
+    "search_queries": [
+      "",
+      "cash-back credit card comparison tool"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "cash-back credit card comparison tool",
+        "best cash-back credit card for 2026",
+        "how to maximize cash-back rewards",
+        "cash-back credit card for everyday spending"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 133,
+      "known_pages": 247
+    },
+    "durable_contactable_sources": 3
+  },
+  "production": {
+    "result": "production_error",
+    "reason": "unsafe_build_path:/work/output/personalized_travel_budget_plan.pdf"
+  },
+  "catalog": {
+    "result": "catalog_published",
+    "listed_products": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "production_or_publication_failed",
+      "detail": "unsafe_build_path:/work/output/personalized_travel_budget_plan.pdf"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
