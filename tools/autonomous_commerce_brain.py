@@ -154,50 +154,52 @@ def clean_html(raw):
     return re.sub(r"[ \t]+"," ",unescape(text)).strip()
 
 def discovery_queries(memory):
-    """Let the agent formulate fresh research directions without a fixed search niche."""
+    """Research actual invitations to outside providers, in any sector."""
     system=(
-        "You are researching the open internet for viable legitimate commercial "
-        "opportunities for an autonomous digital production business. Invent diverse, "
-        "current searches based on unmet needs, active discussions, practical problems, "
-        "new demand, products, businesses and services, communities, and expressed "
-        "requests. Explore unfamiliar subjects; do not restrict yourself to known "
-        "websites, job boards, industries, keywords, email availability, existing "
-        "products, or a particular business format. Choose queries yourself, including "
-        "specific sites only where the context justifies them. Pursue evidence "
-        "of actual current buyers publicly requesting work, vendors, projects, "
-        "services or solutions rather than generic articles describing a topic. "
-        "Do not invent or assume a buyer exists. Search across any industry and "
-        "use short search-engine phrases, not abstract how/why questions. Use prior real "
-        "research, avoid recently repeated searches, pursue unexplored links "
-        "and pivot away from previously exhausted directions. Return schema JSON."
+        "You are Wolverine's independent commercial opportunity scout. "
+        "Find CURRENT public requests in which a real requester is actively "
+        "seeking someone external to perform specific work, supply a deliverable, "
+        "respond to a proposal request, or solve a concrete problem. "
+        "Investigate any legitimate industry; choose domains, problems and search "
+        "phrases yourself. No predetermined niche, business model or pricing. "
+        "Prefer direct original requests that explain how outside providers may "
+        "respond. Do NOT search for generic how-to articles, tutorials, "
+        "product comparisons, dictionary definitions or pages only describing "
+        "a marketplace: those are not buyers. Historical pages are context for "
+        "avoiding failed avenues, not phrases to recycle into another search. "
+        "Explore new live solicitation pathways when older search results lack "
+        "a response route. Do not invent requests, contact addresses or permission. "
+        "Search the PUBLIC web freely for genuine work invitations. "
+        "Return short, distinct, search-engine-ready phrases."
     )
     result=model_json(
         SEARCH_SCHEMA,system,
         {"utc_date":NOW().date().isoformat(),
-         "mission":"discover commercially useful possibilities anywhere on the public web",
-         "research_history":memory.plan_context()},num_ctx=2048,num_predict=170)
+         "mission":"find an actual public requester inviting paid outside digital work with an appropriate response channel",
+         "research_history":memory.plan_context()},num_ctx=2500,num_predict=380)
     return [str(q).strip() for q in result.get("queries") or [] if str(q).strip()]
 
 
 def candidates(memory):
-    """Resume actual research first. Model planning is optional, never a blocker."""
+    """New externally directed inquiries beat outdated historical search queues."""
     issues=[]
-    # Queued queries are independent work discovered on earlier real runs.
-    # Do NOT ask the model to invent queries while ready-to-run work exists.
-    queries=memory.choose_queries([])
+    proposals=[]
+    try:
+        proposals=discovery_queries(memory)
+    except Exception as exc:
+        issues.append({"source":"query_planner","reason":type(exc).__name__})
+    queries=memory.choose_queries(proposals)
     if not queries:
-        try:
-            proposals=discovery_queries(memory)
-            queries=memory.choose_queries(proposals)
-        except Exception as exc:
-            issues.append({"source":"query_planner","reason":type(exc).__name__})
-        if not queries:
-            # Only derive directions from past authentic source material.
-            queries=memory.choose_queries(memory.evidence_queries())
+        # Continue authentic observations only when the independent planner fails.
+        queries=memory.choose_queries(memory.evidence_queries())
     budget=memory.budget()
     rows,errors=open_web_candidates(
-        max_candidates=budget["max_candidates"],queries=queries ,memory=memory,
+        max_candidates=budget["max_candidates"],queries=queries,memory=memory,
         max_pages=budget["max_pages"])
+    if not rows:
+        issues.append({"source":"research_coverage",
+                       "reason":"no_new_eligible_sources",
+                       "queries_attempted":queries})
     return rows,issues+errors
 
 
