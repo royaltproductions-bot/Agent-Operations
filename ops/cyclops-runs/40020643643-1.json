@@ -1,0 +1,61 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-23T20:42:19.330328+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "candidate_count": 5,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "bing": 1
+    },
+    "source_errors": [],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 5,
+    "search_queries": [
+      "",
+      "get up phrasal verb"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "get up phrasal verb",
+        "grind to a halt idiom",
+        "grind the faces of the poor idiom",
+        "swing at someone phrasal verb"
+      ],
+      "next_query_queue": 8,
+      "frontier_size": 136,
+      "known_pages": 228
+    },
+    "durable_contactable_sources": 3
+  },
+  "production": {},
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "production_or_publication_failed",
+      "detail": "unusable_draft_retired:872d366a1a65ce3b1952:legacy_repeated_subjective_review"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
