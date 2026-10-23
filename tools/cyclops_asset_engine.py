@@ -15,7 +15,7 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 from decimal import Decimal, InvalidOperation
-from html import unescape
+from html import unescape, escape
 import base64
 import hashlib
 import json
@@ -38,6 +38,9 @@ from tools.connected_commerce_tools import (
 
 from tools.open_web_discovery import open_web_candidates
 from tools.research_memory import ResearchMemory
+from tools.cyclops_vault import (read_pending, save_pending, seal_asset,
+                                 read_asset_files, asset_vault_path,
+                                 read_ledger, record_order)
 
 MODEL=os.getenv("CYCLOPS_MODEL","qwen3:8b")
 OLLAMA="http://127.0.0.1:11434/api/chat"
@@ -319,101 +322,84 @@ def choose_asset_concept(rows,existing_assets=None):
     plan["asset_id"]=asset_id(plan)
     return plan
 
-def generate_asset_file(plan,spec,rows):
-    system=(
-        "Write the finished contents of exactly one reusable digital asset file. "
-        "Use the supplied product concept, core points, file purpose, and current demand "
-        "only as context. Do not write commentary around the file. Do not claim results, "
-        "experience, credentials, private access, or buyer-specific work. For .csv output "
-        "valid CSV beginning with exactly the requested columns. Each CSV row must "
-        "provide real reusable operational value (steps, rules, criteria or formulas), "
-        "not invented customers, sales, financial outcomes or production configurations. "
-        "Do not pad a file with dummy data to reach a length threshold. "
-        "For .txt output "
-        "create a detailed practical standalone toolkit, guide, worksheet, or template that a "
-        "buyer can use immediately. Include concrete methods, instructions and "
-        "decisions rather than idioms, motivational padding or vague bullet lists. "
-        "The paid file must contain real working substance, not a demo or outline. "
-        "Keep it compact enough to finish reliably."
-    )
-    observation={
-        "product":{
-            "title":plan["title"],
-            "description":plan["description"],
-            "audience":plan["audience"],
-            "core_points":plan["core_points"],
-        },
-        "file":spec,
-        "demand_context":demand_view(rows,limit=3,width=350),
-        "grounded_source_url":plan.get("evidence_source_url"),
-    }
-    # Do not restart a complete manufacturing cycle on an invalid file.
-    attempts=[(3072,1100)]
-    for ctx,predict in attempts:
-        try:
-            obj=model_json(FILE_SCHEMA,system,observation,
-                           num_ctx=ctx,num_predict=predict)
-            content=str(obj.get("content") or "").strip()
-            if content and len(content)<=80000:
-                if spec["filename"].endswith(".csv"):
-                    header=content.splitlines()[0] if content.splitlines() else ""
-                    expected=",".join(spec.get("columns") or [])
-                    if expected and header.replace(" ","")!=expected.replace(" ",""):
-                        continue
-                return content+"\n"
-        except Exception:
-            pass
-    raise RuntimeError("asset_file_generation_failed:"+str(spec["filename"]))
+def _csv_document(spec,rows):
+    """Encode structured AI content as RFC-compatible CSV with Python, not AI quoting."""
+    import csv
+    from io import StringIO
+    columns=[str(x).strip() for x in spec.get("columns") or []]
+    if not columns:
+        raise ValueError("csv_columns_missing")
+    out=StringIO(newline="")
+    writer=csv.writer(out)
+    writer.writerow(columns)
+    useful=0
+    for record in rows:
+        if not isinstance(record,list) or len(record)!=len(columns):
+            raise ValueError("csv_fields_do_not_match_columns")
+        values=[str(v).strip() for v in record]
+        if not any(values):
+            continue
+        writer.writerow(values)
+        useful+=1
+    if not useful:
+        raise ValueError("csv_no_useful_rows")
+    return out.getvalue()
 
-def revise_asset_file(plan,spec,rows,previous,feedback):
-    """Improve a real generated deliverable using the actual rejection reason.
 
-    This is continued production work, not a mock test. Never invent customer
-    records or pad a spreadsheet with imaginary transactions to satisfy QA.
-    """
+CSV_ROWS_SCHEMA={
+    "type":"object",
+    "properties":{
+        "rows":{
+            "type":"array",
+            "items":{"type":"array","items":{"type":"string"}}
+        }
+    },
+    "required":["rows"],"additionalProperties":False,
+}
+
+
+def _draft_file(plan,spec,rows,feedback="",previous=""):
+    is_csv=spec["filename"].endswith(".csv")
     system=(
-        "You are revising a real commercial digital product that failed an "
-        "actual quality review. Return its full corrected finished file, not "
-        "an explanation. Correct the precise rejection reason. Keep the file "
-        "directly relevant to the cited market evidence and reusable by real "
-        "buyers without private access. For CSV output, make each record a "
-        "substantive reusable instruction, method, acceptance criterion or "
-        "verified reference; do NOT fabricate users, sales, revenue, dates, "
-        "results or production configurations. Match the exact CSV columns. "
-        "For TXT output, deliver a useful complete guide, not filler or a "
-        "list of generic platitudes. Retain any valid work from the previous "
-        "draft, but correct thin, inaccurate, or irrelevant sections. "
-        "Use only provided information or general verifiable methods."
+        "Produce one genuine, finished, reusable digital product component, "
+        "grounded in the actual public market evidence. Never invent customers, "
+        "orders, production URLs, revenues, benchmarks, results or credentials. "
+        "Generate practical, accurate substantive content, not marketing copy "
+        "or meaningless filler. This is a REAL commercial deliverable. "
+        "For CSV: return a JSON array of data rows, each containing EXACTLY "
+        "one string per specified column, in the exact declared order; do not "
+        "include the CSV header in rows. The program will encode the CSV. "
+        "For TXT: return the full useful final document in content. "
+        "When repairing an earlier file, preserve genuinely valid work and "
+        "address the actual feedback; do not abandon its purpose."
     )
     context={
-        "product":{
-            "title":plan["title"],"description":plan["description"],
-            "audience":plan["audience"],"core_points":plan["core_points"],
-            "evidence_source_url":plan.get("evidence_source_url")},
-        "file":spec,
-        "actual_rejection":feedback[:450],
-        "previous_file_content":previous[:16000],
-        "public_research":demand_view(rows,limit=3,width=500),
+        "product":{"title":plan["title"],"audience":plan["audience"],
+                   "description":plan["description"],
+                   "core_points":plan["core_points"],
+                   "evidence_source_url":plan.get("evidence_source_url")},
+        "spec":spec,
+        "public_demand":demand_view(rows,limit=3,width=540),
+        "actual_review_feedback":feedback[:400],
+        "previous_work":previous[:14000],
     }
-    response=model_json(FILE_SCHEMA,system,context,num_ctx=5120,num_predict=2200)
-    updated=str(response.get("content") or "").strip()
-    if not updated or len(updated)>80000:
-        raise RuntimeError("revised_file_missing_or_oversized")
-    if spec["filename"].endswith(".csv"):
-        from io import StringIO
-        import csv
-        try:
-            parsed=list(csv.reader(StringIO(updated)))
-        except csv.Error:
-            raise RuntimeError("revised_csv_unparseable") from None
-        actual=[str(x).strip() for x in parsed[0]] if parsed else []
-        expected=[str(x).strip() for x in spec.get("columns") or []]
-        if actual!=expected:
-            raise RuntimeError("revised_csv_header_mismatch")
-        if any(len(row)!=len(expected) for row in parsed[1:]):
-            raise RuntimeError("revised_csv_columns_misaligned")
-    return updated+"\n"
+    if is_csv:
+        reply=model_json(CSV_ROWS_SCHEMA,system,context,num_ctx=5120,num_predict=2400)
+        result=_csv_document(spec,reply.get("rows") or [])
+    else:
+        reply=model_json(FILE_SCHEMA,system,context,num_ctx=5120,num_predict=2400)
+        result=str(reply.get("content") or "").strip()+"\n"
+    if not result.strip() or len(result)>120000:
+        raise RuntimeError("generated_file_incomplete")
+    return result
 
+
+def generate_asset_file(plan,spec,rows):
+    return _draft_file(plan,spec,rows)
+
+
+def revise_asset_file(plan,spec,rows,previous,feedback):
+    return _draft_file(plan,spec,rows,feedback=feedback,previous=previous)
 
 def objective_quality_floor(plan,files):
     """Reject malformed/empty deliverables; let buyer QA judge substance.
@@ -481,41 +467,56 @@ def buyer_quality_check(plan,files,rows):
     return str(result.get("reason") or "passed")[:140]
 
 def create_asset(rows,existing_assets=None):
-    """Manufacture one real evidence-backed product and revise real QA failures.
+    """Continue the actual commercial draft from its last persisted checkpoint."""
+    checkpoint=read_pending()
+    if checkpoint.get("stage") in ("drafting","review","approved","sealed"):
+        plan=checkpoint["plan"]
+        evidence=checkpoint.get("research_rows") or rows
+        files=dict(checkpoint.get("files") or [])
+    else:
+        if not rows:
+            raise ValueError("no_public_demand_for_product_creation")
+        plan=choose_asset_concept(rows,existing_assets)
+        evidence=rows[:8]
+        files={}
+        checkpoint={"stage":"drafting","plan":plan,"files":[],
+                    "research_rows":evidence,"revision":0}
+        save_pending(checkpoint)
 
-    Preserve completed drafting work between revisions. Invalid products are
-    never published; the 45-minute GitHub job remains the execution boundary.
-    """
-    plan=choose_asset_concept(rows,existing_assets)
-    specs={spec["filename"]:spec for spec in plan["file_specs"]}
-    files=[]
-    for name,spec in specs.items():
-        content=generate_asset_file(plan,spec,rows)
-        if not content.strip():
-            raise RuntimeError("empty_generated_asset_file")
-        files.append((name,content))
+    specs=plan["file_specs"]
+    for spec in specs:
+        name=spec["filename"]
+        if name not in files:
+            files[name]=generate_asset_file(plan,spec,evidence)
+            checkpoint.update({"stage":"drafting","files":list(files.items())})
+            save_pending(checkpoint)
 
-    last_failure=""
-    for revision in range(3):
+    if checkpoint["stage"] in ("approved","sealed"):
+        plan["_files"]=[(spec["filename"],files[spec["filename"]]) for spec in specs]
+        return plan
+
+    # Genuine buyer review can request a revision; save each stage so an
+    # interrupted GitHub job does not erase the product or its actual evidence.
+    for _ in range(2):
+        ordered=[(spec["filename"],files[spec["filename"]]) for spec in specs]
         try:
-            objective_quality_floor(plan,files)
-            plan["_quality_reason"]=buyer_quality_check(plan,files,rows)
-            plan["_files"]=files
-            plan["_manufacturing_attempt"]=revision+1
+            objective_quality_floor(plan,ordered)
+            plan["_quality_reason"]=buyer_quality_check(plan,ordered,evidence)
+            plan["_files"]=ordered
+            checkpoint.update({"stage":"approved","files":ordered,"feedback":""})
+            save_pending(checkpoint)
             return plan
         except (RuntimeError,ValueError) as exc:
-            last_failure=(str(exc) or type(exc).__name__)[:300]
-            if revision>=2:
-                break
-            # Repair the actual files and rerun the real buyer/structural review.
-            # Do not throw away the idea, start a new unrelated research lane,
-            # or pass an insufficient asset to Stripe.
-            files=[
-                (name,revise_asset_file(plan,specs[name],rows,content,last_failure))
-                for name,content in files
-            ]
-    raise RuntimeError("asset_quality_unresolved:"+last_failure)
-
+            why=(str(exc) or type(exc).__name__)[:350]
+            checkpoint.update({"stage":"review","feedback":why,
+                               "revision":int(checkpoint.get("revision") or 0)+1})
+            save_pending(checkpoint)
+            for spec in specs:
+                name=spec["filename"]
+                files[name]=revise_asset_file(plan,spec,evidence,files[name],why)
+                checkpoint["files"]=list(files.items())
+                save_pending(checkpoint)
+    raise RuntimeError("draft_review_incomplete_resume_next_execution")
 
 def cyclops_checkout(plan):
     # The agent selects dollars; this is the only provider-boundary conversion.
