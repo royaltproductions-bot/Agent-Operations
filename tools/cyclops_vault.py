@@ -125,12 +125,14 @@ def asset_vault_path(asset_id):
 def seal_asset(asset_id,plan):
     """Must succeed BEFORE a payment checkout is made available."""
     path=asset_vault_path(asset_id)
-    save_private(path,{"asset_id":asset_id,"files":plan["_files"],
+    # JSON turns Python tuples into lists; compare canonical file records.
+    expected=[[str(name),str(content)] for name,content in plan["_files"]]
+    save_private(path,{"asset_id":asset_id,"files":expected,
                        "price_usd":plan["price_usd"],
                        "title":plan["title"],"sealed":True})
     # Verify the remote durable copy is readable and intact before checkout.
     persisted=read_private(path)
-    if persisted is None or persisted.get("files")!=plan["_files"]:
+    if persisted is None or persisted.get("files")!=expected:
         raise RuntimeError("cyclops_vault_verification_failed")
     return path
 
