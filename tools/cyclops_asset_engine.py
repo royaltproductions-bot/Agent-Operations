@@ -519,8 +519,7 @@ def create_asset(rows,existing_assets=None):
     raise RuntimeError("draft_review_incomplete_resume_next_execution")
 
 def cyclops_checkout(plan):
-    # The agent selects dollars; this is the only provider-boundary conversion.
-    # Keep cents in persisted manifests for existing fulfillment compatibility.
+    # The agent prices in dollars. Stripe consumes minor units at the boundary.
     plan["price_cents"]=stripe_usd_unit_amount(plan["price_usd"])
     ident=plan["asset_id"]
     page=stripe_get("payment_links",{"limit":100})
@@ -588,15 +587,13 @@ def github_put(path,text):
         raise RuntimeError("github_asset_write_http_"+str(exc.code)) from None
 
 def persist_asset(plan,checkout):
-    folder=ROOT/plan["asset_id"]
-    folder.mkdir(parents=True,exist_ok=True)
-    for name,content in plan["_files"]:
-        (folder/name).write_text(content,encoding="utf-8")
+    """Publish only the PUBLIC manifest; keep paid content encrypted in vault."""
+    ident=plan["asset_id"]
+    vault=asset_vault_path(ident)
     manifest={
-        "schema_version":1,
-        "lane":"cyclops",
-        "status":"active",
-        "asset_id":plan["asset_id"],
+        "schema_version":2,
+        "lane":"cyclops","status":"active",
+        "asset_id":ident,
         "title":plan["title"],
         "description":plan["description"],
         "audience":plan["audience"],
@@ -607,19 +604,98 @@ def persist_asset(plan,checkout):
         "evidence_source_url":plan.get("evidence_source_url"),
         "files":[name for name,_ in plan["_files"]],
         "quality_gate":"passed",
+        "delivery":"private_encrypted_vault",
+        "vault_path":vault,
         "payment_link_id":checkout["id"],
         "checkout_url":checkout["url"],
         "created_at":NOW().isoformat(),
     }
+    folder=ROOT/ident
+    folder.mkdir(parents=True,exist_ok=True)
+    # NEVER write a public plaintext deliverable, even temporarily.
     (folder/"manifest.json").write_text(json.dumps(manifest,indent=2)+"\n",encoding="utf-8")
-    # Persist files before outreach so any buyer can always be fulfilled later.
-    for name,content in plan["_files"]:
-        github_put(f"products/cyclops/{plan['asset_id']}/{name}",content)
-    github_put(
-        f"products/cyclops/{plan['asset_id']}/manifest.json",
-        json.dumps(manifest,indent=2)+"\n")
+    github_put(f"products/cyclops/{ident}/manifest.json",
+               json.dumps(manifest,indent=2)+"\n")
     manifest["_dir"]=str(folder)
     return manifest
+
+
+def publish_finished_asset(plan):
+    """Secure deliverables before payment link creation and public listing."""
+    digest=hashlib.sha256(json.dumps({
+        "title":plan["title"],"price_usd":plan["price_usd"],
+        "files":plan["_files"]},sort_keys=True).encode()).hexdigest()[:20]
+    plan["asset_id"]=digest
+    # If vault commit fails, NO Stripe checkout may be created.
+    seal_asset(digest,plan)
+    checkpoint=read_pending()
+    checkpoint.update({"stage":"sealed","plan":plan})
+    save_pending(checkpoint)
+    checkout=cyclops_checkout(plan)
+    asset=persist_asset(plan,checkout)
+    # Once a recoverable public manifest exists, this draft is finished.
+    save_pending({"stage":"empty"})
+    return asset
+
+
+def publish_catalog():
+    """Independently expose approved catalog offers through existing storefront."""
+    manifests=active_assets()
+    # Old public-file products aren't considered paid-vault ready; do not
+    # accidentally advertise work that is already freely readable.
+    ready=[a for a in manifests if a.get("vault_path")
+           and a.get("delivery")=="private_encrypted_vault"
+           and a.get("quality_gate")=="passed"
+           and str(a.get("checkout_url") or "").startswith("https://")]
+    cards=[]
+    for asset in sorted(ready,key=lambda a:str(a.get("created_at") or ""),reverse=True):
+        name=escape(str(asset.get("title") or "Digital product"))
+        desc=escape(str(asset.get("description") or ""))
+        audience=escape(str(asset.get("audience") or ""))
+        price=escape(str(asset.get("price_usd") or ""))
+        link=escape(str(asset.get("checkout_url") or ""),quote=True)
+        cards.append(
+            '<article><h2>'+name+'</h2><p>'+desc+'</p>'
+            '<p class="muted">For: '+audience+'</p>'
+            '<p class="price">$'+price+'</p>'
+            '<a class="buy" href="'+link+'" rel="noopener noreferrer">'
+            'Buy securely with Stripe</a></article>')
+    body="".join(cards) if cards else (
+        '<p>New reusable tools are being prepared. '
+        'No product is offered for purchase on this page yet.</p>')
+    document='''<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="index,follow">
+<title>Reusable Digital Tools | Cyclops</title>
+<meta name="description" content="Practical reusable digital tools sold through secure Stripe checkout and delivered privately.">
+<style>
+body{font:16px/1.6 system-ui,-apple-system,sans-serif;background:#f5f7f8;color:#182932;margin:0}
+main{max-width:980px;margin:0 auto;padding:35px 20px 70px}
+nav a{color:#195d69}h1{font-size:clamp(28px,5vw,48px);line-height:1.15}
+section{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px}
+article{background:white;border:1px solid #dbe3e7;border-radius:14px;padding:24px}
+.muted{color:#61717a}.price{font-size:1.4rem;font-weight:700}
+.buy{display:inline-block;background:#155f65;color:white;padding:11px 17px;border-radius:8px;text-decoration:none}
+</style></head><body><main>
+<nav><a href="/">Home</a></nav><h1>Cyclops reusable digital tools</h1>
+<p>Finished products. Pay through Stripe and receive files privately after verified payment.</p>
+<section>'''+body+'''</section>
+<p>Questions? Contact ari-operations@agentmail.to. Product prices and terms are shown at checkout.</p>
+</main></body></html>'''
+    # Avoid an unnecessary storefront commit/deploy if the catalog has not changed.
+    try:
+        existing=(Path("storefront/cyclops/index.html").read_text(encoding="utf-8"))
+    except OSError:
+        existing=""
+    if existing==document:
+        return {"result":"catalog_unchanged","listed_products":len(ready)}
+    dest=Path("storefront/cyclops/index.html")
+    dest.parent.mkdir(parents=True,exist_ok=True)
+    dest.write_text(document,encoding="utf-8")
+    github_put("storefront/cyclops/index.html",document)
+    return {"result":"catalog_published","listed_products":len(ready)}
+
 
 def verified_session(session):
     if (session.get("status")!="complete" or session.get("payment_status")!="paid"
