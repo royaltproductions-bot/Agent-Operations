@@ -40,6 +40,7 @@ from tools.connected_commerce_tools import (
 from tools.open_web_discovery import (
     fetch_public_text,
     open_web_candidates,
+    safe_email,
 )
 from tools.research_memory import ResearchMemory
 
@@ -200,7 +201,61 @@ def candidates(memory):
         issues.append({"source":"research_coverage",
                        "reason":"no_new_eligible_sources",
                        "queries_attempted":queries})
+    rows=enrich_public_response_route(rows)
     return rows,issues+errors
+
+
+# A specific outside-work invitation may link to a separate contact page.
+# This identifies possible routes; it never authorizes unsolicited outreach.
+PUBLIC_INVITATION=re.compile(
+    r"(?i)\\b(?:request for proposals?|(?:open|accepting|seeking) (?:bids?|proposals?|vendors?|contractors?)"
+    r"|(?:submit|send) (?:your |a )?(?:bid|proposal|quote|estimate)"
+    r"|(?:looking for|seeking|hiring) (?:an? |someone |outside |external )?"
+    r"(?:developer|designer|writer|consultant|agency|freelancer|contractor|provider|specialist)"
+    r"|soliciting (?:proposals?|quotes?|bids?))\\b"
+)
+
+
+def enrich_public_response_route(rows):
+    """Look only at contact links on actual public requester invitations."""
+    enriched=[]
+    followed=0
+    for source_row in rows:
+        row=dict(source_row)
+        if (row.get("contact") or not row.get("page_fetched")
+                or not PUBLIC_INVITATION.search(str(row.get("text") or ""))
+                or followed>=8):
+            enriched.append(row)
+            continue
+        try:
+            _,current,links=fetch_public_text(row["source_url"],with_links=True)
+            if not PUBLIC_INVITATION.search(current):
+                enriched.append(row)
+                continue
+            hostname=urllib.parse.urlsplit(row["source_url"]).hostname
+            possible=[
+                item for item in links
+                if urllib.parse.urlsplit(item["url"]).hostname==hostname
+                and re.search(r"(?i)(contact|inquir|apply|submit|proposal|bid|request|reach)",
+                              str(item.get("title") or "")+" "+item["url"])
+            ]
+            for item in possible[:2]:
+                if followed>=8:
+                    break
+                followed+=1
+                try:
+                    _,contact_page=fetch_public_text(item["url"])
+                    address=safe_email(contact_page)
+                    if address:
+                        row["contact"]=address
+                        row["contact_source_url"]=item["url"]
+                        break
+                except (ValueError,urllib.error.HTTPError,urllib.error.URLError):
+                    continue
+        except (ValueError,urllib.error.HTTPError,urllib.error.URLError):
+            pass
+        enriched.append(row)
+    return enriched
 
 
 def read_source(candidate):
