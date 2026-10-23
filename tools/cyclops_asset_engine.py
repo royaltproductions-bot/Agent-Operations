@@ -40,7 +40,8 @@ from tools.open_web_discovery import open_web_candidates
 from tools.research_memory import ResearchMemory
 from tools.cyclops_vault import (read_pending, save_pending, seal_asset,
                                  read_asset_files, asset_vault_path,
-                                 read_ledger, record_order)
+                                 read_ledger, record_order,
+                                 read_private, save_private)
 
 MODEL=os.getenv("CYCLOPS_MODEL","qwen3:8b")
 OLLAMA="http://127.0.0.1:11434/api/chat"
@@ -834,6 +835,44 @@ def fulfill_orders():
             "newly_fulfilled_orders":new_delivered}
 
 
+def durable_distribution_leads(new_rows):
+    """Remember authentic, publicly invited contact possibilities across runs.
+
+    Contact details and source evidence remain encrypted in the Cyclops vault,
+    never in public campaign files. Source relevance and explicit invitation
+    are still checked before any commercial message is sent.
+    """
+    path="ops/cyclops-vault/distribution.json"
+    previous=read_private(path) or []
+    if not isinstance(previous,list):
+        raise RuntimeError("cyclops_distribution_queue_unreadable")
+    by_url={}
+    for item in previous:
+        if isinstance(item,dict) and item.get("source_url"):
+            by_url[item["source_url"]]=item
+    changed=False
+    for row in new_rows:
+        if not row.get("contact") or not row.get("page_fetched"):
+            continue
+        url=str(row.get("source_url") or "")
+        if not url:
+            continue
+        by_url[url]={
+            "id":row["id"],"source_url":url,"source":"open_web",
+            "title":str(row.get("title") or "")[:180],
+            "text":str(row.get("text") or "")[:6000],
+            "contact":row["contact"],"page_fetched":True,
+            "search_query":str(row.get("search_query") or "")[:220],
+        }
+        changed=True
+    # Old leads aren't permanently excluded; inbox-level duplicate checks
+    # and source invitation verification protect against repeated messages.
+    pool=list(by_url.values())[-320:]
+    if changed:
+        save_private(path,pool)
+    return pool
+
+
 def prospect_score(row,asset):
     text=str(row.get("text") or "").lower()
     target_hits=0
@@ -996,6 +1035,14 @@ def run():
         receipt["discovery"]={"candidate_count":0,
                               "reason":(str(exc) or type(exc).__name__)[:160]}
     receipt["discovery"]["research_memory"]=memory.save()
+    try:
+        distribution_rows=durable_distribution_leads(rows)
+        receipt["discovery"]["durable_contactable_sources"]=len(distribution_rows)
+    except Exception as exc:
+        distribution_rows=rows
+        receipt["structural_failures"].append({
+            "reason":"distribution_history_failed",
+            "detail":(str(exc) or type(exc).__name__)[:160]})
 
     # Existing products are marketed independently of new manufacturing.
     assets=active_assets()
@@ -1003,10 +1050,10 @@ def run():
                 and a.get("vault_path")
                 and a.get("delivery")=="private_encrypted_vault"]
     for existing in marketable:
-        if not rows:
+        if not distribution_rows:
             break
         try:
-            action=send_asset_offer(rows,existing)
+            action=send_asset_offer(distribution_rows,existing)
             if action.get("result")=="offer_sent":
                 receipt["external_action"]=action
                 receipt["economic_result"]["new_product_offers_sent"]+=1
@@ -1034,8 +1081,8 @@ def run():
                                    "asset_id":asset["asset_id"]}
             # The store listing and checkout can now progress even without email.
             receipt["catalog"]=publish_catalog()
-            if rows and receipt["external_action"] is None:
-                action=send_asset_offer(rows,asset)
+            if distribution_rows and receipt["external_action"] is None:
+                action=send_asset_offer(distribution_rows,asset)
                 receipt["external_action"]=action
                 if action.get("result")=="offer_sent":
                     receipt["economic_result"]["new_product_offers_sent"]+=1
