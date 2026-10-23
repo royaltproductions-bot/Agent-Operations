@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "lane": "cyclops",
-  "status": "active",
+  "status": "retired_public_deliverable",
   "asset_id": "99f02c1d73952651d100",
   "title": "Calypso System Configuration Template",
   "description": "A reusable CSV template for configuring Calypso systems in trading environments, suitable for engineers and BA/POs working on capital markets projects.",
@@ -22,5 +22,6 @@
   ],
   "payment_link_id": "plink_1UTDfHBto3o776uyl4QFcqnh",
   "checkout_url": "https://buy.stripe.com/7sYbJ09fW1Mz7nI4ET7Re06",
-  "created_at": "2026-10-22T04:31:43.856600+00:00"
+  "created_at": "2026-10-22T04:31:43.856600+00:00",
+  "retired_reason": "Deliverable was published as plaintext in public repository; not eligible for new private-vault product catalog."
 }
