@@ -39,13 +39,19 @@ jobs:
           persist-credentials: true
 
       - name: Validate production Python syntax
-        run: python3 -m py_compile tools/cyclops_asset_engine.py tools/cyclops_vault.py tools/connected_commerce_tools.py tools/open_web_discovery.py tools/research_memory.py
+        run: python3 -m py_compile tools/cyclops_asset_engine.py tools/cyclops_workshop.py tools/cyclops_vault.py tools/connected_commerce_tools.py tools/open_web_discovery.py tools/research_memory.py
 
       - uses: actions/cache@v4
         continue-on-error: true
         with:
           path: .ollama-cache/models
           key: ollama-commerce-qwen3-8b-v1
+
+      - name: Prepare isolated production tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker build -q -t cyclops-workshop:local -f tools/cyclops-workshop.Dockerfile .
 
       - name: Start Cyclops model
         id: model
