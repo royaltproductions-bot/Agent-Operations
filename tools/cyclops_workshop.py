@@ -20,15 +20,21 @@ IMAGE=os.getenv("CYCLOPS_WORKSHOP_IMAGE","cyclops-workshop:local")
 MAX_ARTIFACT_BYTES=950000
 MAX_TOTAL_BYTES=1400000
 CAPABILITY_PROBE="""
-import importlib.util, json, shutil, sys
+import importlib.metadata, importlib.util, json, shutil, sys
+# Discover the environment that actually exists rather than presenting
+# the model with a human-selected list of product or file formats.
+installed=sorted({str(d.metadata.get('Name') or '').strip()
+                  for d in importlib.metadata.distributions()
+                  if str(d.metadata.get('Name') or '').strip()})
 mods=('PIL','reportlab','openpyxl','docx','pptx','matplotlib','cairosvg','svgwrite','pypdf','fpdf')
 bins=('python3','node','ffmpeg','convert','magick','dot','rsvg-convert')
 print(json.dumps({'python':sys.version.split()[0],
-                  'python_modules':[m for m in mods if importlib.util.find_spec(m)],
-                  'commands':[b for b in bins if shutil.which(b)],
+                  'installed_packages':installed,
+                  'importable_modules':[m for m in mods if importlib.util.find_spec(m)],
+                  'runnable_commands':[b for b in bins if shutil.which(b)],
                   'workspace':'/work',
                   'network':'disabled',
-                  'artifacts':'any output actually created by an installed local tool'}))
+                  'artifacts':'use whichever installed tools can manufacture the chosen product'}))
 """
 
 def _container(cmd,folder=None):
