@@ -265,18 +265,23 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
 
     errors=[]
     streams=[]
+    total_provider_hits=0
     providers=(("bing",bing_rss),("duckduckgo",duckduckgo_html))
     # Alternate search engines and independent research topics.
     for index,query in enumerate(queries):
         order=providers if index%2==0 else providers[::-1]
         for provider,search in order:
             try:
-                hits=search(compact_query(query),limit=6)
-                qualified=[hit for hit in hits if relevant_hit(query,hit)]
-                if qualified:
-                    streams.append((query,provider,qualified))
+                hits=search(query,limit=8)
+                total_provider_hits+=len(hits)
+                # Relevance is a ranking hint, not an exclusion gate: the
+                # market researcher must see authentic hits even when our
+                # tiny token-overlap heuristic misunderstands the search.
+                ordered=sorted(hits,key=lambda hit:not relevant_hit(query,hit))
+                if ordered:
+                    streams.append((query,provider,ordered))
                 if memory:
-                    memory.observe_search(query,provider,len(qualified))
+                    memory.observe_search(query,provider,len(hits))
             except Exception as exc:
                 errors.append({
                     "source":"open_web_search","provider":provider,
@@ -295,7 +300,7 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
     # run. Keep new search discoveries in rotation, not a single-site crawl.
     if memory:
         queued_followups=[]
-        for front in memory.frontier(limit=12):
+        for front in memory.frontier(limit=60):
             parent=next((p for p in reversed(memory.state.get("pages") or [])
                          if p.get("url")==front.get("from_url")),None)
             origin_query=str((parent or {}).get("search_query") or "")
@@ -306,6 +311,8 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
                     root_terms(front.get("title") or ""))
                 if not matching:
                     continue
+            if not _public_url(front.get("url")) or not memory.eligible_url(front["url"]):
+                continue
             follow={"source_url":front.get("url"),"title":front.get("title"),
                     "snippet":"Linked from "+str(front.get("from_url") or "")}
             queued_followups.append(follow)
@@ -350,6 +357,10 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
             "id":"web:"+ident,"channel":"email" if contact else None,
             "source":"open_web","search_provider":provider,
             "search_query":query,"source_url":final,
+            "search_alignment":(
+                "source_followup" if not query else
+                "keyword_aligned" if relevant_hit(query,hit) else "unverified"),
+
             "title":title[:500],"snippet":snippet[:1600],
             "contact":contact,"text":evidence[:8000],
             "page_fetched":bool(page),"created_at":None,
@@ -357,4 +368,8 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
         results[final]=row
         if memory:
             memory.observe_page(row,relevant_links(links,query or title))
+    if queries and not total_provider_hits:
+        errors.append({"source":"open_web_search",
+                       "reason":"providers_returned_no_results",
+                       "query_count":len(queries)})
     return list(results.values()),errors
