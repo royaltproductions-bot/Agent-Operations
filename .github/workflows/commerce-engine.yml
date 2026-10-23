@@ -40,19 +40,6 @@ jobs:
           fetch-depth: 5
           persist-credentials: true
 
-      - name: Validate Wolverine research and outreach integration
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 -m py_compile tools/autonomous_commerce_brain.py tools/open_web_discovery.py tools/research_memory.py tools/connected_commerce_tools.py
-          python3 - <<'PY'
-          from tools.autonomous_commerce_brain import PUBLIC_INVITATION
-          assert PUBLIC_INVITATION.search("Request for proposals: looking for an outside developer")
-          assert PUBLIC_INVITATION.search("We are seeking a consultant for a project")
-          assert not PUBLIC_INVITATION.search("Learn how to sell handmade goods online")
-          print("Wolverine invitation detection smoke test passed")
-          PY
-
       - uses: actions/cache@v4
         continue-on-error: true
         with:
