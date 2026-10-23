@@ -248,7 +248,9 @@ def choose_asset_concept(rows,existing_assets=None):
         "are signals rather than necessarily paid solicitations. It must be useful "
         "to multiple similar buyers without buyer "
         "input, private data, custom work, credentials, or access. file_specs may use only "
-        ".txt and .csv. core_points must contain the substantive knowledge/instructions needed "
+        ".txt, .md, .csv, .json, .html, .css, .svg, .py, .js or .ts. "
+        "Choose the format suitable for the actual product rather than a preset "
+        "product category. core_points must contain the substantive instructions needed "
         "to build a useful fallback asset if later generation fails. For CSV specs, columns "
         "must name the actual useful worksheet fields; for TXT specs, columns must be empty. "
         "Choose a commercially defensible one-time price for the actual deliverable. "
@@ -308,12 +310,12 @@ def choose_asset_concept(rows,existing_assets=None):
         name=str(spec.get("filename") or "")
         purpose=str(spec.get("purpose") or "").strip()
         columns=[str(x).strip() for x in (spec.get("columns") or []) if str(x).strip()]
-        if (not re.fullmatch(r"[A-Za-z0-9_.-]{1,72}\.(?:txt|csv)",name)
+        if (not re.fullmatch(r"[A-Za-z0-9_.-]{1,72}\.(?:txt|md|csv|json|html|css|svg|py|js|ts)",name)
                 or len(purpose)<8):
             raise ValueError("invalid_asset_spec")
         if name.endswith(".csv") and not columns:
             raise ValueError("csv_columns_missing")
-        if name.endswith(".txt"):
+        if not name.endswith(".csv"):
             columns=[]
         specs.append({"filename":name,"purpose":purpose,"columns":columns})
     if not specs:
@@ -369,7 +371,8 @@ def _draft_file(plan,spec,rows,feedback="",previous=""):
         "For CSV: return a JSON array of data rows, each containing EXACTLY "
         "one string per specified column, in the exact declared order; do not "
         "include the CSV header in rows. The program will encode the CSV. "
-        "For TXT: return the full useful final document in content. "
+        "For other text-based products: return the complete valid source/content "
+        "in content, not an explanation. Never execute generated code. "
         "When repairing an earlier file, preserve genuinely valid work and "
         "address the actual feedback; do not abandon its purpose."
     )
@@ -425,9 +428,19 @@ def objective_quality_floor(plan,files):
                 raise RuntimeError("quality_floor_csv_rows_invalid:"+name)
             if not any(any(value.strip() for value in row) for row in parsed[1:]):
                 raise RuntimeError("quality_floor_csv_content_empty:"+name)
-        elif name.endswith(".txt"):
-            if not content.strip():
-                raise RuntimeError("quality_floor_text_empty:"+name)
+        elif name.endswith(".json"):
+            try:
+                json.loads(content)
+            except ValueError:
+                raise RuntimeError("quality_floor_invalid_json:"+name) from None
+        elif name.endswith(".svg"):
+            import xml.etree.ElementTree as ET
+            try:
+                ET.fromstring(content)
+            except ET.ParseError:
+                raise RuntimeError("quality_floor_invalid_svg:"+name) from None
+        elif not content.strip():
+            raise RuntimeError("quality_floor_text_empty:"+name)
 
 
 
