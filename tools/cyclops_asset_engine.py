@@ -298,6 +298,37 @@ def choose_asset_concept(rows,existing_assets=None):
     plan["asset_id"]=asset_id(plan)
     return plan
 
+
+def model_python(system,observation,num_ctx=7168,num_predict=5600):
+    """Return build source directly; long scripts must not be JSON-escaped strings."""
+    request=urllib.request.Request(
+        OLLAMA,method="POST",
+        data=json.dumps({
+            "model":MODEL,
+            "stream":False,
+            "think":False,
+            "options":{"temperature":0.18,"num_ctx":num_ctx,"num_predict":num_predict},
+            "messages":[
+                {"role":"system","content":system},
+                {"role":"user","content":json.dumps(observation,ensure_ascii=False)},
+            ],
+        }).encode(),
+        headers={"Content-Type":"application/json"})
+    with urllib.request.urlopen(request) as response:
+        reply=json.load(response)
+    script=str((reply.get("message") or {}).get("content") or "").strip()
+    # An occasional Markdown wrapper should not waste an otherwise valid build.
+    if script.startswith("```"):
+        lines=script.splitlines()
+        if len(lines)>2 and lines[-1].strip()=="```":
+            script="\n".join(lines[1:-1]).strip()
+    if not script:
+        raise ValueError("production_model_returned_empty_script")
+    if reply.get("done_reason")=="length":
+        raise ValueError("production_script_generation_truncated")
+    return script
+
+
 def _make_build_script(plan,tools,evidence,previous="",failure=""):
     """Ask the model HOW to use discovered tools for its OWN chosen product."""
     system=(
@@ -317,8 +348,9 @@ def _make_build_script(plan,tools,evidence,previous="",failure=""):
         "Do not merely explain or describe production: the complete source "
         "you return WILL BE EXECUTED inside an isolated container. "
         "A previous attempt may be supplied with an actual error; repair "
-        "that same code and preserve working functionality. Return exactly "
-        "one schema-compliant script string, with no Markdown wrappers."
+        "that same code and preserve working functionality. Return ONLY "
+        "raw executable Python source, not JSON, explanatory text, or Markdown. "
+        "Keep the implementation concise while producing every required file."
     )
     observation={
         "product":{"title":plan["title"],"description":plan["description"],
@@ -332,9 +364,7 @@ def _make_build_script(plan,tools,evidence,previous="",failure=""):
         "actual_execution_error":failure[-800:],
         "output_capacity_note":"The present encrypted GitHub vault supports individual output files up to 950000 bytes and total package bytes up to 1400000."
     }
-    result=model_json(BUILD_SCRIPT_SCHEMA,system,observation,
-                      num_ctx=7168,num_predict=5600)
-    script=str(result.get("script") or "").strip()
+    script=model_python(system,observation,num_ctx=7168,num_predict=5600)
     if not script or len(script)>150000:
         raise ValueError("production_script_empty_or_oversized")
     if script.startswith("```"):
