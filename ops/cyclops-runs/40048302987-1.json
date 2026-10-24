@@ -1,0 +1,80 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-24T01:11:37.567720+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 14,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "bing": 10,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "candidates_without_email": 14,
+    "search_queries": [
+      "Maintaining work-life balance with a side hustle and full-time job",
+      "How to maintain focus during long-term projects without burnout",
+      "Struggling to balance multiple side hustles with personal time",
+      "How to effectively manage stress during career transitions",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 22,
+      "executed_queries": [
+        "How to maintain focus during long-term projects without burnout",
+        "Struggling to balance multiple side hustles with personal time",
+        "How to effectively manage stress during career transitions",
+        "Maintaining work-life balance with a side hustle and full-time job"
+      ],
+      "next_query_queue": 20,
+      "frontier_size": 131,
+      "known_pages": 308
+    },
+    "durable_contactable_sources": 3
+  },
+  "production": {
+    "result": "production_error",
+    "reason": "unsafe_build_path:./synonym_antonym_list.pdf"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "production_or_publication_failed",
+      "detail": "unsafe_build_path:./synonym_antonym_list.pdf"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
