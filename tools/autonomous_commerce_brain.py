@@ -208,7 +208,7 @@ def candidates(memory):
     queries=[]
     if topics:
         for idx,(_,host) in enumerate(COMMUNITY_SITES):
-            topic=re.sub(r"(?i)\\bsite:[^\\s]+","",topics[idx%len(topics)]).strip()
+            topic=re.sub(r"(?i)\bsite:[^\s]+","",topics[idx%len(topics)]).strip()
             if topic:
                 queries.append("site:"+host+" "+topic)
     memory.run_queries=queries
