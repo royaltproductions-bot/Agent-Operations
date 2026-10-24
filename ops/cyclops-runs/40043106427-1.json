@@ -1,0 +1,90 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-24T00:08:34.649224+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "bing": 16
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 16,
+    "search_queries": [
+      "Managing stress during career transitions and side hustle commitments",
+      "Struggling to maintain work-life balance with a side hustle and full-time job",
+      "How to effectively manage multiple side hustles without burning out",
+      "How to maintain focus and productivity while juggling multiple projects"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 14,
+      "executed_queries": [
+        "How to effectively manage multiple side hustles without burning out",
+        "Struggling to maintain work-life balance with a side hustle and full-time job",
+        "How to maintain focus and productivity while juggling multiple projects",
+        "Managing stress during career transitions and side hustle commitments"
+      ],
+      "next_query_queue": 16,
+      "frontier_size": 133,
+      "known_pages": 295
+    },
+    "durable_contactable_sources": 3
+  },
+  "production": {
+    "result": "production_error",
+    "reason": "unsafe_build_path:/work/military_equipment_maintenance_schedule.pdf"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "production_or_publication_failed",
+      "detail": "unsafe_build_path:/work/military_equipment_maintenance_schedule.pdf"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
