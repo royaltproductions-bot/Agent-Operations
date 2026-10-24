@@ -1187,12 +1187,13 @@ def run():
                                    "reason":reason,
                                    "new_concept_eligible_next_run":True}
         elif isinstance(exc,ProductionPending):
+            progressed=str(exc).startswith("artifact_created_and_saved:")
             receipt["production"]={
-                "result":"objective_production_repair_pending",
+                "result":("artifact_created_and_saved" if progressed
+                          else "objective_production_repair_pending"),
                 "stage":stage,
-                "last_issue":str(pending.get("feedback") or reason)[:250],
-                "attempts":pending.get("attempts") or {},
-                "revisions":int(pending.get("revision") or 0),
+                "last_issue":("" if progressed else str(pending.get("feedback") or reason)[:250]),
+                "attempts":pending.get("attempts") or 0,
                 "files_finished":len(pending.get("files") or []),
                 "files_planned":len((pending.get("plan") or {}).get("output_files") or []),
             }
