@@ -1,0 +1,89 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-24T19:44:56.411250+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "bing": 16
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 16,
+    "search_queries": [
+      "Finding ways to sustain motivation during long-term career transitions and side hustle work",
+      "How to maintain work-life balance when working multiple side hustles and a full-time job",
+      "Struggling to stay focused while managing multiple income streams and personal goals",
+      "How to avoid burnout while juggling a full-time job, side hustle, and personal responsibilities"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 11,
+      "executed_queries": [
+        "How to maintain work-life balance when working multiple side hustles and a full-time job",
+        "Struggling to stay focused while managing multiple income streams and personal goals",
+        "How to avoid burnout while juggling a full-time job, side hustle, and personal responsibilities",
+        "Finding ways to sustain motivation during long-term career transitions and side hustle work"
+      ],
+      "next_query_queue": 30,
+      "frontier_size": 139,
+      "known_pages": 411
+    },
+    "durable_contactable_sources": 7
+  },
+  "production": {
+    "result": "objective_production_repair_pending",
+    "stage": "building",
+    "last_issue": "RuntimeError:production_tool_execution_failed:Traceback (most recent call last):\n  File \"/work/build.py\", line 3, in <module>\n    import requests\nModuleNotFoundError: No module named 'requests'\n",
+    "attempts": 1,
+    "files_finished": 0,
+    "files_planned": 5
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
