@@ -325,16 +325,24 @@ def model_python(system,observation,num_ctx=7168,num_predict=5600):
     if not script:
         raise ValueError("production_model_returned_empty_script")
     if reply.get("done_reason")=="length":
-        raise ValueError("production_script_generation_truncated")
+        # A token-budget stop does not mean the source is necessarily broken.
+        # The existing Python syntax and real workshop checks will decide.
+        import ast
+        try:
+            ast.parse(script,filename="build.py")
+        except SyntaxError:
+            raise ValueError("production_script_generation_truncated") from None
     return script
 
 
-def _make_build_script(plan,tools,evidence,previous="",failure=""):
+def _make_build_script(plan,tools,evidence,target_file,finished_files,previous="",failure=""):
     """Ask the model HOW to use discovered tools for its OWN chosen product."""
     system=(
         "You are the hands-on production operator, not a sales reviewer. "
-        "Write one executable Python 3.12 build script that ACTUALLY creates "
-        "all the specified output_files in the current /work directory. "
+        "Write a concise, executable Python 3.12 script that creates ONE "
+        "complete output file in /work: the target_file supplied below. "
+        "The product can have multiple deliverables, but this execution "
+        "manufactures just one; the other files are made in other executions. "
         "You may import any INSTALLED python modules or use INSTALLED command "
         "line tools shown in the supplied live inventory. Do not assume "
         "unlisted modules, network connectivity, credentials, or external "
@@ -347,6 +355,9 @@ def _make_build_script(plan,tools,evidence,previous="",failure=""):
         "Do not execute scripts downloaded from the internet. "
         "Do not merely explain or describe production: the complete source "
         "you return WILL BE EXECUTED inside an isolated container. "
+        "Never assume previously completed files exist in the current /work "
+        "directory. Use their descriptions to maintain coherence with the "
+        "whole product, and write the target output independently. "
         "A previous attempt may be supplied with an actual error; repair "
         "that same code and preserve working functionality. Return ONLY "
         "raw executable Python source, not JSON, explanatory text, or Markdown. "
@@ -357,14 +368,18 @@ def _make_build_script(plan,tools,evidence,previous="",failure=""):
                    "audience":plan["audience"],"production_goal":plan["production_goal"],
                    "core_points":plan.get("core_points") or []},
         "actual_installed_tools":tools,
-        "required_generated_artifacts":plan["output_files"],
+        "target_file":target_file,
+        "complete_product_manifest":plan["output_files"],
+        "already_generated_files":[{"filename":x["filename"],
+                                   "size_bytes":x["size_bytes"]}
+                                  for x in finished_files],
         "source_page":plan.get("evidence_source_url"),
         "source_excerpts":demand_view(evidence,limit=2,width=380),
-        "prior_build_script":previous[-15000:],
+        "prior_build_script":previous[-6500:] if failure else "",
         "actual_execution_error":failure[-800:],
         "output_capacity_note":"The present encrypted GitHub vault supports individual output files up to 950000 bytes and total package bytes up to 1400000."
     }
-    script=model_python(system,observation,num_ctx=7168,num_predict=5600)
+    script=model_python(system,observation,num_ctx=6144,num_predict=4800)
     if not script or len(script)>150000:
         raise ValueError("production_script_empty_or_oversized")
     if script.startswith("```"):
@@ -475,13 +490,11 @@ def _retire_draft(checkpoint,reason):
 
 
 def create_asset(rows,existing_assets=None):
-    """Plan with discovered tools, execute inside sandbox, verify actual output."""
+    """Manufacture one selected product artifact per run, saving real progress."""
     checkpoint=read_pending()
     stage=checkpoint.get("stage")
     plan=checkpoint.get("plan") or {}
     if stage in ("drafting","review","approved","sealed","building"):
-        # Old fixed-format checkpoints are not executable recipes. Save the
-        # historical work, then choose a genuinely tool-driven production plan.
         if not plan.get("output_files"):
             _retire_draft(checkpoint,"legacy_non_executable_product_spec")
         evidence=checkpoint.get("research_rows") or rows
@@ -498,42 +511,70 @@ def create_asset(rows,existing_assets=None):
         plan["_files"]=checkpoint["files"]
         return plan
 
-    tools=discover_tools()
-    prior=checkpoint.get("script") or ""
-    last_error=checkpoint.get("feedback") or ""
-    attempts=int(checkpoint.get("attempts") or 0)
-    # Old JSON-wrapped generation failures are not attempts with this fixed
-    # source generator. Give the same saved product its normal repair budget.
-    if ("JSONDecodeError:Unterminated string" in last_error
-            and checkpoint.get("build_source_format")!="plain_python"):
-        attempts=0
-        last_error=""
-        checkpoint.update({"attempts":0,"feedback":"",
-                           "build_source_format":"plain_python"})
-        save_pending(checkpoint)
-    if attempts>=3:
-        _retire_draft(checkpoint,last_error or "production_attempts_exhausted")
-    try:
-        script=_make_build_script(plan,tools,evidence,prior,last_error)
-        checkpoint.update({"stage":"building","script":script,
-                           "feedback":"","attempts":attempts})
-        save_pending(checkpoint)
-        files=manufacture(script,plan["output_files"])
-        reason=objective_quality_floor(plan,files)
-        checkpoint.update({"stage":"approved","files":files,
+    all_names=[str(_safe_path(x)) for x in plan["output_files"]]
+    if len(set(all_names))!=len(all_names):
+        raise ValueError("duplicate_product_output_path")
+    plan["output_files"]=all_names
+    finished=list(checkpoint.get("files") or [])
+    done={str(x.get("filename") or "") for x in finished}
+    if not done.issubset(set(all_names)) or len(done)!=len(finished):
+        raise ValueError("production_checkpoint_file_manifest_mismatch")
+
+    missing=[name for name in all_names if name not in done]
+    if not missing:
+        reason=objective_quality_floor(plan,finished)
+        checkpoint.update({"stage":"approved","files":finished,
                            "quality_reason":reason,"feedback":""})
         save_pending(checkpoint)
-        plan["_files"]=files
+        plan["_files"]=finished
         plan["_quality_reason"]=reason
         return plan
+
+    target=missing[0]
+    # Previous multi-file source generation cannot be reused for a single
+    # artifact. Retry counts and draft content now track each actual file.
+    if checkpoint.get("building_file")!=target:
+        checkpoint.update({"building_file":target,"attempts":0,
+                           "script":"","feedback":""})
+        save_pending(checkpoint)
+    attempts=int(checkpoint.get("attempts") or 0)
+    if attempts>=3:
+        _retire_draft(checkpoint,str(checkpoint.get("feedback") or "production_attempts_exhausted"))
+    try:
+        tools=discover_tools()
+        script=_make_build_script(
+            plan,tools,evidence,target,finished,
+            checkpoint.get("script") or "",
+            checkpoint.get("feedback") or "")
+        checkpoint.update({"stage":"building","script":script,"feedback":""})
+        save_pending(checkpoint)
+        produced=manufacture(script,[target])
+        # Verify THIS output immediately; the full manifest is checked once
+        # every deliverable has been actually generated and saved.
+        objective_quality_floor({"output_files":[target]},produced)
+        finished.extend(produced)
+        checkpoint.update({"stage":"building","files":finished,"script":"",
+                           "feedback":"","attempts":0,"building_file":""})
+        save_pending(checkpoint)
     except (RuntimeError,ValueError,OSError) as exc:
         error=(type(exc).__name__+":"+str(exc))[-850:]
         checkpoint.update({"stage":"building","feedback":error,
-                           "attempts":attempts+1})
+                           "attempts":attempts+1,"building_file":target})
         save_pending(checkpoint)
         if attempts+1>=3:
             _retire_draft(checkpoint,error)
         raise ProductionPending(error) from exc
+
+    if len(finished)<len(all_names):
+        # An actual finished file survives this run. Do not regenerate it.
+        raise ProductionPending("artifact_created_and_saved:"+target)
+
+    reason=objective_quality_floor(plan,finished)
+    checkpoint.update({"stage":"approved","quality_reason":reason})
+    save_pending(checkpoint)
+    plan["_files"]=finished
+    plan["_quality_reason"]=reason
+    return plan
 
 
 def cyclops_checkout(plan):
