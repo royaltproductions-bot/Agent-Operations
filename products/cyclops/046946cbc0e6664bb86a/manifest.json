@@ -1,0 +1,51 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops",
+  "status": "active",
+  "asset_id": "046946cbc0e6664bb86a",
+  "title": "Sustain Tracker - Personal Sustainability Dashboard",
+  "description": "A personal dashboard that helps users track and maintain sustainable habits, such as energy usage, water consumption, and waste reduction.",
+  "audience": "Individuals interested in reducing their environmental impact and maintaining sustainable living practices.",
+  "pitch": "Sustain Tracker is a digital tool that empowers users to monitor their daily sustainability efforts, set goals, and receive personalized feedback to help them maintain a sustainable lifestyle.",
+  "price_usd": "19.99",
+  "price_cents": 1999,
+  "target_terms": [
+    "sustainability tracking",
+    "eco-friendly habits",
+    "green living tracker",
+    "environmental impact monitoring"
+  ],
+  "evidence_source_url": "https://www.dictionary.com/browse/sustain",
+  "files": [
+    "sustain_tracker_dashboard.html",
+    "sustain_tracker_dashboard.css",
+    "sustain_tracker_dashboard.js"
+  ],
+  "artifact_manifest": [
+    {
+      "filename": "sustain_tracker_dashboard.html",
+      "bytes": 1089,
+      "sha256": "f8ccbc40538e8f4112d9656d37f96de7a8782078a4d42520e38088637d0db16b",
+      "content_type": "text/html"
+    },
+    {
+      "filename": "sustain_tracker_dashboard.css",
+      "bytes": 531,
+      "sha256": "4fe5c8354b3ef89365ee2c724af2b977a640fba029152b9945b0129aaa86b458",
+      "content_type": "text/css"
+    },
+    {
+      "filename": "sustain_tracker_dashboard.js",
+      "bytes": 921,
+      "sha256": "1689a6f538ac21d5b6ee57b52a89b0df140b85d93b8ebf73345494de29e8281b",
+      "content_type": "text/javascript"
+    }
+  ],
+  "production_tool": "isolated_tool_workshop",
+  "quality_gate": "verified_generated_bytes",
+  "delivery": "private_encrypted_vault",
+  "vault_path": "ops/cyclops-vault/assets/046946cbc0e6664bb86a.json",
+  "payment_link_id": "plink_1UU1EtBto3o776uybVSwHaB5",
+  "checkout_url": "https://buy.stripe.com/14A4gydwc4YL5fAeft7Re09",
+  "created_at": "2026-10-24T09:27:47.350064+00:00"
+}
