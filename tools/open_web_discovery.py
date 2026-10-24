@@ -252,7 +252,7 @@ def duckduckgo_html(query,limit=6):
     return out
 
 def open_web_candidates(max_candidates=24, queries=None, memory=None,
-                        max_pages=32, strict_relevance=True):
+                        max_pages=32, strict_relevance=True, allowed_hosts=None):
     """Search model-generated topics and progress along prior link discoveries.
 
     Budgets constrain this execution's page count; researched URLs
@@ -260,6 +260,15 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
     The returned research has no mandatory keyword, site or email requirement.
     """
     queries=_normalize_queries(queries)
+    def in_scope(url):
+        if not _public_url(url):
+            return False
+        if allowed_hosts is None:
+            return True
+        host=(urllib.parse.urlsplit(url).hostname or "").lower().rstrip(".")
+        return any(host==domain or host.endswith("."+domain)
+                   for domain in allowed_hosts)
+
     if not queries and not (memory and memory.frontier()):
         return [], [{"source":"open_web_search","reason":"no_new_research_direction"}]
 
@@ -274,6 +283,7 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
             try:
                 hits=search(compact_query(query) if strict_relevance else query,
                             limit=6 if strict_relevance else 8)
+                hits=[hit for hit in hits if in_scope(hit.get("source_url"))]
                 total_provider_hits+=len(hits)
                 # Relevance is a ranking hint, not an exclusion gate: the
                 # market researcher must see authentic hits even when our
@@ -320,7 +330,7 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
             if (strict_relevance and queries and
                     not any(relevant_hit(q,front) for q in queries)):
                 continue
-            if not _public_url(front.get("url")) or not memory.eligible_url(front["url"]):
+            if not in_scope(front.get("url")) or not memory.eligible_url(front["url"]):
                 continue
             follow={"source_url":front.get("url"),"title":front.get("title"),
                     "snippet":"Linked from "+str(front.get("from_url") or "")}
@@ -339,7 +349,7 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
         if len(results)>=max_candidates or len(visited)>=page_budget:
             break
         url=str(hit.get("source_url") or "")
-        if not _public_url(url) or url in visited:
+        if not in_scope(url) or url in visited:
             continue
         if memory and not memory.eligible_url(url):
             continue
@@ -349,6 +359,8 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
         links=[]
         try:
             final,page,links=fetch_public_text(url,with_links=True)
+            if not in_scope(final):
+                continue
         except Exception as exc:
             # Search snippets still provide authentic external observations
             # when a public site rejects automated page fetches.
