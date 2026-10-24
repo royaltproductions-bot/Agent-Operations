@@ -173,7 +173,7 @@ def discovery_queries(memory):
         "Choose SIX independently invented searches, one each for Reddit, "
         "Hacker News, Indie Hackers, GitHub Issues or Discussions, "
         "Algora paid code bounties, and ProBlogger writing jobs, in that order. "
-        "Any legitimate industry, problem, method, or type 
+        "Any legitimate industry, problem, method, or type "
         "of work is allowed. Do not use preset business niches, job roles, "
         "required keywords, product formats, or search templates. "
         "Choose natural search phrases suited to each community. "
