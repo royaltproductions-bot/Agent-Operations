@@ -1,0 +1,60 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-24T02:54:09.865058+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 0,
+    "source_counts": {},
+    "search_provider_counts": {},
+    "source_errors": [
+      {
+        "source": "research_coverage",
+        "reason": "no_new_eligible_sources",
+        "queries_attempted": [
+          "hire developer build private marketplace vintage items",
+          "private marketplace vintage tech sales without platform",
+          "create private digital marketplace vintage goods",
+          "private marketplace vintage items without platform",
+          "build private marketplace niche electronics sales"
+        ]
+      }
+    ],
+    "fetched_public_pages": 0,
+    "candidates_without_email": 0,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 0,
+      "skipped_revisits": 1,
+      "executed_queries": [
+        "hire developer build private marketplace vintage items",
+        "private marketplace vintage tech sales without platform",
+        "create private digital marketplace vintage goods",
+        "private marketplace vintage items without platform",
+        "build private marketplace niche electronics sales"
+      ],
+      "next_query_queue": 7,
+      "frontier_size": 136,
+      "known_pages": 238
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_research_results_found"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
