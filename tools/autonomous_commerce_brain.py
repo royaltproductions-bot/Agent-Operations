@@ -154,52 +154,72 @@ def clean_html(raw):
     text=re.sub(r"<[^>]+>"," ",text)
     return re.sub(r"[ \t]+"," ",unescape(text)).strip()
 
+# Wolverine's four community research destinations. This affects research
+# queries only, not product or service categories and not Cyclops.
+COMMUNITY_SITES=(
+    ("Reddit","reddit.com"),
+    ("Hacker News","news.ycombinator.com"),
+    ("Indie Hackers","indiehackers.com"),
+    ("GitHub Discussions and Issues","github.com"),
+)
+
+
 def discovery_queries(memory):
-    """Research actual invitations to outside providers, in any sector."""
+    """Choose Wolverine's own research topics for four community platforms."""
     system=(
-        "You are Wolverine's independent commercial opportunity scout. "
-        "Find CURRENT public requests in which a real requester is actively "
-        "seeking someone external to perform specific work, supply a deliverable, "
-        "respond to a proposal request, or solve a concrete problem. "
-        "Investigate any legitimate industry; choose domains, problems and search "
-        "phrases yourself. No predetermined niche, business model or pricing. "
-        "Prefer direct original requests that explain how outside providers may "
-        "respond. Do NOT search for generic how-to articles, tutorials, "
-        "product comparisons, dictionary definitions or pages only describing "
-        "a marketplace: those are not buyers. Historical pages are context for "
-        "avoiding failed avenues, not phrases to recycle into another search. "
-        "Explore new live solicitation pathways when older search results lack "
-        "a response route. Do not invent requests, contact addresses or permission. "
-        "Search the PUBLIC web freely for genuine work invitations. "
-        "Return short, distinct, search-engine-ready phrases."
+        "Find authentic, recent public requests for help and outside work. "
+        "Invent FOUR different short search phrases, ordered for: "
+        "1 Reddit conversations requesting help, 2 Hacker News discussions "
+        "seeking freelancers or solutions, 3 Indie Hackers founder discussions "
+        "about assistance they need, 4 GitHub Issues or Discussions presenting "
+        "work requests. Research any legitimate problem or industry. "
+        "Choose the actual search topics yourself, not preset product types. "
+        "Do not include site: search operators; the search executor attaches "
+        "the selected community scope. Seek actual requesters instead of "
+        "generic tutorials, job-seeker ads, or dictionary definitions. "
+        "Don't invent buyers, contact details, or offers. "
+        "Return only schema-compliant JSON with four query phrases."
     )
     result=model_json(
         SEARCH_SCHEMA,system,
         {"utc_date":NOW().date().isoformat(),
-         "mission":"find an actual public requester inviting paid outside digital work with an appropriate response channel",
-         "research_history":memory.plan_context()},num_ctx=2500,num_predict=380)
+         "mission":"find actual outside-work requests in four selected discussion communities",
+         "research_history":memory.plan_context()},
+        num_ctx=2500,num_predict=380)
     return [str(q).strip() for q in result.get("queries") or [] if str(q).strip()]
 
 
 def candidates(memory):
-    """New externally directed inquiries beat outdated historical search queues."""
+    """Search only the four requested communities; never recycle offsite links."""
     issues=[]
     proposals=[]
     try:
         proposals=discovery_queries(memory)
     except Exception as exc:
         issues.append({"source":"query_planner","reason":type(exc).__name__})
-    queries=memory.choose_queries(proposals)
-    if not queries:
-        # Continue authentic observations only when the independent planner fails.
-        queries=memory.choose_queries(memory.evidence_queries())
+
+    # Unscoped queued topics were accumulated by the old broad web search.
+    # Keep its research history, but don't let that backlog redirect this scope.
+    memory.state["queued_queries"]=[]
+    topics=memory.choose_queries(proposals)
+    if not topics:
+        topics=memory.choose_queries(memory.evidence_queries())
+
+    queries=[]
+    if topics:
+        for idx,(_,host) in enumerate(COMMUNITY_SITES):
+            topic=re.sub(r"(?i)\\bsite:[^\\s]+","",topics[idx%len(topics)]).strip()
+            if topic:
+                queries.append("site:"+host+" "+topic)
+    memory.run_queries=queries
     budget=memory.budget()
     rows,errors=open_web_candidates(
         max_candidates=budget["max_candidates"],queries=queries,memory=memory,
-        max_pages=budget["max_pages"])
+        max_pages=budget["max_pages"],strict_relevance=False,
+        allowed_hosts=tuple(host for _,host in COMMUNITY_SITES))
     if not rows:
         issues.append({"source":"research_coverage",
-                       "reason":"no_new_eligible_sources",
+                       "reason":"no_new_eligible_community_sources",
                        "queries_attempted":queries})
     rows=enrich_public_response_route(rows)
     return rows,issues+errors
