@@ -1,0 +1,57 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-24T10:51:12.447776+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 7,
+    "source_counts": {
+      "open_web": 7
+    },
+    "search_provider_counts": {
+      "bing": 3,
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 7,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "snuff something out phrasal verb",
+      "take something phrasal verb",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 2,
+      "executed_queries": [
+        "take something phrasal verb",
+        "tap someone something phrasal verb",
+        "stamp something out phrasal verb",
+        "stamp on something phrasal verb",
+        "snuff something out phrasal verb"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 136,
+      "known_pages": 272
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_contactable_public_source"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
