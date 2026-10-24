@@ -1,0 +1,55 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-24T13:48:49.012589+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 3,
+    "source_counts": {
+      "open_web": 3
+    },
+    "search_provider_counts": {
+      "bing": 2,
+      "followup": 1
+    },
+    "source_errors": [],
+    "fetched_public_pages": 3,
+    "candidates_without_email": 3,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "hire someone to design logo for startup",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 3,
+      "skipped_revisits": 6,
+      "executed_queries": [
+        "hire someone to design logo for startup",
+        "build website for small business",
+        "remote jobs in marketing field",
+        "remote jobs in customer service"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 138,
+      "known_pages": 287
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_contactable_public_source"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
