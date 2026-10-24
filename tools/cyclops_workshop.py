@@ -66,11 +66,19 @@ def discover_tools():
 
 
 def _safe_path(path):
+    """Accept paths relative to /work or explicitly rooted inside /work.
+
+    The model sees /work as its sandbox output directory, while the host
+    verifier uses paths relative to the mounted scratch directory.
+    Never allow other absolute locations or parent traversal.
+    """
     name=str(path or "").strip().replace("\\","/")
+    if name.startswith("/work/"):
+        name=name[len("/work/"):]
     p=PurePosixPath(name)
-    if (not name or p.is_absolute() or any(t in ("", ".", "..") for t in p.parts)
+    if (not name or p.is_absolute() or any(t in ("", ".", "..") for t in name.split("/"))
             or len(name)>180 or len(p.parts)>5):
-        raise ValueError("unsafe_build_path:"+name[:90])
+        raise ValueError("unsafe_build_path:"+str(path or "")[:90])
     return p
 
 
