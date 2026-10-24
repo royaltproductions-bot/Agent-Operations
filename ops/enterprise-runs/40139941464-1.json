@@ -1,0 +1,55 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-24T22:48:16.348903+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 4,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 0,
+      "skipped_revisits": 6,
+      "executed_queries": [
+        "site:reddit.com Reddit: how to fix broken links on a static site without a CMS",
+        "site:news.ycombinator.com Hacker News: how to optimize a slow-loading React app for production",
+        "site:indiehackers.com Indie Hackers: help with onboarding flow for a SaaS product with low retention",
+        "site:github.com GitHub Issues: user authentication not working after deployment",
+        "site:algora.io Algora: request for code to automate data processing from CSV files",
+        "site:problogger.com ProBlogger: need a content writer to draft weekly blog posts for SaaS startup"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 140,
+      "known_pages": 343
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_contactable_public_source"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
