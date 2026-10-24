@@ -189,7 +189,7 @@ def candidates(memory):
     queries=memory.choose_queries(proposed)
     if not queries:
         queries=memory.choose_queries(memory.evidence_queries())
-    queries=[re.sub(r"(?i)\\bsite:[^\\s]+","",q).strip()
+    queries=[re.sub(r"(?i)site:[^ ]+","",q).strip()
              for q in queries]
     queries=[q for q in queries if q]
     memory.run_queries=queries
