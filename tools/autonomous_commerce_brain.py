@@ -154,76 +154,55 @@ def clean_html(raw):
     text=re.sub(r"<[^>]+>"," ",text)
     return re.sub(r"[ \t]+"," ",unescape(text)).strip()
 
-# Wolverine's four community research destinations. This affects research
-# queries only, not product or service categories and not Cyclops.
-COMMUNITY_SITES=(
-    ("Reddit","reddit.com"),
-    ("Hacker News","news.ycombinator.com"),
-    ("Indie Hackers","indiehackers.com"),
-    ("GitHub Discussions and Issues","github.com"),
-)
-
-
 def discovery_queries(memory):
-    """Choose Wolverine's own research topics for four community platforms."""
+    """Choose research opportunities across the public web without site quotas."""
     system=(
-        "Find authentic, recent public requests for help and outside work. "
-        "Invent FOUR different short search phrases, ordered for: "
-        "1 Reddit conversations requesting help, 2 Hacker News discussions "
-        "seeking freelancers or solutions, 3 Indie Hackers founder discussions "
-        "about assistance they need, 4 GitHub Issues or Discussions presenting "
-        "work requests. Research any legitimate problem or industry. "
-        "Choose the actual search topics yourself, not preset product types. "
-        "Do not include site: search operators; the search executor attaches "
-        "the selected community scope. Seek actual requesters instead of "
-        "generic tutorials, job-seeker ads, or dictionary definitions. "
-        "Don't invent buyers, contact details, or offers. "
-        "Return only schema-compliant JSON with four query phrases."
+        "Research current public conversations, project requests, problems, "
+        "and people seeking outside help or deliverables. Choose original "
+        "short searches independently from ANY public website or industry. "
+        "Use authentic requests and evidence; do not invent a buyer or a "
+        "solicitation. Prior failed searches are context, not instructions "
+        "to revisit the same topic. Neither websites nor product categories "
+        "are prescribed. Return only schema-compliant JSON."
     )
     result=model_json(
         SEARCH_SCHEMA,system,
         {"utc_date":NOW().date().isoformat(),
-         "mission":"find actual outside-work requests in four selected discussion communities",
+         "mission":"discover real public requests and opportunities for outside digital work",
          "research_history":memory.plan_context()},
         num_ctx=2500,num_predict=380)
     return [str(q).strip() for q in result.get("queries") or [] if str(q).strip()]
 
 
 def candidates(memory):
-    """Search only the four requested communities; never recycle offsite links."""
+    """Explore the open web; rank relevance but do not discard authentic hits."""
     issues=[]
-    proposals=[]
+    proposed=[]
     try:
-        proposals=discovery_queries(memory)
+        proposed=discovery_queries(memory)
     except Exception as exc:
         issues.append({"source":"query_planner","reason":type(exc).__name__})
 
-    # Unscoped queued topics were accumulated by the old broad web search.
-    # Keep its research history, but don't let that backlog redirect this scope.
+    # Old site-scoped queued searches are not part of the new unrestricted run.
+    # Preserve observations and history; clear only pending search instructions.
     memory.state["queued_queries"]=[]
-    topics=memory.choose_queries(proposals)
-    if not topics:
-        topics=memory.choose_queries(memory.evidence_queries())
-
-    queries=[]
-    if topics:
-        for idx,(_,host) in enumerate(COMMUNITY_SITES):
-            topic=re.sub(r"(?i)\bsite:[^\s]+","",topics[idx%len(topics)]).strip()
-            if topic:
-                queries.append("site:"+host+" "+topic)
+    queries=memory.choose_queries(proposed)
+    if not queries:
+        queries=memory.choose_queries(memory.evidence_queries())
+    queries=[re.sub(r"(?i)\\bsite:[^\\s]+","",q).strip()
+             for q in queries]
+    queries=[q for q in queries if q]
     memory.run_queries=queries
     budget=memory.budget()
     rows,errors=open_web_candidates(
         max_candidates=budget["max_candidates"],queries=queries,memory=memory,
-        max_pages=budget["max_pages"],strict_relevance=False,
-        allowed_hosts=tuple(host for _,host in COMMUNITY_SITES))
+        max_pages=budget["max_pages"],strict_relevance=False)
     if not rows:
         issues.append({"source":"research_coverage",
-                       "reason":"no_new_eligible_community_sources",
+                       "reason":"no_new_eligible_public_sources",
                        "queries_attempted":queries})
     rows=enrich_public_response_route(rows)
     return rows,issues+errors
-
 
 # A specific outside-work invitation may link to a separate contact page.
 # This identifies possible routes; it never authorizes unsolicited outreach.
