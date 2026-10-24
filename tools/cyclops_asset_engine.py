@@ -502,6 +502,15 @@ def create_asset(rows,existing_assets=None):
     prior=checkpoint.get("script") or ""
     last_error=checkpoint.get("feedback") or ""
     attempts=int(checkpoint.get("attempts") or 0)
+    # Old JSON-wrapped generation failures are not attempts with this fixed
+    # source generator. Give the same saved product its normal repair budget.
+    if ("JSONDecodeError:Unterminated string" in last_error
+            and checkpoint.get("build_source_format")!="plain_python"):
+        attempts=0
+        last_error=""
+        checkpoint.update({"attempts":0,"feedback":"",
+                           "build_source_format":"plain_python"})
+        save_pending(checkpoint)
     if attempts>=3:
         _retire_draft(checkpoint,last_error or "production_attempts_exhausted")
     try:
