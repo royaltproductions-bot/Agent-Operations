@@ -160,17 +160,20 @@ COMMUNITY_SITES=(
     ("Hacker News","news.ycombinator.com"),
     ("Indie Hackers","indiehackers.com"),
     ("GitHub Issues and Discussions","github.com"),
+    ("Algora bounties","algora.io"),
+    ("ProBlogger Jobs","problogger.com"),
 )
 
 
 def discovery_queries(memory):
-    """Choose unrestricted research topics for four community sources."""
+    """Choose unrestricted research topics for the six selected sources."""
     system=(
         "Find genuine current public conversations or requests where someone "
         "needs work, a deliverable, or help solving a problem. "
-        "Choose FOUR independently invented searches, one each for Reddit, "
-        "Hacker News, Indie Hackers, and GitHub Issues or Discussions, "
-        "in that order. Any legitimate industry, problem, method, or type "
+        "Choose SIX independently invented searches, one each for Reddit, "
+        "Hacker News, Indie Hackers, GitHub Issues or Discussions, "
+        "Algora paid code bounties, and ProBlogger writing jobs, in that order. "
+        "Any legitimate industry, problem, method, or type 
         "of work is allowed. Do not use preset business niches, job roles, "
         "required keywords, product formats, or search templates. "
         "Choose natural search phrases suited to each community. "
@@ -181,7 +184,7 @@ def discovery_queries(memory):
     result=model_json(
         SEARCH_SCHEMA,system,
         {"utc_date":NOW().date().isoformat(),
-         "mission":"find genuine public requests for help or outside work within four discussion communities",
+         "mission":"find genuine requests for outside work across six selected sites",
          "research_history":memory.plan_context()},
         num_ctx=2500,num_predict=380)
     return [str(q).strip() for q in result.get("queries") or [] if str(q).strip()]
@@ -207,6 +210,13 @@ def candidates(memory):
         if topic:
             scoped.append("site:"+host+" "+topic)
     queries=memory.choose_queries(scoped)
+    # ResearchMemory normally caps searches at four. Include the two overflow
+    # queries here so these newly added sites actually get searched this run.
+    overflow=[q.get("query") for q in memory.state.get("queued_queries",[])
+              if isinstance(q,dict) and q.get("query")]
+    queries=(queries+overflow)[:len(COMMUNITY_SITES)]
+    memory.run_queries=queries
+    memory.state["queued_queries"]=[]
     budget=memory.budget()
     rows,errors=open_web_candidates(
         max_candidates=budget["max_candidates"],queries=queries,memory=memory,
