@@ -283,13 +283,12 @@ def choose_asset_concept(rows,existing_assets=None):
     for field in ("title","description","audience","pitch"):
         if not str(plan.get(field) or "").strip():
             raise ValueError("required_product_field_empty:"+field)
-    names=[str(n).strip() for n in plan.get("output_files") or []]
-    if not names or len(names)>30:
+    requested=plan.get("output_files") or []
+    if not requested or len(requested)>30:
         raise ValueError("product_output_manifest_invalid")
-    # Validate paths, not categories: any real output the toolchain can
-    # manufacture and the secure vault can hold is a potential product.
-    for name in names:
-        _safe_path(name)
+    # The sandbox accepts /work/name and name as the SAME artifact.
+    # Canonicalize once so the builder, verifier and vault agree on its name.
+    names=[str(_safe_path(name)) for name in requested]
     if len(set(names))!=len(names):
         raise ValueError("duplicate_product_output_path")
     plan["output_files"]=names
