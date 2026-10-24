@@ -203,7 +203,7 @@ def candidates(memory):
     for index,(_,host) in enumerate(COMMUNITY_SITES):
         if not proposed:
             break
-        topic=re.sub(r"(?i)site:[^\\s]+","",proposed[index%len(proposed)]).strip()
+        topic=re.sub(r"(?i)site:\S+","",proposed[index%len(proposed)]).strip()
         if topic:
             scoped.append("site:"+host+" "+topic)
     queries=memory.choose_queries(scoped)
