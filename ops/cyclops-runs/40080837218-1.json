@@ -1,0 +1,108 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-24T09:14:52.385872+00:00",
+  "model": "qwen3:8b",
+  "asset": {
+    "asset_id": "046946cbc0e6664bb86a",
+    "title": "Sustain Tracker - Personal Sustainability Dashboard",
+    "price_usd": "19.99",
+    "price_cents": 1999,
+    "payment_link_id": "plink_1UU1EtBto3o776uybVSwHaB5"
+  },
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 14,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "bing": 10,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "candidates_without_email": 14,
+    "search_queries": [
+      "How to sustain motivation during prolonged career transitions and side hustle work",
+      "Struggling to maintain focus while managing multiple side hustles and personal responsibilities",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 22,
+      "executed_queries": [
+        "How to sustain motivation during prolonged career transitions and side hustle work",
+        "Struggling to maintain focus while managing multiple side hustles and personal responsibilities",
+        "How to effectively track and optimize cash-back rewards without falling into debt traps",
+        "How to avoid burnout while managing multiple income streams and personal goals"
+      ],
+      "next_query_queue": 27,
+      "frontier_size": 136,
+      "known_pages": 376
+    },
+    "durable_contactable_sources": 7
+  },
+  "production": {
+    "result": "approved_and_published",
+    "asset_id": "046946cbc0e6664bb86a",
+    "production_tool": "isolated_tool_workshop",
+    "artifact_count": 3,
+    "created_artifacts": [
+      {
+        "filename": "sustain_tracker_dashboard.html",
+        "bytes": 1089,
+        "sha256": "f8ccbc40538e8f4112d9656d37f96de7a8782078a4d42520e38088637d0db16b",
+        "content_type": "text/html"
+      },
+      {
+        "filename": "sustain_tracker_dashboard.css",
+        "bytes": 531,
+        "sha256": "4fe5c8354b3ef89365ee2c724af2b977a640fba029152b9945b0129aaa86b458",
+        "content_type": "text/css"
+      },
+      {
+        "filename": "sustain_tracker_dashboard.js",
+        "bytes": 921,
+        "sha256": "1689a6f538ac21d5b6ee57b52a89b0df140b85d93b8ebf73345494de29e8281b",
+        "content_type": "text/javascript"
+      }
+    ]
+  },
+  "catalog": {
+    "result": "catalog_published",
+    "listed_products": 1
+  },
+  "external_action": {
+    "result": "no_relevant_opt_in_buyer",
+    "asset_id": "046946cbc0e6664bb86a"
+  },
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 1,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
