@@ -1,0 +1,67 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-24T20:07:17.879423+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 11,
+    "source_counts": {
+      "open_web": 11
+    },
+    "search_provider_counts": {
+      "bing": 7,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 11,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "site:reddit.com reddit.com how to build a personal finance tracker with minimal code",
+      "site:problogger.com problogger.com need a content writer to draft weekly blog posts for SaaS startup",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 4,
+      "executed_queries": [
+        "site:reddit.com reddit.com how to build a personal finance tracker with minimal code",
+        "site:news.ycombinator.com news.ycombinator.com fix payment gateway integration for small e-commerce site",
+        "site:indiehackers.com indiehackers.com help with user onboarding flow for new product launch",
+        "site:github.com github.com issue dark mode toggle not working properly",
+        "site:algora.io algora.com request for code to automate data processing from CSV files",
+        "site:problogger.com problogger.com need a content writer to draft weekly blog posts for SaaS startup"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 138,
+      "known_pages": 337
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_contactable_public_source"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
