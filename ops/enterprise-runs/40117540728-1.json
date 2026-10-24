@@ -1,0 +1,59 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-24T17:47:03.450683+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 3,
+    "source_counts": {
+      "open_web": 3
+    },
+    "search_provider_counts": {
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "reason": "providers_returned_no_results",
+        "query_count": 4
+      }
+    ],
+    "fetched_public_pages": 3,
+    "candidates_without_email": 3,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 3,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "site:reddit.com help me set up a home office for remote work",
+        "site:news.ycombinator.com freelancer needed to fix payment gateway integration",
+        "site:indiehackers.com indie hacker needs help with user onboarding flow",
+        "site:github.com request for bug fix in dark mode toggle"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 137,
+      "known_pages": 296
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_contactable_public_source"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
