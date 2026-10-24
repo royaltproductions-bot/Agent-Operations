@@ -1,0 +1,55 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-24T03:55:26.758961+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 2,
+    "source_counts": {
+      "open_web": 2
+    },
+    "search_provider_counts": {
+      "bing": 2
+    },
+    "source_errors": [],
+    "fetched_public_pages": 2,
+    "candidates_without_email": 1,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "hire developer build private marketplace vintage electronics sales",
+      "launch private platform selling vintage tech directly"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 1,
+      "skipped_revisits": 1,
+      "executed_queries": [
+        "hire developer build private marketplace vintage electronics sales",
+        "launch private platform selling vintage tech directly",
+        "hire developer build private marketplace vintage electronics",
+        "private marketplace artisan products without platform",
+        "launch private handmade goods marketplace"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 136,
+      "known_pages": 239
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:No explicit request for a paid service, no public business contact route, and no indication of work that could b"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
