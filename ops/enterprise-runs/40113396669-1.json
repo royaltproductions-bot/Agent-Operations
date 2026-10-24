@@ -1,0 +1,58 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-24T16:52:14.455587+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 0,
+    "source_counts": {},
+    "search_provider_counts": {},
+    "source_errors": [
+      {
+        "source": "research_coverage",
+        "reason": "no_new_eligible_sources",
+        "queries_attempted": [
+          "hire logo designer for startup company",
+          "hire website developer for small business",
+          "hire someone to create social media content",
+          "hire someone to optimize website for seo"
+        ]
+      }
+    ],
+    "fetched_public_pages": 0,
+    "candidates_without_email": 0,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 0,
+      "skipped_revisits": 2,
+      "executed_queries": [
+        "hire logo designer for startup company",
+        "hire website developer for small business",
+        "hire someone to create social media content",
+        "hire someone to optimize website for seo"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 137,
+      "known_pages": 289
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_research_results_found"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
