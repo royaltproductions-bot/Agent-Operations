@@ -1,0 +1,89 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-25T13:21:50.384968+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "bing": 16
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "candidates_without_email": 16,
+    "search_queries": [
+      "How to consolidate multiple credit card rewards without losing track of financial health",
+      "Finding ways to simplify credit card reward tracking without sacrificing financial clarity",
+      "Struggling to keep track of multiple side hustle incomes and credit card rewards",
+      "How to avoid financial confusion while managing multiple income streams and rewards"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 6,
+      "executed_queries": [
+        "How to consolidate multiple credit card rewards without losing track of financial health",
+        "Struggling to keep track of multiple side hustle incomes and credit card rewards",
+        "How to avoid financial confusion while managing multiple income streams and rewards",
+        "Finding ways to simplify credit card reward tracking without sacrificing financial clarity"
+      ],
+      "next_query_queue": 30,
+      "frontier_size": 132,
+      "known_pages": 458
+    },
+    "durable_contactable_sources": 7
+  },
+  "production": {
+    "result": "objective_production_repair_pending",
+    "stage": "building",
+    "last_issue": "ile)\n  File \"/usr/local/lib/python3.12/site-packages/cairosvg/__init__.py\", line 66, in svg2pdf\n    return surface.PDFSurface.convert(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/site-packages/cairosvg/surface.py\", line 1",
+    "attempts": 1,
+    "files_finished": 0,
+    "files_planned": 3
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
