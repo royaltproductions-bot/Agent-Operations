@@ -1,0 +1,51 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-25T16:10:29.420299+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "deferred_for_existing_product",
+    "candidate_count": 0,
+    "new_research_attempted": false,
+    "research_deferred_for_product_completion": true,
+    "previous_product_evidence_count": 8,
+    "source_counts": {},
+    "search_provider_counts": {},
+    "source_errors": [],
+    "fetched_public_pages": 0,
+    "candidates_without_email": 0,
+    "search_queries": [],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 0,
+      "skipped_revisits": 0,
+      "executed_queries": [],
+      "next_query_queue": 30,
+      "frontier_size": 136,
+      "known_pages": 470
+    },
+    "durable_contactable_sources": 8
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:b29dca9998df477e565d:RuntimeError:production_tool_execution_failed:Traceback (most recent call last):\n  File \"/work/build.py\", line 3, in <mo",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
