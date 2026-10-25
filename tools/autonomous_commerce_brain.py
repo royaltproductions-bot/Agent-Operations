@@ -154,54 +154,101 @@ def clean_html(raw):
     text=re.sub(r"<[^>]+>"," ",text)
     return re.sub(r"[ \t]+"," ",unescape(text)).strip()
 
+# Focus where active requests are visible. The seventh investigation looks
+# for an actual public proposal route instead of another closed marketplace.
+COMMUNITY_SITES=(
+    ("Reddit","reddit.com"),
+    ("Hacker News","news.ycombinator.com"),
+    ("Indie Hackers","indiehackers.com"),
+    ("GitHub Issues and Discussions","github.com"),
+    ("Algora bounties","algora.io"),
+    ("ProBlogger Jobs","problogger.com"),
+)
+
+
 def discovery_queries(memory):
-    """Let the on-runner model search any public market for actual buyers."""
+    """Investigate active requester communities plus one reachable invitation."""
     system=(
-        "Find currently published, genuine requests where someone explicitly "
-        "seeks paid help, a vendor, or a finished deliverable. Invent four to "
-        "six independent and specific web searches across any relevant market, "
-        "public community, solicitation board, industry, or geography. "
-        "Do not limit yourself to a predefined set of websites or business models. "
-        "Prefer evidence of an actual buying/requesting party over generic "
-        "articles about common problems. Queries should be natural standalone "
-        "search-engine phrases; include site operators only when genuinely useful. "
-        "Treat previous research as background rather than a required topic list. "
-        "Never invent a buyer, contact information, or purchase intent. JSON only."
+        "Find current, genuine public requests for outside paid work or a useful "
+        "finished digital deliverable. Generate SEVEN independent research queries "
+        "in order: first one suited to Reddit, second Hacker News, third Indie "
+        "Hackers, fourth GitHub Issues/Discussions, fifth Algora, sixth "
+        "ProBlogger, and seventh a public request for quotations/proposals "
+        "where a requester explicitly provides a public business email for "
+        "submitting a bid. Choose fresh legitimate problems and industries "
+        "without a fixed business model. Avoid aggregator-only job listings, "
+        "closed job platforms requiring accounts we do not have, article roundups "
+        "and vague advice searches. The system scopes the first six queries to "
+        "their sites: supply natural phrases WITHOUT site: operators. The "
+        "seventh is a general search with no forced host. Do not invent buyers "
+        "or email addresses. Historical findings are hints, not required topics. "
+        "Return JSON only."
     )
     result=model_json(
         SEARCH_SCHEMA,system,
         {"utc_date":NOW().date().isoformat(),
-         "mission":"discover current explicit paid work requests on the public web",
+         "mission":"find requester demand with an executable public contact path",
          "research_history":memory.plan_context()},
-        num_ctx=2500,num_predict=380)
+        num_ctx=2500,num_predict=430)
     return [str(q).strip() for q in result.get("queries") or [] if str(q).strip()]
 
 
 def candidates(memory):
-    """Search the public web, with a real fallback if model planning stalls."""
+    """Keep the focused sites; reserve capacity for genuinely reachable RFPs."""
     issues=[]
-    proposed=[]
     try:
         proposed=discovery_queries(memory)
     except Exception as exc:
+        proposed=[]
         issues.append({"source":"query_planner","reason":type(exc).__name__})
 
-    queries=memory.choose_queries(proposed)
-    if not queries:
-        # The prior implementation cleared the backlog and crawled old links
-        # without running a fresh search whenever the model returned no plan.
-        # Recover independent search directions from genuine prior evidence.
-        queries=memory.choose_queries(memory.evidence_queries())
-        if queries:
+    if not proposed:
+        proposed=memory.evidence_queries()
+        if proposed:
             issues.append({"source":"query_planner",
-                           "reason":"recovered_searches_from_prior_evidence"})
-    if not queries:
-        issues.append({"source":"query_planner","reason":"no_fresh_search_query"})
+                           "reason":"recovered_prior_public_research_directions"})
 
+    scoped=[]
+    for index,(_,host) in enumerate(COMMUNITY_SITES):
+        if index>=len(proposed):
+            break
+        topic=re.sub(r"(?i)site:\\S+","",proposed[index]).strip()
+        if topic:
+            scoped.append("site:"+host+" "+topic)
+    # The proposal/invitation search is independent of the selected communities,
+    # but it is only one of seven routes, not the whole discovery strategy.
+    invitation=[]
+    if len(proposed)>len(COMMUNITY_SITES):
+        phrase=re.sub(r"(?i)site:\\S+","",proposed[len(COMMUNITY_SITES)]).strip()
+        if phrase:
+            invitation=[phrase]
+
+    fresh=memory.choose_queries(scoped+invitation)
+    backlog=[str(q.get("query") or "") for q in memory.state.get("queued_queries") or []
+             if isinstance(q,dict) and q.get("query")]
+    queries=list(dict.fromkeys(fresh+backlog))[:7]
+    memory.run_queries=queries
+    memory.state["queued_queries"]=[
+        {"query":q} for q in backlog if q not in queries][:25]
+
+    hosts=tuple(domain for _,domain in COMMUNITY_SITES)
+    focused=[q for q in queries if any(q.lower().startswith("site:"+h+" ") for h in hosts)]
+    independent=[q for q in queries if q not in focused]
     budget=memory.budget()
     rows,errors=open_web_candidates(
-        max_candidates=budget["max_candidates"],queries=queries,memory=memory,
-        max_pages=budget["max_pages"],strict_relevance=False)
+        max_candidates=max(8,budget["max_candidates"]),
+        queries=focused,memory=memory,
+        max_pages=budget["max_pages"],strict_relevance=False,
+        allowed_hosts=hosts)
+    if independent:
+        extra,extra_errors=open_web_candidates(
+            max_candidates=8,queries=independent,memory=memory,
+            max_pages=12,strict_relevance=False)
+        existing={r.get("source_url") for r in rows}
+        rows.extend(r for r in extra if r.get("source_url") not in existing)
+        errors.extend(extra_errors)
+    if not queries:
+        issues.append({"source":"research_coverage","reason":"no_fresh_search_query"})
     if not rows:
         issues.append({"source":"research_coverage",
                        "reason":"no_new_public_sources",
