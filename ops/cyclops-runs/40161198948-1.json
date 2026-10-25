@@ -1,0 +1,82 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-25T04:17:31.262016+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 10,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 10
+    },
+    "search_provider_counts": {
+      "bing": 6,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 10,
+    "search_queries": [
+      "How to avoid burnout while managing a full-time job and multiple side hustles",
+      "How to track multiple side hustle incomes without losing focus on personal goals",
+      "Finding ways to balance personal time with side hustle and full-time job commitments",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 26,
+      "executed_queries": [
+        "How to track multiple side hustle incomes without losing focus on personal goals",
+        "Struggling to maintain financial health while earning rewards from several credit cards",
+        "How to avoid burnout while managing a full-time job and multiple side hustles",
+        "Finding ways to balance personal time with side hustle and full-time job commitments"
+      ],
+      "next_query_queue": 30,
+      "frontier_size": 139,
+      "known_pages": 432
+    },
+    "durable_contactable_sources": 7
+  },
+  "production": {
+    "result": "objective_production_repair_pending",
+    "stage": "building",
+    "last_issue": "inimize exposure.\", ln=1)\n/work/build.py:48: DeprecationWarning: The parameter \"ln\" is deprecated since v2.5.2. Instead of ln=1 use new_x=XPos.LMARGIN, new_y=YPos.NEXT.\n  pdf.cell(200, 10, \"4. Stay informed and make cons",
+    "attempts": 0,
+    "files_finished": 0,
+    "files_planned": 1
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
