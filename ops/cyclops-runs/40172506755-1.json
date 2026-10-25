@@ -1,0 +1,93 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-25T07:24:28.372492+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 10,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 10
+    },
+    "search_provider_counts": {
+      "bing": 6,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 10,
+    "search_queries": [
+      "How to prioritize personal goals when managing multiple side hustles and a full-time job",
+      "Finding ways to balance personal time with side hustle and full-time job commitments without burnout",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 25,
+      "executed_queries": [
+        "How to prioritize personal goals when managing multiple side hustles and a full-time job",
+        "Struggling to maintain financial clarity while juggling multiple income streams and credit card rewards",
+        "How to sustain long-term motivation during career transitions and side hustle work",
+        "Finding ways to balance personal time with side hustle and full-time job commitments without burnout"
+      ],
+      "next_query_queue": 30,
+      "frontier_size": 136,
+      "known_pages": 436
+    },
+    "durable_contactable_sources": 7
+  },
+  "production": {
+    "result": "objective_production_repair_pending",
+    "stage": "building",
+    "last_issue": "PermissionError:[Errno 1] Operation not permitted: '/tmp/cyclops-build-cf08ha08/output'",
+    "attempts": 1,
+    "files_finished": 0,
+    "files_planned": 1
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
