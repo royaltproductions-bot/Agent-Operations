@@ -1,0 +1,98 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-25T15:24:55.722177+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "bing": 12
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 12,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "site:freelancer.com freelance job data entry for small business without coding",
+      "site:upwork.com upwork project build a personal finance tracker with minimal code",
+      "site:odesk.com odesk task optimize slow-loading React app for production",
+      "site:indeed.com indeed job help with onboarding flow for SaaS product with low retention",
+      "site:taskrabbit.com taskrabbit request for code to automate data processing from CSV files"
+    ],
+    "attempted_search_queries": [
+      "site:freelancer.com freelance job data entry for small business without coding",
+      "site:upwork.com upwork project build a personal finance tracker with minimal code",
+      "site:odesk.com odesk task optimize slow-loading React app for production",
+      "site:indeed.com indeed job help with onboarding flow for SaaS product with low retention",
+      "site:taskrabbit.com taskrabbit request for code to automate data processing from CSV files"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "site:freelancer.com freelance job data entry for small business without coding",
+        "site:upwork.com upwork project build a personal finance tracker with minimal code",
+        "site:odesk.com odesk task optimize slow-loading React app for production",
+        "site:indeed.com indeed job help with onboarding flow for SaaS product with low retention",
+        "site:taskrabbit.com taskrabbit request for code to automate data processing from CSV files"
+      ],
+      "next_query_queue": 1,
+      "frontier_size": 140,
+      "known_pages": 355
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_contactable_public_source"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
