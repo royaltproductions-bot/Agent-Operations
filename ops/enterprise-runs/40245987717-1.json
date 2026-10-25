@@ -1,0 +1,60 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-25T23:45:13.432610+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 11,
+    "source_counts": {
+      "open_web": 11
+    },
+    "search_provider_counts": {
+      "bing": 7,
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 9,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "site:algora.io Algora: request for code to automate data processing from CSV files"
+    ],
+    "attempted_search_queries": [
+      "site:indiehackers.com Indie Hackers: help with onboarding flow for a SaaS product with low retention",
+      "site:github.com GitHub Issues: user authentication not working after deployment",
+      "site:algora.io Algora: request for code to automate data processing from CSV files",
+      "site:problogger.com ProBlogger: need a content writer to draft weekly blog posts for SaaS startup"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 4,
+      "executed_queries": [
+        "site:indiehackers.com Indie Hackers: help with onboarding flow for a SaaS product with low retention",
+        "site:github.com GitHub Issues: user authentication not working after deployment",
+        "site:algora.io Algora: request for code to automate data processing from CSV files",
+        "site:problogger.com ProBlogger: need a content writer to draft weekly blog posts for SaaS startup"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 140,
+      "known_pages": 370
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:No explicit invitation for a paid service or deliverable was found. The content describes a platform and its fun"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
