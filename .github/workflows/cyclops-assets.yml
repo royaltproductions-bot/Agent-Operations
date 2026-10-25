@@ -74,7 +74,19 @@ jobs:
           done
           ready=true
           if [ "$ready" = true ]; then
-            ollama pull "$CYCLOPS_MODEL" || ready=false
+            if ollama show "$CYCLOPS_MODEL" >/dev/null 2>&1; then
+              echo "Using existing cached $CYCLOPS_MODEL model"
+            else
+              ready=false
+              for attempt in 1 2 3; do
+                if ollama pull "$CYCLOPS_MODEL"; then
+                  ready=true
+                  break
+                fi
+                echo "Model registry unavailable; retry $attempt/3"
+                sleep $((attempt * 5))
+              done
+            fi
           fi
           echo "ready=$ready" >> "$GITHUB_OUTPUT"
           exit 0
