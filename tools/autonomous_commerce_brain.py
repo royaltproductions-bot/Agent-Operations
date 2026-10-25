@@ -154,44 +154,31 @@ def clean_html(raw):
     text=re.sub(r"<[^>]+>"," ",text)
     return re.sub(r"[ \t]+"," ",unescape(text)).strip()
 
-# The sole restriction is the source community, not its subject matter.
-COMMUNITY_SITES=(
-    ("Reddit","reddit.com"),
-    ("Hacker News","news.ycombinator.com"),
-    ("Indie Hackers","indiehackers.com"),
-    ("GitHub Issues and Discussions","github.com"),
-    ("Algora bounties","algora.io"),
-    ("ProBlogger Jobs","problogger.com"),
-)
-
-
 def discovery_queries(memory):
-    """Choose unrestricted research topics for the six selected sources."""
+    """Let the on-runner model search any public market for actual buyers."""
     system=(
-        "Find genuine current public conversations or requests where someone "
-        "needs work, a deliverable, or help solving a problem. "
-        "Choose SIX independently invented searches, one each for Reddit, "
-        "Hacker News, Indie Hackers, GitHub Issues or Discussions, "
-        "Algora paid code bounties, and ProBlogger writing jobs, in that order. "
-        "Any legitimate industry, problem, method, or type "
-        "of work is allowed. Do not use preset business niches, job roles, "
-        "required keywords, product formats, or search templates. "
-        "Choose natural search phrases suited to each community. "
-        "Do not add site: operators; the search program applies the source. "
-        "Historical research is context, not a mandatory topic list. "
-        "Do not invent requests or buyer identities. Return valid JSON."
+        "Find currently published, genuine requests where someone explicitly "
+        "seeks paid help, a vendor, or a finished deliverable. Invent four to "
+        "six independent and specific web searches across any relevant market, "
+        "public community, solicitation board, industry, or geography. "
+        "Do not limit yourself to a predefined set of websites or business models. "
+        "Prefer evidence of an actual buying/requesting party over generic "
+        "articles about common problems. Queries should be natural standalone "
+        "search-engine phrases; include site operators only when genuinely useful. "
+        "Treat previous research as background rather than a required topic list. "
+        "Never invent a buyer, contact information, or purchase intent. JSON only."
     )
     result=model_json(
         SEARCH_SCHEMA,system,
         {"utc_date":NOW().date().isoformat(),
-         "mission":"find genuine requests for outside work across six selected sites",
+         "mission":"discover current explicit paid work requests on the public web",
          "research_history":memory.plan_context()},
         num_ctx=2500,num_predict=380)
     return [str(q).strip() for q in result.get("queries") or [] if str(q).strip()]
 
 
 def candidates(memory):
-    """Limit search destinations while leaving words and industries unrestricted."""
+    """Search the public web, with a real fallback if model planning stalls."""
     issues=[]
     proposed=[]
     try:
@@ -199,32 +186,25 @@ def candidates(memory):
     except Exception as exc:
         issues.append({"source":"query_planner","reason":type(exc).__name__})
 
-    # Remove previously queued general-web searches without deleting the
-    # research history. Apply the site to each proposal BEFORE cooldown checks.
-    memory.state["queued_queries"]=[]
-    scoped=[]
-    for index,(_,host) in enumerate(COMMUNITY_SITES):
-        if not proposed:
-            break
-        topic=re.sub(r"(?i)site:\S+","",proposed[index%len(proposed)]).strip()
-        if topic:
-            scoped.append("site:"+host+" "+topic)
-    queries=memory.choose_queries(scoped)
-    # ResearchMemory normally caps searches at four. Include the two overflow
-    # queries here so these newly added sites actually get searched this run.
-    overflow=[q.get("query") for q in memory.state.get("queued_queries",[])
-              if isinstance(q,dict) and q.get("query")]
-    queries=(queries+overflow)[:len(COMMUNITY_SITES)]
-    memory.run_queries=queries
-    memory.state["queued_queries"]=[]
+    queries=memory.choose_queries(proposed)
+    if not queries:
+        # The prior implementation cleared the backlog and crawled old links
+        # without running a fresh search whenever the model returned no plan.
+        # Recover independent search directions from genuine prior evidence.
+        queries=memory.choose_queries(memory.evidence_queries())
+        if queries:
+            issues.append({"source":"query_planner",
+                           "reason":"recovered_searches_from_prior_evidence"})
+    if not queries:
+        issues.append({"source":"query_planner","reason":"no_fresh_search_query"})
+
     budget=memory.budget()
     rows,errors=open_web_candidates(
         max_candidates=budget["max_candidates"],queries=queries,memory=memory,
-        max_pages=budget["max_pages"],strict_relevance=False,
-        allowed_hosts=tuple(host for _,host in COMMUNITY_SITES))
+        max_pages=budget["max_pages"],strict_relevance=False)
     if not rows:
         issues.append({"source":"research_coverage",
-                       "reason":"no_new_eligible_community_sources",
+                       "reason":"no_new_public_sources",
                        "queries_attempted":queries})
     rows=enrich_public_response_route(rows)
     return rows,issues+errors
@@ -504,7 +484,8 @@ def run():
             "contactable_sources":sum(bool(r.get("contact")) for r in rows),
             "linked_requester_contacts":sum(bool(r.get("contact_source_url")) for r in rows),
             "potential_invitation_signals":sum(bool(PUBLIC_INVITATION.search(str(r.get("text") or ""))) for r in rows),
-            "search_queries":list(dict.fromkeys(str(r.get("search_query") or "") for r in rows))[:12],
+            "search_queries":list(dict.fromkeys(str(r.get("search_query") or "") for r in rows if r.get("search_query")))[:12],
+            "attempted_search_queries":list(memory.run_queries)[:12],
         }
     except Exception as exc:
         rows=[]
