@@ -62,7 +62,19 @@ jobs:
           done
           ready=true
           if [ "$ready" = true ]; then
-            ollama pull "$COMMERCE_MODEL" || ready=false
+            if ollama show "$COMMERCE_MODEL" >/dev/null 2>&1; then
+              echo "Using existing cached $COMMERCE_MODEL model"
+            else
+              ready=false
+              for attempt in 1 2 3; do
+                if ollama pull "$COMMERCE_MODEL"; then
+                  ready=true
+                  break
+                fi
+                echo "Model registry unavailable; retry $attempt/3"
+                sleep $((attempt * 5))
+              done
+            fi
           fi
           echo "ready=$ready" >> "$GITHUB_OUTPUT"
           exit 0
