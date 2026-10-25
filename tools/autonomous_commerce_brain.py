@@ -212,14 +212,14 @@ def candidates(memory):
     for index,(_,host) in enumerate(COMMUNITY_SITES):
         if index>=len(proposed):
             break
-        topic=re.sub(r"(?i)site:\\S+","",proposed[index]).strip()
+        topic=re.sub(r"(?i)site:\S+","",proposed[index]).strip()
         if topic:
             scoped.append("site:"+host+" "+topic)
     # The proposal/invitation search is independent of the selected communities,
     # but it is only one of seven routes, not the whole discovery strategy.
     invitation=[]
     if len(proposed)>len(COMMUNITY_SITES):
-        phrase=re.sub(r"(?i)site:\\S+","",proposed[len(COMMUNITY_SITES)]).strip()
+        phrase=re.sub(r"(?i)site:\S+","",proposed[len(COMMUNITY_SITES)]).strip()
         if phrase:
             invitation=[phrase]
 
