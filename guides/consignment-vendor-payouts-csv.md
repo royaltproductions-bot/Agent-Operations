@@ -40,7 +40,7 @@ A complete monthly settlement should include a vendor total and separate transac
 5. Mixing multiple settlement periods in one upload.
 6. Sending personal customer or financial identifiers to external processors unnecessarily.
 
-For private local use, the [free browser-only VendorSettle calculation engine](../products/vendorsettle-desk/index.html) and [calculation source](../products/vendorsettle-desk/engine.js) are publicly available. Download and run locally; viewing HTML in a GitHub file preview is not a hosted web application.
+For private local use, open the [free browser-only VendorSettle payout calculator](https://vendorsettle-checkout.onrender.com/free-vendor-payout-calculator/). It runs directly in your browser, without uploading your sales data. The [calculation source](../products/vendorsettle-desk/engine.js) remains available.
 
 If you want a **prepared vendor settlement summary plus audit CSV**, the existing [VendorSettle Desk report service](../products/vendorsettle-desk/README.md) is **$49 for one reporting period with up to 500 sales rows**, delivered by email after you provide an anonymized file. [Review the terms and order through Stripe](https://buy.stripe.com/eVq9AS63KcrdfUe3AP7Re00). No subscription. The processor identifies the legal merchant before purchase.
 
