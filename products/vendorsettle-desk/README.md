@@ -32,6 +32,6 @@ This is a **data preparation and arithmetic reporting service**, not professiona
 
 ## Free local calculator
 
-For technically comfortable merchants, the underlying [offline browser-based calculator source](./index.html) and [JavaScript calculation engine](./engine.js) are publicly viewable. The paid offering is a **prepared settlement report service**, not a license to the calculator.
+Anyone can [use the free browser-based payout calculator](https://vendorsettle-checkout.onrender.com/free-vendor-payout-calculator/) without signing in or uploading data. The [source code](./engine.js) remains publicly viewable. The paid offering is a **prepared settlement report service**, not a license to the calculator.
 
 _Offer published October 2026. No customer orders or sales are implied by the existence of this page._
