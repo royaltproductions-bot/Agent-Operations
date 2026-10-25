@@ -1,0 +1,73 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-25T10:11:06.894788+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 9,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "bing": 5,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 9,
+    "search_queries": [
+      "How to track and optimize multiple income streams without financial confusion",
+      "How to avoid financial pitfalls while maximizing cash-back rewards from multiple credit cards",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 27,
+      "executed_queries": [
+        "How to manage multiple side hustles without losing sight of personal goals",
+        "Struggling to maintain focus while balancing a full-time job and side hustle income",
+        "How to track and optimize multiple income streams without financial confusion",
+        "How to avoid financial pitfalls while maximizing cash-back rewards from multiple credit cards"
+      ],
+      "next_query_queue": 29,
+      "frontier_size": 132,
+      "known_pages": 442
+    },
+    "durable_contactable_sources": 7
+  },
+  "production": {
+    "result": "objective_production_repair_pending",
+    "stage": "building",
+    "last_issue": "RuntimeError:production_tool_execution_failed:Traceback (most recent call last):\n  File \"/work/build.py\", line 2, in <module>\n    import requests\nModuleNotFoundError: No module named 'requests'\n",
+    "attempts": 1,
+    "files_finished": 0,
+    "files_planned": 2
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
