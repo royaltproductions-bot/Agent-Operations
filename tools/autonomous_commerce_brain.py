@@ -224,8 +224,10 @@ def candidates(memory):
             invitation=[phrase]
 
     fresh=memory.choose_queries(scoped+invitation)
+    # Do not resurrect stale queries for closed marketplaces from earlier runs.
+    eligible=set(scoped+invitation)
     backlog=[str(q.get("query") or "") for q in memory.state.get("queued_queries") or []
-             if isinstance(q,dict) and q.get("query")]
+             if isinstance(q,dict) and q.get("query") in eligible]
     queries=list(dict.fromkeys(fresh+backlog))[:7]
     memory.run_queries=queries
     memory.state["queued_queries"]=[
