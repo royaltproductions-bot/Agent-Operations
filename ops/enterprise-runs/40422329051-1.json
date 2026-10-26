@@ -1,0 +1,67 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-26T23:51:45.851427+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 5,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "bing": 1,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 3,
+    "candidates_without_email": 5,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "search_queries": [
+      "RFP Develop secure privacy-first personal finance tracker encrypted data storage"
+    ],
+    "attempted_search_queries": [
+      "Request proposal: Develop a real-time analytics dashboard for small businesses with minimal infrastructure",
+      "Request proposal Build real-time analytics dashboard small businesses minimal infrastructure",
+      "RFP Develop secure privacy-first personal finance tracker encrypted data storage"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 23,
+      "executed_queries": [
+        "Request proposal: Develop a real-time analytics dashboard for small businesses with minimal infrastructure",
+        "Request proposal Build real-time analytics dashboard small businesses minimal infrastructure",
+        "RFP Develop secure privacy-first personal finance tracker encrypted data storage"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 136,
+      "known_pages": 456
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_contactable_public_source"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
