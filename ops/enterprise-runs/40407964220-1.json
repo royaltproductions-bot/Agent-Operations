@@ -1,0 +1,61 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-26T21:53:49.771060+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 9,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "bing": 5,
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 9,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "Looking content writer draft weekly blog posts SaaS startup targeting",
+      "Request proposal: Create a decentralized app for managing personal health data without a central server"
+    ],
+    "attempted_search_queries": [
+      "Request proposal: Create a decentralized app for managing personal health data without a central server",
+      "Request proposal Develop secure privacy-first personal finance tracker encrypted data",
+      "Need help designing user onboarding flow no-code SaaS product high",
+      "Looking content writer draft weekly blog posts SaaS startup targeting"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 25,
+      "executed_queries": [
+        "Request proposal: Create a decentralized app for managing personal health data without a central server",
+        "Request proposal Develop secure privacy-first personal finance tracker encrypted data",
+        "Need help designing user onboarding flow no-code SaaS product high",
+        "Looking content writer draft weekly blog posts SaaS startup targeting"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 136,
+      "known_pages": 447
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_contactable_public_source"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
