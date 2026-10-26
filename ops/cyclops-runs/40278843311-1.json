@@ -1,0 +1,81 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-26T06:18:28.804896+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 10,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 10
+    },
+    "search_provider_counts": {
+      "bing": 6,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 10,
+    "search_queries": [
+      "How to maintain focus and motivation while managing a full-time job and multiple side hustle commitments",
+      "How to avoid burnout while balancing a full-time job with multiple side hustle activities",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 24,
+      "executed_queries": [
+        "How to maintain focus and motivation while managing a full-time job and multiple side hustle commitments",
+        "Struggling to keep track of personal goals while juggling a full-time job and side hustle work",
+        "How to maintain motivation and focus while balancing a full-time job with side hustle commitments",
+        "How to avoid burnout while balancing a full-time job with multiple side hustle activities"
+      ],
+      "next_query_queue": 27,
+      "frontier_size": 137,
+      "known_pages": 499
+    },
+    "durable_contactable_sources": 11
+  },
+  "production": {
+    "result": "objective_production_repair_pending",
+    "stage": "building",
+    "last_issue": "has been renamed to \"text\" in 2.7.6\n  pdf.cell(200, 10, txt=f\"{date.strftime('%A, %B %d, %Y')}\", ln=1, align=\"C\")\n/work/build.py:28: DeprecationWarning: The parameter \"ln\" is deprecated since v2.5.2. Instead of ln=1 use new_x=XPos.LMARGIN, new_y=YPos",
+    "attempts": 1,
+    "files_finished": 0,
+    "files_planned": 1
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
