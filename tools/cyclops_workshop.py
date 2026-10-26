@@ -41,7 +41,10 @@ def _container(cmd,folder=None):
     args=["docker","run","--rm","--network","none","--read-only",
           "--cap-drop","ALL","--security-opt","no-new-privileges",
           "--pids-limit","96","--cpus","2","--memory","1500m",
-          "--user","65534:65534",
+          # Match the non-root GitHub runner's UID/GID. Otherwise files made
+          # inside the bind mount belong to 65534 and may be unreadable or
+          # impossible to clean up on the host (EPERM).
+          "--user",str(os.getuid())+":"+str(os.getgid()),
           "--tmpfs","/tmp:rw,nosuid,nodev,size=64m"]
     if folder is not None:
         args+=["--mount","type=bind,src="+str(folder)+",dst=/work",
@@ -93,7 +96,8 @@ def manufacture(script,outputs):
         raise ValueError("duplicate_output_names")
     with tempfile.TemporaryDirectory(prefix="cyclops-build-") as temp:
         root=Path(temp)
-        root.chmod(0o777)
+        # The container uses this host user's UID; no world-write needed.
+        root.chmod(0o700)
         src=root/"build.py"
         src.write_text(script,encoding="utf-8")
         src.chmod(0o644)

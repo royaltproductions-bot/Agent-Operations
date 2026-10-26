@@ -64,6 +64,38 @@ class WebEfficiencyTests(unittest.TestCase):
         self.assertEqual(seen["candidates"][0]["candidate_id"],"web:b")
 
 
+class WorkshopOwnershipTests(unittest.TestCase):
+    def test_container_writes_as_host_nonroot_owner(self):
+        import os
+        from tools import cyclops_workshop as workshop
+        from pathlib import Path
+        from subprocess import CompletedProcess
+        with patch.object(workshop.subprocess,"run",
+                          return_value=CompletedProcess([],0,"","")) as run:
+            workshop._container(["python3","/work/build.py"],Path("/tmp/production-test"))
+        command=run.call_args.args[0]
+        self.assertEqual(command[command.index("--user")+1],
+                         str(os.getuid())+":"+str(os.getgid()))
+        self.assertEqual(command[command.index("--network")+1],"none")
+        self.assertIn("--read-only",command)
+        self.assertIn("--cap-drop",command)
+
+    def test_private_mode_generated_file_is_still_readable(self):
+        import os
+        from subprocess import CompletedProcess
+        from tools import cyclops_workshop as workshop
+        def pretend_build(command,folder):
+            target=folder/"finished.txt"
+            target.write_text("Authentic finished content",encoding="utf-8")
+            target.chmod(0o600)
+            self.assertEqual(folder.stat().st_mode & 0o777,0o700)
+            return CompletedProcess([],0,"","")
+        with patch.object(workshop,"_container",side_effect=pretend_build):
+            result=workshop.manufacture("print('made')",["finished.txt"])
+        self.assertEqual(result[0]["filename"],"finished.txt")
+        self.assertGreater(result[0]["size_bytes"],0)
+
+
 class CyclopsEfficiencyTests(unittest.TestCase):
     def test_real_problem_pages_go_first_without_discarding_other_pages(self):
         try:

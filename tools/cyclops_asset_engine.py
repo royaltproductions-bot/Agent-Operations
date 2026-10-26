@@ -499,7 +499,10 @@ def _retire_draft(checkpoint,reason):
         "retired_at":NOW().isoformat(),
     })
     save_pending({"stage":"empty"})
-    raise ProductRetired("unusable_production_archived:"+ident+":"+reason[:120])
+    # The last traceback line carries the actual exception, while the
+    # beginning is usually boilerplate. Keep the public receipt concise.
+    summary=str(reason).strip().splitlines()[-1][-170:] if reason else "unknown"
+    raise ProductRetired("unusable_production_archived:"+ident+":"+summary)
 
 
 def create_asset(rows,existing_assets=None):
