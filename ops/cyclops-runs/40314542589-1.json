@@ -1,0 +1,82 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-26T11:25:36.862189+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 8,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "bing": 4,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 8,
+    "search_queries": [
+      "How to manage multiple side hustle schedules without overlapping with full-time job hours",
+      "How to avoid burnout while managing a full-time job and side hustle activities without losing focus",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 36,
+      "executed_queries": [
+        "How to manage multiple side hustle schedules without overlapping with full-time job hours",
+        "Struggling to prioritize tasks when juggling a full-time job and several side hustle projects",
+        "How to maintain mental clarity while handling a full-time job and multiple side hustle commitments",
+        "Finding ways to stay organized with multiple income streams and reward systems without feeling overwhelmed",
+        "How to avoid burnout while managing a full-time job and side hustle activities without losing focus"
+      ],
+      "next_query_queue": 30,
+      "frontier_size": 135,
+      "known_pages": 507
+    },
+    "durable_contactable_sources": 11
+  },
+  "production": {
+    "result": "objective_production_repair_pending",
+    "stage": "building",
+    "last_issue": "PermissionError:[Errno 1] Operation not permitted: '/tmp/cyclops-build-jo612v51/taskflow_scheduler'",
+    "attempts": 1,
+    "files_finished": 0,
+    "files_planned": 4
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 2
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
