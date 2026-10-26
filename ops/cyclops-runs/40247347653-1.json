@@ -1,0 +1,89 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-26T00:03:43.910521+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 12,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "bing": 8,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 12,
+    "search_queries": [
+      "How to organize and track multiple side hustle incomes and credit card rewards without losing financial clarity",
+      "Struggling to maintain focus and motivation while managing a full-time job and multiple side hustle commitments",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 8,
+      "skipped_revisits": 24,
+      "executed_queries": [
+        "How to organize and track multiple side hustle incomes and credit card rewards without losing financial clarity",
+        "Struggling to maintain focus and motivation while managing a full-time job and multiple side hustle commitments",
+        "How to simplify the process of consolidating credit card rewards and side hustle incomes for better financial oversight",
+        "Finding ways to maintain financial health while juggling multiple income streams and reward systems"
+      ],
+      "next_query_queue": 30,
+      "frontier_size": 136,
+      "known_pages": 489
+    },
+    "durable_contactable_sources": 11
+  },
+  "production": {
+    "result": "objective_production_repair_pending",
+    "stage": "building",
+    "last_issue": "RuntimeError:production_tool_execution_failed:Traceback (most recent call last):\n  File \"/work/build.py\", line 3, in <module>\n    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, ListItem, List, Image\nImportError: cannot import na",
+    "attempts": 1,
+    "files_finished": 0,
+    "files_planned": 1
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
