@@ -1,0 +1,81 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-26T22:17:52.395884+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 7,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 7
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "bing": 3
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 7,
+    "search_queries": [
+      "",
+      "How to prioritize tasks when managing a full-time job and multiple side hustle activities simultaneously"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 37,
+      "executed_queries": [
+        "How to maintain mental clarity while juggling a full-time job and multiple side hustle projects",
+        "Struggling to balance personal time with the demands of a full-time job and side hustle commitments",
+        "How to effectively manage stress when handling multiple side hustle activities alongside a full-time job",
+        "Finding ways to stay organized without feeling overwhelmed by side hustle and full-time job responsibilities",
+        "How to prioritize tasks when managing a full-time job and multiple side hustle activities simultaneously"
+      ],
+      "next_query_queue": 22,
+      "frontier_size": 136,
+      "known_pages": 537
+    },
+    "durable_contactable_sources": 11
+  },
+  "production": {
+    "result": "artifact_created_and_saved",
+    "stage": "building",
+    "last_issue": "",
+    "attempts": 0,
+    "files_finished": 1,
+    "files_planned": 3
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 3
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
