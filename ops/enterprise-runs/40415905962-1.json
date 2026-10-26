@@ -1,0 +1,57 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-26T22:56:43.806051+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 4,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [],
+    "attempted_search_queries": [
+      "Need a freelancer to create a secure, privacy-first personal finance tracker with encrypted data storage",
+      "Looking for a developer to build a decentralized app for managing personal health data without a central server",
+      "Looking for a content writer to draft weekly blog posts for a SaaS startup targeting remote teams",
+      "Need help designing user onboarding flow for a no-code SaaS product with high churn rates"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 32,
+      "executed_queries": [
+        "Need a freelancer to create a secure, privacy-first personal finance tracker with encrypted data storage",
+        "Looking for a developer to build a decentralized app for managing personal health data without a central server",
+        "Looking for a content writer to draft weekly blog posts for a SaaS startup targeting remote teams",
+        "Need help designing user onboarding flow for a no-code SaaS product with high churn rates"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 135,
+      "known_pages": 451
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_contactable_public_source"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
