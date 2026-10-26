@@ -1,0 +1,72 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-26T15:48:13.530519+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "bing": 10,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 13,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 7,
+    "search_queries": [
+      "site:reddit.com Reddit: how to build a decentralized app for managing personal health data without a central server",
+      "RFP: build a secure, privacy-first personal finance tracker with encrypted data storage - email: info@privacyfirsttracker.com"
+    ],
+    "attempted_search_queries": [
+      "site:reddit.com Reddit: how to build a decentralized app for managing personal health data without a central server",
+      "site:news.ycombinator.com Hacker News: how to create a real-time analytics dashboard for small businesses with minimal infrastructure",
+      "RFP: build a secure, privacy-first personal finance tracker with encrypted data storage - email: info@privacyfirsttracker.com"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 8,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "site:reddit.com Reddit: how to build a decentralized app for managing personal health data without a central server",
+        "site:news.ycombinator.com Hacker News: how to create a real-time analytics dashboard for small businesses with minimal infrastructure",
+        "RFP: build a secure, privacy-first personal finance tracker with encrypted data storage - email: info@privacyfirsttracker.com"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 140,
+      "known_pages": 380
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:No explicit invitation for a relevant outside provider, no public business contact route, and no requested work "
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
