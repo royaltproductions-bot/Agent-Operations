@@ -41,6 +41,7 @@ from tools.open_web_discovery import (
     fetch_public_text,
     open_web_candidates,
     safe_email,
+    public_request_signal,
 )
 from tools.research_memory import ResearchMemory
 
@@ -105,6 +106,7 @@ def model_json(schema,system,observation,num_ctx=4096,num_predict=700):
         data=json.dumps({
             "model":MODEL,
             "stream":False,
+            "keep_alive":"60m",
             "format":schema,
             "think":False,
             "options":{"temperature":0.15,"num_ctx":num_ctx,"num_predict":num_predict},
@@ -238,10 +240,9 @@ def enrich_public_response_route(rows):
             enriched.append(row)
             continue
         try:
-            _,current,links=fetch_public_text(row["source_url"],with_links=True)
-            if not PUBLIC_INVITATION.search(current):
-                enriched.append(row)
-                continue
+            # The discovery pass already downloaded this exact page. Reuse
+            # those links instead of paying another network round-trip.
+            links=row.get("public_links") or []
             hostname=urllib.parse.urlsplit(row["source_url"]).hostname
             possible=[
                 item for item in links
@@ -323,7 +324,10 @@ def choose_offer(rows):
                 if row.get("page_fetched") and row.get("contact")]
     if not actionable:
         return None,{"reason":"no_contactable_public_source"}
-    ranked=actionable
+    ranked=sorted(actionable,key=lambda row:(
+        -int(bool(PUBLIC_INVITATION.search(str(row.get("text") or "")))),
+        -int(bool(row.get("contact_source_url"))),
+        -public_request_signal(row)))
     visible=[{
         "candidate_id":row["id"],
         "source_url":row["source_url"],

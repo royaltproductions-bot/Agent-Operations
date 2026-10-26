@@ -49,7 +49,7 @@ def _open(url,accept="text/html,application/xhtml+xml",limit=450000):
         "User-Agent":"Mozilla/5.0 compatible; autonomous-commerce-discovery/1.0",
         "Accept":accept,
     })
-    with _OPENER.open(req) as response:
+    with _OPENER.open(req,timeout=18) as response:
         final=response.geturl()
         if not _public_url(final):
             raise ValueError("final_url_not_public")
@@ -134,6 +134,27 @@ def compact_query(query):
     """Translate a verbose question into source-neutral search engine terms."""
     words=search_terms(query)
     return " ".join(words[:10]) if words else str(query)[:140]
+
+
+def public_request_signal(hit):
+    """Soft ranking signal for real requests/problems; never an outreach permit.
+
+    Only ranks already-retrieved evidence. No domain, product or industry is
+    mandatory, and the original candidate remains available to the model.
+    """
+    excerpt=(" ".join(str(hit.get(k) or "") for k in ("title","snippet","text")))[:1900]
+    return (
+        4*bool(re.search(
+            r"(?i)\b(?:seeking|hiring|looking for|request for proposals?|"
+            r"request for quotations?|submit (?:a |your )?(?:bid|quote|proposal)|"
+            r"paid (?:work|project|contract)|open (?:bounty|rfp))\b",excerpt))
+        +2*bool(re.search(
+            r"(?i)\b(?:i need|we need|need help|struggling (?:to|with)|"
+            r"cannot (?:find|figure|manage)|can't (?:find|figure|manage)|"
+            r"frustrated (?:by|with)|manual(?:ly)? (?:tracking|reconciling))\b",
+            excerpt))
+        +bool("?" in str(hit.get("title") or ""))
+    )
 
 
 def relevant_hit(query,hit):
@@ -288,7 +309,7 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
                 # Relevance is a ranking hint, not an exclusion gate: the
                 # market researcher must see authentic hits even when our
                 # tiny token-overlap heuristic misunderstands the search.
-                ordered=sorted(hits,key=lambda hit:not relevant_hit(query,hit))
+                ordered=sorted(hits,key=lambda hit:(not relevant_hit(query,hit),-public_request_signal(hit)))
                 if strict_relevance:
                     ordered=[hit for hit in ordered if relevant_hit(query,hit)]
                 if ordered:
@@ -387,6 +408,7 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
             "title":title[:500],"snippet":snippet[:1600],
             "contact":contact,"text":evidence[:8000],
             "page_fetched":bool(page),"created_at":None,
+            "public_links":links,
         }
         results[final]=row
         if memory:

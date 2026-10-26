@@ -48,7 +48,7 @@ def _endpoint(path):
 def _read(path):
     url,headers=_endpoint(path)
     try:
-        with urllib.request.urlopen(urllib.request.Request(url,headers=headers)) as response:
+        with urllib.request.urlopen(urllib.request.Request(url,headers=headers),timeout=20) as response:
             doc=json.load(response)
     except urllib.error.HTTPError as exc:
         if exc.code==404:
@@ -69,7 +69,7 @@ def _write(path,content):
         req=urllib.request.Request(url,data=json.dumps(doc).encode(),method="PUT",
                                    headers={**headers,"Content-Type":"application/json"})
         try:
-            with urllib.request.urlopen(req) as response:
+            with urllib.request.urlopen(req,timeout=20) as response:
                 return json.load(response)
         except urllib.error.HTTPError as exc:
             if exc.code in (409,422) and attempt<2:

@@ -36,7 +36,7 @@ from tools.connected_commerce_tools import (
     stripe_usd_unit_amount,
 )
 
-from tools.open_web_discovery import open_web_candidates
+from tools.open_web_discovery import open_web_candidates, public_request_signal
 from tools.cyclops_workshop import discover_tools, manufacture, _safe_path
 from tools.research_memory import ResearchMemory
 from tools.cyclops_vault import (read_pending, save_pending, seal_asset,
@@ -101,6 +101,7 @@ def model_json(schema,system,observation,num_ctx=6144,num_predict=1800):
         data=json.dumps({
             "model":MODEL,
             "stream":False,
+            "keep_alive":"60m",
             "format":schema,
             "think":False,
             "options":{"temperature":0.18,"num_ctx":num_ctx,"num_predict":num_predict},
@@ -174,6 +175,11 @@ def demand_candidates(memory):
             "queries_attempted":queries,
             "prior_unvisited_links":len(memory.frontier(limit=140)),
         })
+    # Prioritize firsthand current demand over generic advice in the model's
+    # small evidence window. This never excludes other industries or sources.
+    rows.sort(key=lambda r:(not bool(r.get("page_fetched")),
+                            -public_request_signal(r),
+                            str(r.get("source_url") or "")))
     return rows,issues+errors
 
 
@@ -306,6 +312,7 @@ def model_python(system,observation,num_ctx=7168,num_predict=5600):
         data=json.dumps({
             "model":MODEL,
             "stream":False,
+            "keep_alive":"60m",
             "think":False,
             "options":{"temperature":0.18,"num_ctx":num_ctx,"num_predict":num_predict},
             "messages":[
@@ -636,7 +643,7 @@ def github_put(path,text):
     sha=None
     try:
         req=urllib.request.Request(url,headers=headers)
-        with urllib.request.urlopen(req) as response:
+        with urllib.request.urlopen(req,timeout=30) as response:
             current=json.load(response)
             sha=current.get("sha")
     except urllib.error.HTTPError as exc:
@@ -653,7 +660,7 @@ def github_put(path,text):
     req=urllib.request.Request(url,data=json.dumps(body).encode(),method="PUT",
                                headers=headers)
     try:
-        with urllib.request.urlopen(req) as response:
+        with urllib.request.urlopen(req,timeout=30) as response:
             return json.load(response)
     except urllib.error.HTTPError as exc:
         raise RuntimeError("github_asset_write_http_"+str(exc.code)) from None

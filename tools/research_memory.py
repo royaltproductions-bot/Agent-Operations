@@ -100,7 +100,7 @@ def _remote(lane):
 def _get(lane):
     path,url,headers=_remote(lane)
     try:
-        with urllib.request.urlopen(urllib.request.Request(url,headers=headers)) as response:
+        with urllib.request.urlopen(urllib.request.Request(url,headers=headers),timeout=20) as response:
             obj=json.load(response)
     except urllib.error.HTTPError as exc:
         if exc.code==404:
@@ -362,7 +362,7 @@ class ResearchMemory:
                         **headers,"Content-Type":"application/json"
                     },method="PUT")
                 try:
-                    with urllib.request.urlopen(request):
+                    with urllib.request.urlopen(request,timeout=20):
                         pass
                     self.state=current
                     self.last_persisted=True

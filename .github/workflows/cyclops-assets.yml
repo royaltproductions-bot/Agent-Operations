@@ -52,6 +52,12 @@ jobs:
           path: .ollama-cache/models
           key: ollama-commerce-qwen3-8b-v1
 
+      - name: Check live Cyclops execution before loading Qwen
+        id: preflight
+        run: |
+          python3 -m pip install --quiet --disable-pip-version-check cryptography
+          python3 -m unittest discover -s tests -p 'test_x_variant_execution.py' -q
+
       - name: Prepare isolated production tools
         shell: bash
         run: |
@@ -97,13 +103,6 @@ jobs:
         shell: bash
         run: |
           set +e
-          python3 -m pip install --quiet --disable-pip-version-check cryptography
-          deps=$?
-          if [ "$deps" -ne 0 ]; then
-            echo "Cyclops private asset encryption dependency unavailable"
-            echo "exit_code=$deps" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
           python3 -m tools.cyclops_asset_engine
           code=$?
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
@@ -114,6 +113,7 @@ jobs:
         shell: bash
         env:
           MODEL_READY: ${{ steps.model.outputs.ready }}
+          PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
           CYCLOPS_OUTCOME: ${{ steps.cyclops.outcome }}
         run: |
           set -euo pipefail
@@ -124,7 +124,9 @@ jobs:
           import json, os
           from datetime import datetime, timezone
           reason="cyclops_process_failure"
-          if os.environ.get("MODEL_READY")!="true":
+          if os.environ.get("PREFLIGHT_OUTCOME")!="success":
+              reason="production_preflight_failure"
+          elif os.environ.get("MODEL_READY")!="true":
               reason="model_startup_failure"
           elif os.environ.get("CYCLOPS_OUTCOME")=="skipped":
               reason="cyclops_step_skipped"
@@ -156,8 +158,13 @@ jobs:
         shell: bash
         env:
           MODEL_READY: ${{ steps.model.outputs.ready }}
+          PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
           ENGINE_EXIT_CODE: ${{ steps.cyclops.outputs.exit_code }}
         run: |
+          if [ "$PREFLIGHT_OUTCOME" != "success" ]; then
+            echo "::error::Cyclops offline preflight failed"
+            exit 1
+          fi
           if [ "$MODEL_READY" != "true" ]; then
             echo "::error::Cyclops model failed to start"
             exit 1

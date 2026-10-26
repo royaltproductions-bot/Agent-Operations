@@ -40,6 +40,10 @@ jobs:
           fetch-depth: 5
           persist-credentials: true
 
+      - name: Check live-market execution before loading Qwen
+        id: preflight
+        run: python3 -m unittest discover -s tests -p 'test_x_variant_execution.py' -q
+
       - uses: actions/cache@v4
         continue-on-error: true
         with:
@@ -95,6 +99,7 @@ jobs:
         shell: bash
         env:
           MODEL_READY: ${{ steps.model.outputs.ready }}
+          PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
           COMMERCE_OUTCOME: ${{ steps.commerce.outcome }}
           COMMERCE_EXIT_CODE: ${{ steps.commerce.outputs.exit_code }}
         run: |
@@ -106,7 +111,9 @@ jobs:
           import json, os
           from datetime import datetime, timezone
           reason="engine_process_failure"
-          if os.environ.get("MODEL_READY")!="true":
+          if os.environ.get("PREFLIGHT_OUTCOME")!="success":
+              reason="production_preflight_failure"
+          elif os.environ.get("MODEL_READY")!="true":
               reason="model_startup_failure"
           elif os.environ.get("COMMERCE_OUTCOME")=="skipped":
               reason="commerce_step_skipped"
@@ -143,8 +150,13 @@ jobs:
         shell: bash
         env:
           MODEL_READY: ${{ steps.model.outputs.ready }}
+          PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
           ENGINE_EXIT_CODE: ${{ steps.commerce.outputs.exit_code }}
         run: |
+          if [ "$PREFLIGHT_OUTCOME" != "success" ]; then
+            echo "::error::Commerce Engine offline preflight failed"
+            exit 1
+          fi
           if [ "$MODEL_READY" != "true" ]; then
             echo "::error::Commerce Engine model failed to start"
             exit 1
