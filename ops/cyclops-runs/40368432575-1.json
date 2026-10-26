@@ -1,0 +1,75 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-26T17:27:44.167047+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 10,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 10
+    },
+    "search_provider_counts": {
+      "bing": 6,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 10,
+    "search_queries": [
+      "How to automate the tracking of multiple side hustle incomes and credit card rewards",
+      "How to simplify the process of consolidating side hustle earnings and credit card rewards into one dashboard",
+      "Finding ways to streamline financial tracking across multiple side hustle activities and reward systems",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 33,
+      "executed_queries": [
+        "How to automate the tracking of multiple side hustle incomes and credit card rewards",
+        "Struggling to reconcile personal finances when managing multiple income streams and reward systems",
+        "How to simplify the process of consolidating side hustle earnings and credit card rewards into one dashboard",
+        "Finding ways to streamline financial tracking across multiple side hustle activities and reward systems",
+        "How to maintain financial clarity when managing multiple side hustle incomes and credit card reward programs"
+      ],
+      "next_query_queue": 30,
+      "frontier_size": 133,
+      "known_pages": 516
+    },
+    "durable_contactable_sources": 11
+  },
+  "production": {
+    "result": "objective_production_repair_pending",
+    "stage": "building",
+    "last_issue": "0, 10, txt=\"Simplified Result: sqrt(2) * sin(2x + \u03c0/4)\", ln=1, align=\"L\")\n  File \"/usr/local/lib/python3.12/site-packages/fpdf/fpdf.py\", line 289, in wrapper\n    return fn(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3",
+    "attempts": 1,
+    "files_finished": 0,
+    "files_planned": 1
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 2
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
