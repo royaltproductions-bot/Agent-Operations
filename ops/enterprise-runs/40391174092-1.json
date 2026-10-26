@@ -1,0 +1,75 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-26T19:59:48.395137+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "bing": 8,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 11,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "Request for proposal: Build a secure, privacy-first personal finance tracker with encrypted data storage",
+      "Request for proposal: Develop a real-time analytics dashboard for small businesses with minimal infrastructure",
+      "Need assistance with onboarding flow for a SaaS product with low retention rates"
+    ],
+    "attempted_search_queries": [
+      "Request for proposal: Build a secure, privacy-first personal finance tracker with encrypted data storage",
+      "Request for proposal: Develop a real-time analytics dashboard for small businesses with minimal infrastructure",
+      "Need assistance with onboarding flow for a SaaS product with low retention rates",
+      "Request for proposal: Create a decentralized app for managing personal health data without a central server"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 11,
+      "skipped_revisits": 11,
+      "executed_queries": [
+        "Request for proposal: Build a secure, privacy-first personal finance tracker with encrypted data storage",
+        "Request for proposal: Develop a real-time analytics dashboard for small businesses with minimal infrastructure",
+        "Need assistance with onboarding flow for a SaaS product with low retention rates",
+        "Request for proposal: Create a decentralized app for managing personal health data without a central server"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 136,
+      "known_pages": 421
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:No actionable request for services or collaboration was identified. The page is informational and does not invit"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
