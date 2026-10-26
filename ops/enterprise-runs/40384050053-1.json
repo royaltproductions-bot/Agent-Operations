@@ -1,0 +1,75 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-26T19:12:47.855548+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "bing": 10,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 13,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "Request for proposal: Develop a secure, privacy-first personal finance tracker with encrypted data storage",
+      "Need a freelancer to perform data entry for a small business without coding",
+      "Looking for a developer to optimize a slow-loading React app for production"
+    ],
+    "attempted_search_queries": [
+      "Request for proposal: Develop a secure, privacy-first personal finance tracker with encrypted data storage",
+      "Request for code to automate data processing from CSV files with minimal infrastructure",
+      "Looking for a developer to optimize a slow-loading React app for production",
+      "Need a freelancer to perform data entry for a small business without coding"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 19,
+      "executed_queries": [
+        "Request for proposal: Develop a secure, privacy-first personal finance tracker with encrypted data storage",
+        "Request for code to automate data processing from CSV files with minimal infrastructure",
+        "Looking for a developer to optimize a slow-loading React app for production",
+        "Need a freelancer to perform data entry for a small business without coding"
+      ],
+      "next_query_queue": 1,
+      "frontier_size": 136,
+      "known_pages": 410
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:No explicit request for a paid service, no public business contact route, and no deliverable that could be fulfi"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
