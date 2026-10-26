@@ -353,6 +353,12 @@ def _make_build_script(plan,tools,evidence,target_file,finished_files,previous="
         "pretend UTF-8 text is a binary file. Do not fabricate third-party "
         "material, experimental results, customers, sales, or credentials. "
         "Do not execute scripts downloaded from the internet. "
+        "When launching a child Python script, use sys.executable rather "
+        "than attempting to directly execute its file path. For local "
+        "binaries that you create, set an executable mode before running "
+        "them; a generated file is not executable by default. "
+        "For PDFs with non-ASCII characters, load a Unicode TrueType font "
+        "instead of assuming built-in PDF fonts support those glyphs. "
         "Do not merely explain or describe production: the complete source "
         "you return WILL BE EXECUTED inside an isolated container. "
         "Never assume previously completed files exist in the current /work "
@@ -540,30 +546,37 @@ def create_asset(rows,existing_assets=None):
     attempts=int(checkpoint.get("attempts") or 0)
     if attempts>=3:
         _retire_draft(checkpoint,str(checkpoint.get("feedback") or "production_attempts_exhausted"))
-    try:
-        tools=discover_tools()
-        script=_make_build_script(
-            plan,tools,evidence,target,finished,
-            checkpoint.get("script") or "",
-            checkpoint.get("feedback") or "")
-        checkpoint.update({"stage":"building","script":script,"feedback":""})
-        save_pending(checkpoint)
-        produced=manufacture(script,[target])
-        # Verify THIS output immediately; the full manifest is checked once
-        # every deliverable has been actually generated and saved.
-        objective_quality_floor({"output_files":[target]},produced)
-        finished.extend(produced)
-        checkpoint.update({"stage":"building","files":finished,"script":"",
-                           "feedback":"","attempts":0,"building_file":""})
-        save_pending(checkpoint)
-    except (RuntimeError,ValueError,OSError) as exc:
-        error=(type(exc).__name__+":"+str(exc))[-850:]
-        checkpoint.update({"stage":"building","feedback":error,
-                           "attempts":attempts+1,"building_file":target})
-        save_pending(checkpoint)
-        if attempts+1>=3:
-            _retire_draft(checkpoint,error)
-        raise ProductionPending(error) from exc
+    # Generated code is imperfect; use the same run to repair a real failure
+    # with its execution diagnostics, while checkpointing after each attempt.
+    # The GitHub job (one hour) remains the only overall execution deadline.
+    while attempts<3:
+        try:
+            tools=discover_tools()
+            script=_make_build_script(
+                plan,tools,evidence,target,finished,
+                checkpoint.get("script") or "",
+                checkpoint.get("feedback") or "")
+            checkpoint.update({"stage":"building","script":script,"feedback":""})
+            save_pending(checkpoint)
+            produced=manufacture(script,[target])
+            # Verify THIS output immediately; the full manifest is checked
+            # after every deliverable is actually generated and saved.
+            objective_quality_floor({"output_files":[target]},produced)
+            finished.extend(produced)
+            checkpoint.update({"stage":"building","files":finished,"script":"",
+                               "feedback":"","attempts":0,"building_file":""})
+            save_pending(checkpoint)
+            break
+        except (RuntimeError,ValueError,OSError) as exc:
+            attempts+=1
+            error=(type(exc).__name__+":"+str(exc))[-850:]
+            checkpoint.update({"stage":"building","feedback":error,
+                               "attempts":attempts,"building_file":target})
+            save_pending(checkpoint)
+            if attempts>=3:
+                _retire_draft(checkpoint,error)
+    else:
+        raise ProductionPending(str(checkpoint.get("feedback") or "build_failed"))
 
     if len(finished)<len(all_names):
         # An actual finished file survives this run. Do not regenerate it.
@@ -1186,17 +1199,23 @@ def run():
             receipt["production"]={"result":"invalid_draft_retired",
                                    "reason":reason,
                                    "new_concept_eligible_next_run":True}
+            receipt["structural_failures"].append({
+                "reason":"invalid_production_draft_retired","detail":reason})
         elif isinstance(exc,ProductionPending):
             progressed=str(exc).startswith("artifact_created_and_saved:")
             receipt["production"]={
                 "result":("artifact_created_and_saved" if progressed
                           else "objective_production_repair_pending"),
                 "stage":stage,
-                "last_issue":("" if progressed else str(pending.get("feedback") or reason)[:250]),
+                "last_issue":("" if progressed else str(pending.get("feedback") or reason)[-500:]),
                 "attempts":pending.get("attempts") or 0,
                 "files_finished":len(pending.get("files") or []),
                 "files_planned":len((pending.get("plan") or {}).get("output_files") or []),
             }
+            if not progressed:
+                receipt["structural_failures"].append({
+                    "reason":"production_build_failed",
+                    "detail":str(pending.get("feedback") or reason)[-220:]})
         elif stage in ("building","drafting","review","approved","sealed"):
             receipt["production"]={
                 "result":"production_blocked",
