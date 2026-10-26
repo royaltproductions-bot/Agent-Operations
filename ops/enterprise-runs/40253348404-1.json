@@ -1,0 +1,60 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-26T01:17:23.533766+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "bing": 2,
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 6,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "site:problogger.com ProBlogger: need a content writer to draft weekly blog posts for a SaaS startup targeting small businesses"
+    ],
+    "attempted_search_queries": [
+      "site:indiehackers.com Indie Hackers: need help designing a user onboarding flow for a no-code SaaS product with high drop-off rates",
+      "site:github.com GitHub Issues: user authentication not working after deployment on a static site",
+      "site:algora.io Algora: request for code to automate data processing from CSV files with minimal infrastructure",
+      "site:problogger.com ProBlogger: need a content writer to draft weekly blog posts for a SaaS startup targeting small businesses"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 2,
+      "skipped_revisits": 9,
+      "executed_queries": [
+        "site:indiehackers.com Indie Hackers: need help designing a user onboarding flow for a no-code SaaS product with high drop-off rates",
+        "site:github.com GitHub Issues: user authentication not working after deployment on a static site",
+        "site:algora.io Algora: request for code to automate data processing from CSV files with minimal infrastructure",
+        "site:problogger.com ProBlogger: need a content writer to draft weekly blog posts for a SaaS startup targeting small businesses"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 140,
+      "known_pages": 372
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_contactable_public_source"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
