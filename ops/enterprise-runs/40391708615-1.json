@@ -1,0 +1,86 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-26T20:05:25.128164+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "bing": 16
+    },
+    "source_errors": [
+      {
+        "source": "query_planner",
+        "reason": "recovered_fresh_public_research_directions"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 16,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "Request proposal Create decentralized app managing personal health data without",
+      "Request proposal Develop real-time analytics dashboard small businesses minimal infrastructure",
+      "Request proposal Build secure privacy-first personal finance tracker encrypted data"
+    ],
+    "attempted_search_queries": [
+      "Request proposal Create decentralized app managing personal health data without",
+      "Need assistance onboarding flow SaaS product low retention rates",
+      "Request proposal Develop real-time analytics dashboard small businesses minimal infrastructure",
+      "Request proposal Build secure privacy-first personal finance tracker encrypted data"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 5,
+      "executed_queries": [
+        "Request proposal Create decentralized app managing personal health data without",
+        "Need assistance onboarding flow SaaS product low retention rates",
+        "Request proposal Develop real-time analytics dashboard small businesses minimal infrastructure",
+        "Request proposal Build secure privacy-first personal finance tracker encrypted data"
+      ],
+      "next_query_queue": 8,
+      "frontier_size": 136,
+      "known_pages": 437
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_contactable_public_source"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
