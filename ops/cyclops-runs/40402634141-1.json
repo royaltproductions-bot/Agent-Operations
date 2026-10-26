@@ -1,0 +1,96 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-26T21:17:23.902939+00:00",
+  "model": "qwen3:8b",
+  "asset": {
+    "asset_id": "634d7bb92cf56c81e2c7",
+    "title": "Phrase Meaning Generator",
+    "price_usd": "9.99",
+    "price_cents": 999,
+    "payment_link_id": "plink_1UUvOKBto3o776uyXBOHiWQ7"
+  },
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 8,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "bing": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 8,
+    "search_queries": [
+      "",
+      "Finding ways to simplify financial tracking across multiple side hustle incomes and credit card reward systems",
+      "How to effectively manage time between a full-time job and multiple side hustle commitments without sacrificing well-being"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 28,
+      "executed_queries": [
+        "How to balance a full-time job with multiple side hustle projects without sacrificing mental health",
+        "Struggling to keep track of time spent on side hustle activities without affecting full-time job performance",
+        "Finding ways to simplify financial tracking across multiple side hustle incomes and credit card reward systems",
+        "How to effectively manage time between a full-time job and multiple side hustle commitments without sacrificing well-being"
+      ],
+      "next_query_queue": 19,
+      "frontier_size": 135,
+      "known_pages": 533
+    },
+    "durable_contactable_sources": 11
+  },
+  "production": {
+    "result": "approved_and_published",
+    "asset_id": "634d7bb92cf56c81e2c7",
+    "production_tool": "isolated_tool_workshop",
+    "artifact_count": 1,
+    "created_artifacts": [
+      {
+        "filename": "PhraseMeaningGeneratorGuide.pdf",
+        "bytes": 1374,
+        "sha256": "0ec10cef5d32a7ebee1f118590e936fd5bed47e46a52f4074d694cfb6c7d4b38",
+        "content_type": "application/pdf"
+      }
+    ]
+  },
+  "catalog": {
+    "result": "catalog_published",
+    "listed_products": 3
+  },
+  "external_action": {
+    "result": "no_relevant_opt_in_buyer",
+    "asset_id": "634d7bb92cf56c81e2c7"
+  },
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 1,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
