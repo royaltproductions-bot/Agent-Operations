@@ -1,0 +1,37 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops",
+  "status": "active",
+  "asset_id": "d5e1ada9bf1f4d8f2db2",
+  "title": "MRO Coating Maintenance Planner",
+  "description": "A digital tool that helps users plan and schedule maintenance, repair, and overhaul (MRO) tasks for coatings on industrial structures, marine vessels, and aircraft. It includes a calendar, task list, and environmental impact tracking.",
+  "audience": "Industrial facility managers, marine and air transportation professionals, and offshore structure maintenance teams.",
+  "pitch": "This product helps users avoid costly coating failures by providing a structured approach to MRO planning, ensuring that preventive maintenance is carried out on time and efficiently.",
+  "price_usd": "49.99",
+  "price_cents": 4999,
+  "target_terms": [
+    "MRO planning",
+    "coating maintenance",
+    "preventive maintenance scheduling",
+    "industrial coating repair"
+  ],
+  "evidence_source_url": "https://en.wikipedia.org/wiki/Maintenance",
+  "files": [
+    "MRO_Coating_Maintenance_Planner.pdf"
+  ],
+  "artifact_manifest": [
+    {
+      "filename": "MRO_Coating_Maintenance_Planner.pdf",
+      "bytes": 3237,
+      "sha256": "319a4526d92aab7fce8c4915b89ad8f9367e1735248cceda8ce76963800c8341",
+      "content_type": "application/pdf"
+    }
+  ],
+  "production_tool": "isolated_tool_workshop",
+  "quality_gate": "verified_generated_bytes",
+  "delivery": "private_encrypted_vault",
+  "vault_path": "ops/cyclops-vault/assets/d5e1ada9bf1f4d8f2db2.json",
+  "payment_link_id": "plink_1UUibmBto3o776uyjoikVR8X",
+  "checkout_url": "https://buy.stripe.com/5kQcN44ZG4YLcI2dbp7Re0a",
+  "created_at": "2026-10-26T07:46:18.721489+00:00"
+}
