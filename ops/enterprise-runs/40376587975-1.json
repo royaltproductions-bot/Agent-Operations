@@ -1,0 +1,86 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-26T18:43:44.105896+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "bing": 16
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "Request for proposal: Build a real-time analytics dashboard for small businesses with minimal infrastructure",
+      "Looking for a content writer to draft weekly blog posts for a SaaS startup targeting small businesses",
+      "Need help designing a user onboarding flow for a no-code SaaS product with high drop-off rates"
+    ],
+    "attempted_search_queries": [
+      "RFP: Develop a secure, privacy-first personal finance tracker with encrypted data storage - email: info@privacyfirsttracker.com",
+      "Request for proposal: Build a real-time analytics dashboard for small businesses with minimal infrastructure",
+      "Looking for a content writer to draft weekly blog posts for a SaaS startup targeting small businesses",
+      "Need help designing a user onboarding flow for a no-code SaaS product with high drop-off rates"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 6,
+      "executed_queries": [
+        "RFP: Develop a secure, privacy-first personal finance tracker with encrypted data storage - email: info@privacyfirsttracker.com",
+        "Request for proposal: Build a real-time analytics dashboard for small businesses with minimal infrastructure",
+        "Looking for a content writer to draft weekly blog posts for a SaaS startup targeting small businesses",
+        "Need help designing a user onboarding flow for a no-code SaaS product with high drop-off rates"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 140,
+      "known_pages": 396
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:No explicit request for a paid service or business contact route was found. The page appears to be informational"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
