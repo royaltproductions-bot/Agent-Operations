@@ -1,0 +1,77 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-26T20:17:12.453593+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 11,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 11
+    },
+    "search_provider_counts": {
+      "bing": 7,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "candidates_without_email": 11,
+    "search_queries": [
+      "Struggling to keep track of personal goals and financial progress while managing multiple side hustles and credit card rewards",
+      "",
+      "Finding ways to maintain motivation while balancing a full-time job with side hustle commitments",
+      "Struggling to maintain motivation while juggling a full-time job and side hustle work"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 22,
+      "executed_queries": [
+        "Finding ways to maintain motivation while balancing a full-time job with side hustle commitments",
+        "Struggling to maintain motivation while juggling a full-time job and side hustle work",
+        "How to organize and track multiple side hustle incomes and credit card rewards without confusion",
+        "Finding ways to maintain focus and motivation while balancing a full-time job with side hustle commitments",
+        "Struggling to keep track of personal goals and financial progress while managing multiple side hustles and credit card rewards"
+      ],
+      "next_query_queue": 20,
+      "frontier_size": 135,
+      "known_pages": 528
+    },
+    "durable_contactable_sources": 11
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:cb811fea5dfde4212c4a:ValueError: The SVG size is undefined",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 2
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:cb811fea5dfde4212c4a:ValueError: The SVG size is undefined"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
