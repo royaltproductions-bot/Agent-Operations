@@ -1,0 +1,59 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-27T08:04:25.926613+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "bing": 2,
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 6,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "Need a developer to build a decentralized health data management app without centralized storage",
+      "Looking for a vendor to develop a real-time analytics dashboard for small businesses with limited resources"
+    ],
+    "attempted_search_queries": [
+      "Looking for a vendor to develop a real-time analytics dashboard for small businesses with limited resources",
+      "Request for bid: Create a user onboarding flow for a SaaS product with low retention rates",
+      "Need a developer to build a decentralized health data management app without centralized storage"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 22,
+      "executed_queries": [
+        "Looking for a vendor to develop a real-time analytics dashboard for small businesses with limited resources",
+        "Request for bid: Create a user onboarding flow for a SaaS product with low retention rates",
+        "Need a developer to build a decentralized health data management app without centralized storage"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 136,
+      "known_pages": 539
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_contactable_public_source"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
