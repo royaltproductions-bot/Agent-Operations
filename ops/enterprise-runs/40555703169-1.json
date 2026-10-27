@@ -1,0 +1,70 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-27T18:02:13.814956+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 9,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "bing": 5,
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 7,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "Looking for a developer to build a real-time analytics dashboard for small businesses with minimal infrastructure",
+      "Seeking a freelancer to develop a real-time analytics dashboard for small businesses with limited resources",
+      "Seeking developer build secure encrypted personal finance tracker end-to-end data"
+    ],
+    "attempted_search_queries": [
+      "Looking for a developer to build a real-time analytics dashboard for small businesses with minimal infrastructure",
+      "Need a freelancer to design a decentralized app for managing personal health data without centralized storage",
+      "Seeking a freelancer to develop a real-time analytics dashboard for small businesses with limited resources",
+      "Seeking developer build secure encrypted personal finance tracker end-to-end data"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 25,
+      "executed_queries": [
+        "Looking for a developer to build a real-time analytics dashboard for small businesses with minimal infrastructure",
+        "Need a freelancer to design a decentralized app for managing personal health data without centralized storage",
+        "Seeking a freelancer to develop a real-time analytics dashboard for small businesses with limited resources",
+        "Seeking developer build secure encrypted personal finance tracker end-to-end data"
+      ],
+      "next_query_queue": 1,
+      "frontier_size": 136,
+      "known_pages": 593
+    }
+  },
+  "offer": {
+    "source_url": "https://betterproposals.io/statement-of-work/",
+    "title": "Statement of Work Template Creation",
+    "scope": "Create a customizable Statement of Work (SOW) template tailored for construction projects, focusing on preventing scope creep by clearly defining project expectations, deliverables, timelines, and responsibilities.",
+    "price_usd": "29.99",
+    "price_cents": 2999,
+    "offer_id": "96b5c385f4d655a3c442548a",
+    "payment_link_id": "plink_1UVEkVBto3o776uy8sHcBxr0"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://betterproposals.io/statement-of-work/"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
