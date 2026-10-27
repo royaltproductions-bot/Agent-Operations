@@ -1,0 +1,37 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops",
+  "status": "active",
+  "asset_id": "a7d2c4691ae741aea841",
+  "title": "Virtual Card Generator for Secure Transactions",
+  "description": "A tool that generates secure, one-time-use virtual card numbers for online transactions, offering users a safe alternative to traditional credit cards.",
+  "audience": "Online shoppers, small business owners, and individuals who want to avoid exposing their real credit card details during online purchases.",
+  "pitch": "This product provides a secure, reusable solution for generating virtual card numbers that can be used for one-time transactions, reducing the risk of fraud and identity theft.",
+  "price_usd": "9.99",
+  "price_cents": 999,
+  "target_terms": [
+    "virtual card generator",
+    "secure transaction tool",
+    "one-time credit card",
+    "online payment security"
+  ],
+  "evidence_source_url": "https://www.capitalone.com/learn-grow/money-management/how-to-use-virtual-cards-from-capital-one/",
+  "files": [
+    "virtual_cards.csv"
+  ],
+  "artifact_manifest": [
+    {
+      "filename": "virtual_cards.csv",
+      "bytes": 170,
+      "sha256": "c7bff93e928585648249a9bfdad4af3a7ea4edfc3ade0a7df758272f9486de1e",
+      "content_type": "text/csv"
+    }
+  ],
+  "production_tool": "isolated_tool_workshop",
+  "quality_gate": "verified_generated_bytes",
+  "delivery": "private_encrypted_vault",
+  "vault_path": "ops/cyclops-vault/assets/a7d2c4691ae741aea841.json",
+  "payment_link_id": "plink_1UV14jBto3o776uymtQpbq9l",
+  "checkout_url": "https://buy.stripe.com/14AeVcbo4dvhazUdbp7Re0c",
+  "created_at": "2026-10-27T03:29:25.738780+00:00"
+}
