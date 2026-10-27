@@ -1,0 +1,70 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-27T22:20:55.124823+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 14,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "bing": 10,
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 11,
+    "search_queries": [
+      "Struggling to balance personal goals with the demands of a full-time job and side hustle activities",
+      "",
+      "How to maintain financial health while managing multiple income streams and credit card rewards"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 22,
+      "executed_queries": [
+        "How to maintain focus and avoid burnout while managing a full-time job and multiple side hustle projects",
+        "Struggling to balance personal goals with the demands of a full-time job and side hustle activities",
+        "How to simplify the tracking of multiple side hustle incomes and credit card rewards without losing clarity",
+        "How to maintain financial health while managing multiple income streams and credit card rewards"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 135,
+      "known_pages": 671
+    },
+    "durable_contactable_sources": 22
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:f5319b719014c9c4bef5:AttributeError: 'PdfWriter' object has no attribute 'open_stream'",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 9
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:f5319b719014c9c4bef5:AttributeError: 'PdfWriter' object has no attribute 'open_stream'"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
