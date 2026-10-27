@@ -1,0 +1,76 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-27T11:57:09.004354+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "bing": 2,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 4,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "Need a developer to build a decentralized app managing personal health data without centralized storage",
+      "Seeking a vendor to create a decentralized app for managing personal health data without third-party storage"
+    ],
+    "attempted_search_queries": [
+      "Looking for a vendor to build a real-time analytics dashboard for small businesses with limited resources",
+      "Need a developer to build a decentralized app managing personal health data without centralized storage",
+      "Request for bid: Design a user onboarding flow for a SaaS product with low retention rates",
+      "Looking for a freelancer to develop a real-time analytics dashboard for small businesses with minimal infrastructure",
+      "Seeking a vendor to create a decentralized app for managing personal health data without third-party storage"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 38,
+      "executed_queries": [
+        "Looking for a vendor to build a real-time analytics dashboard for small businesses with limited resources",
+        "Need a developer to build a decentralized app managing personal health data without centralized storage",
+        "Request for bid: Design a user onboarding flow for a SaaS product with low retention rates",
+        "Looking for a freelancer to develop a real-time analytics dashboard for small businesses with minimal infrastructure",
+        "Seeking a vendor to create a decentralized app for managing personal health data without third-party storage"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 137,
+      "known_pages": 558
+    }
+  },
+  "offer": {
+    "source_url": "https://betterproposals.io/proposal-templates/construction-work-proposal-template",
+    "title": "Construction Proposal Template Creation Service",
+    "scope": "Create a professional construction proposal template that includes work scope explanation, plan creation details, and permit acquisition process.",
+    "price_usd": "29.99",
+    "price_cents": 2999,
+    "offer_id": "126be91aab59045e9ab53392",
+    "payment_link_id": "plink_1UV926Bto3o776uyO3ntSZBf"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://betterproposals.io/proposal-templates/construction-work-proposal-template"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
