@@ -1,0 +1,75 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-27T14:36:45.931294+00:00",
+  "model": "qwen3:8b",
+  "asset": {
+    "asset_id": "1a9ebfef3519ea369bd3",
+    "title": "Virtual Card Generator for Secure Transactions",
+    "price_usd": "9.99",
+    "price_cents": 999,
+    "payment_link_id": "plink_1UVBaGBto3o776uyn0O30N78"
+  },
+  "discovery": {
+    "status": "deferred_for_existing_product",
+    "candidate_count": 0,
+    "new_research_attempted": false,
+    "research_deferred_for_product_completion": true,
+    "previous_product_evidence_count": 8,
+    "source_counts": {},
+    "search_provider_counts": {},
+    "source_errors": [],
+    "fetched_public_pages": 0,
+    "candidates_without_email": 0,
+    "search_queries": [],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 0,
+      "skipped_revisits": 0,
+      "executed_queries": [],
+      "next_query_queue": 10,
+      "frontier_size": 137,
+      "known_pages": 621
+    },
+    "durable_contactable_sources": 17
+  },
+  "production": {
+    "result": "approved_and_published",
+    "asset_id": "1a9ebfef3519ea369bd3",
+    "production_tool": "isolated_tool_workshop",
+    "artifact_count": 2,
+    "created_artifacts": [
+      {
+        "filename": "virtual_card_details.txt",
+        "bytes": 242,
+        "sha256": "a60ec754b9c2bb85fc2740aa5737da1f7c5d30a40c4559e1c052c09acfe7ce1c",
+        "content_type": "text/plain"
+      },
+      {
+        "filename": "virtual_card_image.png",
+        "bytes": 15524,
+        "sha256": "fb60f31077a88dae5eeec59c1b3044cc3a05deabdb2e30aa5640980bbc7f6884",
+        "content_type": "image/png"
+      }
+    ]
+  },
+  "catalog": {
+    "result": "catalog_published",
+    "listed_products": 8
+  },
+  "external_action": {
+    "result": "no_relevant_opt_in_buyer",
+    "asset_id": "1a9ebfef3519ea369bd3"
+  },
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 1,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
