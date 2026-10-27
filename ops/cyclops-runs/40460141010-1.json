@@ -1,0 +1,101 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-27T06:19:16.454561+00:00",
+  "model": "qwen3:8b",
+  "asset": {
+    "asset_id": "7f4fa5c21df6b9ae1834",
+    "title": "Avoidance Strategy Planner",
+    "price_usd": "49.99",
+    "price_cents": 4999,
+    "payment_link_id": "plink_1UV3rhBto3o776uyUnYT4ZaR"
+  },
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 9,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "bing": 5,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 9,
+    "search_queries": [
+      "How to avoid burnout while juggling a full-time job, side hustles, and financial tracking",
+      "",
+      "Finding ways to simplify the process of tracking time spent on side hustle work without affecting full-time job performance",
+      "How to maintain mental clarity while managing a full-time job and multiple side hustle commitments"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 27,
+      "executed_queries": [
+        "How to maintain mental clarity while managing a full-time job and multiple side hustle commitments",
+        "Struggling to balance personal well-being with the demands of a full-time job and side hustle activities",
+        "How to avoid burnout while juggling a full-time job, side hustles, and financial tracking",
+        "Finding ways to simplify the process of tracking time spent on side hustle work without affecting full-time job performance"
+      ],
+      "next_query_queue": 13,
+      "frontier_size": 136,
+      "known_pages": 580
+    },
+    "durable_contactable_sources": 15
+  },
+  "production": {
+    "result": "approved_and_published",
+    "asset_id": "7f4fa5c21df6b9ae1834",
+    "production_tool": "isolated_tool_workshop",
+    "artifact_count": 1,
+    "created_artifacts": [
+      {
+        "filename": "avoidance-strategy-planner.pdf",
+        "bytes": 1628,
+        "sha256": "00bdafbee80230c8cb32ded23120d2cbfc930619b413ee1471fd4331f04d7b75",
+        "content_type": "application/pdf"
+      }
+    ]
+  },
+  "catalog": {
+    "result": "catalog_published",
+    "listed_products": 6
+  },
+  "external_action": {
+    "result": "no_relevant_opt_in_buyer",
+    "asset_id": "7f4fa5c21df6b9ae1834"
+  },
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 1,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
