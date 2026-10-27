@@ -1,0 +1,92 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-27T20:21:34.045531+00:00",
+  "model": "qwen3:8b",
+  "asset": {
+    "asset_id": "d628c27f0139da5194c5",
+    "title": "Credit Score Optimization Assistant",
+    "price_usd": "29.99",
+    "price_cents": 2999,
+    "payment_link_id": "plink_1UVH6gBto3o776uyg9LwxXoW"
+  },
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 13,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "bing": 9
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 13,
+    "search_queries": [
+      "",
+      "How to stay motivated during long-term career transitions and side hustle work",
+      "How to avoid debt while maximizing cash-back rewards from multiple credit cards"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 11,
+      "skipped_revisits": 23,
+      "executed_queries": [
+        "How to stay motivated during long-term career transitions and side hustle work",
+        "Struggling to maintain focus while managing multiple income streams and personal goals",
+        "How to avoid debt while maximizing cash-back rewards from multiple credit cards",
+        "Struggling to set clear boundaries between work and personal life with multiple responsibilities"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 137,
+      "known_pages": 653
+    },
+    "durable_contactable_sources": 19
+  },
+  "production": {
+    "result": "approved_and_published",
+    "asset_id": "d628c27f0139da5194c5",
+    "production_tool": "isolated_tool_workshop",
+    "artifact_count": 1,
+    "created_artifacts": [
+      {
+        "filename": "credit_score_optimization_report.pdf",
+        "bytes": 43775,
+        "sha256": "1d7892d6f8880172cefe9258fc50dcaa98a18df54c622a7ff4fbe47302d51192",
+        "content_type": "application/pdf"
+      }
+    ]
+  },
+  "catalog": {
+    "result": "catalog_published",
+    "listed_products": 9
+  },
+  "external_action": {
+    "result": "no_relevant_opt_in_buyer",
+    "asset_id": "d628c27f0139da5194c5"
+  },
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 1,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
