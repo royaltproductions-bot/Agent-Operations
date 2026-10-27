@@ -1,0 +1,75 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-27T02:01:00.851843+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "bing": 8,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "query_planner",
+        "reason": "recovered_fresh_public_research_directions"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "candidates_without_email": 11,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "Start a Blog"
+    ],
+    "attempted_search_queries": [
+      "Looking freelancer create secure privacy-first personal finance tracker encrypted data",
+      "Request proposal Create real-time analytics dashboard small businesses minimal infrastructure",
+      "Looking developer build decentralized app managing personal health data without",
+      "Need freelancer create secure privacy-first personal finance tracker encrypted data",
+      "Start a Blog"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 32,
+      "executed_queries": [
+        "Looking freelancer create secure privacy-first personal finance tracker encrypted data",
+        "Request proposal Create real-time analytics dashboard small businesses minimal infrastructure",
+        "Looking developer build decentralized app managing personal health data without",
+        "Need freelancer create secure privacy-first personal finance tracker encrypted data",
+        "Start a Blog"
+      ],
+      "next_query_queue": 7,
+      "frontier_size": 135,
+      "known_pages": 474
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:No paid service offer or request was identified in the source content."
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
