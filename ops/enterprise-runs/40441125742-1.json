@@ -1,0 +1,75 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-27T02:57:00.300314+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "bing": 16
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 16,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "Blogging in 2023 How To Start A Professional Blog",
+      "From Miserable Telemarketer to Successful Entrepreneur How Starting a",
+      "3 Factors to Consider Before Starting a Blog -",
+      "set put someone s mind at rest ease idiom"
+    ],
+    "attempted_search_queries": [
+      "Blogging in 2023 How To Start A Professional Blog",
+      "From Miserable Telemarketer to Successful Entrepreneur How Starting a",
+      "3 Factors to Consider Before Starting a Blog -",
+      "set put someone s mind at rest ease idiom"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "Blogging in 2023 How To Start A Professional Blog",
+        "From Miserable Telemarketer to Successful Entrepreneur How Starting a",
+        "3 Factors to Consider Before Starting a Blog -",
+        "set put someone s mind at rest ease idiom"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 136,
+      "known_pages": 490
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_contactable_public_source"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
