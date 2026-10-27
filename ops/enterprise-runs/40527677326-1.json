@@ -1,0 +1,63 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-27T15:09:06.483481+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "bing": 9,
+      "followup": 3
+    },
+    "source_errors": [],
+    "fetched_public_pages": 12,
+    "candidates_without_email": 11,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "Proposal needed: Build a decentralized app for managing personal health data without centralized storage",
+      "Request for proposal: Develop a real-time analytics dashboard for small businesses with limited resources"
+    ],
+    "attempted_search_queries": [
+      "Request for proposal: Develop a real-time analytics dashboard for small businesses with limited resources",
+      "Seeking a developer to build a user onboarding flow for a SaaS product with high churn rates",
+      "Need a freelancer to design a real-time analytics dashboard for small businesses with minimal infrastructure",
+      "Proposal needed: Build a decentralized app for managing personal health data without centralized storage",
+      "Looking for a vendor to develop a user onboarding flow for a SaaS product with low retention rates"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 31,
+      "executed_queries": [
+        "Request for proposal: Develop a real-time analytics dashboard for small businesses with limited resources",
+        "Seeking a developer to build a user onboarding flow for a SaaS product with high churn rates",
+        "Need a freelancer to design a real-time analytics dashboard for small businesses with minimal infrastructure",
+        "Proposal needed: Build a decentralized app for managing personal health data without centralized storage",
+        "Looking for a vendor to develop a user onboarding flow for a SaaS product with low retention rates"
+      ],
+      "next_query_queue": 8,
+      "frontier_size": 137,
+      "known_pages": 581
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:No explicit request for digital production services or data processing was identified. The page contains general"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
