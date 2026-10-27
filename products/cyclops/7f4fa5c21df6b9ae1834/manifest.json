@@ -1,0 +1,37 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops",
+  "status": "active",
+  "asset_id": "7f4fa5c21df6b9ae1834",
+  "title": "Avoidance Strategy Planner",
+  "description": "A digital tool that helps users create personalized avoidance strategies for harmful relationships, environments, or behaviors. It provides actionable steps, risk assessments, and progress tracking.",
+  "audience": "Individuals seeking to avoid harmful relationships, environments, or behaviors; mental health advocates; life coaches.",
+  "pitch": "The Avoidance Strategy Planner is a reusable digital product that empowers users to take control of their environment and behaviors. It offers a structured approach to identifying risks, setting goals, and tracking progress.",
+  "price_usd": "49.99",
+  "price_cents": 4999,
+  "target_terms": [
+    "avoidance strategy",
+    "harm avoidance",
+    "personal safety planning",
+    "behavioral avoidance"
+  ],
+  "evidence_source_url": "https://upgradedpoints.com/credit-cards/business/best-chase-business-credit-cards/",
+  "files": [
+    "avoidance-strategy-planner.pdf"
+  ],
+  "artifact_manifest": [
+    {
+      "filename": "avoidance-strategy-planner.pdf",
+      "bytes": 1628,
+      "sha256": "00bdafbee80230c8cb32ded23120d2cbfc930619b413ee1471fd4331f04d7b75",
+      "content_type": "application/pdf"
+    }
+  ],
+  "production_tool": "isolated_tool_workshop",
+  "quality_gate": "verified_generated_bytes",
+  "delivery": "private_encrypted_vault",
+  "vault_path": "ops/cyclops-vault/assets/7f4fa5c21df6b9ae1834.json",
+  "payment_link_id": "plink_1UV3rhBto3o776uyUnYT4ZaR",
+  "checkout_url": "https://buy.stripe.com/28E7sKfEkaj5fUegnB7Re0e",
+  "created_at": "2026-10-27T06:28:09.881465+00:00"
+}
