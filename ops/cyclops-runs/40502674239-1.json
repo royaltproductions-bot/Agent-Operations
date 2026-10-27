@@ -1,0 +1,83 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-27T12:21:34.495876+00:00",
+  "model": "qwen3:8b",
+  "asset": {
+    "asset_id": "d119c3c623a3afc79fd1",
+    "title": "AI Workflow Debugger",
+    "price_usd": "49.99",
+    "price_cents": 4999,
+    "payment_link_id": "plink_1UV9ZKBto3o776uy6Ttf5sw4"
+  },
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 12,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "bing": 8
+    },
+    "source_errors": [],
+    "fetched_public_pages": 12,
+    "candidates_without_email": 12,
+    "search_queries": [
+      "",
+      "Finding ways to avoid burnout while managing a full-time job and side hustle commitments"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 11,
+      "skipped_revisits": 32,
+      "executed_queries": [
+        "How to maintain work-life balance when managing a full-time job and multiple side hustle projects",
+        "How to simplify financial tracking for multiple income streams and credit card rewards without losing focus",
+        "Finding ways to avoid burnout while managing a full-time job and side hustle commitments",
+        "How to maintain clarity in financial decisions when handling multiple credit cards and side hustle earnings",
+        "Struggling to balance personal goals with the complexity of managing multiple credit card rewards"
+      ],
+      "next_query_queue": 8,
+      "frontier_size": 137,
+      "known_pages": 609
+    },
+    "durable_contactable_sources": 16
+  },
+  "production": {
+    "result": "approved_and_published",
+    "asset_id": "d119c3c623a3afc79fd1",
+    "production_tool": "isolated_tool_workshop",
+    "artifact_count": 1,
+    "created_artifacts": [
+      {
+        "filename": "analysis_report.json",
+        "bytes": 962,
+        "sha256": "c1b7e16082dfce271bb0ee97907e6df0d2ad04025c370402865bad5d37263eaa",
+        "content_type": "application/json"
+      }
+    ]
+  },
+  "catalog": {
+    "result": "catalog_published",
+    "listed_products": 7
+  },
+  "external_action": {
+    "result": "no_relevant_opt_in_buyer",
+    "asset_id": "d119c3c623a3afc79fd1"
+  },
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 1,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
