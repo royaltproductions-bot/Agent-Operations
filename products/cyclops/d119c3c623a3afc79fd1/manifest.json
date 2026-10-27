@@ -1,0 +1,37 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops",
+  "status": "active",
+  "asset_id": "d119c3c623a3afc79fd1",
+  "title": "AI Workflow Debugger",
+  "description": "A tool that helps developers identify and resolve silent failures in AI workflows, especially when integrating models like Qwen with tools like Ollama.",
+  "audience": "Developers working with AI models, data scientists, and software engineers who face issues with AI workflow execution.",
+  "pitch": "This tool automates the detection of silent failures in AI workflows, providing actionable insights to resolve issues without manual debugging.",
+  "price_usd": "49.99",
+  "price_cents": 4999,
+  "target_terms": [
+    "AI workflow debugging",
+    "silent failure detection",
+    "AI integration troubleshooting",
+    "model execution issues"
+  ],
+  "evidence_source_url": "https://github.com/jaredburks/ollama-silent-failure-investigation/blob/main/data/qwen_transcript.txt",
+  "files": [
+    "analysis_report.json"
+  ],
+  "artifact_manifest": [
+    {
+      "filename": "analysis_report.json",
+      "bytes": 962,
+      "sha256": "c1b7e16082dfce271bb0ee97907e6df0d2ad04025c370402865bad5d37263eaa",
+      "content_type": "application/json"
+    }
+  ],
+  "production_tool": "isolated_tool_workshop",
+  "quality_gate": "verified_generated_bytes",
+  "delivery": "private_encrypted_vault",
+  "vault_path": "ops/cyclops-vault/assets/d119c3c623a3afc79fd1.json",
+  "payment_link_id": "plink_1UV9ZKBto3o776uy6Ttf5sw4",
+  "checkout_url": "https://buy.stripe.com/fZu28q63Kaj5gYi0oD7Re0g",
+  "created_at": "2026-10-27T12:33:34.203040+00:00"
+}
