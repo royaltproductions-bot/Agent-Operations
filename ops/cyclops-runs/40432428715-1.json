@@ -1,0 +1,68 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-27T01:28:12.862448+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "bing": 15,
+      "followup": 1
+    },
+    "source_errors": [],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 15,
+    "search_queries": [
+      "Struggling to maintain work-life balance while managing a full-time job and side hustle commitments",
+      "Struggling to keep track of financial progress while managing multiple side hustle incomes and credit card reward systems",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 16,
+      "executed_queries": [
+        "How to effectively track time spent on side hustle activities without impacting full-time job performance",
+        "Struggling to keep track of financial progress while managing multiple side hustle incomes and credit card reward systems",
+        "Finding ways to prioritize tasks when managing a full-time job and multiple side hustle activities simultaneously",
+        "Struggling to maintain work-life balance while managing a full-time job and side hustle commitments"
+      ],
+      "next_query_queue": 21,
+      "frontier_size": 137,
+      "known_pages": 560
+    },
+    "durable_contactable_sources": 14
+  },
+  "production": {
+    "result": "artifact_created_and_saved",
+    "stage": "building",
+    "last_issue": "",
+    "attempts": 0,
+    "files_finished": 1,
+    "files_planned": 3
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 3
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
