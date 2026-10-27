@@ -1,0 +1,88 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-27T21:21:02.623341+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 9,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "bing": 5
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 9,
+    "search_queries": [
+      "",
+      "Finding ways to simplify the tracking of side hustle earnings and credit card rewards without affecting job performance",
+      "How to avoid burnout while managing a full-time job and side hustle activities without losing focus on long-term goals",
+      "How to effectively manage time between a full-time job and multiple side hustles without sacrificing personal well-being"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 27,
+      "executed_queries": [
+        "How to effectively manage time between a full-time job and multiple side hustles without sacrificing personal well-being",
+        "Struggling to maintain financial clarity when juggling multiple income streams and credit card rewards",
+        "How to avoid burnout while managing a full-time job and side hustle activities without losing focus on long-term goals",
+        "Finding ways to simplify the tracking of side hustle earnings and credit card rewards without affecting job performance"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 136,
+      "known_pages": 657
+    },
+    "durable_contactable_sources": 19
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:0d17be0c4a5e9cad997e:AttributeError: 'ListItem' object has no attribute 'getKeepWithNext'",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 9
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:0d17be0c4a5e9cad997e:AttributeError: 'ListItem' object has no attribute 'getKeepWithNext'"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
