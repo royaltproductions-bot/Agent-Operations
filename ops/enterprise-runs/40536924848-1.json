@@ -1,0 +1,62 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-27T16:06:10.102981+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 3,
+    "candidates_without_email": 4,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [],
+    "attempted_search_queries": [
+      "Request proposal: Build a user onboarding flow for a SaaS product with high churn rates",
+      "Request for bid: Create a decentralized app for managing personal health data without third-party storage",
+      "Seeking a freelancer to build a real-time analytics dashboard for small businesses with limited resources",
+      "Looking freelancer develop real-time analytics dashboard small businesses limited resources"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 32,
+      "executed_queries": [
+        "Request proposal: Build a user onboarding flow for a SaaS product with high churn rates",
+        "Request for bid: Create a decentralized app for managing personal health data without third-party storage",
+        "Seeking a freelancer to build a real-time analytics dashboard for small businesses with limited resources",
+        "Looking freelancer develop real-time analytics dashboard small businesses limited resources"
+      ],
+      "next_query_queue": 5,
+      "frontier_size": 136,
+      "known_pages": 585
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_contactable_public_source"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
