@@ -1,0 +1,44 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops",
+  "status": "active",
+  "asset_id": "1a9ebfef3519ea369bd3",
+  "title": "Virtual Card Generator for Secure Transactions",
+  "description": "A tool that generates virtual credit cards for secure online transactions, allowing users to avoid exposing their real credit card details.",
+  "audience": "Online shoppers, small business owners, and individuals who want to avoid exposing their real credit card details during online purchases.",
+  "pitch": "This product provides a secure and convenient way to make online purchases without the risk of exposing real credit card information. It is ideal for users who prioritize online payment security and privacy.",
+  "price_usd": "9.99",
+  "price_cents": 999,
+  "target_terms": [
+    "virtual card generator",
+    "secure transaction tool",
+    "one-time credit card",
+    "online payment security"
+  ],
+  "evidence_source_url": "https://www.capitalone.com/learn-grow/money-management/digital-wallet-vs-virtual-card/",
+  "files": [
+    "virtual_card_details.txt",
+    "virtual_card_image.png"
+  ],
+  "artifact_manifest": [
+    {
+      "filename": "virtual_card_details.txt",
+      "bytes": 242,
+      "sha256": "a60ec754b9c2bb85fc2740aa5737da1f7c5d30a40c4559e1c052c09acfe7ce1c",
+      "content_type": "text/plain"
+    },
+    {
+      "filename": "virtual_card_image.png",
+      "bytes": 15524,
+      "sha256": "fb60f31077a88dae5eeec59c1b3044cc3a05deabdb2e30aa5640980bbc7f6884",
+      "content_type": "image/png"
+    }
+  ],
+  "production_tool": "isolated_tool_workshop",
+  "quality_gate": "verified_generated_bytes",
+  "delivery": "private_encrypted_vault",
+  "vault_path": "ops/cyclops-vault/assets/1a9ebfef3519ea369bd3.json",
+  "payment_link_id": "plink_1UVBaGBto3o776uyn0O30N78",
+  "checkout_url": "https://buy.stripe.com/bJe5kC9fWcrdeQagnB7Re0h",
+  "created_at": "2026-10-27T14:42:40.748030+00:00"
+}
