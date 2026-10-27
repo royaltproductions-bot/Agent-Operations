@@ -1,0 +1,69 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-27T07:33:14.977441+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 5,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "bing": 1
+    },
+    "source_errors": [],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 5,
+    "search_queries": [
+      "",
+      "How to manage multiple side hustle projects without sacrificing full-time job performance"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 26,
+      "executed_queries": [
+        "How to manage multiple side hustle projects without sacrificing full-time job performance",
+        "Struggling to maintain focus on long-term goals while juggling a full-time job and side hustle activities",
+        "How to simplify financial tracking for multiple income streams and credit card rewards",
+        "Finding ways to avoid burnout while managing a full-time job and multiple side hustle commitments"
+      ],
+      "next_query_queue": 15,
+      "frontier_size": 139,
+      "known_pages": 585
+    },
+    "durable_contactable_sources": 15
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:41eabbb58b636e2a1f33:ValueError: The SVG size is undefined",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 6
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:41eabbb58b636e2a1f33:ValueError: The SVG size is undefined"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
