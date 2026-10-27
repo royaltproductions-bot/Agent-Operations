@@ -1,0 +1,75 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-27T19:06:49.885211+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 8,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "bing": 4,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 8,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "Request for proposal: Develop a secure encrypted personal finance tracker with end-to-end data control",
+      "Need a freelancer to develop a real-time analytics dashboard for small businesses with minimal infrastructure",
+      "Seeking a developer to design a user onboarding flow for a SaaS product with high churn rates"
+    ],
+    "attempted_search_queries": [
+      "Request for proposal: Develop a secure encrypted personal finance tracker with end-to-end data control",
+      "Proposal needed: Build a decentralized app for managing personal health data without third-party storage",
+      "Seeking a developer to design a user onboarding flow for a SaaS product with high churn rates",
+      "Need a freelancer to develop a real-time analytics dashboard for small businesses with minimal infrastructure"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 27,
+      "executed_queries": [
+        "Request for proposal: Develop a secure encrypted personal finance tracker with end-to-end data control",
+        "Proposal needed: Build a decentralized app for managing personal health data without third-party storage",
+        "Seeking a developer to design a user onboarding flow for a SaaS product with high churn rates",
+        "Need a freelancer to develop a real-time analytics dashboard for small businesses with minimal infrastructure"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 136,
+      "known_pages": 597
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_contactable_public_source"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
