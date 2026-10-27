@@ -1,0 +1,69 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-27T23:16:22.896831+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 5,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "bing": 1
+    },
+    "source_errors": [],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 5,
+    "search_queries": [
+      "",
+      "How to maintain emotional balance while managing multiple side hustles and a full-time job"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 31,
+      "executed_queries": [
+        "How to maintain emotional balance while managing multiple side hustles and a full-time job",
+        "Struggling to prioritize tasks when juggling a full-time job, side hustles, and personal goals",
+        "Struggling to set boundaries between work and personal life with multiple responsibilities",
+        "How to manage time effectively when handling multiple income streams and personal goals"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 136,
+      "known_pages": 675
+    },
+    "durable_contactable_sources": 22
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:2f1e20f232a032e02d98:ImportError: cannot import name 'List' from 'reportlab.platypus' (/usr/local/lib/python3.12/site-packages/reportlab/platypus/__init__.py)",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 9
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:2f1e20f232a032e02d98:ImportError: cannot import name 'List' from 'reportlab.platypus' (/usr/local/lib/python3.12/site-packages/reportlab/platypus/__init__.py)"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
