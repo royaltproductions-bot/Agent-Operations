@@ -1,0 +1,37 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops",
+  "status": "active",
+  "asset_id": "093fb5181e5cad3c45b5",
+  "title": "Avoidance Strategy Planner",
+  "description": "A digital tool that helps users create personalized strategies to avoid harmful situations, people, or environments, with actionable steps and progress tracking.",
+  "audience": "Individuals seeking to avoid harmful relationships, environments, or behaviors; mental health advocates; life coaches.",
+  "pitch": "Avoidance Strategy Planner is a digital tool that empowers users to create and track personalized strategies to avoid harmful situations, people, or environments. It provides actionable steps, progress tracking, and insights to help users make informed decisions and maintain their well-being.",
+  "price_usd": "29.99",
+  "price_cents": 2999,
+  "target_terms": [
+    "avoidance strategy",
+    "harm avoidance",
+    "personal safety planning",
+    "behavioral avoidance"
+  ],
+  "evidence_source_url": "https://en.wiktionary.org/wiki/avoid",
+  "files": [
+    "avoidance_strategy_guide.pdf"
+  ],
+  "artifact_manifest": [
+    {
+      "filename": "avoidance_strategy_guide.pdf",
+      "bytes": 2415,
+      "sha256": "103096e1870a36a4a4e735ff3b02e8f4a03da9d193d134ad77a8ab82196f15cf",
+      "content_type": "application/pdf"
+    }
+  ],
+  "production_tool": "isolated_tool_workshop",
+  "quality_gate": "verified_generated_bytes",
+  "delivery": "private_encrypted_vault",
+  "vault_path": "ops/cyclops-vault/assets/093fb5181e5cad3c45b5.json",
+  "payment_link_id": "plink_1UV2wsBto3o776uysP0Pw6uE",
+  "checkout_url": "https://buy.stripe.com/cNieVc8bS4YLgYi4ET7Re0d",
+  "created_at": "2026-10-27T05:29:26.408001+00:00"
+}
