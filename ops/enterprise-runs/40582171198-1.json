@@ -1,0 +1,68 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-27T20:56:32.806748+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "bing": 2,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 6,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "Seeking a developer to create a secure encrypted personal finance tracker with end-to-end data encryption",
+      "Need a vendor to build a real-time analytics dashboard for small businesses with limited resources"
+    ],
+    "attempted_search_queries": [
+      "Proposal needed: Build a user onboarding flow for a SaaS product with high churn rates",
+      "Seeking a developer to create a secure encrypted personal finance tracker with end-to-end data encryption",
+      "Need a vendor to build a real-time analytics dashboard for small businesses with limited resources",
+      "Looking for a freelancer to develop a decentralized app for managing personal health data without third-party storage",
+      "Looking vendor create decentralized app managing personal health data without"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 38,
+      "executed_queries": [
+        "Proposal needed: Build a user onboarding flow for a SaaS product with high churn rates",
+        "Seeking a developer to create a secure encrypted personal finance tracker with end-to-end data encryption",
+        "Need a vendor to build a real-time analytics dashboard for small businesses with limited resources",
+        "Looking for a freelancer to develop a decentralized app for managing personal health data without third-party storage",
+        "Looking vendor create decentralized app managing personal health data without"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 136,
+      "known_pages": 606
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_contactable_public_source"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
