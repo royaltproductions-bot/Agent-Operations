@@ -1,0 +1,76 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-27T23:51:03.598918+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "bing": 10,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 9,
+    "contactable_sources": 3,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "Request for bid: Build a decentralized app for managing personal health data without centralized storage",
+      "Seeking a developer to create a real-time analytics dashboard for small businesses with limited resources"
+    ],
+    "attempted_search_queries": [
+      "Need a freelancer to create a decentralized app for managing personal health data without third-party storage",
+      "Looking for a developer to build a secure encrypted personal finance tracker with end-to-end data encryption",
+      "Need a vendor to develop a user onboarding flow for a SaaS product with low retention rates",
+      "Seeking a developer to create a real-time analytics dashboard for small businesses with limited resources",
+      "Request for bid: Build a decentralized app for managing personal health data without centralized storage"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 11,
+      "skipped_revisits": 30,
+      "executed_queries": [
+        "Need a freelancer to create a decentralized app for managing personal health data without third-party storage",
+        "Looking for a developer to build a secure encrypted personal finance tracker with end-to-end data encryption",
+        "Need a vendor to develop a user onboarding flow for a SaaS product with low retention rates",
+        "Seeking a developer to create a real-time analytics dashboard for small businesses with limited resources",
+        "Request for bid: Build a decentralized app for managing personal health data without centralized storage"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 138,
+      "known_pages": 625
+    }
+  },
+  "offer": {
+    "source_url": "https://betterproposals.io/statement-of-work/statement-of-work-template-general",
+    "title": "Statement of Work Template for General Projects",
+    "scope": "A customizable Statement of Work (SOW) template designed to outline project scope, deliverables, timelines, and payment terms for general business projects. This template is ideal for freelancers, agencies, and small businesses looking to formalize agreements with clients before starting work.",
+    "price_usd": "4.99",
+    "price_cents": 499,
+    "offer_id": "8e9cf3e900deac5c22faf06e",
+    "payment_link_id": "plink_1UVKDZBto3o776uyxoRZEHxf"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://betterproposals.io/statement-of-work/statement-of-work-template-general"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
