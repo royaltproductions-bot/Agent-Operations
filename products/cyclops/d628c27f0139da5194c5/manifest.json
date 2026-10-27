@@ -1,0 +1,37 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops",
+  "status": "active",
+  "asset_id": "d628c27f0139da5194c5",
+  "title": "Credit Score Optimization Assistant",
+  "description": "A tool that helps users improve their credit score by analyzing their credit report, suggesting actionable steps, and tracking progress over time.",
+  "audience": "Individuals looking to improve their credit score, especially those with a moderate credit history or those planning to apply for a new credit card.",
+  "pitch": "This product helps users understand their credit score, identify areas for improvement, and take steps to increase their credit score effectively.",
+  "price_usd": "29.99",
+  "price_cents": 2999,
+  "target_terms": [
+    "credit score improvement",
+    "credit report analysis",
+    "credit score tracking",
+    "credit score optimization"
+  ],
+  "evidence_source_url": "https://thepointsguy.com/credit-cards/how-new-credit-card-increase-credit-score/",
+  "files": [
+    "credit_score_optimization_report.pdf"
+  ],
+  "artifact_manifest": [
+    {
+      "filename": "credit_score_optimization_report.pdf",
+      "bytes": 43775,
+      "sha256": "1d7892d6f8880172cefe9258fc50dcaa98a18df54c622a7ff4fbe47302d51192",
+      "content_type": "application/pdf"
+    }
+  ],
+  "production_tool": "isolated_tool_workshop",
+  "quality_gate": "verified_generated_bytes",
+  "delivery": "private_encrypted_vault",
+  "vault_path": "ops/cyclops-vault/assets/d628c27f0139da5194c5.json",
+  "payment_link_id": "plink_1UVH6gBto3o776uyg9LwxXoW",
+  "checkout_url": "https://buy.stripe.com/5kQcN48bSdvhgYi6N17Re0j",
+  "created_at": "2026-10-27T20:36:30.810114+00:00"
+}
