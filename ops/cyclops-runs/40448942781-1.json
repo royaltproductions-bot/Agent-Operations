@@ -1,0 +1,79 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-27T04:19:51.432038+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 6,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "bing": 2
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 2,
+    "candidates_without_email": 6,
+    "search_queries": [
+      "",
+      "How to track multiple side hustle incomes and credit card rewards without losing financial clarity",
+      "Struggling to maintain focus on personal goals while managing a full-time job and side hustle activities"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 3,
+      "skipped_revisits": 29,
+      "executed_queries": [
+        "How to track multiple side hustle incomes and credit card rewards without losing financial clarity",
+        "Struggling to maintain focus on personal goals while managing a full-time job and side hustle activities",
+        "How to avoid burnout while managing a full-time job, side hustles, and financial tracking",
+        "Struggling to prioritize personal well-being while balancing side hustle and full-time job demands"
+      ],
+      "next_query_queue": 16,
+      "frontier_size": 137,
+      "known_pages": 571
+    },
+    "durable_contactable_sources": 15
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:59bc177823179f0856d9:ModuleNotFoundError: No module named 'bs4'",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 4
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:59bc177823179f0856d9:ModuleNotFoundError: No module named 'bs4'"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
