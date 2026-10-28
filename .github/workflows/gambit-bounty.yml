@@ -97,12 +97,16 @@ jobs:
           if [ ! -f ops/gambit/state.json ]; then
             exit 0
           fi
+          # Rebase of the state commit needs its own identity too. The previous
+          # workflow configured identity only on `git commit`, then failed when
+          # a concurrent code push forced `git rebase origin/main`.
+          git config user.name 'gambit-worker'
+          git config user.email 'ari-operations@agentmail.to'
           git add ops/gambit/state.json
           if git diff --cached --quiet; then
             exit 0
           fi
-          git -c user.name='gambit-worker' -c user.email='ari-operations@agentmail.to' \
-            commit -m 'Record Gambit commissioned-work outcomes'
+          git commit -m 'Record Gambit commissioned-work outcomes'
           for attempt in 1 2 3; do
             if git push origin HEAD:main; then
               exit 0

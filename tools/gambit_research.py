@@ -12,7 +12,7 @@ from urllib.parse import urlsplit, urlunsplit
 MAX_QUERIES = 7
 MAX_RESULTS_PER_QUERY = 12
 MAX_RESULTS = 55
-MAX_FETCHED_PAGES = 10
+MAX_FETCHED_PAGES = 15
 MAX_RESULT_TEXT = 1000
 MAX_TOTAL_TEXT = 14000
 
@@ -58,10 +58,12 @@ def search_public_web(queries, *, ddgs=None, max_queries=MAX_QUERIES):
                     "pages_read": 0, "reason": "search_package_missing"}
         ddgs = DDGS(timeout=12)
     found, seen, attempted, failures = [], set(), 0, 0
+    query_buckets = []
     for query in queries[:min(max_queries, MAX_QUERIES)]:
         if not isinstance(query, str) or not query.strip():
             continue
         attempted += 1
+        bucket = []
         try:
             hits = ddgs.text(query.strip()[:180], max_results=MAX_RESULTS_PER_QUERY,
                              backend="auto") or []
@@ -73,15 +75,32 @@ def search_public_web(queries, *, ddgs=None, max_queries=MAX_QUERIES):
             if not url or url in seen:
                 continue
             seen.add(url)
-            found.append({"url": url, "title": str(item.get("title") or "")[:180],
-                          "snippet": str(item.get("body") or "")[:330],
-                          "page_text": "", "evidence_level": "search_snippet"})
-            if len(found) >= MAX_RESULTS:
-                break
-        if len(found) >= MAX_RESULTS:
-            break
-    pages_read, text_budget = 0, MAX_TOTAL_TEXT
+            result = {"url": url, "title": str(item.get("title") or "")[:180],
+                      "snippet": str(item.get("body") or "")[:330],
+                      "search_query": query.strip()[:180],
+                      "page_text": "", "evidence_level": "search_snippet"}
+            found.append(result)
+            bucket.append(result)
+        if bucket:
+            query_buckets.append(bucket)
+    # Search ranking is per query. Reading the first N results in a single flat
+    # list accidentally spends every page visit on query one. Take one result
+    # from each query per round and favor fresh domains before repeat domains.
+    prioritized = []
+    for rank in range(max((len(bucket) for bucket in query_buckets), default=0)):
+        prioritized.extend(bucket[rank] for bucket in query_buckets
+                           if len(bucket) > rank)
+    found = prioritized[:MAX_RESULTS]
+    diversified, repeated, domains = [], [], set()
     for item in found:
+        domain = urlsplit(item["url"]).hostname
+        if domain in domains:
+            repeated.append(item)
+        else:
+            domains.add(domain)
+            diversified.append(item)
+    pages_read, text_budget = 0, MAX_TOTAL_TEXT
+    for item in diversified + repeated:
         if pages_read >= MAX_FETCHED_PAGES or text_budget <= 0:
             break
         try:

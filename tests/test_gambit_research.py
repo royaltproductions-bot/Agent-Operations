@@ -55,6 +55,21 @@ class SearchTests(unittest.TestCase):
         self.assertEqual(result["status"], "partial")
         self.assertEqual(result["results"][0]["evidence_level"], "search_snippet")
 
+    def test_extracted_pages_cover_multiple_queries_not_just_first_query(self):
+        class DiverseSearch(FakeSearch):
+            def text(self, query, **kwargs):
+                self.queries.append(query)
+                return [{"href": f"https://{query}{i}.example.com/info",
+                         "title": f"Company {i}", "body": "Public details"}
+                        for i in range(12)]
+
+        fake = DiverseSearch()
+        result = research.search_public_web(["industry", "region"], ddgs=fake)
+        self.assertEqual(result["pages_read"], research.MAX_FETCHED_PAGES)
+        self.assertEqual(fake.reads[0], "https://industry0.example.com/info")
+        self.assertEqual(fake.reads[1], "https://region0.example.com/info")
+        self.assertEqual(result["results"][1]["search_query"], "region")
+
 
 if __name__ == "__main__":
     unittest.main()

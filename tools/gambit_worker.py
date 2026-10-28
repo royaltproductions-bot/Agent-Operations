@@ -8,7 +8,7 @@ No buyer data or API credentials are written to GitHub.
 from __future__ import annotations
 
 import csv
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 import hashlib
 import io
 import json
@@ -36,6 +36,29 @@ TEXT_SUFFIXES = {".txt", ".md", ".csv", ".tsv", ".json", ".jsonl"}
 
 def timestamp():
     return datetime.now(timezone.utc).isoformat()
+
+
+def retry_due(entry, now=None):
+    if entry.get("action") != "retry_search" or not entry.get("retry_at"):
+        return False
+    try:
+        due = datetime.fromisoformat(entry["retry_at"])
+        return due.tzinfo is not None and due <= (now or datetime.now(timezone.utc))
+    except (TypeError, ValueError):
+        return False
+
+
+def cursor_refresh_due(state, cursor, now=None):
+    """Avoid committing a new no-op tail cursor on every empty market poll."""
+    if cursor == state.get("events_cursor"):
+        return False
+    try:
+        checked = datetime.fromisoformat(state.get("last_check") or "")
+        if checked.tzinfo is not None:
+            return (now or datetime.now(timezone.utc)) - checked >= timedelta(hours=6)
+    except (TypeError, ValueError):
+        pass
+    return True
 
 
 def key(*parts):
@@ -211,6 +234,7 @@ def scan(state):
                 if e.get("type") in relevant and e.get("data", {}).get("bounty_id")}
     waiting = [item for item in opened
                if state["bounties"].get(str(item.get("_id")), {}).get("version") != item.get("version")
+               or retry_due(state["bounties"].get(str(item.get("_id")), {}))
                or str(item.get("_id")) in triggers
                or (state.get("_cursor_reset") and
                    state["bounties"].get(str(item.get("_id")), {}).get("action") in
@@ -360,9 +384,13 @@ def assess(details, messages=None, sources=None, unreadable_count=0):
     decision = infer(DECIDE_SCHEMA, system, context,
                  num_ctx=14000 if context["web_evidence"].get("results") else
                          (7500 if sources else 5500))
-    if (context["web_evidence"].get("status") == "unavailable" and
+    if (context["web_evidence"].get("status") in {"unavailable", "partial"} and
             decision.get("decision") in {"bid", "claim"}):
         decision["decision"] = "pass"
+    if context["web_evidence"].get("status") in {"unavailable", "partial"}:
+        # Temporary public-search failures must not permanently dismiss an
+        # otherwise viable Bounty for the same unchanged version.
+        decision["_retry_search"] = True
     return decision
 
 
@@ -468,9 +496,18 @@ def handle_open(item, state):
         note(state, action, bounty_id, version=version)
     else:
         action = "pass"
-    state["bounties"][bounty_id] = {"version": version, "action": action,
-                                    "at": timestamp(), "last_declined_bid": declined_token}
-    if action in {"pass", "asked"}:
+    next_entry = {"version": version, "action": action,
+                  "at": timestamp(), "last_declined_bid": declined_token}
+    if action == "pass" and decision.get("_retry_search"):
+        previous_count = int(previous.get("retry_count") or 0) if previous.get("version") == version else 0
+        retry_count = min(previous_count + 1, 4)
+        delay_minutes = (10, 30, 90, 240)[retry_count - 1]
+        next_entry.update(action="retry_search", retry_count=retry_count,
+                          retry_at=(datetime.now(timezone.utc) +
+                                    timedelta(minutes=delay_minutes)).isoformat())
+        action = "retry_search"
+    state["bounties"][bounty_id] = next_entry
+    if action in {"pass", "asked", "retry_search"}:
         note(state, action, bounty_id, version=version)
 
 
@@ -553,6 +590,24 @@ def prepare_csv(content):
     if len(data) > 500_000:
         raise ValueError("csv_deliverable_too_large")
     return data
+
+
+def requested_list_size(details):
+    """Read an explicit minimum list quantity from the buyer's instructions.
+
+    Do not invent a quality threshold. Ambiguous instructions stay with the
+    semantic reviewer rather than being rejected by an unreliable heuristic.
+    """
+    bounty = details.get("bounty") or {}
+    task = " ".join(str(bounty.get(name) or "")
+                    for name in ("title", "description", "verification"))
+    match = re.search(
+        r"\b(?:find|source|list|identify|compile|provide|deliver|research)\s+"
+        r"(?:at\s+least\s+|a\s+minimum\s+of\s+)?(\d{1,4})\s+"
+        r"(?:(?:qualified|relevant|potential|targeted|local|sales|public)\s+){0,3}"
+        r"(?:leads|contacts|companies|businesses|competitors|candidates|"
+        r"suppliers|agencies|investors|creators)\b", task, re.IGNORECASE)
+    return int(match.group(1)) if match else None
 
 
 class NoUploadRedirect(urllib.request.HTTPRedirectHandler):
@@ -675,6 +730,13 @@ def handle_hired(item, state):
             digest = key("content", normalized_content)
             if failure_reason and previous.get("content_digest") == digest:
                 quality = {"approved": False, "reason": "Unchanged after failed verification"}
+            elif format_name == "csv" and (expected := requested_list_size(details)) and (
+                    actual := len(list(csv.reader(io.StringIO(
+                        normalized_content.decode("utf-8"))))) - 1) < expected:
+                quality = {"approved": False,
+                           "reason": (f"Buyer explicitly requested {expected} records; "
+                                      f"draft includes only {actual}. Complete the full "
+                                      "sourced list or state what information is missing.")}
             else:
                 quality = review(details, result, sources=sources)
         if quality.get("approved") is True:
@@ -739,7 +801,7 @@ def run(mode="run"):
     if mode == "probe":
         needs_model = bool(waiting or active)
         needs_run = (needs_model or bool(events) or state.get("_cursor_reset") or
-                     cursor != state.get("events_cursor"))
+                     cursor_refresh_due(state, cursor))
         output = os.environ.get("GITHUB_OUTPUT")
         if output:
             with open(output, "a", encoding="utf-8") as f:

@@ -1,5 +1,6 @@
 """Offline contract checks: no fake opportunities, secret leaks or duplicate bids."""
 from contextlib import redirect_stdout
+from datetime import datetime, timedelta, timezone
 import io
 import json
 import os
@@ -73,6 +74,26 @@ class GambitTests(unittest.TestCase):
         result = json.loads(output.getvalue())
         self.assertTrue(result['needs_run'])
         self.assertFalse(result['needs_model'])
+
+    def test_empty_market_does_not_commit_rotating_tail_cursor_each_poll(self):
+        state = {'schema': 1, 'bounties': {}, 'events_cursor': 'old',
+                 'last_check': datetime.now(timezone.utc).isoformat(),
+                 'recent_outcomes': []}
+        output = io.StringIO()
+        with patch.object(gambit, 'load_state', return_value=state), \
+             patch.object(gambit, 'scan', return_value=([], [], [], 'new', [], [])), \
+             patch.dict(os.environ, {'GITHUB_OUTPUT': ''}), redirect_stdout(output):
+            gambit.run('probe')
+        self.assertFalse(json.loads(output.getvalue())['needs_run'])
+        state['last_check'] = (datetime.now(timezone.utc) -
+                               timedelta(hours=7)).isoformat()
+        output = io.StringIO()
+        with patch.object(gambit, 'load_state', return_value=state), \
+             patch.object(gambit, 'scan', return_value=([], [], [], 'new', [], [])), \
+             patch.dict(os.environ, {'GITHUB_OUTPUT': ''}), redirect_stdout(output):
+            gambit.run('probe')
+        self.assertTrue(json.loads(output.getvalue())['needs_run'])
+        self.assertFalse(json.loads(output.getvalue())['needs_model'])
 
     def test_existing_active_bid_never_duplicated(self):
         details = {'bounty': {'_id': 'b1', 'status': 'open', 'version': 2},
@@ -212,12 +233,77 @@ class GambitTests(unittest.TestCase):
                  'status': 'unavailable', 'results': []}):
             result = gambit.assess(details)
         self.assertEqual(result['decision'], 'pass')
+        self.assertTrue(result['_retry_search'])
+
+    def test_search_snippets_without_readable_pages_cannot_support_bid(self):
+        details = {'bounty': {'title': 'Research firms'}}
+        plan = {'requires_web': True, 'queries': ['firms'], 'reason': 'Need sources'}
+        with patch.object(gambit, 'infer', side_effect=[plan, {
+                'decision': 'bid', 'reason': 'Can source', 'payout_cents': 1500,
+                'note': 'Deliver a source-linked report.', 'question': ''}]), \
+             patch('tools.gambit_research.search_public_web', return_value={
+                 'status': 'partial', 'results': [{
+                     'url': 'https://example.com', 'evidence_level': 'search_snippet'}]}):
+            result = gambit.assess(details)
+        self.assertEqual(result['decision'], 'pass')
+        self.assertTrue(result['_retry_search'])
+
+    def test_temporary_search_outage_retries_only_when_due(self):
+        now = datetime.now(timezone.utc)
+        entry = {'action': 'retry_search',
+                 'retry_at': (now + timedelta(minutes=10)).isoformat()}
+        self.assertFalse(gambit.retry_due(entry, now))
+        entry['retry_at'] = (now - timedelta(minutes=1)).isoformat()
+        self.assertTrue(gambit.retry_due(entry, now))
+        self.assertFalse(gambit.retry_due({'action': 'pass'}, now))
+
+    def test_search_retry_remains_open_for_same_version(self):
+        details = {'bounty': {'_id': 'b1', 'status': 'open', 'version': 3, 'flow': 'bid'}}
+        state = {'bounties': {}, 'recent_outcomes': []}
+        with patch.object(gambit, 'api', return_value=details), \
+             patch.object(gambit, 'assess', return_value={
+                 'decision': 'pass', '_retry_search': True}):
+            gambit.handle_open({'_id': 'b1'}, state)
+        record = state['bounties']['b1']
+        self.assertEqual(record['action'], 'retry_search')
+        self.assertEqual(record['retry_count'], 1)
+        self.assertTrue(gambit.retry_due(record, datetime.now(timezone.utc) +
+                                         timedelta(minutes=11)))
 
     def test_csv_sanitization_and_header_validation(self):
         csv_data = gambit.prepare_csv('name,source\nAcme,https://example.com\n=2+3,source')
         self.assertIn(b"'=2+3", csv_data)
         with self.assertRaises(ValueError):
             gambit.prepare_csv('name,source\nAcme')
+
+    def test_only_buyer_specified_list_size_becomes_a_hard_requirement(self):
+        self.assertEqual(gambit.requested_list_size({
+            'bounty': {'title': 'Find at least 20 qualified leads in retail'}}), 20)
+        self.assertIsNone(gambit.requested_list_size({
+            'bounty': {'title': 'Research local competitors and summarize trends'}}))
+
+    def test_short_csv_gets_revised_before_any_paid_submission(self):
+        details = {'bounty': {'_id': 'b1', 'status': 'claimed',
+                              'title': 'Find 3 qualified leads', 'payout_cents': 1800},
+                   'claim': {'status': 'active', 'claim_id': 'c1'}}
+        short = {'status': 'ready', 'deliverable_title': 'Leads',
+                 'deliverable_format': 'csv', 'deliverable_text':
+                     'company,source\nA,https://example.com'}
+        complete = dict(short, deliverable_text=(
+            'company,source\nA,https://example.com\n'
+            'B,https://example.org\nC,https://example.net'))
+        state = {'bounties': {}, 'recent_outcomes': []}
+        with patch.object(gambit, 'api', return_value={
+                'submission': {'id': 'sub1'}, **details}), \
+             patch.object(gambit, 'messages_for', return_value=[]), \
+             patch.object(gambit, 'produce', side_effect=[short, complete]) as produce, \
+             patch.object(gambit, 'review', return_value={'approved': True}) as review, \
+             patch.object(gambit, 'upload_csv', return_value='attachment1'):
+            gambit.handle_hired({'_id': 'b1'}, state)
+        self.assertEqual(produce.call_count, 2)
+        self.assertIn('3 records', produce.call_args.args[3])
+        review.assert_called_once()
+        self.assertEqual(state['bounties']['b1']['action'], 'submitted')
 
     def test_signed_csv_upload_never_sends_api_key_to_storage(self):
         state = {'bounties': {'b1': {'action': 'hired', 'payout_cents': 1200}}}
