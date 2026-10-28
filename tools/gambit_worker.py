@@ -169,14 +169,22 @@ REVIEW_SCHEMA = {"type": "object", "properties": {
     "approved": {"type": "boolean"}, "reason": {"type": "string"},
 }, "required": ["approved", "reason"], "additionalProperties": False}
 
+REPLY_SCHEMA = {"type": "object", "properties": {
+    "reply_text": {"type": "string"},
+}, "required": ["reply_text"], "additionalProperties": False}
+
 
 def clean_context(details, messages=None):
     bounty = details.get("bounty") or {}
+    prior_bid = details.get("bid") or {}
     return {"title": bounty.get("title"), "instructions": bounty.get("description"),
             "verification": bounty.get("verification"), "version": bounty.get("version"),
             "delivery_window_ms": bounty.get("delivery_window_ms"),
             "budget_cents": bounty.get("budget_cents"), "payout_cents": bounty.get("payout_cents"),
-            "flow": bounty.get("flow"), "attachments": [
+            "flow": bounty.get("flow"),
+            "prior_bid_status": prior_bid.get("status"),
+            "prior_bid_payout_cents": prior_bid.get("payout_cents"),
+            "attachments": [
                 {"filename": a.get("filename"), "content_type": a.get("contentType")}
                 for a in details.get("attachments") or []],
             "owner_messages": [{"text": ((m.get("content") or {}).get("text") or "")[:3000]}
@@ -209,6 +217,9 @@ def assess(details, messages=None):
         "scope, complexity, buyer's budget, and achievable quality rather than "
         "automatically underbidding. If the task is ambiguous but feasible, ask one "
         "high-value clarification question instead of submitting a vague bid. "
+        "If a prior bid was declined, read the owner's latest message, adapt the "
+        "price or scope only when the feedback justifies it, and never repeat "
+        "the same unsupported offer. If there is no honest improvement, pass. "
         "If flow is claim use claim, if bid use bid. Return strict JSON."
     )
     return infer(DECIDE_SCHEMA, system, clean_context(details, messages))
@@ -216,6 +227,22 @@ def assess(details, messages=None):
 
 def messages_for(bounty_id):
     return pages(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/messages?limit=100", "messages")
+
+
+def respond_to_buyer(details, messages):
+    system = (
+        "You are Gambit, replying to the latest private buyer message about an "
+        "existing paid-work bid. Answer the actual question briefly and helpfully. "
+        "Be truthful about capabilities, timing, and the exact offered deliverable. "
+        "This runtime can currently provide only plain-text analysis, writing, "
+        "structured data, and code drafts; it cannot browse the live web, "
+        "access private accounts/files, run code, or operate a buyer's website. "
+        "Never claim work already done, invent credentials/reviews, or agree to "
+        "spending, outside payments, contracts, or unsupported services. "
+        "If the buyer has not asked for a response, return an empty reply_text. "
+        "Return strict JSON."
+    )
+    return infer(REPLY_SCHEMA, system, clean_context(details, messages), num_predict=500)
 
 
 def handle_open(item, state):
@@ -227,11 +254,40 @@ def handle_open(item, state):
     previous = state["bounties"].get(bounty_id) or {}
     version = current.get("version")
     bid = details.get("bid") or {}
+    declined_token = previous.get("last_declined_bid")
+    if bid.get("status") == "declined":
+        candidate = str(bid.get("_id") or bid.get("id") or
+                        bid.get("created_at") or f"version-{version}")
+        if declined_token != candidate:
+            note(state, "bid_declined", bounty_id, version=version)
+        declined_token = candidate
     if bid.get("status") == "active" and bid.get("bounty_version") == version:
-        state["bounties"][bounty_id] = {"version": version, "action": "bid_active"}
+        last_reply_id = previous.get("last_owner_reply_id")
+        owner_trigger = any(e.get("type") == "work.message.created" and
+                            e.get("data", {}).get("bounty_id") == bounty_id
+                            for e in CURRENT_EVENTS)
+        if owner_trigger:
+            messages = sorted(messages_for(bounty_id), key=lambda m: m.get("created_at") or 0)
+            incoming = [m for m in messages if m.get("author_type") == "user"]
+            if incoming:
+                latest = incoming[-1]
+                current_reply_id = str(latest.get("_id") or latest.get("created_at") or
+                                       key("owner-text", (latest.get("content") or {}).get("text")))
+                if current_reply_id != last_reply_id:
+                    reply = str(respond_to_buyer(details, messages).get("reply_text") or "").strip()
+                    if reply:
+                        api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/messages", "POST", {
+                            "content": {"type": "text", "text": reply[:3000]},
+                            "idempotency_key": key("buyer-reply", bounty_id, current_reply_id)})
+                        note(state, "buyer_replied", bounty_id)
+                    last_reply_id = current_reply_id
+        state["bounties"][bounty_id] = {"version": version, "action": "bid_active",
+                                         "last_declined_bid": declined_token,
+                                         "last_owner_reply_id": last_reply_id}
         return
     messages = (sorted(messages_for(bounty_id), key=lambda m: m.get("created_at") or 0)
-                if previous.get("action") == "asked" else [])
+                if previous.get("action") in {"asked", "bid_sent", "bid_active"}
+                or bid.get("status") == "declined" else [])
     decision = assess(details, messages)
     action = decision["decision"]
     if action == "ask" and current.get("flow") == "bid":
@@ -262,12 +318,12 @@ def handle_open(item, state):
     else:
         action = "pass"
     state["bounties"][bounty_id] = {"version": version, "action": action,
-                                    "at": timestamp()}
+                                    "at": timestamp(), "last_declined_bid": declined_token}
     if action in {"pass", "asked"}:
         note(state, action, bounty_id, version=version)
 
 
-def produce(details, messages, verification_feedback=""):
+def produce(details, messages, verification_feedback="", quality_feedback=""):
     system = (
         "You are Gambit, completing an already HIRED commercial task. Follow the buyer's "
         "instructions exactly within the actual capabilities of this plain-text runtime. "
@@ -278,11 +334,14 @@ def produce(details, messages, verification_feedback=""):
         "specific missing data. Return ready only if the requested output is genuinely "
         "complete and fits a text deliverable. Otherwise need_information or "
         "cannot_deliver. Do not include placeholders or an explanation of what you "
-        "would do instead of the result. Return strict JSON."
+        "would do instead of the result. If quality feedback is present, specifically "
+        "correct the stated defect rather than repeating the same draft. Return strict JSON."
     )
     context = clean_context(details, messages)
     if verification_feedback:
         context["verification_feedback"] = verification_feedback[:1500]
+    if quality_feedback:
+        context["quality_feedback"] = quality_feedback[:1500]
     return infer(WORK_SCHEMA, system, context, num_predict=3500, num_ctx=6500)
 
 
@@ -305,6 +364,11 @@ def handle_hired(item, state):
     if claim.get("status") != "active" or not claim.get("claim_id"):
         return
     previous = state["bounties"].get(bounty_id) or {}
+    earned_if_completed = (details.get("bounty") or {}).get("payout_cents")
+    if previous.get("claim_id") != claim["claim_id"]:
+        note(state, "hired", bounty_id, payout_cents=earned_if_completed)
+        state["bounties"][bounty_id] = {"action": "hired", "claim_id": claim["claim_id"],
+                                        "payout_cents": earned_if_completed, "at": timestamp()}
     messages = messages_for(bounty_id)
     incoming = sorted((m for m in messages if m.get("author_type") == "user"),
                       key=lambda m: m.get("created_at") or 0)
@@ -325,7 +389,8 @@ def handle_hired(item, state):
             "content": {"type": "text", "text": question},
             "idempotency_key": key("file-question", bounty_id, claim["claim_id"])})
         state["bounties"][bounty_id] = {"action": "awaiting_info", "claim_id": claim["claim_id"],
-                                        "last_message": last_message}
+                                        "last_message": last_message,
+                                        "payout_cents": earned_if_completed}
         return
     feedback_events = [e for e in CURRENT_EVENTS
                        if e.get("type") == "submission.verification_failed" and
@@ -339,26 +404,36 @@ def handle_hired(item, state):
                 "content": {"type": "text", "text": question[:4000]},
                 "idempotency_key": key("info", bounty_id, claim["claim_id"], last_message, question)})
         state["bounties"][bounty_id] = {"action": "awaiting_info", "claim_id": claim["claim_id"],
-                                        "last_message": last_message}
+                                        "last_message": last_message,
+                                        "payout_cents": earned_if_completed}
         note(state, "awaiting_info", bounty_id)
         return
     if result.get("status") != "ready":
         state["bounties"][bounty_id] = {"action": "needs_operator_review",
-                                        "claim_id": claim["claim_id"]}
+                                        "claim_id": claim["claim_id"],
+                                        "payout_cents": earned_if_completed}
         note(state, "needs_operator_review", bounty_id)
         return
-    content = str(result.get("deliverable_text") or "").strip()
-    if not content or len(content) > 100000:
-        raise ValueError("invalid_text_deliverable")
-    digest = key("content", content)
-    if failure_reason and previous.get("content_digest") == digest:
-        state["bounties"][bounty_id] = {"action": "quality_rejected",
-                                        "claim_id": claim["claim_id"], "content_digest": digest}
-        note(state, "unchanged_after_failed_verification", bounty_id)
-        return
-    quality = review(details, result)
-    if quality.get("approved") is not True:
-        state["bounties"][bounty_id] = {"action": "quality_rejected", "claim_id": claim["claim_id"]}
+    for attempt in range(2):
+        content = str(result.get("deliverable_text") or "").strip()
+        if not content or len(content) > 100000:
+            raise ValueError("invalid_text_deliverable")
+        digest = key("content", content)
+        if failure_reason and previous.get("content_digest") == digest:
+            quality = {"approved": False, "reason": "Unchanged after failed verification"}
+        else:
+            quality = review(details, result)
+        if quality.get("approved") is True:
+            break
+        if attempt == 0:
+            note(state, "quality_revision_attempt", bounty_id)
+            result = produce(details, incoming, failure_reason,
+                             str(quality.get("reason") or "The deliverable failed quality review"))
+            if result.get("status") != "ready":
+                break
+    if quality.get("approved") is not True or result.get("status") != "ready":
+        state["bounties"][bounty_id] = {"action": "quality_rejected", "claim_id": claim["claim_id"],
+                                        "payout_cents": earned_if_completed}
         note(state, "quality_rejected", bounty_id)
         return
     submission_key = key("submission", bounty_id, claim["claim_id"], content)
@@ -369,7 +444,8 @@ def handle_hired(item, state):
         "idempotency_key": submission_key})
     state["bounties"][bounty_id] = {"action": "submitted", "claim_id": claim["claim_id"],
                                     "submission_id": receipt.get("submission_id"),
-                                    "content_digest": digest, "at": timestamp()}
+                                    "content_digest": digest, "payout_cents": earned_if_completed,
+                                    "at": timestamp()}
     note(state, "submitted_for_verification", bounty_id,
          submission_id=receipt.get("submission_id"))
 
@@ -415,8 +491,15 @@ def run(mode="run"):
     for event in events:
         action = event.get("type")
         bid = event.get("data", {}).get("bounty_id")
-        if action in {"work.completed", "work.ended", "submission.review_opened"} and bid:
-            note(state, action, str(bid))
+        if action in {"work.completed", "work.ended", "submission.review_opened",
+                      "submission.accepted"} and bid:
+            event_id = event.get("id")
+            if event_id and any(o.get("event_id") == event_id for o in state["recent_outcomes"]):
+                continue
+            payout = (state["bounties"].get(str(bid)) or {}).get("payout_cents")
+            note(state, action, str(bid), event_id=event_id,
+                 **({"payout_cents": payout} if action == "work.completed" and payout is not None
+                    else {}))
     # Failed handlers must see the same events on the next run.
     if not failures:
         state["events_cursor"] = cursor
