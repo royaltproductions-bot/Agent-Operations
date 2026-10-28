@@ -13,6 +13,7 @@ import ipaddress
 import json
 import os
 import re
+import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -280,6 +281,52 @@ def duckduckgo_html(query,limit=6):
         })
         if len(out)>=limit:
             break
+    if out:
+        return out
+    # DDG's lightweight page uses different result-link markup. Recover
+    # independent search hits when the standard endpoint returns no cards.
+    try:
+        _,_,raw=_open("https://lite.duckduckgo.com/lite/?"+params)
+        lightweight=raw.decode("utf-8","ignore")
+        for match in re.finditer(r'<a\b([^>]*\bclass=["\x27][^"\x27]*result-link[^"\x27]*["\x27][^>]*)>(.*?)</a>',
+                                  lightweight,re.I|re.S):
+            href=re.search(r'\bhref=["\x27]([^"\x27]+)',match.group(1),re.I)
+            link=_ddg_target(href.group(1)) if href else None
+            if not link or link in seen:
+                continue
+            seen.add(link)
+            out.append({"title":clean_html(match.group(2)),
+                        "source_url":link,"snippet":""})
+            if len(out)>=limit:
+                break
+    except (urllib.error.HTTPError,urllib.error.URLError,TimeoutError):
+        pass
+    return out
+
+
+def google_html(query,limit=6):
+    """Search ordinary public web results when other HTML engines return none."""
+    params=urllib.parse.urlencode({"q":query,"num":str(max(limit,6))})
+    _,_,raw=_open("https://www.google.com/search?"+params,limit=350000)
+    html=raw.decode("utf-8","ignore")
+    seen=set()
+    out=[]
+    for match in re.finditer(r'<a\b[^>]*\bhref=(["\x27])([^"\x27]+)\1[^>]*>(.*?)</a>',
+                             html,re.I|re.S):
+        inner=match.group(3)
+        if not re.search(r'<h3\b',inner,re.I):
+            continue
+        href=unescape(match.group(2))
+        if href.startswith("/url?"):
+            href=(urllib.parse.parse_qs(urllib.parse.urlsplit(href).query).get("q") or [""])[0]
+        host=(urllib.parse.urlsplit(href).hostname or "").lower()
+        if (not _public_url(href) or host.endswith("google.com")
+                or href in seen):
+            continue
+        seen.add(href)
+        out.append({"title":clean_html(inner),"source_url":href,"snippet":""})
+        if len(out)>=limit:
+            break
     return out
 
 
@@ -411,7 +458,7 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
             errors.append({"source":"hn_ask_search","reason":type(exc).__name__})
     streams=[]
     total_provider_hits=0
-    providers=(("duckduckgo",duckduckgo_html),
+    providers=(("duckduckgo",duckduckgo_html),("google",google_html),
                ("brave",brave_html),("bing",bing_rss))
     blocked_providers=set()
     # Read independent topics via the provider that actually returns topical
@@ -423,7 +470,7 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
         for provider,search in providers:
             if provider in blocked_providers:
                 continue
-            if provider in ("brave","bing") and strong_primary>=3:
+            if provider!="duckduckgo" and strong_primary>=3:
                 continue
             try:
                 hits=search(compact_query(query) if strict_relevance else query,
@@ -437,7 +484,7 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
                 if strict_relevance:
                     aligned=[hit for hit in ordered if relevant_hit(query,hit)]
                     other=[hit for hit in ordered if not relevant_hit(query,hit)]
-                    if provider in ("duckduckgo","brave"):
+                    if provider in ("duckduckgo","google","brave"):
                         strong_primary=len(aligned)
                         # Some authentic discussions use vocabulary unlike
                         # the search query. Permit a few exploratory pages.

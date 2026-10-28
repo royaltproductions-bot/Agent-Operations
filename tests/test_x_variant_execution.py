@@ -21,6 +21,20 @@ def cyclops_or_skip(test):
 
 
 class WebEfficiencyTests(unittest.TestCase):
+    def test_google_html_recovers_direct_source_links(self):
+        html='''<a href="/url?q=https%3A%2F%2Fmerchant.example%2Fproduct%2F1&amp;sa=U"><h3>Paid Digital Asset</h3></a>'''
+        with patch.object(web,"_open",return_value=("https://www.google.com/search", "text/html",html.encode())):
+            rows=web.google_html("paid downloadable product")
+        self.assertEqual(rows[0]["source_url"],"https://merchant.example/product/1")
+
+    def test_ddg_lite_recovers_when_standard_has_no_cards(self):
+        lite='''<a rel="nofollow" href="//duckduckgo.com/l/?uddg=https%3A%2F%2Fstore.example%2Fitem" class="result-link">Useful Paid Tool</a>'''
+        with patch.object(web,"_open",side_effect=[
+             ("https://html.duckduckgo.com/html/","text/html",b"no result cards"),
+             ("https://lite.duckduckgo.com/lite/","text/html",lite.encode())]):
+            rows=web.duckduckgo_html("useful paid tool")
+        self.assertEqual(rows[0]["source_url"],"https://store.example/item")
+
     def test_ask_hn_direct_post_is_verified_firsthand_page(self):
         """Use the original public submission, never an index-only snippet."""
         hit={"objectID":"12345","title":"Ask HN: Workflow errors?"}
@@ -59,6 +73,7 @@ class WebEfficiencyTests(unittest.TestCase):
                 "page_text":"I need help reconciling invoices each weekend."}
         with patch.object(web,"hn_ask_candidates",return_value=[direct]), \
              patch.object(web,"duckduckgo_html",return_value=[]), \
+             patch.object(web,"google_html",return_value=[]), \
              patch.object(web,"brave_html",return_value=[]), \
              patch.object(web,"bing_rss",return_value=[]):
             rows,errors=web.open_web_candidates(
@@ -77,6 +92,7 @@ class WebEfficiencyTests(unittest.TestCase):
                "snippet":"Real discussion"}]
         with patch.object(web,"bing_rss",return_value=[]), \
              patch.object(web,"duckduckgo_html",return_value=hits), \
+             patch.object(web,"google_html",return_value=[]), \
              patch.object(web,"brave_html",return_value=[]), \
              patch.object(web,"fetch_public_text",return_value=(
                  "https://example.com/need",
@@ -96,6 +112,7 @@ class WebEfficiencyTests(unittest.TestCase):
         topic="receipt organization for freelance illustrators"
         with patch.object(web,"bing_rss",return_value=unrelated), \
              patch.object(web,"duckduckgo_html",return_value=[]), \
+             patch.object(web,"google_html",return_value=[]), \
              patch.object(web,"brave_html",return_value=[]), \
              patch.object(web,"fetch_public_text") as fetch:
             rows,errors=web.open_web_candidates(queries=[topic],strict_relevance=True)
