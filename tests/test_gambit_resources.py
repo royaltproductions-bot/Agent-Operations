@@ -1,6 +1,8 @@
 """Resource integration contracts; a green configuration must execute real tools."""
 import io
+import os
 import unittest
+from unittest.mock import patch
 from zipfile import ZipFile
 
 from tools import gambit_resources as resources
@@ -57,6 +59,38 @@ class ResourceRouterTests(unittest.TestCase):
                 resources.execute("public_search", ["actual leads"])
         finally:
             resources._PROVIDERS["public_search"].remove(provider)
+
+    def test_unhealthy_external_provider_does_not_qualify_a_bid(self):
+        resources._load()
+        provider = resources.Provider(
+            "offline-service", "premium_research", lambda: 1 / 0,
+            lambda: {"results": []})
+        resources.register(provider)
+        try:
+            self.assertFalse(resources.available("premium_research"))
+            with self.assertRaises(resources.ResourceUnavailable):
+                resources.execute("premium_research")
+            self.assertFalse(next(x for x in resources.manifest()
+                                  if x["capability"] == "premium_research")["available"])
+        finally:
+            resources._PROVIDERS.pop("premium_research")
+
+    def test_invalid_plugin_cannot_leave_partially_active_catalog(self):
+        original_loaded = resources._LOADED
+        original = {k: list(v) for k, v in resources._PROVIDERS.items()}
+        try:
+            resources._LOADED = False
+            resources._PROVIDERS.clear()
+            with patch.dict(os.environ, {"GAMBIT_RESOURCE_PLUGINS":
+                                      "untrusted.http://buyer.example"}):
+                with self.assertRaisesRegex(ValueError, "untrusted_resource_module"):
+                    resources.available("site_source")
+            self.assertFalse(resources._LOADED)
+            self.assertEqual(resources._PROVIDERS, {})
+        finally:
+            resources._PROVIDERS.clear()
+            resources._PROVIDERS.update(original)
+            resources._LOADED = original_loaded
 
 
 if __name__ == "__main__":

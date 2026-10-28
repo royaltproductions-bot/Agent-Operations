@@ -36,6 +36,7 @@ OLLAMA = "http://127.0.0.1:11434/api/chat"
 MAX_PAGES = 20
 MAX_TEXT_FILE_BYTES = 30_000
 MAX_SOURCE_CHARS = 24_000
+CLARIFICATION_TIMEOUT = timedelta(hours=24)
 
 
 def timestamp():
@@ -77,15 +78,12 @@ def cursor_refresh_due(state, cursor, now=None):
 
 
 def bid_reconciliation_due(state, opened, now=None):
-    """Revisit all locally active bids even when listings disappear.
+    """Revisit platform bids even if local records were lost or listings disappear.
 
     The reconciliation path is model-free: an unsupported offer must not stay
     live merely because the buyer did not edit the Bounty. A bid may also
     disappear from the open-list response without a corresponding event.
     """
-    if not any(entry.get("action") == "bid_active"
-               for entry in state["bounties"].values()):
-        return False
     try:
         previous = datetime.fromisoformat(state.get("last_bid_reconciliation") or "")
         if previous.tzinfo:
@@ -93,6 +91,24 @@ def bid_reconciliation_due(state, opened, now=None):
     except (TypeError, ValueError):
         pass
     return True
+
+
+def clarification_expired(entry, now=None):
+    """A funded job must not wait indefinitely for a buyer to supply essentials."""
+    if entry.get("action") != "awaiting_info":
+        return False
+    try:
+        requested_at = datetime.fromisoformat(entry.get("at") or "")
+        return (requested_at.tzinfo is not None and
+                (now or datetime.now(timezone.utc)) - requested_at >= CLARIFICATION_TIMEOUT)
+    except (TypeError, ValueError):
+        return False
+
+
+def awaiting_entry(claim_id, last_message, payout_cents):
+    return {"action": "awaiting_info", "claim_id": claim_id,
+            "last_message": last_message, "payout_cents": payout_cents,
+            "at": timestamp()}
 
 
 def key(*parts):
@@ -310,6 +326,9 @@ def scan(state):
         {"submitted", "awaiting_info", "quality_rejected", "quality_rejected_final",
          "needs_operator_review"}
         or str(item.get("_id")) in triggers or state.get("_cursor_reset")
+        or clarification_expired(state["bounties"].get(str(item.get("_id")), {}))
+        or state["bounties"].get(str(item.get("_id")), {}).get("action") ==
+        "quality_rejected_final"
         or quality_retry_due(state["bounties"].get(str(item.get("_id")), {}))
         or (website_capable() and
             state["bounties"].get(str(item.get("_id")), {}).get("action") ==
@@ -483,7 +502,8 @@ def unsupported_deliverable(details):
 
     This is enforced independently of model judgment. Mentioning videos or
     images in a *research* assignment is fine; asking for those final assets
-    is not. The runtime's final outputs are text, CSV, and XLSX only.
+    is not. The runtime's final outputs are text, CSV, XLSX, PDF, DOCX and
+    narrowly scoped static source ZIPs.
     """
     bounty = details.get("bounty") or {}
     title = str(bounty.get("title") or "").lower()
@@ -492,6 +512,27 @@ def unsupported_deliverable(details):
     verification = (verification.lower() if isinstance(verification, str) else
                     json.dumps(verification, ensure_ascii=False).lower())
     requested = title + " " + description
+
+    # These assignments require authenticated publishing or transaction
+    # resources. Preparing a draft social post or analyzing a campaign is still
+    # fine; actually operating a buyer account is not a deliverable we support.
+    if (re.search(r"\b(?:post|publish|schedule|upload|manage|run|launch)\b"
+                  r".{0,75}\b(?:instagram|tiktok|facebook|linkedin|youtube|"
+                  r"social media account|social accounts?|ad campaigns?|"
+                  r"paid ads|google ads|meta ads)\b", requested) or
+            re.search(r"\b(?:log in|sign in|access|connect)\b"
+                      r".{0,65}\b(?:account|dashboard|admin panel|crm)\b", requested) or
+            re.search(r"\b(?:published|posted|scheduled|live campaign)\b"
+                      r".{0,55}\b(?:instagram|tiktok|facebook|linkedin|youtube|"
+                      r"social media|ad campaign)\b", verification)):
+        return "authenticated_account_operation"
+
+    # A commissioned analysis of tax or legal *data* is distinct from acting
+    # as someone's licensed representative or filing a regulated submission.
+    if re.search(r"\b(?:file|submit|sign|certify|represent)\b.{0,80}"
+                 r"\b(?:tax returns?|irs forms?|legal filings?|court documents?|"
+                 r"securities filings?|insurance claims?)\b", requested):
+        return "regulated_filing"
 
     # File formats in acceptance criteria are stronger evidence than an LLM's
     # unsupported promise. Text scripts ABOUT videos remain eligible.
@@ -782,7 +823,7 @@ def handle_open(item, state):
                 "payout_cents": payout, "expected_version": version,
                 "note": bid_note[:2000],
                 "idempotency_key": key("bid", bounty_id, version, payout)})
-            action = "bid_sent"
+            action = "bid_active"
             note(state, "bid_sent", bounty_id, payout_cents=payout, version=version)
     elif action == "claim" and current.get("flow") == "claim":
         result = api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/claims", "POST",
@@ -1023,6 +1064,20 @@ def upload_csv(bounty_id, data, state, claim_id, digest):
                        filename="gambit-research.csv", content_type="text/csv")
 
 
+def platform_active_bid_ids():
+    """Read account-wide offers; repository state is only a cache, not authority."""
+    found = set()
+    for bid in pages("/v1/agent/bids?limit=100", "bids"):
+        if not isinstance(bid, dict) or bid.get("status") not in {None, "active"}:
+            continue
+        bounty = bid.get("bounty") or {}
+        bounty_id = bid.get("bounty_id") or bid.get("bountyId") or (
+            bounty.get("_id") if isinstance(bounty, dict) else None)
+        if isinstance(bounty_id, str) and re.fullmatch(r"[A-Za-z0-9_-]{1,128}", bounty_id):
+            found.add(bounty_id)
+    return found
+
+
 def reconcile_active_bids(opened, state, *, skip_ids=()):
     """Check prior offers against current skills without loading an LLM.
 
@@ -1032,9 +1087,14 @@ def reconcile_active_bids(opened, state, *, skip_ids=()):
     # Use durable bid records, not today's open-list response. An older bid
     # can disappear from that list without an event and still require review.
     excluded = set(skip_ids)
-    for bounty_id, previous in list(state["bounties"].items()):
-        if previous.get("action") != "bid_active" or bounty_id in excluded:
+    local_ids = {bid for bid, entry in state["bounties"].items()
+                 if entry.get("action") in {"bid_sent", "bid_active"}}
+    # Bounty's GET /bids catches active offers missing from a lost or stale
+    # checkout state, including an accepted POST followed by a runner crash.
+    for bounty_id in sorted(platform_active_bid_ids() | local_ids):
+        if bounty_id in excluded:
             continue
+        previous = state["bounties"].get(bounty_id) or {}
         details = api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}")
         bid = details.get("bid") or {}
         current = details.get("bounty") or {}
@@ -1049,6 +1109,12 @@ def reconcile_active_bids(opened, state, *, skip_ids=()):
                     "action": "unsupported_bid_withdrawn", "reason": gap,
                     "at": timestamp()}
                 note(state, "unsupported_bid_withdrawn", bounty_id, reason=gap)
+            else:
+                state["bounties"][bounty_id] = {
+                    **previous, "version": current.get("version"),
+                    "action": "bid_active", "at": previous.get("at") or timestamp()}
+                if not previous:
+                    note(state, "active_bid_recovered", bounty_id)
         elif status in {"declined", "withdrawn", "replaced", "stale", "missing"}:
             state["bounties"][bounty_id] = {
                 "version": current.get("version"), "action": "bid_" + status,
@@ -1063,9 +1129,15 @@ def unclaim_unfulfillable(bounty_id, claim_id, state, reason, message):
     the commission; do not strand a buyer waiting for a nonexistent operator.
     """
     encoded = urllib.parse.quote(bounty_id, safe="")
-    api(f"/v1/agent/bounties/{encoded}/messages", "POST", {
-        "content": {"type": "text", "text": message},
-        "idempotency_key": key("cannot-complete", bounty_id, claim_id, reason)})
+    try:
+        api(f"/v1/agent/bounties/{encoded}/messages", "POST", {
+            "content": {"type": "text", "text": message},
+            "idempotency_key": key("cannot-complete", bounty_id, claim_id, reason)})
+    except Exception as exc:
+        # Releasing the funded assignment matters more than a second notice:
+        # the unclaim reason itself notifies the buyer through Bounty.
+        note(state, "release_message_failed", bounty_id,
+             reason=safe_failure_reason(exc))
     api(f"/v1/agent/bounties/{encoded}/unclaim", "POST", {
         "reason": reason[:1000]})
     state["bounties"][bounty_id] = {
@@ -1089,6 +1161,12 @@ def handle_hired(item, state):
             "returned and you can hire an appropriately equipped provider.")
         return
     previous = state["bounties"].get(bounty_id) or {}
+    if previous.get("action") == "quality_rejected_final":
+        unclaim_unfulfillable(
+            bounty_id, claim["claim_id"], state, "quality_review_failed",
+            "I'm sorry; this work did not pass our completion checks. I'm releasing "
+            "the assignment so your payment can be returned.")
+        return
     earned_if_completed = (details.get("bounty") or {}).get("payout_cents")
     if previous.get("claim_id") != claim["claim_id"]:
         note(state, "hired", bounty_id, payout_cents=earned_if_completed)
@@ -1101,6 +1179,15 @@ def handle_hired(item, state):
                         key("owner-message", (incoming[-1].get("content") or {}).get("text") or ""))
                     if incoming else "none")
     if previous.get("action") == "awaiting_info" and previous.get("last_message") == last_message:
+        if not previous.get("at"):
+            # Legacy records predate the bounded wait window.
+            previous["at"] = timestamp()
+        elif clarification_expired(previous):
+            unclaim_unfulfillable(
+                bounty_id, claim["claim_id"], state, "buyer_information_unavailable",
+                "I haven't received the information needed to complete and verify "
+                "this assignment. I'm releasing it so your payment can be returned; "
+                "another provider can proceed when the material is ready.")
         return
     if (previous.get("action") == "quality_rejected_final" and
             previous.get("last_message") == last_message):
@@ -1122,9 +1209,8 @@ def handle_hired(item, state):
         api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/messages", "POST", {
             "content": {"type": "text", "text": question},
             "idempotency_key": key("file-question", bounty_id, claim["claim_id"])})
-        state["bounties"][bounty_id] = {"action": "awaiting_info", "claim_id": claim["claim_id"],
-                                        "last_message": last_message,
-                                        "payout_cents": earned_if_completed}
+        state["bounties"][bounty_id] = awaiting_entry(
+            claim["claim_id"], last_message, earned_if_completed)
         return
     feedback_events = [e for e in CURRENT_EVENTS
                        if e.get("type") == "submission.verification_failed" and
@@ -1152,9 +1238,8 @@ def handle_hired(item, state):
             api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/messages", "POST", {
                 "content": {"type": "text", "text": question[:4000]},
                 "idempotency_key": key("info", bounty_id, claim["claim_id"], last_message, question)})
-        state["bounties"][bounty_id] = {"action": "awaiting_info", "claim_id": claim["claim_id"],
-                                        "last_message": last_message,
-                                        "payout_cents": earned_if_completed}
+        state["bounties"][bounty_id] = awaiting_entry(
+            claim["claim_id"], last_message, earned_if_completed)
         note(state, "awaiting_info", bounty_id)
         return
     if result.get("status") != "ready":
@@ -1170,10 +1255,8 @@ def handle_hired(item, state):
             "content": {"type": "text", "text": question[:3000]},
             "idempotency_key": key("cannot-fulfill", bounty_id, claim["claim_id"],
                                    last_message)})
-        state["bounties"][bounty_id] = {"action": "awaiting_info",
-                                        "claim_id": claim["claim_id"],
-                                        "last_message": last_message,
-                                        "payout_cents": earned_if_completed}
+        state["bounties"][bounty_id] = awaiting_entry(
+            claim["claim_id"], last_message, earned_if_completed)
         note(state, "buyer_clarification_requested", bounty_id)
         return
     for attempt in range(2):
@@ -1246,9 +1329,8 @@ def handle_hired(item, state):
                     "content": {"type": "text", "text": question[:4000]},
                     "idempotency_key": key("quality-info", bounty_id, claim["claim_id"],
                                            last_message, question)})
-                state["bounties"][bounty_id] = {
-                    "action": "awaiting_info", "claim_id": claim["claim_id"],
-                    "last_message": last_message, "payout_cents": earned_if_completed}
+                state["bounties"][bounty_id] = awaiting_entry(
+                    claim["claim_id"], last_message, earned_if_completed)
                 note(state, "awaiting_info", bounty_id)
                 return
         reason = str(quality.get("reason") or "")

@@ -54,7 +54,8 @@ class GambitTests(unittest.TestCase):
         sleep.assert_called_once_with(3.0)
 
     def test_no_model_when_no_jobs(self):
-        state = {'schema': 1, 'bounties': {}, 'events_cursor': None, 'recent_outcomes': []}
+        state = {'schema': 1, 'bounties': {}, 'events_cursor': None, 'recent_outcomes': [],
+                 'last_bid_reconciliation': datetime.now(timezone.utc).isoformat()}
         output = io.StringIO()
         with patch.object(gambit, 'load_state', return_value=state), \
              patch.object(gambit, 'scan', return_value=([], [], [], None, [], [])), \
@@ -132,6 +133,7 @@ class GambitTests(unittest.TestCase):
     def test_empty_market_does_not_commit_rotating_tail_cursor_each_poll(self):
         state = {'schema': 1, 'bounties': {}, 'events_cursor': 'old',
                  'last_check': datetime.now(timezone.utc).isoformat(),
+                 'last_bid_reconciliation': datetime.now(timezone.utc).isoformat(),
                  'recent_outcomes': []}
         output = io.StringIO()
         with patch.object(gambit, 'load_state', return_value=state), \
@@ -182,6 +184,27 @@ class GambitTests(unittest.TestCase):
             'title': 'Research short-form video advertising and write a script',
             'description': 'Find five public case studies.',
             'verification': 'Deliver a text report with sources and a draft script.'}}))
+
+    def test_external_account_operation_is_blocked_but_draft_is_allowed(self):
+        self.assertEqual('authenticated_account_operation',
+                         gambit.unsupported_deliverable({'bounty': {
+            'title': 'Manage and schedule Instagram posts',
+            'description': 'Log into our business account and publish daily.',
+            'verification': 'Posts live on Instagram.'}}))
+        self.assertIsNone(gambit.unsupported_deliverable({'bounty': {
+            'title': 'Draft three Instagram captions',
+            'description': 'Write copy for approved photos.',
+            'verification': 'Deliver a text document with three captions.'}}))
+
+    def test_regulated_filing_is_blocked_but_data_analysis_is_allowed(self):
+        self.assertEqual('regulated_filing',
+                         gambit.unsupported_deliverable({'bounty': {
+            'title': 'File IRS forms for my business',
+            'description': 'Submit the 2025 tax return.',
+            'verification': 'Provide proof of official submission.'}}))
+        self.assertIsNone(gambit.unsupported_deliverable({'bounty': {
+            'title': 'Analyze expenses from a CSV',
+            'verification': 'Summarize totals in a report.'}}))
 
     def test_unsupported_presentation_and_deployment_are_blocked(self):
         self.assertEqual('unsupported_file_output', gambit.unsupported_deliverable({
@@ -340,7 +363,8 @@ class GambitTests(unittest.TestCase):
         with patch.object(gambit, 'api', return_value=details) as api, \
              patch.object(gambit, 'infer') as infer:
             gambit.reconcile_active_bids([], state)
-        api.assert_called_once_with('/v1/agent/bounties/missing1')
+        self.assertEqual([c.args[0] for c in api.call_args_list], [
+            '/v1/agent/bids?limit=100', '/v1/agent/bounties/missing1'])
         infer.assert_not_called()
         self.assertEqual(state['bounties']['missing1']['action'], 'bid_missing')
 
@@ -355,10 +379,66 @@ class GambitTests(unittest.TestCase):
     def test_changed_bid_is_left_to_normal_processing(self):
         state = {'bounties': {'b1': {'version': 2, 'action': 'bid_active'}},
                  'recent_outcomes': []}
-        with patch.object(gambit, 'api') as api:
+        with patch.object(gambit, 'api') as api, \
+             patch.object(gambit, 'platform_active_bid_ids', return_value=set()):
             gambit.reconcile_active_bids([{'_id': 'b1', 'version': 3}], state,
                                          skip_ids={'b1'})
         api.assert_not_called()
+
+    def test_account_wide_bid_list_recovers_orphan_active_offer(self):
+        state = {'bounties': {}, 'recent_outcomes': []}
+        details = {'bounty': {'_id': 'lost1', 'version': 2,
+                              'title': 'Produce a video',
+                              'verification': 'Deliver final MP4.'},
+                   'bid': {'status': 'active'}}
+        def request(path, method='GET', payload=None):
+            if path.startswith('/v1/agent/bids'):
+                return {'bids': [{'bounty_id': 'lost1', 'status': 'active'}],
+                        'has_more': False}
+            return details if method == 'GET' else {'status': 'withdrawn'}
+        with patch.object(gambit, 'api', side_effect=request) as api:
+            gambit.reconcile_active_bids([], state)
+        self.assertEqual(state['bounties']['lost1']['action'], 'unsupported_bid_withdrawn')
+        self.assertTrue(any(c.args[0].endswith('/bid/withdraw')
+                            for c in api.call_args_list))
+
+    def test_bid_sent_is_reconciled_and_recovers_as_active(self):
+        state = {'bounties': {'b1': {'action': 'bid_sent', 'version': 2}},
+                 'recent_outcomes': []}
+        details = {'bounty': {'_id': 'b1', 'version': 2,
+                              'title': 'Summarize a CSV'},
+                   'bid': {'status': 'active'}}
+        with patch.object(gambit, 'api', return_value=details):
+            gambit.reconcile_active_bids([], state)
+        self.assertEqual(state['bounties']['b1']['action'], 'bid_active')
+
+    def test_clarification_timeout_releases_stalled_claim(self):
+        past = (datetime.now(timezone.utc) - timedelta(hours=25)).isoformat()
+        entry = {'action': 'awaiting_info', 'claim_id': 'c1',
+                 'last_message': 'none', 'payout_cents': 2000, 'at': past}
+        self.assertTrue(gambit.clarification_expired(entry))
+        state = {'bounties': {'b1': entry}, 'recent_outcomes': []}
+        details = {'bounty': {'_id': 'b1', 'status': 'claimed'},
+                   'claim': {'status': 'active', 'claim_id': 'c1'}}
+        with patch.object(gambit, 'api', return_value=details) as api, \
+             patch.object(gambit, 'messages_for', return_value=[]), \
+             patch.object(gambit, 'produce') as produce:
+            gambit.handle_hired({'_id': 'b1'}, state)
+        produce.assert_not_called()
+        self.assertEqual(state['bounties']['b1']['action'], 'unclaimed_unfulfillable')
+        self.assertTrue(any(c.args[0].endswith('/unclaim')
+                            for c in api.call_args_list))
+
+    def test_failed_release_message_does_not_strand_buyers_funds(self):
+        state = {'bounties': {}, 'recent_outcomes': []}
+        def request(path, method='GET', payload=None):
+            if path.endswith('/messages'):
+                raise RuntimeError('bounty_api_UNAVAILABLE')
+            return {'released': True}
+        with patch.object(gambit, 'api', side_effect=request) as api:
+            gambit.unclaim_unfulfillable('b1', 'c1', state, 'cannot_deliver', 'Sorry')
+        self.assertEqual(state['bounties']['b1']['action'], 'unclaimed_unfulfillable')
+        self.assertEqual(api.call_args_list[-1].args[0], '/v1/agent/bounties/b1/unclaim')
 
     def test_unchanged_bid_reconciliation_does_not_boot_model(self):
         state = {'schema': 1,

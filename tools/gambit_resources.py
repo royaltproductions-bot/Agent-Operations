@@ -35,6 +35,14 @@ _PROVIDERS: dict[str, list[Provider]] = {}
 _LOADED = False
 
 
+def _healthy(provider: Provider) -> bool:
+    """A broken provider's health check cannot qualify a commercial bid."""
+    try:
+        return provider.available() is True
+    except Exception:
+        return False
+
+
 def register(provider: Provider):
     if not provider.zero_cost:
         raise ValueError("paid_gambit_resource_forbidden")
@@ -73,26 +81,31 @@ def _load():
     global _LOADED
     if _LOADED:
         return
+    try:
+        _load_defaults()
+        # Only explicitly configured modules shipped with this repository can
+        # add integrations; buyer text cannot register arbitrary API hosts.
+        for module in filter(None, (s.strip() for s in
+                                    os.getenv("GAMBIT_RESOURCE_PLUGINS", "").split(","))):
+            if not re.fullmatch(r"tools\.gambit_plugin_[a-z0-9_]+", module):
+                raise ValueError("untrusted_resource_module")
+            importlib.import_module(module)
+    except Exception:
+        _PROVIDERS.clear()
+        # Failed activation must not leave a half-registered resource catalog.
+        raise
     _LOADED = True
-    _load_defaults()
-    # Only explicitly configured modules shipped with this repository can add
-    # integrations. Untrusted buyer content cannot register an API destination.
-    for module in filter(None, (s.strip() for s in
-                                os.getenv("GAMBIT_RESOURCE_PLUGINS", "").split(","))):
-        if not re.fullmatch(r"tools\.gambit_plugin_[a-z0-9_]+", module):
-            raise ValueError("untrusted_resource_module")
-        importlib.import_module(module)
 
 
 def available(capability: str) -> bool:
     _load()
-    return any(provider.available() for provider in _PROVIDERS.get(capability, []))
+    return any(_healthy(provider) for provider in _PROVIDERS.get(capability, []))
 
 
 def execute(capability: str, *args, **kwargs):
     _load()
     for provider in _PROVIDERS.get(capability, []):
-        if provider.available():
+        if _healthy(provider):
             result = provider.invoke(*args, **kwargs)
             # Validate the shared contract at the integration boundary, not
             # just inside a vendor-specific implementation.
@@ -132,7 +145,7 @@ def execute(capability: str, *args, **kwargs):
 def manifest():
     _load()
     return [{"capability": capability,
-             "providers": [p.name for p in providers if p.available()],
-             "available": any(p.available() for p in providers),
+             "providers": [p.name for p in providers if _healthy(p)],
+             "available": any(_healthy(p) for p in providers),
              "billing": "no_charge"}
             for capability, providers in sorted(_PROVIDERS.items())]
