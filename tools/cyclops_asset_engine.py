@@ -142,9 +142,13 @@ def discovery_queries(memory):
         "Choose search inquiries from ANY legitimate industry or activity. "
         "Find what real people are doing or asking, not just dictionary definitions, "
         "generic advice, an arbitrary named product, or how to buy an item. "
-        "Generate web searches for genuine first-person discussions and "
-        "observable workflows, not invented hypothetical questions that "
-        "merely describe a plausible customer. "
+        "Generate SHORT, DISTINCT web searches for actual first-person "
+        "discussions, complaints, questions, and observable workflows. "
+        "Put real-world question phrasing or short first-person fragments "
+        "inside quotation marks to surface actual request threads, rather "
+        "than generic 'how do people' explainer articles. These are SEARCH "
+        "patterns only, not evidence that a customer exists. Do not invent "
+        "hypothetical buyers or treat a search query as a customer quote. "
         "Your goal is concrete firsthand problems and workflows that may inspire "
         "a reusable product, WITHOUT deciding the product in advance. "
         "Historical titles and queries are diagnostic context: do NOT mechanically "
@@ -903,6 +907,37 @@ def catalog_eligible(asset):
                 and str(asset.get("checkout_url") or "").startswith("https://"))
 
 
+def retire_unverified_payment_links(assets=None):
+    """Disable purchase links to legacy files whose promises were unverified.
+
+    A hidden card is insufficient: a previously shared Stripe payment link
+    remains purchasable. Only mutate links whose BOTH public manifest and
+    Stripe metadata identify the same Cyclops product. Existing paid orders
+    remain available for the separate delivery/reconciliation pass.
+    """
+    invalid={str(a.get("asset_id")):a for a in (assets if assets is not None else active_assets())
+             if a.get("asset_id") and not catalog_eligible(a)}
+    if not invalid:
+        return {"invalid_products":0,"disabled_payment_links":0}
+    retired=0
+    for link in _stripe_pages("payment_links"):
+        if not link.get("active"):
+            continue
+        metadata=link.get("metadata") or {}
+        ident=str(metadata.get("cyclops_asset_id") or "")
+        if metadata.get("cyclops_asset")!="yes" or ident not in invalid:
+            continue
+        if link.get("id")!=invalid[ident].get("payment_link_id"):
+            continue
+        link_id=str(link["id"])
+        updated=stripe_post("payment_links/"+urllib.parse.quote(link_id,safe=""),
+                            {"active":"false"},"retire-unverified-cyclops-"+link_id)
+        if updated.get("id")!=link_id or updated.get("active") is not False:
+            raise RuntimeError("unverified_link_deactivation_not_confirmed:"+link_id)
+        retired+=1
+    return {"invalid_products":len(invalid),"disabled_payment_links":retired}
+
+
 def publish_catalog():
     """Independently expose approved catalog offers through existing storefront."""
     manifests=active_assets()
@@ -927,8 +962,8 @@ def publish_catalog():
         '<p>We are checking deliverable completeness and description accuracy '
         'before placing digital products on sale. There are currently no '
         'verified products available for purchase in this section.</p>'
-        '<p><a href="/free-vendor-payout-calculator/">Try our free vendor '
-        'payout calculator</a> in the meantime.</p></article>')
+        '<p>For future releases, contact the Ari Operations team below.</p>'
+        '</article>')
     document='''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -1223,6 +1258,7 @@ def run():
         "discovery":{},
         "production":{},
         "catalog":{},
+        "legacy_checkout_safety":{},
         "external_action":None,
         "fulfillment":[],
         "structural_failures":[],
@@ -1255,6 +1291,13 @@ def run():
             "detail":(str(exc) or type(exc).__name__)[:160]})
 
     # Catalog distribution does not require a new product or a new email lead.
+    try:
+        receipt["legacy_checkout_safety"]=retire_unverified_payment_links()
+    except Exception as exc:
+        receipt["structural_failures"].append({
+            "reason":"unverified_payment_link_retirement_failed",
+            "detail":(str(exc) or type(exc).__name__)[:160]})
+
     try:
         receipt["catalog"]=publish_catalog()
     except Exception as exc:
@@ -1304,6 +1347,7 @@ def run():
             "search_provider_counts":provider_counts,
             "source_errors":search_errors,
             "fetched_public_pages":sum(bool(r.get("page_fetched")) for r in rows),
+            "verified_firsthand_problem_pages":sum(bool(firsthand_problem_excerpt(r)) for r in rows),
             "candidates_without_email":sum(not bool(r.get("contact")) for r in rows),
             "search_queries":list(dict.fromkeys(str(r.get("search_query") or "") for r in rows))[:12],
         }

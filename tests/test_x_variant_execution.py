@@ -20,6 +20,28 @@ def cyclops_or_skip(test):
 
 
 class WebEfficiencyTests(unittest.TestCase):
+    def test_market_search_keeps_first_person_phrases(self):
+        self.assertEqual(
+            web.compact_query('"I am struggling to reconcile invoices" help'),
+            '"I am struggling to reconcile invoices" help')
+
+    def test_fetch_unaligned_search_hits_for_real_evidence(self):
+        """Topic word mismatch must not eliminate a real firsthand request."""
+        hits=[{"title":"An actual request", "source_url":"https://example.com/need",
+               "snippet":"Real discussion"}]
+        with patch.object(web,"bing_rss",return_value=hits), \
+             patch.object(web,"duckduckgo_html",return_value=[]), \
+             patch.object(web,"fetch_public_text",return_value=(
+                 "https://example.com/need",
+                 "I need help reconciling invoices every weekend.",[])):
+            rows,errors=web.open_web_candidates(
+                queries=["my payroll account reconciliation workflow"],
+                strict_relevance=True)
+        self.assertEqual(len(rows),1)
+        self.assertTrue(rows[0]["page_fetched"])
+        self.assertIn("I need help",rows[0]["page_text"])
+        self.assertEqual(errors,[])
+
     def test_public_http_has_finite_transport_timeout(self):
         class Response:
             headers={"Content-Type":"text/plain"}
@@ -186,6 +208,27 @@ class CyclopsEfficiencyTests(unittest.TestCase):
         asset["quality_gate"]="content_and_evidence_verified"
         asset["verified_market_problem_quote"]="I need help with a recurring problem."
         self.assertTrue(cyclops.catalog_eligible(asset))
+
+    def test_only_exact_legacy_cyclops_checkout_is_deactivated(self):
+        cyclops=cyclops_or_skip(self)
+        legacy={"status":"active","asset_id":"old-asset",
+                "payment_link_id":"plink_old",
+                "quality_gate":"verified_generated_bytes"}
+        links=[
+            {"id":"plink_old","active":True,"metadata":{
+                "cyclops_asset":"yes","cyclops_asset_id":"old-asset"}},
+            {"id":"plink_other","active":True,"metadata":{
+                "cyclops_asset":"yes","cyclops_asset_id":"someone-else"}},
+            {"id":"plink_spoofed","active":True,"metadata":{
+                "cyclops_asset":"yes","cyclops_asset_id":"old-asset"}},
+        ]
+        with patch.object(cyclops,"_stripe_pages",return_value=iter(links)), \
+             patch.object(cyclops,"stripe_post",return_value={
+                 "id":"plink_old","active":False}) as update:
+            result=cyclops.retire_unverified_payment_links([legacy])
+        self.assertEqual(result["disabled_payment_links"],1)
+        self.assertEqual(update.call_args.args[0],"payment_links/plink_old")
+        self.assertEqual(update.call_args.args[1],{"active":"false"})
 
     def test_commercial_review_inspects_real_pdf_contents_and_rejects_unsupported_claim(self):
         import base64

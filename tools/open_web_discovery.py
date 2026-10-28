@@ -131,9 +131,18 @@ def root_terms(value):
 
 
 def compact_query(query):
-    """Translate a verbose question into source-neutral search engine terms."""
-    words=search_terms(query)
-    return " ".join(words[:10]) if words else str(query)[:140]
+    """Preserve quoted firsthand language, instead of broadening to SEO terms."""
+    raw=re.sub(r"\s+"," ",str(query or "")).strip()[:220]
+    if len(raw)<=110:
+        return raw
+    quoted=re.findall(r'["\u201c]([^"\u201d]{4,80})["\u201d]',raw)
+    terms=search_terms(raw)
+    if quoted:
+        lead='"'+quoted[0]+'"'
+        quoted_terms=set(search_terms(quoted[0]))
+        tail=' '.join(word for word in terms if word not in quoted_terms)
+        return (lead+' '+tail[:90]).strip()
+    return " ".join(terms[:13]) or raw[:140]
 
 
 def public_request_signal(hit):
@@ -306,12 +315,16 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
                             limit=6 if strict_relevance else 8)
                 hits=[hit for hit in hits if in_scope(hit.get("source_url"))]
                 total_provider_hits+=len(hits)
-                # Relevance is a ranking hint, not an exclusion gate: the
-                # market researcher must see authentic hits even when our
-                # tiny token-overlap heuristic misunderstands the search.
+                # Relevance is a ranking hint, not an exclusion gate. An
+                # arbitrary token-overlap threshold used to discard nearly
+                # every search result before fetching actual page evidence.
                 ordered=sorted(hits,key=lambda hit:(not relevant_hit(query,hit),-public_request_signal(hit)))
                 if strict_relevance:
-                    ordered=[hit for hit in ordered if relevant_hit(query,hit)]
+                    aligned=[hit for hit in ordered if relevant_hit(query,hit)]
+                    other=[hit for hit in ordered if not relevant_hit(query,hit)]
+                    # Allow limited exploratory results without permitting
+                    # an irrelevant source to exhaust the entire run budget.
+                    ordered=aligned[:6]+other[:max(0,3-len(aligned))]
                 if ordered:
                     streams.append((query,provider,ordered))
                 if memory:
