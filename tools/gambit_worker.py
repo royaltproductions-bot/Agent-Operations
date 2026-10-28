@@ -472,7 +472,7 @@ def handle_open(item, state):
     sources, unreadable = text_sources(details, messages)
     if unreadable and not messages:
         decision = {"decision": "ask" if current.get("flow") == "bid" else "pass",
-                    "question": "I can analyze small text, Markdown, CSV, or JSON files. Could you paste the essential contents of the other attachments here?"}
+                    "question": "I can read text-based PDFs, Word, Excel, CSV, JSON, and text files. One supplied attachment could not be read. Could you provide its essential contents in a supported file or message?"}
     else:
         decision = assess(details, messages, sources, len(unreadable))
     action = decision["decision"]
@@ -704,9 +704,9 @@ def handle_hired(item, state):
                                previous.get("last_message") != last_message and
                                any((m.get("content") or {}).get("text") for m in incoming))
     if unreadable and not buyer_supplied_text:
-        question = ("I can read small text, Markdown, CSV, and JSON files, but some "
-                    "provided files were unsupported or too large. Please paste the "
-                    "essential contents and required output format here.")
+        question = ("I can read text-based PDFs, Word, Excel, CSV, JSON, and text files, "
+                    "but some supplied attachments were unsupported or too large. "
+                    "Please provide the essential contents in a supported file or message.")
         api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/messages", "POST", {
             "content": {"type": "text", "text": question},
             "idempotency_key": key("file-question", bounty_id, claim["claim_id"])})
