@@ -1,0 +1,138 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T22:58:35.335764+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 13,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 8
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 13,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/craigcossairt/clearlane/issues/1",
+        "title": "Lane: integration status",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Ledgercorp/BountyForge/issues/3",
+        "title": "First-Dollar Mission: qualify and complete the first paid AI-assisted repair",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://github.com/rsoreq-mend/AutoGPT/issues/436",
+        "title": "autogpt_forge-0.2.0: 84 vulnerabilities (highest severity is: 10.0) [master]",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/lizTheDeveloper/privacy-the-game/issues/409",
+        "title": "[find opt-out] SageStream LLC: find the official opt-out route",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/documenso/documenso/issues/3453",
+        "title": "\"ISO 8601\" date format stamps a literal \"XXX\" instead of the timezone offset on signed date fields",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.upwork.com/hire/pdf-freelancers/",
+        "title": "Best PDF Freelancers for Hire (Oct 2026) - Upwork",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-29 create free pdf",
+      "hiring a freelancer to create a free PDF template",
+      "need paid help with designing a simple email newsletter"
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to create a free PDF template",
+      "need paid help with designing a simple email newsletter",
+      "can anyone create a short-form video script for social media",
+      "looking for someone to develop a lightweight WordPress plugin"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 3,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to create a free PDF template",
+        "need paid help with designing a simple email newsletter",
+        "can anyone create a short-form video script for social media",
+        "looking for someone to develop a lightweight WordPress plugin"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 140,
+      "known_pages": 962
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
