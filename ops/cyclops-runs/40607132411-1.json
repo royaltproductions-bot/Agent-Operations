@@ -1,0 +1,67 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-28T00:19:42.631542+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 1,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 1
+    },
+    "search_provider_counts": {
+      "bing": 1
+    },
+    "source_errors": [],
+    "fetched_public_pages": 1,
+    "candidates_without_email": 1,
+    "search_queries": [
+      "how do people manage their time when juggling multiple part-time jobs and family responsibilities"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 1,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "how do people actually organize their weekly meal prep without getting overwhelmed",
+        "what are the real challenges people face when trying to maintain a consistent workout routine",
+        "how do people manage their time when juggling multiple part-time jobs and family responsibilities",
+        "what do people actually struggle with when trying to set and achieve long-term goals"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 677
+    },
+    "durable_contactable_sources": 22
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:f777b05c7c1ff079865d:FileNotFoundError: [Errno 2] No such file or directory: '/work/output/temp_magazine.pdf'",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 9
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:f777b05c7c1ff079865d:FileNotFoundError: [Errno 2] No such file or directory: '/work/output/temp_magazine.pdf'"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
