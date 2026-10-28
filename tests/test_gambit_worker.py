@@ -172,6 +172,41 @@ class GambitTests(unittest.TestCase):
             'bounty': {'title': 'Send outreach emails to leads',
                        'verification': 'Provide sent email confirmations.'}}))
 
+    def test_real_document_outputs_are_supported_but_forms_are_not(self):
+        from tools.gambit_artifacts import requested_output_format
+        docx = {'bounty': {'title': 'Research brief',
+                           'verification': 'Deliver the finished DOCX report.'}}
+        pdf = {'bounty': {'title': 'Write a PDF report',
+                          'verification': 'Provide a readable final PDF file.'}}
+        self.assertEqual({'docx'}, requested_output_format(docx))
+        self.assertEqual({'pdf'}, requested_output_format(pdf))
+        self.assertIsNone(gambit.unsupported_deliverable(docx))
+        self.assertIsNone(gambit.unsupported_deliverable(pdf))
+        self.assertEqual('unsupported_pdf_form', gambit.unsupported_deliverable({
+            'bounty': {'title': 'Make a fillable PDF form'}}))
+        self.assertEqual('unsupported_multi_or_file_format',
+                         gambit.unsupported_deliverable({'bounty': {
+                             'title': 'Create an executive report',
+                             'verification': 'Deliver a final PDF report and XLSX spreadsheet.'}}))
+
+    def test_output_format_mismatch_for_hired_work_is_revised_not_uploaded(self):
+        details = {'bounty': {'_id': 'pdf1', 'status': 'claimed',
+                              'title': 'PDF research report',
+                              'verification': 'Deliver a final PDF file.'},
+                   'claim': {'status': 'active', 'claim_id': 'claim1'}}
+        draft = {'status': 'ready', 'deliverable_title': 'Report',
+                 'deliverable_text': 'This is only text.', 'deliverable_format': 'text'}
+        state = {'bounties': {}, 'recent_outcomes': []}
+        with patch.object(gambit, 'api', return_value=details) as api, \
+             patch.object(gambit, 'messages_for', return_value=[]), \
+             patch.object(gambit, 'produce', return_value=draft), \
+             patch.object(gambit, 'upload_file') as upload:
+            gambit.handle_hired({'_id': 'pdf1'}, state)
+        upload.assert_not_called()
+        self.assertFalse(any('/submissions' in c.args[0] for c in api.call_args_list))
+        self.assertIn(state['bounties']['pdf1']['action'],
+                      {'quality_rejected', 'quality_rejected_final'})
+
     def test_failure_receipts_disclose_safe_api_code_not_sensitive_text(self):
         self.assertEqual('bounty_api_RATE_LIMITED', gambit.safe_failure_reason(
             RuntimeError('bounty_api_RATE_LIMITED')))
