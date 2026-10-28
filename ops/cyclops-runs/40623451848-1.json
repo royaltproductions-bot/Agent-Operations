@@ -1,0 +1,101 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-28T02:54:25.435558+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "no_new_eligible_public_evidence",
+    "candidate_count": 0,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {},
+    "search_provider_counts": {},
+    "source_errors": [
+      {
+        "source": "research_coverage",
+        "reason": "no_new_eligible_public_pages",
+        "queries_attempted": [
+          "wireless solar-powered outdoor string lights with 81 sales",
+          "customizable smart planters with 123 sales",
+          "handmade leather crossbody bags with 45 sales",
+          "portable air purifier for cars with 67 sales",
+          "waterproof phone case with 152 sales"
+        ],
+        "prior_unvisited_links": 140
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 0,
+    "verified_firsthand_problem_pages": 0,
+    "verified_paid_product_listings": 0,
+    "market_candidates_considered": 0,
+    "paid_listing_sample": [],
+    "candidates_without_email": 0,
+    "search_queries": [],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 0,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "wireless solar-powered outdoor string lights with 81 sales",
+        "customizable smart planters with 123 sales",
+        "handmade leather crossbody bags with 45 sales",
+        "portable air purifier for cars with 67 sales",
+        "waterproof phone case with 152 sales"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 140,
+      "known_pages": 714
+    },
+    "durable_contactable_sources": 23
+  },
+  "production": {
+    "result": "no_current_product_opportunity"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
