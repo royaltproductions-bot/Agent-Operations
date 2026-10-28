@@ -1,4 +1,7 @@
 """Offline contract checks: no fake opportunities, secret leaks or duplicate bids."""
+from contextlib import redirect_stdout
+import io
+import json
 import os
 import unittest
 from unittest.mock import patch
@@ -13,10 +16,24 @@ class GambitTests(unittest.TestCase):
 
     def test_no_model_when_no_jobs(self):
         state = {'schema': 1, 'bounties': {}, 'events_cursor': None, 'recent_outcomes': []}
+        output = io.StringIO()
         with patch.object(gambit, 'load_state', return_value=state), \
              patch.object(gambit, 'scan', return_value=([], [], [], None, [], [])), \
-             patch.dict(os.environ, {'GITHUB_OUTPUT': ''}):
+             patch.dict(os.environ, {'GITHUB_OUTPUT': ''}), redirect_stdout(output):
             gambit.run('probe')
+        self.assertFalse(json.loads(output.getvalue())['needs_run'])
+
+    def test_settlement_event_runs_without_loading_model(self):
+        state = {'schema': 1, 'bounties': {}, 'events_cursor': None, 'recent_outcomes': []}
+        event = {'id': 'e1', 'type': 'work.completed', 'data': {'bounty_id': 'b1'}}
+        output = io.StringIO()
+        with patch.object(gambit, 'load_state', return_value=state), \
+             patch.object(gambit, 'scan', return_value=([], [], [event], 'cursor1', [], [])), \
+             patch.dict(os.environ, {'GITHUB_OUTPUT': ''}), redirect_stdout(output):
+            gambit.run('probe')
+        result = json.loads(output.getvalue())
+        self.assertTrue(result['needs_run'])
+        self.assertFalse(result['needs_model'])
 
     def test_existing_active_bid_never_duplicated(self):
         details = {'bounty': {'_id': 'b1', 'status': 'open', 'version': 2},
