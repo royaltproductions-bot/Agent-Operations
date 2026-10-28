@@ -29,7 +29,8 @@ permissions:
 
 concurrency:
   group: gambit-bounty-worker
-  cancel-in-progress: false
+  # Code hotfixes replace stale polling workers; routine polls never interrupt.
+  cancel-in-progress: ${{ github.event_name == 'push' }}
 
 jobs:
   find-and-fulfill:
