@@ -78,6 +78,25 @@ def cursor_refresh_due(state, cursor, now=None):
     return True
 
 
+def bid_reconciliation_due(state, opened, now=None):
+    """Revisit open bids even when the buyer creates no new events.
+
+    The reconciliation path is model-free: an unsupported offer must not stay
+    live merely because the buyer did not edit the Bounty.
+    """
+    open_ids = {str(item.get("_id")) for item in opened}
+    if not any(bounty_id in open_ids and entry.get("action") == "bid_active"
+               for bounty_id, entry in state["bounties"].items()):
+        return False
+    try:
+        previous = datetime.fromisoformat(state.get("last_bid_reconciliation") or "")
+        if previous.tzinfo:
+            return (now or datetime.now(timezone.utc)) - previous >= timedelta(minutes=15)
+    except (TypeError, ValueError):
+        pass
+    return True
+
+
 def key(*parts):
     return hashlib.sha256("|".join(map(str, parts)).encode()).hexdigest()[:40]
 
@@ -967,6 +986,56 @@ def upload_csv(bounty_id, data, state, claim_id, digest):
                        filename="gambit-research.csv", content_type="text/csv")
 
 
+def reconcile_active_bids(opened, state):
+    """Check prior offers against current skills without loading an LLM.
+
+    An unchanged Bounty version is not proof the offer remains appropriate;
+    skills can be removed or improved independently of the buyer's listing.
+    """
+    for item in opened:
+        bounty_id = str(item.get("_id"))
+        previous = state["bounties"].get(bounty_id) or {}
+        if previous.get("action") != "bid_active":
+            continue
+        details = api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}")
+        bid = details.get("bid") or {}
+        current = details.get("bounty") or {}
+        status = str(bid.get("status") or "missing")
+        if status == "active":
+            gap = unsupported_deliverable(details)
+            if gap:
+                api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/bid/withdraw",
+                    "POST")
+                state["bounties"][bounty_id] = {
+                    "version": current.get("version"),
+                    "action": "unsupported_bid_withdrawn", "reason": gap,
+                    "at": timestamp()}
+                note(state, "unsupported_bid_withdrawn", bounty_id, reason=gap)
+        elif status in {"declined", "withdrawn", "replaced", "stale", "missing"}:
+            state["bounties"][bounty_id] = {
+                "version": current.get("version"), "action": "bid_" + status,
+                "at": timestamp()}
+            note(state, "bid_" + status, bounty_id)
+
+
+def unclaim_unfulfillable(bounty_id, claim_id, state, reason, message):
+    """Notify the buyer, then release an impossible assignment for refund.
+
+    TryBounty's unclaim endpoint returns a hired buyer's money and reopens
+    the commission; do not strand a buyer waiting for a nonexistent operator.
+    """
+    encoded = urllib.parse.quote(bounty_id, safe="")
+    api(f"/v1/agent/bounties/{encoded}/messages", "POST", {
+        "content": {"type": "text", "text": message},
+        "idempotency_key": key("cannot-complete", bounty_id, claim_id, reason)})
+    api(f"/v1/agent/bounties/{encoded}/unclaim", "POST", {
+        "reason": reason[:1000]})
+    state["bounties"][bounty_id] = {
+        "action": "unclaimed_unfulfillable", "claim_id": claim_id,
+        "reason": reason[:96], "at": timestamp()}
+    note(state, "unclaimed_unfulfillable", bounty_id, reason=reason[:96])
+
+
 def handle_hired(item, state):
     bounty_id = str(item["_id"])
     details = api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}")
@@ -975,10 +1044,11 @@ def handle_hired(item, state):
         return
     gap = unsupported_deliverable(details)
     if gap:
-        state["bounties"][bounty_id] = {
-            "action": "needs_operator_review", "claim_id": claim["claim_id"],
-            "reason": gap, "at": timestamp()}
-        note(state, "unsupported_hired_work_paused", bounty_id, reason=gap)
+        unclaim_unfulfillable(
+            bounty_id, claim["claim_id"], state, gap,
+            "I'm sorry: the requested final deliverable requires capabilities I cannot "
+            "reliably provide. I'm releasing this assignment so the funds can be "
+            "returned and you can hire an appropriately equipped provider.")
         return
     previous = state["bounties"].get(bounty_id) or {}
     earned_if_completed = (details.get("bounty") or {}).get("payout_cents")
@@ -1159,22 +1229,12 @@ def handle_hired(item, state):
             note(state, "quality_retry_scheduled", bounty_id, attempt=count,
                  delay_minutes=delay)
         else:
-            # Leave an operational receipt without disclosing buyer materials
-            # into the public GitHub state file.
-            # Send before recording completion so a network error retries the
-            # same idempotent notification instead of silently losing it.
-            api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/messages", "POST", {
-                "content": {"type": "text", "text": (
-                    "I haven't been able to verify a complete deliverable against the "
-                    "stated criteria with the available evidence. I won't submit "
-                    "inaccurate work. If you can provide additional authoritative "
-                    "sources or adjust the scope, I can reassess.")},
-                "idempotency_key": key("quality-unavailable", bounty_id, claim["claim_id"])})
-            state["bounties"][bounty_id] = {
-                "action": "quality_rejected_final", "claim_id": claim["claim_id"],
-                "payout_cents": earned_if_completed, "quality_issue": issue,
-                "last_message": last_message}
-            note(state, "quality_rejected_final", bounty_id)
+            unclaim_unfulfillable(
+                bounty_id, claim["claim_id"], state, "quality_review_failed",
+                "I'm sorry: after additional corrections I cannot verify a complete "
+                "deliverable against the requested criteria. I will release this "
+                "assignment so your funds can be returned and another provider "
+                "can complete the work.")
         return
     if format_name in OUTPUT_FILES:
         filename, mime = OUTPUT_FILES[format_name]
@@ -1232,7 +1292,8 @@ def run(mode="run"):
     if mode == "probe":
         needs_model = bool(waiting or active)
         needs_run = (needs_model or bool(events) or state.get("_cursor_reset") or
-                     cursor_refresh_due(state, cursor))
+                     cursor_refresh_due(state, cursor) or
+                     bid_reconciliation_due(state, opened))
         output = os.environ.get("GITHUB_OUTPUT")
         if output:
             with open(output, "a", encoding="utf-8") as f:
@@ -1243,6 +1304,16 @@ def run(mode="run"):
                           "needs_run": needs_run}))
         return
     failures = []
+    if bid_reconciliation_due(state, opened):
+        # Changed listings are handled by the ordinary model-backed path.
+        changed_ids = {str(item.get("_id")) for item in waiting}
+        unchanged = [item for item in opened if str(item.get("_id")) not in changed_ids]
+        try:
+            reconcile_active_bids(unchanged, state)
+            state["last_bid_reconciliation"] = timestamp()
+        except Exception as exc:
+            failures.append(("bid_reconciliation", safe_failure_reason(exc)))
+        save_state(state)
     triggered = {str(e.get("data", {}).get("bounty_id")) for e in events
                  if e.get("type") in {"work.message.created", "submission.verification_failed", "bounty.updated"}}
     for item in waiting[:8]:
