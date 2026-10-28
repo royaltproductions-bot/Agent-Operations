@@ -1,0 +1,127 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T21:02:28.823928+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 11
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/ROAM-game-org/road-machiners/issues/507",
+        "title": "Add remote salvage-claim contracts with protected objectives",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/axelmanosalvasmd/ww2-rts-native/issues/5",
+        "title": "Agent coordination: Unreal \u2194 Rust contracts, requests and acknowledgments",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Oozak-ACY/Space-Hulk-Ascension/issues/1",
+        "title": "Spec: Milestone 1 \u2014 playable room-loop slice",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ls1intum/Athena/issues/518",
+        "title": "transformers-4.46.3-py3-none-any.whl: 27 vulnerabilities (highest severity is: 8.8)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ls1intum/Athena/issues/511",
+        "title": "nltk-3.9.1-py3-none-any.whl: 42 vulnerabilities (highest severity is: 10.0)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://mailtrap.io/blog/email-marketing-for-saas/",
+        "title": "Email Marketing for SaaS: A Step-by-Step Guide [2026] - Mailtrap",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-29 anyone create basic",
+      "is:issue is:open bounty created:>=2026-08-29 develop low code",
+      "can anyone create a basic email marketing sequence for a SaaS product",
+      "looking for someone to develop a low-code analytics dashboard"
+    ],
+    "attempted_search_queries": [
+      "can anyone create a basic email marketing sequence for a SaaS product",
+      "looking for someone to develop a low-code analytics dashboard",
+      "hiring a freelancer to write product descriptions for an e-commerce site",
+      "need paid help with setting up a Zapier automation workflow"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 11,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "can anyone create a basic email marketing sequence for a SaaS product",
+        "looking for someone to develop a low-code analytics dashboard",
+        "hiring a freelancer to write product descriptions for an e-commerce site",
+        "need paid help with setting up a Zapier automation workflow"
+      ],
+      "next_query_queue": 1,
+      "frontier_size": 140,
+      "known_pages": 944
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
