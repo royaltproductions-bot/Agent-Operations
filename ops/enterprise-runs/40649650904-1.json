@@ -1,0 +1,155 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T07:23:42.075423+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 11,
+    "source_counts": {
+      "open_web": 11
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "bing": 5
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 10,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=3340880",
+        "title": "Any resources for mobile app website design?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47133121",
+        "title": "Colt \u2013 Describe a browser task in English, get a Playwright script",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=42500833",
+        "title": "CourseReel AI Max Review: Transform Your Course Creation Effortlessly",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37562807",
+        "title": "API or library to grade \u201cmusic quality\u201d?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=29722074",
+        "title": "Ask HN: Scheduled events in an event sourced system",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=19035321",
+        "title": "Ask HN: Any advice for note/scratchpad/idea dumping during the day?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "need paid help with designing a mobile-first landing page for a SaaS startup",
+      "can anyone create a script to automate social media content posting for a niche blog",
+      "hiring a freelancer to create a paid course on beginner web development",
+      "hiring a remote creator to write and publish a short nonfiction article on a specific topic"
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to create a paid course on beginner web development",
+      "need paid help with designing a mobile-first landing page for a SaaS startup",
+      "can anyone create a script to automate social media content posting for a niche blog",
+      "looking for someone to develop a lightweight API for a personal project",
+      "hiring a remote creator to write and publish a short nonfiction article on a specific topic"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 11,
+      "skipped_revisits": 7,
+      "executed_queries": [
+        "hiring a freelancer to create a paid course on beginner web development",
+        "need paid help with designing a mobile-first landing page for a SaaS startup",
+        "can anyone create a script to automate social media content posting for a niche blog",
+        "looking for someone to develop a lightweight API for a personal project",
+        "hiring a remote creator to write and publish a short nonfiction article on a specific topic"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 138,
+      "known_pages": 717
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
