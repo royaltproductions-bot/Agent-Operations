@@ -8,6 +8,7 @@ from __future__ import annotations
 import csv
 from decimal import Decimal, InvalidOperation
 import io
+import re
 
 
 def _number(value):
@@ -18,6 +19,10 @@ def _number(value):
     if raw.startswith("$"):
         raw = raw[1:]
     raw = raw.replace(",", "")
+    # Decimal accepts arbitrarily large scientific exponents. Bound input
+    # magnitude to prevent expensive expansion from untrusted CSV cells.
+    if not re.fullmatch(r"[+-]?\d{1,20}(?:\.\d{1,8})?", raw):
+        return None
     try:
         parsed = Decimal(raw)
     except InvalidOperation:
