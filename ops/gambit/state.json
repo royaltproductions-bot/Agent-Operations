@@ -1,7 +1,22 @@
 {
-  "bounties": {},
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjowLCJjaGVja3BvaW50QXQiOjE3OTMyMDkzNTU1MjJ9",
-  "last_check": "2026-10-28T17:42:35.591983+00:00",
-  "recent_outcomes": [],
+  "bounties": {
+    "mx72q5yhr8a957eezp17js3wgs8h4769": {
+      "action": "bid_sent",
+      "at": "2026-10-28T19:26:29.424637+00:00",
+      "last_declined_bid": null,
+      "version": 1
+    }
+  },
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxLCJjaGVja3BvaW50QXQiOjE3OTMyMTUzODY3MjN9",
+  "last_check": "2026-10-28T19:26:29.425125+00:00",
+  "recent_outcomes": [
+    {
+      "action": "bid_sent",
+      "at": "2026-10-28T19:26:29.424614+00:00",
+      "bounty_id": "mx72q5yhr8a957eezp17js3wgs8h4769",
+      "payout_cents": 25000,
+      "version": 1
+    }
+  ],
   "schema": 1
 }
