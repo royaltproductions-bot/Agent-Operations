@@ -331,6 +331,48 @@ class WorkshopOwnershipTests(unittest.TestCase):
 
 
 class CyclopsEfficiencyTests(unittest.TestCase):
+    def test_reusable_product_research_reads_firsthand_buyer_discussions(self):
+        cyclops=cyclops_or_skip(self)
+        class Memory:
+            def choose_queries(self,queries): return queries
+            def budget(self): return {"max_candidates":12,"max_pages":16}
+            def frontier(self,limit=140): return []
+        with patch.object(cyclops,"discovery_queries",return_value=["invoice processing" ]), \
+             patch.object(cyclops,"open_web_candidates",return_value=([],[])) as search:
+            cyclops.demand_candidates(Memory())
+        self.assertTrue(search.call_args.kwargs["include_discussions"])
+
+    def test_finished_asset_targets_opt_in_resource_outlets_not_job_posts(self):
+        cyclops=cyclops_or_skip(self)
+        outlet={"id":"web:curator","source_url":"https://example.org/resources",
+                "title":"Invoice reconciliation resource collection",
+                "page_fetched":True,"contact":"resources@example.org",
+                "page_text":"We accept suggestions for resources on invoice reconciliation. "
+                            "Submit your tool to resources@example.org.",
+                "text":"Submit your tool for invoice reconciliation to resources@example.org."}
+        asset={"asset_id":"asset_123","title":"Invoice Reconciliation Helper",
+               "target_terms":["invoice reconciliation"],"description":"Useful helper",
+               "price_cents":1300,"pitch":"Saves time","checkout_url":"https://pay.example.org/one"}
+        with patch.object(cyclops,"open_web_candidates",return_value=([outlet],[])) as search, \
+             patch.object(brain,"enrich_public_response_route",side_effect=lambda rows:rows):
+            matches,errors=cyclops.find_asset_buyers(asset,None)
+        self.assertEqual(matches,[outlet])
+        self.assertEqual(errors,[])
+        queries=search.call_args.kwargs["queries"]
+        self.assertFalse(any("freelance project" in q or "need someone" in q for q in queries))
+        self.assertTrue(search.call_args.kwargs["include_discussions"])
+        self.assertFalse(cyclops.public_asset_distribution_invitation({
+            **outlet,"page_text":"Generic article with contact address."}))
+
+        with patch.object(cyclops,"recent_sent_subjects",return_value=[]), \
+             patch.object(cyclops,"can_contact_for_asset",return_value=True), \
+             patch.object(cyclops,"agent_send") as send:
+            result=cyclops.send_asset_offer([outlet],asset)
+        self.assertEqual(result["result"],"offer_sent")
+        self.assertIn(cyclops.public_product_url(asset),send.call_args.args[2])
+        self.assertIn("consider including",send.call_args.args[2])
+        self.assertNotIn("interview",send.call_args.args[2])
+
     def test_wolverine_does_not_treat_hiring_article_as_direct_buyer(self):
         from tools import autonomous_commerce_brain as brain
         tutorial={"page_fetched":True,"title":"How to Hire a Freelancer: The Complete Guide",
