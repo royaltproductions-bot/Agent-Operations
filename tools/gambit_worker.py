@@ -16,6 +16,7 @@ import os
 from pathlib import Path
 import re
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -112,17 +113,29 @@ def api(path, method="GET", payload=None):
                  "Accept": "application/json", "Content-Type": "application/json",
                  "User-Agent": "AriOperations-Gambit/1.0"},
     )
-    try:
-        with urllib.request.urlopen(request, timeout=35) as response:
-            return json.load(response)
-    except urllib.error.HTTPError as exc:
-        code = "HTTP_" + str(exc.code)
+    for attempt in range(3):
         try:
-            code = json.load(exc).get("error", {}).get("code") or code
-        except (ValueError, OSError):
-            pass
-        # Never log headers, URL query strings, request bodies, or credentials.
-        raise RuntimeError(f"bounty_api_{code}") from None
+            with urllib.request.urlopen(request, timeout=35) as response:
+                return json.load(response)
+        except urllib.error.HTTPError as exc:
+            if exc.code in {429, 503} and attempt < 2:
+                # Bounty requires honoring Retry-After. Don't duplicate
+                # purchases or messages: every commercial POST above uses a
+                # stable idempotency key, or is itself an idempotent unclaim.
+                header = str(exc.headers.get("Retry-After") or "")
+                try:
+                    delay = float(header)
+                except ValueError:
+                    delay = 2 ** attempt
+                time.sleep(min(90, max(1, delay)))
+                continue
+            code = "HTTP_" + str(exc.code)
+            try:
+                code = json.load(exc).get("error", {}).get("code") or code
+            except (ValueError, OSError):
+                pass
+            # Never log headers, URL query strings, request bodies, or credentials.
+            raise RuntimeError(f"bounty_api_{code}") from None
 
 
 def pages(endpoint, collection):
