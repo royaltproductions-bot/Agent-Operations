@@ -634,7 +634,7 @@ def validate_csv_source_urls(data, evidence, sources=None):
     buyer_text = "\n".join(str(source.get("text") or "")
                            for source in (sources or []))
     buyer_urls = {found.rstrip("),.;]") for found in
-                  re.findall(r"https?://[^\\s\\\"'<>]+", buyer_text)}
+                  re.findall(r"https?://[^\s\"'<>]+", buyer_text)}
     for row in records:
         url = str(row.get(source_column) or "").strip()
         if not url or (url not in inspected and url not in buyer_urls):
