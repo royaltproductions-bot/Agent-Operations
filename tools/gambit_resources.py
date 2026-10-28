@@ -9,10 +9,12 @@ or silently substituted when its requirements are unavailable.
 from __future__ import annotations
 
 from dataclasses import dataclass
+import io
 import importlib
 import os
 import re
 from typing import Callable
+from zipfile import BadZipFile, ZipFile
 
 
 class ResourceUnavailable(RuntimeError):
@@ -100,6 +102,21 @@ def execute(capability: str, *args, **kwargs):
                     isinstance(result[1], str) and
                     isinstance(result[2], dict)):
                 raise ValueError("site_provider_invalid_output")
+            if capability == "site_source":
+                try:
+                    with ZipFile(io.BytesIO(result[0])) as archive:
+                        names = set(archive.namelist())
+                        if "index.html" not in names or archive.read("index.html") != (
+                                result[1].encode("utf-8")):
+                            raise ValueError("site_provider_invalid_archive")
+                        if any(name.startswith("/") or ".." in name.split("/")
+                               for name in names):
+                            raise ValueError("site_provider_unsafe_archive")
+                        if any(name not in names or archive.read(name) != content
+                               for name, content in result[2].items()):
+                            raise ValueError("site_provider_missing_assets")
+                except BadZipFile:
+                    raise ValueError("site_provider_invalid_archive") from None
             if capability == "site_visual" and not (
                     isinstance(result, dict) and
                     {"desktop", "mobile"}.issubset(result)):
