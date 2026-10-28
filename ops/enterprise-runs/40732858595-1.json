@@ -1,0 +1,131 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T17:11:31.146627+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 9,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/SoulSchoolAcademy/NayaPOWER/issues/1713",
+        "title": "[NAYA 5] LEARN-engine \u2014 gates-wiring-bridge-to-10-10",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/scottonchain/microcredit-agent-testbed/issues/15",
+        "title": "Central message board \u2014 Hermes, Claude, Codex and operator coordination",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/manaflow-ai/cmux/issues/13742",
+        "title": "Design and product calls (gallery: #15427), plus CI admin",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/majieddd/worldheart/issues/1",
+        "title": "99 Planets To Defend: owner direction, QA baseline and development tracker",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/markgoodbody-bit/COM/issues/76",
+        "title": "ACTIVE COORDINATION \u2014 frontier / actuator / differentiated research \u2014 2026-08-31 late",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.upwork.com/hire/lead-magnet-freelancers/",
+        "title": "Best Freelance Lead Magnet Specialists for Hire (Oct 2026) - Upwork",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-29 designing checkout flow",
+      "hiring a freelancer to create a paid lead magnet template",
+      "need paid help with designing a checkout flow for a SaaS product"
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to create a paid lead magnet template",
+      "need paid help with designing a checkout flow for a SaaS product",
+      "can anyone create a custom email automation sequence for a niche audience",
+      "looking for someone to develop a low-code landing page builder tool"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 7,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to create a paid lead magnet template",
+        "need paid help with designing a checkout flow for a SaaS product",
+        "can anyone create a custom email automation sequence for a niche audience",
+        "looking for someone to develop a low-code landing page builder tool"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 138,
+      "known_pages": 884
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
