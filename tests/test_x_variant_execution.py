@@ -277,7 +277,7 @@ class WorkshopOwnershipTests(unittest.TestCase):
 
 
 class CyclopsEfficiencyTests(unittest.TestCase):
-    def test_model_judges_one_sold_product_before_workshop(self):
+    def test_model_judges_public_offer_before_workshop(self):
         cyclops=cyclops_or_skip(self)
         rows=[{
             "id":"web:"+seller,"source_url":"https://market.example/item/"+seller,
@@ -302,7 +302,8 @@ class CyclopsEfficiencyTests(unittest.TestCase):
                 plan]):
             picked=cyclops.choose_asset_concept(rows)
         tools.assert_called_once()
-        self.assertEqual(picked["market_validation"]["listing"]["completed_sales"],95)
+        self.assertEqual(picked["market_validation"]["status"],"agent_assessed_public_market")
+        self.assertEqual(picked["market_validation"]["observation"]["displayed_sales_count"],95)
         self.assertEqual(picked["market_validation"]["decision"],"pursue")
         self.assertIn("95 sales",picked["evidence_quote"])
 
@@ -315,8 +316,8 @@ class CyclopsEfficiencyTests(unittest.TestCase):
                     cyclops.choose_asset_concept(rows)
         tools.assert_not_called()
 
-    def test_paid_listings_are_independent_evidence_not_numeric_gates(self):
-        from tools.paid_market import observed_paid_listing,paid_listing_evidence
+    def test_paid_offers_need_no_reported_competitor_transactions(self):
+        from tools.paid_market import observed_paid_listing,paid_listing_evidence,validated_market_proof
         def sold(url,title,seller,sales):
             return {"id":"web:"+seller,"source_url":url,"title":title,
                     "page_fetched":True,
@@ -329,7 +330,16 @@ class CyclopsEfficiencyTests(unittest.TestCase):
                  "Cartiy Admin Dashboard HTML Template","otherseller",143)
         unrelated=sold("https://market.example/item/three",
                        "Ambient Drum Loop Audio Pack","musicmaker",900)
-        self.assertEqual(observed_paid_listing(one)["completed_sales"],81)
+        self.assertEqual(observed_paid_listing(one)["displayed_sales_count"],81)
+        without_sale_count={**one,"page_text":
+            "Useful downloadable analytics tool offered for $16 Add to cart. "*6}
+        observed=observed_paid_listing(without_sale_count)
+        self.assertIsNotNone(observed)
+        self.assertIsNone(observed["displayed_sales_count"])
+        self.assertTrue(validated_market_proof({"market_validation":{
+            "status":"agent_assessed_public_market","decision":"pursue",
+            "reason":"Public paid offer and compelling buyer utility",
+            "observation":observed}}))
         self.assertEqual(len(paid_listing_evidence([one,two,unrelated])),3)
         self.assertEqual(len(paid_listing_evidence([one,one])),1)
         self.assertEqual(len(paid_listing_evidence([one,unrelated])),2)

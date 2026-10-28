@@ -152,22 +152,22 @@ def model_json(schema,system,observation,num_ctx=6144,num_predict=1800,
     return obj
 
 def discovery_queries(memory):
-    """Find what real buyers already purchase, before deciding what to produce."""
+    """Find actual priced offers and buyer activity for independent judgment."""
     system=(
-        "You research what customers ALREADY PAY FOR. A complaint or a list "
-        "of problems is not evidence that anyone buys the proposed solution. "
-        "Find original public paid PRODUCT LISTINGS that display a positive "
-        "price, a purchase mechanism, and explicit item-level completed-sales "
-        "counts (for example '81 sales'). Search current online marketplaces "
-        "that publish those numbers. A single authentic sold listing can "
-        "justify further evaluation; you will independently judge whether "
+        "You research markets where people have reasons to pay for a useful "
+        "product. Find ORIGINAL public priced product listings with real "
+        "purchase options. Sales counters, reviews, buyer discussion, and "
+        "other observed customer activity can strengthen the case, but many "
+        "legitimate sellers keep transactions private. NEVER require an "
+        "item-level sales count or access to private competitor records. "
+        "A single directly fetched paid offer can justify evaluation; "
+        "you will independently judge whether "
         "the opportunity merits production. You choose markets freely: "
         "NO predetermined industry, product form, niche or business model. "
         "Generate four to eight short, precise search queries aimed at DIRECT "
-        "sold-product pages, not generic how-to articles, reviews of entire "
-        "industries, wish lists, complaints or vague trend reports. "
-        "Vary sellers and sources; item-level sales numbers are more useful "
-        "than rankings, SEO impressions, followers, or speculative demand. "
+        "product pages and complementary firsthand buyer evidence, not generic "
+        "how-to articles, wish lists or vague trend reports. "
+        "Vary sellers and sources; distinguish an OFFER from a completed sale. "
         "A search query is not itself evidence. Do not invent buyers, sales, "
         "transaction counts, product listings or other purchase facts. "
         "Historical searches must not trap you in unproductive topics. "
@@ -176,7 +176,7 @@ def discovery_queries(memory):
     result=model_json(
         SEARCH_SCHEMA,system,
         {"utc_date":NOW().date().isoformat(),
-        "mission":"discover genuine paid-product listings for independent commercial judgment",
+         "mission":"discover public priced offers and demand signals for commercial judgment",
          "research_history":memory.plan_context()},
         num_ctx=2400,num_predict=420,temperature=0.7)
     return [str(q).strip() for q in result.get("queries") or [] if str(q).strip()]
@@ -210,8 +210,7 @@ def demand_candidates(memory):
             "queries_attempted":queries,
             "prior_unvisited_links":len(memory.frontier(limit=140)),
         })
-    # Product selection only consumes verified purchase records. Retain other
-    # sources as research, but never let a complaint authorize manufacturing.
+    # Rank directly observed public paid offers; no private sales records needed.
     rows.sort(key=lambda r:not bool(observed_paid_listing(r)))
     return rows,issues+errors
 
@@ -302,21 +301,24 @@ def firsthand_problem_excerpt(row):
 def choose_asset_concept(rows,existing_assets=None):
     visible=paid_listing_evidence(rows)[:10]
     if not visible:
-        raise ValueError("no_observed_paid_product_evidence")
+        raise ValueError("no_observed_public_paid_offers")
     judgment=model_json(MARKET_JUDGMENT_SCHEMA,(
         "You are the independent commercial decision-maker. Evaluate real "
-        "public paid-product observations and choose whether an original "
-        "product in any of these markets is worth building. One authentic "
-        "listing may be sufficient, and there is NO minimum sales count, "
-        "multiple-seller requirement, fixed business model, or price band. "
-        "Judge the sales evidence, actual buyer utility, demand strength, "
+        "public priced offers and choose whether an original "
+        "product in any of these markets is worth building. A paid offer is "
+        "not proof of completed sales. Displayed sales counts are unverified "
+        "seller claims unless independently corroborated; they are OPTIONAL. "
+        "One authentic listing may be sufficient, and there is NO minimum "
+        "sales count, multiple-seller requirement, fixed business model, "
+        "or price band. Judge customer activity where available, actual buyer utility, demand strength, "
         "competitive positioning, production feasibility and attainable "
         "buyers for yourself. A single sale does not automatically mean a "
         "great business; neither does a low count automatically disqualify "
         "one. Choose 'pursue' only when the evidence merits a genuine product. "
         "Otherwise choose 'pass' with a concrete reason. Never fabricate "
-        "sales or buyers. Cite one actual candidate_id. Return JSON only."
-    ),{"paid_market_observations":visible,
+        "sales or buyers, and NEVER demand private transaction verification. "
+        "Cite one actual candidate_id. Return JSON only."
+    ),{"public_paid_offers":visible,
         "existing_catalog":[a.get("title") for a in (existing_assets or [])[:12]]},
         num_ctx=4096,num_predict=350,temperature=0.2)
     selected=next((p for p in visible
@@ -335,12 +337,12 @@ def choose_asset_concept(rows,existing_assets=None):
         "product serving the paid market YOU just selected. "
         "Use exactly the supplied selected candidate_id in "
         "evidence_candidate_id. No additional comparable is required. "
-        "The original public listing is proof of a completed paid product, "
-        "not proof that your future product will automatically sell. "
+        "The original public listing is evidence of an offered paid product, "
+        "NOT proof of completed transactions or future sales. "
         "Make the new product meaningfully useful, original, lawful, and "
         "differentiated from the existing item. "
         "Do not copy anyone else's source code, creative assets or text. "
-        "Set evidence_quote to a verbatim sale excerpt from the primary "
+        "Set evidence_quote to a verbatim commercial-offer excerpt from the primary "
         "source; facts will be checked against its fetched page. "
         "Do not select a concept unrelated to these actual paid goods. "
         "Then determine what real artifact(s) achieve its purpose. "
@@ -371,7 +373,7 @@ def choose_asset_concept(rows,existing_assets=None):
                 "target_terms":[str(x)[:60] for x in (a.get("target_terms") or [])[:8]],
             } for a in (existing_assets or [])[:12]]
             plan=model_json(CONCEPT_SCHEMA,system,
-                            {"selected_paid_market":observation,
+                            {"selected_public_market":observation,
                              "commercial_judgment":judgment_reason,
                              "available_production_tools":actual_tools,
                              "existing_catalog":existing,
@@ -388,13 +390,13 @@ def choose_asset_concept(rows,existing_assets=None):
     primary=str(plan.get("evidence_candidate_id") or "")
     if primary!=selected["candidate_id"]:
         raise ValueError("product_source_not_selected_paid_listing")
-    plan["evidence_quote"]=selected["sale_excerpt"]
+    plan["evidence_quote"]=selected["evidence_excerpt"]
     plan["evidence_source_url"]=selected["url"]
     plan["market_validation"]={
-        "status":"agent_assessed_paid_listing",
+        "status":"agent_assessed_public_market",
         "decision":"pursue",
         "reason":judgment_reason,
-        "listing":selected,
+        "observation":selected,
     }
     if not validated_market_proof(plan):
         raise ValueError("product_paid_market_validation_invalid")
@@ -645,12 +647,12 @@ def commercial_integrity_review(plan,files):
         "true only when the supplied delivered content demonstrates it. "
         "Reject an empty template, generic introduction, sparse boilerplate, "
         "or static document marketed as an interactive generator or assistant. "
-        "A real paid product listing and the agent's market judgment are "
+        "An observed paid product offer and the agent's market judgment are "
         "supplied. Verify the built product genuinely performs the SAME "
-        "customer-purchased core function and offers a specific usable "
-        "benefit to those buyers; sales evidence for unrelated goods is "
-        "not enough. Reject a generic imitation that does not fulfill a "
-        "meaningful paid use case. "
+        "offered core function and gives the intended buyers a specific usable "
+        "benefit. Do not assume the source has completed sales when no "
+        "public count exists. Reject a generic imitation that does not "
+        "fulfill a meaningful paid use case. "
         "Reject promises to operate external systems, issue real financial "
         "instruments, or access live accounts when no such integration is "
         "present in the artifact. Don't invent functionality not shown. "
@@ -713,16 +715,16 @@ def create_asset(rows,existing_assets=None):
     plan=checkpoint.get("plan") or {}
     if stage in ("drafting","review","approved","sealed","building"):
         if not validated_market_proof(plan):
-            _retire_draft(checkpoint,"legacy_draft_lacks_verified_paid_buyer_demand")
+            _retire_draft(checkpoint,"draft_lacks_public_market_evidence")
         if not plan.get("output_files"):
             _retire_draft(checkpoint,"legacy_non_executable_product_spec")
         if not plan.get("evidence_quote"):
-            _retire_draft(checkpoint,"legacy_product_missing_verifiable_firsthand_demand")
+            _retire_draft(checkpoint,"product_missing_source_excerpt")
         evidence=checkpoint.get("research_rows") or rows
     else:
         evidence=[row for row in rows if observed_paid_listing(row)]
         if not evidence:
-            raise ValueError("no_verified_paid_market_demand")
+            raise ValueError("no_observed_public_paid_offers")
         plan=choose_asset_concept(evidence,existing_assets)
         evidence=evidence[:8]
         checkpoint={"stage":"building","plan":plan,"research_rows":evidence,
@@ -1392,7 +1394,7 @@ def run():
         if (pending_at_start.get("stage") in ("building","drafting","review","approved","sealed")
                 and not validated_market_proof(pending_at_start.get("plan") or {})):
             try:
-                _retire_draft(pending_at_start,"not_supported_by_completed_product_sales")
+                _retire_draft(pending_at_start,"not_supported_by_public_market_evidence")
             except ProductRetired as retirement:
                 receipt["commercial_outcomes"].append({
                     "reason":"unsold_market_assumption_archived",
@@ -1424,11 +1426,11 @@ def run():
             "source_errors":search_errors,
             "fetched_public_pages":sum(bool(r.get("page_fetched")) for r in rows),
             "verified_firsthand_problem_pages":sum(bool(firsthand_problem_excerpt(r)) for r in rows),
-            "verified_paid_product_listings":sum(bool(observed_paid_listing(r)) for r in rows),
+            "observed_public_paid_offers":sum(bool(observed_paid_listing(r)) for r in rows),
             "market_candidates_considered":len(paid_listing_evidence(rows)),
-            "paid_listing_sample":[{
+            "paid_offer_sample":[{
                 "url":proof["url"],"title":proof["title"],
-                "completed_sales":proof["completed_sales"],
+                "displayed_sales_count":proof["displayed_sales_count"],
                 "listed_price_usd":proof["listed_price_usd"],
             } for proof in (observed_paid_listing(r) for r in rows)
               if proof][:6],
@@ -1540,8 +1542,7 @@ def run():
             receipt["structural_failures"].append({
                 "reason":"production_stage_error","detail":reason})
         elif reason.startswith(("no_public_research_to_select_product",
-                                 "no_verified_paid_market_demand",
-                                 "no_observed_paid_product_evidence",
+                                 "no_observed_public_paid_offers",
                                  "market_opportunity_declined:",
                                  "no_independently_correlated_paid_product_demand",
                                  "no_verified_firsthand_market_problem",

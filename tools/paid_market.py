@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Conservative, source-grounded evidence that comparable digital goods sold.
+"""Public market observations for Ari's independent commercial judgment.
 
-An expressed frustration, product advertisement, view count, or unverified
-seller testimonial never qualifies. Only a fetched, purchasable item page
-with an explicit item-level completed-sales count enters the product gate.
-The market, product form, and source are not predetermined.
+A visible paid offer is observable evidence of a market, not proof of a sale.
+Published sales counters are optional context, never a precondition to research
+or production. Private competitor transaction records are never required.
 """
 from __future__ import annotations
 
@@ -16,36 +15,39 @@ SALE_COUNT=re.compile(
     r"(?i)(?<![\w])(?:(\d[\d,]*)\s+(?:sales|purchases|orders)\b|"
     r"\bsold\s+(\d[\d,]*)\s+(?:copies|units|times)\b)")
 PRICE=re.compile(r"(?i)(?<![\w])(?:US\s*)?\$\s*(\d+(?:\.\d{1,2})?)\b")
-BUY_CONTROL=re.compile(r"(?i)\b(?:add to cart|cart|buy now|purchase|checkout)\b")
+BUY_CONTROL=re.compile(
+    r"(?i)\b(?:add to (?:cart|basket)|cart|buy now|purchase|checkout|"
+    r"subscribe|order now|buy|pay now|purchase now|hire now)\b")
 def observed_paid_listing(row):
-    """Return verifiable listing facts, or None. Search snippets never qualify."""
+    """Observe a publicly offered paid product; sales count is optional."""
     if not row.get("page_fetched"):
         return None
     body=" ".join(str(row.get("page_text") or "").split())
-    if len(body)<120 or not BUY_CONTROL.search(body):
+    if len(body)<120:
         return None
-    for match in SALE_COUNT.finditer(body):
-        number=int((match.group(1) or match.group(2)).replace(",",""))
-        if number<=0:
+    for match in PRICE.finditer(body):
+        # Require price and purchase action to appear together on a fetched
+        # page; a remote snippet or a market-size claim is not an offer.
+        window=body[max(0,match.start()-180):match.end()+220]
+        if not BUY_CONTROL.search(window):
             continue
-        # Price, purchase mechanism, and sales must refer to the *same item*.
-        # A blog claiming an industry had 1M sales does not meet this test.
-        window=body[max(0,match.start()-250):match.end()+160]
-        price_matches=list(PRICE.finditer(window))
-        if not price_matches or not BUY_CONTROL.search(window):
-            continue
-        price=Decimal(price_matches[-1].group(1))
+        price=Decimal(match.group(1))
         if price<=0:
             continue
-        seller_match=re.search(r"(?i)\bby\s+([a-z0-9_.-]{3,50})\s+cart\b",
-                               window)
+        sale=SALE_COUNT.search(window)
+        count=(int((sale.group(1) or sale.group(2)).replace(",",""))
+               if sale else None)
+        seller_match=re.search(r"(?i)\bby\s+([a-z0-9_.-]{3,50})\s+cart\b",window)
         return {
             "candidate_id":str(row.get("id") or ""),
             "url":str(row.get("source_url") or ""),
             "title":str(row.get("title") or "")[:180],
-            "completed_sales":number,
+            "signal_type":"public_paid_offer",
+            # This is a *displayed claim* when present, not a verified payment.
+            "displayed_sales_count":count,
             "listed_price_usd":format(price,".2f"),
             "seller":seller_match.group(1).casefold() if seller_match else "",
+            "evidence_excerpt":window[:420],
             "sale_excerpt":window[:420],
             "observed_at":datetime.now(timezone.utc).isoformat(),
         }
@@ -53,7 +55,7 @@ def observed_paid_listing(row):
 
 
 def paid_listing_evidence(rows):
-    """Offer every authentic paid listing to the model for market judgment."""
+    """Offer observed paid offers to the agent, without required sales counts."""
     found=[]
     seen=set()
     for row in rows:
@@ -66,6 +68,18 @@ def paid_listing_evidence(rows):
 
 def validated_market_proof(plan):
     proof=plan.get("market_validation") or {}
+    if proof.get("status")=="agent_assessed_public_market":
+        if proof.get("decision")!="pursue" or not str(proof.get("reason") or "").strip():
+            return False
+        observation=proof.get("observation") or {}
+        try:
+            return bool(
+                observation.get("signal_type")=="public_paid_offer"
+                and str(observation.get("url") or "").startswith(("https://","http://"))
+                and observation.get("evidence_excerpt")
+                and Decimal(str(observation.get("listed_price_usd") or 0))>0)
+        except (TypeError,ValueError,ArithmeticError):
+            return False
     if proof.get("status")=="agent_assessed_paid_listing":
         if proof.get("decision")!="pursue" or not proof.get("reason"):
             return False
