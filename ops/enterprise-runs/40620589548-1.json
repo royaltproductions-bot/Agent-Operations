@@ -1,0 +1,112 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T02:25:22.723844+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 7,
+    "source_counts": {
+      "open_web": 7
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 7,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=47791664",
+        "title": "Idea Discussion: Can We Replace Needs of Static Websites with AI Profiles?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47286643",
+        "title": "Ask HN: 10-year dev, tried earning on the side for a year \u2013 lost $2,200",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47277810",
+        "title": "I started making money online in 10th grade \u2013 some lessons about capital",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46011748",
+        "title": "Ask HN: Suggest tiny website ideas that I can build this Christmas holiday",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45821059",
+        "title": "A Portfolio Ended My 4 Month Job Search and Started My Side Income",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45743691",
+        "title": "Ask HN: Claude Skills and Bs4 for intelligent scraping",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a simple website for a local business",
+      "can anyone create a social media strategy for a startup"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a simple website for a local business",
+      "hiring a freelancer to create a digital marketing campaign",
+      "can anyone create a social media strategy for a startup",
+      "need paid help with designing a product landing page",
+      "looking for someone to write a blog for an e-commerce store"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "looking for someone to build a simple website for a local business",
+        "hiring a freelancer to create a digital marketing campaign",
+        "can anyone create a social media strategy for a startup",
+        "need paid help with designing a product landing page",
+        "looking for someone to write a blog for an e-commerce store"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 138,
+      "known_pages": 667
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
