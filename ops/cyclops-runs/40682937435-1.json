@@ -1,0 +1,134 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-28T11:52:22.732566+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 9,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "duckduckgo": 9
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "URLError"
+      }
+    ],
+    "fetched_public_pages": 7,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 7,
+    "public_market_sample": [
+      {
+        "url": "https://www.imagestoolbox.com/tools/image-renamer",
+        "title": "Bulk Image Renamer \u2014 Batch Rename Photos with EXIF Data",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://imgrename.com/",
+        "title": "Batch Image Renamer - ImgRename",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://tallyscan.com/blog/best-way-to-track-invoices",
+        "title": "The Best Way to Track Invoices: 7 Methods for Every Business Size",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://github.com/0ern/Media_Renamer",
+        "title": "GitHub - 0ern/Media_Renamer: A lightweight, automated Windows Batch ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://renomeeai.readthedocs.io/en/latest/en/how-to/batch-rename-photos-by-exif/",
+        "title": "How to Batch Rename Photos by EXIF Data",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://github.com/Garuda8887/Renamer",
+        "title": "GitHub - Garuda8887/Renamer: A clean, open-source tool to batch rename ...",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 8,
+    "search_queries": [
+      "how to automate invoice tracking for small businesses without subscriptions",
+      "downloadable tool to batch rename image files by EXIF data"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "how to automate invoice tracking for small businesses without subscriptions",
+        "downloadable tool to batch rename image files by EXIF data",
+        "buy excel template for scheduling remote team check-ins weekly",
+        "pay for script that auto-exports Instagram followers to CSV"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 140,
+      "known_pages": 800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:The market for bulk image renaming tools is already well-served by existing solutions, including both paid and open-source options. The demand for such tools is niche and primarily"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0,
+    "product_pages": 0,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "no_saleable_products",
+    "indexable_product_pages": 0,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 7,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:The market for bulk image renaming tools is already well-served by existing solutions, including both paid and open-source options. "
+  }
+}
