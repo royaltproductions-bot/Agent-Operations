@@ -166,9 +166,13 @@ def discovery_queries(memory):
         "you will independently judge whether "
         "the opportunity merits production. You choose markets freely: "
         "NO predetermined industry, product form, niche or business model. "
-        "Generate four to eight short, precise search queries for existing "
-        "digital markets and complementary firsthand buyer evidence, not generic "
-        "how-to articles, wish lists or vague trend reports. "
+        "Generate four to eight short, precise searches across materially "
+        "DIFFERENT, SPECIFIC digital functions that an actual deliverable "
+        "could perform. Each query should identify a concrete use case, "
+        "buyer activity, or purchasable item—not generic phrases such as "
+        "'digital products sales', 'SaaS pricing examples', or 'digital' "
+        "definitions. Don't waste searches on dictionary pages, broad "
+        "industry summaries, wish lists, or vague trend reports. "
         "Your output must be WEB SEARCH TERMS, not guessed website domains, "
         "site: filters, example.com placeholders or fabricated product URLs. "
         "Do not search physical consumer electronics or hardware for a "
@@ -1438,6 +1442,10 @@ def run():
             "observed_public_paid_offers":sum(bool(observed_paid_listing(r)) for r in rows),
             "market_candidates_considered":len(paid_listing_evidence(rows)),
             "public_sources_available_for_judgment":len(public_market_evidence(rows)),
+            "public_market_sample":[{
+                "url":p["url"],"title":p["title"],
+                "signal_type":p["signal_type"],
+            } for p in public_market_evidence(rows)[:6]],
             "paid_offer_sample":[{
                 "url":proof["url"],"title":proof["title"],
                 "displayed_sales_count":proof["displayed_sales_count"],

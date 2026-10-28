@@ -83,6 +83,9 @@ def public_market_evidence(rows):
         if (not row.get("page_fetched") or parsed.scheme not in ("http","https")
                 or not parsed.hostname or len(body)<60 or url in seen):
             continue
+        heading=str(row.get("title") or "")
+        if re.search(r"(?i)\b(?:dictionary|word definition|meaning of|synonyms?|pronunciation)\b",heading):
+            continue
         seen.add(url)
         offer=observed_paid_listing(row)
         if offer:
@@ -91,7 +94,7 @@ def public_market_evidence(rows):
             source={
                 "candidate_id":str(row.get("id") or ""),
                 "url":url,"title":str(row.get("title") or "")[:180],
-                "signal_type":"firsthand_public_source",
+                "signal_type":"unclassified_public_page",
                 "source_fetched":True,
                 "evidence_excerpt":body[:620],
                 "listed_price_usd":None,

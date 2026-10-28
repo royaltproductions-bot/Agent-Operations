@@ -376,7 +376,7 @@ class CyclopsEfficiencyTests(unittest.TestCase):
                 "page_text":"I run a shop and spend hours reconciling my orders every week. "*3}
         observed=public_market_evidence([source])
         self.assertEqual(len(observed),1)
-        self.assertEqual(observed[0]["signal_type"],"firsthand_public_source")
+        self.assertEqual(observed[0]["signal_type"],"unclassified_public_page")
         self.assertIsNone(observed[0]["listed_price_usd"])
         self.assertTrue(validated_market_proof({"market_validation":{
             "status":"agent_assessed_public_market","decision":"pursue",
