@@ -49,6 +49,63 @@ class GambitTests(unittest.TestCase):
         gambit.note(state, 'bid_sent', 'b1', payout_cents=500)
         self.assertNotIn('api_key', str(state))
 
+    def test_declined_bid_passes_owner_feedback_into_reassessment(self):
+        details = {'bounty': {'_id': 'b1', 'status': 'open', 'version': 3, 'flow': 'bid'},
+                   'bid': {'_id': 'oldbid', 'status': 'declined', 'payout_cents': 2400}}
+        state = {'bounties': {'b1': {'action': 'bid_sent'}}, 'recent_outcomes': []}
+        owner_reply = {'author_type': 'user', 'content': {'type': 'text', 'text': 'Can you narrow scope?'}}
+        with patch.object(gambit, 'api', return_value=details), \
+             patch.object(gambit, 'messages_for', return_value=[owner_reply]), \
+             patch.object(gambit, 'assess', return_value={'decision': 'pass'}) as assess:
+            gambit.handle_open({'_id': 'b1'}, state)
+        self.assertEqual(assess.call_args.args[1], [owner_reply])
+        self.assertEqual(state['bounties']['b1']['last_declined_bid'], 'oldbid')
+        self.assertIn('bid_declined', [x['action'] for x in state['recent_outcomes']])
+
+    def test_active_bid_answers_new_private_buyer_message_once(self):
+        details = {'bounty': {'_id': 'b1', 'status': 'open', 'version': 3, 'flow': 'bid'},
+                   'bid': {'status': 'active', 'bounty_version': 3}}
+        state = {'bounties': {'b1': {'action': 'bid_sent'}}, 'recent_outcomes': []}
+        owner_reply = {'_id': 'msg1', 'author_type': 'user',
+                       'content': {'type': 'text', 'text': 'Can you format as a table?'}}
+        event = {'type': 'work.message.created', 'data': {'bounty_id': 'b1'}}
+        def request(path, method='GET', payload=None):
+            return details if method == 'GET' else {'message_id': 'msg2'}
+        with patch.object(gambit, 'api', side_effect=request) as api, \
+             patch.object(gambit, 'CURRENT_EVENTS', [event]), \
+             patch.object(gambit, 'messages_for', return_value=[owner_reply]), \
+             patch.object(gambit, 'respond_to_buyer', return_value={
+                 'reply_text': 'Yes, I can provide a plain-text table.'}) as respond:
+            gambit.handle_open({'_id': 'b1'}, state)
+            gambit.handle_open({'_id': 'b1'}, state)
+        self.assertEqual(respond.call_count, 1)
+        self.assertEqual(state['bounties']['b1']['last_owner_reply_id'], 'msg1')
+        self.assertEqual(sum(1 for c in api.call_args_list
+                             if len(c.args) > 1 and c.args[1] == 'POST'), 1)
+
+    def test_quality_failure_gets_one_revision_before_submission(self):
+        details = {'bounty': {'_id': 'b1', 'status': 'claimed', 'payout_cents': 1800},
+                   'claim': {'status': 'active', 'claim_id': 'c1'}}
+        bad = {'status': 'ready', 'deliverable_title': 'Report', 'deliverable_text': 'Incomplete'}
+        good = {'status': 'ready', 'deliverable_title': 'Report', 'deliverable_text': 'Complete report'}
+        state = {'bounties': {}, 'recent_outcomes': []}
+        def request(path, method='GET', payload=None):
+            return details if method == 'GET' else {'submission_id': 'submission-1'}
+        with patch.object(gambit, 'api', side_effect=request) as api, \
+             patch.object(gambit, 'messages_for', return_value=[]), \
+             patch.object(gambit, 'produce', side_effect=[bad, good]) as produce, \
+             patch.object(gambit, 'review', side_effect=[
+                 {'approved': False, 'reason': 'Missing required summary'},
+                 {'approved': True, 'reason': 'Complete'}]):
+            gambit.handle_hired({'_id': 'b1'}, state)
+        self.assertEqual(produce.call_count, 2)
+        self.assertIn('Missing required summary', produce.call_args.args[3])
+        submitted = [c for c in api.call_args_list
+                     if len(c.args) > 1 and c.args[1] == 'POST']
+        self.assertEqual(len(submitted), 1)
+        self.assertEqual(state['bounties']['b1']['action'], 'submitted')
+        self.assertIn('quality_revision_attempt', [x['action'] for x in state['recent_outcomes']])
+
 
 if __name__ == '__main__':
     unittest.main()
