@@ -1,0 +1,76 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-28T02:47:00.578917+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 3,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 3
+    },
+    "search_provider_counts": {
+      "bing": 3
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 2,
+    "verified_firsthand_problem_pages": 0,
+    "verified_paid_product_listings": 0,
+    "verified_comparable_paid_pairs": 0,
+    "paid_listing_sample": [],
+    "candidates_without_email": 3,
+    "search_queries": [
+      "smart garden sprinkler system with 123 sales",
+      "reusable silicone food storage bags with 98 sales"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 3,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "wireless charging pad with 15W output and 81 sales",
+        "smart garden sprinkler system with 123 sales",
+        "ergonomic standing desk converter with 45 sales",
+        "portable air purifier with 67 sales",
+        "reusable silicone food storage bags with 98 sales"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 140,
+      "known_pages": 714
+    },
+    "durable_contactable_sources": 23
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "no_verified_paid_market_demand"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
