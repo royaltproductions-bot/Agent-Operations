@@ -1,0 +1,136 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T09:44:51.017915+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "duckduckgo": 11,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 12,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://www.involve.me/blog/lead-generation-funnel-where-to-start-yours-use-these-templates",
+        "title": "How to Build a Lead Generation Funnel? Complete Guide",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.fiverr.com/categories/data/data-visualization/dashboards",
+        "title": "Data Dashboard Freelancers for Hire | Fiverr",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://blog.hubspot.com/sales/lead-generation-funnels-a-complete-guide-for-growing-sales-marketing-teams",
+        "title": "Lead generation funnels: A complete guide for growing sales & marketing ...",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.upwork.com/hire/dashboard-freelancers/",
+        "title": "Best Dashboard Freelancers for Hire (Oct 2026) - Upwork",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.canva.com/create/",
+        "title": "Create beautiful graphics with Canva",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.salesforce.com/marketing/lead-generation-guide/lead-generation-funnel/",
+        "title": "Lead Generation Funnel: The Complete Guide | Salesforce",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a lead generation funnel",
+      "hiring a freelancer to create a data dashboard",
+      "can anyone create a social media ad campaign for a new product"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a lead generation funnel",
+      "hiring a freelancer to create a data dashboard",
+      "can anyone create a social media ad campaign for a new product",
+      "need paid help with designing a landing page for a SaaS tool",
+      "looking for someone to develop a simple customer feedback tool"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 1,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a lead generation funnel",
+        "hiring a freelancer to create a data dashboard",
+        "can anyone create a social media ad campaign for a new product",
+        "need paid help with designing a landing page for a SaaS tool",
+        "looking for someone to develop a simple customer feedback tool"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 140,
+      "known_pages": 749
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "public_buyers_reachable": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
