@@ -639,6 +639,10 @@ def assess(details, messages=None, sources=None, unreadable_count=0):
     if (context["web_evidence"].get("status") in {"unavailable", "partial"} and
             decision.get("decision") in {"bid", "claim"}):
         decision["decision"] = "pass"
+    decision["_research_status"] = str(context["web_evidence"].get("status") or "unknown")
+    decision["_pages_read"] = sum(
+        1 for item in context["web_evidence"].get("results") or []
+        if item.get("evidence_level") == "page_read" and item.get("page_text"))
     if context["web_evidence"].get("status") in {"unavailable", "partial"}:
         # Temporary public-search failures must not permanently dismiss an
         # otherwise viable Bounty for the same unchanged version.
@@ -694,6 +698,7 @@ def handle_open(item, state):
             note(state, action, bounty_id, reason=gap)
         else:
             action = "pass_unsupported"
+            note(state, action, bounty_id, reason=gap, version=version)
         state["bounties"][bounty_id] = {"version": version, "action": action,
                                          "reason": gap, "at": timestamp()}
         return
@@ -785,7 +790,10 @@ def handle_open(item, state):
         action = "retry_search"
     state["bounties"][bounty_id] = next_entry
     if action in {"pass", "asked", "retry_search"}:
-        note(state, action, bounty_id, version=version)
+        note(state, action, bounty_id, version=version,
+             **({"research_status": decision.get("_research_status", "not_evaluated"),
+                "pages_read": decision.get("_pages_read", 0)}
+                if action in {"pass", "retry_search"} else {}))
 
 
 def produce(details, messages, verification_feedback="", quality_feedback="", sources=None,
