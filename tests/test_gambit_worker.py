@@ -6,6 +6,7 @@ import io
 import json
 import os
 import unittest
+import urllib.error
 from unittest.mock import patch
 
 from tools import gambit_worker as gambit
@@ -40,6 +41,17 @@ class GambitTests(unittest.TestCase):
     def test_stable_idempotency_key(self):
         self.assertEqual(gambit.key('bid', 'x', 2, 500), gambit.key('bid', 'x', 2, 500))
         self.assertNotEqual(gambit.key('bid', 'x', 2, 500), gambit.key('bid', 'x', 3, 500))
+
+    def test_market_api_honors_rate_limit_and_recovers(self):
+        error = urllib.error.HTTPError('https://api.trybounty.ai/test', 429,
+                                       'Too Many Requests', {'Retry-After': '3'}, None)
+        with patch.dict(os.environ, {'BOUNTY_AGENT_API_KEY': 'dummy-test-key'}), \
+             patch.object(gambit.urllib.request, 'urlopen', side_effect=[
+                 error, io.BytesIO(b'{"bounties": []}')]) as urlopen, \
+             patch.object(gambit.time, 'sleep') as sleep:
+            self.assertEqual(gambit.api('/v1/agent/bounties'), {'bounties': []})
+        self.assertEqual(urlopen.call_count, 2)
+        sleep.assert_called_once_with(3.0)
 
     def test_no_model_when_no_jobs(self):
         state = {'schema': 1, 'bounties': {}, 'events_cursor': None, 'recent_outcomes': []}
