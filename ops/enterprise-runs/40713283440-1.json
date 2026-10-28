@@ -1,0 +1,135 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T15:13:09.278705+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 9,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 16,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/Boing-Network/boing.network/issues/61",
+        "title": "[bug] Repository audit follow-ups: security, correctness, CI, and docs",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/zhangjiayang6835-cyber/bounty-plaza/issues/1900",
+        "title": "[Bounty] [Bounty: $75] Website: accessibility and motion-preference fixes for the landing",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/verdikta/verdikta-applications/issues/76",
+        "title": "[BOUNTY ~$30 x4] Post and fund a real task on Verdikta, publish a write-up (paid on Poidh, Base)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/p1ngtoohigh/Jarvus-Pub/issues/1",
+        "title": "[HYDRA] Paid work lead watch",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Eternally-Thriving-Grandmasterism/Powrush-MMO/issues/738",
+        "title": "COUNCIL BOARD",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://duckduckgo.com/y.js?ad_domain=wix.com&ad_provider=bingv7aa&ad_type=txad&click_metadata=CuD_IqQH_R_SR0mrOCjoQzL5pIjTOL6k5ynd86yTDu9G-qvKu7mv1k-vlWnILG5HhLwFOkprgvFhSsxVLHX28xOGhNuK9pZKmSVWIIIvX",
+        "title": "Top-Rated Website Builder 2026 - Your Cause, Your Website",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-29 build simple website",
+      "looking for someone to build a simple website with contact form",
+      "need paid help with designing a social media ad campaign"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a simple website with contact form",
+      "need paid help with designing a social media ad campaign",
+      "can anyone create a basic email marketing template for newsletter",
+      "looking for someone to develop a mobile-friendly landing page"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 2,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a simple website with contact form",
+        "need paid help with designing a social media ad campaign",
+        "can anyone create a basic email marketing template for newsletter",
+        "looking for someone to develop a mobile-friendly landing page"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 138,
+      "known_pages": 854
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
