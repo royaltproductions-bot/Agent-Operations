@@ -1,0 +1,62 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T02:17:58.184203+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "hn_ask": 6
+    },
+    "source_errors": [],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 5,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "contact vendors for website development in non-profit sector 2026",
+      "current requests for content creation and SEO services in education sector"
+    ],
+    "attempted_search_queries": [
+      "public invitation to submit proposals for digital marketing services 2026",
+      "contact vendors for website development in non-profit sector 2026",
+      "current requests for content creation and SEO services in education sector",
+      "open solicitations for data analysis and reporting in healthcare 2026",
+      "real-time requests for freelance graphic design in non-profit organizations"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 3,
+      "executed_queries": [
+        "public invitation to submit proposals for digital marketing services 2026",
+        "contact vendors for website development in non-profit sector 2026",
+        "current requests for content creation and SEO services in education sector",
+        "open solicitations for data analysis and reporting in healthcare 2026",
+        "real-time requests for freelance graphic design in non-profit organizations"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 138,
+      "known_pages": 661
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
