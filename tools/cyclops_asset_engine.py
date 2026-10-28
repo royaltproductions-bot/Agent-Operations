@@ -224,7 +224,7 @@ def demand_candidates(memory):
     rows,errors=open_web_candidates(
         max_candidates=budget["max_candidates"],queries=queries,
         memory=memory,max_pages=budget["max_pages"],
-        strict_relevance=True,include_discussions=False)
+        strict_relevance=True,include_discussions=True)
     if not rows:
         issues.append({
             "source":"research_coverage",
@@ -1032,6 +1032,15 @@ def retire_unverified_payment_links(assets=None):
     return {"invalid_products":len(invalid),"disabled_payment_links":retired}
 
 
+def public_product_url(asset):
+    """Stable storefront URL for an individual, verified digital product."""
+    slug=re.sub(r"[^a-z0-9-]","",re.sub(
+        r"[ _]+","-",str(asset.get("title") or "product").lower()))[:58].strip("-")
+    slug=(slug or "product")+"-"+re.sub(
+        r"[^a-z0-9]","",str(asset["asset_id"]).lower())[:10]
+    return "https://ari-operations.onrender.com/products/"+slug+"/"
+
+
 def publish_catalog():
     """Independently expose approved catalog offers through existing storefront."""
     manifests=active_assets()
@@ -1061,10 +1070,9 @@ def publish_catalog():
         audience=escape(str(asset.get("audience") or ""))
         price=escape(str(asset.get("price_usd") or ""))
         link=escape(str(asset.get("checkout_url") or ""),quote=True)
-        slug=re.sub(r"[^a-z0-9-]","",re.sub(r"[ _]+","-",str(asset.get("title") or "product").lower()))[:58].strip("-")
-        slug=(slug or "product")+"-"+re.sub(r"[^a-z0-9]","",str(asset["asset_id"]).lower())[:10]
-        relative="/products/"+slug+"/"
-        canonical=base_url+relative
+        canonical=public_product_url(asset)
+        relative=canonical.removeprefix(base_url)
+        slug=relative.strip("/").split("/")[-1]
         pages.append(canonical)
         metadata={
             "@context":"https://schema.org","@type":"Product",
@@ -1272,6 +1280,24 @@ def fulfill_orders():
             "newly_fulfilled_orders":new_delivered}
 
 
+ASSET_RESOURCE_INVITATION=re.compile(
+    r"(?i)\b(?:submit (?:your |a |an )?(?:digital )?(?:resource|tool|product|template|listing)|"
+    r"suggest (?:your |a |an )?(?:resource|tool|product|template)|"
+    r"recommend (?:your |a |an )?(?:resource|tool|product|template)|"
+    r"(?:accept|accepting|welcome|welcoming) (?:submissions? of |suggestions? for )?"
+    r"(?:resources|tools|products|templates)|"
+    r"send (?:us |in |your )?(?:a |your )?(?:resource|tool|product|template))\b")
+
+
+def public_asset_distribution_invitation(row):
+    """Only an original, fetched invitation can unlock product outreach."""
+    if not row.get("page_fetched") or not row.get("contact"):
+        return False
+    from tools.autonomous_commerce_brain import public_buyer_invitation
+    return bool(public_buyer_invitation(row) or ASSET_RESOURCE_INVITATION.search(
+        str(row.get("page_text") or "")))
+
+
 def durable_distribution_leads(new_rows):
     """Remember authentic, publicly invited contact possibilities across runs.
 
@@ -1287,13 +1313,13 @@ def durable_distribution_leads(new_rows):
     for item in previous:
         if isinstance(item,dict) and item.get("source_url"):
             by_url[item["source_url"]]=item
-    from tools.autonomous_commerce_brain import public_buyer_invitation
     # Historical footer emails and vendor pages are not commercial prospects.
-    by_url={url:row for url,row in by_url.items() if public_buyer_invitation(row)}
+    by_url={url:row for url,row in by_url.items()
+            if public_asset_distribution_invitation(row)}
     # Re-save a scrubbed queue after removing old seller/footer contacts.
     changed=len(by_url)!=len(previous)
     for row in new_rows:
-        if not public_buyer_invitation(row):
+        if not public_asset_distribution_invitation(row):
             continue
         url=str(row.get("source_url") or "")
         if not url:
@@ -1317,21 +1343,30 @@ def durable_distribution_leads(new_rows):
 
 
 def find_asset_buyers(asset,memory):
-    """Search buyer solicitations separately from competing-product research."""
+    """Discover opted-in outlets for finished assets, not freelance hiring ads."""
     terms=[str(t).strip() for t in asset.get("target_terms") or []
            if len(str(t).strip())>=4]
     if not terms:
         terms=[str(asset.get("title") or "").strip()]
     queries=[]
     for term in dict.fromkeys(terms[:4]):
-        queries.append('"'+term[:75]+'" "looking for" freelance project')
-        queries.append('"'+term[:75]+'" "need someone" paid work')
+        queries.append('"'+term[:75]+'" "submit a resource"')
+        queries.append('"'+term[:75]+'" "suggest a tool"')
+        queries.append('"'+term[:75]+'" "submit your product"')
+        queries.append('"'+term[:75]+'" "looking for" ready-made resource')
     rows,errors=open_web_candidates(
-        max_candidates=12,queries=queries[:6],memory=memory,
-        max_pages=16,strict_relevance=True,include_discussions=False,
-        include_paid_issues=True)
-    from tools.autonomous_commerce_brain import public_buyer_invitation
-    return [row for row in rows if public_buyer_invitation(row)],errors
+        max_candidates=16,queries=queries[:8],memory=memory,
+        max_pages=18,strict_relevance=True,include_discussions=True)
+    # Resource curators may invite a submission on one page and list their
+    # contact route on another. Only follow links on an inviting source.
+    from tools.autonomous_commerce_brain import (
+        enrich_public_response_route, is_requester_page, PUBLIC_INVITATION)
+    invited=[row for row in rows if row.get("page_fetched") and (
+        ASSET_RESOURCE_INVITATION.search(str(row.get("page_text") or ""))
+        or (is_requester_page(row) and PUBLIC_INVITATION.search(
+            str(row.get("page_text") or ""))))]
+    resolved=enrich_public_response_route(invited)
+    return [row for row in resolved if public_asset_distribution_invitation(row)],errors
 
 
 def prospect_score(row,asset):
@@ -1350,6 +1385,8 @@ def prospect_score(row,asset):
 def asset_offer_subject(row,asset):
     marker=hashlib.sha256(
         (asset["asset_id"]+"|"+row["source_url"]).encode()).hexdigest()[:18]
+    if ASSET_RESOURCE_INVITATION.search(str(row.get("page_text") or "")):
+        return "Ari Operations resource suggestion ["+marker+"]"
     return "Useful fixed asset ["+marker+"]"
 
 def has_uncontacted_matching_prospect(rows,asset,sent_subjects):
@@ -1374,12 +1411,14 @@ def can_contact_for_asset(row,asset):
     if not row.get("contact") or not row.get("page_fetched"):
         return False
     system=(
-        "Determine if this specific page EXPLICITLY invites outside commercial "
-        "providers to propose or send a product like the supplied asset to the "
-        "listed contact. Be conservative. An email address in a website footer, "
-        "an informational article, a general discussion of a problem or a "
-        "job post is NOT permission to send a sales pitch. If no explicit "
-        "relevant invitation appears in the provided evidence, invited=false. "
+        "Determine if this specific original page EXPLICITLY invites outside "
+        "submissions of finished products or resources of the supplied type, "
+        "or explicitly requests a solution the finished product can supply. "
+        "Is the listed contact an appropriate destination for that invitation? "
+        "A generic footer email, informational article, mere question, unrelated "
+        "directory, or job post is NOT an invitation. Reject irrelevant "
+        "submissions, and never propose an interview or custom work. "
+        "If no fitting invitation appears in the actual page, invited=false. "
         "Return schema-compliant JSON, no speculation."
     )
     try:
@@ -1395,20 +1434,34 @@ def send_asset_offer(rows,asset):
     sent=recent_sent_subjects()
     ranked=sorted(rows,key=lambda r:(-prospect_score(r,asset),r["source_url"]))
     for row in ranked:
-        if prospect_score(row,asset)<=0 or not row.get("contact"):
+        if (prospect_score(row,asset)<=0 or
+                not public_asset_distribution_invitation(row)):
             continue
         subject=asset_offer_subject(row,asset)
         marker=subject.rsplit("[",1)[-1].rstrip("]")
         if subject in sent or not can_contact_for_asset(row,asset):
             continue
         price=int(asset["price_cents"])/100
-        body=(
-            str(asset["pitch"]).strip()+"\n\n"
-            "Product: "+str(asset["title"]).strip()+"\n"
-            "One-time price: $"+format(price,".2f")+"\n"
-            "Get it here: "+str(asset["checkout_url"])+"\n\n"
-            "The purchase is the finished reusable asset, not a custom engagement."
-        )
+        resource_submission=bool(ASSET_RESOURCE_INVITATION.search(
+            str(row.get("page_text") or "")))
+        if resource_submission:
+            body=(
+                "Hello,\n\nYour public resource submission invitation appears "
+                "relevant to this finished digital product. Please consider "
+                "including it if it would genuinely serve your audience.\n\n"
+                "Product: "+str(asset["title"]).strip()+"\n"
+                "Description: "+str(asset["description"]).strip()+"\n"
+                "One-time price: $"+format(price,".2f")+"\n"
+                "Product details: "+public_product_url(asset)+"\n\n"
+                "No response is needed if it isn't suitable.\n\nAri Operations")
+        else:
+            body=(
+                str(asset["pitch"]).strip()+"\n\n"
+                "Product: "+str(asset["title"]).strip()+"\n"
+                "One-time price: $"+format(price,".2f")+"\n"
+                "Get it here: "+str(asset["checkout_url"])+"\n\n"
+                "The purchase is the finished reusable asset, not a custom engagement."
+            )
         agent_send(row["contact"],subject,body,[],
                    order_id="cyclops-offer-"+marker)
         return {"result":"offer_sent","source_url":row["source_url"],
@@ -1574,6 +1627,7 @@ def run():
             receipt["buyer_discovery"].append({
                 "asset_id":existing["asset_id"],
                 "valid_public_invitations":len(prospective),
+                "relevant_opt_in_outlets":len(prospective),
                 "search_issues":errors[:4]})
         except Exception as exc:
             receipt["buyer_discovery"].append({
@@ -1624,6 +1678,7 @@ def run():
                 receipt["buyer_discovery"].append({
                     "asset_id":asset["asset_id"],
                     "valid_public_invitations":len(prospective),
+                    "relevant_opt_in_outlets":len(prospective),
                     "search_issues":errors[:4]})
                 action=send_asset_offer(distribution_rows,asset)
                 receipt["external_action"]=action
@@ -1695,12 +1750,23 @@ def run():
     receipt["operational_assessment"]={
         "commercial_progress":bool(receipt["economic_result"]["new_product_offers_sent"]
                                     or receipt["economic_result"]["verified_cyclops_revenue_cents_seen"]),
+        "commercial_state":(
+            "observed_paid_customers" if receipt["economic_result"]["verified_cyclops_revenue_cents_seen"] else
+            "new_opt_in_distribution" if receipt["economic_result"]["new_product_offers_sent"] else
+            "no_saleable_products" if not receipt["catalog"].get("listed_products") else
+            "saleable_but_no_new_buyers"),
+        "indexable_product_pages":receipt["catalog"].get("product_pages",0),
+        "new_distribution_outlets":sum(
+            int(x.get("relevant_opt_in_outlets") or 0)
+            for x in receipt["buyer_discovery"]),
         "production_progress":bool(receipt["economic_result"]["new_asset_created"]),
         "public_sources_reviewable":receipt["discovery"].get("public_sources_available_for_judgment",0),
         "blocked_search_providers":blocked,
         "primary_bottleneck":("none" if receipt["economic_result"]["new_product_offers_sent"]
                               or receipt["economic_result"]["verified_cyclops_revenue_cents_seen"] else
-                              "no_customer_distribution" if receipt["economic_result"]["new_asset_created"] else
+                              "no_verified_products_to_sell" if not receipt["catalog"].get("listed_products")
+                              and not receipt["discovery"].get("public_sources_available_for_judgment") else
+                              "no_opt_in_distribution" if receipt["catalog"].get("listed_products") else
                               "no_firsthand_market_source" if not receipt["discovery"].get("public_sources_available_for_judgment")
                               else str(receipt["production"].get("reason") or receipt["production"].get("result") or "unknown")[:160]),
     }
