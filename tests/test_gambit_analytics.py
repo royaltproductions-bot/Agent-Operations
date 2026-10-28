@@ -30,6 +30,10 @@ class GambitAnalyticsTest(unittest.TestCase):
         self.assertEqual(summarize_csv_sources([{"filename": "table.csv", "text":
             "name,count\nA,=2+2\n"}]), [])
 
+    def test_rejects_huge_numeric_exponents(self):
+        self.assertEqual(summarize_csv_sources([{"filename": "table.csv", "text":
+            "name,count\nA,1E+1000000000\n"}]), [])
+
 
 if __name__ == "__main__":
     unittest.main()
