@@ -61,6 +61,22 @@ def stripe_get(path,params=None):
     return _request("https://api.stripe.com/v1/"+path+("?"+query if query else ""),
                     key,basic=True)
 
+
+def require_ari_operations_merchant():
+    """Fail closed before creating revenue on a different business's Stripe.
+
+    The agent operates as Ari Operations, independently of the merchant
+    accounts used for the owner's existing companies. An API key being live
+    is not evidence that it belongs to the intended selling entity.
+    """
+    expected=os.environ.get("ARI_OPERATIONS_STRIPE_ACCOUNT_ID","").strip()
+    if not re.fullmatch(r"acct_[A-Za-z0-9]+",expected):
+        raise RuntimeError("ari_operations_stripe_merchant_not_configured")
+    account=stripe_get("account")
+    if account.get("id")!=expected:
+        raise RuntimeError("ari_operations_stripe_merchant_mismatch")
+    return expected
+
 def agent_get(path,params=None):
     token=os.environ.get("AGENTMAIL_API_KEY","")
     if not token:
@@ -207,6 +223,7 @@ def stripe_usd_unit_amount(price_usd):
 
 def ensure_autonomous_checkout(source_url,title,description,scope,price_usd):
     """Create or recover one Stripe checkout for an autonomous digital offer."""
+    require_ari_operations_merchant()
     offer_id=_offer_id(source_url)
     existing=existing_autonomous_offer(offer_id)
     if existing and existing.get("checkout_url"):

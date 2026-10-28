@@ -34,6 +34,7 @@ from tools.connected_commerce_tools import (
     stripe_get,
     stripe_post,
     stripe_usd_unit_amount,
+    require_ari_operations_merchant,
 )
 
 from tools.open_web_discovery import open_web_candidates, public_request_signal
@@ -225,7 +226,7 @@ def asset_id(plan):
           "|".join(sorted(str(x).lower() for x in plan["target_terms"]))).encode()
     return hashlib.sha256(seed).hexdigest()[:20]
 
-def active_assets():
+def all_assets():
     assets=[]
     if not ROOT.is_dir():
         return assets
@@ -234,10 +235,14 @@ def active_assets():
             row=json.loads(path.read_text(encoding="utf-8"))
         except (OSError,ValueError):
             continue
-        if row.get("status")=="active" and row.get("asset_id"):
+        if row.get("asset_id"):
             row["_dir"]=str(path.parent)
             assets.append(row)
     return assets
+
+
+def active_assets():
+    return [row for row in all_assets() if row.get("status")=="active"]
 
 def demand_view(rows,limit=5,width=700):
     return [{
@@ -767,6 +772,7 @@ def create_asset(rows,existing_assets=None):
 
 
 def cyclops_checkout(plan):
+    merchant=require_ari_operations_merchant()
     # The agent prices in dollars. Stripe consumes minor units at the boundary.
     plan["price_cents"]=stripe_usd_unit_amount(plan["price_usd"])
     ident=plan["asset_id"]
@@ -774,7 +780,8 @@ def cyclops_checkout(plan):
     for link in page.get("data") or []:
         meta=link.get("metadata") or {}
         if meta.get("cyclops_asset_id")==ident and link.get("active") is True:
-            return {"id":link.get("id"),"url":link.get("url")}
+            return {"id":link.get("id"),"url":link.get("url"),
+                    "merchant_account_id":merchant}
     product=stripe_post("products",{
         "name":str(plan["title"])[:120],
         "description":str(plan["description"])[:400],
@@ -794,7 +801,8 @@ def cyclops_checkout(plan):
     },"cyclops-link-"+ident)
     if not str(link.get("url") or "").startswith("https://"):
         raise RuntimeError("cyclops_checkout_unconfirmed")
-    return {"id":link.get("id"),"url":link.get("url")}
+    return {"id":link.get("id"),"url":link.get("url"),
+            "merchant_account_id":merchant}
 
 def github_put(path,text):
     token=os.getenv("GH_TOKEN","")
@@ -862,6 +870,7 @@ def persist_asset(plan,checkout):
         "delivery":"private_encrypted_vault",
         "vault_path":vault,
         "payment_link_id":checkout["id"],
+        "merchant_account_id":checkout["merchant_account_id"],
         "checkout_url":checkout["url"],
         "created_at":NOW().isoformat(),
     }
@@ -903,6 +912,8 @@ def catalog_eligible(asset):
                 and asset.get("vault_path")
                 and asset.get("delivery")=="private_encrypted_vault"
                 and asset.get("quality_gate")=="content_and_evidence_verified"
+                and bool(os.environ.get("ARI_OPERATIONS_STRIPE_ACCOUNT_ID"))
+                and asset.get("merchant_account_id")==os.environ.get("ARI_OPERATIONS_STRIPE_ACCOUNT_ID")
                 and asset.get("verified_market_problem_quote")
                 and str(asset.get("checkout_url") or "").startswith("https://"))
 
@@ -915,7 +926,7 @@ def retire_unverified_payment_links(assets=None):
     Stripe metadata identify the same Cyclops product. Existing paid orders
     remain available for the separate delivery/reconciliation pass.
     """
-    invalid={str(a.get("asset_id")):a for a in (assets if assets is not None else active_assets())
+    invalid={str(a.get("asset_id")):a for a in (assets if assets is not None else all_assets())
              if a.get("asset_id") and not catalog_eligible(a)}
     if not invalid:
         return {"invalid_products":0,"disabled_payment_links":0}
@@ -979,7 +990,7 @@ article{background:white;border:1px solid #dbe3e7;border-radius:14px;padding:24p
 .muted{color:#61717a}.price{font-size:1.4rem;font-weight:700}
 .buy{display:inline-block;background:#155f65;color:white;padding:11px 17px;border-radius:8px;text-decoration:none}
 </style></head><body><main>
-<nav><a href="/">Home</a></nav><h1>Ari Operations</h1>
+<h1>Ari Operations</h1>
 <p>Digital Products &amp; Tools. Each listing is checked for deliverable completeness and accurate claims before being offered for purchase.</p>
 <section>'''+body+'''</section>
 <p>Ari Operations · Questions? <a href="mailto:ari-operations@agentmail.to">Contact our digital products team</a>.</p>

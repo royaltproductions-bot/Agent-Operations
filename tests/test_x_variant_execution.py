@@ -207,7 +207,25 @@ class CyclopsEfficiencyTests(unittest.TestCase):
         self.assertFalse(cyclops.catalog_eligible(asset))
         asset["quality_gate"]="content_and_evidence_verified"
         asset["verified_market_problem_quote"]="I need help with a recurring problem."
-        self.assertTrue(cyclops.catalog_eligible(asset))
+        asset["merchant_account_id"]="acct_ari"
+        with patch.dict("os.environ",{"ARI_OPERATIONS_STRIPE_ACCOUNT_ID":"acct_ari"}):
+            self.assertTrue(cyclops.catalog_eligible(asset))
+        with patch.dict("os.environ",{"ARI_OPERATIONS_STRIPE_ACCOUNT_ID":"acct_other"}):
+            self.assertFalse(cyclops.catalog_eligible(asset))
+
+    def test_stripe_checkout_requires_verified_separate_merchant(self):
+        from tools import connected_commerce_tools as provider
+        with patch.dict("os.environ",{"ARI_OPERATIONS_STRIPE_ACCOUNT_ID":""}):
+            with patch.object(provider,"stripe_get") as get:
+                with self.assertRaisesRegex(RuntimeError,"merchant_not_configured"):
+                    provider.require_ari_operations_merchant()
+            get.assert_not_called()
+        with patch.dict("os.environ",{"ARI_OPERATIONS_STRIPE_ACCOUNT_ID":"acct_ari"}):
+            with patch.object(provider,"stripe_get",return_value={"id":"acct_unrelated"}):
+                with self.assertRaisesRegex(RuntimeError,"merchant_mismatch"):
+                    provider.require_ari_operations_merchant()
+            with patch.object(provider,"stripe_get",return_value={"id":"acct_ari"}):
+                self.assertEqual(provider.require_ari_operations_merchant(),"acct_ari")
 
     def test_only_exact_legacy_cyclops_checkout_is_deactivated(self):
         cyclops=cyclops_or_skip(self)
