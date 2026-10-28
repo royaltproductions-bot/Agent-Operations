@@ -1,0 +1,131 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T16:11:40.718198+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 9
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "candidates_without_email": 14,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/HarrowHaus/Autobot/issues/19",
+        "title": "A0 mentor inbox for Donald \u2014 SwarmBrain controller training",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Emaren/app-prodn/issues/773",
+        "title": "\u2694\ufe0f Renaissance Campaign \u2014 144-page objective certification program, 100-point evidence-bound Kingdom Index",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Uuriko/project-room/issues/3299",
+        "title": "Agent coordination log \u2014 Jill (Muse) \u21c4 Codex \u21c4 other fleets",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/SoulSchoolAcademy/NayaPOWER/issues/2472",
+        "title": "Lane 5 \u2014 worker sign-in/out feed",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/kapasainitishreddy/Gradientmine/issues/14",
+        "title": "FINAL Oct 12: Colosseum submission owner checklist and judge-media handoff",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.template.net/editable/49542/freelancer-hiring-checklist",
+        "title": "Freelancer Hiring Checklist Template in Google Docs, Word - Download ...",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-29 build lead magnet",
+      "is:issue is:open bounty created:>=2026-08-29 create downloadable checklist",
+      "hiring a freelancer to create a downloadable checklist template",
+      "looking for someone to build a lead magnet landing page"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a lead magnet landing page",
+      "hiring a freelancer to create a downloadable checklist template",
+      "need paid help with designing a simple email course sequence",
+      "can anyone create a basic Shopify product page template"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 5,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a lead magnet landing page",
+        "hiring a freelancer to create a downloadable checklist template",
+        "need paid help with designing a simple email course sequence",
+        "can anyone create a basic Shopify product page template"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 140,
+      "known_pages": 868
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
