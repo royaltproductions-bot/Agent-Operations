@@ -34,7 +34,8 @@ from tools.connected_commerce_tools import (
     stripe_get,
     stripe_post,
     stripe_usd_unit_amount,
-    require_ari_operations_merchant,
+    CHECKOUT_BRAND,
+    CHECKOUT_MERCHANT_NOTICE,
 )
 
 from tools.open_web_discovery import open_web_candidates, public_request_signal
@@ -778,7 +779,6 @@ def create_asset(rows,existing_assets=None):
 
 
 def cyclops_checkout(plan):
-    merchant=require_ari_operations_merchant()
     # The agent prices in dollars. Stripe consumes minor units at the boundary.
     plan["price_cents"]=stripe_usd_unit_amount(plan["price_usd"])
     ident=plan["asset_id"]
@@ -786,12 +786,12 @@ def cyclops_checkout(plan):
     for link in page.get("data") or []:
         meta=link.get("metadata") or {}
         if meta.get("cyclops_asset_id")==ident and link.get("active") is True:
-            return {"id":link.get("id"),"url":link.get("url"),
-                    "merchant_account_id":merchant}
+            return {"id":link.get("id"),"url":link.get("url")}
     product=stripe_post("products",{
-        "name":str(plan["title"])[:120],
+        "name":(CHECKOUT_BRAND+" | "+str(plan["title"]))[:120],
         "description":str(plan["description"])[:400],
         "metadata[cyclops_asset]":"yes",
+        "metadata[customer_brand]":CHECKOUT_BRAND,
         "metadata[cyclops_asset_id]":ident,
     },"cyclops-product-"+ident)
     price=stripe_post("prices",{
@@ -803,12 +803,14 @@ def cyclops_checkout(plan):
         "line_items[0][price]":price["id"],
         "line_items[0][quantity]":"1",
         "metadata[cyclops_asset]":"yes",
+        "metadata[customer_brand]":CHECKOUT_BRAND,
         "metadata[cyclops_asset_id]":ident,
+        "custom_text[submit][message]":CHECKOUT_MERCHANT_NOTICE,
+        "payment_intent_data[description]":(CHECKOUT_BRAND+" | "+str(plan["title"]))[:200],
     },"cyclops-link-"+ident)
     if not str(link.get("url") or "").startswith("https://"):
         raise RuntimeError("cyclops_checkout_unconfirmed")
-    return {"id":link.get("id"),"url":link.get("url"),
-            "merchant_account_id":merchant}
+    return {"id":link.get("id"),"url":link.get("url")}
 
 def github_put(path,text):
     token=os.getenv("GH_TOKEN","")
@@ -876,7 +878,6 @@ def persist_asset(plan,checkout):
         "delivery":"private_encrypted_vault",
         "vault_path":vault,
         "payment_link_id":checkout["id"],
-        "merchant_account_id":checkout["merchant_account_id"],
         "checkout_url":checkout["url"],
         "created_at":NOW().isoformat(),
     }
@@ -918,8 +919,6 @@ def catalog_eligible(asset):
                 and asset.get("vault_path")
                 and asset.get("delivery")=="private_encrypted_vault"
                 and asset.get("quality_gate")=="content_and_evidence_verified"
-                and bool(os.environ.get("ARI_OPERATIONS_STRIPE_ACCOUNT_ID"))
-                and asset.get("merchant_account_id")==os.environ.get("ARI_OPERATIONS_STRIPE_ACCOUNT_ID")
                 and asset.get("verified_market_problem_quote")
                 and str(asset.get("checkout_url") or "").startswith("https://"))
 

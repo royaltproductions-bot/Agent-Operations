@@ -21,6 +21,8 @@ import urllib.request
 
 INBOX = "ari-operations@agentmail.to"
 CATALOG_ROOTS = ("products", "ventures", "storefront")
+CHECKOUT_BRAND = "Ari Operations"
+CHECKOUT_MERCHANT_NOTICE = "Ari Operations · Payments processed by Sirius Sage."
 
 TOOL_DEFINITIONS = {
     "stripe_offers": "Inspect current Stripe payment-link inventory.",
@@ -61,21 +63,6 @@ def stripe_get(path,params=None):
     return _request("https://api.stripe.com/v1/"+path+("?"+query if query else ""),
                     key,basic=True)
 
-
-def require_ari_operations_merchant():
-    """Fail closed before creating revenue on a different business's Stripe.
-
-    The agent operates as Ari Operations, independently of the merchant
-    accounts used for the owner's existing companies. An API key being live
-    is not evidence that it belongs to the intended selling entity.
-    """
-    expected=os.environ.get("ARI_OPERATIONS_STRIPE_ACCOUNT_ID","").strip()
-    if not re.fullmatch(r"acct_[A-Za-z0-9]+",expected):
-        raise RuntimeError("ari_operations_stripe_merchant_not_configured")
-    account=stripe_get("account")
-    if account.get("id")!=expected:
-        raise RuntimeError("ari_operations_stripe_merchant_mismatch")
-    return expected
 
 def agent_get(path,params=None):
     token=os.environ.get("AGENTMAIL_API_KEY","")
@@ -198,6 +185,7 @@ def existing_autonomous_offer(offer_id):
                 "payment_link_id":link.get("id"),
                 "checkout_url":link.get("url"),
                 "active":link.get("active") is True,
+                "customer_brand":metadata.get("customer_brand"),
             }
     return None
 
@@ -223,11 +211,15 @@ def stripe_usd_unit_amount(price_usd):
 
 def ensure_autonomous_checkout(source_url,title,description,scope,price_usd):
     """Create or recover one Stripe checkout for an autonomous digital offer."""
-    require_ari_operations_merchant()
     offer_id=_offer_id(source_url)
     existing=existing_autonomous_offer(offer_id)
-    if existing and existing.get("checkout_url"):
+    if (existing and existing.get("active") and existing.get("checkout_url")
+            and existing.get("customer_brand")==CHECKOUT_BRAND):
         return existing
+    if existing:
+        # Legacy X-variant links were deliberately retired after a failed
+        # product-quality review. Do not reuse an old unbranded link, either.
+        raise RuntimeError("previous_autonomous_offer_retired_for_source")
     amount=stripe_usd_unit_amount(price_usd)
     # Provider-boundary conversion only; no invented commercial price range.
     # Stripe validates actual checkout eligibility.
@@ -236,9 +228,10 @@ def ensure_autonomous_checkout(source_url,title,description,scope,price_usd):
     safe_scope=re.sub(r"\s+"," ",str(scope)).strip()[:450]
     safe_source=str(source_url)[:450]
     product=stripe_post("products",{
-        "name":safe_title,
+        "name":(CHECKOUT_BRAND+" | "+safe_title)[:120],
         "description":safe_desc,
         "metadata[autonomous_revenue]":"yes",
+        "metadata[customer_brand]":CHECKOUT_BRAND,
         "metadata[autonomous_offer_id]":offer_id,
         "metadata[source_url]":safe_source,
         "metadata[scope]":safe_scope,
@@ -258,9 +251,12 @@ def ensure_autonomous_checkout(source_url,title,description,scope,price_usd):
         "line_items[0][price]":price_id,
         "line_items[0][quantity]":"1",
         "metadata[autonomous_revenue]":"yes",
+        "metadata[customer_brand]":CHECKOUT_BRAND,
         "metadata[autonomous_offer_id]":offer_id,
         "metadata[source_url]":safe_source,
         "metadata[scope]":safe_scope,
+        "custom_text[submit][message]":CHECKOUT_MERCHANT_NOTICE,
+        "payment_intent_data[description]":(CHECKOUT_BRAND+" | "+safe_title)[:200],
     },"auto-link-"+offer_id)
     link_id=link.get("id")
     url=link.get("url")

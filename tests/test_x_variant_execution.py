@@ -225,25 +225,55 @@ class CyclopsEfficiencyTests(unittest.TestCase):
         self.assertFalse(cyclops.catalog_eligible(asset))
         asset["quality_gate"]="content_and_evidence_verified"
         asset["verified_market_problem_quote"]="I need help with a recurring problem."
-        asset["merchant_account_id"]="acct_ari"
-        with patch.dict("os.environ",{"ARI_OPERATIONS_STRIPE_ACCOUNT_ID":"acct_ari"}):
-            self.assertTrue(cyclops.catalog_eligible(asset))
-        with patch.dict("os.environ",{"ARI_OPERATIONS_STRIPE_ACCOUNT_ID":"acct_other"}):
-            self.assertFalse(cyclops.catalog_eligible(asset))
+        self.assertTrue(cyclops.catalog_eligible(asset))
 
-    def test_stripe_checkout_requires_verified_separate_merchant(self):
+    def test_ari_checkout_uses_existing_merchant_with_clear_brand(self):
         from tools import connected_commerce_tools as provider
-        with patch.dict("os.environ",{"ARI_OPERATIONS_STRIPE_ACCOUNT_ID":""}):
-            with patch.object(provider,"stripe_get") as get:
-                with self.assertRaisesRegex(RuntimeError,"merchant_not_configured"):
-                    provider.require_ari_operations_merchant()
-            get.assert_not_called()
-        with patch.dict("os.environ",{"ARI_OPERATIONS_STRIPE_ACCOUNT_ID":"acct_ari"}):
-            with patch.object(provider,"stripe_get",return_value={"id":"acct_unrelated"}):
-                with self.assertRaisesRegex(RuntimeError,"merchant_mismatch"):
-                    provider.require_ari_operations_merchant()
-            with patch.object(provider,"stripe_get",return_value={"id":"acct_ari"}):
-                self.assertEqual(provider.require_ari_operations_merchant(),"acct_ari")
+        outcome=[{"id":"prod_new"},{"id":"price_new"},
+                 {"id":"plink_new","url":"https://buy.stripe.com/example","active":True}]
+        with patch.object(provider,"existing_autonomous_offer",return_value=None), \
+             patch.object(provider,"stripe_post",side_effect=outcome) as post:
+            checkout=provider.ensure_autonomous_checkout(
+                "https://example.org/request","Useful tool","An actual deliverable",
+                "Finished artifact","12.00")
+        self.assertTrue(checkout["active"])
+        self.assertTrue(post.call_args_list[0].args[1]["name"].startswith("Ari Operations | "))
+        fields=post.call_args_list[2].args[1]
+        self.assertEqual(fields["metadata[customer_brand]"],"Ari Operations")
+        self.assertIn("Ari Operations",fields["custom_text[submit][message]"])
+        self.assertIn("Sirius Sage",fields["custom_text[submit][message]"])
+
+    def test_retired_wolverine_checkout_is_not_reactivated(self):
+        from tools import connected_commerce_tools as provider
+        with patch.object(provider,"existing_autonomous_offer",return_value={
+                "checkout_url":"https://buy.stripe.com/retired","active":False}), \
+             patch.object(provider,"stripe_post") as post:
+            with self.assertRaisesRegex(RuntimeError,"previous_autonomous_offer_retired"):
+                provider.ensure_autonomous_checkout(
+                    "https://example.org/request","Old tool","Old details","Old scope","12.00")
+        post.assert_not_called()
+        with patch.object(provider,"existing_autonomous_offer",return_value={
+                "checkout_url":"https://buy.stripe.com/unbranded","active":True,
+                "customer_brand":None}), \
+             patch.object(provider,"stripe_post") as post:
+            with self.assertRaisesRegex(RuntimeError,"previous_autonomous_offer_retired"):
+                provider.ensure_autonomous_checkout(
+                    "https://example.org/request","Old tool","Old details","Old scope","12.00")
+        post.assert_not_called()
+
+    def test_cyclops_checkout_branded_without_separate_stripe_account(self):
+        cyclops=cyclops_or_skip(self)
+        outcomes=[{"id":"prod_new"},{"id":"price_new"},
+                  {"id":"plink_new","url":"https://buy.stripe.com/new"}]
+        with patch.object(cyclops,"stripe_get",return_value={"data":[]}), \
+             patch.object(cyclops,"stripe_post",side_effect=outcomes) as post:
+            checkout=cyclops.cyclops_checkout({"asset_id":"new-asset",
+                 "title":"A real working tool","description":"Functional deliverable",
+                 "price_usd":"10.00"})
+        self.assertEqual(checkout["id"],"plink_new")
+        self.assertTrue(post.call_args_list[0].args[1]["name"].startswith("Ari Operations | "))
+        self.assertIn("Sirius Sage",post.call_args_list[2].args[1][
+            "custom_text[submit][message]"])
 
     def test_only_exact_legacy_cyclops_checkout_is_deactivated(self):
         cyclops=cyclops_or_skip(self)
