@@ -20,6 +20,9 @@ on:
       - 'tools/gambit_sites.py'
       - 'tools/gambit_visual_qa.py'
       - 'tools/gambit_web_design.py'
+      - 'tools/gambit_site_resources.py'
+      - 'tools/gambit_site_smoke.py'
+      - 'assets/website_builder/**'
       - 'tools/gambit_analytics.py'
       - 'tests/test_gambit_worker.py'
       - 'tests/test_gambit_research.py'
@@ -28,6 +31,7 @@ on:
       - 'tests/test_gambit_sites.py'
       - 'tests/test_gambit_visual_qa.py'
       - 'tests/test_gambit_web_design.py'
+      - 'tests/test_gambit_site_resources.py'
       - 'tests/test_gambit_analytics.py'
       - '.github/workflows/gambit-bounty.yml'
 
@@ -47,6 +51,7 @@ jobs:
     env:
       BOUNTY_AGENT_API_KEY: ${{ secrets.BOUNTY_AGENT_API_KEY }}
       V0_API_KEY: ${{ secrets.V0_API_KEY }}
+      GAMBIT_WEBSITE_BUILDER: '1'
       GAMBIT_MODEL: qwen3:8b
       OLLAMA_MODELS: ${{ github.workspace }}/.ollama-cache/models
       OLLAMA_NUM_PARALLEL: '1'
@@ -68,6 +73,20 @@ jobs:
 
       - name: Validate worker code
         run: python3 -m unittest discover -s tests -p 'test_gambit_*.py' -q
+
+      - name: Inspect real desktop and mobile website layout on source changes
+        if: github.event_name == 'push'
+        run: |
+          python3 -m pip install --disable-pip-version-check --quiet playwright pillow
+          python3 -m tools.gambit_site_smoke
+
+      - name: Save website screenshot evidence
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: gambit-responsive-website-preview
+          path: ${{ runner.temp }}/gambit-website-preview
+          retention-days: 7
 
       - name: Check authorized live market for work
         id: probe
@@ -123,6 +142,11 @@ jobs:
         if: steps.probe.outputs.needs_model == 'true'
         continue-on-error: true
         run: python3 -m pip install --disable-pip-version-check --quiet ddgs==9.16.1
+
+      - name: Enable browser-based website delivery checks only when work appears
+        if: steps.probe.outputs.needs_model == 'true'
+        continue-on-error: true
+        run: python3 -m pip install --disable-pip-version-check --quiet playwright pillow
 
       - name: Start model only when work appears
         if: steps.probe.outputs.needs_model == 'true'

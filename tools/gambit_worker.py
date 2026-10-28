@@ -10,11 +10,13 @@ from __future__ import annotations
 import csv
 from datetime import datetime, timedelta, timezone
 import hashlib
+import importlib.util
 import io
 import json
 import os
 from pathlib import Path
 import re
+import shutil
 import sys
 import urllib.error
 import urllib.parse
@@ -25,7 +27,9 @@ from tools.gambit_documents import (MAX_BINARY_BYTES, convert_document,
 from tools.gambit_analytics import summarize_csv_sources
 from tools.gambit_artifacts import (OUTPUT_FILES, SUPPORTED_FORMATS,
                                     make_document, requested_output_format)
-from tools.gambit_sites import pack_static_site, static_site_eligible
+from tools.gambit_sites import static_site_eligible
+from tools.gambit_site_resources import create_project, resources_available
+from tools.gambit_visual_qa import render_browser_evidence
 
 BASE = "https://api.trybounty.ai"
 STATE_PATH = Path("ops/gambit/state.json")
@@ -308,6 +312,90 @@ RESEARCH_PLAN_SCHEMA = {"type": "object", "properties": {
     "reason": {"type": "string"},
 }, "required": ["requires_web", "queries", "reason"], "additionalProperties": False}
 
+SITE_SPEC_SCHEMA = {"type": "object", "properties": {
+    "status": {"type": "string", "enum": ["ready", "need_information", "cannot_deliver"]},
+    "reason": {"type": "string"}, "question": {"type": "string"},
+    "brand": {"type": "string"}, "eyebrow": {"type": "string"},
+    "headline": {"type": "string"}, "intro": {"type": "string"},
+    "about": {"type": "string"}, "theme": {"type": "string", "enum": [
+        "indigo", "ocean", "forest", "amber", "rose"]},
+    "contact_url": {"type": "string"}, "contact_label": {"type": "string"},
+    "services": {"type": "array", "minItems": 3, "maxItems": 6, "items": {
+        "type": "object", "properties": {"title": {"type": "string"},
+        "description": {"type": "string"}},
+        "required": ["title", "description"], "additionalProperties": False}},
+    "steps": {"type": "array", "minItems": 2, "maxItems": 4, "items": {
+        "type": "object", "properties": {"title": {"type": "string"},
+        "description": {"type": "string"}},
+        "required": ["title", "description"], "additionalProperties": False}},
+}, "required": ["status", "reason", "question", "brand", "eyebrow", "headline",
+               "intro", "about", "theme", "contact_url", "contact_label",
+               "services", "steps"], "additionalProperties": False}
+
+
+def website_capable():
+    """Only permit commissioned web work with licensed assets AND real browser QA."""
+    return (os.getenv("GAMBIT_WEBSITE_BUILDER") == "1" and resources_available()
+            and importlib.util.find_spec("playwright") is not None
+            and importlib.util.find_spec("PIL") is not None
+            and (shutil.which("google-chrome") is not None
+                 or shutil.which("chromium") is not None))
+
+
+def produce_website(details, messages, feedback="", sources=None):
+    """Use the free model for grounded copy, a licensed layout resource for design."""
+    bounty = details.get("bounty") or {}
+    context = clean_context(details, messages, sources)
+    public_brief = "\n".join(
+        [str(bounty.get(field) or "") for field in ("title", "description", "verification")]
+        + [str(item.get("text") or "") for item in context["owner_messages"]])
+    system = (
+        "You prepare factual content for a polished responsive, source-only landing "
+        "page. A licensed design system will build the actual source ZIP. Return strict "
+        "JSON matching the schema. Do not return any HTML or CSS. Use the actual brand, "
+        "business, offering, audience, and value proposition from the buyer brief; no "
+        "fabricated company facts, offers, results, testimonials, team members, pricing, "
+        "contact links, capabilities, certifications, or metrics. Never call a business "
+        "'your company' or use placeholders. Write specific, appealing, concise copy "
+        "appropriate for the buyer's industry and visual style. The `services` list must "
+        "contain 3-6 distinct actual offerings or clearly presented aspects of the "
+        "buyer's brief, and `steps` 2-4 true stages derived from the brief. `contact_url` "
+        "MUST be an EXACT full https, mailto or tel URL explicitly present verbatim "
+        "in the buyer brief; otherwise empty. Keep other URLs out of copy. Choose a "
+        "theme appropriate to the buyer. Only mark ready if a source-only, single-page "
+        "site meets ALL requirements without unsupported functionality, design assets, "
+        "forms, checkout, CRM, hosting, domain, account access, or editing their "
+        "existing website. If essential business facts are missing, need_information "
+        "and ask one precise question. Do not promise live publication. If prior "
+        "feedback identifies an issue, correct that issue."
+    )
+    for attempt in range(2):
+        answer = infer(SITE_SPEC_SCHEMA, system, {
+            "brief": public_brief,
+            "feedback": feedback[:1500]}, num_predict=1800, num_ctx=8000)
+        if answer.get("status") != "ready":
+            return {"status": answer.get("status", "cannot_deliver"),
+                    "reason": answer.get("reason", ""), "question": answer.get("question", ""),
+                    "deliverable_title": "Website source", "deliverable_text": "",
+                    "deliverable_format": "site_zip"}
+        try:
+            archive, html, assets = create_project(answer, public_brief)
+        except ValueError as exc:
+            feedback = ("The generated content violates a required source-site validation: "
+                        + str(exc) + ". Correct it using only buyer facts.")
+            continue
+        return {"status": "ready", "reason": "", "question": "",
+                "deliverable_title": str(answer["brand"])[:90] + " — responsive site ZIP",
+                "deliverable_text": (
+                    f"Completed responsive website source for {answer['brand']}: "
+                    "index.html, locally bundled styles, documentation and MIT license."),
+                "deliverable_format": "site_zip", "_site_binary": archive,
+                "_site_html": html, "_site_assets": assets, "_site_spec": answer}
+    return {"status": "cannot_deliver", "reason": feedback,
+            "question": "Could you clarify the correct business details or contact link?",
+            "deliverable_title": "Website source", "deliverable_text": "",
+            "deliverable_format": "site_zip"}
+
 
 def clean_context(details, messages=None, sources=None):
     bounty = details.get("bounty") or {}
@@ -394,12 +482,11 @@ def unsupported_deliverable(details):
                       r".{0,40}\b(?:website|web app|webpage|landing page|application|server|api)\b",
                       requested + " " + verification)):
         return "software_deployment"
-    # A browser-parseable ZIP is not evidence of professional visual quality.
-    # Until automated render, responsive layout and visual review are part of
-    # fulfillment, this source-only builder is not commercially eligible.
+    # Browser rendering of locally packaged source is mandatory. Do not offer
+    # this capability on runners lacking its independent runtime dependencies.
     if static_site_eligible(details) and not re.search(
             r"\b(?:research|audit|review|analysis|analyze|compare)\b", title):
-        return "website_visual_quality_unverified"
+        return None if website_capable() else "website_visual_quality_unverified"
     if (re.search(r"\b(?:build|develop|code|program|implement|redesign|create)\b"
                   r".{0,65}\b(?:web app|application|website|webpage|dashboard|"
                   r"landing page|software)\b", title) and
@@ -456,11 +543,12 @@ def assess(details, messages=None, sources=None, unreadable_count=0):
         "to the exact requested list, fields, sourcing, and requested quantity. "
         "Never fabricate names, decision makers, emails, sites, or claimed verification. "
         "It can produce PDF and DOCX reports from completed original text using "
-        "real local document-generation tools, CSV or XLSX tables, and self-contained "
-        "experimental static landing-page source ZIP files. That experimental "
-        "builder is not eligible for paid website jobs until professional visual "
-        "and responsive review are verified. Never bid on website design work. "
-        "Do not promise browser screenshot QA or pixel-perfect visual design. It cannot "
+        "real local document-generation tools, CSV or XLSX tables. "
+        "For narrow, explicitly static one-page site SOURCE commissions, it can "
+        "produce a responsive source ZIP through a licensed design resource "
+        "and actually render the result on desktop/mobile browsers. Never promise "
+        "pixel-perfect reproduction, bespoke branding assets, backend functionality, "
+        "a live URL, domain, hosting or deploy. It cannot "
         "edit the buyer's website, run or test untrusted code, browse authenticated "
         "systems, make images/videos, "
         "or inspect other private file formats. Do not bid on tasks needing those abilities. "
@@ -655,6 +743,9 @@ def handle_open(item, state):
 
 def produce(details, messages, verification_feedback="", quality_feedback="", sources=None,
             research=None):
+    if static_site_eligible(details) and website_capable():
+        return produce_website(details, messages,
+                               quality_feedback or verification_feedback, sources=sources)
     system = (
         "You are Gambit, completing an already HIRED commercial task. Follow the buyer's "
         "instructions exactly within the actual capabilities of this digital-work runtime. "
@@ -681,13 +772,6 @@ def produce(details, messages, verification_feedback="", quality_feedback="", so
         "deliverable_format to pdf or docx respectively. Actual file generation and "
         "read-back validation are handled by the runtime. Never claim to supply "
         "fillable PDF forms, electronic signatures, or unsupported layout features. "
-        "For an explicitly static single-page HTML/CSS website with source files "
-        "rather than a hosted URL, output one complete HTML5 document with "
-        "embedded CSS and optional inline JavaScript in deliverable_text, set "
-        "deliverable_format to site_zip. Include a viewport meta tag, a title, "
-        "head, and body. Do not use remote dependencies, external images, "
-        "network requests, external fonts, or server-side features. The runtime "
-        "packages and verifies the site source as a ZIP, not a live deployment. "
         "For a requested summary, analysis, or narrative report with no explicit "
         "file-format requirement, prefer a readable, finished prose answer in "
         "deliverable_format text; an attached source CSV does not mean the buyer "
@@ -719,6 +803,24 @@ def produce(details, messages, verification_feedback="", quality_feedback="", so
 
 
 def review(details, work, sources=None):
+    if work.get("deliverable_format") == "site_zip":
+        system = (
+            "Strict commercial website content reviewer. Examine the actual buyer brief, "
+            "the structured text used to produce a responsive static website and the "
+            "independent browser render evidence. Approve only when every requested "
+            "source-only requirement is met, the copy is specific and grounded in "
+            "the brief, the offered services are not fabricated, the working links "
+            "use only verified buyer URLs or internal anchors, and both desktop/mobile "
+            "screenshot checks passed. Reject mismatched brand, unsupported promises, "
+            "placeholders, unverifiable guarantees and missing required sections. "
+            "This is a static-source ZIP only: never infer that it has been hosted. "
+            "Return strict JSON with approved and reason."
+        )
+        return infer(REVIEW_SCHEMA, system,
+                     {"task": clean_context(details, sources=sources),
+                      "page_content": work.get("_site_spec"),
+                      "browser_render": work.get("_site_review_evidence") or {}},
+                     num_predict=230, num_ctx=8000)
     system = (
         "Strict quality controller. Compare commissioned instructions/verification criteria "
         "to draft. Reject missing deliverables, placeholder prose, made-up citations, "
@@ -972,19 +1074,28 @@ def handle_hired(item, state):
                 normalized_content = content
             elif format_name in {"pdf", "docx"}:
                 normalized_content = make_document(format_name, content)
-            elif format_name == "site_zip" and static_site_eligible(details):
-                normalized_content = pack_static_site(content)
+            elif (format_name == "site_zip" and static_site_eligible(details)
+                  and website_capable() and result.get("_site_binary")):
+                render_evidence = render_browser_evidence(
+                    result["_site_html"], asset_files=result["_site_assets"])
+                normalized_content = result["_site_binary"]
+                result["_site_review_evidence"] = {
+                    label: {name: value for name, value in metrics.items()
+                            if name != "screenshot"}
+                    for label, metrics in render_evidence.items()}
             else:
                 raise ValueError("unsupported_output_format")
         except ValueError as exc:
             quality = {"approved": False, "reason":
+                       ("Website render or file verification failed: " + str(exc)
+                        if format_name == "site_zip" else
                        ("CSV citations must match actually read source pages or buyer files"
                         if "source URL" in str(exc) else
                         "CSV needs a header and consistently sized data rows, "
                         "including when creating an Excel workbook"
                         if "invalid_csv" in str(exc) else
                        "Output must match the buyer's requested final format and "
-                       "the resulting file must pass generation and read-back validation")}
+                       "the resulting file must pass generation and read-back validation"))}
         else:
             digest = key("content", normalized_content)
             if failure_reason and previous.get("content_digest") == digest:

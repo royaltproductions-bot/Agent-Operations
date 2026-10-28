@@ -8,14 +8,15 @@ from __future__ import annotations
 
 import io
 from pathlib import Path
+import shutil
 import tempfile
 
 
 VIEWPORTS = {"desktop": (1440, 900), "mobile": (390, 844)}
 
 
-def render_browser_evidence(html_text, preview_dir=None):
-    """Render one generated page at two sizes and return in-memory evidence."""
+def render_browser_evidence(html_text, preview_dir=None, asset_files=None):
+    """Render a page and any bundled assets at desktop and mobile viewports."""
     from playwright.sync_api import sync_playwright
     from PIL import Image, ImageStat
 
@@ -25,8 +26,21 @@ def render_browser_evidence(html_text, preview_dir=None):
     with tempfile.TemporaryDirectory(prefix="gambit-visual-qa-") as workdir:
         page_path = Path(workdir) / "index.html"
         page_path.write_text(html_text, encoding="utf-8")
+        for name, content in (asset_files or {}).items():
+            path = Path(name)
+            if (path.is_absolute() or ".." in path.parts or not isinstance(content, bytes) or
+                    len(content) > 500_000):
+                raise ValueError("visual_qa_unsafe_asset")
+            target = Path(workdir) / path
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(content)
         with sync_playwright() as playwright:
-            browser = playwright.chromium.launch(channel="chrome", headless=True)
+            chrome_path = shutil.which("google-chrome")
+            chromium_path = shutil.which("chromium")
+            if not chrome_path and not chromium_path:
+                raise ValueError("visual_qa_browser_missing")
+            browser = playwright.chromium.launch(executable_path=chrome_path or chromium_path,
+                                                 headless=True)
             try:
                 for label, (width, height) in VIEWPORTS.items():
                     page = browser.new_page(viewport={"width": width, "height": height},
