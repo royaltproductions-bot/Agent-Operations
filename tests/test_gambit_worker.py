@@ -1,6 +1,7 @@
 """Offline contract checks: no fake opportunities, secret leaks or duplicate bids."""
 from contextlib import redirect_stdout
 from datetime import datetime, timedelta, timezone
+from importlib.util import find_spec
 import io
 import json
 import os
@@ -415,6 +416,7 @@ class GambitTests(unittest.TestCase):
                          'attachment1')
         self.assertEqual(state['bounties']['b1']['submission_id'], 's1')
 
+    @unittest.skipUnless(find_spec('openpyxl'), 'openpyxl installed when work is dispatched')
     def test_hired_excel_result_submits_real_xlsx_attachment(self):
         details = {'bounty': {'_id': 'b1', 'status': 'claimed',
                               'title': 'Find 2 business leads', 'payout_cents': 2800},
