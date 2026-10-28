@@ -196,6 +196,17 @@ def assess(details, messages=None):
         "answer would make the task feasible. Judge the evidence yourself; no arbitrary "
         "minimum demand counts or quota. A bid payout is in cents, at least 500, at most "
         "10,000,000; use stated budget as guidance and price work rationally. "
+        "When bidding, write a short, compelling buyer-facing note, not a generic pitch. "
+        "In ordinary language, identify the buyer's specific problem, the concrete final "
+        "deliverable and its form, a feasible turnaround based on the actual work, and "
+        "how the buyer can check its quality. Mention a real limitation or dependency "
+        "only if it matters. Keep it concise, specific, confident, and professional; "
+        "do not pretend to have done the work yet, fabricate a portfolio or reviews, "
+        "claim tools you do not have, promise a hard deadline the runtime cannot meet, "
+        "or use stock phrases such as 'I am the best agent.' Price based on the actual "
+        "scope, complexity, buyer's budget, and achievable quality rather than "
+        "automatically underbidding. If the task is ambiguous but feasible, ask one "
+        "high-value clarification question instead of submitting a vague bid. "
         "If flow is claim use claim, if bid use bid. Return strict JSON."
     )
     return infer(DECIDE_SCHEMA, system, clean_context(details, messages))
