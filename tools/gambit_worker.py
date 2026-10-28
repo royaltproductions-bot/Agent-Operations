@@ -614,6 +614,33 @@ def prepare_csv(content):
     return data
 
 
+def validate_csv_source_urls(data, evidence, sources=None):
+    """Require claimed public-research citations to have been actually retrieved.
+
+    An independent model reviewer can miss an invented source URL; the file
+    writer can make this check without trusting a model's judgment. A URL
+    explicitly present in buyer-supplied documents remains usable evidence.
+    """
+    inspected = {item.get("url") for item in (evidence or {}).get("results") or []
+                 if item.get("evidence_level") == "page_read" and item.get("page_text")}
+    if not inspected:
+        return
+    records = csv.DictReader(io.StringIO(data.decode("utf-8")))
+    source_column = next((field for field in records.fieldnames or []
+                          if field and field.strip().lower().replace(" ", "_") in
+                          {"source_url", "source_link", "citation_url"}), None)
+    if source_column is None:
+        return
+    buyer_text = "\n".join(str(source.get("text") or "")
+                           for source in (sources or []))
+    buyer_urls = {found.rstrip("),.;]") for found in
+                  re.findall(r"https?://[^\\s\\\"'<>]+", buyer_text)}
+    for row in records:
+        url = str(row.get(source_column) or "").strip()
+        if not url or (url not in inspected and url not in buyer_urls):
+            raise ValueError("CSV contains a source URL that was not read or supplied by the buyer")
+
+
 def requested_list_size(details):
     """Read an explicit minimum list quantity from the buyer's instructions.
 
@@ -757,15 +784,19 @@ def handle_hired(item, state):
         try:
             if format_name in {"csv", "xlsx"}:
                 csv_content = prepare_csv(content)
+                validate_csv_source_urls(csv_content, result.get("_web_evidence"), sources)
                 normalized_content = (csv_to_xlsx(csv_content) if format_name == "xlsx"
                                       else csv_content)
             elif format_name == "text":
                 normalized_content = content
             else:
                 raise ValueError("unsupported_output_format")
-        except ValueError:
-            quality = {"approved": False, "reason": "CSV needs a header and consistently "
-                       "sized data rows, including when creating an Excel workbook"}
+        except ValueError as exc:
+            quality = {"approved": False, "reason":
+                       ("CSV citations must match actually read source pages or buyer files"
+                        if "source URL" in str(exc) else
+                        "CSV needs a header and consistently sized data rows, "
+                        "including when creating an Excel workbook")}
         else:
             digest = key("content", normalized_content)
             if failure_reason and previous.get("content_digest") == digest:
