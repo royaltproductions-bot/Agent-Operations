@@ -1,0 +1,83 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T09:32:36.518279+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 0,
+    "source_counts": {},
+    "search_provider_counts": {},
+    "source_errors": [
+      {
+        "source": "research_coverage",
+        "reason": "no_new_public_sources",
+        "queries_attempted": [
+          "looking for someone to create a paid digital product",
+          "hiring a freelancer to build a useful paid tool",
+          "need paid help with a digital project that delivers value",
+          "can anyone create a paid digital solution for this",
+          "looking for an independent creator to produce a paid result"
+        ]
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 0,
+    "candidates_without_email": 0,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [],
+    "search_queries": [],
+    "attempted_search_queries": [
+      "looking for someone to create a paid digital product",
+      "hiring a freelancer to build a useful paid tool",
+      "need paid help with a digital project that delivers value",
+      "can anyone create a paid digital solution for this",
+      "looking for an independent creator to produce a paid result"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 0,
+      "skipped_revisits": 2,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create a paid digital product",
+        "hiring a freelancer to build a useful paid tool",
+        "need paid help with a digital project that delivers value",
+        "can anyone create a paid digital solution for this",
+        "looking for an independent creator to produce a paid result"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 139,
+      "known_pages": 730
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_research_results_found"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "public_buyers_reachable": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
