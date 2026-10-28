@@ -394,6 +394,12 @@ def unsupported_deliverable(details):
                       r".{0,40}\b(?:website|web app|webpage|landing page|application|server|api)\b",
                       requested + " " + verification)):
         return "software_deployment"
+    # A browser-parseable ZIP is not evidence of professional visual quality.
+    # Until automated render, responsive layout and visual review are part of
+    # fulfillment, this source-only builder is not commercially eligible.
+    if static_site_eligible(details) and not re.search(
+            r"\b(?:research|audit|review|analysis|analyze|compare)\b", title):
+        return "website_visual_quality_unverified"
     if (re.search(r"\b(?:build|develop|code|program|implement|redesign|create)\b"
                   r".{0,65}\b(?:web app|application|website|webpage|dashboard|"
                   r"landing page|software)\b", title) and
@@ -451,9 +457,9 @@ def assess(details, messages=None, sources=None, unreadable_count=0):
         "Never fabricate names, decision makers, emails, sites, or claimed verification. "
         "It can produce PDF and DOCX reports from completed original text using "
         "real local document-generation tools, CSV or XLSX tables, and self-contained "
-        "static landing-page source ZIP files with syntax-checked HTML, CSS and "
-        "JavaScript. Static websites are eligible only when the buyer asks for "
-        "source files, not live hosting, accounts, backend, or production deployment. "
+        "experimental static landing-page source ZIP files. That experimental "
+        "builder is not eligible for paid website jobs until professional visual "
+        "and responsive review are verified. Never bid on website design work. "
         "Do not promise browser screenshot QA or pixel-perfect visual design. It cannot "
         "edit the buyer's website, run or test untrusted code, browse authenticated "
         "systems, make images/videos, "
