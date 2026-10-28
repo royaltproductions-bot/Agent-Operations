@@ -1,0 +1,59 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T01:47:31.186227+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 1,
+    "source_counts": {
+      "open_web": 1
+    },
+    "search_provider_counts": {
+      "bing": 1
+    },
+    "source_errors": [],
+    "fetched_public_pages": 1,
+    "candidates_without_email": 1,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "freely available business proposal opportunities 2026"
+    ],
+    "attempted_search_queries": [
+      "public invitation to submit proposals for website development 2026",
+      "request for proposals for digital marketing services 2026",
+      "open bid for content creation services 2026",
+      "freely available business proposal opportunities 2026"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 1,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "public invitation to submit proposals for website development 2026",
+        "request for proposals for digital marketing services 2026",
+        "open bid for content creation services 2026",
+        "freely available business proposal opportunities 2026"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 138,
+      "known_pages": 651
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
