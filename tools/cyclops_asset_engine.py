@@ -281,8 +281,11 @@ def firsthand_problem_excerpt(row):
     problem=re.compile(
         r"(?i)\b(?:need (?:to|help|someone|a|an)|struggl\w*|can't|cannot|"
         r"hard to|difficult to|trying to|looking for|wish (?:I|we)|"
-        r"frustrat\w*|issues? with|problem with|stuck with|takes? (?:me|us) "
-        r"(?:hours|days)|how (?:do|can) (?:I|we))\b")
+        r"frustrat\w*|issues? with|problem(?:s)?\b|stuck(?: with)?|"
+        r"stumped|no luck|not working|doesn't work|didn't work|won't work|"
+        r"couldn't (?:fix|solve|figure)|didn't (?:fix|solve|cure)|"
+        r"any ideas|any suggestions|what's wrong|"
+        r"takes? (?:me|us) (?:hours|days)|how (?:do|can) (?:I|we))\b")
     for chunk in chunks:
         sentence=" ".join(chunk.split())
         if 24<=len(sentence)<=900 and speaker.search(sentence) and problem.search(sentence):

@@ -211,6 +211,11 @@ class CyclopsEfficiencyTests(unittest.TestCase):
         self.assertEqual(cyclops.firsthand_problem_excerpt(dictionary_example),"")
         request={"page_fetched":True,"page_text":"I need help reconciling my invoices every Friday because I keep losing the original transactions."}
         self.assertIn("reconciling my invoices",cyclops.firsthand_problem_excerpt(request))
+        forum={"page_fetched":True,"title":"Printer support discussion",
+               "page_text":"A relative's printer started printing only in black. "
+                           "I reinstalled its drivers, but it didn't cure the problem. "
+                           "Would anyone have any ideas?"}
+        self.assertIn("didn't cure the problem",cyclops.firsthand_problem_excerpt(forum))
 
     def test_legacy_bytes_only_listing_is_not_marketed_as_verified(self):
         cyclops=cyclops_or_skip(self)
