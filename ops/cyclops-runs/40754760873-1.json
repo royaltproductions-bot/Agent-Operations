@@ -1,0 +1,137 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-28T19:32:43.646173+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 1,
+      "duckduckgo": 11,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "verified_firsthand_problem_pages": 1,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 14,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=47927175",
+        "title": "Ask HN: Will fixed applications become a thing of the past with agentic AI?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://ginexys.com/blog/posts/extract-tables-from-pdf-without-uploading/",
+        "title": "How to extract tables from a PDF without uploading it anywhere",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://github.com/matthewrenze/rename-images",
+        "title": "GitHub - matthewrenze/rename-images: A python script to rename image ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://luleit.com/tools/pdf-to-excel",
+        "title": "PDF to Excel \u2014 Extract Tables Without Uploading \u2014 Luleit",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://github.com/matthewrenze/rename-images/blob/master/Rename.py",
+        "title": "rename-images/Rename.py at master \u00b7 matthewrenze/rename-images - GitHub",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/power-automate/desktop-flows/actions-reference/pdf",
+        "title": "PDF actions reference - Power Automate | Microsoft Learn",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 16,
+    "search_queries": [
+      "python script to batch rename image files by date",
+      "automate pdf table extraction for excel without cloud",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 3,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "automate pdf table extraction for excel without cloud",
+        "python script to batch rename image files by date",
+        "downloadable tool to convert markdown to word with formatting",
+        "script to extract email addresses from scanned documents"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 137,
+      "known_pages": 918
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:The discussion on HN suggests a potential shift in how users interact with their devices, but it lacks concrete evidence of demand or a clear product idea. The other candidates are"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0,
+    "product_pages": 0,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "no_saleable_products",
+    "indexable_product_pages": 0,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 14,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:The discussion on HN suggests a potential shift in how users interact with their devices, but it lacks concrete evidence of demand o"
+  }
+}
