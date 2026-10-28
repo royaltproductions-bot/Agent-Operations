@@ -12,6 +12,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import sys
 import urllib.error
 import urllib.parse
@@ -22,6 +23,13 @@ STATE_PATH = Path("ops/gambit/state.json")
 MODEL = os.getenv("GAMBIT_MODEL", "qwen3:8b")
 OLLAMA = "http://127.0.0.1:11434/api/chat"
 MAX_PAGES = 20
+MAX_TEXT_FILE_BYTES = 12_000
+MAX_SOURCE_CHARS = 16_000
+TEXT_FORMATS = {
+    "text/plain", "text/markdown", "text/csv", "text/tab-separated-values",
+    "application/json", "application/x-ndjson", "application/jsonl",
+}
+TEXT_SUFFIXES = {".txt", ".md", ".csv", ".tsv", ".json", ".jsonl"}
 
 
 def timestamp():
@@ -74,6 +82,77 @@ def pages(endpoint, collection):
     raise RuntimeError("pagination_limit_reached")
 
 
+class AttachmentRedirect(urllib.request.HTTPRedirectHandler):
+    """Accept short-lived HTTPS download redirects without forwarding the API key."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        target = urllib.parse.urlsplit(newurl)
+        if target.scheme != "https" or not target.hostname:
+            raise RuntimeError("unsafe_attachment_redirect")
+        return urllib.request.Request(newurl, method="GET",
+                                      headers={"User-Agent": "AriOperations-Gambit/1.0"})
+
+
+def read_text_attachment(meta):
+    """Read only bounded UTF-8 files made available through TryBounty's attachment API."""
+    attachment_id = str(meta.get("id") or meta.get("attachment_id") or "")
+    if not re.fullmatch(r"[A-Za-z0-9_-]{1,128}", attachment_id):
+        raise ValueError("attachment_id_unavailable")
+    filename = str(meta.get("filename") or meta.get("name") or "")[:100]
+    mime = str(meta.get("content_type") or meta.get("contentType") or "").split(";")[0].lower()
+    if mime not in TEXT_FORMATS and not (not mime or mime == "application/octet-stream"):
+        raise ValueError("unsupported_attachment_format")
+    if mime not in TEXT_FORMATS and Path(filename.lower()).suffix not in TEXT_SUFFIXES:
+        raise ValueError("unsupported_attachment_format")
+    size = meta.get("size")
+    if size is not None and int(size) > MAX_TEXT_FILE_BYTES:
+        raise ValueError("attachment_too_large")
+    credential = os.environ.get("BOUNTY_AGENT_API_KEY")
+    if not credential:
+        raise RuntimeError("BOUNTY_AGENT_API_KEY not configured")
+    request = urllib.request.Request(
+        BASE + "/v1/agent/attachments/" + attachment_id,
+        headers={"Authorization": "Bearer " + credential,
+                 "User-Agent": "AriOperations-Gambit/1.0"})
+    with urllib.request.build_opener(AttachmentRedirect()).open(request, timeout=35) as response:
+        content = response.read(MAX_TEXT_FILE_BYTES + 1)
+    if len(content) > MAX_TEXT_FILE_BYTES:
+        raise ValueError("attachment_too_large")
+    return content.decode("utf-8-sig")
+
+
+def text_sources(details, messages=None):
+    """Extract small plain-text reference files; never store buyer content in state."""
+    files = list(details.get("attachments") or [])
+    for message in messages or []:
+        if message.get("author_type") != "user":
+            continue
+        for part in message.get("parts") or []:
+            if part.get("type") in {"file", "image"}:
+                files.append(part.get("attachment") or part.get("file") or part)
+    sources, unreadable, seen = [], [], set()
+    remaining = MAX_SOURCE_CHARS
+    for meta in files:
+        attachment_id = str(meta.get("id") or meta.get("attachment_id") or "")
+        if attachment_id and attachment_id in seen:
+            continue
+        seen.add(attachment_id)
+        if not remaining:
+            unreadable.append("additional source exceeds context budget")
+            continue
+        try:
+            content = read_text_attachment(meta)
+            if len(content) > remaining:
+                raise ValueError("attachment_exceeds_context")
+        except (ValueError, UnicodeError, urllib.error.URLError, OSError) as exc:
+            unreadable.append(type(exc).__name__)
+            continue
+        sources.append({"filename": str(meta.get("filename") or "source.txt")[:100],
+                        "text": content})
+        remaining -= len(content)
+    return sources, unreadable
+
+
 def load_state():
     if not STATE_PATH.exists():
         return {"schema": 1, "bounties": {}, "events_cursor": None,
@@ -99,6 +178,7 @@ def note(state, action, bounty_id=None, **details):
 
 def relevant_events(state):
     events, cursor = [], state.get("events_cursor")
+    recovered = False
     for _ in range(MAX_PAGES):
         path = "/v1/agent/events?limit=100"
         if cursor:
@@ -106,8 +186,11 @@ def relevant_events(state):
         try:
             page = api(path)
         except RuntimeError as exc:
-            if "INVALID_CURSOR" in str(exc):
-                return [], None
+            if "INVALID_CURSOR" in str(exc) and not recovered and cursor:
+                # A stale cursor must not trap the worker in an infinite empty poll.
+                cursor, events, recovered = None, [], True
+                state["_cursor_reset"] = True
+                continue
             raise
         events.extend(page.get("events") or [])
         cursor = page.get("next_cursor") or cursor
@@ -126,11 +209,14 @@ def scan(state):
                 if e.get("type") in relevant and e.get("data", {}).get("bounty_id")}
     waiting = [item for item in opened
                if state["bounties"].get(str(item.get("_id")), {}).get("version") != item.get("version")
-               or str(item.get("_id")) in triggers]
+               or str(item.get("_id")) in triggers
+               or (state.get("_cursor_reset") and
+                   state["bounties"].get(str(item.get("_id")), {}).get("action") in
+                   {"asked", "bid_sent", "bid_active"})]
     active = [item for item in held if item.get("status") == "claimed" and (
         state["bounties"].get(str(item.get("_id")), {}).get("action") not in
         {"submitted", "awaiting_info", "quality_rejected", "needs_operator_review"}
-        or str(item.get("_id")) in triggers)]
+        or str(item.get("_id")) in triggers or state.get("_cursor_reset"))]
     return opened, held, events, cursor, waiting, active
 
 
@@ -174,7 +260,7 @@ REPLY_SCHEMA = {"type": "object", "properties": {
 }, "required": ["reply_text"], "additionalProperties": False}
 
 
-def clean_context(details, messages=None):
+def clean_context(details, messages=None, sources=None):
     bounty = details.get("bounty") or {}
     prior_bid = details.get("bid") or {}
     return {"title": bounty.get("title"), "instructions": bounty.get("description"),
@@ -188,19 +274,23 @@ def clean_context(details, messages=None):
                 {"filename": a.get("filename"), "content_type": a.get("contentType")}
                 for a in details.get("attachments") or []],
             "owner_messages": [{"text": ((m.get("content") or {}).get("text") or "")[:3000]}
-                               for m in (messages or []) if m.get("author_type") == "user"][-8:]}
+                               for m in (messages or []) if m.get("author_type") == "user"][-8:],
+            "source_files": sources or []}
 
 
-def assess(details, messages=None):
+def assess(details, messages=None, sources=None, unreadable_count=0):
     system = (
         "You are Gambit, an independent paid digital-work operator. Assess this REAL posted "
         "bounty. Choose bid or claim only if you can actually complete and verify every "
         "deliverable using only the text and information supplied in the Bounty, "
         "general analytical reasoning, and code delivered as plain text, without buyer "
         "credentials, paid tools, physical work, purchases or lying about a result. "
-        "This runtime cannot search the live web, edit the buyer's website, run or test "
-        "submitted code, browse authenticated systems, make images/videos, or access "
-        "private files. Do not bid on tasks whose success depends on those abilities. "
+        "This runtime can read only the small text, Markdown, CSV and JSON source files "
+        "included in source_files. It cannot search the live web, edit the buyer's "
+        "website, run or test code, browse authenticated systems, make images/videos, "
+        "or inspect other private file formats. Do not bid on tasks needing those abilities. "
+        "If an unreadable attachment is reported, bid only if the owner's messages "
+        "already contain sufficient replacement input to do the work faithfully. "
         "Reject high-stakes regulated professional advice and unclear/unsupported work. "
         "Do not promise unavailable capabilities. Ask one precise question if a missing "
         "answer would make the task feasible. Judge the evidence yourself; no arbitrary "
@@ -222,7 +312,10 @@ def assess(details, messages=None):
         "the same unsupported offer. If there is no honest improvement, pass. "
         "If flow is claim use claim, if bid use bid. Return strict JSON."
     )
-    return infer(DECIDE_SCHEMA, system, clean_context(details, messages))
+    context = clean_context(details, messages, sources)
+    context["unreadable_attachment_count"] = unreadable_count
+    return infer(DECIDE_SCHEMA, system, context,
+                 num_ctx=7500 if sources else 5500)
 
 
 def messages_for(bounty_id):
@@ -230,19 +323,23 @@ def messages_for(bounty_id):
 
 
 def respond_to_buyer(details, messages):
+    sources, unreadable = text_sources(details, messages)
     system = (
         "You are Gambit, replying to the latest private buyer message about an "
         "existing paid-work bid. Answer the actual question briefly and helpfully. "
         "Be truthful about capabilities, timing, and the exact offered deliverable. "
-        "This runtime can currently provide only plain-text analysis, writing, "
-        "structured data, and code drafts; it cannot browse the live web, "
-        "access private accounts/files, run code, or operate a buyer's website. "
+        "This runtime can provide plain-text analysis, writing, structured data, "
+        "and code drafts, and read small text/Markdown/CSV/JSON files supplied in "
+        "source_files. It cannot browse the live web, access private accounts or "
+        "unsupported file types, run code, or operate a buyer's website. "
         "Never claim work already done, invent credentials/reviews, or agree to "
         "spending, outside payments, contracts, or unsupported services. "
         "If the buyer has not asked for a response, return an empty reply_text. "
         "Return strict JSON."
     )
-    return infer(REPLY_SCHEMA, system, clean_context(details, messages), num_predict=500)
+    context = clean_context(details, messages, sources)
+    context["unreadable_attachment_count"] = len(unreadable)
+    return infer(REPLY_SCHEMA, system, context, num_predict=500)
 
 
 def handle_open(item, state):
@@ -263,7 +360,7 @@ def handle_open(item, state):
         declined_token = candidate
     if bid.get("status") == "active" and bid.get("bounty_version") == version:
         last_reply_id = previous.get("last_owner_reply_id")
-        owner_trigger = any(e.get("type") == "work.message.created" and
+        owner_trigger = state.get("_cursor_reset") or any(e.get("type") == "work.message.created" and
                             e.get("data", {}).get("bounty_id") == bounty_id
                             for e in CURRENT_EVENTS)
         if owner_trigger:
@@ -288,7 +385,12 @@ def handle_open(item, state):
     messages = (sorted(messages_for(bounty_id), key=lambda m: m.get("created_at") or 0)
                 if previous.get("action") in {"asked", "bid_sent", "bid_active"}
                 or bid.get("status") == "declined" else [])
-    decision = assess(details, messages)
+    sources, unreadable = text_sources(details, messages)
+    if unreadable and not messages:
+        decision = {"decision": "ask" if current.get("flow") == "bid" else "pass",
+                    "question": "I can analyze small text, Markdown, CSV, or JSON files. Could you paste the essential contents of the other attachments here?"}
+    else:
+        decision = assess(details, messages, sources, len(unreadable))
     action = decision["decision"]
     if action == "ask" and current.get("flow") == "bid":
         question = decision.get("question", "").strip()[:3000]
@@ -323,7 +425,7 @@ def handle_open(item, state):
         note(state, action, bounty_id, version=version)
 
 
-def produce(details, messages, verification_feedback="", quality_feedback=""):
+def produce(details, messages, verification_feedback="", quality_feedback="", sources=None):
     system = (
         "You are Gambit, completing an already HIRED commercial task. Follow the buyer's "
         "instructions exactly within the actual capabilities of this plain-text runtime. "
@@ -337,15 +439,16 @@ def produce(details, messages, verification_feedback="", quality_feedback=""):
         "would do instead of the result. If quality feedback is present, specifically "
         "correct the stated defect rather than repeating the same draft. Return strict JSON."
     )
-    context = clean_context(details, messages)
+    context = clean_context(details, messages, sources)
     if verification_feedback:
         context["verification_feedback"] = verification_feedback[:1500]
     if quality_feedback:
         context["quality_feedback"] = quality_feedback[:1500]
-    return infer(WORK_SCHEMA, system, context, num_predict=3500, num_ctx=6500)
+    return infer(WORK_SCHEMA, system, context, num_predict=3500,
+                 num_ctx=9500 if sources else 6500)
 
 
-def review(details, work):
+def review(details, work, sources=None):
     system = (
         "Strict quality controller. Compare commissioned instructions/verification criteria "
         "to draft. Reject missing deliverables, placeholder prose, made-up citations, "
@@ -353,8 +456,9 @@ def review(details, work):
         "Approve only a self-contained original text result suitable for submission. "
         "Return strict JSON."
     )
-    return infer(REVIEW_SCHEMA, system, {"task": clean_context(details), "draft": work},
-                 num_predict=250, num_ctx=6500)
+    return infer(REVIEW_SCHEMA, system,
+                 {"task": clean_context(details, sources=sources), "draft": work},
+                 num_predict=250, num_ctx=9500 if sources else 6500)
 
 
 def handle_hired(item, state):
@@ -379,12 +483,16 @@ def handle_hired(item, state):
         # A genuine verification failure reopens the assignment for revision.
         if not any(e.get("type") == "submission.verification_failed" and
                    e.get("data", {}).get("bounty_id") == bounty_id
-                   for e in CURRENT_EVENTS):
+                   for e in CURRENT_EVENTS) and not state.get("_cursor_reset"):
             return
-    if (details.get("attachments") or [] or any(
-            p.get("type") == "file" for m in incoming for p in (m.get("parts") or []))):
-        # Do not pretend to have read private attachments this runtime cannot parse.
-        question = "This assignment includes files I cannot inspect in my current text-only runtime. Please paste the essential data and exact format requirements into our work conversation."
+    sources, unreadable = text_sources(details, incoming)
+    buyer_supplied_text = bool(previous.get("action") == "awaiting_info" and
+                               previous.get("last_message") != last_message and
+                               any((m.get("content") or {}).get("text") for m in incoming))
+    if unreadable and not buyer_supplied_text:
+        question = ("I can read small text, Markdown, CSV, and JSON files, but some "
+                    "provided files were unsupported or too large. Please paste the "
+                    "essential contents and required output format here.")
         api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/messages", "POST", {
             "content": {"type": "text", "text": question},
             "idempotency_key": key("file-question", bounty_id, claim["claim_id"])})
@@ -395,8 +503,15 @@ def handle_hired(item, state):
     feedback_events = [e for e in CURRENT_EVENTS
                        if e.get("type") == "submission.verification_failed" and
                        e.get("data", {}).get("bounty_id") == bounty_id]
-    failure_reason = str(feedback_events[-1].get("data", {}).get("reason") or "") if feedback_events else ""
-    result = produce(details, incoming, failure_reason)
+    failure_reason = (str(feedback_events[-1].get("data", {}).get("reason") or
+                          feedback_events[-1].get("data", {}).get("verification_reason") or "")
+                      if feedback_events else "")
+    if (not failure_reason and state.get("_cursor_reset") and
+            previous.get("action") == "submitted"):
+        latest = details.get("latest_submission") or {}
+        failure_reason = str(latest.get("verification_reason") or
+                             "The previous submission returned to active work; re-check the requirements and revise it.")
+    result = produce(details, incoming, failure_reason, sources=sources)
     if result.get("status") == "need_information":
         question = str(result.get("question") or "").strip()
         if question:
@@ -422,16 +537,29 @@ def handle_hired(item, state):
         if failure_reason and previous.get("content_digest") == digest:
             quality = {"approved": False, "reason": "Unchanged after failed verification"}
         else:
-            quality = review(details, result)
+            quality = review(details, result, sources=sources)
         if quality.get("approved") is True:
             break
         if attempt == 0:
             note(state, "quality_revision_attempt", bounty_id)
             result = produce(details, incoming, failure_reason,
-                             str(quality.get("reason") or "The deliverable failed quality review"))
+                             str(quality.get("reason") or "The deliverable failed quality review"),
+                             sources=sources)
             if result.get("status") != "ready":
                 break
     if quality.get("approved") is not True or result.get("status") != "ready":
+        if result.get("status") == "need_information":
+            question = str(result.get("question") or "").strip()
+            if question:
+                api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/messages", "POST", {
+                    "content": {"type": "text", "text": question[:4000]},
+                    "idempotency_key": key("quality-info", bounty_id, claim["claim_id"],
+                                           last_message, question)})
+                state["bounties"][bounty_id] = {
+                    "action": "awaiting_info", "claim_id": claim["claim_id"],
+                    "last_message": last_message, "payout_cents": earned_if_completed}
+                note(state, "awaiting_info", bounty_id)
+                return
         state["bounties"][bounty_id] = {"action": "quality_rejected", "claim_id": claim["claim_id"],
                                         "payout_cents": earned_if_completed}
         note(state, "quality_rejected", bounty_id)
@@ -442,12 +570,15 @@ def handle_hired(item, state):
                           "label": str(result.get("deliverable_title") or "Completed work")[:100],
                           "data": {"text": content}}],
         "idempotency_key": submission_key})
+    submission_id = (receipt.get("submission_id") or
+                     (receipt.get("submission") or {}).get("id") or
+                     (receipt.get("submission") or {}).get("_id"))
     state["bounties"][bounty_id] = {"action": "submitted", "claim_id": claim["claim_id"],
-                                    "submission_id": receipt.get("submission_id"),
+                                    "submission_id": submission_id,
                                     "content_digest": digest, "payout_cents": earned_if_completed,
                                     "at": timestamp()}
     note(state, "submitted_for_verification", bounty_id,
-         submission_id=receipt.get("submission_id"))
+         submission_id=submission_id)
 
 
 CURRENT_EVENTS = []
@@ -460,7 +591,8 @@ def run(mode="run"):
     CURRENT_EVENTS = events
     if mode == "probe":
         needs_model = bool(waiting or active)
-        needs_run = needs_model or bool(events)
+        needs_run = (needs_model or bool(events) or state.get("_cursor_reset") or
+                     cursor != state.get("events_cursor"))
         output = os.environ.get("GITHUB_OUTPUT")
         if output:
             with open(output, "a", encoding="utf-8") as f:
@@ -504,6 +636,9 @@ def run(mode="run"):
     # Failed handlers must see the same events on the next run.
     if not failures:
         state["events_cursor"] = cursor
+    reset_recovered = state.pop("_cursor_reset", False)
+    if not failures and reset_recovered:
+        note(state, "event_cursor_recovered")
     state["last_check"] = timestamp()
     save_state(state)
     print(json.dumps({"open": len(opened), "active": len(active), "evaluated": len(waiting[:8]),
