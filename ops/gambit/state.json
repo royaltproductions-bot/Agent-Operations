@@ -1,14 +1,14 @@
 {
   "bounties": {
     "mx72q5yhr8a957eezp17js3wgs8h4769": {
-      "action": "bid_sent",
-      "at": "2026-10-28T19:26:29.424637+00:00",
+      "action": "bid_active",
       "last_declined_bid": null,
+      "last_owner_reply_id": "qd77bzqfb4624hzvm09tchxxcn8h4paz",
       "version": 1
     }
   },
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxLCJjaGVja3BvaW50QXQiOjE3OTMyMTUzODY3MjN9",
-  "last_check": "2026-10-28T19:26:29.425125+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoyLCJjaGVja3BvaW50QXQiOjE3OTMyMTY0OTUxMjR9",
+  "last_check": "2026-10-28T19:42:55.831892+00:00",
   "recent_outcomes": [
     {
       "action": "bid_sent",
@@ -16,6 +16,11 @@
       "bounty_id": "mx72q5yhr8a957eezp17js3wgs8h4769",
       "payout_cents": 25000,
       "version": 1
+    },
+    {
+      "action": "buyer_replied",
+      "at": "2026-10-28T19:42:55.831384+00:00",
+      "bounty_id": "mx72q5yhr8a957eezp17js3wgs8h4769"
     }
   ],
   "schema": 1
