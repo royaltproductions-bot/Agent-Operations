@@ -58,9 +58,15 @@ def analysis_case():
                 "month,sales\nJanuary,147\nFebruary,92\nMarch,181\n"}]
     result = worker.produce(bounty, [], sources=sources,
                             research={"status": "not_needed", "results": []})
-    if result.get("status") != "ready" or result.get("deliverable_format") != "text":
-        raise AssertionError("analysis_model_not_ready")
+    if result.get("status") != "ready" or result.get("deliverable_format") not in {
+            "text", "csv", "xlsx"}:
+        raise AssertionError("analysis_model_not_ready: " + repr({
+            "status": result.get("status"), "format": result.get("deliverable_format"),
+            "reason": str(result.get("reason") or "")[:150],
+            "preview": str(result.get("deliverable_text") or "")[:500]}))
     content = str(result.get("deliverable_text") or "")
+    if result.get("deliverable_format") in {"csv", "xlsx"}:
+        worker.prepare_csv(content)
     for value in ("420", "140", "March", "181"):
         if not re.search(rf"\b{re.escape(value)}\b", content, re.I):
             raise AssertionError("analysis_missing_expected_result: " + repr(content[:900]))
@@ -74,7 +80,7 @@ if __name__ == "__main__":
             outcomes.append(run_case())
         except Exception as exc:
             outcomes.append({"case": run_case.__name__, "result": "failed",
-                             "reason": type(exc).__name__ + ":" + str(exc)[:90]})
+                             "reason": type(exc).__name__ + ":" + str(exc)[:1000]})
     print(json.dumps({"gambit_real_model_benchmark": outcomes}))
     if any(item["result"] != "passed" for item in outcomes):
         raise SystemExit(1)

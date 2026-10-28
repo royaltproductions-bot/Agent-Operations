@@ -626,6 +626,26 @@ class GambitTests(unittest.TestCase):
         self.assertIn('Only cite pages actually read', produce.call_args.args[3])
         self.assertEqual(state['bounties']['b1']['action'], 'submitted')
 
+    def test_undeliverable_claim_requests_buyer_input_without_operator_stall(self):
+        details = {'bounty': {'_id': 'b1', 'status': 'claimed', 'payout_cents': 2000},
+                   'claim': {'status': 'active', 'claim_id': 'c1'}}
+        state = {'bounties': {}, 'recent_outcomes': []}
+        cannot = {'status': 'cannot_deliver', 'question': '',
+                  'reason': 'source material unavailable'}
+        def request(path, method='GET', payload=None):
+            return details if method == 'GET' else {'message_id': 'request1'}
+        with patch.object(gambit, 'api', side_effect=request) as api, \
+             patch.object(gambit, 'messages_for', return_value=[]), \
+             patch.object(gambit, 'produce', return_value=cannot) as produce:
+            gambit.handle_hired({'_id': 'b1'}, state)
+            gambit.handle_hired({'_id': 'b1'}, state)
+        self.assertEqual(produce.call_count, 1)
+        self.assertEqual(state['bounties']['b1']['action'], 'awaiting_info')
+        requests = [c for c in api.call_args_list
+                    if len(c.args) > 1 and c.args[1] == 'POST']
+        self.assertEqual(len(requests), 1)
+        self.assertIn('/messages', requests[0].args[0])
+
     def test_repeated_quality_failure_notifies_buyer_once(self):
         details = {'bounty': {'_id': 'b1', 'status': 'claimed', 'payout_cents': 1800},
                    'claim': {'status': 'active', 'claim_id': 'c1'}}
