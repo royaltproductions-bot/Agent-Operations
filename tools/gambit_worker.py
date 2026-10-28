@@ -22,6 +22,7 @@ import urllib.request
 
 from tools.gambit_documents import (MAX_BINARY_BYTES, convert_document,
                                     csv_to_xlsx, kind_for)
+from tools.gambit_analytics import summarize_csv_sources
 
 BASE = "https://api.trybounty.ai"
 STATE_PATH = Path("ops/gambit/state.json")
@@ -535,6 +536,9 @@ def produce(details, messages, verification_feedback="", quality_feedback="", so
         "If the available evidence cannot meet the buyer's requested criteria and "
         "quantity, do not claim to have completed it. Never invent research sources, "
         "measurements, tests, credentials, code execution, or successful deployments. "
+        "For numeric analysis of buyer-provided CSVs, use calculated_csv_statistics "
+        "for exact arithmetic, sums, averages, and highest/lowest records; report "
+        "missing values rather than treating them as zero. "
         "When a buyer requests a CSV table, output actual valid CSV with one header "
         "row and data rows in deliverable_text; set deliverable_format to csv. "
         "When a buyer specifically requests an Excel XLSX spreadsheet, output the "
@@ -552,6 +556,7 @@ def produce(details, messages, verification_feedback="", quality_feedback="", so
         "correct the stated defect rather than repeating the same draft. Return strict JSON."
     )
     context = clean_context(details, messages, sources)
+    context["calculated_csv_statistics"] = summarize_csv_sources(sources)
     evidence = research if research is not None else research_for(details, messages, sources)
     context["web_evidence"] = evidence
     if verification_feedback:
@@ -581,6 +586,7 @@ def review(details, work, sources=None):
     return infer(REVIEW_SCHEMA, system,
                  {"task": clean_context(details, sources=sources),
                   "draft": {k: v for k, v in work.items() if not k.startswith("_")},
+                  "calculated_csv_statistics": summarize_csv_sources(sources),
                   "web_evidence": work.get("_web_evidence") or {}},
                  num_predict=250, num_ctx=15000 if (work.get("_web_evidence") or {}).get("results")
                  else (9500 if sources else 6500))
