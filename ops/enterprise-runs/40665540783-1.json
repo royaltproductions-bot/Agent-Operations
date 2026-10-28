@@ -1,0 +1,135 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T09:39:34.918333+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 7,
+    "source_counts": {
+      "open_web": 7
+    },
+    "search_provider_counts": {
+      "duckduckgo": 3,
+      "bing": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 6,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 5,
+    "public_source_sample": [
+      {
+        "url": "https://millo.co/how-to-hire-a-freelancer",
+        "title": "How to Hire a Freelancer: The Complete Guide (From Someone Who ... - Millo",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://www.indeed.com/career-advice/finding-a-job/how-to-hire-freelancer",
+        "title": "How To Hire a Freelancer in 9 Steps (With Benefits) - Indeed",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.freelancer.com/job-search/online-paid-projects/",
+        "title": "Online paid projects Jobs, Employment | Freelancer",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://www.upwork.com/hire/online-help-freelancers/us/",
+        "title": "Best Online Help Providers in the United States (Oct 2026) - Upwork",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.indeed.com/hire/how-to-hire/freelancer",
+        "title": "How to Hire a Freelancer [Updated 2026] - Indeed",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://www.upwork.com/hire/online-help-freelancers/",
+        "title": "Best Freelance Online Help Providers for Hire (Oct 2026) - Upwork",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "hiring a freelancer to produce a useful paid result",
+      "need paid help with a digital project"
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to produce a useful paid result",
+      "need paid help with a digital project",
+      "can anyone create a paid digital solution",
+      "looking for a solo creator to develop a paid tool",
+      "hiring a remote operator for a paid digital task"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to produce a useful paid result",
+        "need paid help with a digital project",
+        "can anyone create a paid digital solution",
+        "looking for a solo creator to develop a paid tool",
+        "hiring a remote operator for a paid digital task"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 139,
+      "known_pages": 737
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:No explicit invitation for a relevant outside provider, no public business contact route, and no specific reques"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "public_buyers_reachable": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
