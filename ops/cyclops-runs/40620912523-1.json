@@ -1,0 +1,74 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-28T02:35:32.139048+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 3,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 3
+    },
+    "search_provider_counts": {
+      "bing": 1,
+      "hn_ask": 2
+    },
+    "source_errors": [],
+    "fetched_public_pages": 3,
+    "verified_firsthand_problem_pages": 3,
+    "candidates_without_email": 3,
+    "search_queries": [
+      "how to properly clean a pet's ears without causing pain",
+      "why is my phone battery draining so fast even when not in use"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 3,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "how to fix a leaking faucet without turning off the main water valve",
+        "best way to organize a cluttered garage without buying storage units",
+        "how to properly clean a pet's ears without causing pain",
+        "why is my phone battery draining so fast even when not in use"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 138,
+      "known_pages": 711
+    },
+    "durable_contactable_sources": 23
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:e1dc250d19a538b72ced:ValueError:production_script_syntax_invalid:invalid syntax",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:e1dc250d19a538b72ced:ValueError:production_script_syntax_invalid:invalid syntax"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
