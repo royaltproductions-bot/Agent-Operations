@@ -1,0 +1,133 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T06:01:15.281789+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 7,
+    "source_counts": {
+      "open_web": 7
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 7,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=46432041",
+        "title": "Debugging for Systems Programming Learning",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46316913",
+        "title": "The reason smart founders pick bad startup ideas",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45898498",
+        "title": "AI vs. the cheating: lessons from building a national exam integrity system",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44701167",
+        "title": "Ask HN: Any recommended classes/trainings for an already-talented junior SWE?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44523166",
+        "title": "I built a AI transcription app because my girlfriend needed one for uni",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=42140644",
+        "title": "Discussion: Trump Is Changing the Game: What's Next for Tech Startups?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a simple data dashboard with real-time updates",
+      "need paid help with developing a low-code app for event registration"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a simple data dashboard with real-time updates",
+      "hiring a freelancer to create a paid course on YouTube about beginner UX design",
+      "need paid help with developing a low-code app for event registration",
+      "can anyone create a marketing funnel for a new SaaS product with lead magnets",
+      "looking for someone to design a paid course outline for a niche online certification"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 5,
+      "executed_queries": [
+        "looking for someone to build a simple data dashboard with real-time updates",
+        "hiring a freelancer to create a paid course on YouTube about beginner UX design",
+        "need paid help with developing a low-code app for event registration",
+        "can anyone create a marketing funnel for a new SaaS product with lead magnets",
+        "looking for someone to design a paid course outline for a niche online certification"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 138,
+      "known_pages": 706
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
