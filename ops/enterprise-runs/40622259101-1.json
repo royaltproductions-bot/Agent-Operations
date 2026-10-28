@@ -1,0 +1,105 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T02:42:25.079720+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "hn_ask": 6
+    },
+    "source_errors": [],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 6,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=46244742",
+        "title": "Ask HN: Anyone else doing login-free trials with localStorage tokens?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45919623",
+        "title": "Apply with me for W26",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=42607157",
+        "title": "Ask HN: What data model are you using for RAG prototyping?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=40136693",
+        "title": "Ask HN: Simple Auth for Website",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=39755317",
+        "title": "Feels like this tiny box is the only safe place on internet to share what I do",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37871045",
+        "title": "Ask HN: Compliance for EIDAS Defined Advanced Electronic Signatures",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to create a simple data analysis dashboard with Python"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create a simple data analysis dashboard with Python",
+      "hiring a freelancer to build a paid lead magnet landing page",
+      "need paid help with designing a mobile-first email newsletter template",
+      "can anyone create a short explainer video for a SaaS product",
+      "looking for someone to develop a basic WordPress plugin for user tracking"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 2,
+      "executed_queries": [
+        "looking for someone to create a simple data analysis dashboard with Python",
+        "hiring a freelancer to build a paid lead magnet landing page",
+        "need paid help with designing a mobile-first email newsletter template",
+        "can anyone create a short explainer video for a SaaS product",
+        "looking for someone to develop a basic WordPress plugin for user tracking"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 138,
+      "known_pages": 673
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
