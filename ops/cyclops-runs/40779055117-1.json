@@ -1,0 +1,126 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-28T22:21:34.746852+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 10,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 10
+    },
+    "search_provider_counts": {
+      "duckduckgo": 10
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 10,
+    "verified_firsthand_problem_pages": 2,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 10,
+    "public_market_sample": [
+      {
+        "url": "https://www.productdatascrape.com/scrape-data-from-any-ecommerce-websites.php",
+        "title": "E-commerce data scraping - Product Data Scrape",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.sejda.com/pdf-forms",
+        "title": "Create Fillable PDF Online - Sejda",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.zenrows.com/use-cases/ecommerce-web-scraping",
+        "title": "Ecommerce Web Scraping API for Product Data \u00b7 Zenrows",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://legaltemplates.net/resources/pdf/create-a-fillable-pdf/",
+        "title": "How to Create a Fillable PDF (Step-by-Step Guide)",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.productdatascrape.com/",
+        "title": "E-Commerce Data Scraping Services \u2014 US, UK, India & UAE",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://pdfbear.com/pdf-forms",
+        "title": "Create & Fill PDF Forms Online | PDFBEAR",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 8,
+    "search_queries": [
+      "buy template for scraping product data from e-commerce sites",
+      "how to create a self-contained PDF form filler"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 10,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "buy template for scraping product data from e-commerce sites",
+        "how to create a self-contained PDF form filler",
+        "purchase script to extract email addresses from website headers",
+        "downloadable Python script for batch image watermarking"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 140,
+      "known_pages": 957
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:The observed market for e-commerce data scraping is highly competitive with multiple established players offering similar services. The lack of listed prices and sales counts makes"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0,
+    "product_pages": 0,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "no_saleable_products",
+    "indexable_product_pages": 0,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 10,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:The observed market for e-commerce data scraping is highly competitive with multiple established players offering similar services. "
+  }
+}
