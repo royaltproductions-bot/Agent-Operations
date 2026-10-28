@@ -1,0 +1,133 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T10:08:56.882054+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "duckduckgo": 10,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 14,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://blink.new/build/feedback-tool",
+        "title": "How to Build a Customer Feedback Tool with AI (2026)",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.freelancer.com/projects/web-design/lead-generation-landing-page-design",
+        "title": "Lead Generation Landing Page Design - Freelancer",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://lovable.dev/solutions/use-case/full-stack-app-customer-feedback-tools",
+        "title": "Build Customer Feedback Tools with AI | Lovable",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.upwork.com/hire/landing-pages-freelancers/",
+        "title": "Best Freelance Landing Page Designers for Hire (Oct 2026) - Upwork",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://startup.unitelvoice.com/best-customer-feedback-tools",
+        "title": "Best Customer Feedback Tools for Small Businesses of 2026",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.toptal.com/designers/landing-page",
+        "title": "11 Best Freelance Landing Page Designers for Hire in October ... - Toptal\u00ae",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a simple customer feedback tool",
+      "hiring a freelancer to design a lead generation landing page"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a simple customer feedback tool",
+      "hiring a freelancer to design a lead generation landing page",
+      "need paid help with creating a social media content calendar",
+      "can anyone create a data visualization dashboard for sales metrics"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 1,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a simple customer feedback tool",
+        "hiring a freelancer to design a lead generation landing page",
+        "need paid help with creating a social media content calendar",
+        "can anyone create a data visualization dashboard for sales metrics"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 763
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "public_buyers_reachable": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
