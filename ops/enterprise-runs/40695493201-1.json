@@ -1,0 +1,132 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T13:22:05.810078+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 10,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 16,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/mohameddtrabelsiiii-crypto/hamma/issues/11",
+        "title": "Zenvocloud: zero-cost first-customer acquisition sprint",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/scottonchain/microcredit-agent-testbed/issues/17",
+        "title": "BOOTSTRAP-001: paid AI work and resource access, then human earnings",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/DeveloperAlly/solana-hack/issues/2",
+        "title": "PRD: Waterlily for Brands, verified official brand content (onchain provenance) with partner licensing and ambassador pa",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/me-fake-you/clearsheet-offers/issues/3",
+        "title": "Revenue reset: prioritize verified cashflow over infrastructure",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/jain-Igtm/CashGPT/issues/1",
+        "title": "CashGPT Live Room",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.softr.io/create/affiliate-marketing-dashboard",
+        "title": "Build a custom affiliate marketing dashboard | Softr",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-29 build simple affiliate",
+      "looking for someone to build a simple affiliate marketing dashboard",
+      "can anyone create a basic WordPress plugin for lead capture",
+      "hiring a freelancer to make a paid course landing page"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a simple affiliate marketing dashboard",
+      "can anyone create a basic WordPress plugin for lead capture",
+      "looking for someone to develop a low-code checkout system",
+      "hiring a freelancer to make a paid course landing page"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a simple affiliate marketing dashboard",
+        "can anyone create a basic WordPress plugin for lead capture",
+        "looking for someone to develop a low-code checkout system",
+        "hiring a freelancer to make a paid course landing page"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 140,
+      "known_pages": 825
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
