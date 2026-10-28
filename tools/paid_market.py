@@ -19,9 +19,22 @@ PRICE=re.compile(r"(?i)(?<![\w])(?:US\s*)?\$\s*(\d+(?:\.\d{1,2})?)\b")
 BUY_CONTROL=re.compile(
     r"(?i)\b(?:add to (?:cart|basket)|cart|buy now|purchase|checkout|"
     r"subscribe|order now|buy|pay now|purchase now|hire now)\b")
+
+EDITORIAL_TITLE=re.compile(
+    r"(?i)\b(?:(?:best|top|compare|review(?:s)? of)\b.{0,60}"
+    r"(?:apps?|software|tools?|products?|services?|templates?|alternatives?)|"
+    r"(?:complete guide|how to|buyers? guide|comparison|roundup))\b")
+
+def is_editorial_market_page(row):
+    """Articles citing other sellers' prices are not storefront listings."""
+    path=urlsplit(str(row.get("source_url") or "")).path.lower()
+    title=str(row.get("title") or "")
+    return bool(EDITORIAL_TITLE.search(title) or re.search(
+        r"/(?:blog|blogs|articles|guides|resources|news|reviews|learn)/",path))
+
 def observed_paid_listing(row):
     """Observe a publicly offered paid product; sales count is optional."""
-    if not row.get("page_fetched"):
+    if not row.get("page_fetched") or is_editorial_market_page(row):
         return None
     body=" ".join(str(row.get("page_text") or "").split())
     if len(body)<120:

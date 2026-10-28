@@ -8,6 +8,7 @@ import json
 from unittest.mock import patch
 from tools import open_web_discovery as web
 from tools import autonomous_commerce_brain as brain
+from tools import paid_market
 
 
 def cyclops_or_skip(test):
@@ -21,6 +22,42 @@ def cyclops_or_skip(test):
 
 
 class WebEfficiencyTests(unittest.TestCase):
+    def test_comparison_article_price_is_not_a_direct_paid_listing(self):
+        article={"page_fetched":True,
+                 "source_url":"https://example.org/blogs/top-budget-apps",
+                 "title":"Best Budget Apps for 2026",
+                 "page_text":"Budget App X costs $19.99 and you can buy it now. "*12}
+        self.assertIsNone(paid_market.observed_paid_listing(article))
+        direct={**article,"title":"Budget App X - Purchase",
+                "source_url":"https://example.org/products/budget-x"}
+        self.assertEqual(
+            paid_market.observed_paid_listing(direct)["listed_price_usd"],"19.99")
+
+    def test_cyclops_buyer_request_survives_queue_persistence(self):
+        cyclops=cyclops_or_skip(self)
+        request={"id":"web:buyer","source_url":"https://example.org/open-request",
+                 "title":"Open request for freelance reporting support",
+                 "contact":"proposals@example.org","page_fetched":True,
+                 "page_text":"We are seeking a freelancer to design a weekly report. Send a proposal to proposals@example.org.",
+                 "text":"We are seeking a freelancer to design a weekly report. Send a proposal to proposals@example.org."}
+        saved=[]
+        with patch.object(cyclops,"read_private",side_effect=lambda path: saved), \
+             patch.object(cyclops,"save_private",side_effect=lambda path,rows:saved.extend(rows)):
+            self.assertEqual(len(cyclops.durable_distribution_leads([request])),1)
+            self.assertEqual(len(cyclops.durable_distribution_leads([])),1)
+
+    def test_public_paid_issue_source_uses_original_open_issue_body(self):
+        raw={"items":[{"state":"open","title":"Open bounty for dashboard export",
+                       "body":"We are offering a paid bounty for a developer to build a reusable dashboard export feature. Contact bids@example.org for details.",
+                       "html_url":"https://github.com/organization/repo/issues/42",
+                       "created_at":"2026-10-28T08:00:00Z"}]}
+        with patch.object(web,"_open",return_value=("https://api.github.com/search/issues","application/json",json.dumps(raw).encode())):
+            rows=web.github_paid_issue_candidates(["dashboard export"])
+        self.assertEqual(len(rows),1)
+        self.assertEqual(rows[0]["search_provider"],"github_paid_issues")
+        self.assertEqual(rows[0]["contact"],"bids@example.org")
+        self.assertIn("paid bounty",rows[0]["page_text"])
+
     def test_google_html_recovers_direct_source_links(self):
         html='''<a href="/url?q=https%3A%2F%2Fmerchant.example%2Fproduct%2F1&amp;sa=U"><h3>Paid Digital Asset</h3></a>'''
         with patch.object(web,"_open",return_value=("https://www.google.com/search", "text/html",html.encode())):
@@ -294,6 +331,17 @@ class WorkshopOwnershipTests(unittest.TestCase):
 
 
 class CyclopsEfficiencyTests(unittest.TestCase):
+    def test_wolverine_does_not_treat_hiring_article_as_direct_buyer(self):
+        from tools import autonomous_commerce_brain as brain
+        tutorial={"page_fetched":True,"title":"How to Hire a Freelancer: The Complete Guide",
+                  "contact":"info@site.example",
+                  "page_text":"Looking for a designer? Learn how to hire a freelancer here."}
+        self.assertFalse(brain.public_buyer_invitation(tutorial))
+        invitation={**tutorial,"title":"Open paid request for designer"}
+        self.assertTrue(brain.public_buyer_invitation(invitation))
+        with self.assertRaisesRegex(ValueError,"model_price_invalid"):
+            brain.normalize_price_usd("0.00")
+
     def test_model_judges_public_offer_before_workshop(self):
         cyclops=cyclops_or_skip(self)
         rows=[{

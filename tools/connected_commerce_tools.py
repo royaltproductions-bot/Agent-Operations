@@ -26,10 +26,7 @@ CHECKOUT_MERCHANT_NOTICE = "Ari Operations · Payments processed by Sirius Sage.
 
 TOOL_DEFINITIONS = {
     "stripe_offers": "Inspect current Stripe payment-link inventory.",
-    "buffer_distribution": "Inspect the connected Buffer distribution channel.",
     "repository_assets": "Inspect products, ventures, storefronts, and deliverable assets in the repository.",
-    "render_status": "Inspect the live Render deployment state.",
-    "render_deployment": "Deploy the latest committed storefront revision when Render reports it is needed.",
 }
 
 def _request(url, bearer="", method="GET", body=None, basic=False, extra_headers=None):
@@ -340,8 +337,10 @@ def capability_status():
         "github_actions":True,
         "stripe":bool(os.environ.get("STRIPE_SECRET_KEY")),
         "agentmail":bool(os.environ.get("AGENTMAIL_API_KEY")),
-        "buffer":bool(os.environ.get("BUFFER_API_KEY")),
-        "render":bool(os.environ.get("RENDER_API_KEY")),
+        # This runner has neither the advertised Buffer publisher module nor
+        # the Render deploy client. Do not report phantom execution pathways.
+        "buffer_distribution_available":False,
+        "render_deployment_available":False,
         "tools":TOOL_DEFINITIONS,
     }
 
@@ -391,16 +390,10 @@ def inspect_assets():
 def execute_tool(name,argument=""):
     if name=="stripe_offers":
         return inspect_stripe()
-    if name=="buffer_distribution":
-        return inspect_buffer()
     if name=="repository_assets":
         return inspect_assets()
-    if name=="render_status":
-        from tools.render_direct_api import render_status
-        return render_status()
-    if name=="render_deployment":
-        from tools.render_direct_api import deploy_site_if_needed
-        return deploy_site_if_needed()
+    if name in ("buffer_distribution","render_status","render_deployment"):
+        raise RuntimeError("advertised_external_distribution_not_connected")
     raise ValueError("unknown_commerce_tool")
 
 if __name__=="__main__":

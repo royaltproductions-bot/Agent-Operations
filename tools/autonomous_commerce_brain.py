@@ -230,7 +230,7 @@ def candidates(memory):
         max_candidates=max(8,budget["max_candidates"]),
         queries=queries,memory=memory,
         max_pages=budget["max_pages"],strict_relevance=True,
-        include_discussions=False)
+        include_discussions=False,include_paid_issues=True)
     if not rows:
         issues.append({"source":"research_coverage",
                        "reason":"no_new_public_sources",
@@ -248,8 +248,19 @@ PUBLIC_INVITATION=re.compile(
     r"(?:developer|designer|writer|consultant|agency|freelancer|contractor|provider|specialist)"
     r"|(?:looking for|seeking|hiring|need|we need) (?:a |an )?"
     r"(?:someone|freelancer|contractor|professional|provider) to\b"
+    r"|(?:open|paid|funded) bounty\b"
     r"|soliciting (?:proposals?|quotes?|bids?))\b"
 )
+
+# A how-to article about hiring is not itself a request to hire. Such pages
+# previously produced false 'reachable buyer' counts from their footer email.
+ADVICE_PAGE=re.compile(
+    r"(?i)\b(?:how to (?:hire|find|choose)|complete guide|"
+    r"(?:best|top) .{0,50}freelancers? for hire|"
+    r"freelancers? for hire|career advice|jobs?,? employment)\b")
+
+def is_requester_page(row):
+    return not bool(ADVICE_PAGE.search(str(row.get("title") or "")))
 
 
 def enrich_public_response_route(rows):
@@ -259,6 +270,7 @@ def enrich_public_response_route(rows):
     for source_row in rows:
         row=dict(source_row)
         if (row.get("contact") or not row.get("page_fetched")
+                or not is_requester_page(row)
                 or not PUBLIC_INVITATION.search(str(row.get("page_text") or ""))
                 or followed>=8):
             enriched.append(row)
@@ -300,6 +312,7 @@ def public_buyer_invitation(row):
     insufficient. The model still evaluates whether the actual ask fits.
     """
     return bool(row.get("page_fetched") and row.get("contact")
+                and is_requester_page(row)
                 and PUBLIC_INVITATION.search(str(row.get("page_text") or "")))
 
 
@@ -340,7 +353,7 @@ def normalize_price_usd(value):
         dollars=Decimal(raw)
     except InvalidOperation:
         raise ValueError("model_price_invalid") from None
-    if not dollars.is_finite() or dollars<0:
+    if not dollars.is_finite() or dollars<=0:
         raise ValueError("model_price_invalid")
     if dollars*100!=(dollars*100).to_integral_value():
         raise ValueError("model_price_subcent_precision")
@@ -608,7 +621,7 @@ def run():
                     if e.get("http_code") in (403,429,503) and e.get("provider")})
     receipt["operational_assessment"]={
         "commercial_progress":bool(receipt["economic_result"]["new_offers_sent"] or revenue),
-        "public_buyers_reachable":sum(public_buyer_invitation(r) for r in rows),
+        "candidate_pages_with_invitation_and_email":sum(public_buyer_invitation(r) for r in rows),
         "blocked_search_providers":blocked,
         "primary_bottleneck":("none" if receipt["economic_result"]["new_offers_sent"] or revenue else
                               "no_contactable_buyer_invitation" if not any(public_buyer_invitation(r) for r in rows)

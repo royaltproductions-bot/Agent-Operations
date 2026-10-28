@@ -6,7 +6,7 @@ relevance and external-action authorization are assessed by the calling agent.
 """
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from html import unescape
 import hashlib
 import ipaddress
@@ -423,9 +423,68 @@ def hn_ask_candidates(queries, memory=None, max_candidates=8):
                 return rows
     return rows
 
+
+def github_paid_issue_candidates(queries,memory=None,max_candidates=6):
+    """Supplement web search with original, recently opened paid task issues.
+
+    No marketplace account, site login, invented customer, or fixed digital
+    business model is required. A public issue is research, NOT permission to
+    contact its author; the commerce agent still checks an appropriate route.
+    """
+    fresh=(NOW()-timedelta(days=60)).date().isoformat()
+    searches=[]
+    for query in list(queries or [])[:3]:
+        terms=[w for w in search_terms(query) if w not in {
+            "someone","freelancer","hiring","paid","help","need","looking"}]
+        if terms:
+            searches.append(' '.join(terms[:3]))
+    searches.append("")
+    rows=[]
+    seen=set()
+    for phrase in dict.fromkeys(searches):
+        search=f'is:issue is:open bounty created:>={fresh} '+phrase
+        url="https://api.github.com/search/issues?"+urllib.parse.urlencode({
+            "q":search,"sort":"created","order":"desc","per_page":12})
+        try:
+            _,_,raw=_open(url,accept="application/vnd.github+json",limit=500000)
+            hits=json.loads(raw).get("items") or []
+        except (OSError,ValueError,TimeoutError):
+            continue
+        for hit in hits:
+            if hit.get("state")!="open" or hit.get("pull_request"):
+                continue
+            title=str(hit.get("title") or "")
+            body=str(hit.get("body") or "")
+            original=(title+"\n"+body).strip()
+            source_url=str(hit.get("html_url") or "")
+            if (len(original)<90 or not _public_url(source_url)
+                    or source_url in seen or title.lower().count("bounty")>2
+                    or re.search(r"(?i)\b(?:claiming bounty|bounty plaza|bounty bot)\b",title)
+                    or (memory and not memory.eligible_url(source_url))):
+                continue
+            seen.add(source_url)
+            contact=safe_email(original)
+            row={
+                "id":"web:"+hashlib.sha256(source_url.encode()).hexdigest()[:18],
+                "channel":"email" if contact else None,
+                "source":"open_web","search_provider":"github_paid_issues",
+                "search_query":search,"source_url":source_url,
+                "search_alignment":"original_open_issue",
+                "title":title[:500],"snippet":body[:900],
+                "contact":contact,"text":original[:8000],
+                "page_text":original[:8000],"page_fetched":True,
+                "created_at":hit.get("created_at"),"public_links":[],
+            }
+            rows.append(row)
+            if memory:
+                memory.observe_page(row)
+            if len(rows)>=max_candidates:
+                return rows
+    return rows
+
 def open_web_candidates(max_candidates=24, queries=None, memory=None,
                         max_pages=32, strict_relevance=True, allowed_hosts=None,
-                        include_discussions=True):
+                        include_discussions=True,include_paid_issues=False):
     """Search model-generated topics and progress along prior link discoveries.
 
     Budgets constrain this execution's page count; researched URLs
@@ -456,6 +515,13 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
                 max_candidates=max(3,min(9,max_candidates//2)))
         except Exception as exc:
             errors.append({"source":"hn_ask_search","reason":type(exc).__name__})
+    paid_issues=[]
+    if include_paid_issues and queries:
+        try:
+            paid_issues=github_paid_issue_candidates(
+                queries,memory=memory,max_candidates=max(2,min(8,max_candidates//3)))
+        except Exception as exc:
+            errors.append({"source":"github_paid_issues","reason":type(exc).__name__})
     streams=[]
     total_provider_hits=0
     providers=(("duckduckgo",duckduckgo_html),("google",google_html),
@@ -550,7 +616,7 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
         for follow in queued_followups:
             queue.append(("", "followup",follow))
 
-    results={r["source_url"]:r for r in primary_discussions}
+    results={r["source_url"]:r for r in primary_discussions+paid_issues}
     visited=set()
     page_budget=max(4,int(max_pages))
     for query,provider,hit in queue:

@@ -156,6 +156,15 @@ def discovery_queries(memory):
     system=(
         "You research markets where people have reasons to pay for a useful "
         "DIGITAL product that can be independently produced and delivered. "
+        "A realistic production team here is ONE operator with a local "
+        "Python workshop and common document, media, spreadsheet and code "
+        "tools. No hosted SaaS backend, proprietary data, always-on API "
+        "integration, paid subscription, or enterprise sales team is available. "
+        "Find finished, useful, self-contained items that this operator could "
+        "actually manufacture, describe honestly, and deliver after payment. "
+        "The item's value should be specific enough that a plausible buyer "
+        "could explain why it saves time, solves a recurring task, or meets a "
+        "concrete need. Do not restrict the product format or industry. "
         "Explore ORIGINAL public digital-product offers and firsthand buyer "
         "problems. A direct priced listing is valuable but not mandatory. "
         "Sales counters, reviews, buyer discussion, and "
@@ -168,7 +177,10 @@ def discovery_queries(memory):
         "NO predetermined industry, product form, niche or business model. "
         "Generate four to eight short, precise searches across materially "
         "DIFFERENT, SPECIFIC digital functions that an actual deliverable "
-        "could perform. Each query should identify a concrete use case, "
+        "could perform. Prefer queries matching how people list, discuss, "
+        "seek, or purchase a finished downloadable item; avoid generic "
+        "comparisons of major cloud platforms, whole apps, or corporate SaaS. "
+        "Each query should identify a concrete use case, "
         "buyer activity, or purchasable item—not generic phrases such as "
         "'digital products sales', 'SaaS pricing examples', or 'digital' "
         "definitions. Don't waste searches on dictionary pages, broad "
@@ -1027,16 +1039,71 @@ def publish_catalog():
     # accidentally advertise work that is already freely readable.
     ready=[a for a in manifests if catalog_eligible(a)]
     cards=[]
+    base_url="https://ari-operations.onrender.com"
+    pages=[]
+    modified=0
+    def publish_page(path,content):
+        nonlocal modified
+        target=Path("storefront/cyclops")/path
+        try:
+            if target.read_text(encoding="utf-8")==content:
+                return
+        except OSError:
+            pass
+        target.parent.mkdir(parents=True,exist_ok=True)
+        target.write_text(content,encoding="utf-8")
+        github_put("storefront/cyclops/"+path,content)
+        modified+=1
+
     for asset in sorted(ready,key=lambda a:str(a.get("created_at") or ""),reverse=True):
         name=escape(str(asset.get("title") or "Digital product"))
         desc=escape(str(asset.get("description") or ""))
         audience=escape(str(asset.get("audience") or ""))
         price=escape(str(asset.get("price_usd") or ""))
         link=escape(str(asset.get("checkout_url") or ""),quote=True)
+        slug=re.sub(r"[^a-z0-9-]","",re.sub(r"[ _]+","-",str(asset.get("title") or "product").lower()))[:58].strip("-")
+        slug=(slug or "product")+"-"+re.sub(r"[^a-z0-9]","",str(asset["asset_id"]).lower())[:10]
+        relative="/products/"+slug+"/"
+        canonical=base_url+relative
+        pages.append(canonical)
+        metadata={
+            "@context":"https://schema.org","@type":"Product",
+            "name":str(asset.get("title") or "Digital product"),
+            "description":str(asset.get("description") or "")[:500],
+            "url":canonical,
+            "brand":{"@type":"Brand","name":"Ari Operations"},
+            "offers":{"@type":"Offer","priceCurrency":"USD",
+                      "price":str(asset.get("price_usd") or ""),
+                      "availability":"https://schema.org/InStock",
+                      "url":str(asset.get("checkout_url") or "")},
+        }
+        jsonld=json.dumps(metadata,ensure_ascii=False).replace("<","\\u003c")
+        product_html='''<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="index,follow">
+<title>'''+name+''' | Ari Operations</title>
+<meta name="description" content="'''+escape(str(asset.get("description") or "")[:160],quote=True)+'''">
+<link rel="canonical" href="'''+canonical+'''">
+<meta property="og:type" content="product"><meta property="og:title" content="'''+escape(str(asset.get("title") or ""),quote=True)+'''">
+<meta property="og:description" content="'''+escape(str(asset.get("description") or "")[:180],quote=True)+'''">
+<meta property="og:url" content="'''+canonical+'''">
+<script type="application/ld+json">'''+jsonld+'''</script>
+<style>body{font:16px/1.65 system-ui,sans-serif;background:#f5f7f8;color:#182932;margin:0}
+main{max-width:850px;margin:0 auto;padding:45px 22px}article{background:white;padding:30px;border-radius:14px;border:1px solid #dbe3e7}
+.buy{display:inline-block;background:#155f65;color:white;padding:12px 20px;border-radius:8px;text-decoration:none}
+.price{font-size:1.5rem;font-weight:700}a{color:#155f65}</style></head><body><main>
+<nav><a href="/">Ari Operations · All products</a></nav>
+<article><h1>'''+name+'''</h1><p>'''+desc+'''</p>
+<p>Designed for: '''+audience+'''</p><p class="price">$'''+price+'''</p>
+<a class="buy" href="'''+link+'''" rel="noopener noreferrer">Buy securely with Stripe</a>
+<p>Payment processed by Sirius Sage. Digital delivery follows verified payment.</p>
+</article></main></body></html>'''
+        publish_page("products/"+slug+"/index.html",product_html)
         cards.append(
             '<article><h2>'+name+'</h2><p>'+desc+'</p>'
             '<p class="muted">For: '+audience+'</p>'
             '<p class="price">$'+price+'</p>'
+            '<a href="'+relative+'">Product details</a><br>'
             '<a class="buy" href="'+link+'" rel="noopener noreferrer">'
             'Buy securely with Stripe</a></article>')
     body="".join(cards) if cards else (
@@ -1049,9 +1116,10 @@ def publish_catalog():
     document='''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="index,follow">
+<meta name="robots" content="'''+('index,follow' if ready else 'noindex,follow')+'''">
 <title>Ari Operations | Digital Products &amp; Tools</title>
 <meta name="description" content="Digital products and tools by Ari Operations, with verified deliverables and secure checkout.">
+<link rel="canonical" href="https://ari-operations.onrender.com/">
 <style>
 body{font:16px/1.6 system-ui,-apple-system,sans-serif;background:#f5f7f8;color:#182932;margin:0}
 main{max-width:980px;margin:0 auto;padding:35px 20px 70px}
@@ -1066,18 +1134,18 @@ article{background:white;border:1px solid #dbe3e7;border-radius:14px;padding:24p
 <section>'''+body+'''</section>
 <p>Ari Operations · Questions? <a href="mailto:ari-operations@agentmail.to">Contact our digital products team</a>.</p>
 </main></body></html>'''
-    # Avoid an unnecessary storefront commit/deploy if the catalog has not changed.
-    try:
-        existing=(Path("storefront/cyclops/index.html").read_text(encoding="utf-8"))
-    except OSError:
-        existing=""
-    if existing==document:
-        return {"result":"catalog_unchanged","listed_products":len(ready)}
-    dest=Path("storefront/cyclops/index.html")
-    dest.parent.mkdir(parents=True,exist_ok=True)
-    dest.write_text(document,encoding="utf-8")
-    github_put("storefront/cyclops/index.html",document)
-    return {"result":"catalog_published","listed_products":len(ready)}
+    sitemap='''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+'''+''.join('<url><loc>'+escape(url)+'</loc></url>\n' for url in ([base_url+"/"] if ready else [])+pages)+'''</urlset>
+'''
+    robots='User-agent: *\nAllow: /\nSitemap: '+base_url+'/sitemap.xml\n'
+    publish_page("sitemap.xml",sitemap)
+    publish_page("robots.txt",robots)
+    # Update the catalog index last, after all linked product pages exist.
+    publish_page("index.html",document)
+    return {"result":"catalog_published" if modified else "catalog_unchanged",
+            "listed_products":len(ready),"product_pages":len(pages),
+            "files_updated":modified}
 
 
 def verified_session(session):
@@ -1219,9 +1287,13 @@ def durable_distribution_leads(new_rows):
     for item in previous:
         if isinstance(item,dict) and item.get("source_url"):
             by_url[item["source_url"]]=item
-    changed=False
+    from tools.autonomous_commerce_brain import public_buyer_invitation
+    # Historical footer emails and vendor pages are not commercial prospects.
+    by_url={url:row for url,row in by_url.items() if public_buyer_invitation(row)}
+    # Re-save a scrubbed queue after removing old seller/footer contacts.
+    changed=len(by_url)!=len(previous)
     for row in new_rows:
-        if not row.get("contact") or not row.get("page_fetched"):
+        if not public_buyer_invitation(row):
             continue
         url=str(row.get("source_url") or "")
         if not url:
@@ -1230,7 +1302,9 @@ def durable_distribution_leads(new_rows):
             "id":row["id"],"source_url":url,"source":"open_web",
             "title":str(row.get("title") or "")[:180],
             "text":str(row.get("text") or "")[:6000],
+            "page_text":str(row.get("page_text") or "")[:6000],
             "contact":row["contact"],"page_fetched":True,
+            "contact_source_url":str(row.get("contact_source_url") or "")[:400],
             "search_query":str(row.get("search_query") or "")[:220],
         }
         changed=True
@@ -1240,6 +1314,24 @@ def durable_distribution_leads(new_rows):
     if changed:
         save_private(path,pool)
     return pool
+
+
+def find_asset_buyers(asset,memory):
+    """Search buyer solicitations separately from competing-product research."""
+    terms=[str(t).strip() for t in asset.get("target_terms") or []
+           if len(str(t).strip())>=4]
+    if not terms:
+        terms=[str(asset.get("title") or "").strip()]
+    queries=[]
+    for term in dict.fromkeys(terms[:4]):
+        queries.append('"'+term[:75]+'" "looking for" freelance project')
+        queries.append('"'+term[:75]+'" "need someone" paid work')
+    rows,errors=open_web_candidates(
+        max_candidates=12,queries=queries[:6],memory=memory,
+        max_pages=16,strict_relevance=True,include_discussions=False,
+        include_paid_issues=True)
+    from tools.autonomous_commerce_brain import public_buyer_invitation
+    return [row for row in rows if public_buyer_invitation(row)],errors
 
 
 def prospect_score(row,asset):
@@ -1462,8 +1554,9 @@ def run():
                               "reason":(str(exc) or type(exc).__name__)[:160]}
     receipt["discovery"]["research_memory"]=memory.save()
     try:
-        distribution_rows=durable_distribution_leads(rows)
-        receipt["discovery"]["durable_contactable_sources"]=len(distribution_rows)
+        # Competitor listings and editorial articles are not buyer lists.
+        distribution_rows=durable_distribution_leads([])
+        receipt["discovery"]["public_contact_addresses_in_history"]=len(distribution_rows)
     except Exception as exc:
         distribution_rows=rows
         receipt["structural_failures"].append({
@@ -1473,9 +1566,19 @@ def run():
     # Existing products are marketed independently of new manufacturing.
     assets=active_assets()
     marketable=[a for a in assets if catalog_eligible(a)]
+    receipt["buyer_discovery"]=[]
     for existing in marketable:
-        if not distribution_rows:
-            break
+        try:
+            prospective,errors=find_asset_buyers(existing,memory)
+            distribution_rows=durable_distribution_leads(prospective)
+            receipt["buyer_discovery"].append({
+                "asset_id":existing["asset_id"],
+                "valid_public_invitations":len(prospective),
+                "search_issues":errors[:4]})
+        except Exception as exc:
+            receipt["buyer_discovery"].append({
+                "asset_id":existing["asset_id"],
+                "error":type(exc).__name__})
         try:
             action=send_asset_offer(distribution_rows,existing)
             if action.get("result")=="offer_sent":
@@ -1515,7 +1618,13 @@ def run():
             }
             # The store listing and checkout can now progress even without email.
             receipt["catalog"]=publish_catalog()
-            if distribution_rows and receipt["external_action"] is None:
+            if receipt["external_action"] is None:
+                prospective,errors=find_asset_buyers(asset,memory)
+                distribution_rows=durable_distribution_leads(prospective)
+                receipt["buyer_discovery"].append({
+                    "asset_id":asset["asset_id"],
+                    "valid_public_invitations":len(prospective),
+                    "search_issues":errors[:4]})
                 action=send_asset_offer(distribution_rows,asset)
                 receipt["external_action"]=action
                 if action.get("result")=="offer_sent":
@@ -1584,12 +1693,14 @@ def run():
     blocked=sorted({str(e.get("provider")) for e in receipt["discovery"].get("source_errors",[])
                     if e.get("http_code") in (403,429,503) and e.get("provider")})
     receipt["operational_assessment"]={
-        "commercial_progress":bool(receipt["economic_result"]["new_asset_created"]
-                                    or receipt["economic_result"]["new_product_offers_sent"]
+        "commercial_progress":bool(receipt["economic_result"]["new_product_offers_sent"]
                                     or receipt["economic_result"]["verified_cyclops_revenue_cents_seen"]),
+        "production_progress":bool(receipt["economic_result"]["new_asset_created"]),
         "public_sources_reviewable":receipt["discovery"].get("public_sources_available_for_judgment",0),
         "blocked_search_providers":blocked,
-        "primary_bottleneck":("none" if receipt["economic_result"]["new_asset_created"] else
+        "primary_bottleneck":("none" if receipt["economic_result"]["new_product_offers_sent"]
+                              or receipt["economic_result"]["verified_cyclops_revenue_cents_seen"] else
+                              "no_customer_distribution" if receipt["economic_result"]["new_asset_created"] else
                               "no_firsthand_market_source" if not receipt["discovery"].get("public_sources_available_for_judgment")
                               else str(receipt["production"].get("reason") or receipt["production"].get("result") or "unknown")[:160]),
     }
