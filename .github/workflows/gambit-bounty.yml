@@ -174,7 +174,7 @@ jobs:
           exit 1
 
       - name: Continue the free Gambit watch chain
-        if: always() && steps.probe.outputs.connected == 'true'
+        if: (success() || failure()) && steps.probe.outputs.connected == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
           GAMBIT_PRIOR_JOB_STATUS: ${{ job.status }}
