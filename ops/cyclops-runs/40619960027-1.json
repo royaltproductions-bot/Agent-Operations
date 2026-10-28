@@ -1,0 +1,75 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-28T02:19:30.452007+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 9,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "bing": 1
+    },
+    "source_errors": [],
+    "fetched_public_pages": 9,
+    "verified_firsthand_problem_pages": 2,
+    "candidates_without_email": 9,
+    "search_queries": [
+      "what are the most frustrating parts of using a smart TV",
+      "how do people deal with persistent back pain at home",
+      "how to fix broken smartphone screen without professional help"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 1,
+      "executed_queries": [
+        "how to fix broken smartphone screen without professional help",
+        "what are common issues with smart thermostats and how to troubleshoot",
+        "how do people deal with persistent back pain at home",
+        "what are the most frustrating parts of using a smart TV"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 137,
+      "known_pages": 708
+    },
+    "durable_contactable_sources": 23
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:66af4e9c36f7aba1955f:e with placeholder text. It lacks actual scheduling functionality, GPS integration, weather data, or seasonal task planning. It does not fulfill the promised digital tool",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:66af4e9c36f7aba1955f:e with placeholder text. It lacks actual scheduling functionality, GPS integration, weather data, or seasonal task planning. It does not fulfill the promised digital tool"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
