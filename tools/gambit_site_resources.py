@@ -25,6 +25,21 @@ PALETTES = {
 }
 
 
+def static_site_eligible(details: dict) -> bool:
+    """Only source-only frontend work; server features need different resources."""
+    bounty = details.get("bounty") or {}
+    joined = " ".join(str(bounty.get(name) or "") for name in
+                      ("title", "description", "verification")).lower()
+    if not re.search(r"\b(?:static|landing page|one.page|single.page|html|css|"
+                     r"front.end|portfolio page|webpage mockup)\b", joined):
+        return False
+    if re.search(r"\b(?:backend|back.end|database|login|authentication|server.side|"
+                 r"payments?|stripe|shopify|wordpress|user accounts?|api integration|"
+                 r"production deployment)\b", joined):
+        return False
+    return True
+
+
 def resources_available() -> bool:
     return (RESOURCE_DIR / "output.css").is_file() and (RESOURCE_DIR / "LICENSE").is_file()
 

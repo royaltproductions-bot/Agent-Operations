@@ -12,7 +12,6 @@ import os
 import re
 from zipfile import ZipFile
 
-from tools.gambit_sites import pack_static_site
 from tools.gambit_visual_qa import render_browser_evidence
 
 from tools import gambit_worker as worker
@@ -79,31 +78,45 @@ def analysis_case():
 
 
 def static_site_case():
-    """Use the production LLM and real bundler, without touching a paid Bounty."""
+    """Exercise the SAME licensed-resource production path as paid Bounties."""
     bounty = {"bounty": {
-        "title": "Build a static HTML landing page for Summit Soap",
-        "description": "Create one self-contained, mobile-responsive HTML landing page "
-                       "for a fictional handmade soap brand called Summit Soap. "
-                       "Include a headline, product benefits section and a visible "
-                       "Contact Us call to action. Use embedded CSS and no external "
-                       "fonts, images, scripts, or network requests.",
-        "verification": "Deliver a ZIP containing the standalone index.html source, "
-                        "with responsive CSS and no server or live hosting."}}
+        "title": "Build a static landing page for Summit Soap",
+        "description": "Create a mobile-responsive source-only landing page for "
+                       "Summit Soap, a fictional independent handmade soap studio. "
+                       "The studio offers handmade olive-oil soap bars, seasonal soap "
+                       "gift boxes, and a beginner soap-making workshop. The soap is "
+                       "designed for everyday cleansing, the gift boxes combine "
+                       "different scents, and the workshops introduce the craft. "
+                       "The page should explain those three offerings, introduce the "
+                       "studio, describe how visitors choose an offering and contact "
+                       "the studio, and use a visible button labeled Explore services. "
+                       "No public contact information is available, so the button "
+                       "must link to the services section. No external images, "
+                       "analytics, tracking or form submissions are needed.",
+        "verification": "Deliver a static ZIP of source files including index.html, "
+                        "locally bundled CSS, and responsive design; no live hosting."}}
     result = worker.produce(bounty, [], research={"status": "not_needed", "results": []})
     if result.get("status") != "ready" or result.get("deliverable_format") != "site_zip":
         raise AssertionError("static_site_model_wrong_output_format: " + repr({
             "status": result.get("status"), "format": result.get("deliverable_format"),
             "reason": str(result.get("reason") or "")[:180]}))
-    archive = pack_static_site(str(result.get("deliverable_text") or ""))
+    archive = result.get("_site_binary")
+    if not isinstance(archive, bytes):
+        raise AssertionError("static_site_not_delivered_as_actual_source_zip")
     import io
     with ZipFile(io.BytesIO(archive)) as bundle:
         html = bundle.read("index.html").decode("utf-8")
-    if ("summit soap" not in html.lower() or "contact us" not in html.lower() or
-            "<style" not in html.lower()):
+        css = bundle.read("assets/custom.css")
+        framework = bundle.read("assets/framework.css")
+    text = re.sub(r"<[^>]+>", " ", html).lower()
+    if (not all(word in text for word in ("summit soap", "soap", "gift", "workshop")) or
+            "explore services" not in text or not css or not framework or
+            '<link rel="stylesheet"' not in html):
         raise AssertionError("static_site_missing_required_content")
     preview_dir = os.environ.get("GAMBIT_BENCHMARK_PREVIEW_DIR")
-    viewports = render_browser_evidence(html, preview_dir=preview_dir)
-    return {"case": "self_contained_static_site", "result": "passed",
+    viewports = render_browser_evidence(html, preview_dir=preview_dir,
+                                        asset_files=result["_site_assets"])
+    return {"case": "licensed_resource_static_site", "result": "passed",
             "zip_bytes": len(archive),
             "rendered_viewports": list(viewports),
             "desktop_heading_px": viewports["desktop"]["heading_px"],

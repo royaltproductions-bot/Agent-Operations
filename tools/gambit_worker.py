@@ -27,8 +27,8 @@ from tools.gambit_documents import (MAX_BINARY_BYTES, convert_document,
 from tools.gambit_analytics import summarize_csv_sources
 from tools.gambit_artifacts import (OUTPUT_FILES, SUPPORTED_FORMATS,
                                     make_document, requested_output_format)
-from tools.gambit_sites import static_site_eligible
-from tools.gambit_site_resources import create_project, resources_available
+from tools.gambit_site_resources import (create_project, resources_available,
+                                         static_site_eligible)
 from tools.gambit_visual_qa import render_browser_evidence
 
 BASE = "https://api.trybounty.ai"
