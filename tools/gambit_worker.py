@@ -325,6 +325,66 @@ def clean_context(details, messages=None, sources=None):
             "source_files": sources or []}
 
 
+def unsupported_deliverable(details):
+    """Reject output types this worker cannot actually create or verify.
+
+    This is enforced independently of model judgment. Mentioning videos or
+    images in a *research* assignment is fine; asking for those final assets
+    is not. The runtime's final outputs are text, CSV, and XLSX only.
+    """
+    bounty = details.get("bounty") or {}
+    title = str(bounty.get("title") or "").lower()
+    description = str(bounty.get("description") or "").lower()
+    verification = bounty.get("verification") or ""
+    verification = (verification.lower() if isinstance(verification, str) else
+                    json.dumps(verification, ensure_ascii=False).lower())
+    requested = title + " " + description
+
+    # File formats in acceptance criteria are stronger evidence than an LLM's
+    # unsupported promise. Text scripts ABOUT videos remain eligible.
+    if (re.search(r"\b(?:mp4|mov|webm|avi)\b", verification) or
+            re.search(r"\b(?:create|produce|edit|render|shoot|film|animate)\b"
+                      r".{0,90}\b(?:videos?|films?|reels?|clips?)\b", title) or
+            re.search(r"\b(?:final|finished|completed|submit|deliver|provide)\b"
+                      r".{0,75}\b(?:videos?|films?|reels?|clips?)\b", verification) or
+            (re.search(r"\b(?:create|produce|edit|render|animate)\b"
+                       r".{0,100}\b(?:videos?|films?|reels?|clips?)\b", requested) and
+             re.search(r"\b(?:video|motion graphics|animation)\b", verification))):
+        return "video_production"
+
+    if (re.search(r"\b(?:create|design|generate|illustrate|render)\b"
+                  r".{0,80}\b(?:logos?|posters?|portraits?|illustrations?|"
+                  r"images?|graphics?|artwork)\b", title) or
+            re.search(r"\b(?:create|generate|illustrate|render)\b"
+                      r".{0,80}\b(?:images?|logos?|graphics?)\b", requested) and
+            re.search(r"\b(?:image|artwork|logo|visual|graphic)\b", verification)):
+        return "image_production"
+
+    if (re.search(r"\b(?:compose|produce|record|mix|master)\b"
+                  r".{0,70}\b(?:audio|music|jingle|podcast|voiceover|soundtrack)\b",
+                  title) or re.search(r"\b(?:mp3|wav|flac|aac)\b", verification)):
+        return "audio_production"
+
+    # This worker can read many file types, but cannot author these formats.
+    unsupported_files = r"\b(?:png|jpe?g|webp|svg|psd|mp3|wav|pptx|docx|pdf|apk|ipa)\b"
+    if (re.search(r"\b(?:submit|deliver|upload|export|provide|produce|create)\b"
+                  r".{0,100}" + unsupported_files, verification) or
+            re.search(unsupported_files + r".{0,50}\b(?:final|deliverable|file)\b",
+                      verification)):
+        return "unsupported_file_output"
+
+    if (re.search(r"\b(?:deploy|host|publish|implement)\b"
+                  r".{0,65}\b(?:website|web app|application|server|api)\b", title) or
+            re.search(r"\b(?:live|deployed|running)\b"
+                      r".{0,40}\b(?:website|web app|application|server|api)\b",
+                      verification)):
+        return "software_deployment"
+    if re.search(r"\b(?:send|deliver)\b.{0,45}\b(?:emails|sms|dms|messages)\b",
+                 title + " " + verification):
+        return "outbound_messaging"
+    return None
+
+
 def research_for(details, messages=None, sources=None):
     """Ask the model which real-world facts need lookup, then retrieve sources."""
     system = (
@@ -351,6 +411,10 @@ def research_for(details, messages=None, sources=None):
 
 
 def assess(details, messages=None, sources=None, unreadable_count=0):
+    gap = unsupported_deliverable(details)
+    if gap:
+        return {"decision": "pass", "reason": "unsupported_" + gap,
+                "payout_cents": 0, "note": "", "question": ""}
     system = (
         "You are Gambit, an independent paid digital-work operator. Assess this REAL posted "
         "bounty. Choose bid or claim only if you can actually complete and verify every "
@@ -420,6 +484,10 @@ def messages_for(bounty_id):
 
 
 def respond_to_buyer(details, messages):
+    if unsupported_deliverable(details):
+        # An unsupported active bid must be withdrawn, never defended by a
+        # model-generated promise to make a file this runtime cannot produce.
+        return {"reply_text": ""}
     sources, unreadable = text_sources(details, messages)
     system = (
         "You are Gambit, replying to the latest private buyer message about an "
@@ -449,6 +517,18 @@ def handle_open(item, state):
     previous = state["bounties"].get(bounty_id) or {}
     version = current.get("version")
     bid = details.get("bid") or {}
+    gap = unsupported_deliverable(details)
+    if gap:
+        if bid.get("status") == "active":
+            api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/bid/withdraw",
+                "POST")
+            action = "unsupported_bid_withdrawn"
+            note(state, action, bounty_id, reason=gap)
+        else:
+            action = "pass_unsupported"
+        state["bounties"][bounty_id] = {"version": version, "action": action,
+                                         "reason": gap, "at": timestamp()}
+        return
     declined_token = previous.get("last_declined_bid")
     if bid.get("status") == "declined":
         candidate = str(bid.get("_id") or bid.get("id") or
@@ -474,7 +554,7 @@ def handle_open(item, state):
                         api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/messages", "POST", {
                             "content": {"type": "text", "text": reply[:3000]},
                             "idempotency_key": key("buyer-reply", bounty_id, current_reply_id)})
-                        note(state, "buyer_replied", bounty_id)
+                        note(state, "agent_replied_to_buyer", bounty_id)
                     last_reply_id = current_reply_id
         state["bounties"][bounty_id] = {"version": version, "action": "bid_active",
                                          "last_declined_bid": declined_token,
@@ -490,6 +570,9 @@ def handle_open(item, state):
     else:
         decision = assess(details, messages, sources, len(unreadable))
     action = decision["decision"]
+    # Independent final boundary even if the decision function is overridden.
+    if action in {"bid", "claim"} and unsupported_deliverable(details):
+        action = "pass"
     if action == "ask" and current.get("flow") == "bid":
         question = decision.get("question", "").strip()[:3000]
         if not question:
@@ -731,6 +814,13 @@ def handle_hired(item, state):
     claim = details.get("claim") or {}
     if claim.get("status") != "active" or not claim.get("claim_id"):
         return
+    gap = unsupported_deliverable(details)
+    if gap:
+        state["bounties"][bounty_id] = {
+            "action": "needs_operator_review", "claim_id": claim["claim_id"],
+            "reason": gap, "at": timestamp()}
+        note(state, "unsupported_hired_work_paused", bounty_id, reason=gap)
+        return
     previous = state["bounties"].get(bounty_id) or {}
     earned_if_completed = (details.get("bounty") or {}).get("payout_cents")
     if previous.get("claim_id") != claim["claim_id"]:
@@ -944,6 +1034,20 @@ def handle_hired(item, state):
 CURRENT_EVENTS = []
 
 
+def safe_failure_reason(exc):
+    """Record useful error classes without leaking buyer text or credentials."""
+    if isinstance(exc, urllib.error.HTTPError):
+        return "HTTP_" + str(exc.code)
+    if isinstance(exc, urllib.error.URLError):
+        return "network_error"
+    message = str(exc)
+    if isinstance(exc, RuntimeError) and re.fullmatch(
+            r"(?:bounty_api_[A-Za-z0-9_]+|missing pagination cursor|"
+            r"pagination_limit_reached|event_page_limit_reached)", message):
+        return message[:96]
+    return type(exc).__name__
+
+
 def run(mode="run"):
     global CURRENT_EVENTS
     state = load_state()
@@ -970,7 +1074,7 @@ def run(mode="run"):
         try:
             handle_open(item, state)
         except Exception as exc:
-            failures.append((bounty_id, type(exc).__name__))
+            failures.append((bounty_id, safe_failure_reason(exc)))
         save_state(state)
     for item in active[:5]:
         bounty_id = str(item.get("_id"))
@@ -979,7 +1083,7 @@ def run(mode="run"):
         try:
             handle_hired(item, state)
         except Exception as exc:
-            failures.append((bounty_id, type(exc).__name__))
+            failures.append((bounty_id, safe_failure_reason(exc)))
         save_state(state)
     for event in events:
         action = event.get("type")
