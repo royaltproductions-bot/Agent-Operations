@@ -1,5 +1,7 @@
 """Resource integration contracts; a green configuration must execute real tools."""
+import io
 import unittest
+from zipfile import ZipFile
 
 from tools import gambit_resources as resources
 
@@ -17,15 +19,31 @@ class ResourceRouterTests(unittest.TestCase):
 
     def test_free_provider_can_override_bundled_site_resource(self):
         resources._load()
+        output = io.BytesIO()
+        with ZipFile(output, "w") as archive:
+            archive.writestr("index.html", "<html>Ready</html>")
         provider = resources.Provider(
             "verified-external-designer", "site_source", lambda: True,
-            lambda spec, brief: (b"x" * 101, "<html>Ready</html>", {}),
+            lambda spec, brief: (output.getvalue(), "<html>Ready</html>", {}),
             priority=100)
         resources.register(provider)
         try:
             result = resources.execute("site_source", {}, "a buyer brief")
             self.assertEqual(result[1], "<html>Ready</html>")
             self.assertEqual(resources.manifest()[1]["billing"], "no_charge")
+        finally:
+            resources._PROVIDERS["site_source"].remove(provider)
+
+    def test_fake_site_zip_is_rejected_even_if_provider_claims_success(self):
+        resources._load()
+        provider = resources.Provider(
+            "fake-designer", "site_source", lambda: True,
+            lambda spec, brief: (b"unverified" * 100, "<html>Fake</html>", {}),
+            priority=100)
+        resources.register(provider)
+        try:
+            with self.assertRaisesRegex(ValueError, "site_provider_invalid_archive"):
+                resources.execute("site_source", {}, "a buyer brief")
         finally:
             resources._PROVIDERS["site_source"].remove(provider)
 
