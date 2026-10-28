@@ -1,0 +1,73 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-28T01:02:23.529453+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 5,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "bing": 5
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 4,
+    "verified_firsthand_problem_pages": 0,
+    "candidates_without_email": 4,
+    "search_queries": [
+      "why is my email not working on my new phone",
+      "i need a way to track my daily water intake",
+      "how do i keep my plants alive when i travel"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 6,
+      "executed_queries": [
+        "how do i keep my plants alive when i travel",
+        "why is my email not working on my new phone",
+        "i need a way to track my daily water intake",
+        "how do i fix my printer that keeps jamming"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 137,
+      "known_pages": 692
+    },
+    "durable_contactable_sources": 23
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "no_verified_firsthand_market_problem"
+  },
+  "catalog": {
+    "result": "catalog_published",
+    "listed_products": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
