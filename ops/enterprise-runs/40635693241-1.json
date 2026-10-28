@@ -1,0 +1,142 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T05:04:50.989903+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 8,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "bing": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 7,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=32193016",
+        "title": "Ask HN: Remote work credit? I built an app that the company thinks my boss built",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=27388092",
+        "title": "How to hire freelance developers for small jobs?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=27144783",
+        "title": "Help, my POC got funded, need serious Dev advice to build and scale my Flask app",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=13283540",
+        "title": "Broke, in debt, lots of skills. Need your advice",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=8392394",
+        "title": "Ask HN: What should I do, 17 year-old dev?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=5271008",
+        "title": "Help me Obi-Wan: Need advice on career switch into web/software development",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "hiring a freelancer to build a basic landing page for a new product",
+      "need paid help with designing a weekly email newsletter template",
+      "hiring a remote writer to produce 5 high-quality blog posts per month"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create a simple data dashboard with Python and Plotly",
+      "hiring a freelancer to build a basic landing page for a new product",
+      "need paid help with designing a weekly email newsletter template",
+      "can anyone create a short explainer video for a SaaS tool under $500",
+      "hiring a remote writer to produce 5 high-quality blog posts per month"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 8,
+      "skipped_revisits": 11,
+      "executed_queries": [
+        "looking for someone to create a simple data dashboard with Python and Plotly",
+        "hiring a freelancer to build a basic landing page for a new product",
+        "need paid help with designing a weekly email newsletter template",
+        "can anyone create a short explainer video for a SaaS tool under $500",
+        "hiring a remote writer to produce 5 high-quality blog posts per month"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 138,
+      "known_pages": 699
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
