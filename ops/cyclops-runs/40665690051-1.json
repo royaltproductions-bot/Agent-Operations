@@ -1,0 +1,140 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-28T09:47:21.236366+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 13,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "duckduckgo": 7,
+      "followup": 1,
+      "bing": 5
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "verified_firsthand_problem_pages": 1,
+    "observed_public_paid_offers": 2,
+    "market_candidates_considered": 2,
+    "public_sources_available_for_judgment": 12,
+    "public_market_sample": [
+      {
+        "url": "https://maestra.ai/blogs/best-real-time-translators-for-meetings",
+        "title": "10 Best Real-Time Translators for Meetings (2026)",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://www.zootechnologies.com/posts/ship-digital-product-24-hours.html",
+        "title": "How to Ship a Digital Product in 24 Hours \u2014 The ZOO Framework\n From idea to live checkout \u2014 with real code and real data",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://worldmetrics.org/best/monthly-budget-software/",
+        "title": "Top 11 Best Monthly Budget Software | 2026 Edition",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.thepennyhoarder.com/budgeting/best-budgeting-apps/",
+        "title": "The Best Budgeting Apps of 2026: Free and Paid Options Compared",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Price",
+        "title": "Price - Wikipedia",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.rocketmoney.com/learn/personal-finance/best-budgeting-apps",
+        "title": "The 7 Best Budgeting Apps in 2026 - Unbiased Comparisons",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://maestra.ai/blogs/best-real-time-translators-for-meetings",
+        "title": "10 Best Real-Time Translators for Meetings (2026)",
+        "displayed_sales_count": null,
+        "listed_price_usd": "15.00"
+      },
+      {
+        "url": "https://www.zootechnologies.com/posts/ship-digital-product-24-hours.html",
+        "title": "How to Ship a Digital Product in 24 Hours \u2014 The ZOO Framework\n From idea to live checkout \u2014 with real code and real data",
+        "displayed_sales_count": null,
+        "listed_price_usd": "29.00"
+      }
+    ],
+    "candidates_without_email": 13,
+    "search_queries": [
+      "buy digital app for real-time language translation in meetings",
+      "",
+      "how to pay for a digital tool to automate monthly budget tracking",
+      "price for digital product that generates personalized fitness plans"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "how to pay for a digital tool to automate monthly budget tracking",
+        "buy digital app for real-time language translation in meetings",
+        "price for digital product that generates personalized fitness plans",
+        "purchase digital calendar sync tool with team collaboration"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 139,
+      "known_pages": 764
+    },
+    "durable_contactable_sources": 23
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:The evidence excerpt indicates that Maestra Live is a real-time translator for meetings with support for 125+ languages and integrations with Zoom, Teams, and Google Meet. However,"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "public_sources_reviewable": 12,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:The evidence excerpt indicates that Maestra Live is a real-time translator for meetings with support for 125+ languages and integrat"
+  }
+}
