@@ -6,6 +6,7 @@ search-engine snippet from first-hand page content. Buyer text is never logged.
 from __future__ import annotations
 
 import ipaddress
+import re
 from urllib.parse import urlsplit, urlunsplit
 
 
@@ -15,6 +16,34 @@ MAX_RESULTS = 55
 MAX_FETCHED_PAGES = 15
 MAX_RESULT_TEXT = 1000
 MAX_TOTAL_TEXT = 14000
+
+
+def relevant_excerpt(content, hints, limit=MAX_RESULT_TEXT):
+    """Preserve site identity and the strongest query-matching passage.
+
+    Search extractors frequently return navigation and policy boilerplate first;
+    first-N-character truncation can hide the only actual company details.
+    """
+    clean = re.sub(r"\s+", " ", str(content or "")).strip()
+    if len(clean) <= limit:
+        return clean
+    prefix = clean[:min(180, limit // 4)]
+    budget = max(1, limit - len(prefix) - 7)
+    tokens = {term.lower() for term in re.findall(r"[A-Za-z][A-Za-z0-9-]{3,}",
+                                                   str(hints or ""))
+              if term.lower() not in {"https", "http", "www", "about", "company",
+                                      "business", "contact", "information", "public"}}
+    # Evaluate the full page in bounded overlapping windows; don't trust the
+    # search snippet as fact, only the content the page extractor actually read.
+    best = clean[len(prefix):len(prefix) + budget]
+    highest = -1
+    for start in range(len(prefix), len(clean), max(1, budget // 2)):
+        window = clean[start:start + budget]
+        lower = window.lower()
+        score = sum(1 for token in tokens if token in lower)
+        if score > highest:
+            highest, best = score, window
+    return prefix + " [...] " + best
 
 
 def public_url(raw):
@@ -110,7 +139,10 @@ def search_public_web(queries, *, ddgs=None, max_queries=MAX_QUERIES):
             continue
         if not content:
             continue
-        body = content[:min(MAX_RESULT_TEXT, text_budget)]
+        body = relevant_excerpt(content,
+                                " ".join((item["search_query"], item["title"],
+                                          item["snippet"])),
+                                min(MAX_RESULT_TEXT, text_budget))
         item["page_text"] = body
         item["evidence_level"] = "page_read"
         text_budget -= len(body)

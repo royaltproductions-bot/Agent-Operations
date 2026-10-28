@@ -70,6 +70,16 @@ class SearchTests(unittest.TestCase):
         self.assertEqual(fake.reads[1], "https://region0.example.com/info")
         self.assertEqual(result["results"][1]["search_query"], "region")
 
+    def test_long_page_keeps_relevant_fact_beyond_navigation_boilerplate(self):
+        page = ('Navigation privacy settings ' * 120 +
+                ' Verified contact details for Acme solar suppliers in Augusta '
+                'including a public office at Broad Street. ' +
+                'Additional generic legal disclaimers ' * 80)
+        excerpt = research.relevant_excerpt(
+            page, 'Acme solar suppliers Augusta public office', limit=700)
+        self.assertLessEqual(len(excerpt), 700)
+        self.assertIn('Broad Street', excerpt)
+
 
 if __name__ == "__main__":
     unittest.main()
