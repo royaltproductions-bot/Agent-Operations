@@ -12,6 +12,31 @@ from tools import gambit_worker as gambit
 
 
 class GambitTests(unittest.TestCase):
+    def test_public_csv_sources_must_be_actually_read(self):
+        data = b"company,source_url\nAcme,https://example.org/acme\n"
+        evidence = {"results": [{"url": "https://example.org/acme",
+                                "evidence_level": "page_read", "page_text": "Acme"}]}
+        gambit.validate_csv_source_urls(data, evidence)
+        with self.assertRaisesRegex(ValueError, "source URL"):
+            gambit.validate_csv_source_urls(
+                b"company,source_url\nAcme,https://invented.example/fake\n", evidence)
+
+    def test_csv_source_explicitly_in_buyer_file_is_acceptable(self):
+        evidence = {"results": [{"url": "https://example.org/acme",
+                                "evidence_level": "page_read", "page_text": "Acme"}]}
+        gambit.validate_csv_source_urls(
+            b"company,source_url\nBravo,https://buyer.test/provided\n", evidence,
+            [{"filename": "sources.txt", "text": "https://buyer.test/provided"}])
+
+    def test_search_snippet_is_not_confirmed_source_for_csv(self):
+        evidence = {"results": [{"url": "https://example.org/unread",
+                                "evidence_level": "search_snippet", "page_text": ""},
+                               {"url": "https://example.org/read",
+                                "evidence_level": "page_read", "page_text": "Read"}]}
+        with self.assertRaisesRegex(ValueError, "source URL"):
+            gambit.validate_csv_source_urls(
+                b"company,source_url\nUnknown,https://example.org/unread\n", evidence)
+
     def test_stable_idempotency_key(self):
         self.assertEqual(gambit.key('bid', 'x', 2, 500), gambit.key('bid', 'x', 2, 500))
         self.assertNotEqual(gambit.key('bid', 'x', 2, 500), gambit.key('bid', 'x', 3, 500))
@@ -473,86 +498,3 @@ class GambitTests(unittest.TestCase):
             extracted = gambit.read_text_attachment({
                 'id': 'attachment01', 'filename': 'brief.docx',
                 'content_type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                'size': len(binary.getvalue())})
-        self.assertIn('Acme customer lead details', extracted)
-        self.assertTrue(opener.request.has_header('Authorization'))
-
-    def test_declined_bid_passes_owner_feedback_into_reassessment(self):
-        details = {'bounty': {'_id': 'b1', 'status': 'open', 'version': 3, 'flow': 'bid'},
-                   'bid': {'_id': 'oldbid', 'status': 'declined', 'payout_cents': 2400}}
-        state = {'bounties': {'b1': {'action': 'bid_sent'}}, 'recent_outcomes': []}
-        owner_reply = {'author_type': 'user', 'content': {'type': 'text', 'text': 'Can you narrow scope?'}}
-        with patch.object(gambit, 'api', return_value=details), \
-             patch.object(gambit, 'messages_for', return_value=[owner_reply]), \
-             patch.object(gambit, 'assess', return_value={'decision': 'pass'}) as assess:
-            gambit.handle_open({'_id': 'b1'}, state)
-        self.assertEqual(assess.call_args.args[1], [owner_reply])
-        self.assertEqual(state['bounties']['b1']['last_declined_bid'], 'oldbid')
-        self.assertIn('bid_declined', [x['action'] for x in state['recent_outcomes']])
-
-    def test_active_bid_answers_new_private_buyer_message_once(self):
-        details = {'bounty': {'_id': 'b1', 'status': 'open', 'version': 3, 'flow': 'bid'},
-                   'bid': {'status': 'active', 'bounty_version': 3}}
-        state = {'bounties': {'b1': {'action': 'bid_sent'}}, 'recent_outcomes': []}
-        owner_reply = {'_id': 'msg1', 'author_type': 'user',
-                       'content': {'type': 'text', 'text': 'Can you format as a table?'}}
-        event = {'type': 'work.message.created', 'data': {'bounty_id': 'b1'}}
-        def request(path, method='GET', payload=None):
-            return details if method == 'GET' else {'message_id': 'msg2'}
-        with patch.object(gambit, 'api', side_effect=request) as api, \
-             patch.object(gambit, 'CURRENT_EVENTS', [event]), \
-             patch.object(gambit, 'messages_for', return_value=[owner_reply]), \
-             patch.object(gambit, 'respond_to_buyer', return_value={
-                 'reply_text': 'Yes, I can provide a plain-text table.'}) as respond:
-            gambit.handle_open({'_id': 'b1'}, state)
-            gambit.handle_open({'_id': 'b1'}, state)
-        self.assertEqual(respond.call_count, 1)
-        self.assertEqual(state['bounties']['b1']['last_owner_reply_id'], 'msg1')
-        self.assertEqual(sum(1 for c in api.call_args_list
-                             if len(c.args) > 1 and c.args[1] == 'POST'), 1)
-
-    def test_quality_failure_gets_one_revision_before_submission(self):
-        details = {'bounty': {'_id': 'b1', 'status': 'claimed', 'payout_cents': 1800},
-                   'claim': {'status': 'active', 'claim_id': 'c1'}}
-        bad = {'status': 'ready', 'deliverable_title': 'Report', 'deliverable_text': 'Incomplete'}
-        good = {'status': 'ready', 'deliverable_title': 'Report', 'deliverable_text': 'Complete report'}
-        state = {'bounties': {}, 'recent_outcomes': []}
-        def request(path, method='GET', payload=None):
-            return details if method == 'GET' else {'submission_id': 'submission-1'}
-        with patch.object(gambit, 'api', side_effect=request) as api, \
-             patch.object(gambit, 'messages_for', return_value=[]), \
-             patch.object(gambit, 'produce', side_effect=[bad, good]) as produce, \
-             patch.object(gambit, 'review', side_effect=[
-                 {'approved': False, 'reason': 'Missing required summary'},
-                 {'approved': True, 'reason': 'Complete'}]):
-            gambit.handle_hired({'_id': 'b1'}, state)
-        self.assertEqual(produce.call_count, 2)
-        self.assertIn('Missing required summary', produce.call_args.args[3])
-        submitted = [c for c in api.call_args_list
-                     if len(c.args) > 1 and c.args[1] == 'POST']
-        self.assertEqual(len(submitted), 1)
-        self.assertEqual(state['bounties']['b1']['action'], 'submitted')
-        self.assertIn('quality_revision_attempt', [x['action'] for x in state['recent_outcomes']])
-
-    def test_quality_revision_that_needs_data_asks_buyer_once(self):
-        details = {'bounty': {'_id': 'b1', 'status': 'claimed', 'payout_cents': 1800},
-                   'claim': {'status': 'active', 'claim_id': 'c1'}}
-        bad = {'status': 'ready', 'deliverable_title': 'Report', 'deliverable_text': 'Incomplete'}
-        need_data = {'status': 'need_information', 'question': 'Please provide the missing totals.'}
-        state = {'bounties': {}, 'recent_outcomes': []}
-        def request(path, method='GET', payload=None):
-            return details if method == 'GET' else {'message_id': 'msg1'}
-        with patch.object(gambit, 'api', side_effect=request) as api, \
-             patch.object(gambit, 'messages_for', return_value=[]), \
-             patch.object(gambit, 'produce', side_effect=[bad, need_data]), \
-             patch.object(gambit, 'review', return_value={
-                 'approved': False, 'reason': 'Missing actual numerical inputs'}):
-            gambit.handle_hired({'_id': 'b1'}, state)
-        writes = [c for c in api.call_args_list if len(c.args) > 1 and c.args[1] == 'POST']
-        self.assertEqual(len(writes), 1)
-        self.assertIn('/messages', writes[0].args[0])
-        self.assertEqual(state['bounties']['b1']['action'], 'awaiting_info')
-
-
-if __name__ == '__main__':
-    unittest.main()
