@@ -29,8 +29,8 @@ class WebEfficiencyTests(unittest.TestCase):
         """Topic word mismatch must not eliminate a real firsthand request."""
         hits=[{"title":"An actual request", "source_url":"https://example.com/need",
                "snippet":"Real discussion"}]
-        with patch.object(web,"bing_rss",return_value=hits), \
-             patch.object(web,"duckduckgo_html",return_value=[]), \
+        with patch.object(web,"bing_rss",return_value=[]), \
+             patch.object(web,"duckduckgo_html",return_value=hits), \
              patch.object(web,"fetch_public_text",return_value=(
                  "https://example.com/need",
                  "I need help reconciling invoices every weekend.",[])):
@@ -41,6 +41,19 @@ class WebEfficiencyTests(unittest.TestCase):
         self.assertTrue(rows[0]["page_fetched"])
         self.assertIn("I need help",rows[0]["page_text"])
         self.assertEqual(errors,[])
+
+    def test_unrelated_bing_rss_results_do_not_pollute_market_research(self):
+        unrelated=[{"title":"Why - dictionary definition",
+                    "source_url":"https://example.com/dictionary/why",
+                    "snippet":"What does the word why mean?"}]
+        topic="receipt organization for freelance illustrators"
+        with patch.object(web,"bing_rss",return_value=unrelated), \
+             patch.object(web,"duckduckgo_html",return_value=[]), \
+             patch.object(web,"fetch_public_text") as fetch:
+            rows,errors=web.open_web_candidates(queries=[topic],strict_relevance=True)
+        self.assertEqual(rows,[])
+        self.assertEqual(errors,[])
+        fetch.assert_not_called()
 
     def test_public_http_has_finite_transport_timeout(self):
         class Response:

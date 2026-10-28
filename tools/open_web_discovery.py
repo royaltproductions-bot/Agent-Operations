@@ -305,11 +305,16 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
     errors=[]
     streams=[]
     total_provider_hits=0
-    providers=(("bing",bing_rss),("duckduckgo",duckduckgo_html))
-    # Alternate search engines and independent research topics.
-    for index,query in enumerate(queries):
-        order=providers if index%2==0 else providers[::-1]
-        for provider,search in order:
+    providers=(("duckduckgo",duckduckgo_html),("bing",bing_rss))
+    # Read independent topics via the provider that actually returns topical
+    # results. Bing's RSS feed has repeatedly returned dictionary definitions
+    # or unrelated pages for whole human-problem queries. It remains a
+    # relevance-checked fallback, never a way to fill the queue with noise.
+    for query in queries:
+        strong_primary=0
+        for provider,search in providers:
+            if provider=="bing" and strong_primary>=3:
+                continue
             try:
                 hits=search(compact_query(query) if strict_relevance else query,
                             limit=6 if strict_relevance else 8)
@@ -322,9 +327,15 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
                 if strict_relevance:
                     aligned=[hit for hit in ordered if relevant_hit(query,hit)]
                     other=[hit for hit in ordered if not relevant_hit(query,hit)]
-                    # Allow limited exploratory results without permitting
-                    # an irrelevant source to exhaust the entire run budget.
-                    ordered=aligned[:6]+other[:max(0,3-len(aligned))]
+                    if provider=="duckduckgo":
+                        strong_primary=len(aligned)
+                        # Some authentic discussions use vocabulary unlike
+                        # the search query. Permit a few exploratory pages.
+                        ordered=aligned[:6]+other[:max(0,2-len(aligned))]
+                    else:
+                        # RSS has demonstrably served unrelated dictionary
+                        # pages; this fallback must be explicitly aligned.
+                        ordered=aligned[:6]
                 if ordered:
                     streams.append((query,provider,ordered))
                 if memory:
