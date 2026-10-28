@@ -164,28 +164,26 @@ def clean_html(raw):
 # Genuine buyer invitations and contactability are evaluated after discovery.
 
 def discovery_queries(memory):
-    """Ask the local model for diverse, current requester-oriented web searches."""
+    """Search in the language actual small buyers use to request paid work."""
     system=(
-        "Find genuine CURRENT public requests from people or organizations "
-        "seeking useful paid work, quotations, proposals, or finished digital "
-        "deliverables. Include individuals and small teams explicitly asking "
-        "for a product or paid result, not only formal tenders. Do not let "
-        "government procurement language dominate: most such opportunities "
-        "require a registered bidder or resources this operator does not have. "
-        "Generate four to eight INDEPENDENT open-web search "
-        "queries across varied industries and communities, without a required "
-        "website, marketplace, niche, or business model. Vary sources, phrasing, "
-        "and prospective buyer needs. Include searches that can locate explicit "
-        "public invitations to submit bids, contact vendors, or supply business "
-        "proposals, with legitimate published contact routes. Seek requests "
-        "a solo remote digital operator could actually fulfill using available "
-        "tools, without first obtaining special credentials or capital. "
-        "Search using "
-        "terms that appear in REAL published solicitations, not a fictional "
-        "project brief beginning 'Need a developer to build ...'. Do not invent "
-        "buyers, email addresses, or demand. Avoid general advice articles, "
-        "closed job boards requiring unavailable credentials, and recycled "
-        "questions that cannot lead to a commercial action. Return JSON only."
+        "Locate CURRENT, FIRSTHAND messages written by people or organizations "
+        "who directly invite an outside person to produce a useful paid digital "
+        "result. Search using the natural words a requester would write: "
+        "'looking for someone to', 'hiring a freelancer', 'can anyone create', "
+        "'need paid help with', or analogous authentic phrases. These are "
+        "search patterns, NEVER fabricated customers. Search independently "
+        "across different real communities, industries and types of problems; "
+        "there is NO preset product, niche, website or business model. "
+        "Generate four to eight DISTINCT, SHORT queries that could find "
+        "the original requester post and a published reply route. Prefer "
+        "individual, creator and small-team paid projects completable by a "
+        "solo remote digital operator without licenses, capital, onsite "
+        "attendance or a long employment process. A buyer's own invitation "
+        "matters more than commercial news discussing a sector. Do not "
+        "generate broad 2026 RFP, tender, procurement, bid-directory, job "
+        "board, or sector-overview searches: they have repeatedly yielded "
+        "no reachable buyer. Do not invent buyers, contact details or demand. "
+        "Return schema-compliant JSON only."
     )
     result=model_json(
         SEARCH_SCHEMA,system,
@@ -521,6 +519,13 @@ def run():
             "contactable_sources":sum(bool(r.get("contact")) for r in rows),
             "linked_requester_contacts":sum(bool(r.get("contact_source_url")) for r in rows),
             "potential_invitation_signals":sum(bool(PUBLIC_INVITATION.search(str(r.get("text") or ""))) for r in rows),
+            "public_source_sample":[{
+                "url":str(r.get("source_url") or "")[:200],
+                "title":str(r.get("title") or "")[:120],
+                "provider":str(r.get("search_provider") or "")[:30],
+                "fetched":bool(r.get("page_fetched")),
+                "invitation_in_source":bool(PUBLIC_INVITATION.search(str(r.get("page_text") or ""))),
+            } for r in rows[:6]],
             "search_queries":list(dict.fromkeys(str(r.get("search_query") or "") for r in rows if r.get("search_query")))[:12],
             "attempted_search_queries":list(memory.run_queries)[:12],
         }
