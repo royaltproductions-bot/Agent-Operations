@@ -17,11 +17,13 @@ on:
       - 'tools/gambit_research.py'
       - 'tools/gambit_documents.py'
       - 'tools/gambit_artifacts.py'
+      - 'tools/gambit_sites.py'
       - 'tools/gambit_analytics.py'
       - 'tests/test_gambit_worker.py'
       - 'tests/test_gambit_research.py'
       - 'tests/test_gambit_documents.py'
       - 'tests/test_gambit_artifacts.py'
+      - 'tests/test_gambit_sites.py'
       - 'tests/test_gambit_analytics.py'
       - '.github/workflows/gambit-bounty.yml'
 

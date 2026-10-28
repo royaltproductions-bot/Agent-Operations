@@ -18,6 +18,7 @@ OUTPUT_FILES = {
     "docx": ("gambit-report.docx",
              "application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
     "pdf": ("gambit-report.pdf", "application/pdf"),
+    "site_zip": ("gambit-static-site.zip", "application/zip"),
 }
 SUPPORTED_FORMATS = frozenset({"text", *OUTPUT_FILES})
 MAX_DOCUMENT_SOURCE = 80_000

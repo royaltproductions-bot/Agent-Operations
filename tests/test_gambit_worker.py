@@ -172,6 +172,47 @@ class GambitTests(unittest.TestCase):
             'bounty': {'title': 'Send outreach emails to leads',
                        'verification': 'Provide sent email confirmations.'}}))
 
+    def test_static_site_source_is_eligible_but_backend_is_not(self):
+        self.assertIsNone(gambit.unsupported_deliverable({'bounty': {
+            'title': 'Build a static HTML landing page',
+            'verification': 'Deliver a ZIP of the standalone front-end source.'}}))
+        self.assertEqual('software_project_not_supported', gambit.unsupported_deliverable({
+            'bounty': {'title': 'Build a SaaS application',
+                       'verification': 'Implement a backend and database.'}}))
+        self.assertEqual('software_deployment', gambit.unsupported_deliverable({
+            'bounty': {'title': 'Build a static landing page',
+                       'description': 'Deploy and host the landing page publicly.',
+                       'verification': 'Deliver a URL.'}}))
+
+    def test_hired_static_site_is_packaged_and_submitted_as_zip(self):
+        details = {'bounty': {'_id': 'web1', 'status': 'claimed',
+                              'title': 'Build a static HTML landing page',
+                              'verification': 'Deliver the source ZIP.'},
+                   'claim': {'status': 'active', 'claim_id': 'c1'}}
+        ready = {'status': 'ready', 'deliverable_title': 'Website source',
+                 'deliverable_text': '<!doctype html><html>...</html>',
+                 'deliverable_format': 'site_zip'}
+        state = {'bounties': {}, 'recent_outcomes': []}
+        writes = []
+        def request(path, method='GET', payload=None):
+            if method == 'POST':
+                writes.append((path, payload))
+                return {'submission': {'id': 'websubmission1'}}
+            return details
+        with patch.object(gambit, 'api', side_effect=request), \
+             patch.object(gambit, 'messages_for', return_value=[]), \
+             patch.object(gambit, 'produce', return_value=ready), \
+             patch.object(gambit, 'review', return_value={'approved': True}), \
+             patch.object(gambit, 'pack_static_site', return_value=b'PK-zip') as package, \
+             patch.object(gambit, 'upload_file', return_value='webattachment1') as upload:
+            gambit.handle_hired({'_id': 'web1'}, state)
+        package.assert_called_once_with(ready['deliverable_text'])
+        self.assertEqual(upload.call_args.kwargs['filename'], 'gambit-static-site.zip')
+        self.assertEqual(upload.call_args.kwargs['content_type'], 'application/zip')
+        self.assertEqual(writes[0][1]['deliverables'][0]['data']['attachment_id'],
+                         'webattachment1')
+        self.assertEqual(state['bounties']['web1']['action'], 'submitted')
+
     def test_real_document_outputs_are_supported_but_forms_are_not(self):
         from tools.gambit_artifacts import requested_output_format
         docx = {'bounty': {'title': 'Research brief',

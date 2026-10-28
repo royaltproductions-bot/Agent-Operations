@@ -36,7 +36,7 @@ class ArtifactTests(unittest.TestCase):
                 make_document('pdf', value)
 
     def test_unknown_formats_are_never_claimed(self):
-        self.assertEqual({'pdf', 'docx', 'xlsx', 'csv'}, set(OUTPUT_FILES))
+        self.assertEqual({'pdf', 'docx', 'xlsx', 'csv', 'site_zip'}, set(OUTPUT_FILES))
         with self.assertRaises(ValueError):
             make_document('pptx', 'A deck')
 

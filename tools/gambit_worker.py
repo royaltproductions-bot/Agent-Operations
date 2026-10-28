@@ -25,6 +25,7 @@ from tools.gambit_documents import (MAX_BINARY_BYTES, convert_document,
 from tools.gambit_analytics import summarize_csv_sources
 from tools.gambit_artifacts import (OUTPUT_FILES, SUPPORTED_FORMATS,
                                     make_document, requested_output_format)
+from tools.gambit_sites import pack_static_site, static_site_eligible
 
 BASE = "https://api.trybounty.ai"
 STATE_PATH = Path("ops/gambit/state.json")
@@ -386,12 +387,18 @@ def unsupported_deliverable(details):
     if len(requested_formats) > 1 or requested_formats - SUPPORTED_FORMATS:
         return "unsupported_multi_or_file_format"
 
-    if (re.search(r"\b(?:deploy|host|publish|implement)\b"
-                  r".{0,65}\b(?:website|web app|application|server|api)\b", title) or
-            re.search(r"\b(?:live|deployed|running)\b"
-                      r".{0,40}\b(?:website|web app|application|server|api)\b",
-                      verification)):
+    if (re.search(r"\b(?:deploy|host|publish)\b"
+                  r".{0,65}\b(?:website|web app|webpage|landing page|application|server|api)\b",
+                  requested) or
+            re.search(r"\b(?:live|deployed|hosted|running)\b"
+                      r".{0,40}\b(?:website|web app|webpage|landing page|application|server|api)\b",
+                      requested + " " + verification)):
         return "software_deployment"
+    if (re.search(r"\b(?:build|develop|code|program|implement|redesign|create)\b"
+                  r".{0,65}\b(?:web app|application|website|webpage|dashboard|"
+                  r"landing page|software)\b", title) and
+            not static_site_eligible(details)):
+        return "software_project_not_supported"
     if re.search(r"\b(?:send|deliver)\b.{0,45}\b(?:emails|sms|dms|messages)\b",
                  title + " " + verification):
         return "outbound_messaging"
@@ -443,7 +450,11 @@ def assess(details, messages=None, sources=None, unreadable_count=0):
         "to the exact requested list, fields, sourcing, and requested quantity. "
         "Never fabricate names, decision makers, emails, sites, or claimed verification. "
         "It can produce PDF and DOCX reports from completed original text using "
-        "real local document-generation tools, and CSV or XLSX tables. It cannot "
+        "real local document-generation tools, CSV or XLSX tables, and self-contained "
+        "static landing-page source ZIP files with syntax-checked HTML, CSS and "
+        "JavaScript. Static websites are eligible only when the buyer asks for "
+        "source files, not live hosting, accounts, backend, or production deployment. "
+        "Do not promise browser screenshot QA or pixel-perfect visual design. It cannot "
         "edit the buyer's website, run or test untrusted code, browse authenticated "
         "systems, make images/videos, "
         "or inspect other private file formats. Do not bid on tasks needing those abilities. "
@@ -509,7 +520,8 @@ def respond_to_buyer(details, messages):
         "existing paid-work bid. Answer the actual question briefly and helpfully. "
         "Be truthful about capabilities, timing, and the exact offered deliverable. "
         "This runtime can provide plain-text analysis, writing, structured data, "
-        "CSV, XLSX, PDF and DOCX files, read text/Markdown/CSV/JSON/PDF/DOCX/XLSX source_files, "
+        "CSV, XLSX, PDF, DOCX and standalone static-site ZIP files, "
+        "read text/Markdown/CSV/JSON/PDF/DOCX/XLSX source_files, "
         "and search public web pages for commissioned research. "
         "It cannot browse authenticated sites, access private accounts or "
         "unsupported file types, run code, or operate a buyer's website. "
@@ -661,6 +673,13 @@ def produce(details, messages, verification_feedback="", quality_feedback="", so
         "deliverable_format to pdf or docx respectively. Actual file generation and "
         "read-back validation are handled by the runtime. Never claim to supply "
         "fillable PDF forms, electronic signatures, or unsupported layout features. "
+        "For an explicitly static single-page HTML/CSS website with source files "
+        "rather than a hosted URL, output one complete HTML5 document with "
+        "embedded CSS and optional inline JavaScript in deliverable_text, set "
+        "deliverable_format to site_zip. Include a viewport meta tag, a title, "
+        "head, and body. Do not use remote dependencies, external images, "
+        "network requests, external fonts, or server-side features. The runtime "
+        "packages and verifies the site source as a ZIP, not a live deployment. "
         "For a requested summary, analysis, or narrative report with no explicit "
         "file-format requirement, prefer a readable, finished prose answer in "
         "deliverable_format text; an attached source CSV does not mean the buyer "
@@ -700,7 +719,7 @@ def review(details, work, sources=None):
         "support each claim. Do not accept fabricated contacts, padding, or treating "
         "search snippets as independent page verification. "
         "Approve only a self-contained original text, CSV, XLSX-source table, "
-        "PDF-source report or DOCX-source report "
+        "PDF-source report, DOCX-source report or self-contained static HTML source "
         "suitable for submission. "
         "Return strict JSON."
     )
@@ -945,6 +964,8 @@ def handle_hired(item, state):
                 normalized_content = content
             elif format_name in {"pdf", "docx"}:
                 normalized_content = make_document(format_name, content)
+            elif format_name == "site_zip" and static_site_eligible(details):
+                normalized_content = pack_static_site(content)
             else:
                 raise ValueError("unsupported_output_format")
         except ValueError as exc:
