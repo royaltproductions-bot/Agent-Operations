@@ -923,15 +923,18 @@ def publish_catalog():
             '<a class="buy" href="'+link+'" rel="noopener noreferrer">'
             'Buy securely with Stripe</a></article>')
     body="".join(cards) if cards else (
-        '<p>Listings are undergoing independent content and claim verification. '
-        'No new digital products are offered for purchase until their '
-        'actual deliverables pass that check.</p>')
+        '<article><h2>Products under review</h2>'
+        '<p>We are checking deliverable completeness and description accuracy '
+        'before placing digital products on sale. There are currently no '
+        'verified products available for purchase in this section.</p>'
+        '<p><a href="/free-vendor-payout-calculator/">Try our free vendor '
+        'payout calculator</a> in the meantime.</p></article>')
     document='''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="index,follow">
-<title>Reusable Digital Tools | Cyclops</title>
-<meta name="description" content="Practical reusable digital tools sold through secure Stripe checkout and delivered privately.">
+<title>Ari Operations | Digital Products &amp; Tools</title>
+<meta name="description" content="Digital products and tools by Ari Operations, with verified deliverables and secure checkout.">
 <style>
 body{font:16px/1.6 system-ui,-apple-system,sans-serif;background:#f5f7f8;color:#182932;margin:0}
 main{max-width:980px;margin:0 auto;padding:35px 20px 70px}
@@ -941,10 +944,10 @@ article{background:white;border:1px solid #dbe3e7;border-radius:14px;padding:24p
 .muted{color:#61717a}.price{font-size:1.4rem;font-weight:700}
 .buy{display:inline-block;background:#155f65;color:white;padding:11px 17px;border-radius:8px;text-decoration:none}
 </style></head><body><main>
-<nav><a href="/">Home</a></nav><h1>Cyclops reusable digital tools</h1>
-<p>Finished products. Pay through Stripe and receive files privately after verified payment.</p>
+<nav><a href="/">Home</a></nav><h1>Ari Operations</h1>
+<p>Digital Products &amp; Tools. Each listing is checked for deliverable completeness and accurate claims before being offered for purchase.</p>
 <section>'''+body+'''</section>
-<p>Questions? Contact ari-operations@agentmail.to. Product prices and terms are shown at checkout.</p>
+<p>Ari Operations · Questions? <a href="mailto:ari-operations@agentmail.to">Contact our digital products team</a>.</p>
 </main></body></html>'''
     # Avoid an unnecessary storefront commit/deploy if the catalog has not changed.
     try:
