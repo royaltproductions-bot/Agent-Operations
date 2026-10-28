@@ -62,6 +62,22 @@ class GambitTests(unittest.TestCase):
         self.assertTrue(result['needs_run'])
         self.assertFalse(result['needs_model'])
 
+    def test_platform_settlements_are_durable_and_not_double_counted(self):
+        state = {'bounties': {'b1': {'action': 'submitted', 'payout_cents': 2200}},
+                 'recent_outcomes': []}
+        self.assertTrue(gambit.record_settlement(state, 'b1', 'event-123'))
+        self.assertFalse(gambit.record_settlement(state, 'b1', 'event-123'))
+        self.assertFalse(gambit.record_settlement(state, 'b1', 'event-replayed'))
+        self.assertEqual(state['settlements']['b1']['payout_cents'], 2200)
+        self.assertEqual(len(state['recent_outcomes']), 1)
+        self.assertEqual(state['recent_outcomes'][0]['action'], 'work.completed')
+
+    def test_platform_settlement_without_known_payout_never_invents_earnings(self):
+        state = {'bounties': {}, 'recent_outcomes': []}
+        gambit.record_settlement(state, 'b2', 'event-456')
+        self.assertIsNone(state['settlements']['b2']['payout_cents'])
+        self.assertNotIn('payout_cents', state['recent_outcomes'][0])
+
     def test_invalid_event_cursor_recovers_and_rechecks_waiting_contexts(self):
         state = {'schema': 1, 'bounties': {'b1': {'version': 3, 'action': 'bid_active'}},
                  'events_cursor': 'expired', 'recent_outcomes': []}
