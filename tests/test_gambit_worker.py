@@ -330,6 +330,36 @@ class GambitTests(unittest.TestCase):
         self.assertEqual(len([c for c in api.call_args_list
                               if len(c.args) > 1 and c.args[1] == 'POST']), 1)
 
+    def test_bid_disappearing_from_open_list_is_still_reconciled(self):
+        state = {'bounties': {'missing1': {'version': 4, 'action': 'bid_active'}},
+                 'recent_outcomes': [], 'events_cursor': None,
+                 'last_check': datetime.now(timezone.utc).isoformat()}
+        self.assertTrue(gambit.bid_reconciliation_due(state, []))
+        details = {'bounty': {'_id': 'missing1', 'version': 4},
+                   'bid': {'status': 'missing'}}
+        with patch.object(gambit, 'api', return_value=details) as api, \
+             patch.object(gambit, 'infer') as infer:
+            gambit.reconcile_active_bids([], state)
+        api.assert_called_once_with('/v1/agent/bounties/missing1')
+        infer.assert_not_called()
+        self.assertEqual(state['bounties']['missing1']['action'], 'bid_missing')
+
+    def test_bid_detail_failure_does_not_falsely_close_offer(self):
+        state = {'bounties': {'b1': {'version': 2, 'action': 'bid_active'}},
+                 'recent_outcomes': []}
+        with patch.object(gambit, 'api', side_effect=RuntimeError('bounty_api_UNAVAILABLE')):
+            with self.assertRaisesRegex(RuntimeError, 'UNAVAILABLE'):
+                gambit.reconcile_active_bids([], state)
+        self.assertEqual(state['bounties']['b1']['action'], 'bid_active')
+
+    def test_changed_bid_is_left_to_normal_processing(self):
+        state = {'bounties': {'b1': {'version': 2, 'action': 'bid_active'}},
+                 'recent_outcomes': []}
+        with patch.object(gambit, 'api') as api:
+            gambit.reconcile_active_bids([{'_id': 'b1', 'version': 3}], state,
+                                         skip_ids={'b1'})
+        api.assert_not_called()
+
     def test_unchanged_bid_reconciliation_does_not_boot_model(self):
         state = {'schema': 1,
                  'bounties': {'b1': {'version': 1, 'action': 'bid_active'}},

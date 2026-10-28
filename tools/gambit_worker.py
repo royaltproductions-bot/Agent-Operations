@@ -77,14 +77,14 @@ def cursor_refresh_due(state, cursor, now=None):
 
 
 def bid_reconciliation_due(state, opened, now=None):
-    """Revisit open bids even when the buyer creates no new events.
+    """Revisit all locally active bids even when listings disappear.
 
     The reconciliation path is model-free: an unsupported offer must not stay
-    live merely because the buyer did not edit the Bounty.
+    live merely because the buyer did not edit the Bounty. A bid may also
+    disappear from the open-list response without a corresponding event.
     """
-    open_ids = {str(item.get("_id")) for item in opened}
-    if not any(bounty_id in open_ids and entry.get("action") == "bid_active"
-               for bounty_id, entry in state["bounties"].items()):
+    if not any(entry.get("action") == "bid_active"
+               for entry in state["bounties"].values()):
         return False
     try:
         previous = datetime.fromisoformat(state.get("last_bid_reconciliation") or "")
@@ -1023,16 +1023,17 @@ def upload_csv(bounty_id, data, state, claim_id, digest):
                        filename="gambit-research.csv", content_type="text/csv")
 
 
-def reconcile_active_bids(opened, state):
+def reconcile_active_bids(opened, state, *, skip_ids=()):
     """Check prior offers against current skills without loading an LLM.
 
     An unchanged Bounty version is not proof the offer remains appropriate;
     skills can be removed or improved independently of the buyer's listing.
     """
-    for item in opened:
-        bounty_id = str(item.get("_id"))
-        previous = state["bounties"].get(bounty_id) or {}
-        if previous.get("action") != "bid_active":
+    # Use durable bid records, not today's open-list response. An older bid
+    # can disappear from that list without an event and still require review.
+    excluded = set(skip_ids)
+    for bounty_id, previous in list(state["bounties"].items()):
+        if previous.get("action") != "bid_active" or bounty_id in excluded:
             continue
         details = api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}")
         bid = details.get("bid") or {}
@@ -1344,9 +1345,8 @@ def run(mode="run"):
     if bid_reconciliation_due(state, opened):
         # Changed listings are handled by the ordinary model-backed path.
         changed_ids = {str(item.get("_id")) for item in waiting}
-        unchanged = [item for item in opened if str(item.get("_id")) not in changed_ids]
         try:
-            reconcile_active_bids(unchanged, state)
+            reconcile_active_bids(opened, state, skip_ids=changed_ids)
             state["last_bid_reconciliation"] = timestamp()
         except Exception as exc:
             failures.append(("bid_reconciliation", safe_failure_reason(exc)))
