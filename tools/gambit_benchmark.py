@@ -9,6 +9,9 @@ import csv
 import io
 import json
 import re
+from zipfile import ZipFile
+
+from tools.gambit_sites import pack_static_site
 
 from tools import gambit_worker as worker
 
@@ -73,9 +76,36 @@ def analysis_case():
     return {"case": "three_month_analysis", "result": "passed"}
 
 
+def static_site_case():
+    """Use the production LLM and real bundler, without touching a paid Bounty."""
+    bounty = {"bounty": {
+        "title": "Build a static HTML landing page for Summit Soap",
+        "description": "Create one self-contained, mobile-responsive HTML landing page "
+                       "for a fictional handmade soap brand called Summit Soap. "
+                       "Include a headline, product benefits section and a visible "
+                       "Contact Us call to action. Use embedded CSS and no external "
+                       "fonts, images, scripts, or network requests.",
+        "verification": "Deliver a ZIP containing the standalone index.html source, "
+                        "with responsive CSS and no server or live hosting."}}
+    result = worker.produce(bounty, [], research={"status": "not_needed", "results": []})
+    if result.get("status") != "ready" or result.get("deliverable_format") != "site_zip":
+        raise AssertionError("static_site_model_wrong_output_format: " + repr({
+            "status": result.get("status"), "format": result.get("deliverable_format"),
+            "reason": str(result.get("reason") or "")[:180]}))
+    archive = pack_static_site(str(result.get("deliverable_text") or ""))
+    import io
+    with ZipFile(io.BytesIO(archive)) as bundle:
+        html = bundle.read("index.html").decode("utf-8")
+    if ("summit soap" not in html.lower() or "contact us" not in html.lower() or
+            "<style" not in html.lower()):
+        raise AssertionError("static_site_missing_required_content")
+    return {"case": "self_contained_static_site", "result": "passed",
+            "zip_bytes": len(archive)}
+
+
 if __name__ == "__main__":
     outcomes = []
-    for run_case in (research_case, analysis_case):
+    for run_case in (research_case, analysis_case, static_site_case):
         try:
             outcomes.append(run_case())
         except Exception as exc:

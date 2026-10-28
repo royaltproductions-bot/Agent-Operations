@@ -9,6 +9,8 @@ on:
       - 'tools/gambit_worker.py'
       - 'tools/gambit_analytics.py'
       - 'tools/gambit_documents.py'
+      - 'tools/gambit_sites.py'
+      - 'tools/gambit_artifacts.py'
   workflow_dispatch:
 
 permissions:
@@ -49,5 +51,5 @@ jobs:
           done
           ollama show "$GAMBIT_MODEL" >/dev/null 2>&1 || ollama pull "$GAMBIT_MODEL"
 
-      - name: Actually generate and score two commercial work samples
+      - name: Actually generate and score three commercial work samples
         run: python3 -m tools.gambit_benchmark
