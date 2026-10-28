@@ -23,6 +23,8 @@ import urllib.request
 from tools.gambit_documents import (MAX_BINARY_BYTES, convert_document,
                                     csv_to_xlsx, kind_for)
 from tools.gambit_analytics import summarize_csv_sources
+from tools.gambit_artifacts import (OUTPUT_FILES, SUPPORTED_FORMATS,
+                                    make_document, requested_output_format)
 
 BASE = "https://api.trybounty.ai"
 STATE_PATH = Path("ops/gambit/state.json")
@@ -286,7 +288,7 @@ WORK_SCHEMA = {"type": "object", "properties": {
     "status": {"type": "string", "enum": ["ready", "need_information", "cannot_deliver"]},
     "reason": {"type": "string"}, "question": {"type": "string"},
     "deliverable_title": {"type": "string"}, "deliverable_text": {"type": "string"},
-    "deliverable_format": {"type": "string", "enum": ["text", "csv", "xlsx"]},
+    "deliverable_format": {"type": "string", "enum": sorted(SUPPORTED_FORMATS)},
 }, "required": ["status", "reason", "question", "deliverable_title",
                 "deliverable_text", "deliverable_format"],
     "additionalProperties": False}
@@ -311,6 +313,8 @@ def clean_context(details, messages=None, sources=None):
     prior_bid = details.get("bid") or {}
     return {"title": bounty.get("title"), "instructions": bounty.get("description"),
             "verification": bounty.get("verification"), "version": bounty.get("version"),
+            "available_output_formats": sorted(SUPPORTED_FORMATS),
+            "requested_final_output_formats": sorted(requested_output_format(details)),
             "delivery_window_ms": bounty.get("delivery_window_ms"),
             "budget_cents": bounty.get("budget_cents"), "payout_cents": bounty.get("payout_cents"),
             "flow": bounty.get("flow"),
@@ -365,13 +369,22 @@ def unsupported_deliverable(details):
                   title) or re.search(r"\b(?:mp3|wav|flac|aac)\b", verification)):
         return "audio_production"
 
-    # This worker can read many file types, but cannot author these formats.
-    unsupported_files = r"\b(?:png|jpe?g|webp|svg|psd|mp3|wav|pptx|docx|pdf|apk|ipa)\b"
+    # Real local document adapters can author PDFs and Word reports. Graphic,
+    # presentation, mobile-app and audiovisual formats are still unsupported.
+    unsupported_files = r"\b(?:png|jpe?g|webp|svg|psd|mp3|wav|pptx|apk|ipa)\b"
     if (re.search(r"\b(?:submit|deliver|upload|export|provide|produce|create)\b"
                   r".{0,100}" + unsupported_files, verification) or
             re.search(unsupported_files + r".{0,50}\b(?:final|deliverable|file)\b",
                       verification)):
         return "unsupported_file_output"
+
+    # We can create ordinary PDFs, not editable/fillable/signable forms.
+    if re.search(r"\b(?:fillable|interactive|signed|digitally signed)\b.{0,60}\bpdf\b",
+                 requested + " " + verification):
+        return "unsupported_pdf_form"
+    requested_formats = requested_output_format(details)
+    if len(requested_formats) > 1 or requested_formats - SUPPORTED_FORMATS:
+        return "unsupported_multi_or_file_format"
 
     if (re.search(r"\b(?:deploy|host|publish|implement)\b"
                   r".{0,65}\b(?:website|web app|application|server|api)\b", title) or
@@ -429,8 +442,10 @@ def assess(details, messages=None, sources=None, unreadable_count=0):
         "Bid on external research only if the gathered results show a realistic path "
         "to the exact requested list, fields, sourcing, and requested quantity. "
         "Never fabricate names, decision makers, emails, sites, or claimed verification. "
-        "It can read only the extracted source_files. It cannot edit the buyer's "
-        "website, run or test code, browse authenticated systems, make images/videos, "
+        "It can produce PDF and DOCX reports from completed original text using "
+        "real local document-generation tools, and CSV or XLSX tables. It cannot "
+        "edit the buyer's website, run or test untrusted code, browse authenticated "
+        "systems, make images/videos, "
         "or inspect other private file formats. Do not bid on tasks needing those abilities. "
         "If an unreadable attachment is reported, bid only if the owner's messages "
         "already contain sufficient replacement input to do the work faithfully. "
@@ -494,7 +509,7 @@ def respond_to_buyer(details, messages):
         "existing paid-work bid. Answer the actual question briefly and helpfully. "
         "Be truthful about capabilities, timing, and the exact offered deliverable. "
         "This runtime can provide plain-text analysis, writing, structured data, "
-        "CSV and XLSX files, read text/Markdown/CSV/JSON/PDF/DOCX/XLSX source_files, "
+        "CSV, XLSX, PDF and DOCX files, read text/Markdown/CSV/JSON/PDF/DOCX/XLSX source_files, "
         "and search public web pages for commissioned research. "
         "It cannot browse authenticated sites, access private accounts or "
         "unsupported file types, run code, or operate a buyer's website. "
@@ -641,6 +656,11 @@ def produce(details, messages, verification_feedback="", quality_feedback="", so
         "same complete CSV-formatted table in deliverable_text and set "
         "deliverable_format to xlsx; the runtime will convert it to a real workbook. "
         "For prose, Markdown and plain-text outputs use deliverable_format text. "
+        "If the buyer explicitly asks for a finished PDF report or Word DOCX document, "
+        "write the complete document body in deliverable_text and set "
+        "deliverable_format to pdf or docx respectively. Actual file generation and "
+        "read-back validation are handled by the runtime. Never claim to supply "
+        "fillable PDF forms, electronic signatures, or unsupported layout features. "
         "For a requested summary, analysis, or narrative report with no explicit "
         "file-format requirement, prefer a readable, finished prose answer in "
         "deliverable_format text; an attached source CSV does not mean the buyer "
@@ -679,7 +699,8 @@ def review(details, work, sources=None):
         "For externally researched leads and facts, check that actual source URLs "
         "support each claim. Do not accept fabricated contacts, padding, or treating "
         "search snippets as independent page verification. "
-        "Approve only a self-contained original text, CSV, or XLSX-source table "
+        "Approve only a self-contained original text, CSV, XLSX-source table, "
+        "PDF-source report or DOCX-source report "
         "suitable for submission. "
         "Return strict JSON."
     )
@@ -766,10 +787,7 @@ class NoUploadRedirect(urllib.request.HTTPRedirectHandler):
 
 def upload_file(bounty_id, data, state, claim_id, digest, *, filename, content_type):
     """Upload a generated file to signed object storage, never forwarding API auth."""
-    if (filename, content_type) not in {
-        ("gambit-research.csv", "text/csv"),
-        ("gambit-research.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-    }:
+    if (filename, content_type) not in set(OUTPUT_FILES.values()):
         raise ValueError("unsupported_output_file")
     previous = state["bounties"].get(bounty_id) or {}
     if (previous.get("action") == "upload_pending" and
@@ -915,6 +933,9 @@ def handle_hired(item, state):
             raise ValueError("invalid_text_deliverable")
         format_name = result.get("deliverable_format") or "text"
         try:
+            required_formats = requested_output_format(details)
+            if required_formats and format_name not in required_formats:
+                raise ValueError("requested_output_format_mismatch")
             if format_name in {"csv", "xlsx"}:
                 csv_content = prepare_csv(content)
                 validate_csv_source_urls(csv_content, result.get("_web_evidence"), sources)
@@ -922,6 +943,8 @@ def handle_hired(item, state):
                                       else csv_content)
             elif format_name == "text":
                 normalized_content = content
+            elif format_name in {"pdf", "docx"}:
+                normalized_content = make_document(format_name, content)
             else:
                 raise ValueError("unsupported_output_format")
         except ValueError as exc:
@@ -929,7 +952,10 @@ def handle_hired(item, state):
                        ("CSV citations must match actually read source pages or buyer files"
                         if "source URL" in str(exc) else
                         "CSV needs a header and consistently sized data rows, "
-                        "including when creating an Excel workbook")}
+                        "including when creating an Excel workbook"
+                        if "invalid_csv" in str(exc) else
+                       "Output must match the buyer's requested final format and "
+                       "the resulting file must pass generation and read-back validation")}
         else:
             digest = key("content", normalized_content)
             if failure_reason and previous.get("content_digest") == digest:
@@ -998,19 +1024,17 @@ def handle_hired(item, state):
                 "last_message": last_message}
             note(state, "quality_rejected_final", bounty_id)
         return
-    if format_name == "csv":
-        attachment_id = upload_csv(bounty_id, normalized_content, state, claim["claim_id"],
-                                   digest)
+    if format_name in OUTPUT_FILES:
+        filename, mime = OUTPUT_FILES[format_name]
+        if format_name == "csv":
+            attachment_id = upload_csv(bounty_id, normalized_content, state,
+                                       claim["claim_id"], digest)
+        else:
+            attachment_id = upload_file(bounty_id, normalized_content, state,
+                                        claim["claim_id"], digest,
+                                        filename=filename, content_type=mime)
         deliverables = [{"key": "result", "type": "file",
-                         "label": str(result.get("deliverable_title") or "Research table")[:100],
-                         "data": {"attachment_id": attachment_id}}]
-    elif format_name == "xlsx":
-        attachment_id = upload_file(bounty_id, normalized_content, state,
-                                    claim["claim_id"], digest,
-                                    filename="gambit-research.xlsx",
-                                    content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-        deliverables = [{"key": "result", "type": "file",
-                         "label": str(result.get("deliverable_title") or "Excel workbook")[:100],
+                         "label": str(result.get("deliverable_title") or filename)[:100],
                          "data": {"attachment_id": attachment_id}}]
     else:
         deliverables = [{"key": "result", "type": "text",
