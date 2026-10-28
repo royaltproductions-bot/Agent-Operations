@@ -1,0 +1,132 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T03:03:56.827954+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "hn_ask": 6
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 5,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=39572016",
+        "title": "Ask HN: How to obfuscate an email on a website in 2024?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=39059878",
+        "title": "Ask HN: Jamming (As in Musicians) Web Site?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=35070143",
+        "title": "How we built a social network with No-Code",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=27138789",
+        "title": "Ask HN: Where can I learn about integrating services with my app?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37791381",
+        "title": "Ask HN: Getting traction from companies but no actual product help?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=21883848",
+        "title": "Ask HN: Assistance with Rebuilding Life in Amsterdam",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to create a simple website for a local business",
+      "need paid help with designing a social media campaign for a nonprofit"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create a simple website for a local business",
+      "need paid help with designing a social media campaign for a nonprofit",
+      "can anyone create a data analysis report from existing spreadsheets",
+      "hiring a freelancer to develop a basic mobile app prototype",
+      "looking for someone to build a WordPress plugin for custom functionality"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 4,
+      "executed_queries": [
+        "looking for someone to create a simple website for a local business",
+        "need paid help with designing a social media campaign for a nonprofit",
+        "can anyone create a data analysis report from existing spreadsheets",
+        "hiring a freelancer to develop a basic mobile app prototype",
+        "looking for someone to build a WordPress plugin for custom functionality"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 138,
+      "known_pages": 685
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
