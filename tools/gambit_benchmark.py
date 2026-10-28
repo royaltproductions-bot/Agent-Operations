@@ -63,7 +63,7 @@ def analysis_case():
     content = str(result.get("deliverable_text") or "")
     for value in ("60", "20", "March", "30"):
         if not re.search(rf"\b{re.escape(value)}\b", content, re.I):
-            raise AssertionError("analysis_missing_expected_result")
+            raise AssertionError("analysis_missing_expected_result: " + repr(content[:900]))
     return {"case": "three_month_analysis", "result": "passed"}
 
 
