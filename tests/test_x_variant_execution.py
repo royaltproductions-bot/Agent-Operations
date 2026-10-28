@@ -312,6 +312,11 @@ class CyclopsEfficiencyTests(unittest.TestCase):
         self.assertEqual(len(comparable_paid_pairs([one,two,unrelated])),1)
         self.assertEqual(comparable_paid_pairs([one,one]),[])
         self.assertEqual(comparable_paid_pairs([one,unrelated]),[])
+        weak=sold("https://market.example/item/weak",
+                  "Metoxi Admin Dashboard Template","thirdseller",20)
+        self.assertEqual(comparable_paid_pairs([weak,
+            sold("https://market.example/item/weaker",
+                 "Mighty Admin Dashboard Template","fourthseller",25)]),[])
         snippet_only={**one,"page_fetched":False}
         self.assertIsNone(observed_paid_listing(snippet_only))
         only_ad={**one,"page_text":"I am struggling and wish I had a tool. "*8}

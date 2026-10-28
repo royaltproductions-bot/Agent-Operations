@@ -80,6 +80,8 @@ def comparable_paid_pairs(rows):
             seen.add(proof["url"])
     pairs=[]
     for left,right in combinations(found,2):
+        if left["completed_sales"]+right["completed_sales"]<100:
+            continue
         if left["seller"] and left["seller"]==right["seller"]:
             continue
         if (not left["seller"] or not right["seller"]):
@@ -107,8 +109,9 @@ def validated_market_proof(plan):
     if comps[0].get("url")==comps[1].get("url"):
         return False
     try:
-        return all(int(c.get("completed_sales") or 0)>=20
+        return (sum(int(c.get("completed_sales") or 0) for c in comps)>=100
+                and all(int(c.get("completed_sales") or 0)>=20
                    and Decimal(str(c.get("listed_price_usd") or 0))>0
-                   and c.get("sale_excerpt") for c in comps)
+                   and c.get("sale_excerpt") for c in comps))
     except (TypeError,ValueError,ArithmeticError):
         return False
