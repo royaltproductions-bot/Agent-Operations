@@ -1,0 +1,64 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T01:42:26.591672+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 1,
+    "source_counts": {
+      "open_web": 1
+    },
+    "search_provider_counts": {
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 0,
+    "candidates_without_email": 1,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "public tender digital transformation services education sector 2026"
+    ],
+    "attempted_search_queries": [
+      "request for proposal public sector infrastructure modernization 2026",
+      "contractor bid submission guidelines municipal transportation upgrade",
+      "public tender digital transformation services education sector 2026",
+      "proposal submission portal environmental compliance audit services"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 1,
+      "skipped_revisits": 2,
+      "executed_queries": [
+        "request for proposal public sector infrastructure modernization 2026",
+        "contractor bid submission guidelines municipal transportation upgrade",
+        "public tender digital transformation services education sector 2026",
+        "proposal submission portal environmental compliance audit services"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 138,
+      "known_pages": 650
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
