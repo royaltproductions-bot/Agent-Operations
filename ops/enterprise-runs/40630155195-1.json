@@ -1,0 +1,132 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T04:05:36.506253+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "hn_ask": 6
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 6,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=46512389",
+        "title": "What I Expected from Computer Engineering and Notes on first public project",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37377052",
+        "title": "The HN UI is terrible",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=36188323",
+        "title": "Alternaive to Fastmail (using a custom email domain)",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=20522073",
+        "title": "Tmobile.com is having some serious problems",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=4159116",
+        "title": "How Not to write a job posting",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=41382707",
+        "title": "Grifters \u2013 ElixirLang, Capture the Red Flag (Ep1)",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to design a simple mobile app for tracking personal habits",
+      "hiring a freelancer to create a paid newsletter with subscription model"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to design a simple mobile app for tracking personal habits",
+      "hiring a freelancer to create a paid newsletter with subscription model",
+      "need paid help with building a basic landing page for a new service",
+      "can anyone create a short video script for a local business promotion",
+      "looking for someone to develop a lightweight SaaS tool for small teams"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 2,
+      "executed_queries": [
+        "looking for someone to design a simple mobile app for tracking personal habits",
+        "hiring a freelancer to create a paid newsletter with subscription model",
+        "need paid help with building a basic landing page for a new service",
+        "can anyone create a short video script for a local business promotion",
+        "looking for someone to develop a lightweight SaaS tool for small teams"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 138,
+      "known_pages": 691
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
