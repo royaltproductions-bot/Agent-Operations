@@ -9,6 +9,7 @@ on:
       - 'tools/autonomous_commerce_brain.py'
       - 'tools/connected_commerce_tools.py'
       - 'tools/open_web_discovery.py'
+      - 'tools/research_memory.py'
       - '.github/workflows/commerce-engine.yml'
 
 permissions:

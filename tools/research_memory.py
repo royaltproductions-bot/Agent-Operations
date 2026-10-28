@@ -140,6 +140,7 @@ class ResearchMemory:
         self.new_pages=0
         self.skipped_pages=0
         self.search_errors=0
+        self.query_sanitizations=0
 
     def plan_context(self):
         """Only external market research belongs in the search-planning prompt.
@@ -151,6 +152,8 @@ class ResearchMemory:
         """
         recent=[x for x in (self.state.get("queries") or [])[-20:]
                 if isinstance(x,dict)]
+        recent_outcomes=[x for x in (self.state.get("outcomes") or [])[-8:]
+                         if isinstance(x,dict)]
         # Earlier exact queries/titles repeatedly anchored the small local
         # model to fictional, near-identical project descriptions. The
         # research memory still deduplicates URLs and queries internally;
@@ -158,9 +161,11 @@ class ResearchMemory:
         return {
             "recent_search_attempts":len(recent),
             "recent_searches_with_new_pages":sum(bool(x.get("new_pages")) for x in recent),
+            "recent_runs_without_an_offer":sum(not bool(x.get("offers")) for x in recent_outcomes),
+            "recent_runs_observed":len(recent_outcomes),
             "known_page_count":len(self.state.get("pages") or []),
             "unvisited_link_count":len(self.state.get("frontier") or []),
-            "directive":"Search for firsthand public evidence, freely changing industries and methods. Do not invent a hypothetical need and repeatedly search for variations of that invented sentence.",
+            "directive":"Search for firsthand public evidence, freely changing industries and methods. Do not invent hypothetical buyers. If recent offers are zero, choose demonstrably different discovery approaches and prioritize reachability over merely finding pages.",
         }
 
     @staticmethod
@@ -196,8 +201,15 @@ class ResearchMemory:
         # Preserve them only as fallback when the planner is unavailable.
         for q in (list(proposed) if proposed else list(queued)):
             q=re.sub(r"\s+"," ",str(q or "").strip())[:220]
+            # A local model has repeatedly invented site:example.com filters
+            # and full product URLs. Keep the real topic words, not guessed hosts.
+            cleaned=re.sub(r"(?i)\b(?:site:\S+|https?://\S+|www\.\S+)"," ",q)
+            cleaned=re.sub(r"\s+"," ",cleaned).strip()
+            if cleaned!=q:
+                self.query_sanitizations+=1
+            q=cleaned
             k=_key(q)
-            if len(q)<4 or k in seen or self._is_internal_query(q):
+            if len(re.findall(r"\b[a-zA-Z0-9-]{3,}\b",q))<2 or k in seen or self._is_internal_query(q):
                 continue
             seen.add(k)
             past=recent.get(k)
@@ -367,6 +379,7 @@ class ResearchMemory:
                     return {"persisted":True,"path":path,
                             "new_pages_this_run":self.new_pages,
                             "skipped_revisits":self.skipped_pages,
+                            "invented_site_filters_removed":self.query_sanitizations,
                             "executed_queries":self.run_queries,
                             "next_query_queue":len(current.get("queued_queries") or []),
                             "frontier_size":len(current.get("frontier") or []),

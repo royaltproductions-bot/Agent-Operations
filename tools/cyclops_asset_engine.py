@@ -40,7 +40,7 @@ from tools.connected_commerce_tools import (
 
 from tools.open_web_discovery import open_web_candidates, public_request_signal
 from tools.paid_market import (observed_paid_listing, paid_listing_evidence,
-                               validated_market_proof)
+                               public_market_evidence, validated_market_proof)
 from tools.cyclops_workshop import discover_tools, manufacture, _safe_path
 from tools.research_memory import ResearchMemory
 from tools.cyclops_vault import (read_pending, save_pending, seal_asset,
@@ -109,13 +109,13 @@ PRODUCT_REVIEW_SCHEMA={
     "properties":{
         "fulfills_promised_function":{"type":"boolean"},
         "contains_substantive_deliverable":{"type":"boolean"},
-        "serves_verified_paid_market_function":{"type":"boolean"},
-        "has_specific_paid_buyer_utility":{"type":"boolean"},
+        "serves_observed_market_need":{"type":"boolean"},
+        "has_specific_buyer_utility":{"type":"boolean"},
         "does_not_claim_unimplemented_external_capabilities":{"type":"boolean"},
         "reason":{"type":"string"},
     },
     "required":["fulfills_promised_function","contains_substantive_deliverable",
-                "serves_verified_paid_market_function","has_specific_paid_buyer_utility",
+                "serves_observed_market_need","has_specific_buyer_utility",
                 "does_not_claim_unimplemented_external_capabilities","reason"],
     "additionalProperties":False,
 }
@@ -155,18 +155,24 @@ def discovery_queries(memory):
     """Find actual priced offers and buyer activity for independent judgment."""
     system=(
         "You research markets where people have reasons to pay for a useful "
-        "product. Find ORIGINAL public priced product listings with real "
-        "purchase options. Sales counters, reviews, buyer discussion, and "
+        "DIGITAL product that can be independently produced and delivered. "
+        "Explore ORIGINAL public digital-product offers and firsthand buyer "
+        "problems. A direct priced listing is valuable but not mandatory. "
+        "Sales counters, reviews, buyer discussion, and "
         "other observed customer activity can strengthen the case, but many "
         "legitimate sellers keep transactions private. NEVER require an "
         "item-level sales count or access to private competitor records. "
-        "A single directly fetched paid offer can justify evaluation; "
+        "A single directly fetched commercial source can justify evaluation; "
         "you will independently judge whether "
         "the opportunity merits production. You choose markets freely: "
         "NO predetermined industry, product form, niche or business model. "
-        "Generate four to eight short, precise search queries aimed at DIRECT "
-        "product pages and complementary firsthand buyer evidence, not generic "
+        "Generate four to eight short, precise search queries for existing "
+        "digital markets and complementary firsthand buyer evidence, not generic "
         "how-to articles, wish lists or vague trend reports. "
+        "Your output must be WEB SEARCH TERMS, not guessed website domains, "
+        "site: filters, example.com placeholders or fabricated product URLs. "
+        "Do not search physical consumer electronics or hardware for a "
+        "digital manufacturing lane. "
         "Vary sellers and sources; distinguish an OFFER from a completed sale. "
         "A search query is not itself evidence. Do not invent buyers, sales, "
         "transaction counts, product listings or other purchase facts. "
@@ -299,16 +305,18 @@ def firsthand_problem_excerpt(row):
     return ""
 
 def choose_asset_concept(rows,existing_assets=None):
-    visible=paid_listing_evidence(rows)[:10]
+    visible=public_market_evidence(rows)[:10]
     if not visible:
-        raise ValueError("no_observed_public_paid_offers")
+        raise ValueError("no_fetched_firsthand_market_evidence")
     judgment=model_json(MARKET_JUDGMENT_SCHEMA,(
         "You are the independent commercial decision-maker. Evaluate real "
-        "public priced offers and choose whether an original "
+        "fetched public market observations and choose whether an original "
         "product in any of these markets is worth building. A paid offer is "
         "not proof of completed sales. Displayed sales counts are unverified "
         "seller claims unless independently corroborated; they are OPTIONAL. "
-        "One authentic listing may be sufficient, and there is NO minimum "
+        "Not every firsthand discussion indicates willingness to pay; use "
+        "your own commercial judgment about actual buyers and utility. "
+        "One relevant source may be sufficient, and there is NO minimum "
         "sales count, multiple-seller requirement, fixed business model, "
         "or price band. Judge customer activity where available, actual buyer utility, demand strength, "
         "competitive positioning, production feasibility and attainable "
@@ -318,7 +326,7 @@ def choose_asset_concept(rows,existing_assets=None):
         "Otherwise choose 'pass' with a concrete reason. Never fabricate "
         "sales or buyers, and NEVER demand private transaction verification. "
         "Cite one actual candidate_id. Return JSON only."
-    ),{"public_paid_offers":visible,
+    ),{"public_market_observations":visible,
         "existing_catalog":[a.get("title") for a in (existing_assets or [])[:12]]},
         num_ctx=4096,num_predict=350,temperature=0.2)
     selected=next((p for p in visible
@@ -334,17 +342,18 @@ def choose_asset_concept(rows,existing_assets=None):
     actual_tools=discover_tools()
     system=(
         "You independently invent and select one ORIGINAL reusable digital "
-        "product serving the paid market YOU just selected. "
+        "product serving the market YOU just selected. "
         "Use exactly the supplied selected candidate_id in "
         "evidence_candidate_id. No additional comparable is required. "
-        "The original public listing is evidence of an offered paid product, "
-        "NOT proof of completed transactions or future sales. "
+        "The original public source is evidence of what it actually says, "
+        "NOT proof of completed transactions or future sales. It may be a "
+        "listed paid product or a firsthand customer problem. "
         "Make the new product meaningfully useful, original, lawful, and "
         "differentiated from the existing item. "
         "Do not copy anyone else's source code, creative assets or text. "
-        "Set evidence_quote to a verbatim commercial-offer excerpt from the primary "
+        "Set evidence_quote to a verbatim excerpt from the primary "
         "source; facts will be checked against its fetched page. "
-        "Do not select a concept unrelated to these actual paid goods. "
+        "Do not select a concept unrelated to the cited firsthand market evidence. "
         "Then determine what real artifact(s) achieve its purpose. "
         "Inspect the ACTUAL discovered production tools supplied in context "
         "and choose files those tools can genuinely create. "
@@ -647,9 +656,9 @@ def commercial_integrity_review(plan,files):
         "true only when the supplied delivered content demonstrates it. "
         "Reject an empty template, generic introduction, sparse boilerplate, "
         "or static document marketed as an interactive generator or assistant. "
-        "An observed paid product offer and the agent's market judgment are "
-        "supplied. Verify the built product genuinely performs the SAME "
-        "offered core function and gives the intended buyers a specific usable "
+        "An actual public market observation and the agent's judgment are "
+        "supplied. Verify the built product genuinely performs its own "
+        "promised function, addresses the observed market need, and gives buyers a usable "
         "benefit. Do not assume the source has completed sales when no "
         "public count exists. Reject a generic imitation that does not "
         "fulfill a meaningful paid use case. "
@@ -673,7 +682,7 @@ def commercial_integrity_review(plan,files):
         "delivered_artifacts":evidence,
     },num_ctx=7168,num_predict=340,temperature=0.05)
     fields=("fulfills_promised_function","contains_substantive_deliverable",
-            "serves_verified_paid_market_function","has_specific_paid_buyer_utility",
+            "serves_observed_market_need","has_specific_buyer_utility",
             "does_not_claim_unimplemented_external_capabilities")
     if any(decision.get(field) is not True for field in fields):
         raise ValueError("product_not_market_ready:"+
@@ -722,9 +731,9 @@ def create_asset(rows,existing_assets=None):
             _retire_draft(checkpoint,"product_missing_source_excerpt")
         evidence=checkpoint.get("research_rows") or rows
     else:
-        evidence=[row for row in rows if observed_paid_listing(row)]
+        evidence=[row for row in rows if row.get("page_fetched")]
         if not evidence:
-            raise ValueError("no_observed_public_paid_offers")
+            raise ValueError("no_fetched_firsthand_market_evidence")
         plan=choose_asset_concept(evidence,existing_assets)
         evidence=evidence[:8]
         checkpoint={"stage":"building","plan":plan,"research_rows":evidence,
@@ -1428,6 +1437,7 @@ def run():
             "verified_firsthand_problem_pages":sum(bool(firsthand_problem_excerpt(r)) for r in rows),
             "observed_public_paid_offers":sum(bool(observed_paid_listing(r)) for r in rows),
             "market_candidates_considered":len(paid_listing_evidence(rows)),
+            "public_sources_available_for_judgment":len(public_market_evidence(rows)),
             "paid_offer_sample":[{
                 "url":proof["url"],"title":proof["title"],
                 "displayed_sales_count":proof["displayed_sales_count"],
@@ -1543,6 +1553,7 @@ def run():
                 "reason":"production_stage_error","detail":reason})
         elif reason.startswith(("no_public_research_to_select_product",
                                  "no_observed_public_paid_offers",
+                                 "no_fetched_firsthand_market_evidence",
                                  "market_opportunity_declined:",
                                  "no_independently_correlated_paid_product_demand",
                                  "no_verified_firsthand_market_problem",
@@ -1562,6 +1573,18 @@ def run():
             "reason":"production_unhandled_failure",
             "detail":(str(exc) or type(exc).__name__)[:160]})
 
+    blocked=sorted({str(e.get("provider")) for e in receipt["discovery"].get("source_errors",[])
+                    if e.get("http_code") in (403,429,503) and e.get("provider")})
+    receipt["operational_assessment"]={
+        "commercial_progress":bool(receipt["economic_result"]["new_asset_created"]
+                                    or receipt["economic_result"]["new_product_offers_sent"]
+                                    or receipt["economic_result"]["verified_cyclops_revenue_cents_seen"]),
+        "public_sources_reviewable":receipt["discovery"].get("public_sources_available_for_judgment",0),
+        "blocked_search_providers":blocked,
+        "primary_bottleneck":("none" if receipt["economic_result"]["new_asset_created"] else
+                              "no_firsthand_market_source" if not receipt["discovery"].get("public_sources_available_for_judgment")
+                              else str(receipt["production"].get("reason") or receipt["production"].get("result") or "unknown")[:160]),
+    }
     memory.note_outcome(receipt)
     receipt["discovery"]["research_memory"]=memory.save()
     write_receipt(receipt)

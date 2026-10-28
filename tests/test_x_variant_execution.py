@@ -351,6 +351,39 @@ class CyclopsEfficiencyTests(unittest.TestCase):
         only_ad={**one,"page_text":"I am struggling and wish I had a tool. "*8}
         self.assertIsNone(observed_paid_listing(only_ad))
 
+    def test_firsthand_market_source_can_be_judged_without_a_storefront(self):
+        from tools.paid_market import public_market_evidence, validated_market_proof
+        source={"id":"buyer:one","source_url":"https://discussion.example/request",
+                "title":"I need a faster way to reconcile orders",
+                "page_fetched":True,
+                "page_text":"I run a shop and spend hours reconciling my orders every week. "*3}
+        observed=public_market_evidence([source])
+        self.assertEqual(len(observed),1)
+        self.assertEqual(observed[0]["signal_type"],"firsthand_public_source")
+        self.assertIsNone(observed[0]["listed_price_usd"])
+        self.assertTrue(validated_market_proof({"market_validation":{
+            "status":"agent_assessed_public_market","decision":"pursue",
+            "reason":"Firsthand recurring buyer problem with a feasible digital solution",
+            "observation":observed[0]}}))
+        self.assertFalse(validated_market_proof({"market_validation":{
+            "status":"agent_assessed_public_market","decision":"pursue",
+            "reason":"No observed source", "observation":{"url":"https://fake.example"}}}))
+
+    def test_model_generated_fake_site_filters_do_not_constrain_search(self):
+        from tools.research_memory import ResearchMemory
+        memory=ResearchMemory.__new__(ResearchMemory)
+        memory.state={"queries":[],"queued_queries":[]}
+        memory.run_queries=[]
+        memory.query_sanitizations=0
+        selected=memory.choose_queries([
+            "site:imagined-shop.example productivity digital template checkout",
+            "https://fake.example.com/item/123",
+            "digital asset creator invoicing automation buyers",
+        ])
+        self.assertEqual(len(selected),2)
+        self.assertIn("productivity digital template checkout",selected)
+        self.assertEqual(memory.query_sanitizations,2)
+
     def test_unproven_product_cannot_reach_stripe_checkout(self):
         cyclops=cyclops_or_skip(self)
         with patch.object(cyclops,"stripe_get") as stripe:

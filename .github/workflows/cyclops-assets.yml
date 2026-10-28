@@ -12,8 +12,8 @@ on:
       - 'tools/cyclops_vault.py'
       - 'tools/connected_commerce_tools.py'
       - 'tools/research_memory.py'
-      - 'tools/open_web_discovery.py'
       - 'tools/paid_market.py'
+      - 'tools/open_web_discovery.py'
       - '.github/workflows/cyclops-assets.yml'
 
 permissions:
@@ -45,7 +45,7 @@ jobs:
           persist-credentials: true
 
       - name: Validate production Python syntax
-        run: python3 -m py_compile tools/cyclops_asset_engine.py tools/cyclops_workshop.py tools/cyclops_vault.py tools/connected_commerce_tools.py tools/open_web_discovery.py tools/research_memory.py tools/paid_market.py
+        run: python3 -m py_compile tools/cyclops_asset_engine.py tools/cyclops_workshop.py tools/cyclops_vault.py tools/connected_commerce_tools.py tools/open_web_discovery.py tools/research_memory.py
 
       - uses: actions/cache@v4
         continue-on-error: true

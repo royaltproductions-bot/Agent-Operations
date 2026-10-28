@@ -10,6 +10,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from decimal import Decimal
 import re
+from urllib.parse import urlsplit
 
 SALE_COUNT=re.compile(
     r"(?i)(?<![\w])(?:(\d[\d,]*)\s+(?:sales|purchases|orders)\b|"
@@ -66,6 +67,40 @@ def paid_listing_evidence(rows):
     return found
 
 
+def public_market_evidence(rows):
+    """Expose fetched firsthand sources to judgment; never infer transactions.
+
+    Direct paid offers are ranked first, while customer problems and competing
+    products remain usable research signals even if sellers hide sales counts,
+    prices, or checkout interfaces behind a dynamic storefront.
+    """
+    found=[]
+    seen=set()
+    for row in rows:
+        url=str(row.get("source_url") or "")
+        parsed=urlsplit(url)
+        body=" ".join(str(row.get("page_text") or "").split())
+        if (not row.get("page_fetched") or parsed.scheme not in ("http","https")
+                or not parsed.hostname or len(body)<60 or url in seen):
+            continue
+        seen.add(url)
+        offer=observed_paid_listing(row)
+        if offer:
+            source={**offer,"source_fetched":True}
+        else:
+            source={
+                "candidate_id":str(row.get("id") or ""),
+                "url":url,"title":str(row.get("title") or "")[:180],
+                "signal_type":"firsthand_public_source",
+                "source_fetched":True,
+                "evidence_excerpt":body[:620],
+                "listed_price_usd":None,
+                "displayed_sales_count":None,
+            }
+        found.append(source)
+    return sorted(found,key=lambda s:s["signal_type"]!="public_paid_offer")
+
+
 def validated_market_proof(plan):
     proof=plan.get("market_validation") or {}
     if proof.get("status")=="agent_assessed_public_market":
@@ -74,10 +109,11 @@ def validated_market_proof(plan):
         observation=proof.get("observation") or {}
         try:
             return bool(
-                observation.get("signal_type")=="public_paid_offer"
-                and str(observation.get("url") or "").startswith(("https://","http://"))
+                str(observation.get("url") or "").startswith(("https://","http://"))
                 and observation.get("evidence_excerpt")
-                and Decimal(str(observation.get("listed_price_usd") or 0))>0)
+                and (observation.get("source_fetched") is True or (
+                    observation.get("signal_type")=="public_paid_offer"
+                    and Decimal(str(observation.get("listed_price_usd") or 0))>0)))
         except (TypeError,ValueError,ArithmeticError):
             return False
     if proof.get("status")=="agent_assessed_paid_listing":

@@ -413,6 +413,7 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
     total_provider_hits=0
     providers=(("duckduckgo",duckduckgo_html),
                ("brave",brave_html),("bing",bing_rss))
+    blocked_providers=set()
     # Read independent topics via the provider that actually returns topical
     # results. Bing's RSS feed has repeatedly returned dictionary definitions
     # or unrelated pages for whole human-problem queries. It remains a
@@ -420,6 +421,8 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
     for query in queries:
         strong_primary=0
         for provider,search in providers:
+            if provider in blocked_providers:
+                continue
             if provider in ("brave","bing") and strong_primary>=3:
                 continue
             try:
@@ -451,7 +454,13 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
                 errors.append({
                     "source":"open_web_search","provider":provider,
                     "reason":type(exc).__name__,
+                    "http_code":exc.code if isinstance(exc,urllib.error.HTTPError) else None,
                 })
+                # Rate-limited or forbidden providers will not recover a few
+                # milliseconds later on the next query. Don't waste the
+                # remaining run retrying the same blocked search endpoint.
+                if isinstance(exc,urllib.error.HTTPError) and exc.code in (403,429,503):
+                    blocked_providers.add(provider)
                 if memory:
                     memory.observe_search(query,provider,0,error=type(exc).__name__)
 

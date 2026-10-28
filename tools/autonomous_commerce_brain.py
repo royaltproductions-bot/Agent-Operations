@@ -176,6 +176,12 @@ def discovery_queries(memory):
         "there is NO preset product, niche, website or business model. "
         "Generate four to eight DISTINCT, SHORT queries that could find "
         "the original requester post and a published reply route. Prefer "
+        "keywords that occur in actual public solicitations, including "
+        "visible contact routes; avoid inventing detailed hypothetical "
+        "projects or guessing that anyone needs a particular deliverable. "
+        "Return SEARCH TERMS, not complete URLs, made-up hostnames or site: "
+        "filters. Focus on recent, contactable requests rather than old "
+        "advice discussions. "
         "individual, creator and small-team paid projects completable by a "
         "solo remote digital operator without licenses, capital, onsite "
         "attendance or a long employment process. A buyer's own invitation "
@@ -219,7 +225,8 @@ def candidates(memory):
     rows,errors=open_web_candidates(
         max_candidates=max(8,budget["max_candidates"]),
         queries=queries,memory=memory,
-        max_pages=budget["max_pages"],strict_relevance=True)
+        max_pages=budget["max_pages"],strict_relevance=True,
+        include_discussions=False)
     if not rows:
         issues.append({"source":"research_coverage",
                        "reason":"no_new_public_sources",
@@ -235,6 +242,8 @@ PUBLIC_INVITATION=re.compile(
     r"|(?:submit|send) (?:your |a )?(?:bid|proposal|quote|estimate)"
     r"|(?:looking for|seeking|hiring) (?:an? |someone |outside |external )?"
     r"(?:developer|designer|writer|consultant|agency|freelancer|contractor|provider|specialist)"
+    r"|(?:looking for|seeking|hiring|need|we need) (?:a |an )?"
+    r"(?:someone|freelancer|contractor|professional|provider) to\b"
     r"|soliciting (?:proposals?|quotes?|bids?))\b"
 )
 
@@ -590,6 +599,16 @@ def run():
         "new_offers_sent":1 if (receipt.get("external_action") or {}).get("result")=="offer_sent" else 0,
         "fulfilled_orders_seen":fulfilled,
         "verified_autonomous_revenue_cents_seen":revenue,
+    }
+    blocked=sorted({str(e.get("provider")) for e in receipt["discovery"].get("source_errors",[])
+                    if e.get("http_code") in (403,429,503) and e.get("provider")})
+    receipt["operational_assessment"]={
+        "commercial_progress":bool(receipt["economic_result"]["new_offers_sent"] or revenue),
+        "public_buyers_reachable":sum(public_buyer_invitation(r) for r in rows),
+        "blocked_search_providers":blocked,
+        "primary_bottleneck":("none" if receipt["economic_result"]["new_offers_sent"] or revenue else
+                              "no_contactable_buyer_invitation" if not any(public_buyer_invitation(r) for r in rows)
+                              else "commercial_offer_execution"),
     }
     memory.note_outcome(receipt)
     receipt["discovery"]["research_memory"]=memory.save()
