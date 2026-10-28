@@ -1,0 +1,122 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T12:01:56.330473+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 11
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/dev-null-sh/dev-null.sh/issues/1197",
+        "title": "security issues bugs",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/sujithq/updates/issues/267",
+        "title": "\ud83d\udcf0 Weekly Digest \u2014 2026-W44 (October 19 \u2013 October 26, 2026)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/JovieInc/Jovie/issues/23216",
+        "title": "Growth Lab: Founding 50 + autonomous multi-agent growth-loop registry",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/datnguyenquy94/news-radar/issues/863",
+        "title": "\ud83c\udf10 Official AI Content Report 2026-10-24",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Emaren/wolochain/issues/5",
+        "title": "Mainnet two-settlement release HOLD: rebaseline bdbce253 vs live 78c25985 (no node restart)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.codeyme.com/analytics-dashboards",
+        "title": "Custom Analytics & Dashboard Development | Data Visualization | Codeyme",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-29 build custom analytics",
+      "looking for someone to build a custom analytics dashboard",
+      "can anyone create a simple lead magnet for a digital course"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a custom analytics dashboard",
+      "can anyone create a simple lead magnet for a digital course",
+      "looking for someone to develop a low-code automation workflow",
+      "hiring a freelancer to write a 500-word case study"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 2,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a custom analytics dashboard",
+        "can anyone create a simple lead magnet for a digital course",
+        "looking for someone to develop a low-code automation workflow",
+        "hiring a freelancer to write a 500-word case study"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 140,
+      "known_pages": 809
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
