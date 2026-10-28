@@ -216,11 +216,12 @@ def text_sources(details, messages=None):
 def load_state():
     if not STATE_PATH.exists():
         return {"schema": 1, "bounties": {}, "events_cursor": None,
-                "last_check": None, "recent_outcomes": []}
+                "last_check": None, "recent_outcomes": [], "settlements": {}}
     data = json.loads(STATE_PATH.read_text(encoding="utf-8"))
     if data.get("schema") != 1 or not isinstance(data.get("bounties"), dict):
         raise RuntimeError("incompatible_state")
     data.setdefault("recent_outcomes", [])
+    data.setdefault("settlements", {})
     return data
 
 
@@ -234,6 +235,26 @@ def note(state, action, bounty_id=None, **details):
     state["recent_outcomes"].append({"at": timestamp(), "action": action,
                                      "bounty_id": bounty_id, **details})
     state["recent_outcomes"] = state["recent_outcomes"][-60:]
+
+
+def record_settlement(state, bounty_id, event_id):
+    """Maintain a durable, idempotent ledger of platform-completed work.
+
+    Bounty's `work.completed` is evidence of settlement on its platform, not
+    proof that Stripe has deposited funds into an external bank account.
+    """
+    ledger = state.setdefault("settlements", {})
+    if bounty_id in ledger:
+        return False
+    entry = state["bounties"].get(bounty_id) or {}
+    payout = entry.get("payout_cents")
+    if not isinstance(payout, int) or isinstance(payout, bool) or payout < 0:
+        payout = None
+    ledger[bounty_id] = {"event_id": event_id, "payout_cents": payout,
+                         "settled_at": timestamp()}
+    note(state, "work.completed", bounty_id, event_id=event_id,
+         **({"payout_cents": payout} if payout is not None else {}))
+    return True
 
 
 def relevant_events(state):
@@ -1338,12 +1359,12 @@ def run(mode="run"):
         if action in {"work.completed", "work.ended", "submission.review_opened",
                       "submission.accepted"} and bid:
             event_id = event.get("id")
+            if action == "work.completed":
+                record_settlement(state, str(bid), event_id)
+                continue
             if event_id and any(o.get("event_id") == event_id for o in state["recent_outcomes"]):
                 continue
-            payout = (state["bounties"].get(str(bid)) or {}).get("payout_cents")
-            note(state, action, str(bid), event_id=event_id,
-                 **({"payout_cents": payout} if action == "work.completed" and payout is not None
-                    else {}))
+            note(state, action, str(bid), event_id=event_id)
     # Failed handlers must see the same events on the next run.
     if not failures:
         state["events_cursor"] = cursor
@@ -1352,8 +1373,14 @@ def run(mode="run"):
         note(state, "event_cursor_recovered")
     state["last_check"] = timestamp()
     save_state(state)
+    settlements = state.get("settlements", {})
     print(json.dumps({"open": len(opened), "active": len(active), "evaluated": len(waiting[:8]),
-                      "failures": failures, "recent_outcomes": state["recent_outcomes"][-5:]}))
+                      "failures": failures,
+                      "platform_completed": len(settlements),
+                      "platform_settled_cents_known": sum(
+                          value["payout_cents"] for value in settlements.values()
+                          if isinstance(value.get("payout_cents"), int)),
+                      "recent_outcomes": state["recent_outcomes"][-5:]}))
     if failures:
         raise RuntimeError("failed_bounty_jobs: " + ",".join(b for b, _ in failures))
 
