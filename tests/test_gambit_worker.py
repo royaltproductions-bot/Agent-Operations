@@ -185,19 +185,21 @@ class GambitTests(unittest.TestCase):
                        'description': 'Deploy and host the landing page publicly.',
                        'verification': 'Deliver a URL.'}}))
 
-    def test_hired_static_site_is_paused_before_unverified_delivery(self):
+    def test_hired_static_site_is_released_before_unverified_delivery(self):
         details = {'bounty': {'_id': 'web1', 'status': 'claimed',
                               'title': 'Build a static HTML landing page',
                               'verification': 'Deliver the source ZIP.'},
                    'claim': {'status': 'active', 'claim_id': 'c1'}}
         state = {'bounties': {}, 'recent_outcomes': []}
-        with patch.object(gambit, 'api', return_value=details), \
+        with patch.object(gambit, 'api', return_value=details) as api, \
              patch.object(gambit, 'produce') as produce, \
              patch.object(gambit, 'upload_file') as upload:
             gambit.handle_hired({'_id': 'web1'}, state)
         produce.assert_not_called()
         upload.assert_not_called()
-        self.assertEqual(state['bounties']['web1']['action'], 'needs_operator_review')
+        self.assertEqual(state['bounties']['web1']['action'], 'unclaimed_unfulfillable')
+        self.assertIn('/v1/agent/bounties/web1/unclaim',
+                      [c.args[0] for c in api.call_args_list if len(c.args) > 1])
 
     def test_real_document_outputs_are_supported_but_forms_are_not(self):
         from tools.gambit_artifacts import requested_output_format
@@ -271,11 +273,49 @@ class GambitTests(unittest.TestCase):
                               'title': 'Make a video', 'verification': 'Upload MP4.'},
                    'claim': {'status': 'active', 'claim_id': 'claim1'}}
         state = {'bounties': {}, 'recent_outcomes': []}
-        with patch.object(gambit, 'api', return_value=details), \
+        with patch.object(gambit, 'api', return_value=details) as api, \
              patch.object(gambit, 'produce') as produce:
             gambit.handle_hired({'_id': 'video1'}, state)
         produce.assert_not_called()
-        self.assertEqual(state['bounties']['video1']['action'], 'needs_operator_review')
+        self.assertEqual(state['bounties']['video1']['action'], 'unclaimed_unfulfillable')
+        self.assertIn('/v1/agent/bounties/video1/unclaim',
+                      [c.args[0] for c in api.call_args_list if len(c.args) > 1])
+
+    def test_existing_bid_reconciles_without_buyer_edit_or_model(self):
+        state = {'bounties': {'video1': {'version': 1, 'action': 'bid_active'}},
+                 'recent_outcomes': [], 'events_cursor': None,
+                 'last_check': datetime.now(timezone.utc).isoformat()}
+        opened = [{'_id': 'video1', 'version': 1}]
+        self.assertTrue(gambit.bid_reconciliation_due(state, opened))
+        details = {'bounty': {'_id': 'video1', 'version': 1,
+                              'title': 'Produce a video',
+                              'verification': 'Deliver final MP4.'},
+                   'bid': {'status': 'active'}}
+        def request(path, method='GET', payload=None):
+            return details if method == 'GET' else {'status': 'withdrawn'}
+        with patch.object(gambit, 'api', side_effect=request) as api, \
+             patch.object(gambit, 'infer') as infer:
+            gambit.reconcile_active_bids(opened, state)
+        infer.assert_not_called()
+        self.assertEqual(state['bounties']['video1']['action'],
+                         'unsupported_bid_withdrawn')
+        self.assertEqual(len([c for c in api.call_args_list
+                              if len(c.args) > 1 and c.args[1] == 'POST']), 1)
+
+    def test_unchanged_bid_reconciliation_does_not_boot_model(self):
+        state = {'schema': 1,
+                 'bounties': {'b1': {'version': 1, 'action': 'bid_active'}},
+                 'events_cursor': None, 'last_check': datetime.now(timezone.utc).isoformat(),
+                 'recent_outcomes': []}
+        opened = [{'_id': 'b1', 'version': 1}]
+        result = io.StringIO()
+        with patch.object(gambit, 'load_state', return_value=state), \
+             patch.object(gambit, 'scan', return_value=(opened, [], [], None, [], [])), \
+             patch.dict(os.environ, {'GITHUB_OUTPUT': ''}), redirect_stdout(result):
+            gambit.run('probe')
+        outcome = json.loads(result.getvalue())
+        self.assertTrue(outcome['needs_run'])
+        self.assertFalse(outcome['needs_model'])
 
     def test_fundable_bid_uses_exact_current_version(self):
         details = {'bounty': {'_id': 'b1', 'status': 'open', 'version': 6, 'flow': 'bid'}}
@@ -792,7 +832,7 @@ class GambitTests(unittest.TestCase):
         self.assertEqual(len(requests), 1)
         self.assertIn('/messages', requests[0].args[0])
 
-    def test_repeated_quality_failure_notifies_buyer_once(self):
+    def test_repeated_quality_failure_notifies_and_refunds_buyer(self):
         details = {'bounty': {'_id': 'b1', 'status': 'claimed', 'payout_cents': 1800},
                    'claim': {'status': 'active', 'claim_id': 'c1'}}
         state = {'bounties': {'b1': {'action': 'quality_rejected',
@@ -808,12 +848,12 @@ class GambitTests(unittest.TestCase):
              patch.object(gambit, 'review', return_value={
                  'approved': False, 'reason': 'Not source verified'}):
             gambit.handle_hired({'_id': 'b1'}, state)
-            gambit.handle_hired({'_id': 'b1'}, state)
-        self.assertEqual(state['bounties']['b1']['action'], 'quality_rejected_final')
+        self.assertEqual(state['bounties']['b1']['action'], 'unclaimed_unfulfillable')
         posts = [c for c in api.call_args_list
                  if len(c.args) > 1 and c.args[1] == 'POST']
-        self.assertEqual(len(posts), 1)
+        self.assertEqual(len(posts), 2)
         self.assertIn('/messages', posts[0].args[0])
+        self.assertIn('/unclaim', posts[1].args[0])
 
 
 if __name__ == '__main__':
