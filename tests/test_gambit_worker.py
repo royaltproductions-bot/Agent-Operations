@@ -186,6 +186,118 @@ class GambitTests(unittest.TestCase):
         self.assertEqual(state['bounties']['b1']['action'], 'awaiting_info')
         self.assertEqual(state['bounties']['b1']['last_message'], 'm1')
 
+    def test_research_planner_passes_external_evidence_to_bid_decision(self):
+        details = {'bounty': {'title': 'List local suppliers', 'description': 'Find public sources'}}
+        evidence = {'status': 'available', 'results': [
+            {'url': 'https://example.com', 'title': 'Supplier',
+             'evidence_level': 'page_read', 'page_text': 'Supplier details'}]}
+        plan = {'requires_web': True, 'queries': ['suppliers town'], 'reason': 'Research'}
+        decision = {'decision': 'bid', 'reason': 'I can source a few suppliers',
+                    'payout_cents': 1200, 'note': 'I will provide a sourced table.',
+                    'question': ''}
+        with patch.object(gambit, 'infer', side_effect=[plan, decision]) as infer, \
+             patch('tools.gambit_research.search_public_web', return_value=evidence) as search:
+            result = gambit.assess(details)
+        self.assertEqual(result['decision'], 'bid')
+        self.assertIn('Supplier details', str(infer.call_args.args[2]['web_evidence']))
+        search.assert_called_once_with(['suppliers town'])
+
+    def test_unavailable_research_never_becomes_an_unsourced_bid(self):
+        details = {'bounty': {'title': 'Find public prospects'}}
+        plan = {'requires_web': True, 'queries': ['prospects'], 'reason': 'Need lookup'}
+        proposal = {'decision': 'bid', 'reason': 'I can do it', 'payout_cents': 1200,
+                    'note': 'A bid', 'question': ''}
+        with patch.object(gambit, 'infer', side_effect=[plan, proposal]), \
+             patch('tools.gambit_research.search_public_web', return_value={
+                 'status': 'unavailable', 'results': []}):
+            result = gambit.assess(details)
+        self.assertEqual(result['decision'], 'pass')
+
+    def test_csv_sanitization_and_header_validation(self):
+        csv_data = gambit.prepare_csv('name,source\nAcme,https://example.com\n=2+3,source')
+        self.assertIn(b"'=2+3", csv_data)
+        with self.assertRaises(ValueError):
+            gambit.prepare_csv('name,source\nAcme')
+
+    def test_signed_csv_upload_never_sends_api_key_to_storage(self):
+        state = {'bounties': {'b1': {'action': 'hired', 'payout_cents': 1200}}}
+        upload = {'attachment_id': 'att_01',
+                  'upload_url': 'https://storage.example.invalid/upload',
+                  'headers': {'content-type': 'text/csv',
+                              'content-disposition': 'attachment; filename="result.csv"'}}
+        class Reply:
+            status = 200
+            def __enter__(self):
+                return self
+            def __exit__(self, *args):
+                return False
+        class Opener:
+            def open(self, request, timeout=60):
+                self.request = request
+                return Reply()
+        opener = Opener()
+        with patch.object(gambit, 'api', side_effect=[upload, {'status': 'ready'}]) as api, \
+             patch.object(gambit, 'save_state'), \
+             patch.object(gambit.urllib.request, 'build_opener', return_value=opener):
+            attachment_id = gambit.upload_csv('b1', b'name\nAcme', state, 'claim1', 'hash1')
+        self.assertEqual(attachment_id, 'att_01')
+        self.assertFalse(opener.request.has_header('Authorization'))
+        self.assertEqual(state['bounties']['b1']['action'], 'upload_pending')
+        self.assertIn('/complete', api.call_args.args[0])
+
+    def test_untrusted_upload_url_rejected_before_file_transfer(self):
+        state = {'bounties': {'b1': {'action': 'hired', 'payout_cents': 1200}}}
+        upload = {'attachment_id': 'att1', 'upload_url': 'http://127.0.0.1:11434/upload',
+                  'headers': {'content-type': 'text/csv'}}
+        with patch.object(gambit, 'api', return_value=upload), \
+             patch.object(gambit.urllib.request, 'build_opener') as opener:
+            with self.assertRaises(ValueError):
+                gambit.upload_csv('b1', b'x\n1', state, 'c1', 'hash')
+        opener.assert_not_called()
+
+    def test_invalid_csv_gets_revision_before_submission(self):
+        details = {'bounty': {'_id': 'b1', 'status': 'claimed', 'payout_cents': 1800},
+                   'claim': {'status': 'active', 'claim_id': 'c1'}}
+        bad = {'status': 'ready', 'deliverable_title': 'Leads',
+               'deliverable_format': 'csv', 'deliverable_text': 'company,source\nMissing link'}
+        good = {'status': 'ready', 'deliverable_title': 'Leads',
+                'deliverable_format': 'csv',
+                'deliverable_text': 'company,source\nAcme,https://example.com'}
+        state = {'bounties': {}, 'recent_outcomes': []}
+        with patch.object(gambit, 'api', return_value=details), \
+             patch.object(gambit, 'messages_for', return_value=[]), \
+             patch.object(gambit, 'produce', side_effect=[bad, good]) as produce, \
+             patch.object(gambit, 'review', return_value={'approved': True}), \
+             patch.object(gambit, 'upload_csv', return_value='a1'):
+            gambit.handle_hired({'_id': 'b1'}, state)
+        self.assertEqual(produce.call_count, 2)
+        self.assertIn('CSV needs a header', produce.call_args.args[3])
+
+    def test_hired_csv_result_submits_actual_file_deliverable(self):
+        details = {'bounty': {'_id': 'b1', 'status': 'claimed', 'payout_cents': 1800},
+                   'claim': {'status': 'active', 'claim_id': 'c1'}}
+        ready = {'status': 'ready', 'deliverable_title': 'Supplier list',
+                 'deliverable_text': 'company,source\nExample,https://example.com',
+                 'deliverable_format': 'csv'}
+        state = {'bounties': {}, 'recent_outcomes': []}
+        writes = []
+        def request(path, method='GET', payload=None):
+            if method == 'POST':
+                writes.append((path, payload))
+                return {'submission': {'id': 's1'}}
+            return details
+        with patch.object(gambit, 'api', side_effect=request), \
+             patch.object(gambit, 'messages_for', return_value=[]), \
+             patch.object(gambit, 'produce', return_value=ready), \
+             patch.object(gambit, 'review', return_value={'approved': True}), \
+             patch.object(gambit, 'upload_csv', return_value='attachment1') as upload:
+            gambit.handle_hired({'_id': 'b1'}, state)
+        upload.assert_called_once()
+        self.assertEqual(writes[0][1]['deliverables'][0]['type'], 'file')
+        self.assertEqual(writes[0][1]['deliverables'][0]['data']['attachment_id'],
+                         'attachment1')
+        self.assertEqual(state['bounties']['b1']['submission_id'], 's1')
+
     def test_declined_bid_passes_owner_feedback_into_reassessment(self):
         details = {'bounty': {'_id': 'b1', 'status': 'open', 'version': 3, 'flow': 'bid'},
                    'bid': {'_id': 'oldbid', 'status': 'declined', 'payout_cents': 2400}}
