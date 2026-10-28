@@ -4,6 +4,7 @@ These exercise the CURRENT production code, not superseded commerce prompts.
 No external website, payment, GitHub write, or email is touched.
 """
 import unittest
+import json
 from unittest.mock import patch
 from tools import open_web_discovery as web
 from tools import autonomous_commerce_brain as brain
@@ -20,6 +21,50 @@ def cyclops_or_skip(test):
 
 
 class WebEfficiencyTests(unittest.TestCase):
+    def test_ask_hn_direct_post_is_verified_firsthand_page(self):
+        """Use the original public submission, never an index-only snippet."""
+        hit={"objectID":"12345","title":"Ask HN: Workflow errors?"}
+        original={"id":12345,"title":"Ask HN: Workflow errors?",
+                  "text":"<p>I need help untangling this recurring invoice workflow.</p>",
+                  "created_at":"2026-10-27T00:00:00Z"}
+        def fake_open(url,**kwargs):
+            data={"hits":[hit]} if "search_by_date" in url else original
+            return url,"application/json",json.dumps(data).encode()
+        with patch.object(web,"_open",side_effect=fake_open):
+            rows=web.hn_ask_candidates(["recurring invoice workflow errors"])
+        self.assertEqual(len(rows),1)
+        self.assertTrue(rows[0]["page_fetched"])
+        self.assertEqual(rows[0]["search_provider"],"hn_ask")
+        self.assertIn("I need help untangling",rows[0]["page_text"])
+        self.assertEqual(rows[0]["source_url"],
+                         "https://news.ycombinator.com/item?id=12345")
+
+    def test_ask_hn_index_snippet_does_not_replace_missing_original(self):
+        hit={"objectID":"12345","title":"Need a tool to handle reports"}
+        def fake_open(url,**kwargs):
+            data={"hits":[hit]} if "search_by_date" in url else {
+                "id":12345,"title":"Need a tool to handle reports","text":""}
+            return url,"application/json",json.dumps(data).encode()
+        with patch.object(web,"_open",side_effect=fake_open):
+            rows=web.hn_ask_candidates(["need a tool to handle reports"])
+        self.assertEqual(rows,[])
+
+    def test_discussion_feed_supplements_open_web_without_host_whitelist(self):
+        class Memory:
+            def eligible_url(self,url): return True
+            def observe_search(self,*args,**kwargs): return None
+            def frontier(self,limit=5): return []
+        direct={"id":"web:hn","source_url":"https://news.ycombinator.com/item?id=12345",
+                "title":"Ask HN: Data reconciliation?", "page_fetched":True,
+                "page_text":"I need help reconciling invoices each weekend."}
+        with patch.object(web,"hn_ask_candidates",return_value=[direct]), \
+             patch.object(web,"duckduckgo_html",return_value=[]), \
+             patch.object(web,"bing_rss",return_value=[]):
+            rows,errors=web.open_web_candidates(
+                queries=["invoice reconciliation"],memory=Memory())
+        self.assertEqual(rows,[direct])
+        self.assertEqual(errors,[])
+
     def test_market_search_keeps_first_person_phrases(self):
         self.assertEqual(
             web.compact_query('"I am struggling to reconcile invoices" help'),

@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 from html import unescape
 import hashlib
 import ipaddress
+import json
 import os
 import re
 import urllib.parse
@@ -281,6 +282,72 @@ def duckduckgo_html(query,limit=6):
             break
     return out
 
+
+def hn_ask_candidates(queries, memory=None, max_candidates=8):
+    """Read *original Ask HN submissions*, not search snippets or page chrome.
+
+    The public Algolia index supplies discovery IDs; the original submission
+    is fetched separately from its item endpoint before it counts as evidence.
+    Searches remain model-directed, spanning whatever topics it investigates.
+    This supplements unrestricted web search rather than restricting domains.
+    """
+    rows=[]
+    seen=set()
+    # Broad search terms work better for a question index than fully phrased
+    # how-to searches. The terms still come from each independent model query.
+    for query in queries[:4]:
+        terms=search_terms(query)
+        phrase=" ".join(terms[:4])
+        if not phrase:
+            continue
+        url="https://hn.algolia.com/api/v1/search_by_date?"+urllib.parse.urlencode({
+            "query":phrase,"tags":"ask_hn","hitsPerPage":"8"})
+        try:
+            _,_,raw=_open(url,accept="application/json",limit=350000)
+            hits=json.loads(raw).get("hits") or []
+        except (OSError,ValueError,TimeoutError):
+            continue
+        for hit in hits:
+            ident=str(hit.get("objectID") or "")
+            if not ident.isdigit() or ident in seen:
+                continue
+            seen.add(ident)
+            source_url="https://news.ycombinator.com/item?id="+ident
+            if memory and not memory.eligible_url(source_url):
+                continue
+            # Item is a separately retrieved, public first-party record.
+            try:
+                _,_,item_raw=_open("https://hn.algolia.com/api/v1/items/"+ident,
+                                   accept="application/json",limit=120000)
+                item=json.loads(item_raw)
+            except (OSError,ValueError,TimeoutError):
+                continue
+            if str(item.get("id"))!=ident or item.get("deleted") or item.get("dead"):
+                continue
+            title=clean_html(item.get("title") or hit.get("title") or "")
+            body=clean_html(item.get("text") or "")
+            original=(title+"\n"+body).strip()
+            if len(original)<45 or not relevant_hit(query,{"title":title,"snippet":body}):
+                continue
+            row={
+                "id":"web:"+hashlib.sha256(source_url.encode()).hexdigest()[:18],
+                "channel":None,"source":"open_web","search_provider":"hn_ask",
+                "search_query":query,"source_url":source_url,
+                "search_alignment":"first_party_question_post",
+                "title":title[:500],"snippet":body[:900],
+                "contact":safe_email(original),"text":original[:8000],
+                "page_text":original[:8000],"page_fetched":True,
+                "created_at":str(item.get("created_at") or "") or None,
+                "public_links":[],
+            }
+            row["channel"]="email" if row["contact"] else None
+            rows.append(row)
+            if memory:
+                memory.observe_page(row)
+            if len(rows)>=max_candidates:
+                return rows
+    return rows
+
 def open_web_candidates(max_candidates=24, queries=None, memory=None,
                         max_pages=32, strict_relevance=True, allowed_hosts=None):
     """Search model-generated topics and progress along prior link discoveries.
@@ -303,6 +370,16 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
         return [], [{"source":"open_web_search","reason":"no_new_research_direction"}]
 
     errors=[]
+    # Discussion indexes expose original first-person requests even where
+    # search engines point to JavaScript-only/blocked forum pages.
+    primary_discussions=[]
+    if memory and queries:
+        try:
+            primary_discussions=hn_ask_candidates(
+                queries,memory=memory,
+                max_candidates=max(3,min(9,max_candidates//2)))
+        except Exception as exc:
+            errors.append({"source":"hn_ask_search","reason":type(exc).__name__})
     streams=[]
     total_provider_hits=0
     providers=(("duckduckgo",duckduckgo_html),("bing",bing_rss))
@@ -387,7 +464,7 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
         for follow in queued_followups:
             queue.append(("", "followup",follow))
 
-    results={}
+    results={r["source_url"]:r for r in primary_discussions}
     visited=set()
     page_budget=max(4,int(max_pages))
     for query,provider,hit in queue:
@@ -419,6 +496,11 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
         evidence=(title+"\n"+snippet+"\n"+page).strip()
         if not evidence:
             continue
+        # A JS shell like Reddit's one-word landing page is not a fetched
+        # discussion. Search-result wording is never first-person evidence.
+        if len(page.strip())<40:
+            page=""
+            evidence=(title+"\n"+snippet).strip()
         contact=safe_email(evidence)
         ident=hashlib.sha256(final.encode()).hexdigest()[:18]
         row={
@@ -440,7 +522,7 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
         results[final]=row
         if memory:
             memory.observe_page(row,relevant_links(links,query or title))
-    if queries and not total_provider_hits:
+    if queries and not total_provider_hits and not primary_discussions:
         errors.append({"source":"open_web_search",
                        "reason":"providers_returned_no_results",
                        "query_count":len(queries)})

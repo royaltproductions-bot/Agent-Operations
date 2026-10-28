@@ -205,6 +205,7 @@ def demand_candidates(memory):
     # Prioritize firsthand current demand over generic advice in the model's
     # small evidence window. This never excludes other industries or sources.
     rows.sort(key=lambda r:(not bool(r.get("page_fetched")),
+                            not bool(firsthand_problem_excerpt(r)),
                             -public_request_signal(r),
                             str(r.get("source_url") or "")))
     return rows,issues+errors
