@@ -54,8 +54,7 @@ jobs:
           ref: main  # Load the latest persisted state after a queued predecessor finishes.
           persist-credentials: true
 
-      - name: Exercise document conversion on code deployment
-        if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.mode != 'watch')
+      - name: Install and validate free artifact generation dependencies
         run: |
           python3 -m pip install --disable-pip-version-check --quiet \
             'pypdf>=5,<8' 'python-docx>=1.2,<2' 'openpyxl>=3.1,<4' 'reportlab>=4,<5'
@@ -117,12 +116,6 @@ jobs:
         if: steps.probe.outputs.needs_model == 'true'
         continue-on-error: true
         run: python3 -m pip install --disable-pip-version-check --quiet ddgs==9.16.1
-
-      - name: Enable PDF Word and Excel generation when paid work appears
-        if: steps.probe.outputs.needs_model == 'true'
-        run: |
-          python3 -m pip install --disable-pip-version-check --quiet \
-            'pypdf>=5,<8' 'python-docx>=1.2,<2' 'openpyxl>=3.1,<4' 'reportlab>=4,<5'
 
       - name: Start model only when work appears
         if: steps.probe.outputs.needs_model == 'true'
