@@ -149,21 +149,18 @@ class ResearchMemory:
         of actual market demand. Keep those real diagnostics in durable state,
         but out of external-inquiry planning.
         """
+        recent=[x for x in (self.state.get("queries") or [])[-20:]
+                if isinstance(x,dict)]
+        # Earlier exact queries/titles repeatedly anchored the small local
+        # model to fictional, near-identical project descriptions. The
+        # research memory still deduplicates URLs and queries internally;
+        # exposing summary statistics keeps planning independent each cycle.
         return {
-            "prior_market_searches":[
-                {"query":x.get("query"),"new_public_pages":x.get("new_pages",0)}
-                for x in (self.state.get("queries") or [])[-20:]
-                if not self._is_internal_query(x.get("query"))],
-            "recent_public_evidence_for_context_not_new_query_templates":[
-                {"title":x.get("title"),"url":x.get("url"),"snippet":x.get("snippet")}
-                for x in (self.state.get("observations") or [])[-6:]],
-            "unvisited_public_links":[
-                {"title":x.get("title"),"url":x.get("url")}
-                for x in (self.state.get("frontier") or [])[-6:]],
-            "peer_public_pages":[
-                {"title":x.get("title"),"url":x.get("url")}
-                for x in self.peer[-3:]],
-            "directive":"Choose independent new investigations of real-world needs. Previous page titles are not tasks or prompts to copy. Ignore unrelated dictionary/SEO pages and abandon trails that only produce lookups, not substantive buyer problems.",
+            "recent_search_attempts":len(recent),
+            "recent_searches_with_new_pages":sum(bool(x.get("new_pages")) for x in recent),
+            "known_page_count":len(self.state.get("pages") or []),
+            "unvisited_link_count":len(self.state.get("frontier") or []),
+            "directive":"Search for firsthand public evidence, freely changing industries and methods. Do not invent a hypothetical need and repeatedly search for variations of that invented sentence.",
         }
 
     @staticmethod
@@ -194,9 +191,10 @@ class ResearchMemory:
         queued=[q.get("query") for q in self.state.get("queued_queries",[]) if isinstance(q,dict)]
         fresh=[]
         seen=set()
-        # Model-authored current investigation takes priority over accumulated
-        # queued followups. The queue is a backup, never a compulsory itinerary.
-        for q in list(proposed or [])+list(queued):
+        # Do not automatically append yesterday's unexecuted model ideas to
+        # today's plan: that produced hours of near-duplicate search loops.
+        # Preserve them only as fallback when the planner is unavailable.
+        for q in (list(proposed) if proposed else list(queued)):
             q=re.sub(r"\s+"," ",str(q or "").strip())[:220]
             k=_key(q)
             if len(q)<4 or k in seen or self._is_internal_query(q):

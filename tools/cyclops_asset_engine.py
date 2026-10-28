@@ -95,7 +95,8 @@ FILE_SCHEMA={
     "additionalProperties":False,
 }
 
-def model_json(schema,system,observation,num_ctx=6144,num_predict=1800):
+def model_json(schema,system,observation,num_ctx=6144,num_predict=1800,
+               temperature=0.18):
     req=urllib.request.Request(
         OLLAMA,method="POST",
         data=json.dumps({
@@ -104,7 +105,7 @@ def model_json(schema,system,observation,num_ctx=6144,num_predict=1800):
             "keep_alive":"60m",
             "format":schema,
             "think":False,
-            "options":{"temperature":0.18,"num_ctx":num_ctx,"num_predict":num_predict},
+            "options":{"temperature":temperature,"num_ctx":num_ctx,"num_predict":num_predict},
             "messages":[
                 {"role":"system","content":system},
                 {"role":"user","content":json.dumps(observation,ensure_ascii=False)},
@@ -127,6 +128,9 @@ def discovery_queries(memory):
         "Choose search inquiries from ANY legitimate industry or activity. "
         "Find what real people are doing or asking, not just dictionary definitions, "
         "generic advice, an arbitrary named product, or how to buy an item. "
+        "Generate web searches for genuine first-person discussions and "
+        "observable workflows, not invented hypothetical questions that "
+        "merely describe a plausible customer. "
         "Your goal is concrete firsthand problems and workflows that may inspire "
         "a reusable product, WITHOUT deciding the product in advance. "
         "Historical titles and queries are diagnostic context: do NOT mechanically "
@@ -143,7 +147,7 @@ def discovery_queries(memory):
         {"utc_date":NOW().date().isoformat(),
          "mission":"discover real public evidence of unresolved, recurring or repeated human needs",
          "research_history":memory.plan_context()},
-        num_ctx=2400,num_predict=420)
+        num_ctx=2400,num_predict=420,temperature=0.7)
     return [str(q).strip() for q in result.get("queries") or [] if str(q).strip()]
 
 
@@ -167,7 +171,7 @@ def demand_candidates(memory):
     rows,errors=open_web_candidates(
         max_candidates=budget["max_candidates"],queries=queries,
         memory=memory,max_pages=budget["max_pages"],
-        strict_relevance=False)
+        strict_relevance=True)
     if not rows:
         issues.append({
             "source":"research_coverage",
@@ -222,7 +226,10 @@ def demand_view(rows,limit=5,width=700):
         "candidate_id":r["id"],
         "source_url":r["source_url"],
         "title":str(r.get("title") or "")[:180],
-        "excerpt":r["text"][:width],
+        # Include fetched firsthand evidence, not only the search result
+        # headline/snippet that may be promotional or out of context.
+        "excerpt":str(r.get("page_text") or r.get("text") or "")[:width],
+        "source_fetched":bool(r.get("page_fetched")),
     } for r in rows[:limit]]
 
 def choose_asset_concept(rows,existing_assets=None):
@@ -366,6 +373,12 @@ def _make_build_script(plan,tools,evidence,target_file,finished_files,previous="
         "them; a generated file is not executable by default. "
         "For PDFs with non-ASCII characters, load a Unicode TrueType font "
         "instead of assuming built-in PDF fonts support those glyphs. "
+        "Use verified installed-library APIs, not invented method names. "
+        "For ReportLab, import ListFlowable and ListItem (there is no "
+        "platypus.List); pass a ListFlowable containing Paragraphs or "
+        "ListItems to SimpleDocTemplate.build, never a bare ListItem. "
+        "For pypdf PdfWriter, use writer.write(output_path_or_stream), "
+        "not writer.open_stream. "
         "Do not merely explain or describe production: the complete source "
         "you return WILL BE EXECUTED inside an isolated container. "
         "Never assume previously completed files exist in the current /work "
@@ -559,9 +572,13 @@ def create_asset(rows,existing_assets=None):
     # Generated code is imperfect; use the same run to repair a real failure
     # with its execution diagnostics, while checkpointing after each attempt.
     # The GitHub job (one hour) remains the only overall execution deadline.
+    tools=None
     while attempts<3:
         try:
-            tools=discover_tools()
+            # This image does not change while the workflow runs. The first
+            # real probe is enough for all three attempts on the same file.
+            if tools is None:
+                tools=discover_tools()
             script=_make_build_script(
                 plan,tools,evidence,target,finished,
                 checkpoint.get("script") or "",

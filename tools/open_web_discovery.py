@@ -407,6 +407,9 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
 
             "title":title[:500],"snippet":snippet[:1600],
             "contact":contact,"text":evidence[:8000],
+            # Separate fetched, firsthand page content from search snippets.
+            # A search engine summary is never proof of an open buyer request.
+            "page_text":page[:8000],
             "page_fetched":bool(page),"created_at":None,
             "public_links":links,
         }

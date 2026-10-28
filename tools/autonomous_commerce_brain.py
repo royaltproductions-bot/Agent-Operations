@@ -100,7 +100,8 @@ FULFILL_SCHEMA={
     "additionalProperties":False,
 }
 
-def model_json(schema,system,observation,num_ctx=4096,num_predict=700):
+def model_json(schema,system,observation,num_ctx=4096,num_predict=700,
+               temperature=0.15):
     req=urllib.request.Request(
         OLLAMA,method="POST",
         data=json.dumps({
@@ -109,13 +110,15 @@ def model_json(schema,system,observation,num_ctx=4096,num_predict=700):
             "keep_alive":"60m",
             "format":schema,
             "think":False,
-            "options":{"temperature":0.15,"num_ctx":num_ctx,"num_predict":num_predict},
+            "options":{"temperature":temperature,"num_ctx":num_ctx,"num_predict":num_predict},
             "messages":[
                 {"role":"system","content":system},
                 {"role":"user","content":json.dumps(observation,ensure_ascii=False)},
             ],
         }).encode(),
         headers={"Content-Type":"application/json"})
+    # Local model inference is governed by the full workflow run, not an
+    # artificial per-inference cutoff.
     with urllib.request.urlopen(req) as response:
         raw=json.load(response).get("message",{}).get("content","")
     if not isinstance(raw,str):
@@ -134,7 +137,7 @@ def public_json(url,host):
         headers["Authorization"]="Bearer "+os.environ["GH_TOKEN"]
         headers["X-GitHub-Api-Version"]="2022-11-28"
     req=urllib.request.Request(url,headers=headers)
-    with urllib.request.urlopen(req) as response:
+    with urllib.request.urlopen(req,timeout=25) as response:
         return json.loads(response.read(500000).decode())
 
 def github_json(endpoint,params=None):
@@ -144,7 +147,8 @@ def github_json(endpoint,params=None):
              "-H","X-GitHub-Api-Version: 2022-11-28",endpoint]
         for key,value in (params or {}).items():
             cmd.extend(["-f",str(key)+"="+str(value)])
-        p=subprocess.run(cmd,capture_output=True,text=True,check=False)
+        p=subprocess.run(cmd,capture_output=True,text=True,check=False,
+                         timeout=25)
         if p.returncode==0 and p.stdout.strip():
             return json.loads(p.stdout)
     query=urllib.parse.urlencode(params or {},doseq=True)
@@ -169,7 +173,9 @@ def discovery_queries(memory):
         "website, marketplace, niche, or business model. Vary sources, phrasing, "
         "and prospective buyer needs. Include searches that can locate explicit "
         "public invitations to submit bids, contact vendors, or supply business "
-        "proposals, with legitimate published contact routes. Do not invent "
+        "proposals, with legitimate published contact routes. Search using "
+        "terms that appear in REAL published solicitations, not a fictional "
+        "project brief beginning 'Need a developer to build ...'. Do not invent "
         "buyers, email addresses, or demand. Avoid general advice articles, "
         "closed job boards requiring unavailable credentials, and recycled "
         "questions that cannot lead to a commercial action. Return JSON only."
@@ -179,7 +185,7 @@ def discovery_queries(memory):
         {"utc_date":NOW().date().isoformat(),
          "mission":"discover real open buyer demand and authorized public response routes",
          "research_history":memory.plan_context()},
-        num_ctx=3000,num_predict=520)
+        num_ctx=3000,num_predict=520,temperature=0.7)
     return [str(q).strip() for q in result.get("queries") or [] if str(q).strip()]
 
 
@@ -208,7 +214,7 @@ def candidates(memory):
     rows,errors=open_web_candidates(
         max_candidates=max(8,budget["max_candidates"]),
         queries=queries,memory=memory,
-        max_pages=budget["max_pages"],strict_relevance=False)
+        max_pages=budget["max_pages"],strict_relevance=True)
     if not rows:
         issues.append({"source":"research_coverage",
                        "reason":"no_new_public_sources",
@@ -235,7 +241,7 @@ def enrich_public_response_route(rows):
     for source_row in rows:
         row=dict(source_row)
         if (row.get("contact") or not row.get("page_fetched")
-                or not PUBLIC_INVITATION.search(str(row.get("text") or ""))
+                or not PUBLIC_INVITATION.search(str(row.get("page_text") or ""))
                 or followed>=8):
             enriched.append(row)
             continue
@@ -267,6 +273,16 @@ def enrich_public_response_route(rows):
             pass
         enriched.append(row)
     return enriched
+
+
+def public_buyer_invitation(row):
+    """Only a fetched source's own solicitation can unlock paid outreach.
+
+    Search snippets, generic business contact pages, and model assertions are
+    insufficient. The model still evaluates whether the actual ask fits.
+    """
+    return bool(row.get("page_fetched") and row.get("contact")
+                and PUBLIC_INVITATION.search(str(row.get("page_text") or "")))
 
 
 def read_source(candidate):
@@ -320,19 +336,20 @@ def choose_offer(rows):
     researched=[row for row in rows if not already_contacted(row,sent_subjects)]
     # Keep all findings in research memory, but never spend slow CPU inference
     # trying to send a paid offer to a page with no genuine response channel.
-    actionable=[row for row in researched
-                if row.get("page_fetched") and row.get("contact")]
+    actionable=[row for row in researched if public_buyer_invitation(row)]
     if not actionable:
-        return None,{"reason":"no_contactable_public_source"}
+        return None,{"reason":"no_verified_contactable_buyer_invitation"}
     ranked=sorted(actionable,key=lambda row:(
-        -int(bool(PUBLIC_INVITATION.search(str(row.get("text") or "")))),
         -int(bool(row.get("contact_source_url"))),
         -public_request_signal(row)))
     visible=[{
         "candidate_id":row["id"],
         "source_url":row["source_url"],
         "title":row.get("title") or "",
-        "excerpt":row["text"][:420],
+        "excerpt":str(row.get("page_text") or "")[:1400],
+        "request_excerpt":(
+            lambda body,match:body[max(0,match.start()-130):match.end()+260]
+        )(str(row["page_text"]),PUBLIC_INVITATION.search(str(row["page_text"]))),
     } for row in ranked[:5]]
 
     system=(
@@ -354,7 +371,7 @@ def choose_offer(rows):
         "Return only schema-compliant JSON."
     )
     plan=model_json(
-        PLAN_SCHEMA,system,{"candidates":visible},num_ctx=2048,num_predict=265
+        PLAN_SCHEMA,system,{"candidates":visible},num_ctx=4096,num_predict=375
     )
     if plan.get("action")!="offer":
         return None,{"reason":"no_verified_invitation:"+
@@ -366,6 +383,8 @@ def choose_offer(rows):
         # Research without a public contact is still useful; it is never an
         # authorization to manufacture a customer address.
         return None,{"reason":"no_public_contact_for_selected_action"}
+    if not public_buyer_invitation(chosen):
+        return None,{"reason":"selected_source_lacks_direct_public_invitation"}
     price=normalize_price_usd(plan.get("price_usd"))
     for field in ("title","scope","deliverable","pitch"):
         if len(str(plan.get(field) or "").strip())<12:
@@ -374,8 +393,10 @@ def choose_offer(rows):
     return chosen,plan
 
 def send_offer(candidate,plan,checkout):
-    if not candidate.get("contact"):
-        return {"result":"no_public_contact_for_action","channel":"none"}
+    # Final transaction boundary: even a malformed/model-bypassed plan cannot
+    # cause an unsolicited message to an informational site.
+    if not public_buyer_invitation(candidate):
+        return {"result":"unverified_buyer_invitation","channel":"none"}
     marker=offer_marker(candidate["source_url"])
     price=Decimal(plan["price_usd"])
     body=(

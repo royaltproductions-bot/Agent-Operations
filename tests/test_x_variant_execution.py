@@ -23,6 +23,15 @@ class WebEfficiencyTests(unittest.TestCase):
         self.assertIn("text/plain",kind)
         self.assertGreater(opener.call_args.kwargs["timeout"],0)
 
+    def test_local_model_keeps_full_workflow_inference_budget(self):
+        import io
+        with patch.object(brain.urllib.request,"urlopen",
+                          return_value=io.BytesIO(b'{"message":{"content":"{}"}}')) as opener:
+            self.assertEqual(brain.model_json({"type":"object"},"system",{}),{})
+        self.assertNotIn("timeout",opener.call_args.kwargs)
+        import json
+        self.assertEqual(json.loads(opener.call_args.args[0].data)["keep_alive"],"60m")
+
     def test_soft_interest_ranking_is_industry_and_site_neutral(self):
         contact={"title":"Seeking a contractor for an original workflow",
                  "snippet":"Submit your proposal for paid project work"}
@@ -35,6 +44,7 @@ class WebEfficiencyTests(unittest.TestCase):
         row={"source_url":"https://example.com/request",
              "title":"Solicitation","snippet":"",
              "text":"Request for proposals: seeking a contractor for useful work.",
+             "page_text":"Request for proposals: seeking a contractor for useful work.",
              "contact":None,"page_fetched":True,
              "public_links":[{"url":"https://example.com/contact",
                               "title":"Contact us for proposals"}]}
@@ -49,9 +59,11 @@ class WebEfficiencyTests(unittest.TestCase):
     def test_invited_request_ranks_above_generic_contact(self):
         generic={"id":"web:a","source_url":"https://example.com/about",
                  "page_fetched":True,"contact":"hello@example.com",
+                 "page_text":"General information.",
                  "title":"About us","snippet":"","text":"General information."}
         invited={"id":"web:b","source_url":"https://example.org/brief",
                  "page_fetched":True,"contact":"bids@example.org",
+                 "page_text":"Seeking a contractor. Submit your proposal.",
                  "title":"Contract request","snippet":"",
                  "text":"Seeking a contractor. Submit your proposal."}
         seen={}
@@ -62,6 +74,45 @@ class WebEfficiencyTests(unittest.TestCase):
              patch.object(brain,"model_json",side_effect=mock_plan):
             brain.choose_offer([generic,invited])
         self.assertEqual(seen["candidates"][0]["candidate_id"],"web:b")
+
+    def test_search_snippet_and_generic_role_email_never_authorize_send(self):
+        row={"id":"search-only","source_url":"https://example.com/template",
+             "page_fetched":True,"contact":"info@example.com",
+             "title":"Project template", "snippet":"Request for bids: need a developer",
+             "text":"Request for bids: need a developer. Contact info@example.com",
+             "page_text":"Download our ready-made work agreement template."}
+        self.assertFalse(brain.public_buyer_invitation(row))
+        with patch.object(brain,"recent_sent_subjects",return_value=[]), \
+             patch.object(brain,"model_json") as model:
+            chosen,result=brain.choose_offer([row])
+        self.assertIsNone(chosen)
+        self.assertEqual(result["reason"],"no_verified_contactable_buyer_invitation")
+        model.assert_not_called()
+        with patch.object(brain,"agent_send") as send:
+            result=brain.send_offer(row,{"price_usd":"10","pitch":"irrelevant",
+                                         "deliverable":"irrelevant"},{"checkout_url":"https://example.org/checkout"})
+        self.assertEqual(result["result"],"unverified_buyer_invitation")
+        send.assert_not_called()
+
+    def test_live_source_must_have_its_own_visible_request(self):
+        row={"source_url":"https://example.org/open-request","page_fetched":True,
+             "contact":"bids@example.org","page_text":"We are accepting bids from outside contractors. Send your proposal by November 30.",
+             "title":"Open vendor request","snippet":"","text":"Open vendor request"}
+        self.assertTrue(brain.public_buyer_invitation(row))
+
+    def test_research_searches_are_not_recycled_into_model_context(self):
+        from tools import research_memory
+        memory=research_memory.ResearchMemory.__new__(research_memory.ResearchMemory)
+        memory.state={"queries":[{"query":"Old repetitive example topic",
+                                  "new_pages":0}],
+                      "pages":[],"frontier":[],"queued_queries":[{"query":"Stale side hustle advice"}]}
+        memory.peer=[]
+        context=memory.plan_context()
+        self.assertNotIn("Old repetitive example topic",str(context))
+        self.assertNotIn("Stale side hustle advice",str(context))
+        with patch.object(research_memory,"NOW",return_value=research_memory.NOW()):
+            new_queries=memory.choose_queries(["Unrelated independent public inquiry"])
+        self.assertEqual(new_queries,["Unrelated independent public inquiry"])
 
 
 class WorkshopOwnershipTests(unittest.TestCase):
@@ -119,6 +170,16 @@ class CyclopsEfficiencyTests(unittest.TestCase):
             output,issues=cyclops.demand_candidates(Memory())
         self.assertEqual([r["id"] for r in output],["b","a"])
         self.assertEqual(issues,[])
+
+    def test_manufacturing_evidence_prioritizes_fetched_page(self):
+        from tools import cyclops_asset_engine as cyclops
+        row={"id":"real:1","source_url":"https://example.org/request",
+             "title":"Real problem","text":"Result snippet claims an entirely different issue",
+             "page_text":"Our actual process takes a day each week",
+             "page_fetched":True}
+        view=cyclops.demand_view([row])
+        self.assertIn("actual process",view[0]["excerpt"])
+        self.assertTrue(view[0]["source_fetched"])
 
 
 if __name__=="__main__":
