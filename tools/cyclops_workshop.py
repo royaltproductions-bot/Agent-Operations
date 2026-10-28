@@ -17,6 +17,7 @@ import subprocess
 import tempfile
 
 IMAGE=os.getenv("CYCLOPS_WORKSHOP_IMAGE","cyclops-workshop:local")
+_IMAGE_READY=False
 MAX_ARTIFACT_BYTES=950000
 MAX_TOTAL_BYTES=1400000
 CAPABILITY_PROBE="""
@@ -54,7 +55,26 @@ def _container(cmd,folder=None):
     return subprocess.run(args,capture_output=True,text=True,check=False)
 
 
+def _ensure_workshop_image():
+    """Build heavy isolated-production dependencies only when demand is real."""
+    global _IMAGE_READY
+    if _IMAGE_READY:
+        return
+    existing=subprocess.run(["docker","image","inspect",IMAGE],
+                            capture_output=True,text=True,check=False)
+    if existing.returncode:
+        here=Path(__file__).resolve().parent
+        built=subprocess.run(["docker","build","-q","-t",IMAGE,
+                              "-f",str(here/"cyclops-workshop.Dockerfile"),
+                              str(here)],capture_output=True,text=True,check=False)
+        if built.returncode:
+            raise RuntimeError("workshop_image_build_failed:"+
+                               (built.stderr or built.stdout)[-550:])
+    _IMAGE_READY=True
+
+
 def discover_tools():
+    _ensure_workshop_image()
     probe=_container(["python3","-c",CAPABILITY_PROBE])
     if probe.returncode:
         raise RuntimeError("workshop_capabilities_unavailable:"+

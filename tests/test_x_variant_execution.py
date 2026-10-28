@@ -206,6 +206,21 @@ class WebEfficiencyTests(unittest.TestCase):
 
 
 class WorkshopOwnershipTests(unittest.TestCase):
+    def test_workshop_builds_only_when_real_product_tools_requested(self):
+        from tools import cyclops_workshop as workshop
+        from subprocess import CompletedProcess
+        with patch.object(workshop,"_IMAGE_READY",False), \
+             patch.object(workshop.subprocess,"run",side_effect=[
+                 CompletedProcess([],1,"","not found"),
+                 CompletedProcess([],0,"built",""),
+             ]) as run:
+            workshop._ensure_workshop_image()
+            workshop._ensure_workshop_image()
+        self.assertEqual(run.call_count,2)
+        self.assertEqual(run.call_args_list[0].args[0][:3],
+                         ["docker","image","inspect"])
+        self.assertEqual(run.call_args_list[1].args[0][:2],["docker","build"])
+
     def test_safe_relative_build_path_accepts_dot_slash_not_traversal(self):
         from tools import cyclops_workshop as workshop
         self.assertEqual(str(workshop._safe_path("./output/real.pdf")),"output/real.pdf")
