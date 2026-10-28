@@ -459,15 +459,16 @@ def run(mode="run"):
     opened, held, events, cursor, waiting, active = scan(state)
     CURRENT_EVENTS = events
     if mode == "probe":
-        needs = bool(waiting or active or any(
-            e.get("type") in {"work.message.created", "submission.verification_failed"}
-            for e in events))
+        needs_model = bool(waiting or active)
+        needs_run = needs_model or bool(events)
         output = os.environ.get("GITHUB_OUTPUT")
         if output:
             with open(output, "a", encoding="utf-8") as f:
-                f.write("needs_model=" + ("true" if needs else "false") + "\n")
+                f.write("needs_model=" + ("true" if needs_model else "false") + "\n")
+                f.write("needs_run=" + ("true" if needs_run else "false") + "\n")
         print(json.dumps({"ready": True, "open": len(opened), "active": len(active),
-                          "new_or_changed": len(waiting), "needs_model": needs}))
+                          "new_or_changed": len(waiting), "needs_model": needs_model,
+                          "needs_run": needs_run}))
         return
     failures = []
     triggered = {str(e.get("data", {}).get("bounty_id")) for e in events
