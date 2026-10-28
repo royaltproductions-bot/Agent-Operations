@@ -19,6 +19,7 @@ on:
       - 'tools/gambit_artifacts.py'
       - 'tools/gambit_sites.py'
       - 'tools/gambit_visual_qa.py'
+      - 'tools/gambit_web_design.py'
       - 'tools/gambit_analytics.py'
       - 'tests/test_gambit_worker.py'
       - 'tests/test_gambit_research.py'
@@ -26,6 +27,7 @@ on:
       - 'tests/test_gambit_artifacts.py'
       - 'tests/test_gambit_sites.py'
       - 'tests/test_gambit_visual_qa.py'
+      - 'tests/test_gambit_web_design.py'
       - 'tests/test_gambit_analytics.py'
       - '.github/workflows/gambit-bounty.yml'
 
@@ -44,6 +46,7 @@ jobs:
     timeout-minutes: 120
     env:
       BOUNTY_AGENT_API_KEY: ${{ secrets.BOUNTY_AGENT_API_KEY }}
+      V0_API_KEY: ${{ secrets.V0_API_KEY }}
       GAMBIT_MODEL: qwen3:8b
       OLLAMA_MODELS: ${{ github.workspace }}/.ollama-cache/models
       OLLAMA_NUM_PARALLEL: '1'
