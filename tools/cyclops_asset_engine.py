@@ -38,7 +38,9 @@ from tools.connected_commerce_tools import (
     CHECKOUT_MERCHANT_NOTICE,
 )
 
-from tools.open_web_discovery import open_web_candidates, public_request_signal
+from tools.open_web_discovery import open_web_candidates, public_request_signal, root_terms
+from tools.paid_market import (observed_paid_listing, comparable_paid_pairs,
+                               validated_market_proof)
 from tools.cyclops_workshop import discover_tools, manufacture, _safe_path
 from tools.research_memory import ResearchMemory
 from tools.cyclops_vault import (read_pending, save_pending, seal_asset,
@@ -73,6 +75,7 @@ CONCEPT_SCHEMA={
         "pitch":{"type":"string"},
         "price_usd":{"type":"string"},
         "evidence_candidate_id":{"type":"string"},
+        "corroborating_candidate_id":{"type":"string"},
         "evidence_quote":{"type":"string"},
         "target_terms":{"type":"array","items":{"type":"string"}},
         "core_points":{"type":"array","items":{"type":"string"}},
@@ -80,7 +83,8 @@ CONCEPT_SCHEMA={
         "output_files":{"type":"array","minItems":1,"items":{"type":"string"}},
     },
     "required":["title","description","audience","pitch","price_usd",
-                "evidence_candidate_id","evidence_quote","target_terms","core_points",
+                "evidence_candidate_id","corroborating_candidate_id",
+                "evidence_quote","target_terms","core_points",
                 "production_goal","output_files"],
     "additionalProperties":False,
 }
@@ -96,10 +100,13 @@ PRODUCT_REVIEW_SCHEMA={
     "properties":{
         "fulfills_promised_function":{"type":"boolean"},
         "contains_substantive_deliverable":{"type":"boolean"},
+        "serves_verified_paid_market_function":{"type":"boolean"},
+        "has_specific_paid_buyer_utility":{"type":"boolean"},
         "does_not_claim_unimplemented_external_capabilities":{"type":"boolean"},
         "reason":{"type":"string"},
     },
     "required":["fulfills_promised_function","contains_substantive_deliverable",
+                "serves_verified_paid_market_function","has_specific_paid_buyer_utility",
                 "does_not_claim_unimplemented_external_capabilities","reason"],
     "additionalProperties":False,
 }
@@ -136,33 +143,25 @@ def model_json(schema,system,observation,num_ctx=6144,num_predict=1800,
     return obj
 
 def discovery_queries(memory):
-    """Plan new open-web inquiries; old results inform, never dictate, the plan."""
+    """Find what real buyers already purchase, before deciding what to produce."""
     system=(
-        "You are Cyclops's independent market researcher, not a format or "
-        "product-category recommender. Find authentic public evidence of things "
-        "people struggle to do, repeatedly attempt, seek, request, or need done. "
-        "Choose search inquiries from ANY legitimate industry or activity. "
-        "Find what real people are doing or asking, not just dictionary definitions, "
-        "generic advice, an arbitrary named product, or how to buy an item. "
-        "Generate SHORT, DISTINCT web searches for actual first-person "
-        "discussions, complaints, questions, and observable workflows. "
-        "Prefer search patterns that lead to actual user-authored forum threads, "
-        "question posts, issue discussions or complaints over commercial SEO "
-        "explainers. Use discussion-oriented terms when relevant, from ANY "
-        "public source; do not lock research to particular websites. "
-        "Do not begin queries with generic 'how do people' or 'what do people' "
-        "phrases; seek specific situations instead. These are SEARCH "
-        "patterns only, not evidence that a customer exists. Do not invent "
-        "hypothetical buyers or treat a search query as a customer quote. "
-        "Your goal is concrete firsthand problems and workflows that may inspire "
-        "a reusable product, WITHOUT deciding the product in advance. "
-        "Historical titles and queries are diagnostic context: do NOT mechanically "
-        "turn them into new search terms. Ignore stale/unproductive trails and "
-        "pivot freely. Produce distinct search phrases, phrased to reach "
-        "substantive discussions, needs, comparisons, requests, or workflows "
-        "rather than dictionary entries and SEO aggregators. "
-        "Do not invent buyers or imply a page proves willingness to pay. "
-        "No predefined industries, product forms, sources, price bands or websites. "
+        "You research what customers ALREADY PAY FOR. A complaint or a list "
+        "of problems is not evidence that anyone buys the proposed solution. "
+        "Find original public paid PRODUCT LISTINGS that display a positive "
+        "price, a purchase mechanism, and explicit item-level completed-sales "
+        "counts (for example '81 sales'). Search current online marketplaces "
+        "that publish those numbers. Seek at least TWO similar but distinct "
+        "products from independent sellers with actual sales; different "
+        "markets on different runs are welcome. You choose markets freely: "
+        "NO predetermined industry, product form, niche or business model. "
+        "Generate four to eight short, precise search queries aimed at DIRECT "
+        "sold-product pages, not generic how-to articles, reviews of entire "
+        "industries, wish lists, complaints or vague trend reports. "
+        "Vary sellers and sources; item-level sales numbers are more useful "
+        "than rankings, SEO impressions, followers, or speculative demand. "
+        "A search query is not itself evidence. Do not invent buyers, sales, "
+        "transaction counts, product listings or other purchase facts. "
+        "Historical searches must not trap you in unproductive topics. "
         "Return only schema-compliant JSON."
     )
     result=model_json(
@@ -194,7 +193,7 @@ def demand_candidates(memory):
     rows,errors=open_web_candidates(
         max_candidates=budget["max_candidates"],queries=queries,
         memory=memory,max_pages=budget["max_pages"],
-        strict_relevance=True)
+        strict_relevance=True,include_discussions=False)
     if not rows:
         issues.append({
             "source":"research_coverage",
@@ -202,11 +201,10 @@ def demand_candidates(memory):
             "queries_attempted":queries,
             "prior_unvisited_links":len(memory.frontier(limit=140)),
         })
-    # Prioritize firsthand current demand over generic advice in the model's
-    # small evidence window. This never excludes other industries or sources.
-    rows.sort(key=lambda r:(not bool(r.get("page_fetched")),
-                            not bool(firsthand_problem_excerpt(r)),
-                            -public_request_signal(r),
+    # Product selection only consumes verified purchase records. Retain other
+    # sources as research, but never let a complaint authorize manufacturing.
+    rows.sort(key=lambda r:(not bool(observed_paid_listing(r)),
+                            -int((observed_paid_listing(r) or {}).get("completed_sales") or 0),
                             str(r.get("source_url") or "")))
     return rows,issues+errors
 
@@ -219,7 +217,7 @@ def normalize_price_usd(value):
         dollars=Decimal(raw)
     except InvalidOperation:
         raise ValueError("price_invalid") from None
-    if not dollars.is_finite() or dollars<0:
+    if not dollars.is_finite() or dollars<=0:
         raise ValueError("price_invalid")
     if dollars*100!=(dollars*100).to_integral_value():
         raise ValueError("price_subcent_precision")
@@ -295,20 +293,25 @@ def firsthand_problem_excerpt(row):
     return ""
 
 def choose_asset_concept(rows,existing_assets=None):
-    visible=demand_view(rows)
-    if not visible:
-        raise ValueError("no_current_demand")
+    pairs=comparable_paid_pairs(rows)
+    if not pairs:
+        raise ValueError("no_independently_correlated_paid_product_demand")
+    visible=pairs[:5]
     actual_tools=discover_tools()
     system=(
         "You independently invent and select one ORIGINAL reusable digital "
-        "product addressing an opportunity observed in the REAL supplied pages. "
-        "The consumer decides demand; you decide what to manufacture. "
-        "Cite exactly one supplied candidate_id in evidence_candidate_id. "
-        "Set evidence_quote to a VERBATIM passage from that source's "
-        "firsthand_problem_excerpt that demonstrates a person's unresolved "
-        "problem. A dictionary example, definition, or SEO article is not "
-        "evidence of demand; if there is no firsthand quote, do not invent one. "
-        "First choose the product itself without preset business models or media. "
+        "product directly serving a market with VERIFIED previous purchases. "
+        "Observed proof is provided as PAIRS of independently sold comparables. "
+        "Select TWO IDs from the SAME supplied paid-market pair, in "
+        "evidence_candidate_id and corroborating_candidate_id. Never mix "
+        "unrelated successful products to manufacture fake demand. "
+        "Each source states its real item sales and its real listing price. "
+        "The new product must address the SHARED PAID FUNCTION those buyers "
+        "purchased while being original, lawful, and usefully differentiated. "
+        "Do not copy anyone else's source code, creative assets or text. "
+        "Set evidence_quote to a verbatim sale excerpt from the primary "
+        "source; facts will be checked against its fetched page. "
+        "Do not select a concept unrelated to these actual paid goods. "
         "Then determine what real artifact(s) achieve its purpose. "
         "Inspect the ACTUAL discovered production tools supplied in context "
         "and choose files those tools can genuinely create. "
@@ -337,7 +340,7 @@ def choose_asset_concept(rows,existing_assets=None):
                 "target_terms":[str(x)[:60] for x in (a.get("target_terms") or [])[:8]],
             } for a in (existing_assets or [])[:12]]
             plan=model_json(CONCEPT_SCHEMA,system,
-                            {"observed_market_signals":observation,
+                            {"verified_paid_market_pairs":observation,
                              "available_production_tools":actual_tools,
                              "existing_catalog":existing,
                              "constraint":"Create a materially different product from the existing catalog; do not repeat or lightly rename an exhausted asset."},
@@ -350,20 +353,35 @@ def choose_asset_concept(rows,existing_assets=None):
             "concept_generation_failed:"+
             (str(last) or type(last).__name__)[:100])
 
-    source_id=str(plan.get("evidence_candidate_id") or "")
-    allowed={r["id"]:r for r in rows[:5]}
-    source=allowed.get(source_id)
-    if source is None:
-        raise ValueError("product_source_not_in_real_research")
-    observed=firsthand_problem_excerpt(source)
-    quote=" ".join(str(plan.get("evidence_quote") or "").split())
-    if (len(quote)<20 or not observed or quote.casefold() not in observed.casefold()):
-        raise ValueError("product_evidence_quote_not_verified_against_actual_problem")
-    plan["evidence_quote"]=quote
-    # Verify that the cited source actually exists. Topic relevance is the
-    # model's creative decision, not an arbitrary keyword-overlap quota.
-    plan["evidence_source_url"]=source["source_url"]
+    primary=str(plan.get("evidence_candidate_id") or "")
+    second=str(plan.get("corroborating_candidate_id") or "")
+    chosen_pair=next((p for p in visible if {
+        p["primary"]["candidate_id"],p["corroborating"]["candidate_id"]
+    }=={primary,second} and primary!=second),None)
+    if chosen_pair is None:
+        raise ValueError("product_not_supported_by_two_similar_paid_listings")
+    comps=[chosen_pair["primary"],chosen_pair["corroborating"]]
+    if comps[0]["candidate_id"]!=primary:
+        comps.reverse()
+    plan["evidence_quote"]=comps[0]["sale_excerpt"]
+    plan["evidence_source_url"]=comps[0]["url"]
+    plan["market_validation"]={
+        "status":"two_paid_comparables_verified",
+        "comparables":comps,
+        "shared_market_terms":chosen_pair["shared_market_terms"],
+        "documented_completed_sales":chosen_pair["documented_completed_sales"],
+    }
+    if not validated_market_proof(plan):
+        raise ValueError("product_paid_market_validation_invalid")
+    proposed_function=" ".join(str(plan.get(k) or "") for k in (
+        "title","description","production_goal"))
+    if not root_terms(proposed_function).intersection(
+            set(chosen_pair["shared_market_terms"])):
+        raise ValueError("proposed_product_unrelated_to_verified_paid_function")
     plan["price_usd"]=normalize_price_usd(plan.get("price_usd"))
+    observed_top=max(Decimal(c["listed_price_usd"]) for c in comps)
+    if Decimal(plan["price_usd"])>observed_top*2:
+        raise ValueError("product_price_exceeds_observed_market_range")
     for field in ("title","description","audience","pitch"):
         if not str(plan.get(field) or "").strip():
             raise ValueError("required_product_field_empty:"+field)
@@ -610,6 +628,12 @@ def commercial_integrity_review(plan,files):
         "true only when the supplied delivered content demonstrates it. "
         "Reject an empty template, generic introduction, sparse boilerplate, "
         "or static document marketed as an interactive generator or assistant. "
+        "Two separate paid comparable products and actual sales counts are "
+        "supplied. Verify the built product genuinely performs the SAME "
+        "customer-purchased core function and offers a specific usable "
+        "benefit to those buyers; sales evidence for unrelated goods is "
+        "not enough. Reject a generic imitation that does not fulfill a "
+        "meaningful paid use case. "
         "Reject promises to operate external systems, issue real financial "
         "instruments, or access live accounts when no such integration is "
         "present in the artifact. Don't invent functionality not shown. "
@@ -626,10 +650,11 @@ def commercial_integrity_review(plan,files):
     decision=model_json(PRODUCT_REVIEW_SCHEMA,system,{
         "product":{k:plan.get(k) for k in ("title","description","audience",
                                              "pitch","production_goal","output_files")},
-        "market_problem_quote":plan.get("evidence_quote"),
+        "market_validation":plan.get("market_validation"),
         "delivered_artifacts":evidence,
     },num_ctx=7168,num_predict=340,temperature=0.05)
     fields=("fulfills_promised_function","contains_substantive_deliverable",
+            "serves_verified_paid_market_function","has_specific_paid_buyer_utility",
             "does_not_claim_unimplemented_external_capabilities")
     if any(decision.get(field) is not True for field in fields):
         raise ValueError("product_not_market_ready:"+
@@ -670,15 +695,17 @@ def create_asset(rows,existing_assets=None):
     stage=checkpoint.get("stage")
     plan=checkpoint.get("plan") or {}
     if stage in ("drafting","review","approved","sealed","building"):
+        if not validated_market_proof(plan):
+            _retire_draft(checkpoint,"legacy_draft_lacks_verified_paid_buyer_demand")
         if not plan.get("output_files"):
             _retire_draft(checkpoint,"legacy_non_executable_product_spec")
         if not plan.get("evidence_quote"):
             _retire_draft(checkpoint,"legacy_product_missing_verifiable_firsthand_demand")
         evidence=checkpoint.get("research_rows") or rows
     else:
-        evidence=[row for row in rows if firsthand_problem_excerpt(row)]
-        if not evidence:
-            raise ValueError("no_verified_firsthand_market_problem")
+        evidence=[row for row in rows if observed_paid_listing(row)]
+        if not comparable_paid_pairs(evidence):
+            raise ValueError("no_verified_paid_market_demand")
         plan=choose_asset_concept(evidence,existing_assets)
         evidence=evidence[:8]
         checkpoint={"stage":"building","plan":plan,"research_rows":evidence,
@@ -780,6 +807,8 @@ def create_asset(rows,existing_assets=None):
 
 
 def cyclops_checkout(plan):
+    if not validated_market_proof(plan):
+        raise ValueError("cannot_sell_product_without_verified_paid_market")
     # The agent prices in dollars. Stripe consumes minor units at the boundary.
     plan["price_cents"]=stripe_usd_unit_amount(plan["price_usd"])
     ident=plan["asset_id"]
@@ -874,6 +903,7 @@ def persist_asset(plan,checkout):
         } for x in plan["_files"]],
         "production_tool":"isolated_tool_workshop",
         "quality_gate":plan["quality_gate"],
+        "market_validation":plan["market_validation"],
         "verified_market_problem_quote":plan["evidence_quote"],
         "commercial_review_reason":plan.get("commercial_review_reason") or "",
         "delivery":"private_encrypted_vault",
@@ -894,6 +924,8 @@ def persist_asset(plan,checkout):
 
 def publish_finished_asset(plan):
     """Secure deliverables before payment link creation and public listing."""
+    if not validated_market_proof(plan):
+        raise ValueError("cannot_publish_unproven_paid_market_product")
     digest=hashlib.sha256(json.dumps({
         "title":plan["title"],"price_usd":plan["price_usd"],
         "files":plan["_files"]},sort_keys=True).encode()).hexdigest()[:20]
@@ -920,6 +952,7 @@ def catalog_eligible(asset):
                 and asset.get("vault_path")
                 and asset.get("delivery")=="private_encrypted_vault"
                 and asset.get("quality_gate")=="content_and_evidence_verified"
+                and validated_market_proof(asset)
                 and asset.get("verified_market_problem_quote")
                 and str(asset.get("checkout_url") or "").startswith("https://"))
 
@@ -1339,6 +1372,15 @@ def run():
                     "reason":"legacy_unproductive_draft_archived",
                     "detail":str(retirement)[:145]})
             pending_at_start={"stage":"empty"}
+        if (pending_at_start.get("stage") in ("building","drafting","review","approved","sealed")
+                and not validated_market_proof(pending_at_start.get("plan") or {})):
+            try:
+                _retire_draft(pending_at_start,"not_supported_by_completed_product_sales")
+            except ProductRetired as retirement:
+                receipt["commercial_outcomes"].append({
+                    "reason":"unsold_market_assumption_archived",
+                    "detail":str(retirement)[:145]})
+            pending_at_start={"stage":"empty"}
         resuming=pending_at_start.get("stage") in ("building","drafting","review","approved","sealed")
         if resuming:
             rows,search_errors=[],[]
@@ -1365,6 +1407,14 @@ def run():
             "source_errors":search_errors,
             "fetched_public_pages":sum(bool(r.get("page_fetched")) for r in rows),
             "verified_firsthand_problem_pages":sum(bool(firsthand_problem_excerpt(r)) for r in rows),
+            "verified_paid_product_listings":sum(bool(observed_paid_listing(r)) for r in rows),
+            "verified_comparable_paid_pairs":len(comparable_paid_pairs(rows)),
+            "paid_listing_sample":[{
+                "url":proof["url"],"title":proof["title"],
+                "completed_sales":proof["completed_sales"],
+                "listed_price_usd":proof["listed_price_usd"],
+            } for proof in (observed_paid_listing(r) for r in rows)
+              if proof][:6],
             "candidates_without_email":sum(not bool(r.get("contact")) for r in rows),
             "search_queries":list(dict.fromkeys(str(r.get("search_query") or "") for r in rows))[:12],
         }
@@ -1473,6 +1523,8 @@ def run():
             receipt["structural_failures"].append({
                 "reason":"production_stage_error","detail":reason})
         elif reason.startswith(("no_public_research_to_select_product",
+                                 "no_verified_paid_market_demand",
+                                 "no_independently_correlated_paid_product_demand",
                                  "no_verified_firsthand_market_problem",
                                  "product_evidence_quote_not_verified_against_actual_problem",
                                 "product_unrelated_to_cited_public_evidence",

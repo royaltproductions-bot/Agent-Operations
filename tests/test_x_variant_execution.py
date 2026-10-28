@@ -261,6 +261,70 @@ class WorkshopOwnershipTests(unittest.TestCase):
 
 
 class CyclopsEfficiencyTests(unittest.TestCase):
+    def test_concept_comes_from_two_real_sold_products_before_workshop(self):
+        cyclops=cyclops_or_skip(self)
+        rows=[{
+            "id":"web:"+seller,"source_url":"https://market.example/item/"+seller,
+            "title":title,"page_fetched":True,
+            "page_text":title+" $19 By "+seller+" Cart "+str(sales)+
+                        " sales Item Details Reviews. "*5,
+        } for seller,title,sales in [
+            ("makerone","Web Analytics Dashboard Template",95),
+            ("makertwo","Business Analytics Dashboard UI Template",120),
+        ]]
+        plan={"title":"Analytics Dashboard Starter","description":"Useful analytics dashboard",
+              "audience":"Small teams","pitch":"Working dashboard starter",
+              "price_usd":"15.00","evidence_candidate_id":"web:makerone",
+              "corroborating_candidate_id":"web:makertwo","evidence_quote":"",
+              "target_terms":["analytics","dashboard"],"core_points":["Working charts"],
+              "production_goal":"Build a functional analytics dashboard",
+              "output_files":["dashboard.html"]}
+        with patch.object(cyclops,"discover_tools",return_value={"modules":["json"]}) as tools, \
+             patch.object(cyclops,"model_json",return_value=plan):
+            picked=cyclops.choose_asset_concept(rows)
+        tools.assert_called_once()
+        self.assertEqual(picked["market_validation"]["documented_completed_sales"],215)
+        self.assertEqual(len(picked["market_validation"]["comparables"]),2)
+        self.assertIn("95 sales",picked["evidence_quote"])
+
+        # One unrelated listing must never trigger a heavy workshop build.
+        rows=rows[:1]
+        with patch.object(cyclops,"discover_tools") as tools:
+            with self.assertRaisesRegex(ValueError,"correlated_paid_product_demand"):
+                cyclops.choose_asset_concept(rows)
+        tools.assert_not_called()
+
+    def test_actual_sold_paid_listings_are_required_and_correlated(self):
+        from tools.paid_market import observed_paid_listing,comparable_paid_pairs
+        def sold(url,title,seller,sales):
+            return {"id":"web:"+seller,"source_url":url,"title":title,
+                    "page_fetched":True,
+                    "page_text":(title+" ")+"$16 $16 By "+seller+
+                    " Cart "+str(sales)+" sales Item Details Reviews (5) "+
+                    "This is a real downloadable product with a buyer-facing checkout. "*3}
+        one=sold("https://market.example/item/one",
+                 "Metoxi Bootstrap Admin Dashboard Template","codervent",81)
+        two=sold("https://market.example/item/two",
+                 "Cartiy Admin Dashboard HTML Template","otherseller",143)
+        unrelated=sold("https://market.example/item/three",
+                       "Ambient Drum Loop Audio Pack","musicmaker",900)
+        self.assertEqual(observed_paid_listing(one)["completed_sales"],81)
+        self.assertEqual(len(comparable_paid_pairs([one,two,unrelated])),1)
+        self.assertEqual(comparable_paid_pairs([one,one]),[])
+        self.assertEqual(comparable_paid_pairs([one,unrelated]),[])
+        snippet_only={**one,"page_fetched":False}
+        self.assertIsNone(observed_paid_listing(snippet_only))
+        only_ad={**one,"page_text":"I am struggling and wish I had a tool. "*8}
+        self.assertIsNone(observed_paid_listing(only_ad))
+
+    def test_unproven_product_cannot_reach_stripe_checkout(self):
+        cyclops=cyclops_or_skip(self)
+        with patch.object(cyclops,"stripe_get") as stripe:
+            with self.assertRaisesRegex(ValueError,"without_verified_paid_market"):
+                cyclops.cyclops_checkout({"title":"Generic made-up guide",
+                                          "price_usd":"9.00","asset_id":"bad"})
+        stripe.assert_not_called()
+
     def test_dictionary_page_does_not_qualify_as_customer_problem(self):
         cyclops=cyclops_or_skip(self)
         page={"page_fetched":True,"page_text":"Start (verb). Definition: to begin an activity. Synonyms include commence.",
@@ -279,12 +343,20 @@ class CyclopsEfficiencyTests(unittest.TestCase):
 
     def test_legacy_bytes_only_listing_is_not_marketed_as_verified(self):
         cyclops=cyclops_or_skip(self)
+        from tools.paid_market import validated_market_proof
         asset={"status":"active","vault_path":"private/asset.bin",
                "delivery":"private_encrypted_vault","checkout_url":"https://stripe.example/checkout",
                "quality_gate":"verified_generated_bytes"}
         self.assertFalse(cyclops.catalog_eligible(asset))
         asset["quality_gate"]="content_and_evidence_verified"
         asset["verified_market_problem_quote"]="I need help with a recurring problem."
+        self.assertFalse(cyclops.catalog_eligible(asset))
+        comps=[{"url":f"https://example.com/item/{i}",
+                "completed_sales":50,"listed_price_usd":"12.00",
+                "sale_excerpt":"$12 Cart 50 sales"} for i in (1,2)]
+        asset["market_validation"]={"status":"two_paid_comparables_verified",
+                                    "comparables":comps}
+        self.assertTrue(validated_market_proof(asset))
         self.assertTrue(cyclops.catalog_eligible(asset))
 
     def test_ari_checkout_uses_existing_merchant_with_clear_brand(self):
@@ -329,7 +401,11 @@ class CyclopsEfficiencyTests(unittest.TestCase):
              patch.object(cyclops,"stripe_post",side_effect=outcomes) as post:
             checkout=cyclops.cyclops_checkout({"asset_id":"new-asset",
                  "title":"A real working tool","description":"Functional deliverable",
-                 "price_usd":"10.00"})
+                 "price_usd":"10.00", "market_validation":{
+                    "status":"two_paid_comparables_verified",
+                    "comparables":[{"url":f"https://example.com/item/{i}",
+                                    "completed_sales":70,"listed_price_usd":"16.00",
+                                    "sale_excerpt":"$16 Cart 70 sales"} for i in (1,2)]}})
         self.assertEqual(checkout["id"],"plink_new")
         self.assertTrue(post.call_args_list[0].args[1]["name"].startswith("Ari Operations | "))
         self.assertIn("Sirius Sage",post.call_args_list[2].args[1][
@@ -402,11 +478,16 @@ class CyclopsEfficiencyTests(unittest.TestCase):
             {"id":"b","title":"We need help reconciling records",
              "snippet":"Trying to fix a recurring task","text":"Help wanted",
              "source_url":"https://two.example/b","page_fetched":True},
+            {"id":"c","title":"Completed-sales dashboard template",
+             "snippet":"A real paid product","text":"Market offer",
+             "source_url":"https://three.example/item/c","page_fetched":True,
+             "page_text":"Completed-sales dashboard template $16 By vendor Cart 81 sales Item Details "*4},
         ]
         with patch.object(cyclops,"discovery_queries",return_value=["genuine need"]), \
              patch.object(cyclops,"open_web_candidates",return_value=(rows,[])):
             output,issues=cyclops.demand_candidates(Memory())
-        self.assertEqual([r["id"] for r in output],["b","a"])
+        self.assertEqual(output[0]["id"],"c")
+        self.assertEqual({r["id"] for r in output},{"a","b","c"})
         self.assertEqual(issues,[])
 
     def test_manufacturing_evidence_prioritizes_fetched_page(self):

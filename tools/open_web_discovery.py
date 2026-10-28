@@ -349,7 +349,8 @@ def hn_ask_candidates(queries, memory=None, max_candidates=8):
     return rows
 
 def open_web_candidates(max_candidates=24, queries=None, memory=None,
-                        max_pages=32, strict_relevance=True, allowed_hosts=None):
+                        max_pages=32, strict_relevance=True, allowed_hosts=None,
+                        include_discussions=True):
     """Search model-generated topics and progress along prior link discoveries.
 
     Budgets constrain this execution's page count; researched URLs
@@ -373,7 +374,7 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
     # Discussion indexes expose original first-person requests even where
     # search engines point to JavaScript-only/blocked forum pages.
     primary_discussions=[]
-    if memory and queries:
+    if include_discussions and memory and queries:
         try:
             primary_discussions=hn_ask_candidates(
                 queries,memory=memory,
