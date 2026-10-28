@@ -69,13 +69,15 @@ def convert_document(data: bytes, filename: str, mime: str,
             reader = PdfReader(io.BytesIO(data), strict=False)
             if reader.is_encrypted:
                 raise ValueError("encrypted_document")
+            if len(reader.pages) > 60:
+                raise ValueError("document_exceeds_page_limit")
             pieces = []
             for number, page in enumerate(reader.pages):
-                if number >= 60 or sum(map(len, pieces)) >= limit:
-                    break
                 extracted = (page.extract_text() or "").strip()
                 if extracted:
                     pieces.append(f"[Page {number + 1}]\n{extracted}")
+                    if sum(map(len, pieces)) > limit:
+                        raise ValueError("document_exceeds_context")
             text = "\n\n".join(pieces)
         except ImportError as exc:
             raise ValueError("pdf_parser_missing") from exc
@@ -95,6 +97,8 @@ def convert_document(data: bytes, filename: str, mime: str,
             text = "\n".join(pieces)
         except ImportError as exc:
             raise ValueError("docx_parser_missing") from exc
+        except ValueError:
+            raise
         except Exception as exc:
             raise ValueError("unreadable_docx") from exc
     else:  # .xlsx
@@ -103,26 +107,36 @@ def convert_document(data: bytes, filename: str, mime: str,
             _check_office_archive(data)
             workbook = load_workbook(io.BytesIO(data), read_only=True,
                                      data_only=True, keep_links=False)
+            if len(workbook.worksheets) > 8:
+                raise ValueError("document_exceeds_sheet_limit")
             pieces = []
-            for sheet in workbook.worksheets[:8]:
+            for sheet in workbook.worksheets:
                 pieces.append(f"[Sheet: {sheet.title}]")
                 out = io.StringIO(newline="")
                 writer = csv.writer(out)
                 for index, row in enumerate(sheet.iter_rows(values_only=True)):
-                    if index >= 1000 or out.tell() >= limit:
-                        break
-                    writer.writerow([str(cell)[:300] if cell is not None else ""
-                                     for cell in row[:40]])
+                    if index >= 1000:
+                        raise ValueError("document_exceeds_row_limit")
+                    if len(row) > 40 and any(cell is not None for cell in row[40:]):
+                        raise ValueError("document_exceeds_column_limit")
+                    cells = [str(cell) if cell is not None else "" for cell in row[:40]]
+                    if any(len(cell) > 2000 for cell in cells):
+                        raise ValueError("document_exceeds_cell_limit")
+                    writer.writerow(cells)
+                    if out.tell() + sum(map(len, pieces)) > limit:
+                        raise ValueError("document_exceeds_context")
                 pieces.append(out.getvalue())
-                if sum(map(len, pieces)) >= limit:
-                    break
             workbook.close()
             text = "\n".join(pieces)
         except ImportError as exc:
             raise ValueError("xlsx_parser_missing") from exc
+        except ValueError:
+            raise
         except Exception as exc:
             raise ValueError("unreadable_xlsx") from exc
-    text = text[:limit].strip()
+    if len(text) > limit:
+        raise ValueError("document_exceeds_context")
+    text = text.strip()
     if not text:
         raise ValueError("no_extractable_text")
     return text

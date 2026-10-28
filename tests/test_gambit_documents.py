@@ -20,6 +20,10 @@ class DocumentTests(unittest.TestCase):
                                                      'leads.csv', 'text/csv'),
                          'Name,City\nAcme,Augusta')
 
+    def test_excessive_text_is_rejected_not_silently_truncated(self):
+        with self.assertRaisesRegex(ValueError, "document_exceeds_context"):
+            documents.convert_document(b"a" * 120, "report.txt", "text/plain", limit=100)
+
     def test_small_compressed_office_bomb_is_rejected(self):
         binary = io.BytesIO()
         with ZipFile(binary, 'w', compression=ZIP_DEFLATED) as archive:
@@ -43,6 +47,9 @@ class DocumentTests(unittest.TestCase):
                                           documents.DOCUMENT_MIMES['.docx'])
         self.assertIn('Business research brief', text)
         self.assertIn('Acme | Augusta', text)
+        with self.assertRaisesRegex(ValueError, "document_exceeds_context"):
+            documents.convert_document(data.getvalue(), 'brief.docx',
+                                       documents.DOCUMENT_MIMES['.docx'], limit=20)
 
     @unittest.skipUnless(find_spec('openpyxl'), 'openpyxl not installed')
     def test_excel_inputs_and_outputs_are_real_workbooks(self):
@@ -56,6 +63,10 @@ class DocumentTests(unittest.TestCase):
         text = documents.convert_document(data.getvalue(), 'leads.xlsx',
                                           documents.DOCUMENT_MIMES['.xlsx'])
         self.assertIn('Acme,Augusta', text)
+
+        with self.assertRaisesRegex(ValueError, "document_exceeds_context"):
+            documents.convert_document(data.getvalue(), 'leads.xlsx',
+                                       documents.DOCUMENT_MIMES['.xlsx'], limit=20)
 
         from tools.gambit_worker import prepare_csv
         rendered = documents.csv_to_xlsx(prepare_csv(

@@ -47,6 +47,17 @@ def retry_due(entry, now=None):
         return False
 
 
+def quality_retry_due(entry, now=None):
+    """Reattempt a failed paid deliverable after a bounded cooling-off period."""
+    if entry.get("action") != "quality_rejected" or not entry.get("retry_at"):
+        return False
+    try:
+        due = datetime.fromisoformat(entry["retry_at"])
+        return due.tzinfo is not None and due <= (now or datetime.now(timezone.utc))
+    except (TypeError, ValueError):
+        return False
+
+
 def cursor_refresh_due(state, cursor, now=None):
     """Avoid committing a new no-op tail cursor on every empty market poll."""
     if cursor == state.get("events_cursor"):
@@ -239,8 +250,10 @@ def scan(state):
                    {"asked", "bid_sent", "bid_active"})]
     active = [item for item in held if item.get("status") == "claimed" and (
         state["bounties"].get(str(item.get("_id")), {}).get("action") not in
-        {"submitted", "awaiting_info", "quality_rejected", "needs_operator_review"}
-        or str(item.get("_id")) in triggers or state.get("_cursor_reset"))]
+        {"submitted", "awaiting_info", "quality_rejected", "quality_rejected_final",
+         "needs_operator_review"}
+        or str(item.get("_id")) in triggers or state.get("_cursor_reset")
+        or quality_retry_due(state["bounties"].get(str(item.get("_id")), {})))]
     return opened, held, events, cursor, waiting, active
 
 
@@ -723,8 +736,13 @@ def handle_hired(item, state):
     messages = messages_for(bounty_id)
     incoming = sorted((m for m in messages if m.get("author_type") == "user"),
                       key=lambda m: m.get("created_at") or 0)
-    last_message = str(incoming[-1].get("_id")) if incoming else "none"
+    last_message = (str(incoming[-1].get("_id") or incoming[-1].get("created_at") or
+                        key("owner-message", (incoming[-1].get("content") or {}).get("text") or ""))
+                    if incoming else "none")
     if previous.get("action") == "awaiting_info" and previous.get("last_message") == last_message:
+        return
+    if (previous.get("action") == "quality_rejected_final" and
+            previous.get("last_message") == last_message):
         return
     if previous.get("action") == "submitted" and previous.get("claim_id") == claim.get("claim_id"):
         # A genuine verification failure reopens the assignment for revision.
@@ -758,7 +776,15 @@ def handle_hired(item, state):
         latest = details.get("latest_submission") or {}
         failure_reason = str(latest.get("verification_reason") or
                              "The previous submission returned to active work; re-check the requirements and revise it.")
-    result = produce(details, incoming, failure_reason, sources=sources)
+    previous_quality_issue = previous.get("quality_issue") if (
+        previous.get("action") == "quality_rejected") else None
+    correction = {
+        "citations": "Only cite pages actually read or URLs supplied by the buyer.",
+        "csv_shape": "Create a complete valid CSV with consistent columns and real rows.",
+        "quantity": "Meet the buyer's explicit record count using actual evidence.",
+        "review": "Prior attempts failed quality review. Recheck each buyer requirement and source."
+    }.get(previous_quality_issue, "")
+    result = produce(details, incoming, failure_reason, correction, sources=sources)
     if result.get("status") == "need_information":
         question = str(result.get("question") or "").strip()
         if question:
@@ -832,9 +858,38 @@ def handle_hired(item, state):
                     "last_message": last_message, "payout_cents": earned_if_completed}
                 note(state, "awaiting_info", bounty_id)
                 return
-        state["bounties"][bounty_id] = {"action": "quality_rejected", "claim_id": claim["claim_id"],
-                                        "payout_cents": earned_if_completed}
-        note(state, "quality_rejected", bounty_id)
+        reason = str(quality.get("reason") or "")
+        issue = ("citations" if "citation" in reason.lower() or "source url" in reason.lower()
+                 else "csv_shape" if "CSV needs" in reason
+                 else "quantity" if "explicitly requested" in reason
+                 else "review")
+        count = int(previous.get("quality_retry_count") or 0) + 1
+        if count <= 2:
+            delay = (15, 45)[count - 1]
+            state["bounties"][bounty_id] = {
+                "action": "quality_rejected", "claim_id": claim["claim_id"],
+                "payout_cents": earned_if_completed, "quality_issue": issue,
+                "quality_retry_count": count,
+                "retry_at": (datetime.now(timezone.utc) + timedelta(minutes=delay)).isoformat()}
+            note(state, "quality_retry_scheduled", bounty_id, attempt=count,
+                 delay_minutes=delay)
+        else:
+            # Leave an operational receipt without disclosing buyer materials
+            # into the public GitHub state file.
+            # Send before recording completion so a network error retries the
+            # same idempotent notification instead of silently losing it.
+            api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/messages", "POST", {
+                "content": {"type": "text", "text": (
+                    "I haven't been able to verify a complete deliverable against the "
+                    "stated criteria with the available evidence. I won't submit "
+                    "inaccurate work. If you can provide additional authoritative "
+                    "sources or adjust the scope, I can reassess.")},
+                "idempotency_key": key("quality-unavailable", bounty_id, claim["claim_id"])})
+            state["bounties"][bounty_id] = {
+                "action": "quality_rejected_final", "claim_id": claim["claim_id"],
+                "payout_cents": earned_if_completed, "quality_issue": issue,
+                "last_message": last_message}
+            note(state, "quality_rejected_final", bounty_id)
         return
     if format_name == "csv":
         attachment_id = upload_csv(bounty_id, normalized_content, state, claim["claim_id"],

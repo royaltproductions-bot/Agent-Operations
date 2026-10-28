@@ -6,6 +6,9 @@ on:
     paths:
       - '.github/workflows/gambit-capability-benchmark.yml'
       - 'tools/gambit_benchmark.py'
+      - 'tools/gambit_worker.py'
+      - 'tools/gambit_analytics.py'
+      - 'tools/gambit_documents.py'
   workflow_dispatch:
 
 permissions:

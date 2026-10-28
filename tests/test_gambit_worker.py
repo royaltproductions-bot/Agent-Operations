@@ -578,6 +578,77 @@ class GambitTests(unittest.TestCase):
         self.assertIn('/messages', writes[0].args[0])
         self.assertEqual(state['bounties']['b1']['action'], 'awaiting_info')
 
+    def test_quality_rejection_is_not_a_permanent_silent_stall(self):
+        details = {'bounty': {'_id': 'b1', 'status': 'claimed', 'payout_cents': 1800},
+                   'claim': {'status': 'active', 'claim_id': 'c1'}}
+        bad = {'status': 'ready', 'deliverable_title': 'Report',
+               'deliverable_text': 'Still incomplete'}
+        state = {'bounties': {}, 'recent_outcomes': []}
+        with patch.object(gambit, 'api', return_value=details), \
+             patch.object(gambit, 'messages_for', return_value=[]), \
+             patch.object(gambit, 'produce', return_value=bad) as produce, \
+             patch.object(gambit, 'review', return_value={
+                 'approved': False, 'reason': 'Missing relevant sources'}):
+            gambit.handle_hired({'_id': 'b1'}, state)
+        entry = state['bounties']['b1']
+        self.assertEqual(produce.call_count, 2)
+        self.assertEqual(entry['action'], 'quality_rejected')
+        self.assertEqual(entry['quality_retry_count'], 1)
+        self.assertFalse(gambit.quality_retry_due(entry))
+        self.assertTrue(gambit.quality_retry_due(
+            entry, datetime.now(timezone.utc) + timedelta(minutes=20)))
+
+        with patch.object(gambit, 'pages', side_effect=[[], [{'_id': 'b1', 'status': 'claimed'}]]), \
+             patch.object(gambit, 'relevant_events', return_value=([], None)):
+            _, _, _, _, _, not_yet = gambit.scan(state)
+        self.assertFalse(not_yet)
+        entry['retry_at'] = (datetime.now(timezone.utc) - timedelta(seconds=1)).isoformat()
+        with patch.object(gambit, 'pages', side_effect=[[], [{'_id': 'b1', 'status': 'claimed'}]]), \
+             patch.object(gambit, 'relevant_events', return_value=([], None)):
+            _, _, _, _, _, due = gambit.scan(state)
+        self.assertEqual([item['_id'] for item in due], ['b1'])
+
+    def test_quality_retry_uses_previous_issue_to_correct_delivery(self):
+        details = {'bounty': {'_id': 'b1', 'status': 'claimed', 'payout_cents': 1800},
+                   'claim': {'status': 'active', 'claim_id': 'c1'}}
+        state = {'bounties': {'b1': {'action': 'quality_rejected',
+                                    'claim_id': 'c1', 'quality_retry_count': 1,
+                                    'quality_issue': 'citations'}}, 'recent_outcomes': []}
+        good = {'status': 'ready', 'deliverable_title': 'Corrected report',
+                'deliverable_text': 'Corrected with actual sources'}
+        def request(path, method='GET', payload=None):
+            return details if method == 'GET' else {'submission_id': 's1'}
+        with patch.object(gambit, 'api', side_effect=request), \
+             patch.object(gambit, 'messages_for', return_value=[]), \
+             patch.object(gambit, 'produce', return_value=good) as produce, \
+             patch.object(gambit, 'review', return_value={'approved': True, 'reason': 'correct'}):
+            gambit.handle_hired({'_id': 'b1'}, state)
+        self.assertIn('Only cite pages actually read', produce.call_args.args[3])
+        self.assertEqual(state['bounties']['b1']['action'], 'submitted')
+
+    def test_repeated_quality_failure_notifies_buyer_once(self):
+        details = {'bounty': {'_id': 'b1', 'status': 'claimed', 'payout_cents': 1800},
+                   'claim': {'status': 'active', 'claim_id': 'c1'}}
+        state = {'bounties': {'b1': {'action': 'quality_rejected',
+                                    'claim_id': 'c1', 'quality_retry_count': 2,
+                                    'quality_issue': 'review'}}, 'recent_outcomes': []}
+        bad = {'status': 'ready', 'deliverable_title': 'Incomplete',
+               'deliverable_text': 'Cannot verify enough sources'}
+        def request(path, method='GET', payload=None):
+            return details if method == 'GET' else {'message_id': 'warning1'}
+        with patch.object(gambit, 'api', side_effect=request) as api, \
+             patch.object(gambit, 'messages_for', return_value=[]), \
+             patch.object(gambit, 'produce', return_value=bad), \
+             patch.object(gambit, 'review', return_value={
+                 'approved': False, 'reason': 'Not source verified'}):
+            gambit.handle_hired({'_id': 'b1'}, state)
+            gambit.handle_hired({'_id': 'b1'}, state)
+        self.assertEqual(state['bounties']['b1']['action'], 'quality_rejected_final')
+        posts = [c for c in api.call_args_list
+                 if len(c.args) > 1 and c.args[1] == 'POST']
+        self.assertEqual(len(posts), 1)
+        self.assertIn('/messages', posts[0].args[0])
+
 
 if __name__ == '__main__':
     unittest.main()
