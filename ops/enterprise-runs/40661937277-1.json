@@ -1,0 +1,131 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T09:10:01.421651+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "hn_ask": 6
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 5,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=40620290",
+        "title": "Ask HN: Good Facebook Classic clone (FOSS)?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=35824872",
+        "title": "Ask HN: Does anyone need ecommerce web components + a WYSIWYG?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=34433469",
+        "title": "Startup lost it's Captain What to do?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=32535935",
+        "title": "Anyone want to help build an open source social media platform?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=17799658",
+        "title": "Creating a collaborative wiki video platform, to create high quality videos",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=11007871",
+        "title": "Common Lisp Tips",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create a short video script for a niche online course"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a simple data dashboard for a small business",
+      "hiring a freelancer to create a paid digital product with no upfront cost",
+      "need paid help with designing a low-cost lead magnet for email marketing",
+      "can anyone create a short video script for a niche online course",
+      "looking for someone to develop a basic website with a subscription model"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 19,
+      "executed_queries": [
+        "looking for someone to build a simple data dashboard for a small business",
+        "hiring a freelancer to create a paid digital product with no upfront cost",
+        "need paid help with designing a low-cost lead magnet for email marketing",
+        "can anyone create a short video script for a niche online course",
+        "looking for someone to develop a basic website with a subscription model"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 139,
+      "known_pages": 730
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
