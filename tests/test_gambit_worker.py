@@ -415,6 +415,66 @@ class GambitTests(unittest.TestCase):
                          'attachment1')
         self.assertEqual(state['bounties']['b1']['submission_id'], 's1')
 
+    def test_hired_excel_result_submits_real_xlsx_attachment(self):
+        details = {'bounty': {'_id': 'b1', 'status': 'claimed',
+                              'title': 'Find 2 business leads', 'payout_cents': 2800},
+                   'claim': {'status': 'active', 'claim_id': 'c1'}}
+        result = {'status': 'ready', 'deliverable_title': 'Lead workbook',
+                  'deliverable_text': ('company,source\nAcme,https://example.com\n'
+                                       'Bravo,https://example.org'),
+                  'deliverable_format': 'xlsx'}
+        state = {'bounties': {}, 'recent_outcomes': []}
+        written = []
+        def request(path, method='GET', payload=None):
+            if path.endswith('/submissions'):
+                written.append(payload)
+                return {'submission_id': 'submitted-xlsx'}
+            return details
+        with patch.object(gambit, 'api', side_effect=request), \
+             patch.object(gambit, 'messages_for', return_value=[]), \
+             patch.object(gambit, 'produce', return_value=result), \
+             patch.object(gambit, 'review', return_value={'approved': True}), \
+             patch.object(gambit, 'upload_file', return_value='attachment-xlsx') as upload:
+            gambit.handle_hired({'_id': 'b1'}, state)
+        self.assertEqual(state['bounties']['b1']['submission_id'], 'submitted-xlsx')
+        self.assertTrue(upload.call_args.args[1].startswith(b'PK'))
+        self.assertEqual(upload.call_args.kwargs['filename'], 'gambit-research.xlsx')
+        self.assertIn('spreadsheetml', upload.call_args.kwargs['content_type'])
+        self.assertEqual(written[0]['deliverables'][0]['type'], 'file')
+
+    def test_document_attachment_is_read_through_actual_bounty_file_path(self):
+        import importlib.util
+        if not importlib.util.find_spec('docx'):
+            self.skipTest('python-docx not installed')
+        from docx import Document
+        document = Document()
+        document.add_paragraph('Acme customer lead details')
+        binary = io.BytesIO()
+        document.save(binary)
+
+        class Reply:
+            def __enter__(self):
+                return self
+            def __exit__(self, *args):
+                return False
+            def read(self, size):
+                return binary.getvalue()[:size]
+
+        class Opener:
+            def open(self, request, timeout=35):
+                self.request = request
+                return Reply()
+
+        opener = Opener()
+        with patch.dict(os.environ, {'BOUNTY_AGENT_API_KEY': 'fake-secret'}), \
+             patch.object(gambit.urllib.request, 'build_opener', return_value=opener):
+            extracted = gambit.read_text_attachment({
+                'id': 'attachment01', 'filename': 'brief.docx',
+                'content_type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'size': len(binary.getvalue())})
+        self.assertIn('Acme customer lead details', extracted)
+        self.assertTrue(opener.request.has_header('Authorization'))
+
     def test_declined_bid_passes_owner_feedback_into_reassessment(self):
         details = {'bounty': {'_id': 'b1', 'status': 'open', 'version': 3, 'flow': 'bid'},
                    'bid': {'_id': 'oldbid', 'status': 'declined', 'payout_cents': 2400}}

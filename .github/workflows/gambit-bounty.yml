@@ -9,8 +9,10 @@ on:
     paths:
       - 'tools/gambit_worker.py'
       - 'tools/gambit_research.py'
+      - 'tools/gambit_documents.py'
       - 'tests/test_gambit_worker.py'
       - 'tests/test_gambit_research.py'
+      - 'tests/test_gambit_documents.py'
       - '.github/workflows/gambit-bounty.yml'
 
 permissions:
@@ -37,6 +39,12 @@ jobs:
         with:
           fetch-depth: 3
           persist-credentials: true
+
+      - name: Exercise document conversion on code deployment
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        run: |
+          python3 -m pip install --disable-pip-version-check --quiet \
+            'pypdf>=5,<8' 'python-docx>=1.2,<2' 'openpyxl>=3.1,<4'
 
       - name: Validate worker code
         run: python3 -m unittest discover -s tests -p 'test_gambit_*.py' -q
@@ -65,6 +73,12 @@ jobs:
         if: steps.probe.outputs.needs_model == 'true'
         continue-on-error: true
         run: python3 -m pip install --disable-pip-version-check --quiet ddgs==9.16.1
+
+      - name: Read PDF Word and Excel attachments when paid work appears
+        if: steps.probe.outputs.needs_model == 'true'
+        run: |
+          python3 -m pip install --disable-pip-version-check --quiet \
+            'pypdf>=5,<8' 'python-docx>=1.2,<2' 'openpyxl>=3.1,<4'
 
       - name: Start model only when work appears
         if: steps.probe.outputs.needs_model == 'true'
