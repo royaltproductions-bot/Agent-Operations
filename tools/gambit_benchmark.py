@@ -55,13 +55,13 @@ def analysis_case():
                        "Do not introduce any external figures.",
         "verification": "Arithmetic agrees with the supplied table and names the correct peak month."}}
     sources = [{"filename": "sales.csv", "text":
-                "month,sales\nJanuary,10\nFebruary,20\nMarch,30\n"}]
+                "month,sales\nJanuary,147\nFebruary,92\nMarch,181\n"}]
     result = worker.produce(bounty, [], sources=sources,
                             research={"status": "not_needed", "results": []})
     if result.get("status") != "ready" or result.get("deliverable_format") != "text":
         raise AssertionError("analysis_model_not_ready")
     content = str(result.get("deliverable_text") or "")
-    for value in ("60", "20", "March", "30"):
+    for value in ("420", "140", "March", "181"):
         if not re.search(rf"\b{re.escape(value)}\b", content, re.I):
             raise AssertionError("analysis_missing_expected_result: " + repr(content[:900]))
     return {"case": "three_month_analysis", "result": "passed"}
