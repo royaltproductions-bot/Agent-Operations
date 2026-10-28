@@ -53,7 +53,7 @@ def analysis_case():
         "description": "Use only the attached source table. Report the total of the three "
                        "months, the monthly average, and the highest month. "
                        "Do not introduce any external figures.",
-        "verification": "Total 60, average 20, highest March with 30."}}
+        "verification": "Arithmetic agrees with the supplied table and names the correct peak month."}}
     sources = [{"filename": "sales.csv", "text":
                 "month,sales\nJanuary,10\nFebruary,20\nMarch,30\n"}]
     result = worker.produce(bounty, [], sources=sources,

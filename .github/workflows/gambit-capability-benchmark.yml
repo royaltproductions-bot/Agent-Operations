@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/gambit-capability-benchmark.yml'
+      - 'tools/gambit_benchmark.py'
   workflow_dispatch:
 
 permissions:
