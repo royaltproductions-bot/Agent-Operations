@@ -1,0 +1,150 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-28T10:28:13.429745+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "duckduckgo": 12,
+      "bing": 1,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "InvalidURL"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "verified_firsthand_problem_pages": 3,
+    "observed_public_paid_offers": 1,
+    "market_candidates_considered": 1,
+    "public_sources_available_for_judgment": 11,
+    "public_market_sample": [
+      {
+        "url": "https://www.nocode.mba/courses/Build-a-SaaS-like-Linktree",
+        "title": "Build a SaaS like Linktree | No Code MBA",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://viasocket.com/discovery/blog/61wqdc/9-best-tools-to-auto-sync-invoice-reconciliation-fast",
+        "title": "9 Best Tools to Auto-Sync Invoice Reconciliation Fast",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://support.microsoft.com/en-us/accounts-billing/subscriptions/where-can-i-manage-my-microsoft-365-subscription",
+        "title": "Where can I manage my Microsoft 365 subscription? | Microsoft Support",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.v7labs.com/blog/best-platforms-invoice-automation",
+        "title": "Invoice Automation: 10 Platforms Compared [2025 Guide]",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.stacksync.com/blog/automated-invoice-reconciliation-catch-discrepancies",
+        "title": "Automated Invoice Reconciliation: Catch Discrepancies",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.flows360.co/blog/best-payment-invoice-reconciliation-automation-2026/",
+        "title": "Best Payment & Invoice Reconciliation Automation 2026: Top 5 Platforms ...",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://www.nocode.mba/courses/Build-a-SaaS-like-Linktree",
+        "title": "Build a SaaS like Linktree | No Code MBA",
+        "displayed_sales_count": null,
+        "listed_price_usd": "29.99"
+      }
+    ],
+    "candidates_without_email": 13,
+    "search_queries": [
+      "paid online course teaching how to build a no-code SaaS app",
+      "digital tool for automating invoice reconciliation with real-time data sync",
+      "subscription-based platform for managing remote team onboarding workflows",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 1,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "digital tool for automating invoice reconciliation with real-time data sync",
+        "paid online course teaching how to build a no-code SaaS app",
+        "subscription-based platform for managing remote team onboarding workflows",
+        "digital asset management tool with AI-powered metadata tagging"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 137,
+      "known_pages": 780
+    },
+    "durable_contactable_sources": 26
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:The course 'Build a SaaS like Linktree' is a paid offer, but there is no evidence of actual sales or buyer activity. The displayed sales count is null, and the course is part of a "
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "public_sources_reviewable": 11,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:The course 'Build a SaaS like Linktree' is a paid offer, but there is no evidence of actual sales or buyer activity. The displayed s"
+  }
+}
