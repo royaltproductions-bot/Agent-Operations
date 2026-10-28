@@ -55,7 +55,7 @@ jobs:
       - name: Check live Cyclops execution before loading Qwen
         id: preflight
         run: |
-          python3 -m pip install --quiet --disable-pip-version-check cryptography
+          python3 -m pip install --quiet --disable-pip-version-check cryptography pypdf
           python3 -m unittest discover -s tests -p 'test_x_variant_execution.py' -q
 
       - name: Prepare isolated production tools

@@ -9,6 +9,16 @@ from tools import open_web_discovery as web
 from tools import autonomous_commerce_brain as brain
 
 
+def cyclops_or_skip(test):
+    try:
+        from tools import cyclops_asset_engine
+        return cyclops_asset_engine
+    except ModuleNotFoundError as exc:
+        if exc.name and exc.name.startswith("cryptography"):
+            test.skipTest("Cyclops encryption dependency is installed by its runner")
+        raise
+
+
 class WebEfficiencyTests(unittest.TestCase):
     def test_public_http_has_finite_transport_timeout(self):
         class Response:
@@ -116,6 +126,14 @@ class WebEfficiencyTests(unittest.TestCase):
 
 
 class WorkshopOwnershipTests(unittest.TestCase):
+    def test_safe_relative_build_path_accepts_dot_slash_not_traversal(self):
+        from tools import cyclops_workshop as workshop
+        self.assertEqual(str(workshop._safe_path("./output/real.pdf")),"output/real.pdf")
+        with self.assertRaises(ValueError):
+            workshop._safe_path("./../outside.pdf")
+        with self.assertRaises(ValueError):
+            workshop._safe_path("./output/../outside.pdf")
+
     def test_container_writes_as_host_nonroot_owner(self):
         import os
         from tools import cyclops_workshop as workshop
@@ -148,6 +166,57 @@ class WorkshopOwnershipTests(unittest.TestCase):
 
 
 class CyclopsEfficiencyTests(unittest.TestCase):
+    def test_dictionary_page_does_not_qualify_as_customer_problem(self):
+        cyclops=cyclops_or_skip(self)
+        page={"page_fetched":True,"page_text":"Start (verb). Definition: to begin an activity. Synonyms include commence.",
+              "title":"START - Dictionary"}
+        self.assertEqual(cyclops.firsthand_problem_excerpt(page),"")
+        dictionary_example={"page_fetched":True,"title":"START - English meaning",
+                            "page_text":"Example: I need help organizing my desk each Friday."}
+        self.assertEqual(cyclops.firsthand_problem_excerpt(dictionary_example),"")
+        request={"page_fetched":True,"page_text":"I need help reconciling my invoices every Friday because I keep losing the original transactions."}
+        self.assertIn("reconciling my invoices",cyclops.firsthand_problem_excerpt(request))
+
+    def test_legacy_bytes_only_listing_is_not_marketed_as_verified(self):
+        cyclops=cyclops_or_skip(self)
+        asset={"status":"active","vault_path":"private/asset.bin",
+               "delivery":"private_encrypted_vault","checkout_url":"https://stripe.example/checkout",
+               "quality_gate":"verified_generated_bytes"}
+        self.assertFalse(cyclops.catalog_eligible(asset))
+        asset["quality_gate"]="content_and_evidence_verified"
+        asset["verified_market_problem_quote"]="I need help with a recurring problem."
+        self.assertTrue(cyclops.catalog_eligible(asset))
+
+    def test_commercial_review_inspects_real_pdf_contents_and_rejects_unsupported_claim(self):
+        import base64
+        import io
+        try:
+            from pypdf import PdfWriter
+        except ModuleNotFoundError:
+            self.skipTest("PDF inspection library belongs to the Cyclops runner")
+        cyclops=cyclops_or_skip(self)
+        output=io.BytesIO()
+        pdf=PdfWriter()
+        pdf.add_blank_page(width=600,height=800)
+        pdf.write(output)
+        raw=output.getvalue()
+        artifact={"filename":"guide.pdf","content_b64":base64.b64encode(raw).decode(),
+                  "size_bytes":len(raw)}
+        preview=cyclops.artifact_content_evidence([artifact])
+        self.assertEqual(preview[0]["actual_contents"],"")
+        self.assertGreaterEqual(preview[0]["pages"],1)
+        plan={"title":"Claimed useful tool","description":"An actual tool",
+              "audience":"People","pitch":"A real working deliverable",
+              "production_goal":"Must work","output_files":["guide.pdf"],
+              "evidence_quote":"I need help with a recurring problem."}
+        with patch.object(cyclops,"model_json",return_value={
+             "fulfills_promised_function":False,
+             "contains_substantive_deliverable":False,
+             "does_not_claim_unimplemented_external_capabilities":True,
+             "reason":"The artifact is only a generic sentence."}):
+            with self.assertRaisesRegex(ValueError,"product_not_market_ready"):
+                cyclops.commercial_integrity_review(plan,[artifact])
+
     def test_real_problem_pages_go_first_without_discarding_other_pages(self):
         try:
             from tools import cyclops_asset_engine as cyclops
@@ -172,7 +241,7 @@ class CyclopsEfficiencyTests(unittest.TestCase):
         self.assertEqual(issues,[])
 
     def test_manufacturing_evidence_prioritizes_fetched_page(self):
-        from tools import cyclops_asset_engine as cyclops
+        cyclops=cyclops_or_skip(self)
         row={"id":"real:1","source_url":"https://example.org/request",
              "title":"Real problem","text":"Result snippet claims an entirely different issue",
              "page_text":"Our actual process takes a day each week",

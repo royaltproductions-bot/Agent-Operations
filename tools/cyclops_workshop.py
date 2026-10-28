@@ -78,6 +78,10 @@ def _safe_path(path):
     name=str(path or "").strip().replace("\\","/")
     if name.startswith("/work/"):
         name=name[len("/work/"):]
+    # A relative ./ prefix is normal Python output-path syntax, not traversal.
+    # Reject any remaining interior . or .. component below.
+    if name.startswith("./"):
+        name=name[2:]
     p=PurePosixPath(name)
     if (not name or p.is_absolute() or any(t in ("", ".", "..") for t in name.split("/"))
             or len(name)>180 or len(p.parts)>5):

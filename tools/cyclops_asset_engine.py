@@ -71,13 +71,14 @@ CONCEPT_SCHEMA={
         "pitch":{"type":"string"},
         "price_usd":{"type":"string"},
         "evidence_candidate_id":{"type":"string"},
+        "evidence_quote":{"type":"string"},
         "target_terms":{"type":"array","items":{"type":"string"}},
         "core_points":{"type":"array","items":{"type":"string"}},
         "production_goal":{"type":"string"},
         "output_files":{"type":"array","minItems":1,"items":{"type":"string"}},
     },
     "required":["title","description","audience","pitch","price_usd",
-                "evidence_candidate_id","target_terms","core_points",
+                "evidence_candidate_id","evidence_quote","target_terms","core_points",
                 "production_goal","output_files"],
     "additionalProperties":False,
 }
@@ -86,6 +87,19 @@ BUILD_SCRIPT_SCHEMA={
     "type":"object",
     "properties":{"script":{"type":"string"}},
     "required":["script"],"additionalProperties":False,
+}
+
+PRODUCT_REVIEW_SCHEMA={
+    "type":"object",
+    "properties":{
+        "fulfills_promised_function":{"type":"boolean"},
+        "contains_substantive_deliverable":{"type":"boolean"},
+        "does_not_claim_unimplemented_external_capabilities":{"type":"boolean"},
+        "reason":{"type":"string"},
+    },
+    "required":["fulfills_promised_function","contains_substantive_deliverable",
+                "does_not_claim_unimplemented_external_capabilities","reason"],
+    "additionalProperties":False,
 }
 
 FILE_SCHEMA={
@@ -230,7 +244,38 @@ def demand_view(rows,limit=5,width=700):
         # headline/snippet that may be promotional or out of context.
         "excerpt":str(r.get("page_text") or r.get("text") or "")[:width],
         "source_fetched":bool(r.get("page_fetched")),
+        "firsthand_problem_excerpt":firsthand_problem_excerpt(r),
     } for r in rows[:limit]]
+
+
+def firsthand_problem_excerpt(row):
+    """Identify an actual person's expressed need, independent of industry.
+
+    Search snippets, dictionary definitions, and generic explanatory prose do
+    not count as observed customer problems. This only selects evidence; it
+    never chooses product types or pricing.
+    """
+    if not row.get("page_fetched"):
+        return ""
+    # Reference entries can contain synthetic first-person example sentences.
+    # They are not real users expressing unmet needs, regardless of website.
+    heading=str(row.get("title") or "")+" "+str(row.get("snippet") or "")
+    if re.search(r"(?i)\b(?:dictionary|definition|synonyms?|pronunciation|meaning|"
+                 r"idioms? meaning|word meaning)\b",heading):
+        return ""
+    body=str(row.get("page_text") or "")[:8500]
+    chunks=re.split(r"(?<=[.!?])\s+|\n+",body)
+    speaker=re.compile(r"(?i)\b(?:I|we|my|our|I'm|we're|anyone|somebody)\b")
+    problem=re.compile(
+        r"(?i)\b(?:need (?:to|help|someone|a|an)|struggl\w*|can't|cannot|"
+        r"hard to|difficult to|trying to|looking for|wish (?:I|we)|"
+        r"frustrat\w*|issues? with|problem with|stuck with|takes? (?:me|us) "
+        r"(?:hours|days)|how (?:do|can) (?:I|we))\b")
+    for chunk in chunks:
+        sentence=" ".join(chunk.split())
+        if 24<=len(sentence)<=900 and speaker.search(sentence) and problem.search(sentence):
+            return sentence[:420]
+    return ""
 
 def choose_asset_concept(rows,existing_assets=None):
     visible=demand_view(rows)
@@ -242,6 +287,10 @@ def choose_asset_concept(rows,existing_assets=None):
         "product addressing an opportunity observed in the REAL supplied pages. "
         "The consumer decides demand; you decide what to manufacture. "
         "Cite exactly one supplied candidate_id in evidence_candidate_id. "
+        "Set evidence_quote to a VERBATIM passage from that source's "
+        "firsthand_problem_excerpt that demonstrates a person's unresolved "
+        "problem. A dictionary example, definition, or SEO article is not "
+        "evidence of demand; if there is no firsthand quote, do not invent one. "
         "First choose the product itself without preset business models or media. "
         "Then determine what real artifact(s) achieve its purpose. "
         "Inspect the ACTUAL discovered production tools supplied in context "
@@ -289,6 +338,11 @@ def choose_asset_concept(rows,existing_assets=None):
     source=allowed.get(source_id)
     if source is None:
         raise ValueError("product_source_not_in_real_research")
+    observed=firsthand_problem_excerpt(source)
+    quote=" ".join(str(plan.get("evidence_quote") or "").split())
+    if (len(quote)<20 or not observed or quote.casefold() not in observed.casefold()):
+        raise ValueError("product_evidence_quote_not_verified_against_actual_problem")
+    plan["evidence_quote"]=quote
     # Verify that the cited source actually exists. Topic relevance is the
     # model's creative decision, not an arbitrary keyword-overlap quota.
     plan["evidence_source_url"]=source["source_url"]
@@ -493,6 +547,81 @@ def objective_quality_floor(plan,files):
     return "generated_output_bytes_verified"
 
 
+def artifact_content_evidence(files):
+    """Read delivered bytes so reviewers see the product, not its filename."""
+    import io
+    import zipfile
+    from pypdf import PdfReader
+    evidence=[]
+    for item in files:
+        name=str(item["filename"])
+        raw=base64.b64decode(item["content_b64"],validate=True)
+        low=name.lower()
+        summary={"filename":name,"bytes":len(raw),"format":low.rsplit(".",1)[-1]}
+        if low.endswith(".pdf"):
+            try:
+                doc=PdfReader(io.BytesIO(raw),strict=False)
+                summary["pages"]=len(doc.pages)
+                summary["actual_contents"]="\n".join(
+                    (page.extract_text() or "") for page in doc.pages[:12])[:4800]
+                if not doc.pages:
+                    raise ValueError("empty_pdf")
+            except Exception as exc:
+                raise ValueError("unreadable_pdf_artifact:"+name+":"+type(exc).__name__) from None
+        elif low.endswith((".txt",".md",".csv",".json",".html",".css",
+                           ".js",".py",".svg",".xml",".yaml",".yml")):
+            summary["actual_contents"]=raw.decode("utf-8-sig","replace")[:4800]
+        elif low.endswith((".zip",".docx",".xlsx",".pptx")):
+            with zipfile.ZipFile(io.BytesIO(raw)) as bundle:
+                summary["archive_members"]=bundle.namelist()[:40]
+        else:
+            # Binary formats remain possible. State exactly what was measured
+            # and don't pretend an opaque file was manually inspected.
+            summary["actual_contents"]="opaque binary; content not text-readable"
+        evidence.append(summary)
+    return evidence
+
+
+def commercial_integrity_review(plan,files):
+    """Verify customer-facing promises against produced, inspectable bytes."""
+    evidence=artifact_content_evidence(files)
+    system=(
+        "You are an independent buyer-protection and product-acceptance "
+        "reviewer. Evaluate ACTUAL delivered contents against the storefront "
+        "promise, not against how well a script ran. A readable file alone "
+        "does not make a commercially usable product. Mark each criterion "
+        "true only when the supplied delivered content demonstrates it. "
+        "Reject an empty template, generic introduction, sparse boilerplate, "
+        "or static document marketed as an interactive generator or assistant. "
+        "Reject promises to operate external systems, issue real financial "
+        "instruments, or access live accounts when no such integration is "
+        "present in the artifact. Don't invent functionality not shown. "
+        "Do not impose any predefined media, industry, or pricing preference. "
+        "For opaque binary media, do not demand readable text if actual bytes "
+        "and format are appropriate to the promised deliverable. Be concise."
+    )
+    # Keep the complete artifact names and sizes, while fitting inspected
+    # contents from a many-file package into the local model's context.
+    per_file_budget=max(300,min(3000,9000//max(1,len(evidence))))
+    for item in evidence:
+        if "actual_contents" in item:
+            item["actual_contents"]=item["actual_contents"][:per_file_budget]
+    decision=model_json(PRODUCT_REVIEW_SCHEMA,system,{
+        "product":{k:plan.get(k) for k in ("title","description","audience",
+                                             "pitch","production_goal","output_files")},
+        "market_problem_quote":plan.get("evidence_quote"),
+        "delivered_artifacts":evidence,
+    },num_ctx=7168,num_predict=340,temperature=0.05)
+    fields=("fulfills_promised_function","contains_substantive_deliverable",
+            "does_not_claim_unimplemented_external_capabilities")
+    if any(decision.get(field) is not True for field in fields):
+        raise ValueError("product_not_market_ready:"+
+                         str(decision.get("reason") or "unfulfilled_claim")[:260])
+    plan["commercial_review_reason"]=str(decision.get("reason") or "")[:260]
+    plan["quality_gate"]="content_and_evidence_verified"
+    return "content_and_evidence_verified"
+
+
 class ProductionPending(RuntimeError):
     """Saved source and execution diagnostics remain for the next tool attempt."""
 
@@ -526,12 +655,15 @@ def create_asset(rows,existing_assets=None):
     if stage in ("drafting","review","approved","sealed","building"):
         if not plan.get("output_files"):
             _retire_draft(checkpoint,"legacy_non_executable_product_spec")
+        if not plan.get("evidence_quote"):
+            _retire_draft(checkpoint,"legacy_product_missing_verifiable_firsthand_demand")
         evidence=checkpoint.get("research_rows") or rows
     else:
-        if not rows:
-            raise ValueError("no_public_research_to_select_product")
-        plan=choose_asset_concept(rows,existing_assets)
-        evidence=rows[:8]
+        evidence=[row for row in rows if firsthand_problem_excerpt(row)]
+        if not evidence:
+            raise ValueError("no_verified_firsthand_market_problem")
+        plan=choose_asset_concept(evidence,existing_assets)
+        evidence=evidence[:8]
         checkpoint={"stage":"building","plan":plan,"research_rows":evidence,
                     "files":[],"script":"","attempts":0,"feedback":""}
         save_pending(checkpoint)
@@ -551,7 +683,13 @@ def create_asset(rows,existing_assets=None):
 
     missing=[name for name in all_names if name not in done]
     if not missing:
-        reason=objective_quality_floor(plan,finished)
+        try:
+            objective_quality_floor(plan,finished)
+            reason=commercial_integrity_review(plan,finished)
+        except ValueError as exc:
+            if str(exc).startswith(("product_not_market_ready:","unreadable_pdf_artifact:")):
+                _retire_draft(checkpoint,"commercial_quality_rejected:"+str(exc))
+            raise ProductionPending("commercial_review_retry_needed:"+str(exc)[:180]) from exc
         checkpoint.update({"stage":"approved","files":finished,
                            "quality_reason":reason,"feedback":""})
         save_pending(checkpoint)
@@ -609,7 +747,14 @@ def create_asset(rows,existing_assets=None):
         # An actual finished file survives this run. Do not regenerate it.
         raise ProductionPending("artifact_created_and_saved:"+target)
 
-    reason=objective_quality_floor(plan,finished)
+    try:
+        objective_quality_floor(plan,finished)
+        reason=commercial_integrity_review(plan,finished)
+    except ValueError as exc:
+        checkpoint["files"]=finished
+        if str(exc).startswith(("product_not_market_ready:","unreadable_pdf_artifact:")):
+            _retire_draft(checkpoint,"commercial_quality_rejected:"+str(exc))
+        raise ProductionPending("commercial_review_retry_needed:"+str(exc)[:180]) from exc
     checkpoint.update({"stage":"approved","quality_reason":reason})
     save_pending(checkpoint)
     plan["_files"]=finished
@@ -707,7 +852,9 @@ def persist_asset(plan,checkout):
             "sha256":x["sha256"],"content_type":x["content_type"]
         } for x in plan["_files"]],
         "production_tool":"isolated_tool_workshop",
-        "quality_gate":"verified_generated_bytes",
+        "quality_gate":plan["quality_gate"],
+        "verified_market_problem_quote":plan["evidence_quote"],
+        "commercial_review_reason":plan.get("commercial_review_reason") or "",
         "delivery":"private_encrypted_vault",
         "vault_path":vault,
         "payment_link_id":checkout["id"],
@@ -742,15 +889,26 @@ def publish_finished_asset(plan):
     return asset
 
 
+def catalog_eligible(asset):
+    """Only independently accepted offers belong on the public sales page.
+
+    Legacy file-signature-only listings remain preserved in GitHub and Stripe,
+    but cannot be advertised as functionally verified products.
+    """
+    return bool(asset.get("status")=="active"
+                and asset.get("vault_path")
+                and asset.get("delivery")=="private_encrypted_vault"
+                and asset.get("quality_gate")=="content_and_evidence_verified"
+                and asset.get("verified_market_problem_quote")
+                and str(asset.get("checkout_url") or "").startswith("https://"))
+
+
 def publish_catalog():
     """Independently expose approved catalog offers through existing storefront."""
     manifests=active_assets()
     # Old public-file products aren't considered paid-vault ready; do not
     # accidentally advertise work that is already freely readable.
-    ready=[a for a in manifests if a.get("vault_path")
-           and a.get("delivery")=="private_encrypted_vault"
-           and a.get("quality_gate")=="verified_generated_bytes"
-           and str(a.get("checkout_url") or "").startswith("https://")]
+    ready=[a for a in manifests if catalog_eligible(a)]
     cards=[]
     for asset in sorted(ready,key=lambda a:str(a.get("created_at") or ""),reverse=True):
         name=escape(str(asset.get("title") or "Digital product"))
@@ -765,8 +923,9 @@ def publish_catalog():
             '<a class="buy" href="'+link+'" rel="noopener noreferrer">'
             'Buy securely with Stripe</a></article>')
     body="".join(cards) if cards else (
-        '<p>New reusable tools are being prepared. '
-        'No product is offered for purchase on this page yet.</p>')
+        '<p>Listings are undergoing independent content and claim verification. '
+        'No new digital products are offered for purchase until their '
+        'actual deliverables pass that check.</p>')
     document='''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -1162,9 +1321,7 @@ def run():
 
     # Existing products are marketed independently of new manufacturing.
     assets=active_assets()
-    marketable=[a for a in assets if a.get("status")=="active"
-                and a.get("vault_path")
-                and a.get("delivery")=="private_encrypted_vault"]
+    marketable=[a for a in assets if catalog_eligible(a)]
     for existing in marketable:
         if not distribution_rows:
             break
@@ -1252,6 +1409,8 @@ def run():
             receipt["structural_failures"].append({
                 "reason":"production_stage_error","detail":reason})
         elif reason.startswith(("no_public_research_to_select_product",
+                                 "no_verified_firsthand_market_problem",
+                                 "product_evidence_quote_not_verified_against_actual_problem",
                                 "product_unrelated_to_cited_public_evidence",
                                 "product_source_not_in_real_research",
                                 "product_production_goal_missing","product_output_manifest_invalid",
