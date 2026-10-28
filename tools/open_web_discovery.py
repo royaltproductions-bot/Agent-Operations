@@ -283,6 +283,34 @@ def duckduckgo_html(query,limit=6):
     return out
 
 
+def brave_html(query,limit=6):
+    """Independent public web-search fallback; no site, niche or key required."""
+    url="https://search.brave.com/search?"+urllib.parse.urlencode({"q":query})
+    _,_,raw=_open(url,limit=450000)
+    html=raw.decode("utf-8","ignore")
+    chunks=re.split(
+        r'(?=<div class="snippet\b[^"<>]*"[^>]*data-type="web"[^>]*>)',
+        html,flags=re.I)
+    out=[]
+    seen=set()
+    for section in chunks[1:]:
+        anchor=re.search(r'<a\s+href="(https?[^"<>]+)"\s+target="_self"',
+                         section,re.I)
+        heading=re.search(r'<div\s+class="title\s+[^"<>]+"\s+title="([^"<>]+)"',
+                          section,re.I)
+        if not anchor or not heading:
+            continue
+        target=unescape(anchor.group(1))
+        if target in seen or not _public_url(target):
+            continue
+        seen.add(target)
+        out.append({"title":unescape(heading.group(1)),
+                    "source_url":target,"snippet":""})
+        if len(out)>=limit:
+            break
+    return out
+
+
 def hn_ask_candidates(queries, memory=None, max_candidates=8):
     """Read *original Ask HN submissions*, not search snippets or page chrome.
 
@@ -383,7 +411,8 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
             errors.append({"source":"hn_ask_search","reason":type(exc).__name__})
     streams=[]
     total_provider_hits=0
-    providers=(("duckduckgo",duckduckgo_html),("bing",bing_rss))
+    providers=(("duckduckgo",duckduckgo_html),
+               ("brave",brave_html),("bing",bing_rss))
     # Read independent topics via the provider that actually returns topical
     # results. Bing's RSS feed has repeatedly returned dictionary definitions
     # or unrelated pages for whole human-problem queries. It remains a
@@ -391,7 +420,7 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
     for query in queries:
         strong_primary=0
         for provider,search in providers:
-            if provider=="bing" and strong_primary>=3:
+            if provider in ("brave","bing") and strong_primary>=3:
                 continue
             try:
                 hits=search(compact_query(query) if strict_relevance else query,
@@ -405,7 +434,7 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
                 if strict_relevance:
                     aligned=[hit for hit in ordered if relevant_hit(query,hit)]
                     other=[hit for hit in ordered if not relevant_hit(query,hit)]
-                    if provider=="duckduckgo":
+                    if provider in ("duckduckgo","brave"):
                         strong_primary=len(aligned)
                         # Some authentic discussions use vocabulary unlike
                         # the search query. Permit a few exploratory pages.

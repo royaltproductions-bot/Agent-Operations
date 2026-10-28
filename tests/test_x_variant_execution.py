@@ -59,6 +59,7 @@ class WebEfficiencyTests(unittest.TestCase):
                 "page_text":"I need help reconciling invoices each weekend."}
         with patch.object(web,"hn_ask_candidates",return_value=[direct]), \
              patch.object(web,"duckduckgo_html",return_value=[]), \
+             patch.object(web,"brave_html",return_value=[]), \
              patch.object(web,"bing_rss",return_value=[]):
             rows,errors=web.open_web_candidates(
                 queries=["invoice reconciliation"],memory=Memory())
@@ -76,6 +77,7 @@ class WebEfficiencyTests(unittest.TestCase):
                "snippet":"Real discussion"}]
         with patch.object(web,"bing_rss",return_value=[]), \
              patch.object(web,"duckduckgo_html",return_value=hits), \
+             patch.object(web,"brave_html",return_value=[]), \
              patch.object(web,"fetch_public_text",return_value=(
                  "https://example.com/need",
                  "I need help reconciling invoices every weekend.",[])):
@@ -94,11 +96,25 @@ class WebEfficiencyTests(unittest.TestCase):
         topic="receipt organization for freelance illustrators"
         with patch.object(web,"bing_rss",return_value=unrelated), \
              patch.object(web,"duckduckgo_html",return_value=[]), \
+             patch.object(web,"brave_html",return_value=[]), \
              patch.object(web,"fetch_public_text") as fetch:
             rows,errors=web.open_web_candidates(queries=[topic],strict_relevance=True)
         self.assertEqual(rows,[])
         self.assertEqual(errors,[])
         fetch.assert_not_called()
+
+    def test_brave_fallback_parses_real_outbound_listing_links(self):
+        html='''<div class="snippet svelte-x" data-pos="0" data-type="web">
+          <div class="result-content"><a href="https://example.org/item/real"
+          target="_self" class="link"><div class="title search-snippet-title"
+          title="Verified Dashboard Template by Seller">Verified Dashboard Template</div>
+          </a></div></div>'''
+        with patch.object(web,"_open",return_value=(
+            "https://search.brave.com/search?q=x","text/html",html.encode())):
+            rows=web.brave_html("dashboard sales")
+        self.assertEqual(rows,[{"title":"Verified Dashboard Template by Seller",
+                                "source_url":"https://example.org/item/real",
+                                "snippet":""}])
 
     def test_public_http_has_finite_transport_timeout(self):
         class Response:
@@ -261,7 +277,7 @@ class WorkshopOwnershipTests(unittest.TestCase):
 
 
 class CyclopsEfficiencyTests(unittest.TestCase):
-    def test_concept_comes_from_two_real_sold_products_before_workshop(self):
+    def test_model_judges_one_sold_product_before_workshop(self):
         cyclops=cyclops_or_skip(self)
         rows=[{
             "id":"web:"+seller,"source_url":"https://market.example/item/"+seller,
@@ -275,27 +291,32 @@ class CyclopsEfficiencyTests(unittest.TestCase):
         plan={"title":"Analytics Dashboard Starter","description":"Useful analytics dashboard",
               "audience":"Small teams","pitch":"Working dashboard starter",
               "price_usd":"15.00","evidence_candidate_id":"web:makerone",
-              "corroborating_candidate_id":"web:makertwo","evidence_quote":"",
+              "evidence_quote":"",
               "target_terms":["analytics","dashboard"],"core_points":["Working charts"],
               "production_goal":"Build a functional analytics dashboard",
               "output_files":["dashboard.html"]}
         with patch.object(cyclops,"discover_tools",return_value={"modules":["json"]}) as tools, \
-             patch.object(cyclops,"model_json",return_value=plan):
+             patch.object(cyclops,"model_json",side_effect=[
+                {"decision":"pursue","candidate_id":"web:makerone",
+                 "reason":"Observable paid demand and a deliverable we can build"},
+                plan]):
             picked=cyclops.choose_asset_concept(rows)
         tools.assert_called_once()
-        self.assertEqual(picked["market_validation"]["documented_completed_sales"],215)
-        self.assertEqual(len(picked["market_validation"]["comparables"]),2)
+        self.assertEqual(picked["market_validation"]["listing"]["completed_sales"],95)
+        self.assertEqual(picked["market_validation"]["decision"],"pursue")
         self.assertIn("95 sales",picked["evidence_quote"])
 
-        # One unrelated listing must never trigger a heavy workshop build.
-        rows=rows[:1]
+        # A model that declines the opportunity must not load the workshop.
         with patch.object(cyclops,"discover_tools") as tools:
-            with self.assertRaisesRegex(ValueError,"correlated_paid_product_demand"):
-                cyclops.choose_asset_concept(rows)
+            with patch.object(cyclops,"model_json",return_value={
+                "decision":"pass","candidate_id":"web:makerone",
+                "reason":"Too difficult to reach buyers"}):
+                with self.assertRaisesRegex(ValueError,"market_opportunity_declined"):
+                    cyclops.choose_asset_concept(rows)
         tools.assert_not_called()
 
-    def test_actual_sold_paid_listings_are_required_and_correlated(self):
-        from tools.paid_market import observed_paid_listing,comparable_paid_pairs
+    def test_paid_listings_are_independent_evidence_not_numeric_gates(self):
+        from tools.paid_market import observed_paid_listing,paid_listing_evidence
         def sold(url,title,seller,sales):
             return {"id":"web:"+seller,"source_url":url,"title":title,
                     "page_fetched":True,
@@ -309,14 +330,12 @@ class CyclopsEfficiencyTests(unittest.TestCase):
         unrelated=sold("https://market.example/item/three",
                        "Ambient Drum Loop Audio Pack","musicmaker",900)
         self.assertEqual(observed_paid_listing(one)["completed_sales"],81)
-        self.assertEqual(len(comparable_paid_pairs([one,two,unrelated])),1)
-        self.assertEqual(comparable_paid_pairs([one,one]),[])
-        self.assertEqual(comparable_paid_pairs([one,unrelated]),[])
+        self.assertEqual(len(paid_listing_evidence([one,two,unrelated])),3)
+        self.assertEqual(len(paid_listing_evidence([one,one])),1)
+        self.assertEqual(len(paid_listing_evidence([one,unrelated])),2)
         weak=sold("https://market.example/item/weak",
-                  "Metoxi Admin Dashboard Template","thirdseller",20)
-        self.assertEqual(comparable_paid_pairs([weak,
-            sold("https://market.example/item/weaker",
-                 "Mighty Admin Dashboard Template","fourthseller",25)]),[])
+                  "Metoxi Admin Dashboard Template","thirdseller",1)
+        self.assertEqual(len(paid_listing_evidence([weak])),1)
         snippet_only={**one,"page_fetched":False}
         self.assertIsNone(observed_paid_listing(snippet_only))
         only_ad={**one,"page_text":"I am struggling and wish I had a tool. "*8}

@@ -38,8 +38,8 @@ from tools.connected_commerce_tools import (
     CHECKOUT_MERCHANT_NOTICE,
 )
 
-from tools.open_web_discovery import open_web_candidates, public_request_signal, root_terms
-from tools.paid_market import (observed_paid_listing, comparable_paid_pairs,
+from tools.open_web_discovery import open_web_candidates, public_request_signal
+from tools.paid_market import (observed_paid_listing, paid_listing_evidence,
                                validated_market_proof)
 from tools.cyclops_workshop import discover_tools, manufacture, _safe_path
 from tools.research_memory import ResearchMemory
@@ -66,6 +66,17 @@ SEARCH_SCHEMA={
     "additionalProperties":False,
 }
 
+MARKET_JUDGMENT_SCHEMA={
+    "type":"object",
+    "properties":{
+        "decision":{"type":"string","enum":["pursue","pass"]},
+        "candidate_id":{"type":"string"},
+        "reason":{"type":"string"},
+    },
+    "required":["decision","candidate_id","reason"],
+    "additionalProperties":False,
+}
+
 CONCEPT_SCHEMA={
     "type":"object",
     "properties":{
@@ -75,7 +86,6 @@ CONCEPT_SCHEMA={
         "pitch":{"type":"string"},
         "price_usd":{"type":"string"},
         "evidence_candidate_id":{"type":"string"},
-        "corroborating_candidate_id":{"type":"string"},
         "evidence_quote":{"type":"string"},
         "target_terms":{"type":"array","items":{"type":"string"}},
         "core_points":{"type":"array","items":{"type":"string"}},
@@ -83,8 +93,7 @@ CONCEPT_SCHEMA={
         "output_files":{"type":"array","minItems":1,"items":{"type":"string"}},
     },
     "required":["title","description","audience","pitch","price_usd",
-                "evidence_candidate_id","corroborating_candidate_id",
-                "evidence_quote","target_terms","core_points",
+                "evidence_candidate_id","evidence_quote","target_terms","core_points",
                 "production_goal","output_files"],
     "additionalProperties":False,
 }
@@ -150,9 +159,9 @@ def discovery_queries(memory):
         "Find original public paid PRODUCT LISTINGS that display a positive "
         "price, a purchase mechanism, and explicit item-level completed-sales "
         "counts (for example '81 sales'). Search current online marketplaces "
-        "that publish those numbers. Seek at least TWO similar but distinct "
-        "products from independent sellers with actual sales; different "
-        "markets on different runs are welcome. You choose markets freely: "
+        "that publish those numbers. A single authentic sold listing can "
+        "justify further evaluation; you will independently judge whether "
+        "the opportunity merits production. You choose markets freely: "
         "NO predetermined industry, product form, niche or business model. "
         "Generate four to eight short, precise search queries aimed at DIRECT "
         "sold-product pages, not generic how-to articles, reviews of entire "
@@ -167,7 +176,7 @@ def discovery_queries(memory):
     result=model_json(
         SEARCH_SCHEMA,system,
         {"utc_date":NOW().date().isoformat(),
-         "mission":"discover real public evidence of unresolved, recurring or repeated human needs",
+        "mission":"discover genuine paid-product listings for independent commercial judgment",
          "research_history":memory.plan_context()},
         num_ctx=2400,num_predict=420,temperature=0.7)
     return [str(q).strip() for q in result.get("queries") or [] if str(q).strip()]
@@ -203,9 +212,7 @@ def demand_candidates(memory):
         })
     # Product selection only consumes verified purchase records. Retain other
     # sources as research, but never let a complaint authorize manufacturing.
-    rows.sort(key=lambda r:(not bool(observed_paid_listing(r)),
-                            -int((observed_paid_listing(r) or {}).get("completed_sales") or 0),
-                            str(r.get("source_url") or "")))
+    rows.sort(key=lambda r:not bool(observed_paid_listing(r)))
     return rows,issues+errors
 
 
@@ -293,21 +300,45 @@ def firsthand_problem_excerpt(row):
     return ""
 
 def choose_asset_concept(rows,existing_assets=None):
-    pairs=comparable_paid_pairs(rows)
-    if not pairs:
-        raise ValueError("no_independently_correlated_paid_product_demand")
-    visible=pairs[:5]
+    visible=paid_listing_evidence(rows)[:10]
+    if not visible:
+        raise ValueError("no_observed_paid_product_evidence")
+    judgment=model_json(MARKET_JUDGMENT_SCHEMA,(
+        "You are the independent commercial decision-maker. Evaluate real "
+        "public paid-product observations and choose whether an original "
+        "product in any of these markets is worth building. One authentic "
+        "listing may be sufficient, and there is NO minimum sales count, "
+        "multiple-seller requirement, fixed business model, or price band. "
+        "Judge the sales evidence, actual buyer utility, demand strength, "
+        "competitive positioning, production feasibility and attainable "
+        "buyers for yourself. A single sale does not automatically mean a "
+        "great business; neither does a low count automatically disqualify "
+        "one. Choose 'pursue' only when the evidence merits a genuine product. "
+        "Otherwise choose 'pass' with a concrete reason. Never fabricate "
+        "sales or buyers. Cite one actual candidate_id. Return JSON only."
+    ),{"paid_market_observations":visible,
+        "existing_catalog":[a.get("title") for a in (existing_assets or [])[:12]]},
+        num_ctx=4096,num_predict=350,temperature=0.2)
+    selected=next((p for p in visible
+                   if p["candidate_id"]==str(judgment.get("candidate_id") or "")),None)
+    if not selected:
+        raise ValueError("market_judgment_selected_unknown_listing")
+    if judgment.get("decision")!="pursue":
+        raise ValueError("market_opportunity_declined:"+
+                         str(judgment.get("reason") or "not worth producing")[:180])
+    judgment_reason=str(judgment.get("reason") or "").strip()
+    if not judgment_reason:
+        raise ValueError("market_judgment_missing_reason")
     actual_tools=discover_tools()
     system=(
         "You independently invent and select one ORIGINAL reusable digital "
-        "product directly serving a market with VERIFIED previous purchases. "
-        "Observed proof is provided as PAIRS of independently sold comparables. "
-        "Select TWO IDs from the SAME supplied paid-market pair, in "
-        "evidence_candidate_id and corroborating_candidate_id. Never mix "
-        "unrelated successful products to manufacture fake demand. "
-        "Each source states its real item sales and its real listing price. "
-        "The new product must address the SHARED PAID FUNCTION those buyers "
-        "purchased while being original, lawful, and usefully differentiated. "
+        "product serving the paid market YOU just selected. "
+        "Use exactly the supplied selected candidate_id in "
+        "evidence_candidate_id. No additional comparable is required. "
+        "The original public listing is proof of a completed paid product, "
+        "not proof that your future product will automatically sell. "
+        "Make the new product meaningfully useful, original, lawful, and "
+        "differentiated from the existing item. "
         "Do not copy anyone else's source code, creative assets or text. "
         "Set evidence_quote to a verbatim sale excerpt from the primary "
         "source; facts will be checked against its fetched page. "
@@ -330,7 +361,7 @@ def choose_asset_concept(rows,existing_assets=None):
     )
     # One substantive concept attempt. The 45-minute GitHub job is the
     # execution boundary, not a separate inference clock.
-    attempts=[(visible,4096,1050)]
+    attempts=[(selected,4096,1050)]
     last=None
     for observation,ctx,predict in attempts:
         try:
@@ -340,7 +371,8 @@ def choose_asset_concept(rows,existing_assets=None):
                 "target_terms":[str(x)[:60] for x in (a.get("target_terms") or [])[:8]],
             } for a in (existing_assets or [])[:12]]
             plan=model_json(CONCEPT_SCHEMA,system,
-                            {"verified_paid_market_pairs":observation,
+                            {"selected_paid_market":observation,
+                             "commercial_judgment":judgment_reason,
                              "available_production_tools":actual_tools,
                              "existing_catalog":existing,
                              "constraint":"Create a materially different product from the existing catalog; do not repeat or lightly rename an exhausted asset."},
@@ -354,34 +386,19 @@ def choose_asset_concept(rows,existing_assets=None):
             (str(last) or type(last).__name__)[:100])
 
     primary=str(plan.get("evidence_candidate_id") or "")
-    second=str(plan.get("corroborating_candidate_id") or "")
-    chosen_pair=next((p for p in visible if {
-        p["primary"]["candidate_id"],p["corroborating"]["candidate_id"]
-    }=={primary,second} and primary!=second),None)
-    if chosen_pair is None:
-        raise ValueError("product_not_supported_by_two_similar_paid_listings")
-    comps=[chosen_pair["primary"],chosen_pair["corroborating"]]
-    if comps[0]["candidate_id"]!=primary:
-        comps.reverse()
-    plan["evidence_quote"]=comps[0]["sale_excerpt"]
-    plan["evidence_source_url"]=comps[0]["url"]
+    if primary!=selected["candidate_id"]:
+        raise ValueError("product_source_not_selected_paid_listing")
+    plan["evidence_quote"]=selected["sale_excerpt"]
+    plan["evidence_source_url"]=selected["url"]
     plan["market_validation"]={
-        "status":"two_paid_comparables_verified",
-        "comparables":comps,
-        "shared_market_terms":chosen_pair["shared_market_terms"],
-        "documented_completed_sales":chosen_pair["documented_completed_sales"],
+        "status":"agent_assessed_paid_listing",
+        "decision":"pursue",
+        "reason":judgment_reason,
+        "listing":selected,
     }
     if not validated_market_proof(plan):
         raise ValueError("product_paid_market_validation_invalid")
-    proposed_function=" ".join(str(plan.get(k) or "") for k in (
-        "title","description","production_goal"))
-    if not root_terms(proposed_function).intersection(
-            set(chosen_pair["shared_market_terms"])):
-        raise ValueError("proposed_product_unrelated_to_verified_paid_function")
     plan["price_usd"]=normalize_price_usd(plan.get("price_usd"))
-    observed_top=max(Decimal(c["listed_price_usd"]) for c in comps)
-    if Decimal(plan["price_usd"])>observed_top*2:
-        raise ValueError("product_price_exceeds_observed_market_range")
     for field in ("title","description","audience","pitch"):
         if not str(plan.get(field) or "").strip():
             raise ValueError("required_product_field_empty:"+field)
@@ -628,7 +645,7 @@ def commercial_integrity_review(plan,files):
         "true only when the supplied delivered content demonstrates it. "
         "Reject an empty template, generic introduction, sparse boilerplate, "
         "or static document marketed as an interactive generator or assistant. "
-        "Two separate paid comparable products and actual sales counts are "
+        "A real paid product listing and the agent's market judgment are "
         "supplied. Verify the built product genuinely performs the SAME "
         "customer-purchased core function and offers a specific usable "
         "benefit to those buyers; sales evidence for unrelated goods is "
@@ -704,7 +721,7 @@ def create_asset(rows,existing_assets=None):
         evidence=checkpoint.get("research_rows") or rows
     else:
         evidence=[row for row in rows if observed_paid_listing(row)]
-        if not comparable_paid_pairs(evidence):
+        if not evidence:
             raise ValueError("no_verified_paid_market_demand")
         plan=choose_asset_concept(evidence,existing_assets)
         evidence=evidence[:8]
@@ -1408,7 +1425,7 @@ def run():
             "fetched_public_pages":sum(bool(r.get("page_fetched")) for r in rows),
             "verified_firsthand_problem_pages":sum(bool(firsthand_problem_excerpt(r)) for r in rows),
             "verified_paid_product_listings":sum(bool(observed_paid_listing(r)) for r in rows),
-            "verified_comparable_paid_pairs":len(comparable_paid_pairs(rows)),
+            "market_candidates_considered":len(paid_listing_evidence(rows)),
             "paid_listing_sample":[{
                 "url":proof["url"],"title":proof["title"],
                 "completed_sales":proof["completed_sales"],
@@ -1524,6 +1541,8 @@ def run():
                 "reason":"production_stage_error","detail":reason})
         elif reason.startswith(("no_public_research_to_select_product",
                                  "no_verified_paid_market_demand",
+                                 "no_observed_paid_product_evidence",
+                                 "market_opportunity_declined:",
                                  "no_independently_correlated_paid_product_demand",
                                  "no_verified_firsthand_market_problem",
                                  "product_evidence_quote_not_verified_against_actual_problem",
