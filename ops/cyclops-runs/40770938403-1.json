@@ -1,0 +1,146 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-28T21:22:10.076133+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 13,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "hn_ask": 3,
+      "duckduckgo": 10
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "verified_firsthand_problem_pages": 2,
+    "observed_public_paid_offers": 2,
+    "market_candidates_considered": 2,
+    "public_sources_available_for_judgment": 12,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=9744071",
+        "title": "Anonymous personal finance planning \u2013 one step forward",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://receiptsai.com/tools/receipt-to-excel",
+        "title": "Receipt to Excel Converter: Scan Receipts to a Spreadsheet",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=35837011",
+        "title": "Ask HN: Can You Spot AI-Generated Content?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=3646617",
+        "title": "Ask HN: Monetization strategy for my open source projects?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.trymito.io/blog/how-to-automate-reconciliations-in-python-a-complete-guide",
+        "title": "How to Automate Reconciliations in Python: A Complete Guide",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://github.com/0klochok/invoice-payment-reconciliation-automation",
+        "title": "GitHub - 0klochok/invoice-payment-reconciliation-automation: Python CLI ...",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=9744071",
+        "title": "Anonymous personal finance planning \u2013 one step forward",
+        "displayed_sales_count": null,
+        "listed_price_usd": "10.00"
+      },
+      {
+        "url": "https://receiptsai.com/tools/receipt-to-excel",
+        "title": "Receipt to Excel Converter: Scan Receipts to a Spreadsheet",
+        "displayed_sales_count": null,
+        "listed_price_usd": "19.00"
+      }
+    ],
+    "candidates_without_email": 11,
+    "search_queries": [
+      "buy csv file with 10,000 unique email templates for marketing campaigns",
+      "downloadable script to parse and organize PDF receipts into spreadsheets",
+      "paid template for generating SEO-optimized blog posts from outlines",
+      "how to automate invoice reconciliation in Python for small businesses"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 2,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "how to automate invoice reconciliation in Python for small businesses",
+        "downloadable script to parse and organize PDF receipts into spreadsheets",
+        "buy csv file with 10,000 unique email templates for marketing campaigns",
+        "paid template for generating SEO-optimized blog posts from outlines"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 140,
+      "known_pages": 947
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:The evidence suggests a potential product for personal finance planning with a focus on larger transactions, but there is no verified sales data or buyer activity to confirm demand"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0,
+    "product_pages": 0,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "no_saleable_products",
+    "indexable_product_pages": 0,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 12,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:The evidence suggests a potential product for personal finance planning with a focus on larger transactions, but there is no verifie"
+  }
+}
