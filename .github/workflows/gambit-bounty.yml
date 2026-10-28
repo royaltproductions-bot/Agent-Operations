@@ -20,6 +20,8 @@ on:
       - 'tools/gambit_visual_qa.py'
       - 'tools/gambit_web_design.py'
       - 'tools/gambit_site_resources.py'
+      - 'tools/gambit_resources.py'
+      - 'tools/gambit_plugin_*.py'
       - 'tools/gambit_site_smoke.py'
       - 'assets/website_builder/**'
       - 'tools/gambit_analytics.py'
@@ -30,6 +32,7 @@ on:
       - 'tests/test_gambit_visual_qa.py'
       - 'tests/test_gambit_web_design.py'
       - 'tests/test_gambit_site_resources.py'
+      - 'tests/test_gambit_resources.py'
       - 'tests/test_gambit_analytics.py'
       - '.github/workflows/gambit-bounty.yml'
 
