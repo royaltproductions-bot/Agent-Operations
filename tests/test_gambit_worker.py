@@ -131,6 +131,90 @@ class GambitTests(unittest.TestCase):
             model.assert_not_called()
         self.assertEqual(state['bounties']['b1']['action'], 'bid_active')
 
+    def test_actual_video_bounty_is_rejected_without_model_or_bid(self):
+        details = {'bounty': {
+            '_id': 'video1', 'status': 'open', 'version': 1, 'flow': 'bid',
+            'title': 'Create a Premium AI Dining App Demo Video',
+            'description': 'Make a 2.5–3 minute animated product video.',
+            'verification': ('Submit one final video file in MP4 or MOV, '
+                             'plus a storyboard.')}}
+        state = {'bounties': {}, 'recent_outcomes': []}
+        with patch.object(gambit, 'api', return_value=details) as api, \
+             patch.object(gambit, 'assess') as assess, \
+             patch.object(gambit, 'infer') as infer:
+            gambit.handle_open({'_id': 'video1'}, state)
+        assess.assert_not_called()
+        infer.assert_not_called()
+        self.assertFalse(any(c.args[1] == 'POST' for c in api.call_args_list
+                             if len(c.args) > 1))
+        self.assertEqual(state['bounties']['video1']['action'], 'pass_unsupported')
+
+    def test_video_script_research_is_not_blocked(self):
+        self.assertIsNone(gambit.unsupported_deliverable({'bounty': {
+            'title': 'Research short-form video advertising and write a script',
+            'description': 'Find five public case studies.',
+            'verification': 'Deliver a text report with sources and a draft script.'}}))
+
+    def test_unsupported_presentation_and_deployment_are_blocked(self):
+        self.assertEqual('unsupported_file_output', gambit.unsupported_deliverable({
+            'bounty': {'title': 'Market analysis',
+                       'verification': 'Submit a final PPTX deck.'}}))
+        self.assertEqual('software_deployment', gambit.unsupported_deliverable({
+            'bounty': {'title': 'Deploy a website',
+                       'verification': 'Provide a live deployed website URL.'}}))
+        self.assertEqual('image_production', gambit.unsupported_deliverable({
+            'bounty': {'title': 'Create a professional logo',
+                       'verification': 'Provide a final logo design.'}}))
+        self.assertEqual('audio_production', gambit.unsupported_deliverable({
+            'bounty': {'title': 'Compose a podcast jingle',
+                       'verification': 'Deliver a final audio recording.'}}))
+        self.assertEqual('outbound_messaging', gambit.unsupported_deliverable({
+            'bounty': {'title': 'Send outreach emails to leads',
+                       'verification': 'Provide sent email confirmations.'}}))
+
+    def test_failure_receipts_disclose_safe_api_code_not_sensitive_text(self):
+        self.assertEqual('bounty_api_RATE_LIMITED', gambit.safe_failure_reason(
+            RuntimeError('bounty_api_RATE_LIMITED')))
+        self.assertEqual('RuntimeError', gambit.safe_failure_reason(
+            RuntimeError('buyer secret key 12345')))
+
+    def test_existing_unsupported_video_bid_is_withdrawn(self):
+        details = {'bounty': {'_id': 'video1', 'status': 'open', 'version': 1,
+                              'title': 'Produce a product video',
+                              'verification': 'Deliver final MP4 video.'},
+                   'bid': {'status': 'active', 'bounty_version': 1}}
+        state = {'bounties': {}, 'recent_outcomes': []}
+        def request(path, method='GET', payload=None):
+            return details if method == 'GET' else {'status': 'withdrawn'}
+        with patch.object(gambit, 'api', side_effect=request) as api, \
+             patch.object(gambit, 'respond_to_buyer') as reply:
+            gambit.handle_open({'_id': 'video1'}, state)
+        self.assertEqual([c.args[0] for c in api.call_args_list
+                          if len(c.args) > 1 and c.args[1] == 'POST'],
+                         ['/v1/agent/bounties/video1/bid/withdraw'])
+        reply.assert_not_called()
+        self.assertEqual(state['bounties']['video1']['action'],
+                         'unsupported_bid_withdrawn')
+
+    def test_unsupported_video_buyer_reply_cannot_promise_mp4(self):
+        details = {'bounty': {'title': 'Create an animated demo video',
+                              'verification': 'Provide final video file (MP4).'}}
+        with patch.object(gambit, 'infer') as infer:
+            result = gambit.respond_to_buyer(details, [])
+        self.assertEqual(result['reply_text'], '')
+        infer.assert_not_called()
+
+    def test_unsupported_hired_video_stops_before_fabricated_submission(self):
+        details = {'bounty': {'_id': 'video1', 'status': 'claimed',
+                              'title': 'Make a video', 'verification': 'Upload MP4.'},
+                   'claim': {'status': 'active', 'claim_id': 'claim1'}}
+        state = {'bounties': {}, 'recent_outcomes': []}
+        with patch.object(gambit, 'api', return_value=details), \
+             patch.object(gambit, 'produce') as produce:
+            gambit.handle_hired({'_id': 'video1'}, state)
+        produce.assert_not_called()
+        self.assertEqual(state['bounties']['video1']['action'], 'needs_operator_review')
+
     def test_fundable_bid_uses_exact_current_version(self):
         details = {'bounty': {'_id': 'b1', 'status': 'open', 'version': 6, 'flow': 'bid'}}
         state = {'bounties': {}, 'recent_outcomes': []}
