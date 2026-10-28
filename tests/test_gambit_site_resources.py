@@ -86,6 +86,17 @@ class SiteResourceTests(unittest.TestCase):
         self.assertEqual("need_information", result["status"])
         self.assertNotIn("_site_binary", result)
 
+    def test_previously_blocked_hired_website_is_revisited_when_supported(self):
+        state = {"bounties": {"site-1": {
+            "action": "needs_operator_review",
+            "reason": "website_visual_quality_unverified"}}}
+        claimed = {"_id": "site-1", "status": "claimed"}
+        with (patch.object(gambit, "website_capable", return_value=True),
+              patch.object(gambit, "pages", side_effect=[[], [claimed]]),
+              patch.object(gambit, "relevant_events", return_value=([], None))):
+            _, _, _, _, _, active = gambit.scan(state)
+        self.assertEqual([claimed], active)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -260,7 +260,12 @@ def scan(state):
         {"submitted", "awaiting_info", "quality_rejected", "quality_rejected_final",
          "needs_operator_review"}
         or str(item.get("_id")) in triggers or state.get("_cursor_reset")
-        or quality_retry_due(state["bounties"].get(str(item.get("_id")), {})))]
+        or quality_retry_due(state["bounties"].get(str(item.get("_id")), {}))
+        or (website_capable() and
+            state["bounties"].get(str(item.get("_id")), {}).get("action") ==
+            "needs_operator_review" and
+            state["bounties"].get(str(item.get("_id")), {}).get("reason") ==
+            "website_visual_quality_unverified"))]
     return opened, held, events, cursor, waiting, active
 
 
