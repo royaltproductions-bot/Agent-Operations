@@ -8,10 +8,12 @@ from __future__ import annotations
 import csv
 import io
 import json
+import os
 import re
 from zipfile import ZipFile
 
 from tools.gambit_sites import pack_static_site
+from tools.gambit_visual_qa import render_browser_evidence
 
 from tools import gambit_worker as worker
 
@@ -99,8 +101,13 @@ def static_site_case():
     if ("summit soap" not in html.lower() or "contact us" not in html.lower() or
             "<style" not in html.lower()):
         raise AssertionError("static_site_missing_required_content")
+    preview_dir = os.environ.get("GAMBIT_BENCHMARK_PREVIEW_DIR")
+    viewports = render_browser_evidence(html, preview_dir=preview_dir)
     return {"case": "self_contained_static_site", "result": "passed",
-            "zip_bytes": len(archive)}
+            "zip_bytes": len(archive),
+            "rendered_viewports": list(viewports),
+            "desktop_heading_px": viewports["desktop"]["heading_px"],
+            "mobile_heading_px": viewports["mobile"]["heading_px"]}
 
 
 if __name__ == "__main__":

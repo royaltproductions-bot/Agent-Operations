@@ -10,6 +10,8 @@ on:
       - 'tools/gambit_analytics.py'
       - 'tools/gambit_documents.py'
       - 'tools/gambit_sites.py'
+      - 'tools/gambit_visual_qa.py'
+      - 'tests/test_gambit_visual_qa.py'
       - 'tools/gambit_artifacts.py'
   workflow_dispatch:
 
@@ -28,6 +30,12 @@ jobs:
       OLLAMA_HOST: 127.0.0.1:11434
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install browser rendering and visual-check dependencies
+        run: python3 -m pip install --disable-pip-version-check --quiet 'playwright>=1.51,<2' 'pillow>=10,<13'
+
+      - name: Verify desktop/mobile Chrome rendering
+        run: python3 -m unittest discover -s tests -p 'test_gambit_visual_qa.py' -v
 
       - name: Restore the same open-source model as the paid worker
         uses: actions/cache@v4
@@ -52,4 +60,15 @@ jobs:
           ollama show "$GAMBIT_MODEL" >/dev/null 2>&1 || ollama pull "$GAMBIT_MODEL"
 
       - name: Actually generate and score three commercial work samples
+        env:
+          GAMBIT_BENCHMARK_PREVIEW_DIR: ${{ runner.temp }}/gambit-website-previews
         run: python3 -m tools.gambit_benchmark
+
+      - name: Upload experimental website screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gambit-desktop-mobile-previews
+          path: ${{ runner.temp }}/gambit-website-previews/*.png
+          if-no-files-found: ignore
+          retention-days: 7
