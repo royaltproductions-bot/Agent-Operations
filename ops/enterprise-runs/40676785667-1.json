@@ -1,0 +1,128 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T11:04:07.409272+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 4,
+      "bing": 2,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 13,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/Emaren/app-prodn/issues/934",
+        "title": "CENTRAL COMMAND: One release train \u2014 website, Wolo recovery/custody, real estate health, context autopilot (Oct 26)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ROAM-game-org/road-machiners/issues/1133",
+        "title": "Rewrite existing driver tips and make twice as much new ones. How to stay shealthy, how to understan",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/worknenjoy/gitpay/issues/1626",
+        "title": "[Bug]: Unverified userId query parameter in /callback/github/private allows creating tasks under arbitrary user accounts",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/xeprotocol/xe/issues/70",
+        "title": "api: GET /accounts does full-lattice work regardless of ?limit=, and a single client wedges the node's own health sample",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/airdropia/earn-ops/issues/19",
+        "title": "superteam digest 2026-10-26",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.fiverr.com/hire/newsletter-template-design",
+        "title": "12 Best Freelance Newsletter Template Design for Hire in October 2026",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-29 build simple data",
+      "hiring a freelancer to create a paid newsletter template",
+      "looking for someone to build a simple data dashboard"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a simple data dashboard",
+      "hiring a freelancer to create a paid newsletter template",
+      "can anyone create a basic affiliate marketing funnel",
+      "need paid help with designing a landing page for a SaaS product"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 3,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a simple data dashboard",
+        "hiring a freelancer to create a paid newsletter template",
+        "can anyone create a basic affiliate marketing funnel",
+        "need paid help with designing a landing page for a SaaS product"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 137,
+      "known_pages": 793
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
