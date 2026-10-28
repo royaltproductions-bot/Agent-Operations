@@ -349,6 +349,21 @@ class GambitTests(unittest.TestCase):
         self.assertEqual(sent[0][2]['expected_version'], 6)
         self.assertEqual(sent[0][2]['payout_cents'], 1700)
 
+    def test_passed_market_listing_leaves_a_sanitized_learning_receipt(self):
+        details = {'bounty': {'_id': 'b1', 'status': 'open', 'version': 3,
+                              'title': 'Research a local market', 'flow': 'bid'}}
+        state = {'bounties': {}, 'recent_outcomes': []}
+        with patch.object(gambit, 'api', return_value=details), \
+             patch.object(gambit, 'assess', return_value={
+                 'decision': 'pass', 'reason': 'Private buyer data goes here',
+                 '_research_status': 'partial', '_pages_read': 2}):
+            gambit.handle_open({'_id': 'b1'}, state)
+        self.assertEqual(state['recent_outcomes'][-1], {
+            'at': state['recent_outcomes'][-1]['at'],
+            'action': 'pass', 'bounty_id': 'b1', 'version': 3,
+            'research_status': 'partial', 'pages_read': 2})
+        self.assertNotIn('Private buyer data', str(state['recent_outcomes']))
+
     def test_bid_can_show_real_source_without_claiming_reputation(self):
         details = {'bounty': {'_id': 'b1', 'status': 'open',
                               'version': 2, 'flow': 'bid'}}
