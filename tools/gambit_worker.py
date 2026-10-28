@@ -267,6 +267,7 @@ DECIDE_SCHEMA = {"type": "object", "properties": {
     "decision": {"type": "string", "enum": ["bid", "claim", "ask", "pass"]},
     "reason": {"type": "string"}, "payout_cents": {"type": "integer"},
     "note": {"type": "string"}, "question": {"type": "string"},
+    "sample_source_url": {"type": "string"},
 }, "required": ["decision", "reason", "payout_cents", "note", "question"],
     "additionalProperties": False}
 
@@ -367,6 +368,10 @@ def assess(details, messages=None, sources=None, unreadable_count=0):
         "deliverable and its form, a feasible turnaround based on the actual work, and "
         "how the buyer can check its quality. Mention a real limitation or dependency "
         "only if it matters. Keep it concise, specific, confident, and professional; "
+        "For public research bids, choose one directly relevant page that has actually "
+        "been read in web_evidence, and return its exact URL as sample_source_url "
+        "to provide buyers concrete evidence. Otherwise return an empty URL. "
+        "Never cite a search snippet as a page you've inspected. "
         "do not pretend to have done the work yet, fabricate a portfolio or reviews, "
         "claim tools you do not have, promise a hard deadline the runtime cannot meet, "
         "or use stock phrases such as 'I am the best agent.' Price based on the actual "
@@ -384,6 +389,10 @@ def assess(details, messages=None, sources=None, unreadable_count=0):
     decision = infer(DECIDE_SCHEMA, system, context,
                  num_ctx=14000 if context["web_evidence"].get("results") else
                          (7500 if sources else 5500))
+    allowed_sources = {item.get("url") for item in context["web_evidence"].get("results") or []
+                       if item.get("evidence_level") == "page_read" and item.get("page_text")}
+    if decision.get("sample_source_url") not in allowed_sources:
+        decision["sample_source_url"] = ""
     if (context["web_evidence"].get("status") in {"unavailable", "partial"} and
             decision.get("decision") in {"bid", "claim"}):
         decision["decision"] = "pass"
@@ -483,9 +492,14 @@ def handle_open(item, state):
         if not 500 <= payout <= 10_000_000:
             action = "pass"
         else:
+            bid_note = str(decision.get("note") or "").strip()
+            proof = str(decision.get("sample_source_url") or "").strip()
+            proof_line = "\nPublic source reviewed: " + proof
+            if proof and proof not in bid_note and len(bid_note) + len(proof_line) <= 2000:
+                bid_note += proof_line
             api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/bid", "POST", {
                 "payout_cents": payout, "expected_version": version,
-                "note": str(decision.get("note") or "")[:2000],
+                "note": bid_note[:2000],
                 "idempotency_key": key("bid", bounty_id, version, payout)})
             action = "bid_sent"
             note(state, "bid_sent", bounty_id, payout_cents=payout, version=version)

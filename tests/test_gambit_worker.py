@@ -121,6 +121,23 @@ class GambitTests(unittest.TestCase):
         self.assertEqual(sent[0][2]['expected_version'], 6)
         self.assertEqual(sent[0][2]['payout_cents'], 1700)
 
+    def test_bid_can_show_real_source_without_claiming_reputation(self):
+        details = {'bounty': {'_id': 'b1', 'status': 'open',
+                              'version': 2, 'flow': 'bid'}}
+        state = {'bounties': {}, 'recent_outcomes': []}
+        calls = []
+        def request(path, method='GET', payload=None):
+            if method == 'POST':
+                calls.append(payload)
+            return details
+        with patch.object(gambit, 'api', side_effect=request), \
+             patch.object(gambit, 'assess', return_value={
+                 'decision': 'bid', 'payout_cents': 2500,
+                 'note': 'I will supply a sourced company directory.',
+                 'sample_source_url': 'https://example.com/about'}):
+            gambit.handle_open({'_id': 'b1'}, state)
+        self.assertIn('https://example.com/about', calls[0]['note'])
+
     def test_secret_not_persisted_in_receipt(self):
         state = {'recent_outcomes': []}
         gambit.note(state, 'bid_sent', 'b1', payout_cents=500)
@@ -215,13 +232,27 @@ class GambitTests(unittest.TestCase):
         plan = {'requires_web': True, 'queries': ['suppliers town'], 'reason': 'Research'}
         decision = {'decision': 'bid', 'reason': 'I can source a few suppliers',
                     'payout_cents': 1200, 'note': 'I will provide a sourced table.',
-                    'question': ''}
+                    'question': '', 'sample_source_url': 'https://example.com'}
         with patch.object(gambit, 'infer', side_effect=[plan, decision]) as infer, \
              patch('tools.gambit_research.search_public_web', return_value=evidence) as search:
             result = gambit.assess(details)
         self.assertEqual(result['decision'], 'bid')
+        self.assertEqual(result['sample_source_url'], 'https://example.com')
         self.assertIn('Supplier details', str(infer.call_args.args[2]['web_evidence']))
         search.assert_called_once_with(['suppliers town'])
+
+    def test_unread_web_link_cannot_be_passed_as_bid_proof(self):
+        details = {'bounty': {'title': 'List suppliers'}}
+        plan = {'requires_web': True, 'queries': ['suppliers'], 'reason': 'Need web'}
+        decision = {'decision': 'bid', 'payout_cents': 2000, 'note': 'Sourced list',
+                    'sample_source_url': 'https://made-up.invalid/proof'}
+        evidence = {'status': 'available', 'results': [
+            {'url': 'https://example.com', 'evidence_level': 'page_read',
+             'page_text': 'Verified business info'}]}
+        with patch.object(gambit, 'infer', side_effect=[plan, decision]), \
+             patch('tools.gambit_research.search_public_web', return_value=evidence):
+            result = gambit.assess(details)
+        self.assertEqual(result['sample_source_url'], '')
 
     def test_unavailable_research_never_becomes_an_unsourced_bid(self):
         details = {'bounty': {'title': 'Find public prospects'}}
