@@ -1,0 +1,131 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T18:03:35.022350+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 11
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/asyncapi/community/issues/3633",
+        "title": "Budget 2027 | Planning and discussion",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/JustJade2007/Jade-s-Zombie-Apocalypse/issues/111",
+        "title": "Feature Request: Implementation of Player-Set and Automated Bounty System",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/joshualeestone/kosmos/issues/6836",
+        "title": "Marketing research: strengthen the Kosmos+ page, reposition enterprise, surface business on installkosmos.com (proposals",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/twisterdaark/Satisfy/issues/13",
+        "title": "SAT-CONTENT-002..006: next five major updates (Patrian first)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/MyZubster-Ecosystem/myzubster/issues/1613",
+        "title": "[PILOT / OPT-IN] Contributors as Marketplace sellers \u2014 showcase your services and skills",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://duckduckgo.com/y.js?ad_domain=canva.com&ad_provider=bingv7aa&ad_type=txad&click_metadata=0pAGTfjgct96LKzwsaoI1-Y5L6UkgLsG-Tz7Ux8mOvrrTrgQtUgX5KOGCeDhZIWjHQs7nJPVnTe3XmZy1q0DM7DUg97lhVL-zuN8SrG",
+        "title": "Social Media Post Planner - Your Content, Calendar Ready",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-29 designing social media",
+      "is:issue is:open bounty created:>=2026-08-29 anyone create basic",
+      "need paid help with designing a social media content calendar",
+      "can anyone create a basic email newsletter template with HTML"
+    ],
+    "attempted_search_queries": [
+      "need paid help with designing a social media content calendar",
+      "can anyone create a basic email newsletter template with HTML",
+      "looking for someone to develop a short-form video script template",
+      "hiring a freelancer to produce a printable workout plan template"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 4,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "need paid help with designing a social media content calendar",
+        "can anyone create a basic email newsletter template with HTML",
+        "looking for someone to develop a short-form video script template",
+        "hiring a freelancer to produce a printable workout plan template"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 140,
+      "known_pages": 900
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
