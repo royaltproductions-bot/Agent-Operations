@@ -317,7 +317,10 @@ SITE_SPEC_SCHEMA = {"type": "object", "properties": {
     "reason": {"type": "string"}, "question": {"type": "string"},
     "brand": {"type": "string"}, "eyebrow": {"type": "string"},
     "headline": {"type": "string"}, "intro": {"type": "string"},
-    "about": {"type": "string"}, "theme": {"type": "string", "enum": [
+    "about": {"type": "string"},
+    "services_heading": {"type": "string"}, "about_heading": {"type": "string"},
+    "approach_heading": {"type": "string"}, "cta_heading": {"type": "string"},
+    "theme": {"type": "string", "enum": [
         "indigo", "ocean", "forest", "amber", "rose"]},
     "contact_url": {"type": "string"}, "contact_label": {"type": "string"},
     "services": {"type": "array", "minItems": 3, "maxItems": 6, "items": {
@@ -329,7 +332,8 @@ SITE_SPEC_SCHEMA = {"type": "object", "properties": {
         "description": {"type": "string"}},
         "required": ["title", "description"], "additionalProperties": False}},
 }, "required": ["status", "reason", "question", "brand", "eyebrow", "headline",
-               "intro", "about", "theme", "contact_url", "contact_label",
+               "intro", "about", "services_heading", "about_heading",
+               "approach_heading", "cta_heading", "theme", "contact_url", "contact_label",
                "services", "steps"], "additionalProperties": False}
 
 
@@ -357,7 +361,10 @@ def produce_website(details, messages, feedback="", sources=None):
         "fabricated company facts, offers, results, testimonials, team members, pricing, "
         "contact links, capabilities, certifications, or metrics. Never call a business "
         "'your company' or use placeholders. Write specific, appealing, concise copy "
-        "appropriate for the buyer's industry and visual style. The `services` list must "
+        "appropriate for the buyer's industry and visual style. Write four distinctive "
+        "three-to-seven-word headings for services_heading, about_heading, "
+        "approach_heading and cta_heading; each must refer to the actual buyer, "
+        "audience or offering, not generic agency slogans. The `services` list must "
         "contain 3-6 distinct actual offerings or clearly presented aspects of the "
         "buyer's brief, and `steps` 2-4 true stages derived from the brief. `contact_url` "
         "MUST be an EXACT full https, mailto or tel URL explicitly present verbatim "

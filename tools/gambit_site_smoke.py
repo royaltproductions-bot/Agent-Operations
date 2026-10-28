@@ -20,6 +20,10 @@ def main():
         "headline": "Crafted for everyday rituals.",
         "intro": "Discover handmade tableware and pottery experiences shaped by thoughtful craft.",
         "about": "Orchard House creates durable handmade pieces and welcomes curious beginners to learn pottery.",
+        "services_heading": "Ceramics for everyday moments.",
+        "about_heading": "Rooted in thoughtful craftsmanship.",
+        "approach_heading": "From curiosity to clay.",
+        "cta_heading": "Find your next favorite piece.",
         "theme": "amber", "contact_url": "mailto:hello@orchardhouse.test",
         "contact_label": "Get in touch", "services": [
             {"title": "Handmade tableware", "description": "Functional ceramics for the moments around your table."},

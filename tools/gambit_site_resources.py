@@ -54,8 +54,11 @@ def _items(value: object, minimum: int, maximum: int) -> list[tuple[str, str]]:
 def validate_spec(spec: dict, public_brief: str) -> dict:
     if not isinstance(spec, dict) or not resources_available():
         raise ValueError("website_design_resource_missing")
-    data = {key: _line(spec.get(key), 130 if key in {"brand", "eyebrow"} else 360)
-            for key in ("brand", "eyebrow", "headline", "intro", "about")}
+    data = {key: _line(spec.get(key), 130 if key in {
+                "brand", "eyebrow", "services_heading", "about_heading",
+                "approach_heading", "cta_heading"} else 360)
+            for key in ("brand", "eyebrow", "headline", "intro", "about",
+                        "services_heading", "about_heading", "approach_heading", "cta_heading")}
     data["services"] = _items(spec.get("services"), 3, 6)
     data["steps"] = _items(spec.get("steps"), 2, 4)
     data["theme"] = spec.get("theme", "indigo")
@@ -147,15 +150,15 @@ def create_project(spec: dict, public_brief: str) -> tuple[bytes, str, dict[str,
 <p class="hero-description">{e(data['intro'])}</p><div class="hero-actions"><a class="primary-link" href="{cta_target}"{cta_rel}>{e(data['contact_label'])} <span aria-hidden="true">&nbsp; ↗</span></a>
 <a class="text-link" href="#about">Learn more</a></div></div></div></section>
 <section class="services section-pad" id="services"><div class="container"><p class="section-kicker">What we offer</p>
-<h2 class="section-title">Built around what matters.</h2><p class="section-lead muted">{e(data['intro'])}</p>
+<h2 class="section-title">{e(data['services_heading'])}</h2><p class="section-lead muted">{e(data['intro'])}</p>
 <div class="services-grid">{service_blocks}</div></div></section>
 <section class="section-pad" id="about"><div class="container about-wrap"><div class="about-mark" aria-hidden="true"><span>{e(initials)}</span></div>
-<div><p class="section-kicker">Get to know us</p><h2 class="section-title">A clearer way forward.</h2>
+<div><p class="section-kicker">Get to know us</p><h2 class="section-title">{e(data['about_heading'])}</h2>
 <p class="section-lead muted">{e(data['about'])}</p></div></div></section>
 <section class="services section-pad" id="approach"><div class="container"><p class="section-kicker">Our approach</p>
-<h2 class="section-title">From first step to next.</h2><div class="step-list">{step_blocks}</div></div></section>
+<h2 class="section-title">{e(data['approach_heading'])}</h2><div class="step-list">{step_blocks}</div></div></section>
 <section class="cta-section"><div class="container"><p class="section-kicker">Explore what's possible</p>
-<h2 class="section-title">{e(data['headline'])}</h2><p class="section-lead muted">{e(data['intro'])}</p>
+<h2 class="section-title">{e(data['cta_heading'])}</h2><p class="section-lead muted">{e(data['intro'])}</p>
 <a class="primary-link" href="{cta_target}"{cta_rel}>{e(data['contact_label'])} <span aria-hidden="true">&nbsp; ↗</span></a></div></section>
 </main><footer><div class="container footer-inner"><span>{e(data['brand'])}</span><span>Made with care for every screen.</span></div></footer></body></html>'''
     assets = {"assets/framework.css": (RESOURCE_DIR / "output.css").read_bytes(),
