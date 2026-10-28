@@ -10,13 +10,11 @@ from __future__ import annotations
 import csv
 from datetime import datetime, timedelta, timezone
 import hashlib
-import importlib.util
 import io
 import json
 import os
 from pathlib import Path
 import re
-import shutil
 import sys
 import urllib.error
 import urllib.parse
@@ -27,9 +25,8 @@ from tools.gambit_documents import (MAX_BINARY_BYTES, convert_document,
 from tools.gambit_analytics import summarize_csv_sources
 from tools.gambit_artifacts import (OUTPUT_FILES, SUPPORTED_FORMATS,
                                     make_document, requested_output_format)
-from tools.gambit_site_resources import (create_project, resources_available,
-                                         static_site_eligible)
-from tools.gambit_visual_qa import render_browser_evidence
+from tools.gambit_site_resources import static_site_eligible
+from tools import gambit_resources as resources
 
 BASE = "https://api.trybounty.ai"
 STATE_PATH = Path("ops/gambit/state.json")
@@ -384,11 +381,9 @@ SITE_SPEC_SCHEMA = {"type": "object", "properties": {
 
 def website_capable():
     """Only permit commissioned web work with licensed assets AND real browser QA."""
-    return (os.getenv("GAMBIT_WEBSITE_BUILDER") == "1" and resources_available()
-            and importlib.util.find_spec("playwright") is not None
-            and importlib.util.find_spec("PIL") is not None
-            and (shutil.which("google-chrome") is not None
-                 or shutil.which("chromium") is not None))
+    return (os.getenv("GAMBIT_WEBSITE_BUILDER") == "1"
+            and resources.available("site_source")
+            and resources.available("site_visual"))
 
 
 def produce_website(details, messages, feedback="", sources=None):
@@ -431,7 +426,7 @@ def produce_website(details, messages, feedback="", sources=None):
                     "deliverable_title": "Website source", "deliverable_text": "",
                     "deliverable_format": "site_zip"}
         try:
-            archive, html, assets = create_project(answer, public_brief)
+            archive, html, assets = resources.execute("site_source", answer, public_brief)
         except ValueError as exc:
             feedback = ("The generated content violates a required source-site validation: "
                         + str(exc) + ". Correct it using only buyer facts.")
@@ -571,8 +566,7 @@ def research_for(details, messages=None, sources=None):
     queries = [str(q).strip() for q in plan.get("queries") or [] if str(q).strip()][:7]
     if not queries:
         return {"status": "unavailable", "results": [], "reason": "no_search_queries"}
-    from tools.gambit_research import search_public_web
-    return search_public_web(queries)
+    return resources.execute("public_search", queries)
 
 
 def assess(details, messages=None, sources=None, unreadable_count=0):
@@ -632,6 +626,7 @@ def assess(details, messages=None, sources=None, unreadable_count=0):
         "If flow is claim use claim, if bid use bid. Return strict JSON."
     )
     context = clean_context(details, messages, sources)
+    context["available_resources"] = resources.manifest()
     context["unreadable_attachment_count"] = unreadable_count
     context["web_evidence"] = research_for(details, messages, sources)
     decision = infer(DECIDE_SCHEMA, system, context,
@@ -1179,7 +1174,7 @@ def handle_hired(item, state):
                 normalized_content = make_document(format_name, content)
             elif (format_name == "site_zip" and static_site_eligible(details)
                   and website_capable() and result.get("_site_binary")):
-                render_evidence = render_browser_evidence(
+                render_evidence = resources.execute("site_visual",
                     result["_site_html"], asset_files=result["_site_assets"])
                 normalized_content = result["_site_binary"]
                 result["_site_review_evidence"] = {
