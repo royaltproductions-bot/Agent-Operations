@@ -1,0 +1,79 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T00:57:24.731847+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 11,
+    "source_counts": {
+      "open_web": 11
+    },
+    "search_provider_counts": {
+      "bing": 11
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 11,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "search_queries": [
+      "public invitation to submit proposals for digital signage content creation in healthcare facilities",
+      "request for proposals for mobile app development for senior citizen health monitoring",
+      "open call for web development services to build a secure patient portal for clinics",
+      "solicitation for freelance graphic design services for non-profit educational materials"
+    ],
+    "attempted_search_queries": [
+      "public invitation to submit proposals for digital signage content creation in healthcare facilities",
+      "request for proposals for mobile app development for senior citizen health monitoring",
+      "solicitation for freelance graphic design services for non-profit educational materials",
+      "open call for web development services to build a secure patient portal for clinics"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 11,
+      "skipped_revisits": 1,
+      "executed_queries": [
+        "public invitation to submit proposals for digital signage content creation in healthcare facilities",
+        "request for proposals for mobile app development for senior citizen health monitoring",
+        "solicitation for freelance graphic design services for non-profit educational materials",
+        "open call for web development services to build a secure patient portal for clinics"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 138,
+      "known_pages": 637
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
