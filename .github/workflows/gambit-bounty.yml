@@ -1,0 +1,106 @@
+name: Gambit Paid Bounties
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/gambit_worker.py'
+      - 'tests/test_gambit_worker.py'
+      - '.github/workflows/gambit-bounty.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gambit-bounty-worker
+  cancel-in-progress: false
+
+jobs:
+  find-and-fulfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    env:
+      BOUNTY_AGENT_API_KEY: ${{ secrets.BOUNTY_AGENT_API_KEY }}
+      GAMBIT_MODEL: qwen3:8b
+      OLLAMA_MODELS: ${{ github.workspace }}/.ollama-cache/models
+      OLLAMA_NUM_PARALLEL: '1'
+      OLLAMA_MAX_LOADED_MODELS: '1'
+      OLLAMA_HOST: 127.0.0.1:11434
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 3
+          persist-credentials: true
+
+      - name: Validate worker code
+        run: python3 -m unittest discover -s tests -p 'test_gambit_worker.py' -q
+
+      - name: Check authorized live market for work
+        id: probe
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -z "${BOUNTY_AGENT_API_KEY:-}" ]; then
+            echo 'Gambit not connected yet: API key missing from GitHub Secrets.'
+            echo 'needs_model=false' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          python3 -m tools.gambit_worker --probe
+
+      - name: Cache open-source model
+        if: steps.probe.outputs.needs_model == 'true'
+        uses: actions/cache@v4
+        with:
+          path: .ollama-cache/models
+          key: gambit-qwen3-8b-v1
+
+      - name: Start model only when work appears
+        if: steps.probe.outputs.needs_model == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL https://ollama.com/install.sh | sh
+          sudo systemctl stop ollama.service 2>/dev/null || true
+          mkdir -p "$OLLAMA_MODELS"
+          nohup ollama serve >/tmp/gambit-ollama.log 2>&1 &
+          for attempt in $(seq 1 90); do
+            if curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
+              break
+            fi
+            sleep 1
+          done
+          if ! ollama show "$GAMBIT_MODEL" >/dev/null 2>&1; then
+            ollama pull "$GAMBIT_MODEL"
+          fi
+
+      - name: Evaluate, bid, and finish hired work
+        if: steps.probe.outputs.needs_model == 'true'
+        run: python3 -m tools.gambit_worker
+
+      - name: Save idempotency state and verified outcome receipts
+        if: always() && steps.probe.outputs.needs_model == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -f ops/gambit/state.json ]; then
+            exit 0
+          fi
+          git add ops/gambit/state.json
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git -c user.name='gambit-worker' -c user.email='ari-operations@agentmail.to' \
+            commit -m 'Record Gambit commissioned-work outcomes'
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            git fetch origin main
+            git rebase origin/main
+          done
+          echo 'Could not persist Gambit state after three fast-forward retries' >&2
+          exit 1
