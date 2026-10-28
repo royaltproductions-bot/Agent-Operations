@@ -1,0 +1,66 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-28T00:40:35.090336+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "no_new_eligible_public_evidence",
+    "candidate_count": 0,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {},
+    "search_provider_counts": {},
+    "source_errors": [
+      {
+        "source": "research_coverage",
+        "reason": "no_new_eligible_public_pages",
+        "queries_attempted": [
+          "how do people actually manage their time without a calendar app",
+          "what do people do when they can't afford a therapist",
+          "how do people handle daily stress without meditation",
+          "what do people do when they can't afford a gym membership"
+        ],
+        "prior_unvisited_links": 136
+      }
+    ],
+    "fetched_public_pages": 0,
+    "candidates_without_email": 0,
+    "search_queries": [],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 0,
+      "skipped_revisits": 0,
+      "executed_queries": [
+        "how do people actually manage their time without a calendar app",
+        "what do people do when they can't afford a therapist",
+        "how do people handle daily stress without meditation",
+        "what do people do when they can't afford a gym membership"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 678
+    },
+    "durable_contactable_sources": 22
+  },
+  "production": {
+    "result": "no_current_product_opportunity"
+  },
+  "catalog": {
+    "result": "catalog_published",
+    "listed_products": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  }
+}
