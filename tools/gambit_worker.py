@@ -251,7 +251,8 @@ WORK_SCHEMA = {"type": "object", "properties": {
     "reason": {"type": "string"}, "question": {"type": "string"},
     "deliverable_title": {"type": "string"}, "deliverable_text": {"type": "string"},
     "deliverable_format": {"type": "string", "enum": ["text", "csv"]},
-}, "required": ["status", "reason", "question", "deliverable_title", "deliverable_text"],
+}, "required": ["status", "reason", "question", "deliverable_title",
+                "deliverable_text", "deliverable_format"],
     "additionalProperties": False}
 
 REVIEW_SCHEMA = {"type": "object", "properties": {
