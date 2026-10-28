@@ -1,0 +1,49 @@
+name: Gambit Real Capability Benchmark
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/gambit-capability-benchmark.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  real-model-work:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    env:
+      GAMBIT_MODEL: qwen3:8b
+      OLLAMA_MODELS: ${{ github.workspace }}/.ollama-cache/models
+      OLLAMA_NUM_PARALLEL: '1'
+      OLLAMA_MAX_LOADED_MODELS: '1'
+      OLLAMA_HOST: 127.0.0.1:11434
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore the same open-source model as the paid worker
+        uses: actions/cache@v4
+        with:
+          path: .ollama-cache/models
+          key: gambit-qwen3-8b-v1
+
+      - name: Start Gambit's production model
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL https://ollama.com/install.sh | sh
+          sudo systemctl stop ollama.service 2>/dev/null || true
+          mkdir -p "$OLLAMA_MODELS"
+          nohup ollama serve >/tmp/gambit-benchmark-ollama.log 2>&1 &
+          for attempt in $(seq 1 90); do
+            if curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
+              break
+            fi
+            sleep 1
+          done
+          ollama show "$GAMBIT_MODEL" >/dev/null 2>&1 || ollama pull "$GAMBIT_MODEL"
+
+      - name: Actually generate and score two commercial work samples
+        run: python3 -m tools.gambit_benchmark
