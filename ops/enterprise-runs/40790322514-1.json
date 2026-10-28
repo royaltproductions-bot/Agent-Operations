@@ -1,0 +1,133 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T23:54:35.939752+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 15,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 9,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 15,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/HectorIFC/malachi/issues/303",
+        "title": "Malachi has no funding and uses none of the free programs open source projects qualify for",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/xpex-systems-ai/GXEON-Wallet-Command-Center/issues/57",
+        "title": "Money Truth: reconcile Stripe LIVE orders and prove first external buyer checkout\u2192credits\u2192delivery",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/MagnaCapax/PMSS/issues/1038",
+        "title": "Migration traffic between PM hosts can be miscounted as billable customer egress, triggering unwarranted throttle",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/klineodyssey/kline-odyssey/issues/559",
+        "title": "[KAIOS POLICY] DOT GitHub engineering authority and backlog ACK \u2014 2026-10-08",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/kellan/outlanders2-wiki/issues/10",
+        "title": "Information needed: answers thread",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.appzi.com/",
+        "title": "Simple & Powerful User Feedback Tool | Appzi",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-29 design simple customer",
+      "is:issue is:open bounty created:>=2026-08-29 build basic lead",
+      "looking for someone to design a simple customer feedback tool",
+      "hiring a freelancer to build a basic lead capture form",
+      "need paid help with creating a functional landing page"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to design a simple customer feedback tool",
+      "hiring a freelancer to build a basic lead capture form",
+      "need paid help with creating a functional landing page",
+      "can anyone create a simple email automation workflow"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 9,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to design a simple customer feedback tool",
+        "hiring a freelancer to build a basic lead capture form",
+        "need paid help with creating a functional landing page",
+        "can anyone create a simple email automation workflow"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 140,
+      "known_pages": 976
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
