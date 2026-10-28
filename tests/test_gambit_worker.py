@@ -91,6 +91,16 @@ class GambitTests(unittest.TestCase):
         self.assertIsNone(state['settlements']['b2']['payout_cents'])
         self.assertNotIn('payout_cents', state['recent_outcomes'][0])
 
+    def test_official_settlement_details_recover_lost_payout_without_guessing(self):
+        state = {'bounties': {'b3': {'action': 'submitted'}}, 'recent_outcomes': []}
+        self.assertTrue(gambit.record_settlement(
+            state, 'b3', 'event-789', payout_cents=3250, currency='USD'))
+        self.assertEqual(state['settlements']['b3']['payout_cents'], 3250)
+        self.assertEqual(state['settlements']['b3']['currency'], 'USD')
+        self.assertFalse(gambit.record_settlement(
+            state, 'b3', 'event-replayed', payout_cents=3250))
+        self.assertEqual(len(state['recent_outcomes']), 1)
+
     def test_invalid_event_cursor_recovers_and_rechecks_waiting_contexts(self):
         state = {'schema': 1, 'bounties': {'b1': {'version': 3, 'action': 'bid_active'}},
                  'events_cursor': 'expired', 'recent_outcomes': []}

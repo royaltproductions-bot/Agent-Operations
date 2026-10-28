@@ -263,7 +263,7 @@ def note(state, action, bounty_id=None, **details):
     state["recent_outcomes"] = state["recent_outcomes"][-60:]
 
 
-def record_settlement(state, bounty_id, event_id):
+def record_settlement(state, bounty_id, event_id, *, payout_cents=None, currency=None):
     """Maintain a durable, idempotent ledger of platform-completed work.
 
     Bounty's `work.completed` is evidence of settlement on its platform, not
@@ -273,11 +273,15 @@ def record_settlement(state, bounty_id, event_id):
     if bounty_id in ledger:
         return False
     entry = state["bounties"].get(bounty_id) or {}
-    payout = entry.get("payout_cents")
+    payout = (payout_cents if isinstance(payout_cents, int) and
+              not isinstance(payout_cents, bool) and payout_cents >= 0
+              else entry.get("payout_cents"))
     if not isinstance(payout, int) or isinstance(payout, bool) or payout < 0:
         payout = None
     ledger[bounty_id] = {"event_id": event_id, "payout_cents": payout,
-                         "settled_at": timestamp()}
+                         "settled_at": timestamp(),
+                         "currency": currency if isinstance(currency, str) and
+                         re.fullmatch(r"[A-Z]{3}", currency) else None}
     note(state, "work.completed", bounty_id, event_id=event_id,
          **({"payout_cents": payout} if payout is not None else {}))
     return True
@@ -1458,7 +1462,17 @@ def run(mode="run"):
                       "submission.accepted"} and bid:
             event_id = event.get("id")
             if action == "work.completed":
-                record_settlement(state, str(bid), event_id)
+                # The event confirms platform settlement; the authoritative
+                # Bounty detail supplies payout and currency when the earlier
+                # hired-work state was lost. Neither proves bank disbursement.
+                try:
+                    completed = api(f"/v1/agent/bounties/{urllib.parse.quote(str(bid), safe='')}")
+                    terms = completed.get("bounty") or {}
+                except Exception:
+                    terms = {}
+                record_settlement(state, str(bid), event_id,
+                                  payout_cents=terms.get("payout_cents"),
+                                  currency=terms.get("currency"))
                 continue
             if event_id and any(o.get("event_id") == event_id for o in state["recent_outcomes"]):
                 continue
