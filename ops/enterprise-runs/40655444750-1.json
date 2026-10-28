@@ -1,0 +1,132 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-28T08:16:50.627664+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 7,
+    "source_counts": {
+      "open_web": 7
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 7,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=48009180",
+        "title": "Ask HN: Is a hands-off, family-friendly, de-Googled \"home lab\" feasible?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47139307",
+        "title": "Ask HN: Why is network documentation still a scavenger hunt for the truth?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45875749",
+        "title": "We got a $60k tax penalty for a zero-revenue side project",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44920191",
+        "title": "Design History in India",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=31557655",
+        "title": "Ask HN: Open-source sentiment analysis toolkit, a valid small business idea?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=27847620",
+        "title": "Ask HN: How to design a data science interview process",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to design a simple data dashboard for a local nonprofit"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to design a simple data dashboard for a local nonprofit",
+      "hiring a freelancer to create a paid course on YouTube about beginner photography",
+      "need paid help with building a basic email marketing funnel using ConvertKit",
+      "can anyone create a simple mobile app for tracking daily water intake?",
+      "looking for someone to develop a low-cost WordPress plugin for event registration"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 2,
+      "executed_queries": [
+        "looking for someone to design a simple data dashboard for a local nonprofit",
+        "hiring a freelancer to create a paid course on YouTube about beginner photography",
+        "need paid help with building a basic email marketing funnel using ConvertKit",
+        "can anyone create a simple mobile app for tracking daily water intake?",
+        "looking for someone to develop a low-cost WordPress plugin for event registration"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 139,
+      "known_pages": 724
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  }
+}
