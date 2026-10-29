@@ -1,0 +1,127 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-29T21:03:38.748991+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 5,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 14,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/cosmos/ibc/issues/1639",
+        "title": "My Base account has no coins",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/TokenBrice/pharos-watch/issues/1750",
+        "title": "swanUSD: post-activation re-review and first-score evidence pass",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/pursekeeper/api/issues/138",
+        "title": "[integration] Slot 1: LangChain (JavaScript) \u2014 langchain-x402-nano",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/mikejmorgan-ai/openbounty-agent-kit/issues/6",
+        "title": "Docs: quickstart with curl examples for every endpoint",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/mikejmorgan-ai/openbounty-agent-kit/issues/5",
+        "title": "Example: end-to-end agent loop (claim \u2192 work \u2192 PR draft)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://developer.atlassian.com/server/jira/platform/building-jira-add-ons-32345314/",
+        "title": "Building JIRA Add Ons 32345314 - developer.atlassian.com",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-30 ",
+      "looking for someone to build a custom jira plugin",
+      "hiring a freelancer to develop jira automation"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a custom jira plugin",
+      "hiring a freelancer to develop jira automation",
+      "can anyone create a jira dashboard template",
+      "need paid help with jira integration"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 13,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a custom jira plugin",
+        "hiring a freelancer to develop jira automation",
+        "can anyone create a jira dashboard template",
+        "need paid help with jira integration"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 137,
+      "known_pages": 1238
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
