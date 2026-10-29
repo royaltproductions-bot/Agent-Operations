@@ -29,7 +29,7 @@ from tools.gambit_documents import (MAX_BINARY_BYTES, convert_document,
 from tools.gambit_analytics import summarize_csv_sources
 from tools.gambit_artifacts import (OUTPUT_FILES, SUPPORTED_FORMATS,
                                     make_document, requested_output_format)
-from tools.gambit_site_resources import static_site_eligible
+from tools.gambit_site_resources import static_site_eligible, multipage_requested
 from tools import gambit_resources as resources
 
 BASE = "https://api.trybounty.ai"
@@ -681,6 +681,16 @@ SITE_SPEC_SCHEMA = {"type": "object", "properties": {
         "type": "object", "properties": {"title": {"type": "string"},
         "description": {"type": "string"}},
         "required": ["title", "description"], "additionalProperties": False}},
+    "pages": {"type": "array", "maxItems": 12, "items": {
+        "type": "object", "properties": {
+            "slug": {"type": "string"}, "nav_label": {"type": "string"},
+            "headline": {"type": "string"}, "intro": {"type": "string"},
+            "sections": {"type": "array", "minItems": 1, "maxItems": 6, "items": {
+                "type": "object", "properties": {"title": {"type": "string"},
+                "description": {"type": "string"}},
+                "required": ["title", "description"], "additionalProperties": False}}},
+        "required": ["slug", "nav_label", "headline", "intro", "sections"],
+        "additionalProperties": False}},
 }, "required": ["status", "reason", "question", "brand", "eyebrow", "headline",
                "intro", "about", "services_heading", "about_heading",
                "approach_heading", "cta_heading", "theme", "contact_url", "contact_label",
@@ -702,8 +712,8 @@ def produce_website(details, messages, feedback="", sources=None):
         [str(bounty.get(field) or "") for field in ("title", "description", "verification")]
         + [str(item.get("text") or "") for item in context["owner_messages"]])
     system = (
-        "You prepare factual content for a polished responsive, source-only landing "
-        "page. A licensed design system will build the actual source ZIP. Return strict "
+        "You prepare factual content for a polished responsive static website, with "
+        "one or many linked pages as requested. A licensed design system assembles a real site ZIP. Return strict "
         "JSON matching the schema. Do not return any HTML or CSS. Use the actual brand, "
         "business, offering, audience, and value proposition from the buyer brief; no "
         "fabricated company facts, offers, results, testimonials, team members, pricing, "
@@ -717,23 +727,30 @@ def produce_website(details, messages, feedback="", sources=None):
         "buyer's brief, and `steps` 2-4 true stages derived from the brief. `contact_url` "
         "MUST be an EXACT full https, mailto or tel URL explicitly present verbatim "
         "in the buyer brief; otherwise empty. Keep other URLs out of copy. Choose a "
-        "theme appropriate to the buyer. Only mark ready if a source-only, single-page "
-        "site meets ALL requirements without unsupported functionality, design assets, "
-        "forms, checkout, CRM, hosting, domain, account access, or editing their "
-        "existing website. If essential business facts are missing, need_information "
-        "and ask one precise question. Do not promise live publication. If prior "
-        "feedback identifies an issue, correct that issue."
+        "theme appropriate to the buyer. The optional pages array contains additional "
+        "fully written pages, each with a safe lowercase slug, navigation label, unique "
+        "headline, intro and substantive sections. For a multi-page brief, include every "
+        "requested page (Home is always index.html); link them with a consistent shared "
+        "navigation and CSS. For landing-page briefs, pages can be empty. Only mark ready "
+        "if ALL requirements are satisfiable without backend, hosting, buyer account access "
+        "or editing an existing site. If essential facts are missing, ask one precise "
+        "question. Do not promise live publication. Correct prior quality feedback."
     )
     for attempt in range(2):
         answer = infer(SITE_SPEC_SCHEMA, system, {
             "brief": public_brief,
-            "feedback": feedback[:1500]}, num_predict=1800, num_ctx=8000)
+            "feedback": feedback[:1500],
+            "multi_page_requested": multipage_requested(details)},
+            num_predict=4800 if multipage_requested(details) else 1800,
+            num_ctx=11000 if multipage_requested(details) else 8000)
         if answer.get("status") != "ready":
             return {"status": answer.get("status", "cannot_deliver"),
                     "reason": answer.get("reason", ""), "question": answer.get("question", ""),
                     "deliverable_title": "Website source", "deliverable_text": "",
                     "deliverable_format": "site_zip"}
         try:
+            if multipage_requested(details) and not (answer.get("pages") or []):
+                raise ValueError("website_requested_pages_missing")
             archive, html, assets = resources.execute("site_source", answer, public_brief)
         except ValueError as exc:
             feedback = ("The generated content violates a required source-site validation: "
@@ -743,7 +760,7 @@ def produce_website(details, messages, feedback="", sources=None):
                 "deliverable_title": str(answer["brand"])[:90] + " — responsive site ZIP",
                 "deliverable_text": (
                     f"Completed responsive website source for {answer['brand']}: "
-                    "index.html, locally bundled styles, documentation and MIT license."),
+                    "index.html, linked pages when requested, locally bundled styles and MIT license."),
                 "deliverable_format": "site_zip", "_site_binary": archive,
                 "_site_html": html, "_site_assets": assets, "_site_spec": answer}
     return {"status": "cannot_deliver", "reason": feedback,
@@ -1640,12 +1657,24 @@ def handle_hired(item, state):
                 normalized_content = make_document(format_name, content)
             elif (format_name == "site_zip" and static_site_eligible(details)
                   and website_capable() and result.get("_site_binary")):
+                assets = result["_site_assets"]
+                # Browser-check every page, not only the index; preserve the
+                # actual home file so relative navigation remains functional.
+                browser_assets = {**assets, "index.html": result["_site_html"].encode("utf-8")}
                 render_evidence = resources.execute("site_visual",
-                    result["_site_html"], asset_files=result["_site_assets"])
+                    result["_site_html"], asset_files=browser_assets)
+                for name in sorted(path for path in assets if path.endswith(".html")):
+                    page_evidence = resources.execute(
+                        "site_visual", assets[name].decode("utf-8"),
+                        asset_files=browser_assets, entrypoint=name)
+                    render_evidence[name] = {
+                        mode: metrics for mode, metrics in page_evidence.items()}
                 normalized_content = result["_site_binary"]
                 result["_site_review_evidence"] = {
-                    label: {name: value for name, value in metrics.items()
-                            if name != "screenshot"}
+                    label: ({mode: {key: value for key, value in stats.items()
+                                    if key != "screenshot"} for mode, stats in metrics.items()}
+                            if label.endswith(".html") else
+                            {key: value for key, value in metrics.items() if key != "screenshot"})
                     for label, metrics in render_evidence.items()}
             else:
                 raise ValueError("unsupported_output_format")
