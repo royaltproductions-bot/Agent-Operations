@@ -1,0 +1,143 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-29T02:29:53.978051+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 10,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 10
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "hn_ask": 1,
+      "duckduckgo": 5
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 10,
+    "verified_firsthand_problem_pages": 3,
+    "observed_public_paid_offers": 2,
+    "market_candidates_considered": 2,
+    "public_sources_available_for_judgment": 10,
+    "public_market_sample": [
+      {
+        "url": "https://www.someka.net/products/event-calendar-excel-template/",
+        "title": "Event Calendar Excel Template",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://www.someka.net/products/dynamic-calendar-excel-template/",
+        "title": "Dynamic Calendar Excel Template",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=7034478",
+        "title": "Ask HN: How do you evaluate your skills against requirements?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://python-excel-automation.com/automating-reporting-workflows/building-finance-and-operations-reports/build-a-bank-reconciliation-report/",
+        "title": "Bank Reconciliation in Excel with Python (Automated Matching)",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://github.com/MNeMoNiCuZ/EXIFRenamer/",
+        "title": "GitHub - MNeMoNiCuZ/EXIFRenamer: Python script to rename files based to ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://hdyar.com/blog/posts/python-exif-file-renamer/",
+        "title": "Batch Rename Images with their EXIF Data | Hunter Dyar",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://www.someka.net/products/event-calendar-excel-template/",
+        "title": "Event Calendar Excel Template",
+        "displayed_sales_count": null,
+        "listed_price_usd": "250.00"
+      },
+      {
+        "url": "https://www.someka.net/products/dynamic-calendar-excel-template/",
+        "title": "Dynamic Calendar Excel Template",
+        "displayed_sales_count": null,
+        "listed_price_usd": "250.00"
+      }
+    ],
+    "candidates_without_email": 8,
+    "search_queries": [
+      "",
+      "buy ready-made Python script for web scraping without API keys",
+      "how to automate invoice reconciliation in Excel with Python",
+      "downloadable script to batch rename image files by EXIF data"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 10,
+      "skipped_revisits": 8,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "how to automate invoice reconciliation in Excel with Python",
+        "downloadable script to batch rename image files by EXIF data",
+        "buy ready-made Python script for web scraping without API keys",
+        "purchase Excel template for tracking software licenses and compliance"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 1011
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:The product is a paid Excel template with a high price point ($250) and no sales data provided. The market for Excel templates is competitive, and the price is significantly higher"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0,
+    "product_pages": 0,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "no_saleable_products",
+    "indexable_product_pages": 0,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 10,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:The product is a paid Excel template with a high price point ($250) and no sales data provided. The market for Excel templates is co"
+  }
+}
