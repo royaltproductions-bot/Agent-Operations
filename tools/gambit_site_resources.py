@@ -28,8 +28,16 @@ PALETTES = {
 def static_site_eligible(details: dict) -> bool:
     """Only source-only frontend work; server features need different resources."""
     bounty = details.get("bounty") or {}
+    title = str(bounty.get("title") or "").lower().strip()
     joined = " ".join(str(bounty.get(name) or "") for name in
                       ("title", "description", "verification")).lower()
+    # HTML/CSS can be INPUT or background context for a report. A research,
+    # audit, comparison or explanation must not become a generated website.
+    if re.search(
+            r"^(?:audit|review|analy[sz]e|compare|research|explain|summari[sz]e|"
+            r"investigate|evaluate|report on|write (?:an? )?(?:report|review|guide|"
+            r"analysis|summary))\b", title):
+        return False
     # "one-page summary" and "static analysis" are NOT website requests.
     # Require an explicit web deliverable, not an incidental adjective.
     if not re.search(

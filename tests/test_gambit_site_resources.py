@@ -37,6 +37,20 @@ SPEC = {
 
 
 class SiteResourceTests(unittest.TestCase):
+    def test_html_css_audit_remains_report_not_website_commission(self):
+        audit = {"bounty": {
+            "title": "Audit HTML and CSS accessibility",
+            "description": "Review a website source and prepare an audit report.",
+            "verification": "Deliver a written accessibility analysis."}}
+        self.assertFalse(sites.static_site_eligible(audit))
+        self.assertIsNone(gambit.unsupported_deliverable(audit))
+        # An authentic source-site commission still qualifies.
+        website = {"bounty": {
+            "title": "Design a static HTML landing page",
+            "description": "Provide a responsive source ZIP.",
+            "verification": "Working HTML and CSS files."}}
+        self.assertTrue(sites.static_site_eligible(website))
+
     def test_one_page_report_is_not_misclassified_as_website(self):
         self.assertFalse(sites.static_site_eligible({
             "bounty": {"title": "Summarize a customer memo",
