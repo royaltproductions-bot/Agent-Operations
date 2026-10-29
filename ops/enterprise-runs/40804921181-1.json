@@ -1,0 +1,122 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-29T02:13:43.311984+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 11
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/P00NSMASHER/github-value-hunt-ledger/issues/863",
+        "title": "Golden Goose candidate 001: B2B settlement eligibility preflight (WATCH)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/datnguyenquy94/news-radar/issues/842",
+        "title": "\ud83c\udf10 Official AI Content Report 2026-10-22",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/KOSASIH/pailot-for-pi/issues/128",
+        "title": "pi-backend-0.1.3.tgz: 39 vulnerabilities (highest severity is: 9.3)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/KOSASIH/pailot-for-pi/issues/127",
+        "title": "axios-1.2.3.tgz: 40 vulnerabilities (highest severity is: 9.3)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/KOSASIH/pailot-for-pi/issues/116",
+        "title": "axios-1.6.0.tgz: 38 vulnerabilities (highest severity is: 9.3)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.mailmodo.com/guides/email-sequence/",
+        "title": "How to Create Email Sequences? With 8 Best Examples - Mailmodo",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-30 develop low code",
+      "can anyone create a basic email automation sequence",
+      "looking for someone to develop a low-code customer feedback tool"
+    ],
+    "attempted_search_queries": [
+      "can anyone create a basic email automation sequence",
+      "looking for someone to develop a low-code customer feedback tool",
+      "hiring a freelancer to produce a short explainer video",
+      "need paid help with setting up a Zapier automation for form submissions"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 16,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "can anyone create a basic email automation sequence",
+        "looking for someone to develop a low-code customer feedback tool",
+        "hiring a freelancer to produce a short explainer video",
+        "need paid help with setting up a Zapier automation for form submissions"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 140,
+      "known_pages": 1006
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
