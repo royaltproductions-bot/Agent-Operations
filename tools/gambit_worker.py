@@ -174,6 +174,18 @@ def api(path, method="GET", payload=None):
                 pass
             # Never log headers, URL query strings, request bodies, or credentials.
             raise RuntimeError(f"bounty_api_{code}") from None
+        except (urllib.error.URLError, TimeoutError) as exc:
+            # Retry only reads and idempotent writes. In particular, do NOT
+            # repeat a new attachment-upload reservation without a stable key.
+            safe_repeat = (method == "GET" or
+                           (method == "POST" and (
+                               (isinstance(payload, dict) and
+                                bool(payload.get("idempotency_key"))) or
+                               path.endswith("/claims") or path.endswith("/unclaim"))))
+            if safe_repeat and attempt < 2:
+                time.sleep(2 ** attempt)
+                continue
+            raise RuntimeError("bounty_api_network_unavailable") from None
 
 
 def pages(endpoint, collection):

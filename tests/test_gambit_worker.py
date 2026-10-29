@@ -63,6 +63,37 @@ class GambitTests(unittest.TestCase):
         self.assertEqual(urlopen.call_count, 2)
         sleep.assert_called_once_with(3.0)
 
+    def test_market_get_retries_temporary_network_failure(self):
+        with patch.dict(os.environ, {"BOUNTY_AGENT_API_KEY": "dummy-test-key"}), \
+             patch.object(gambit.urllib.request, "urlopen", side_effect=[
+                 TimeoutError(), io.BytesIO(b'{"bounties": []}')]) as request, \
+             patch.object(gambit.time, "sleep") as sleep:
+            self.assertEqual(gambit.api("/v1/agent/bounties"), {"bounties": []})
+        self.assertEqual(request.call_count, 2)
+        sleep.assert_called_once_with(1)
+
+    def test_idempotent_private_message_retries_network_failure(self):
+        payload = {"content": {"type": "text", "text": "Done"},
+                   "idempotency_key": "stable-message"}
+        with patch.dict(os.environ, {"BOUNTY_AGENT_API_KEY": "dummy-test-key"}), \
+             patch.object(gambit.urllib.request, "urlopen", side_effect=[
+                 urllib.error.URLError("offline"), io.BytesIO(b'{"ok":true}')]) as request, \
+             patch.object(gambit.time, "sleep"):
+            self.assertEqual(gambit.api("/v1/agent/bounties/a/messages",
+                                        "POST", payload), {"ok": True})
+        self.assertEqual(request.call_count, 2)
+
+    def test_non_idempotent_attachment_creation_is_not_retried(self):
+        with patch.dict(os.environ, {"BOUNTY_AGENT_API_KEY": "dummy-test-key"}), \
+             patch.object(gambit.urllib.request, "urlopen",
+                          side_effect=TimeoutError()) as request, \
+             patch.object(gambit.time, "sleep") as sleep:
+            with self.assertRaisesRegex(RuntimeError, "network_unavailable"):
+                gambit.api("/v1/agent/bounties/a/attachments", "POST",
+                           {"filename": "report.pdf", "size": 100})
+        self.assertEqual(request.call_count, 1)
+        sleep.assert_not_called()
+
     def test_fast_decisions_use_small_model_while_delivery_keeps_large_model(self):
         answer = io.BytesIO(b'{"message":{"content":"{\\"decision\\":\\"pass\\"}"}}')
         with patch.object(gambit.urllib.request, 'urlopen', return_value=answer) as request, \
