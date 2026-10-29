@@ -506,7 +506,8 @@ def scan(state):
     opened = pages("/v1/agent/bounties?status=open&limit=100", "bounties")
     held = pages("/v1/agent/bounties?status=claimed,submitted,reviewing,settling,disputed&limit=100", "bounties")
     events, cursor = relevant_events(state)
-    relevant = {"work.message.created", "submission.verification_failed", "bounty.updated",
+    relevant = {"work.message.created", "discussion.user_replied",
+                "submission.verification_failed", "bounty.updated",
                 "bounty.available", "bounty.claimed"}
     triggers = {str(e.get("data", {}).get("bounty_id")) for e in events
                 if e.get("type") in relevant and e.get("data", {}).get("bounty_id")}
@@ -1101,9 +1102,24 @@ def handle_open(item, state):
                                          "last_declined_bid": declined_token,
                                          "last_owner_reply_id": last_reply_id}
         return
-    messages = (sorted(messages_for(bounty_id), key=lambda m: m.get("created_at") or 0)
-                if previous.get("action") in {"asked", "bid_sent", "bid_active"}
-                or bid.get("status") == "declined" else [])
+    # Pre-claim owner replies on legacy claim Bounties belong to the public
+    # thread, not the private Work Conversation (which opens after claiming).
+    if current.get("flow") == "claim":
+        messages = [
+            {"_id": str((event.get("data") or {}).get("comment_id") or event.get("id") or ""),
+             "author_type": "user",
+             "content": {"type": "text", "text": body},
+             "created_at": ((event.get("data") or {}).get("comment") or {}).get("created_at")}
+            for event in CURRENT_EVENTS
+            if event.get("type") == "discussion.user_replied"
+            and (event.get("data") or {}).get("bounty_id") == bounty_id
+            for body in [str(((event.get("data") or {}).get("comment") or {}).get("body") or "").strip()]
+            if body
+        ]
+    else:
+        messages = (sorted(messages_for(bounty_id), key=lambda m: m.get("created_at") or 0)
+                    if previous.get("action") in {"asked", "bid_sent", "bid_active"}
+                    or bid.get("status") == "declined" else [])
     sources, unreadable = text_sources(details, messages)
     if unreadable and not messages:
         decision = {"decision": "ask" if current.get("flow") == "bid" else "pass",
@@ -1120,10 +1136,16 @@ def handle_open(item, state):
     # Independent final boundary even if the decision function is overridden.
     if action in {"bid", "claim"} and unsupported_deliverable(details):
         action = "pass"
-    if action == "ask" and current.get("flow") == "bid":
-        question = decision.get("question", "").strip()[:3000]
+    if action == "ask" and current.get("flow") in {"bid", "claim"}:
+        question = str(decision.get("question") or "").strip()[:3000]
         if not question:
             action = "pass"
+        elif current.get("flow") == "claim":
+            api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/comments",
+                "POST", {"body": question,
+                         "idempotency_key": key("claim-question", bounty_id,
+                                                version, question)})
+            action = "asked"
         else:
             api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/messages", "POST", {
                 "content": {"type": "text", "text": question},

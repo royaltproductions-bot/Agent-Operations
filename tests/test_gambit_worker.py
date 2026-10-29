@@ -1087,6 +1087,51 @@ class GambitTests(unittest.TestCase):
         self.assertIn('Acme customer lead details', extracted)
         self.assertTrue(opener.request.has_header('Authorization'))
 
+    def test_claim_public_question_uses_trybounty_comments_not_private_messages(self):
+        details = {"bounty": {"_id": "c1", "status": "open", "version": 2,
+                              "flow": "claim", "title": "Summarize an archive"}}
+        state = {"bounties": {"c1": {"action": "evaluation_pending", "version": 2}},
+                 "recent_outcomes": []}
+        with patch.object(gambit, "api", side_effect=lambda path, method="GET", payload=None:
+                          details if method == "GET" else {"comment_id": "com1"}) as api, \
+             patch.object(gambit, "assess", return_value={
+                 "decision": "ask", "question": "Which reporting period?"}):
+            gambit.handle_open({"_id": "c1"}, state)
+        posts = [call for call in api.call_args_list
+                 if len(call.args) > 1 and call.args[1] == "POST"]
+        self.assertEqual(len(posts), 1)
+        self.assertEqual(posts[0].args[0], "/v1/agent/bounties/c1/comments")
+        self.assertEqual(posts[0].args[2]["body"], "Which reporting period?")
+        self.assertEqual(state["bounties"]["c1"]["action"], "asked")
+
+    def test_public_owner_reply_is_passed_into_claim_assessment(self):
+        details = {"bounty": {"_id": "c1", "status": "open", "version": 2,
+                              "flow": "claim", "title": "Summarize an archive"}}
+        event = {"id": "e23", "type": "discussion.user_replied",
+                 "data": {"bounty_id": "c1", "comment_id": "comment23",
+                          "comment": {"body": "Use 2026 figures.",
+                                      "created_at": 123}}}
+        state = {"bounties": {"c1": {"action": "asked", "version": 2}},
+                 "recent_outcomes": []}
+        with patch.object(gambit, "api", return_value=details), \
+             patch.object(gambit, "CURRENT_EVENTS", [event]), \
+             patch.object(gambit, "assess", return_value={"decision": "pass"}) as assess:
+            gambit.handle_open({"_id": "c1"}, state)
+        self.assertIn("Use 2026 figures.", str(assess.call_args.args[1]))
+        self.assertEqual(state["bounties"]["c1"]["action"], "pass")
+
+    def test_worker_event_dispatch_includes_public_claim_replies(self):
+        state = {"bounties": {"c1": {"action": "asked", "version": 2}},
+                 "events_cursor": None}
+        event = {"type": "discussion.user_replied",
+                 "data": {"bounty_id": "c1"}}
+        with patch.object(gambit, "pages", side_effect=[
+             [{"_id": "c1", "version": 2}], []]), \
+             patch.object(gambit, "relevant_events", return_value=([event], "cursor")):
+            *_, waiting, active = gambit.scan(state)
+        self.assertEqual(waiting[0]["_id"], "c1")
+        self.assertEqual(active, [])
+
     def test_declined_bid_passes_owner_feedback_into_reassessment(self):
         details = {'bounty': {'_id': 'b1', 'status': 'open', 'version': 3, 'flow': 'bid'},
                    'bid': {'_id': 'oldbid', 'status': 'declined', 'payout_cents': 2400}}
