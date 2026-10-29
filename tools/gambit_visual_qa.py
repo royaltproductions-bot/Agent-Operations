@@ -7,6 +7,7 @@ so passing this module does not authorize professional website bids.
 from __future__ import annotations
 
 import io
+import re
 from pathlib import Path
 import shutil
 import tempfile
@@ -15,16 +16,20 @@ import tempfile
 VIEWPORTS = {"desktop": (1440, 900), "mobile": (390, 844)}
 
 
-def render_browser_evidence(html_text, preview_dir=None, asset_files=None):
+def render_browser_evidence(html_text, preview_dir=None, asset_files=None,
+                            entrypoint="index.html"):
     """Render a page and any bundled assets at desktop and mobile viewports."""
     from playwright.sync_api import sync_playwright
     from PIL import Image, ImageStat
 
     if not html_text or len(html_text.encode("utf-8")) > 120_000:
         raise ValueError("visual_qa_source_invalid")
+    if not (entrypoint == "index.html" or
+            re.fullmatch(r"[a-z][a-z0-9-]{0,39}\.html", entrypoint)):
+        raise ValueError("visual_qa_unsafe_entrypoint")
     evidence = {}
     with tempfile.TemporaryDirectory(prefix="gambit-visual-qa-") as workdir:
-        page_path = Path(workdir) / "index.html"
+        page_path = Path(workdir) / entrypoint
         page_path.write_text(html_text, encoding="utf-8")
         for name, content in (asset_files or {}).items():
             path = Path(name)
