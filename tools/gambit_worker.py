@@ -148,6 +148,7 @@ def api(path, method="GET", payload=None):
         BASE + path, method=method, data=data,
         headers={"Authorization": "Bearer " + credential,
                  "Accept": "application/json", "Content-Type": "application/json",
+                 "Cache-Control": "no-cache", "Pragma": "no-cache",
                  "User-Agent": "AriOperations-Gambit/1.0"},
     )
     for attempt in range(3):
@@ -536,6 +537,36 @@ def scan(state):
             state["bounties"].get(str(item.get("_id")), {}).get("reason") ==
             "website_visual_quality_unverified"))]
     return opened, held, events, cursor, waiting, active
+
+
+
+def market_workload(state, opened, waiting):
+    """Separate fresh work from open listings we've already handled.
+
+    TryBounty can keep an old, withdrawn, or rejected bounty in its raw
+    status=open feed. Its unchanged version is historical context, not new
+    work. Still retain active bids and triggered/version-changed follow-ups.
+    """
+    queued = {str(item.get("_id")) for item in waiting}
+    bounties = state.get("bounties") or {}
+    new_or_revised = 0
+    for item in waiting:
+        prior = bounties.get(str(item.get("_id"))) or {}
+        if prior.get("action") == "evaluation_pending" or prior.get("version") != item.get("version"):
+            new_or_revised += 1
+    live_offers = sum(
+        str(item.get("_id")) not in queued and
+        (bounties.get(str(item.get("_id"))) or {}).get("action") in {"bid_sent", "bid_active"}
+        for item in opened
+    )
+    return {
+        "released_open_total": len(opened),
+        "new_or_revised": new_or_revised,
+        "followups": max(0, len(waiting) - new_or_revised),
+        "existing_offers": live_offers,
+        "unchanged_history_ignored": max(0, len(opened) - len(waiting) - live_offers),
+    }
+
 
 
 def infer(schema, system, context, *, num_predict=900, num_ctx=5500, fast=False):
@@ -1719,9 +1750,11 @@ def run(mode="run"):
                 f.write("needs_model=" + ("true" if needs_model else "false") + "\n")
                 f.write("needs_production_model=" + ("true" if active else "false") + "\n")
                 f.write("needs_run=" + ("true" if needs_run else "false") + "\n")
-        print(json.dumps({"ready": True, "open": len(opened), "active": len(active),
-                          "new_or_changed": len(waiting), "needs_model": needs_model,
-                          "needs_run": needs_run}))
+        print(json.dumps({"ready": True, "checked_at": timestamp(),
+                          "source": "trybounty_live_api", "open": len(opened),
+                          "active": len(active), "new_or_changed": len(waiting),
+                          **market_workload(state, opened, waiting),
+                          "needs_model": needs_model, "needs_run": needs_run}))
         return
     failures = []
     if bid_reconciliation_due(state, opened):
@@ -1784,8 +1817,10 @@ def run(mode="run"):
     state["last_check"] = timestamp()
     save_state(state)
     settlements = state.get("settlements", {})
-    print(json.dumps({"open": len(opened), "active": len(active), "evaluated": len(waiting[:8]),
-                      "failures": failures,
+    print(json.dumps({"checked_at": timestamp(), "source": "trybounty_live_api",
+                      "open": len(opened), "active": len(active),
+                      **market_workload(state, opened, waiting),
+                      "evaluated": len(waiting[:8]), "failures": failures,
                       "platform_completed": len(settlements),
                       "platform_settled_cents_known": sum(
                           value["payout_cents"] for value in settlements.values()

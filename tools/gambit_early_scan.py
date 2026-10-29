@@ -35,6 +35,7 @@ def open_listing_pages(api_key):
         request = urllib.request.Request(
             endpoint, headers={"Authorization": "Bearer " + api_key,
                                "Accept": "application/json",
+                               "Cache-Control": "no-cache", "Pragma": "no-cache",
                                "User-Agent": "AriOperations-Gambit/1.0"})
         with urllib.request.urlopen(request, timeout=12) as response:
             page = json.load(response)
@@ -90,8 +91,15 @@ def run():
         STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
         STATE_PATH.write_text(json.dumps(state, indent=2, sort_keys=True) + "\n",
                               encoding="utf-8")
-    print(json.dumps({"early_market_scan": "ok", "open": len(opened),
-                      "new_record_fields": changed}))
+    print(json.dumps({"early_market_scan": "ok", "checked_at": timestamp(),
+                      "source": "trybounty_live_api", "released_open_total": len(opened),
+                      "new_record_fields": changed,
+                      "queued_for_evaluation": sum(
+                          (state["bounties"].get(str(item.get("_id"))) or {}).get("action")
+                          == "evaluation_pending" for item in opened),
+                      "known_unchanged": sum(
+                          (state["bounties"].get(str(item.get("_id"))) or {}).get("action")
+                          not in ("evaluation_pending", "retry_evaluation") for item in opened)}))
 
 
 if __name__ == "__main__":

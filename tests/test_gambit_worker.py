@@ -1224,6 +1224,26 @@ class GambitTests(unittest.TestCase):
         self.assertIn('/messages', posts[0].args[0])
         self.assertIn('/unclaim', posts[1].args[0])
 
+    def test_live_market_workload_excludes_old_withdrawn_offer_from_fresh_work(self):
+        opened = [{"_id": "old", "version": 1}, {"_id": "new", "version": 2},
+                  {"_id": "bid", "version": 1}]
+        state = {"bounties": {
+            "old": {"action": "bid_missing", "version": 1},
+            "new": {"action": "evaluation_pending", "version": 2},
+            "bid": {"action": "bid_active", "version": 1}}}
+        counts = gambit.market_workload(state, opened, [opened[1]])
+        self.assertEqual(counts["released_open_total"], 3)
+        self.assertEqual(counts["new_or_revised"], 1)
+        self.assertEqual(counts["existing_offers"], 1)
+        self.assertEqual(counts["unchanged_history_ignored"], 1)
+
+    def test_updated_old_listing_becomes_live_work_again(self):
+        opened = [{"_id": "old", "version": 2}]
+        state = {"bounties": {"old": {"action": "pass_unsupported", "version": 1}}}
+        counts = gambit.market_workload(state, opened, opened)
+        self.assertEqual(counts["new_or_revised"], 1)
+        self.assertEqual(counts["unchanged_history_ignored"], 0)
+
 
 if __name__ == '__main__':
     unittest.main()

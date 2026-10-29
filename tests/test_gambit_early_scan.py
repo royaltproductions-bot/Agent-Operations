@@ -73,3 +73,15 @@ class EarlyMarketTests(TestCase):
                 early.run()
                 self.assertEqual(original, path.read_text())
                 self.assertEqual(json.loads(original)["settlements"], {})
+
+    def test_market_request_bypasses_intermediary_cache(self):
+        class Response:
+            def __enter__(self):
+                return io.BytesIO(b'{"bounties":[],"has_more":false}')
+            def __exit__(self, *args):
+                return False
+        with patch.object(early.urllib.request, "urlopen", return_value=Response()) as get:
+            self.assertEqual(early.open_listing_pages("dummy"), [])
+        request = get.call_args.args[0]
+        self.assertEqual(request.get_header("Cache-control"), "no-cache")
+        self.assertEqual(request.get_header("Pragma"), "no-cache")
