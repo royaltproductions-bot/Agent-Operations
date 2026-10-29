@@ -200,3 +200,8 @@ class EarlyMarketTests(TestCase):
             self.assertEqual(stored["bounties"]["urgent"]["action"],
                              "evaluation_pending")
             self.assertIn("changed=true", output_path.read_text())
+
+    def test_live_check_fails_when_authentication_is_missing(self):
+        with patch.dict(early.os.environ, {}, clear=True):
+            with self.assertRaisesRegex(RuntimeError, "missing_trybounty_api_key"):
+                early.run(probe_mode=True)

@@ -69,7 +69,7 @@ jobs:
             exit 0
           fi
           successful=0
-          for iteration in $(seq 1 20); do
+          for iteration in $(seq 1 10); do
             started=$SECONDS
             if python3 -m tools.gambit_early_scan --probe; then
               successful=1
@@ -80,7 +80,7 @@ jobs:
             else
               echo 'Temporary TryBounty check failed; retrying' >&2
             fi
-            if [ "$iteration" -lt 20 ]; then
+            if [ "$iteration" -lt 10 ]; then
               elapsed=$((SECONDS - started))
               delay=$((30 - elapsed))
               if [ "$delay" -gt 0 ]; then sleep "$delay"; fi

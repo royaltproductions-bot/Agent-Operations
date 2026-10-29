@@ -171,10 +171,10 @@ def output(fields):
 def run(probe_mode=False):
     api_key = os.getenv("BOUNTY_AGENT_API_KEY")
     if not api_key:
-        print(json.dumps({"early_market_scan": "not_connected"}))
         if probe_mode:
-            output({"connected": False, "needs_run": False, "needs_model": False,
-                    "needs_production_model": False, "changed": False})
+            # Missing credentials are an operational failure, not an empty market.
+            raise RuntimeError("missing_trybounty_api_key")
+        print(json.dumps({"early_market_scan": "not_connected"}))
         return
     opened = open_listing_pages(api_key)
     state = (json.loads(STATE_PATH.read_text(encoding="utf-8"))
