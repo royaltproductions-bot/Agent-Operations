@@ -54,6 +54,7 @@ jobs:
       V0_API_KEY: ${{ secrets.V0_API_KEY }}
       GAMBIT_WEBSITE_BUILDER: '1'
       GAMBIT_MODEL: qwen3:8b
+      GAMBIT_TRIAGE_MODEL: qwen3:1.7b
       OLLAMA_MODELS: ${{ github.workspace }}/.ollama-cache/models
       OLLAMA_NUM_PARALLEL: '1'
       OLLAMA_MAX_LOADED_MODELS: '1'
@@ -90,6 +91,68 @@ jobs:
           path: ${{ runner.temp }}/gambit-website-preview
           retention-days: 7
 
+      - name: Cache small fast-decision model for the watch
+        if: github.event_name == 'push' || github.event_name == 'schedule' || env.GAMBIT_WATCH_MODE == 'watch'
+        uses: actions/cache@v4
+        with:
+          path: .ollama-cache/models
+          key: gambit-qwen3-triage-1-7b-v1
+
+      - name: Start and warm fast decision model before monitoring
+        if: github.event_name == 'push' || github.event_name == 'schedule' || env.GAMBIT_WATCH_MODE == 'watch'
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -z "${BOUNTY_AGENT_API_KEY:-}" ]; then
+            exit 0
+          fi
+          if ! command -v ollama >/dev/null 2>&1; then
+            curl -fsSL https://ollama.com/install.sh | sh
+          fi
+          sudo systemctl stop ollama.service 2>/dev/null || true
+          mkdir -p "$OLLAMA_MODELS"
+          nohup ollama serve >/tmp/gambit-ollama.log 2>&1 &
+          for attempt in $(seq 1 90); do
+            if curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
+              break
+            fi
+            sleep 1
+          done
+          if ! ollama show "$GAMBIT_TRIAGE_MODEL" >/dev/null 2>&1; then
+            ollama pull "$GAMBIT_TRIAGE_MODEL"
+          fi
+          # Keep the compact model resident while the 30-second market watch polls.
+          curl -fsS http://127.0.0.1:11434/api/generate \
+            -H 'Content-Type: application/json' \
+            -d "{\"model\":\"$GAMBIT_TRIAGE_MODEL\",\"prompt\":\"ready\",\"stream\":false,\"keep_alive\":\"60m\",\"options\":{\"num_predict\":1}}" \
+            >/dev/null
+
+      - name: Benchmark two-stage fast evaluation on a synthetic bounty
+        if: github.event_name == 'push'
+        continue-on-error: true
+        run: |
+          python3 - <<'PY'
+          import json
+          import time
+          from tools import gambit_worker as worker
+
+          example = {"title": "Summarize a supplied product memo",
+                     "instructions": "Create a concise text summary of the supplied memo.",
+                     "verification": "Provide a factual written summary of the memo."}
+          started = time.monotonic()
+          worker.infer(worker.RESEARCH_PLAN_SCHEMA,
+                       "Determine whether this task needs outside web research. "
+                       "Return strict JSON.", example, num_predict=200, fast=True)
+          worker.infer(worker.DECIDE_SCHEMA,
+                       "Assess whether an agent that writes structured text can "
+                       "complete this task. Return strict JSON.",
+                       example, num_predict=350, fast=True)
+          elapsed = round(time.monotonic() - started, 2)
+          print(json.dumps({"synthetic_two_call_triage_seconds": elapsed,
+                            "target_seconds": 60,
+                            "within_target": elapsed < 60}))
+          PY
+
       - name: Check authorized live market for work
         id: probe
         shell: bash
@@ -99,6 +162,7 @@ jobs:
             echo 'Gambit not connected yet: API key missing from GitHub Secrets.'
             echo 'connected=false' >> "$GITHUB_OUTPUT"
             echo 'needs_model=false' >> "$GITHUB_OUTPUT"
+            echo 'needs_production_model=false' >> "$GITHUB_OUTPUT"
             echo 'needs_run=false' >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -155,12 +219,12 @@ jobs:
           echo 'Could not checkpoint discovered bounties before model startup' >&2
           exit 1
 
-      - name: Cache open-source model
-        if: steps.probe.outputs.needs_model == 'true'
+      - name: Cache fast-decision model for a non-watch evaluation
+        if: steps.probe.outputs.needs_model == 'true' && github.event_name != 'schedule' && env.GAMBIT_WATCH_MODE != 'watch'
         uses: actions/cache@v4
         with:
           path: .ollama-cache/models
-          key: gambit-qwen3-8b-v1
+          key: gambit-qwen3-triage-1-7b-v1
 
       - name: Enable free public web search when research work appears
         if: steps.probe.outputs.needs_model == 'true'
@@ -177,17 +241,26 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          curl -fsSL https://ollama.com/install.sh | sh
-          sudo systemctl stop ollama.service 2>/dev/null || true
-          mkdir -p "$OLLAMA_MODELS"
-          nohup ollama serve >/tmp/gambit-ollama.log 2>&1 &
+          if ! command -v ollama >/dev/null 2>&1; then
+            curl -fsSL https://ollama.com/install.sh | sh
+          fi
+          if ! curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
+            sudo systemctl stop ollama.service 2>/dev/null || true
+            mkdir -p "$OLLAMA_MODELS"
+            nohup ollama serve >/tmp/gambit-ollama.log 2>&1 &
+          fi
           for attempt in $(seq 1 90); do
             if curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
               break
             fi
             sleep 1
           done
-          if ! ollama show "$GAMBIT_MODEL" >/dev/null 2>&1; then
+          if ! ollama show "$GAMBIT_TRIAGE_MODEL" >/dev/null 2>&1; then
+            ollama pull "$GAMBIT_TRIAGE_MODEL"
+          fi
+          # The larger model is reserved for work already hired and paid for.
+          if [ "${{ steps.probe.outputs.needs_production_model }}" = "true" ] && \
+             ! ollama show "$GAMBIT_MODEL" >/dev/null 2>&1; then
             ollama pull "$GAMBIT_MODEL"
           fi
 

@@ -63,6 +63,25 @@ class GambitTests(unittest.TestCase):
         self.assertEqual(urlopen.call_count, 2)
         sleep.assert_called_once_with(3.0)
 
+    def test_fast_decisions_use_small_model_while_delivery_keeps_large_model(self):
+        answer = io.BytesIO(b'{"message":{"content":"{\\"decision\\":\\"pass\\"}"}}')
+        with patch.object(gambit.urllib.request, 'urlopen', return_value=answer) as request, \
+             patch.object(gambit, 'TRIAGE_MODEL', 'qwen3:1.7b'), \
+             patch.object(gambit, 'MODEL', 'qwen3:8b'):
+            gambit.infer(gambit.DECIDE_SCHEMA, 'Assess', {'title': 'Example'}, fast=True)
+            payload = json.loads(request.call_args.args[0].data)
+            self.assertEqual(payload['model'], 'qwen3:1.7b')
+            self.assertEqual(payload['keep_alive'], '60m')
+            self.assertEqual(request.call_args.kwargs['timeout'],
+                             gambit.EVALUATION_TIMEOUT_SECONDS)
+        with patch.object(gambit.urllib.request, 'urlopen', return_value=
+                          io.BytesIO(b'{"message":{"content":"{}"}}')) as request, \
+             patch.object(gambit, 'MODEL', 'qwen3:8b'):
+            gambit.infer({'type': 'object'}, 'Review', {}, num_predict=250)
+            payload = json.loads(request.call_args.args[0].data)
+            self.assertEqual(payload['model'], 'qwen3:8b')
+            self.assertEqual(request.call_args.kwargs['timeout'], 600)
+
     def test_no_model_when_no_jobs(self):
         state = {'schema': 1, 'bounties': {}, 'events_cursor': None, 'recent_outcomes': [],
                  'last_bid_reconciliation': datetime.now(timezone.utc).isoformat()}

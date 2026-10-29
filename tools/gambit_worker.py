@@ -35,6 +35,7 @@ from tools import gambit_resources as resources
 BASE = "https://api.trybounty.ai"
 STATE_PATH = Path("ops/gambit/state.json")
 MODEL = os.getenv("GAMBIT_MODEL", "qwen3:8b")
+TRIAGE_MODEL = os.getenv("GAMBIT_TRIAGE_MODEL", "qwen3:1.7b")
 OLLAMA = "http://127.0.0.1:11434/api/chat"
 MAX_PAGES = 20
 MAX_TEXT_FILE_BYTES = 30_000
@@ -498,18 +499,28 @@ def scan(state):
     return opened, held, events, cursor, waiting, active
 
 
-def infer(schema, system, context, *, num_predict=900, num_ctx=5500):
+def infer(schema, system, context, *, num_predict=900, num_ctx=5500, fast=False):
+    model_name = TRIAGE_MODEL if fast else MODEL
     request = urllib.request.Request(
         OLLAMA, method="POST", data=json.dumps({
-            "model": MODEL, "stream": False, "think": False, "format": schema,
+            "model": model_name, "stream": False, "think": False, "format": schema,
+            "keep_alive": "60m" if fast else "5m",
             "options": {"temperature": 0, "num_ctx": num_ctx,
                         "num_predict": num_predict},
             "messages": [{"role": "system", "content": system},
                          {"role": "user", "content": json.dumps(context, ensure_ascii=False)}],
         }).encode(), headers={"Content-Type": "application/json"})
-    timeout = EVALUATION_TIMEOUT_SECONDS if num_predict <= 900 else 600
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        value = json.load(response).get("message", {}).get("content", "")
+    timeout = EVALUATION_TIMEOUT_SECONDS if fast else 600
+    started = time.monotonic()
+    try:
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            value = json.load(response).get("message", {}).get("content", "")
+    finally:
+        # No buyer text, prompts, or responses enter public CI logs.
+        print(json.dumps({"inference_model": model_name,
+                          "stage": "triage" if fast else "delivery",
+                          "elapsed_seconds": round(time.monotonic() - started, 2)}),
+              file=sys.stderr)
     result = json.loads(value)
     if not isinstance(result, dict):
         raise ValueError("model_output_not_object")
@@ -775,7 +786,7 @@ def research_for(details, messages=None, sources=None):
         "Return strict JSON."
     )
     context = clean_context(details, messages, sources)
-    plan = infer(RESEARCH_PLAN_SCHEMA, system, context, num_predict=450)
+    plan = infer(RESEARCH_PLAN_SCHEMA, system, context, num_predict=450, fast=True)
     if plan.get("requires_web") is not True:
         return {"status": "not_needed", "results": []}
     queries = [str(q).strip() for q in plan.get("queries") or [] if str(q).strip()][:7]
@@ -844,7 +855,7 @@ def assess(details, messages=None, sources=None, unreadable_count=0):
     context["available_resources"] = resources.manifest()
     context["unreadable_attachment_count"] = unreadable_count
     context["web_evidence"] = research_for(details, messages, sources)
-    decision = infer(DECIDE_SCHEMA, system, context,
+    decision = infer(DECIDE_SCHEMA, system, context, fast=True,
                  num_ctx=14000 if context["web_evidence"].get("results") else
                          (7500 if sources else 5500))
     allowed_sources = {item.get("url") for item in context["web_evidence"].get("results") or []
@@ -892,7 +903,7 @@ def respond_to_buyer(details, messages):
     )
     context = clean_context(details, messages, sources)
     context["unreadable_attachment_count"] = len(unreadable)
-    return infer(REPLY_SCHEMA, system, context, num_predict=500)
+    return infer(REPLY_SCHEMA, system, context, num_predict=500, fast=True)
 
 
 def handle_open(item, state):
@@ -1594,6 +1605,7 @@ def run(mode="run"):
         if output:
             with open(output, "a", encoding="utf-8") as f:
                 f.write("needs_model=" + ("true" if needs_model else "false") + "\n")
+                f.write("needs_production_model=" + ("true" if active else "false") + "\n")
                 f.write("needs_run=" + ("true" if needs_run else "false") + "\n")
         print(json.dumps({"ready": True, "open": len(opened), "active": len(active),
                           "new_or_changed": len(waiting), "needs_model": needs_model,
