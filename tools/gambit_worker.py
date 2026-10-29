@@ -102,7 +102,13 @@ def bid_reconciliation_due(state, opened, now=None):
     try:
         previous = datetime.fromisoformat(state.get("last_bid_reconciliation") or "")
         if previous.tzinfo:
-            return (now or datetime.now(timezone.utc)) - previous >= timedelta(minutes=15)
+            # Only active offers need 15-minute checks. With no active offer,
+            # avoid restarting a live 30-second market watcher every 15 minutes.
+            # Periodic account-wide reconciliation still recovers orphaned bids.
+            live_offer = any(record.get("action") in {"bid_sent", "bid_active"}
+                             for record in state.get("bounties", {}).values())
+            interval = timedelta(minutes=15 if live_offer else 55)
+            return (now or datetime.now(timezone.utc)) - previous >= interval
     except (TypeError, ValueError):
         pass
     return True
