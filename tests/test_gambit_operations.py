@@ -162,3 +162,28 @@ class OperationsTests(unittest.TestCase):
              patch.object(worker.time, 'sleep') as sleep:
             worker.api('/v1/agent/bounties')
         sleep.assert_called_once_with(120)
+
+    def test_replayed_event_respects_paid_retry_delay_in_both_scanners(self):
+        now = datetime.now(timezone.utc)
+        state = self.state()
+        state.update(last_check=now.isoformat(), last_bid_reconciliation=now.isoformat())
+        state['bounties']['paid'] = {'action': 'retry_fulfillment',
+            'retry_at': (now + timedelta(minutes=3)).isoformat()}
+        held = [{'_id': 'paid', 'status': 'claimed'}]
+        event = {'id': 'feedback', 'type': 'submission.verification_failed',
+                 'data': {'bounty_id': 'paid', 'reason': 'Correct the totals'}}
+        self.assertFalse(early.admission(state, [], held, [event], now)['needs_production_model'])
+        self.assertFalse(early.admission(state, [], held, [event], now)['needs_run'])
+        with patch.object(worker, 'pages', side_effect=[[], held]), \
+             patch.object(worker, 'relevant_events', return_value=([event], 'next')):
+            *_, active = worker.scan(state)
+        self.assertFalse(active)
+        self.run_batch(state, [], [], [event], [])
+        self.assertEqual(state['events_cursor'], 'old')
+        self.assertEqual(state['deferred_bounty_ids'], ['paid'])
+        self.assertNotIn('feedback', state['handled_event_ids'])
+        state['bounties']['paid']['retry_at'] = (now - timedelta(seconds=1)).isoformat()
+        with patch.object(worker, 'pages', side_effect=[[], held]), \
+             patch.object(worker, 'relevant_events', return_value=([event], 'next')):
+            *_, active = worker.scan(state)
+        self.assertEqual(active, held)

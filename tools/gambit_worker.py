@@ -31,6 +31,7 @@ from tools.gambit_artifacts import (OUTPUT_FILES, SUPPORTED_FORMATS,
                                     make_document, requested_output_format)
 from tools.gambit_site_resources import static_site_eligible, multipage_requested
 from tools import gambit_resources as resources
+from tools.gambit_early_scan import fulfillment_cooling
 
 BASE = "https://api.trybounty.ai"
 STATE_PATH = Path("ops/gambit/state.json")
@@ -559,7 +560,8 @@ def scan(state):
                or (state.get("_cursor_reset") and
                    state["bounties"].get(str(item.get("_id")), {}).get("action") in
                    {"asked", "bid_sent", "bid_active"})]
-    active = [item for item in held if item.get("status") == "claimed" and (
+    active = [item for item in held if item.get("status") == "claimed" and
+        not fulfillment_cooling(state["bounties"].get(str(item.get("_id")), {})) and (
         state["bounties"].get(str(item.get("_id")), {}).get("action") not in
         {"submitted", "awaiting_info", "quality_rejected", "quality_rejected_final",
          "needs_operator_review", "retry_fulfillment"}
@@ -1923,6 +1925,12 @@ def run(mode="run"):
     # Retain only handled IDs (never private message bodies) while holding the
     # cursor, so a ninth reply cannot be lost or starved by the first eight.
     deferred_ids = {str(item.get("_id")) for item in waiting[8:] + active[5:]}
+    # Keep verification feedback in the event feed until its retry becomes due.
+    cooling_ids = {bid for bid, entry in state["bounties"].items()
+                   if fulfillment_cooling(entry)}
+    deferred_ids.update(str((event.get("data") or {}).get("bounty_id"))
+                        for event in events if
+                        str((event.get("data") or {}).get("bounty_id")) in cooling_ids)
     state["deferred_bounty_ids"] = sorted(deferred_ids)
     failed_ids = {bid for bid, _ in failures}
     if not failures and not deferred_ids:

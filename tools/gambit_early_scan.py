@@ -121,24 +121,37 @@ def retry_ready(entry, now):
         {"at": entry["retry_at"]}, "at", now) >= 0
 
 
+def fulfillment_cooling(entry, now=None):
+    """Replayed events must not consume all delivery retries immediately."""
+    if entry.get("action") not in {"retry_fulfillment", "quality_rejected"}:
+        return False
+    return minutes_since({"at": entry.get("retry_at")}, "at",
+                         now or datetime.now(timezone.utc)) < 0
+
+
 def admission(state, opened, held, events, now=None):
     """TryBounty is the authority; local state only deduplicates known work."""
     now = now or datetime.now(timezone.utc)
     records = state.get("bounties") or {}
+    awake_events = [event for event in events if not fulfillment_cooling(
+        records.get(str((event.get("data") or {}).get("bounty_id"))) or {}, now)]
     actionable_events = {"bounty.available", "bounty.updated", "bounty.claimed",
                          "work.message.created", "submission.verification_failed",
                          "discussion.user_replied"}
     triggered = {str(e.get("data", {}).get("bounty_id"))
-                 for e in events if isinstance(e, dict)
+                 for e in awake_events if isinstance(e, dict)
                  and e.get("type") in actionable_events
                  and isinstance(e.get("data"), dict) and e["data"].get("bounty_id")}
-    triggered.update(state.get("deferred_bounty_ids") or [])
+    pending_due = {bid for bid in state.get("deferred_bounty_ids") or []
+                   if not fulfillment_cooling(records.get(bid) or {}, now)}
+    triggered.update(pending_due)
     new = [item for item in opened if isinstance(item, dict) and (
         str(item.get("_id")) in triggered or
         (records.get(str(item.get("_id"))) or {}).get("version") != item.get("version") or
         (records.get(str(item.get("_id"))) or {}).get("action") == "evaluation_pending" or
         retry_ready(records.get(str(item.get("_id"))) or {}, now))]
     active = [item for item in held if isinstance(item, dict) and
+              not fulfillment_cooling(records.get(str(item.get("_id"))) or {}, now) and
               item.get("status") == "claimed" and (
               str(item.get("_id")) in triggered or
               (records.get(str(item.get("_id"))) or {}).get("action") not in {
@@ -157,8 +170,8 @@ def admission(state, opened, held, events, now=None):
         for bid, entry in records.items())
     ledger_due = minutes_since(state, "last_bid_reconciliation", now) >= (15 if has_bid else 55)
     cursor_due = minutes_since(state, "last_check", now) >= 360
-    return {"needs_run": bool(new or active or events or recovery_due or
-                               state.get("deferred_bounty_ids") or ledger_due or cursor_due),
+    return {"needs_run": bool(new or active or awake_events or recovery_due or
+                               pending_due or ledger_due or cursor_due),
             "needs_model": bool(new or active),
             "needs_production_model": bool(active),
             "new_or_changed": len(new), "claimed_ready": len(active),
