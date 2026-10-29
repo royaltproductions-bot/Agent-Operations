@@ -1,0 +1,128 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-29T15:15:45.209478+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 9
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 14,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 3,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/Osiris-Team/AutoPlug-Client/issues/296",
+        "title": "Native Client Launcher, Server Browser & Unified Profile Engine",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/pyatkoff/poisk-turov-test/issues/2530",
+        "title": "AnyTour development coordination \u2014 continuation of #996",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/GoblinOfChaos/Kiedas-Orbiter/issues/109",
+        "title": "Backlog of errors found for verification",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ahmedfuzayl-gif/commit-monitor/issues/75",
+        "title": "commit-monitor: new leads 2026-09-23_1712Z",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Criesener/hex-server/issues/40",
+        "title": "[Analysis] HEX Revival client mod: features and what to adopt",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.contentharmony.com/blog/freelance-hiring-checklist/",
+        "title": "A Complete Freelance Hiring Checklist For Marketers",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-30 create downloadable checklist",
+      "is:issue is:open bounty created:>=2026-08-30 develop basic wordpress",
+      "is:issue is:open bounty created:>=2026-08-30 ",
+      "hiring a freelancer to create a downloadable checklist",
+      "need paid help with designing a simple email template"
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to create a downloadable checklist",
+      "need paid help with designing a simple email template",
+      "looking for someone to develop a basic WordPress plugin",
+      "hiring a freelancer to design a printable worksheet"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 18,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to create a downloadable checklist",
+        "need paid help with designing a simple email template",
+        "looking for someone to develop a basic WordPress plugin",
+        "hiring a freelancer to design a printable worksheet"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 140,
+      "known_pages": 1163
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
