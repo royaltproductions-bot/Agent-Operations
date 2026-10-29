@@ -45,7 +45,7 @@ permissions:
 concurrency:
   group: gambit-bounty-worker
   # Never cancel a buyer's paid delivery because a code or cron event fired.
-  cancel-in-progress: false
+  cancel-in-progress: ${{ github.event_name == 'push' }}
 
 jobs:
   find-and-fulfill:
