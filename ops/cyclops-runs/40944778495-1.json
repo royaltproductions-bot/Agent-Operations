@@ -1,0 +1,189 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-29T19:59:54.837084+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "duckduckgo": 5,
+      "bing": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "verified_firsthand_problem_pages": 2,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 14,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=34902404",
+        "title": "Ask HN: How do you collaborate on legal documents?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44159526",
+        "title": "GoOnlineTools API \u2013 Intelligence API (100 Free Credits, Startup Perks)",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=42909243",
+        "title": "Ask HN: ChatGPT operator on websites that restrict automation in their ToS",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=41692614",
+        "title": "LLM Orchestrator: General Bots",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=3689543",
+        "title": "Ask HN: Tools to make an API from *any* website?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=48622123",
+        "title": "Ask HN: How should I convert Microsoft Word documents to Markdown?",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 16,
+    "search_queries": [
+      "convert pdf to word online free without formatting loss",
+      "automate data extraction from websites to excel spreadsheet",
+      "convert word document to markdown format online"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 1,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "convert pdf to word online free without formatting loss",
+        "automate data extraction from websites to excel spreadsheet",
+        "convert word document to markdown format online",
+        "free tool to extract text from pdf and save as txt file"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 140,
+      "known_pages": 1265
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:10 candidates reviewed; e educational or tool-based offering. However, there is no clear evidence of demand for such a product beyond the tutorial itself. The existing catalog includes similar"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0,
+    "product_pages": 0,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [],
+  "market_assessments": [
+    {
+      "candidate_id": "web:f4df5d6efb5de114a0",
+      "decision": "pass",
+      "reason": "The problem described in the HN post highlights a real pain point for product managers working with legal teams on document collaboration. However, the evidence does not provide any indication of existing sales, pricing, or customer activity. While the need for a tool that allows legal teams to work with Word documents while enabling web integratio"
+    },
+    {
+      "candidate_id": "web:6614b0b7a11c8b1b31",
+      "decision": "pass",
+      "reason": "The product described is an API service for web intelligence tasks, which is a niche but potentially valuable offering. However, the lack of displayed sales count and listed price makes it difficult to assess market viability. Additionally, there is existing competition in the API space, and without clear differentiation or proof of demand, the pro"
+    },
+    {
+      "candidate_id": "web:f2f655a15cec32dd2e",
+      "decision": "pass",
+      "reason": "The discussion around technical documentation tools highlights a gap in the market for advanced, feature-rich solutions that support complex documentation needs such as diagrams, math notation, and integration with code repositories. However, existing tools like Notion, Markdown, and specialized documentation platforms already address many of these"
+    },
+    {
+      "candidate_id": "web:fda0c9575a4151ca4a",
+      "decision": "pass",
+      "reason": "The candidate is a discussion about the legality and feasibility of using ChatGPT to interact with websites that restrict automation. While it highlights a potential niche, there is no evidence of a product being offered for sale or demand for such a service. The discussion is more about legal and technical challenges than a viable product. There i"
+    },
+    {
+      "candidate_id": "web:4361843b5c673afc89",
+      "decision": "pass",
+      "reason": "The candidate offers an LLM Orchestrator with various tools, but there is no listed price or displayed sales count to indicate demand or viability. The evidence excerpt mentions a free beta version, but without proof of actual buyers or utility, it's unclear if there is a genuine market for the product. The lack of pricing and sales data makes it d"
+    },
+    {
+      "candidate_id": "web:1d316a4e9dc2771420",
+      "decision": "pass",
+      "reason": "The demand for tools to extract data from websites and create APIs is evident, but the candidate lacks concrete evidence of sales or pricing. While the problem is valid, the absence of verified sales or pricing makes it difficult to assess the market viability without further data."
+    },
+    {
+      "candidate_id": "web:6c37e4a4646315c610",
+      "decision": "pass",
+      "reason": "The discussion highlights a need for converting Microsoft Word documents to Markdown, but there is no clear evidence of demand or existing sales. The conversation is more about a technical challenge than a market opportunity. Additionally, there are existing tools like LibreOffice and FreeConvert that address similar needs, which may limit the pote"
+    },
+    {
+      "candidate_id": "web:932d1902ea23f6dc64",
+      "decision": "pass",
+      "reason": "The candidate lacks clear evidence of demand or sales, and the problem described is specific to a niche use case. There is no indication of a broader market need or sufficient buyer interest to justify building a product around this."
+    },
+    {
+      "candidate_id": "web:2c5f74047519ec11d5",
+      "decision": "pass",
+      "reason": "The content is focused on a tutorial for data extraction from websites to Excel, which suggests a niche educational or tool-based offering. However, there is no clear evidence of demand for such a product beyond the tutorial itself. The existing catalog includes similar tools, and there is no indication of a unique value proposition or buyer intere"
+    },
+    {
+      "candidate_id": "web:f77636ac27523a916f",
+      "decision": "pass",
+      "reason": "The observed page for FreeConvert.com does not provide clear evidence of a specific product or service that is not already widely available. The content appears to be a general description of a file conversion service, which is a common utility with existing competitors. There is no indication of a unique, differentiated product or a clear value pr"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "no_saleable_products",
+    "indexable_product_pages": 0,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 14,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:10 candidates reviewed; e educational or tool-based offering. However, there is no clear evidence of demand for such a product beyon"
+  }
+}
