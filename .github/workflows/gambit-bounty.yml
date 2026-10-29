@@ -14,7 +14,6 @@ on:
       - 'tools/gambit_documents.py'
       - 'tools/gambit_artifacts.py'
       - 'tools/gambit_visual_qa.py'
-      - 'tools/gambit_web_design.py'
       - 'tools/gambit_site_resources.py'
       - 'tools/gambit_resources.py'
       - 'tools/gambit_plugin_*.py'
@@ -26,7 +25,6 @@ on:
       - 'tests/test_gambit_documents.py'
       - 'tests/test_gambit_artifacts.py'
       - 'tests/test_gambit_visual_qa.py'
-      - 'tests/test_gambit_web_design.py'
       - 'tests/test_gambit_site_resources.py'
       - 'tests/test_gambit_resources.py'
       - 'tests/test_gambit_analytics.py'
@@ -46,7 +44,6 @@ jobs:
     timeout-minutes: 120
     env:
       BOUNTY_AGENT_API_KEY: ${{ secrets.BOUNTY_AGENT_API_KEY }}
-      V0_API_KEY: ${{ secrets.V0_API_KEY }}
       GAMBIT_WEBSITE_BUILDER: '1'
       GAMBIT_MODEL: qwen3:8b
       GAMBIT_TRIAGE_MODEL: qwen3:1.7b
