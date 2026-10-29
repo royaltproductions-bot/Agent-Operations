@@ -436,9 +436,9 @@ def recover_unlisted_evaluations(state, opened, waiting):
     changed = False
     for bounty_id, entry in list(state["bounties"].items()):
         if bounty_id in listed or entry.get("action") not in {
-                "evaluation_pending", "retry_evaluation"}:
+                "evaluation_pending", "retry_evaluation", "retry_search"}:
             continue
-        if entry.get("action") == "retry_evaluation" and not retry_due(entry):
+        if entry.get("action") in {"retry_evaluation", "retry_search"} and not retry_due(entry):
             continue
         try:
             details = api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}")
@@ -617,7 +617,7 @@ def infer(schema, system, context, *, num_predict=900, num_ctx=5500, fast=False)
     model_name = TRIAGE_MODEL if fast else MODEL
     request = urllib.request.Request(
         OLLAMA, method="POST", data=json.dumps({
-            "model": model_name, "stream": not fast, "think": False, "format": schema,
+            "model": model_name, "stream": True, "think": False, "format": schema,
             "keep_alive": "60m" if fast else "5m",
             "options": {"temperature": 0, "num_ctx": num_ctx,
                         "num_predict": num_predict},
@@ -630,26 +630,25 @@ def infer(schema, system, context, *, num_predict=900, num_ctx=5500, fast=False)
     started = time.monotonic()
     try:
         with urllib.request.urlopen(request, timeout=timeout) as response:
-            if fast:
-                value = json.load(response).get("message", {}).get("content", "")
-            else:
-                parts = []
-                completed = False
-                reason = None
-                for line in response:
-                    if not line.strip():
-                        continue
-                    fragment = json.loads(line)
-                    parts.append(str((fragment.get("message") or {}).get("content") or ""))
-                    if fragment.get("done") is True:
-                        completed = True
-                        reason = fragment.get("done_reason")
-                        break
-                if not completed:
-                    raise RuntimeError("model_stream_incomplete")
-                if reason not in (None, "stop"):
-                    raise RuntimeError("model_generation_" + str(reason)[:32])
-                value = "".join(parts)
+            parts = []
+            completed = False
+            reason = None
+            for line in response:
+                if fast and time.monotonic() - started > 300:
+                    raise TimeoutError("triage_total_deadline")
+                if not line.strip():
+                    continue
+                fragment = json.loads(line)
+                parts.append(str((fragment.get("message") or {}).get("content") or ""))
+                if fragment.get("done") is True:
+                    completed = True
+                    reason = fragment.get("done_reason")
+                    break
+            if not completed:
+                raise RuntimeError("model_stream_incomplete")
+            if reason not in (None, "stop"):
+                raise RuntimeError("model_generation_" + str(reason)[:32])
+            value = "".join(parts)
     finally:
         # No buyer text, prompts, or responses enter public CI logs.
         print(json.dumps({"inference_model": model_name,
@@ -1242,7 +1241,7 @@ def handle_open(item, state):
     if action == "pass" and decision.get("_retry_search"):
         previous_count = int(previous.get("retry_count") or 0) if previous.get("version") == version else 0
         retry_count = min(previous_count + 1, 4)
-        delay_minutes = (10, 30, 90, 240)[retry_count - 1]
+        delay_minutes = (1, 2, 5, 15)[retry_count - 1]
         next_entry.update(action="retry_search", retry_count=retry_count,
                           retry_at=(datetime.now(timezone.utc) +
                                     timedelta(minutes=delay_minutes)).isoformat())

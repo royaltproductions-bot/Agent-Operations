@@ -95,7 +95,7 @@ class GambitTests(unittest.TestCase):
         sleep.assert_not_called()
 
     def test_fast_decisions_use_small_model_while_delivery_keeps_large_model(self):
-        answer = io.BytesIO(b'{"message":{"content":"{\\"decision\\":\\"pass\\"}"}}')
+        answer = io.BytesIO(b'{"message":{"content":"{\\"decision\\":\\"pass\\"}"},"done":true,"done_reason":"stop"}\n')
         with patch.object(gambit.urllib.request, 'urlopen', return_value=answer) as request, \
              patch.object(gambit, 'TRIAGE_MODEL', 'qwen3:1.7b'), \
              patch.object(gambit, 'MODEL', 'qwen3:8b'):

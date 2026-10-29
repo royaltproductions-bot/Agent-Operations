@@ -166,7 +166,7 @@ def admission(state, opened, held, events, now=None):
     listed = {str(item.get("_id")) for item in opened + held if isinstance(item, dict)}
     recovery_due = any(bid not in listed and (
         entry.get("action") == "evaluation_pending" or
-        entry.get("action") == "retry_evaluation" and retry_ready(entry, now))
+        entry.get("action") in {"retry_evaluation", "retry_search"} and retry_ready(entry, now))
         for bid, entry in records.items())
     ledger_due = minutes_since(state, "last_bid_reconciliation", now) >= (15 if has_bid else 55)
     cursor_due = minutes_since(state, "last_check", now) >= 360

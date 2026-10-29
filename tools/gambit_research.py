@@ -5,6 +5,10 @@ search-engine snippet from first-hand page content. Buyer text is never logged.
 """
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor
+import json
+import sys
+import time
 import ipaddress
 import re
 from urllib.parse import urlsplit, urlunsplit
@@ -79,6 +83,8 @@ def public_url(raw):
 
 def search_public_web(queries, *, ddgs=None, max_queries=MAX_QUERIES):
     """Find public, inspectable evidence; failures never become fabricated results."""
+    started = time.monotonic()
+    live = ddgs is None
     if ddgs is None:
         try:
             from ddgs import DDGS
@@ -88,17 +94,41 @@ def search_public_web(queries, *, ddgs=None, max_queries=MAX_QUERIES):
         ddgs = DDGS(timeout=12)
     found, seen, attempted, failures = [], set(), 0, 0
     query_buckets = []
-    for query in queries[:min(max_queries, MAX_QUERIES)]:
+    errors = {}
+    queries = [q.strip()[:180] for q in queries[:min(max_queries, MAX_QUERIES)]
+               if isinstance(q, str) and q.strip()]
+
+    def lookup(query):
+        try:
+            client = DDGS(timeout=8) if live else ddgs
+            hits = client.text(query, max_results=MAX_RESULTS_PER_QUERY, backend="auto") or []
+            return hits, None
+        except Exception as exc:
+            original_error = type(exc).__name__
+            # Over-constrained exact phrases can yield nothing on all engines.
+            relaxed = re.sub(r"\b(?:site|filetype):\S+", "", query).replace('"', '')
+            relaxed = " ".join(relaxed.split())
+            if relaxed and relaxed != query:
+                try:
+                    return client.text(relaxed, max_results=MAX_RESULTS_PER_QUERY,
+                                       backend="auto") or [], None
+                except Exception:
+                    pass
+            return [], original_error
+
+    if live:
+        with ThreadPoolExecutor(max_workers=3) as pool:
+            searches = list(pool.map(lookup, queries))
+    else:
+        searches = [lookup(query) for query in queries]
+    for query, (hits, error) in zip(queries, searches):
         if not isinstance(query, str) or not query.strip():
             continue
         attempted += 1
         bucket = []
-        try:
-            hits = ddgs.text(query.strip()[:180], max_results=MAX_RESULTS_PER_QUERY,
-                             backend="auto") or []
-        except Exception:
+        if error:
             failures += 1
-            continue
+            errors[error] = errors.get(error, 0) + 1
         for item in hits:
             url = public_url(item.get("href") or item.get("url"))
             if not url or url in seen:
@@ -129,24 +159,48 @@ def search_public_web(queries, *, ddgs=None, max_queries=MAX_QUERIES):
             domains.add(domain)
             diversified.append(item)
     pages_read, text_budget = 0, MAX_TOTAL_TEXT
-    for item in diversified + repeated:
+    # Bound attempts too: previously 55 inaccessible pages could consume 11 minutes.
+    candidates = (diversified + repeated)[:MAX_FETCHED_PAGES * 2]
+    def read(item):
+        try:
+            client = DDGS(timeout=8) if live else ddgs
+            extracted = client.extract(item["url"], fmt="text_plain")
+            return str((extracted or {}).get("content") or "").strip(), None
+        except Exception as exc:
+            return "", type(exc).__name__
+
+    # Fetch in small parallel batches; stop once enough actual evidence is read.
+    for start in range(0, len(candidates), 5):
         if pages_read >= MAX_FETCHED_PAGES or text_budget <= 0:
             break
-        try:
-            extracted = ddgs.extract(item["url"], fmt="text_plain")
-            content = str((extracted or {}).get("content") or "").strip()
-        except Exception:
-            continue
-        if not content:
-            continue
-        body = relevant_excerpt(content,
-                                " ".join((item["search_query"], item["title"],
-                                          item["snippet"])),
-                                min(MAX_RESULT_TEXT, text_budget))
-        item["page_text"] = body
-        item["evidence_level"] = "page_read"
-        text_budget -= len(body)
-        pages_read += 1
+        batch = candidates[start:start + min(5, MAX_FETCHED_PAGES-pages_read)]
+        if live:
+            with ThreadPoolExecutor(max_workers=5) as pool:
+                responses = list(pool.map(read, batch))
+        else:
+            responses = [read(item) for item in batch]
+        for item, (content, error) in zip(batch, responses):
+            if error:
+                errors[error] = errors.get(error, 0) + 1
+            if not content or text_budget <= 0:
+                continue
+            body = relevant_excerpt(content,
+                                    " ".join((item["search_query"], item["title"], item["snippet"])),
+                                    min(MAX_RESULT_TEXT, text_budget))
+            item["page_text"] = body
+            item["evidence_level"] = "page_read"
+            text_budget -= len(body)
+            pages_read += 1
     status = "available" if found and pages_read else ("partial" if found else "unavailable")
+    print(json.dumps({"public_search": status, "queries": attempted,
+                      "results": len(found), "pages_read": pages_read,
+                      "error_types": errors,
+                      "elapsed_seconds": round(time.monotonic()-started, 2)}), file=sys.stderr)
     return {"status": status, "results": found, "attempted": attempted,
             "pages_read": pages_read, "search_failures": failures}
+
+
+if __name__ == "__main__" and "--smoke" in sys.argv:
+    result = search_public_web(["Python programming language official documentation"], max_queries=1)
+    if result["status"] != "available":
+        raise SystemExit("live_public_search_unavailable")
