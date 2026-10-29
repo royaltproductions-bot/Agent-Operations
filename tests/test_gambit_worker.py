@@ -105,6 +105,36 @@ class GambitTests(unittest.TestCase):
         self.assertEqual(infer.call_count, 2)
         self.assertTrue(all(call.kwargs['fast'] for call in infer.call_args_list))
 
+    def test_feasible_bid_uses_single_market_decision_not_redundant_votes(self):
+        details = {"bounty": {"_id": "b-new", "version": 2, "status": "open",
+                              "title": "Summarize the supplied memo", "flow": "bid",
+                              "description": "Write a one-page summary of the owner's memo.",
+                              "verification": "Accurate prose summary of supplied text."}}
+        plan = {"requires_web": False, "queries": []}
+        bid = {"decision": "bid", "payout_cents": 1900, "note": "Factual summary.",
+               "sample_source_url": ""}
+        with patch.object(gambit, "infer", side_effect=[plan, bid]) as inference, \
+             patch.object(gambit, "cross_check_decision") as repeated:
+            result = gambit.assess(details)
+        self.assertEqual(result["decision"], "bid")
+        self.assertEqual(inference.call_count, 2)  # research planning + one actual decision
+        repeated.assert_not_called()
+
+    def test_pass_decision_keeps_recheck_for_missed_opportunities(self):
+        details = {"bounty": {"_id": "b-new", "version": 1, "status": "open",
+                              "title": "Write short report", "description": "Plain report",
+                              "flow": "bid"}}
+        plan = {"requires_web": False, "queries": []}
+        negative = {"decision": "pass", "reason": "Hard"}
+        reconsidered = {"decision": "bid", "payout_cents": 2000, "note": "Report"}
+        with patch.object(gambit, "infer", side_effect=[plan, negative]), \
+             patch.object(gambit, "cross_check_decision",
+                          return_value=reconsidered) as repeated:
+            result = gambit.assess(details)
+        self.assertEqual(result["decision"], "bid")
+        repeated.assert_called_once()
+
+
     def test_three_way_conflict_queues_a_new_evaluation(self):
         proposal = {'decision': 'bid', 'payout_cents': 1500}
         challenger = {'decision': 'pass'}

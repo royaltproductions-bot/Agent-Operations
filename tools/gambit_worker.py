@@ -985,7 +985,12 @@ def assess(details, messages=None, sources=None, unreadable_count=0):
     decision = infer(DECIDE_SCHEMA, system, context, fast=True,
                  num_ctx=14000 if context["web_evidence"].get("results") else
                          (7500 if sources else 5500))
-    if context["web_evidence"].get("status") not in {"unavailable", "partial"}:
+    # TryBounty does not require multiple model votes before bidding.
+    # A feasible bid or a clarifying question uses the first grounded decision,
+    # with deterministic capability and payout checks still enforced by
+    # handle_open(). Re-review only a PASS to catch missed viable work.
+    if (decision.get("decision") == "pass" and
+            context["web_evidence"].get("status") not in {"unavailable", "partial"}):
         decision = cross_check_decision(
             context, decision, num_ctx=14000 if context["web_evidence"].get("results")
             else (7500 if sources else 5500))
