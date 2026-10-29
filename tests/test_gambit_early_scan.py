@@ -180,3 +180,23 @@ class EarlyMarketTests(TestCase):
                           side_effect=bad("INVALID_FILTER")):
             with self.assertRaises(urllib.error.HTTPError):
                 early.other_pages("key", "/v1/agent/events?limit=100", "events")
+
+    def test_new_listing_checkpoint_survives_event_feed_timeout(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "state.json"
+            output_path = Path(folder) / "output"
+            output_path.write_text("")
+            path.write_text(json.dumps({"schema": 1, "bounties": {}}))
+            with patch.object(early, "STATE_PATH", path), \
+                 patch.object(early, "open_listing_pages",
+                              return_value=[{"_id": "urgent", "version": 1}]), \
+                 patch.object(early, "other_pages", side_effect=[[], TimeoutError()]), \
+                 patch.dict(early.os.environ, {
+                     "BOUNTY_AGENT_API_KEY": "dummy",
+                     "GITHUB_OUTPUT": str(output_path)}):
+                with self.assertRaises(TimeoutError):
+                    early.run(probe_mode=True)
+            stored = json.loads(path.read_text())
+            self.assertEqual(stored["bounties"]["urgent"]["action"],
+                             "evaluation_pending")
+            self.assertIn("changed=true", output_path.read_text())
