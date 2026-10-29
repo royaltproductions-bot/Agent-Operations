@@ -1,0 +1,133 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-29T18:06:41.831231+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 13,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 7,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 11,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/blackmore-technology-group/ENTITY/issues/74",
+        "title": "[CONTRIBUTORS][PIPELINE] Prepare ENTITY for GSoC, Outreachy and structured mentorship programs",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Svyable/human-kind/issues/155",
+        "title": "Agent batch: 100 counterintuitive hypothesis seeds for adversarial triage",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/alfrexo95/bounty-bot/issues/63",
+        "title": "\ud83e\ude99 [Web3] bounty: [level:critical] Agentic Self-Healing Acti",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/alfrexo95/bounty-bot/issues/62",
+        "title": "\ud83e\ude99 [Web3] bounty: [level:critical] Predictive SLA Breach For",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/realbtr/firstagi/issues/20",
+        "title": "C-15 \u00b7 Teach a skill. Interrupt it. Let a fresh mind inherit it. [500 pts]",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.orbix.studio/blogs/saas-dashboard-design-complete-guide",
+        "title": "What is a SaaS Dashboard? Design Guide, Principles & Examples 2026",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-30 create digital course",
+      "is:issue is:open bounty created:>=2026-08-30 ",
+      "can anyone create a basic analytics dashboard for SaaS",
+      "hiring a freelancer to write a product pitch deck for a startup",
+      "hiring a freelancer to create a paid digital course outline"
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to create a paid digital course outline",
+      "can anyone create a basic analytics dashboard for SaaS",
+      "looking for someone to develop a low-code customer onboarding flow",
+      "hiring a freelancer to write a product pitch deck for a startup"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 31,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to create a paid digital course outline",
+        "can anyone create a basic analytics dashboard for SaaS",
+        "looking for someone to develop a low-code customer onboarding flow",
+        "hiring a freelancer to write a product pitch deck for a startup"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 140,
+      "known_pages": 1193
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
