@@ -1,0 +1,143 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-29T13:23:37.571582+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 7
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 12,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/alphaonedev/ai-memory-mcp/issues/4404",
+        "title": "ai-memory research",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/erc-8004/erc-8004-contracts/issues/99",
+        "title": "Grounding feedback in verifiable payment-proof (x402) as a Sybil-resistance primitive \u2014 mapping + two questions for v2",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/jdhart81/viridis-canon/issues/179",
+        "title": "[bounty] Run-127: capacity_reserve_fraction_eq (C2) omits 0 <= sigma and 0 < alpha < 1 (yielding reserve fraction = 1 fo",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/abdulsalam-create/bounty-watch/issues/192",
+        "title": "New in-scope 2026-10-29: 3 program(s) added targets",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/abdulsalam-create/bounty-watch/issues/191",
+        "title": "Scope digest 2026-10-29: 11 changes across 5 bounty programs",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://duckduckgo.com/y.js?ad_domain=getresponse.com&ad_provider=bingv7aa&ad_type=txad&click_metadata=ECmPhUIylIVJmpnuN5MQzSfyAei67HXlKN_Y1dKY9LtdVtPRZbFBQzKeALylY8O3uLDmpPS2TtQnccrpd17QiVYUtMkhLj0Ne",
+        "title": "No Code Landing Page Builder - Landing Page Maker",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-30 designing landing page",
+      "is:issue is:open bounty created:>=2026-08-30 ",
+      "need paid help with designing a landing page for a SaaS product",
+      "looking for someone to build a simple affiliate marketing dashboard"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a simple affiliate marketing dashboard",
+      "need paid help with designing a landing page for a SaaS product",
+      "can anyone create a downloadable PDF guide with actionable steps",
+      "looking for someone to develop a low-code automation tool for email campaigns"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 19,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a simple affiliate marketing dashboard",
+        "need paid help with designing a landing page for a SaaS product",
+        "can anyone create a downloadable PDF guide with actionable steps",
+        "looking for someone to develop a low-code automation tool for email campaigns"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 140,
+      "known_pages": 1136
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
