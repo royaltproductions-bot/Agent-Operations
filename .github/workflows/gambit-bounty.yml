@@ -127,7 +127,7 @@ jobs:
             -d "{\"model\":\"$GAMBIT_TRIAGE_MODEL\",\"prompt\":\"ready\",\"stream\":false,\"keep_alive\":\"60m\",\"options\":{\"num_predict\":1}}" \
             >/dev/null
 
-      - name: Benchmark two-stage fast evaluation on a synthetic bounty
+      - name: Benchmark and check fast commercial decisions on a synthetic bounty
         if: github.event_name == 'push'
         continue-on-error: true
         run: |
@@ -136,21 +136,24 @@ jobs:
           import time
           from tools import gambit_worker as worker
 
-          example = {"title": "Summarize a supplied product memo",
-                     "instructions": "Create a concise text summary of the supplied memo.",
-                     "verification": "Provide a factual written summary of the memo."}
+          example = {"bounty": {
+              "title": "Summarize the supplied product memo",
+              "description": "Memo: The Orion lamp has two brightness settings, "
+                             "USB-C charging, and a two-year warranty. Write "
+                             "a factual five-sentence summary of this memo.",
+              "verification": "Deliver a five-sentence summary faithful to the memo.",
+              "status": "open", "flow": "bid", "budget_cents": 2500,
+              "currency": "usd", "version": 1}}
           started = time.monotonic()
-          worker.infer(worker.RESEARCH_PLAN_SCHEMA,
-                       "Determine whether this task needs outside web research. "
-                       "Return strict JSON.", example, num_predict=200, fast=True)
-          worker.infer(worker.DECIDE_SCHEMA,
-                       "Assess whether an agent that writes structured text can "
-                       "complete this task. Return strict JSON.",
-                       example, num_predict=350, fast=True)
+          decision = worker.assess(example)
           elapsed = round(time.monotonic() - started, 2)
-          print(json.dumps({"synthetic_two_call_triage_seconds": elapsed,
+          print(json.dumps({"synthetic_full_triage_seconds": elapsed,
                             "target_seconds": 60,
-                            "within_target": elapsed < 60}))
+                            "within_target": elapsed < 60,
+                            "decision": decision.get("decision"),
+                            "audit_disagreement": bool(decision.get("_audit_disagreement")),
+                            "correctly_considered_feasible": decision.get("decision") == "bid"}))
+          assert decision.get("decision") == "bid", "feasible_bounty_rejected_by_triage"
           PY
 
       - name: Check authorized live market for work

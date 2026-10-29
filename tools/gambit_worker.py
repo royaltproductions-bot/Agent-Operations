@@ -69,6 +69,16 @@ def quality_retry_due(entry, now=None):
         return False
 
 
+def fulfillment_retry_due(entry, now=None):
+    if entry.get("action") != "retry_fulfillment" or not entry.get("retry_at"):
+        return False
+    try:
+        due = datetime.fromisoformat(entry["retry_at"])
+        return due.tzinfo is not None and due <= (now or datetime.now(timezone.utc))
+    except (TypeError, ValueError):
+        return False
+
+
 def cursor_refresh_due(state, cursor, now=None):
     """Avoid committing a new no-op tail cursor on every empty market poll."""
     if cursor == state.get("events_cursor"):
@@ -377,6 +387,28 @@ def schedule_evaluation_retry(state, bounty_id, exc):
          retry_count=attempt, reason=safe_failure_reason(exc))
 
 
+def schedule_fulfillment_retry(state, bounty_id, exc):
+    """Back off failed hired work, then release it rather than timeout forever."""
+    previous = state["bounties"].get(bounty_id) or {}
+    attempt = int(previous.get("retry_count") or 0) + 1
+    reason = safe_failure_reason(exc)
+    common = {"claim_id": previous.get("claim_id"),
+              "payout_cents": previous.get("payout_cents"),
+              "retry_count": attempt, "last_error": reason, "at": timestamp()}
+    if attempt >= 3:
+        state["bounties"][bounty_id] = {
+            **common, "action": "fulfillment_failed_final"}
+        note(state, "fulfillment_retries_exhausted", bounty_id, reason=reason)
+        return
+    delay_minutes = (3, 12)[attempt - 1]
+    state["bounties"][bounty_id] = {
+        **common, "action": "retry_fulfillment",
+        "retry_at": (datetime.now(timezone.utc) +
+                     timedelta(minutes=delay_minutes)).isoformat()}
+    note(state, "fulfillment_retry_scheduled", bounty_id,
+         retry_count=attempt, delay_minutes=delay_minutes, reason=reason)
+
+
 def recover_unlisted_evaluations(state, opened, waiting):
     """Retry known IDs by detail endpoint even after the open list omits them."""
     listed = {str(item.get("_id")) for item in opened}
@@ -485,12 +517,13 @@ def scan(state):
     active = [item for item in held if item.get("status") == "claimed" and (
         state["bounties"].get(str(item.get("_id")), {}).get("action") not in
         {"submitted", "awaiting_info", "quality_rejected", "quality_rejected_final",
-         "needs_operator_review"}
+         "needs_operator_review", "retry_fulfillment"}
         or str(item.get("_id")) in triggers or state.get("_cursor_reset")
         or clarification_expired(state["bounties"].get(str(item.get("_id")), {}))
         or state["bounties"].get(str(item.get("_id")), {}).get("action") ==
         "quality_rejected_final"
         or quality_retry_due(state["bounties"].get(str(item.get("_id")), {}))
+        or fulfillment_retry_due(state["bounties"].get(str(item.get("_id")), {}))
         or (website_capable() and
             state["bounties"].get(str(item.get("_id")), {}).get("action") ==
             "needs_operator_review" and
@@ -503,18 +536,39 @@ def infer(schema, system, context, *, num_predict=900, num_ctx=5500, fast=False)
     model_name = TRIAGE_MODEL if fast else MODEL
     request = urllib.request.Request(
         OLLAMA, method="POST", data=json.dumps({
-            "model": model_name, "stream": False, "think": False, "format": schema,
+            "model": model_name, "stream": not fast, "think": False, "format": schema,
             "keep_alive": "60m" if fast else "5m",
             "options": {"temperature": 0, "num_ctx": num_ctx,
                         "num_predict": num_predict},
             "messages": [{"role": "system", "content": system},
                          {"role": "user", "content": json.dumps(context, ensure_ascii=False)}],
         }).encode(), headers={"Content-Type": "application/json"})
-    timeout = EVALUATION_TIMEOUT_SECONDS if fast else 600
+    # Long production replies must stream; the old 600s wait for one complete
+    # response could time out even while Ollama was generating normally.
+    timeout = EVALUATION_TIMEOUT_SECONDS if fast else 180
     started = time.monotonic()
     try:
         with urllib.request.urlopen(request, timeout=timeout) as response:
-            value = json.load(response).get("message", {}).get("content", "")
+            if fast:
+                value = json.load(response).get("message", {}).get("content", "")
+            else:
+                parts = []
+                completed = False
+                reason = None
+                for line in response:
+                    if not line.strip():
+                        continue
+                    fragment = json.loads(line)
+                    parts.append(str((fragment.get("message") or {}).get("content") or ""))
+                    if fragment.get("done") is True:
+                        completed = True
+                        reason = fragment.get("done_reason")
+                        break
+                if not completed:
+                    raise RuntimeError("model_stream_incomplete")
+                if reason not in (None, "stop"):
+                    raise RuntimeError("model_generation_" + str(reason)[:32])
+                value = "".join(parts)
     finally:
         # No buyer text, prompts, or responses enter public CI logs.
         print(json.dumps({"inference_model": model_name,
@@ -795,6 +849,42 @@ def research_for(details, messages=None, sources=None):
     return resources.execute("public_search", queries)
 
 
+def cross_check_decision(context, proposal, num_ctx):
+    """A fast initial proposal is not enough for an irreversible bid or pass."""
+    system = (
+        "You independently audit a paid-work decision. Be skeptical of the previous "
+        "proposal: it may have passed a feasible commission or promised work without "
+        "the means to deliver it. Compare every buyer acceptance criterion, deadlines, "
+        "attachments, real public evidence and available_resources. Find an achievable "
+        "delivery path if one exists, but never invent sources, credentials or skills. "
+        "Choose the appropriate bid, claim, ask or pass independently, with a specific "
+        "buyer-facing offer for bids. Return strict JSON."
+    )
+    challenger = infer(DECIDE_SCHEMA, system,
+                       {"task": context, "proposal": proposal},
+                       num_predict=600, num_ctx=num_ctx, fast=True)
+    if challenger.get("decision") == proposal.get("decision"):
+        return proposal
+    arbiter = infer(DECIDE_SCHEMA,
+                    "Two independent reviewers disagree. Decide from the actual buyer "
+                    "brief, required proof and available tools. Favor a viable path "
+                    "where real capability and evidence support it, but never agree "
+                    "to an unsupported deliverable. Return strict JSON.",
+                    {"task": context, "first": proposal, "second": challenger},
+                    num_predict=600, num_ctx=num_ctx, fast=True)
+    selected = arbiter.get("decision")
+    if selected == proposal.get("decision"):
+        proposal["_audit_disagreement"] = True
+        return proposal
+    if selected == challenger.get("decision"):
+        challenger["_audit_disagreement"] = True
+        return challenger
+    # No majority means another evaluation, never an irrevocable dismissal.
+    return {"decision": "pass", "reason": "inconsistent_decision_review",
+            "payout_cents": 0, "note": "", "question": "",
+            "_retry_decision": True, "_audit_disagreement": True}
+
+
 def assess(details, messages=None, sources=None, unreadable_count=0):
     gap = unsupported_deliverable(details)
     if gap:
@@ -858,6 +948,10 @@ def assess(details, messages=None, sources=None, unreadable_count=0):
     decision = infer(DECIDE_SCHEMA, system, context, fast=True,
                  num_ctx=14000 if context["web_evidence"].get("results") else
                          (7500 if sources else 5500))
+    if context["web_evidence"].get("status") not in {"unavailable", "partial"}:
+        decision = cross_check_decision(
+            context, decision, num_ctx=14000 if context["web_evidence"].get("results")
+            else (7500 if sources else 5500))
     allowed_sources = {item.get("url") for item in context["web_evidence"].get("results") or []
                        if item.get("evidence_level") == "page_read" and item.get("page_text")}
     if decision.get("sample_source_url") not in allowed_sources:
@@ -975,6 +1069,12 @@ def handle_open(item, state):
     else:
         decision = assess(details, messages, sources, len(unreadable))
     action = decision["decision"]
+    if decision.get("_retry_decision"):
+        schedule_evaluation_retry(state, bounty_id,
+                                  RuntimeError("decision_conflict"))
+        return
+    if decision.get("_audit_disagreement"):
+        note(state, "decision_disagreement_resolved", bounty_id, version=version)
     # Independent final boundary even if the decision function is overridden.
     if action in {"bid", "claim"} and unsupported_deliverable(details):
         action = "pass"
@@ -1339,6 +1439,12 @@ def handle_hired(item, state):
             "returned and you can hire an appropriately equipped provider.")
         return
     previous = state["bounties"].get(bounty_id) or {}
+    if previous.get("action") == "fulfillment_failed_final":
+        unclaim_unfulfillable(
+            bounty_id, claim["claim_id"], state, "repeated_automated_delivery_failure",
+            "I'm sorry; repeated processing failures prevented a verified delivery. "
+            "I'm releasing this commission so you can hire another provider.")
+        return
     if previous.get("action") == "quality_rejected_final":
         unclaim_unfulfillable(
             bounty_id, claim["claim_id"], state, "quality_review_failed",
@@ -1638,6 +1744,7 @@ def run(mode="run"):
         try:
             handle_hired(item, state)
         except Exception as exc:
+            schedule_fulfillment_retry(state, bounty_id, exc)
             failures.append((bounty_id, safe_failure_reason(exc)))
         save_state(state)
     for event in events:

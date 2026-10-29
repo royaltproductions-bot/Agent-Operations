@@ -75,12 +75,92 @@ class GambitTests(unittest.TestCase):
             self.assertEqual(request.call_args.kwargs['timeout'],
                              gambit.EVALUATION_TIMEOUT_SECONDS)
         with patch.object(gambit.urllib.request, 'urlopen', return_value=
-                          io.BytesIO(b'{"message":{"content":"{}"}}')) as request, \
+                          io.BytesIO(b'{"message":{"content":"{"},"done":false}\n'
+                                     b'{"message":{"content":"}"},"done":true,"done_reason":"stop"}\n')) as request, \
              patch.object(gambit, 'MODEL', 'qwen3:8b'):
             gambit.infer({'type': 'object'}, 'Review', {}, num_predict=250)
             payload = json.loads(request.call_args.args[0].data)
             self.assertEqual(payload['model'], 'qwen3:8b')
-            self.assertEqual(request.call_args.kwargs['timeout'], 600)
+            self.assertTrue(payload['stream'])
+            self.assertEqual(request.call_args.kwargs['timeout'], 180)
+
+    def test_streamed_model_must_finish_json_before_delivery(self):
+        for response in [
+            b'{"message":{"content":"{\\"approved\\":true}"},"done":false}\n',
+            b'{"message":{"content":"{}"},"done":true,"done_reason":"length"}\n',
+        ]:
+            with patch.object(gambit.urllib.request, 'urlopen',
+                              return_value=io.BytesIO(response)):
+                with self.assertRaises(RuntimeError):
+                    gambit.infer({'type': 'object'}, 'Review', {}, num_predict=200)
+
+    def test_conflicting_fast_reviews_are_arbitrated_before_any_offer(self):
+        proposal = {'decision': 'pass', 'reason': 'Too hard'}
+        challenger = {'decision': 'bid', 'reason': 'Existing resources suffice',
+                      'note': 'Sourced spreadsheet', 'payout_cents': 2500}
+        with patch.object(gambit, 'infer', side_effect=[challenger, challenger]) as infer:
+            result = gambit.cross_check_decision({'bounty': {'title': 'Task'}}, proposal, 5500)
+        self.assertEqual(result['decision'], 'bid')
+        self.assertTrue(result['_audit_disagreement'])
+        self.assertEqual(infer.call_count, 2)
+        self.assertTrue(all(call.kwargs['fast'] for call in infer.call_args_list))
+
+    def test_three_way_conflict_queues_a_new_evaluation(self):
+        proposal = {'decision': 'bid', 'payout_cents': 1500}
+        challenger = {'decision': 'pass'}
+        with patch.object(gambit, 'infer', side_effect=[challenger, {'decision': 'ask'}]):
+            result = gambit.cross_check_decision({'bounty': {}}, proposal, 5500)
+        self.assertTrue(result['_retry_decision'])
+        self.assertEqual(result['decision'], 'pass')
+
+    def test_fulfillment_failures_back_off_and_eventually_release(self):
+        state = {'bounties': {'b1': {'action': 'hired', 'claim_id': 'c1'}},
+                 'recent_outcomes': []}
+        gambit.schedule_fulfillment_retry(state, 'b1', TimeoutError())
+        self.assertEqual(state['bounties']['b1']['action'], 'retry_fulfillment')
+        self.assertFalse(gambit.fulfillment_retry_due(state['bounties']['b1']))
+        for _ in range(2):
+            gambit.schedule_fulfillment_retry(state, 'b1', TimeoutError())
+        self.assertEqual(state['bounties']['b1']['action'], 'fulfillment_failed_final')
+        self.assertEqual(state['bounties']['b1']['claim_id'], 'c1')
+
+    def test_claimed_work_waits_for_retry_due_date(self):
+        item = {'_id': 'b1', 'status': 'claimed'}
+        future = (datetime.now(timezone.utc) + timedelta(minutes=3)).isoformat()
+        state = {'bounties': {'b1': {'action': 'retry_fulfillment',
+                                    'retry_at': future}}}
+        with patch.object(gambit, 'pages', side_effect=[[], [item]]), \
+             patch.object(gambit, 'relevant_events', return_value=([], None)):
+            self.assertEqual(gambit.scan(state)[-1], [])
+        state['bounties']['b1']['retry_at'] = (
+            datetime.now(timezone.utc) - timedelta(minutes=1)).isoformat()
+        with patch.object(gambit, 'pages', side_effect=[[], [item]]), \
+             patch.object(gambit, 'relevant_events', return_value=([], None)):
+            self.assertEqual(gambit.scan(state)[-1], [item])
+
+    def test_exhausted_delivery_refunds_claim_instead_of_stalling(self):
+        details = {'bounty': {'_id': 'b1', 'status': 'claimed'},
+                   'claim': {'status': 'active', 'claim_id': 'c1'}}
+        state = {'bounties': {'b1': {'action': 'fulfillment_failed_final',
+                                     'claim_id': 'c1'}}, 'recent_outcomes': []}
+        with patch.object(gambit, 'api', side_effect=lambda path, method='GET',
+                          payload=None: details if method == 'GET' else {}) as api:
+            gambit.handle_hired({'_id': 'b1'}, state)
+        self.assertEqual(state['bounties']['b1']['action'], 'unclaimed_unfulfillable')
+        self.assertTrue(any(call.args[0].endswith('/unclaim')
+                            for call in api.call_args_list))
+
+    def test_unresolved_decision_cannot_permanently_pass_open_bounty(self):
+        details = {'bounty': {'_id': 'b1', 'status': 'open',
+                              'version': 1, 'flow': 'bid'}}
+        state = {'bounties': {}, 'recent_outcomes': []}
+        with patch.object(gambit, 'api', return_value=details) as api, \
+             patch.object(gambit, 'assess', return_value={
+                 'decision': 'pass', '_retry_decision': True}):
+            gambit.handle_open({'_id': 'b1'}, state)
+        self.assertEqual(state['bounties']['b1']['action'], 'retry_evaluation')
+        self.assertFalse(any(call.args[1] == 'POST' for call in api.call_args_list
+                             if len(call.args) > 1))
 
     def test_no_model_when_no_jobs(self):
         state = {'schema': 1, 'bounties': {}, 'events_cursor': None, 'recent_outcomes': [],
@@ -734,12 +814,12 @@ class GambitTests(unittest.TestCase):
         decision = {'decision': 'bid', 'reason': 'I can source a few suppliers',
                     'payout_cents': 1200, 'note': 'I will provide a sourced table.',
                     'question': '', 'sample_source_url': 'https://example.com'}
-        with patch.object(gambit, 'infer', side_effect=[plan, decision]) as infer, \
+        with patch.object(gambit, 'infer', side_effect=[plan, decision, decision]) as infer, \
              patch('tools.gambit_research.search_public_web', return_value=evidence) as search:
             result = gambit.assess(details)
         self.assertEqual(result['decision'], 'bid')
         self.assertEqual(result['sample_source_url'], 'https://example.com')
-        self.assertIn('Supplier details', str(infer.call_args.args[2]['web_evidence']))
+        self.assertIn('Supplier details', str(infer.call_args_list[1].args[2]['web_evidence']))
         search.assert_called_once_with(['suppliers town'])
 
     def test_unread_web_link_cannot_be_passed_as_bid_proof(self):
@@ -750,7 +830,7 @@ class GambitTests(unittest.TestCase):
         evidence = {'status': 'available', 'results': [
             {'url': 'https://example.com', 'evidence_level': 'page_read',
              'page_text': 'Verified business info'}]}
-        with patch.object(gambit, 'infer', side_effect=[plan, decision]), \
+        with patch.object(gambit, 'infer', side_effect=[plan, decision, decision]), \
              patch('tools.gambit_research.search_public_web', return_value=evidence):
             result = gambit.assess(details)
         self.assertEqual(result['sample_source_url'], '')
