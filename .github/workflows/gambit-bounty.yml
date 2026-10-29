@@ -77,6 +77,20 @@ jobs:
       - name: Validate worker code
         run: python3 -m unittest discover -s tests -p 'test_gambit_*.py' -q
 
+      - name: Prepare missed-bounty report as encrypted artifact
+        if: github.event_name == 'push'
+        env:
+          GAMBIT_EXPORT_BOUNTY_ID: mx79vrwcx8375g78rky2gb4wvx8h5zft
+        run: python3 -m tools.gambit_archive_export
+
+      - name: Upload encrypted missed-bounty report
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: gambit-private-bounty-report
+          path: ${{ runner.temp }}/gambit-archive-report.json
+          retention-days: 1
+
       - name: Inspect real desktop and mobile website layout on source changes
         if: github.event_name == 'push'
         run: |
