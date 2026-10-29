@@ -1,0 +1,134 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-29T17:14:40.366662+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 11,
+    "source_counts": {
+      "open_web": 11
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 6
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 8,
+    "candidates_without_email": 11,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/BrentWJacobs/Py/issues/176",
+        "title": "nltk-3.8.1-py3-none-any.whl: 46 vulnerabilities (highest severity is: 10.0)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/civitai/civitai-app-starters/issues/669",
+        "title": "Feature request: let apps register real Civitai reactions (entity reaction read + toggle for blocks)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/zhangjiayang6835-cyber/bounty-plaza/issues/1899",
+        "title": "[Bounty] [Bounty: $60] Docs: add a \"Failure modes and recovery\" guide",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/rsoreq-mend/AutoPrompt/issues/125",
+        "title": "nltk-3.8.1-py3-none-any.whl: 47 vulnerabilities (highest severity is: 10.0)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/FuRongJun-1999/dsh-bounty/issues/2006",
+        "title": "\u7b2c\u4e09\u65b9\u72ec\u7acb\u590d\u9a8c\uff1alingshu PR #1138\uff08#1133 \u78b0\u649e\u95e8+#1134 \u7ef4\u5ea6\u6821\u9a8c\uff09\u2014\u2014#1134 \u5168\u4fee/#1133 \u73b0\u8c61\u4e00\u4fee\uff08\u5b88\u536b4\u7ea2\u21926\u7eff\uff09\uff1b\u73b0\u8c61\u4e8c\u539f\u4e3b\u5f20\u672a\u590d\u73b0\uff08\u4e09\u8f6e\u5ba1\u6838\u4fee\u8ba2\uff09",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.upwork.com/hire/social-media-content-creators/",
+        "title": "Best Freelance Social Media Content Creators for Hire (Oct 2026 ...",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-30 create social media",
+      "is:issue is:open bounty created:>=2026-08-30 ",
+      "hiring a freelancer to create a social media content calendar"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a lead magnet landing page",
+      "hiring a freelancer to create a social media content calendar",
+      "need paid help with designing a simple WordPress theme",
+      "can anyone create a Google Sheets template for project tracking"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 11,
+      "skipped_revisits": 13,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a lead magnet landing page",
+        "hiring a freelancer to create a social media content calendar",
+        "need paid help with designing a simple WordPress theme",
+        "can anyone create a Google Sheets template for project tracking"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 140,
+      "known_pages": 1180
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
