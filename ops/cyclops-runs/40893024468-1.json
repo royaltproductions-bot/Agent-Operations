@@ -1,0 +1,142 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-29T14:37:08.497733+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 7,
+      "duckduckgo": 8,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "verified_firsthand_problem_pages": 5,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 13,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=47791293",
+        "title": "A brief generational overview of the tech industry",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47388478",
+        "title": "Built a 1.3M-line agent-native OS in Rust while homeless. What now?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46051434",
+        "title": "ClipE96: We Left the Clipboard Unguarded for 40 Years",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=43352348",
+        "title": "Slacking, career goals/development, and mgmt pressure in corporate analytics",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=43117026",
+        "title": "Humane founder Imran Chaudhri likely paid for highly charitable Wikipedia entry",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=41323643",
+        "title": "Ask HN: Want a project management tool integrated with GitHub/GitLab/Jira?",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 14,
+    "search_queries": [
+      "how to make a self-contained app for scheduling meetings",
+      "how to automate invoice tracking with Python scripts",
+      "downloadable tool to convert PDF tables to Excel",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 3,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "how to automate invoice tracking with Python scripts",
+        "downloadable tool to convert PDF tables to Excel",
+        "paid Python scripts for email newsletter automation",
+        "how to make a self-contained app for scheduling meetings"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 139,
+      "known_pages": 1175
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:The evidence excerpt highlights a significant security vulnerability in the clipboard system, which is a critical issue in enterprise environments. However, there is no direct indi"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0,
+    "product_pages": 0,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "no_saleable_products",
+    "indexable_product_pages": 0,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 13,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:The evidence excerpt highlights a significant security vulnerability in the clipboard system, which is a critical issue in enterpris"
+  }
+}
