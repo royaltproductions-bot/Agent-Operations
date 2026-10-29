@@ -75,6 +75,13 @@ def other_pages(api_key, endpoint, collection, initial_cursor=None):
                     page = json.load(response)
                 break
             except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as exc:
+                if isinstance(exc, urllib.error.HTTPError) and exc.code in {400, 410}:
+                    try:
+                        payload = json.load(exc)
+                    except (OSError, ValueError, TypeError):
+                        payload = {}
+                    if (payload.get("error") or {}).get("code") == "INVALID_CURSOR":
+                        raise ValueError("invalid_event_cursor") from None
                 retryable = (not isinstance(exc, urllib.error.HTTPError) or
                              exc.code in {429, 502, 503, 504})
                 if retryable and attempt < 2:
@@ -118,8 +125,12 @@ def admission(state, opened, held, events, now=None):
     """TryBounty is the authority; local state only deduplicates known work."""
     now = now or datetime.now(timezone.utc)
     records = state.get("bounties") or {}
+    actionable_events = {"bounty.available", "bounty.updated", "bounty.claimed",
+                         "work.message.created", "submission.verification_failed",
+                         "discussion.user_replied"}
     triggered = {str(e.get("data", {}).get("bounty_id"))
                  for e in events if isinstance(e, dict)
+                 and e.get("type") in actionable_events
                  and isinstance(e.get("data"), dict) and e["data"].get("bounty_id")}
     new = [item for item in opened if isinstance(item, dict) and (
         str(item.get("_id")) in triggered or
@@ -182,10 +193,9 @@ def run(probe_mode=False):
         try:
             events = other_pages(api_key, "/v1/agent/events?limit=100",
                                  "events", state.get("events_cursor"))
-        except urllib.error.HTTPError as error:
-            # Let the existing worker recover an expired cursor instead of
-            # mistaking the marketplace for empty.
-            if error.code not in (400, 410):
+        except ValueError as error:
+            # Expired cursors are recoverable; invalid requests are not empty work.
+            if str(error) != "invalid_event_cursor":
                 raise
             events = [{"type": "cursor_recovery", "data": {}}]
         status = admission(state, opened, held, events)
