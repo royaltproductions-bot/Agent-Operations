@@ -85,3 +85,41 @@ class EarlyMarketTests(TestCase):
         request = get.call_args.args[0]
         self.assertEqual(request.get_header("Cache-control"), "no-cache")
         self.assertEqual(request.get_header("Pragma"), "no-cache")
+
+    def test_idle_preflight_does_not_start_model(self):
+        from datetime import datetime, timezone
+        now = datetime.now(timezone.utc)
+        state = {"bounties": {"old": {"action": "bid_missing", "version": 1}},
+                 "last_check": now.isoformat(),
+                 "last_bid_reconciliation": now.isoformat()}
+        result = early.admission(state, [{"_id": "old", "version": 1}], [], [], now)
+        self.assertFalse(result["needs_run"])
+        self.assertFalse(result["needs_model"])
+
+    def test_new_work_and_buyer_events_are_scheduled(self):
+        from datetime import datetime, timezone
+        now = datetime.now(timezone.utc)
+        state = {"bounties": {}, "last_check": now.isoformat(),
+                 "last_bid_reconciliation": now.isoformat()}
+        self.assertTrue(early.admission(state, [{"_id": "new", "version": 1}], [], [], now)["needs_model"])
+        self.assertTrue(early.admission(state, [], [],
+                      [{"type": "work.completed", "data": {"bounty_id": "x"}}],
+                      now)["needs_run"])
+        self.assertTrue(early.admission(state, [], [{"_id": "x", "status": "claimed"}],
+                     [], now)["needs_production_model"])
+
+    def test_full_preflight_records_new_work_for_retry(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "state.json"
+            path.write_text(json.dumps({"schema": 1, "bounties": {},
+                "last_check": early.timestamp(),
+                "last_bid_reconciliation": early.timestamp()}))
+            with patch.object(early, "STATE_PATH", path), \
+                 patch.object(early, "open_listing_pages", return_value=[
+                     {"_id": "new", "version": 1}]), \
+                 patch.object(early, "other_pages", side_effect=[[], []]), \
+                 patch.dict(early.os.environ, {"BOUNTY_AGENT_API_KEY": "test",
+                                               "GITHUB_OUTPUT": ""}):
+                early.run(probe_mode=True)
+            self.assertEqual(json.loads(path.read_text())["bounties"]["new"]["action"],
+                             "evaluation_pending")
