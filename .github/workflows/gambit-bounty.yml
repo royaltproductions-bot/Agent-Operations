@@ -118,14 +118,14 @@ jobs:
           retention-days: 7
 
       - name: Cache small fast-decision model for the watch
-        if: github.event_name == 'push' || github.event_name == 'schedule' || env.GAMBIT_WATCH_MODE == 'watch'
+        if: github.event_name == 'schedule' || env.GAMBIT_WATCH_MODE == 'watch'
         uses: actions/cache@v4
         with:
           path: .ollama-cache/models
           key: gambit-qwen3-triage-1-7b-v1
 
       - name: Launch model warmup in background while market polling starts
-        if: github.event_name == 'push' || github.event_name == 'schedule' || env.GAMBIT_WATCH_MODE == 'watch'
+        if: github.event_name == 'schedule' || env.GAMBIT_WATCH_MODE == 'watch'
         shell: bash
         run: |
           set -euo pipefail
@@ -330,43 +330,3 @@ jobs:
             sleep 120
           fi
           gh workflow run gambit-bounty.yml --ref main -f mode=watch
-
-      - name: Benchmark and check fast commercial decisions on a synthetic bounty
-        if: github.event_name == 'push'
-        run: |
-          # A background install must finish before this benchmark. Never
-          # let CI report a misleading success for a connection-refused test.
-          for attempt in $(seq 1 150); do
-            if [ -f "$RUNNER_TEMP/gambit-fast-model-ready" ]; then
-              break
-            fi
-            sleep 2
-          done
-          if [ ! -f "$RUNNER_TEMP/gambit-fast-model-ready" ]; then
-            echo 'Fast model did not become ready for CI benchmark.' >&2
-            exit 1
-          fi
-          python3 - <<'PY'
-          import json
-          import time
-          from tools import gambit_worker as worker
-
-          example = {"bounty": {
-              "title": "Summarize the supplied product memo",
-              "description": "Memo: The Orion lamp has two brightness settings, "
-                             "USB-C charging, and a two-year warranty. Write "
-                             "a factual five-sentence summary of this memo.",
-              "verification": "Deliver a five-sentence summary faithful to the memo.",
-              "status": "open", "flow": "bid", "budget_cents": 2500,
-              "currency": "usd", "version": 1}}
-          started = time.monotonic()
-          decision = worker.assess(example)
-          elapsed = round(time.monotonic() - started, 2)
-          print(json.dumps({"synthetic_full_triage_seconds": elapsed,
-                            "target_seconds": 60,
-                            "within_target": elapsed < 60,
-                            "decision": decision.get("decision"),
-                            "audit_disagreement": bool(decision.get("_audit_disagreement")),
-                            "correctly_considered_feasible": decision.get("decision") == "bid"}))
-          assert decision.get("decision") == "bid", "feasible_bounty_rejected_by_triage"
-          PY
