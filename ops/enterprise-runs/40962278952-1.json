@@ -1,0 +1,124 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-29T22:01:47.805580+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 15,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 4,
+      "duckduckgo": 7,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 14,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/devlootxyz-bounties/kanban-test/issues/1",
+        "title": "Build modern AI-powered Kanban web application with Next.js and Supabase",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/dev-kp-eloper/BountyScout/issues/1696",
+        "title": "\ud83c\udfaf Bounty Alert: 12 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/freedom-winds/BountyScout/issues/1349",
+        "title": "\ud83c\udfaf Bounty Alert: 5 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/xentac/FFScouter/issues/29",
+        "title": "BB API now has status and status_last_checked fields",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://support.atlassian.com/analytics/docs/dashboard-templates-for-jira-software/",
+        "title": "Dashboard templates for Jira | Analytics | Atlassian Support",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.geckoboard.com/dashboard-examples/support/jira-dashboard/",
+        "title": "Jira dashboard examples - Geckoboard",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-30 create jira integration",
+      "is:issue is:open bounty created:>=2026-08-30 ",
+      "looking for someone to build a Jira dashboard template",
+      "hiring a freelancer to create Jira integration tools"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a Jira dashboard template",
+      "hiring a freelancer to create Jira integration tools",
+      "need paid help with Jira and Monday.com workflow setup",
+      "can anyone create a Jira dashboard for project management"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 16,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a Jira dashboard template",
+        "hiring a freelancer to create Jira integration tools",
+        "need paid help with Jira and Monday.com workflow setup",
+        "can anyone create a Jira dashboard for project management"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 1253
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:The request is for a service that requires Retool's proprietary platform and infrastructure, which cannot be fulfille"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
