@@ -1,0 +1,128 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-29T12:22:42.579307+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 8,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "duckduckgo": 6,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 8,
+    "verified_firsthand_problem_pages": 3,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 8,
+    "public_market_sample": [
+      {
+        "url": "https://github.com/sularaperera/Automating-Invoice-Processing-with-Python-and-Power-Automate",
+        "title": "Automating Invoice Processing with Python and Power Automate",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://excelx.com/template/project-management-templates/",
+        "title": "80+ Free Excel Project Management Templates for Tracking & Planning ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.projectmanager.com/templates/project-timeline-template",
+        "title": "Project Timeline Template for Excel - Free Download - ProjectManager",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://kintly.space/how-to-automate-invoice-generation-with-python/",
+        "title": "How to Automate Invoice Generation with Python (and Never Format ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://excelx.com/template/project-plan-template/",
+        "title": "Project Plan Template Excel \u2014 22 Free Templates | Download 2026 ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.vertex42.com/ExcelTemplates/project-timeline.html",
+        "title": "Project Timeline Template for Excel - Vertex42",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 8,
+    "search_queries": [
+      "how to automate invoice tracking with python script",
+      "downloadable excel template for project timeline management",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 8,
+      "skipped_revisits": 7,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "how to automate invoice tracking with python script",
+        "downloadable excel template for project timeline management",
+        "buy ready-made python script for social media post scheduler",
+        "purchase excel dashboard for sales performance analysis"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 138,
+      "known_pages": 1147
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:The candidate is a GitHub repository for automating invoice processing with Python and Power Automate. While there is interest in automation and invoice processing, there is no evi"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0,
+    "product_pages": 0,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "no_saleable_products",
+    "indexable_product_pages": 0,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 8,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:The candidate is a GitHub repository for automating invoice processing with Python and Power Automate. While there is interest in au"
+  }
+}
