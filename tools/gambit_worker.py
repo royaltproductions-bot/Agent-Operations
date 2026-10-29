@@ -151,12 +151,16 @@ def api(path, method="GET", payload=None):
                  "Cache-Control": "no-cache", "Pragma": "no-cache",
                  "User-Agent": "AriOperations-Gambit/1.0"},
     )
+    safe_repeat = (method == "GET" or
+                   method == "POST" and (
+                       isinstance(payload, dict) and bool(payload.get("idempotency_key")) or
+                       path.endswith(("/claims", "/unclaim", "/bid/withdraw", "/complete"))))
     for attempt in range(3):
         try:
             with urllib.request.urlopen(request, timeout=35) as response:
                 return json.load(response)
         except urllib.error.HTTPError as exc:
-            if exc.code in {429, 503} and attempt < 2:
+            if (exc.code == 429 or exc.code in {502, 503, 504} and safe_repeat) and attempt < 2:
                 # Bounty requires honoring Retry-After. Don't duplicate
                 # purchases or messages: every commercial POST above uses a
                 # stable idempotency key, or is itself an idempotent unclaim.
@@ -165,7 +169,7 @@ def api(path, method="GET", payload=None):
                     delay = float(header)
                 except ValueError:
                     delay = 2 ** attempt
-                time.sleep(min(90, max(1, delay)))
+                time.sleep(max(1, delay))
                 continue
             code = "HTTP_" + str(exc.code)
             try:
@@ -177,11 +181,6 @@ def api(path, method="GET", payload=None):
         except (urllib.error.URLError, TimeoutError) as exc:
             # Retry only reads and idempotent writes. In particular, do NOT
             # repeat a new attachment-upload reservation without a stable key.
-            safe_repeat = (method == "GET" or
-                           (method == "POST" and (
-                               (isinstance(payload, dict) and
-                                bool(payload.get("idempotency_key"))) or
-                               path.endswith("/claims") or path.endswith("/unclaim"))))
             if safe_repeat and attempt < 2:
                 time.sleep(2 ** attempt)
                 continue
@@ -287,7 +286,9 @@ def load_state():
 
 def save_state(state):
     STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    STATE_PATH.write_text(json.dumps(state, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    temporary = STATE_PATH.with_suffix(".tmp")
+    temporary.write_text(json.dumps(state, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    temporary.replace(STATE_PATH)
 
 
 def encrypted_brief(details):
@@ -411,7 +412,7 @@ def schedule_fulfillment_retry(state, bounty_id, exc):
     previous = state["bounties"].get(bounty_id) or {}
     attempt = int(previous.get("retry_count") or 0) + 1
     reason = safe_failure_reason(exc)
-    common = {"claim_id": previous.get("claim_id"),
+    common = {**previous, "claim_id": previous.get("claim_id"),
               "payout_cents": previous.get("payout_cents"),
               "retry_count": attempt, "last_error": reason, "at": timestamp()}
     if attempt >= 3:
@@ -510,7 +511,8 @@ def relevant_events(state):
         events.extend(page.get("events") or [])
         cursor = page.get("next_cursor") or cursor
         if not page.get("has_more"):
-            return events, cursor
+            handled = set(state.get("handled_event_ids") or [])
+            return [event for event in events if event.get("id") not in handled], cursor
     raise RuntimeError("event_page_limit_reached")
 
 
@@ -523,6 +525,29 @@ def scan(state):
                 "bounty.available", "bounty.claimed"}
     triggers = {str(e.get("data", {}).get("bounty_id")) for e in events
                 if e.get("type") in relevant and e.get("data", {}).get("bounty_id")}
+    triggers.update(state.get("deferred_bounty_ids") or [])
+    # Private threads survive removal from the released open-list feed.
+    # Resolve event targets directly rather than acknowledging unseen replies.
+    listed = {str(item.get("_id")) for item in opened + held}
+    if state.get("_cursor_reset"):
+        triggers.update(bid for bid, entry in state["bounties"].items()
+                        if entry.get("action") in {"asked", "bid_sent", "bid_active",
+                                                   "awaiting_info", "submitted"})
+    for bounty_id in sorted(triggers - listed):
+        try:
+            details = api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}")
+        except RuntimeError as exc:
+            if any(code in str(exc) for code in ("NOT_FOUND", "HTTP_404", "FORBIDDEN", "HTTP_403")):
+                note(state, "event_target_unavailable", bounty_id, reason=safe_failure_reason(exc))
+            else:
+                schedule_evaluation_retry(state, bounty_id, exc)
+            continue
+        current = details.get("bounty") or {}
+        item = {**current, "_id": bounty_id}
+        if current.get("status") == "open":
+            opened.append(item)
+        elif current.get("status") == "claimed" and (details.get("claim") or {}).get("status") == "active":
+            held.append(item)
     waiting = [item for item in opened
                if state["bounties"].get(str(item.get("_id")), {}).get("version") != item.get("version")
                or state["bounties"].get(str(item.get("_id")), {}).get("action") == "evaluation_pending"
@@ -549,6 +574,10 @@ def scan(state):
             "needs_operator_review" and
             state["bounties"].get(str(item.get("_id")), {}).get("reason") ==
             "website_visual_quality_unverified"))]
+    # Buyer follow-ups precede speculative new bids; hired work is run first.
+    waiting.sort(key=lambda item: (str(item.get("_id")) not in triggers,
+                                  state["bounties"].get(str(item.get("_id")), {}).get("action")
+                                  not in {"asked", "bid_active", "bid_sent"}))
     return opened, held, events, cursor, waiting, active
 
 
@@ -1402,8 +1431,7 @@ def upload_file(bounty_id, data, state, claim_id, digest, *, filename, content_t
     if (filename, content_type) not in set(OUTPUT_FILES.values()):
         raise ValueError("unsupported_output_file")
     previous = state["bounties"].get(bounty_id) or {}
-    if (previous.get("action") == "upload_pending" and
-            previous.get("content_digest") == digest and
+    if (previous.get("content_digest") == digest and
             previous.get("claim_id") == claim_id and previous.get("attachment_id")):
         attachment_id = previous["attachment_id"]
     else:
@@ -1839,23 +1867,35 @@ def run(mode="run"):
         save_state(state)
     triggered = {str(e.get("data", {}).get("bounty_id")) for e in events
                  if e.get("type") in {"work.message.created", "submission.verification_failed", "bounty.updated"}}
-    for item in waiting[:8]:
-        bounty_id = str(item.get("_id"))
-        try:
-            handle_open(item, state)
-        except Exception as exc:
-            schedule_evaluation_retry(state, bounty_id, exc)
-            failures.append((bounty_id, safe_failure_reason(exc)))
-        save_state(state)
     for item in active[:5]:
         bounty_id = str(item.get("_id"))
         if state["bounties"].get(bounty_id, {}).get("action") == "submitted" and bounty_id not in triggered:
             continue
         try:
+            started = time.monotonic()
             handle_hired(item, state)
         except Exception as exc:
             schedule_fulfillment_retry(state, bounty_id, exc)
             failures.append((bounty_id, safe_failure_reason(exc)))
+        finally:
+            print(json.dumps({"operation": "hired_work", "bounty_id": bounty_id,
+                              "elapsed_seconds": round(time.monotonic() - started, 2),
+                              "outcome": state["bounties"].get(bounty_id, {}).get("action")}),
+                  file=sys.stderr)
+        save_state(state)
+    for item in waiting[:8]:
+        bounty_id = str(item.get("_id"))
+        try:
+            started = time.monotonic()
+            handle_open(item, state)
+        except Exception as exc:
+            schedule_evaluation_retry(state, bounty_id, exc)
+            failures.append((bounty_id, safe_failure_reason(exc)))
+        finally:
+            print(json.dumps({"operation": "opportunity", "bounty_id": bounty_id,
+                              "elapsed_seconds": round(time.monotonic() - started, 2),
+                              "outcome": state["bounties"].get(bounty_id, {}).get("action")}),
+                  file=sys.stderr)
         save_state(state)
     for event in events:
         action = event.get("type")
@@ -1879,9 +1919,23 @@ def run(mode="run"):
             if event_id and any(o.get("event_id") == event_id for o in state["recent_outcomes"]):
                 continue
             note(state, action, str(bid), event_id=event_id)
-    # Failed handlers must see the same events on the next run.
-    if not failures:
+    # A bounded batch must not acknowledge events for work left in the queue.
+    # Retain only handled IDs (never private message bodies) while holding the
+    # cursor, so a ninth reply cannot be lost or starved by the first eight.
+    deferred_ids = {str(item.get("_id")) for item in waiting[8:] + active[5:]}
+    state["deferred_bounty_ids"] = sorted(deferred_ids)
+    failed_ids = {bid for bid, _ in failures}
+    if not failures and not deferred_ids:
         state["events_cursor"] = cursor
+        state.pop("handled_event_ids", None)
+    else:
+        handled = set(state.get("handled_event_ids") or [])
+        handled.update(event["id"] for event in events if event.get("id") and
+                       str((event.get("data") or {}).get("bounty_id")) not in
+                       deferred_ids | failed_ids)
+        state["handled_event_ids"] = sorted(handled)
+    if deferred_ids:
+        note(state, "work_batch_deferred", count=len(deferred_ids))
     reset_recovered = state.pop("_cursor_reset", False)
     if not failures and reset_recovered:
         note(state, "event_cursor_recovered")

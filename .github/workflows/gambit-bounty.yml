@@ -21,6 +21,7 @@ on:
       - 'assets/website_builder/**'
       - 'tools/gambit_analytics.py'
       - 'tests/test_gambit_worker.py'
+      - 'tests/test_gambit_operations.py'
       - 'tests/test_gambit_research.py'
       - 'tests/test_gambit_documents.py'
       - 'tests/test_gambit_artifacts.py'
@@ -69,7 +70,9 @@ jobs:
             exit 0
           fi
           successful=0
-          for iteration in $(seq 1 10); do
+          # Scheduled starts can be tens of minutes late. Stay present between
+          # them instead of watching for five minutes and then going offline.
+          for iteration in $(seq 1 100); do
             started=$SECONDS
             if python3 -m tools.gambit_early_scan --probe; then
               successful=1
@@ -80,7 +83,7 @@ jobs:
             else
               echo 'Temporary TryBounty check failed; retrying' >&2
             fi
-            if [ "$iteration" -lt 10 ]; then
+            if [ "$iteration" -lt 100 ]; then
               elapsed=$((SECONDS - started))
               delay=$((30 - elapsed))
               if [ "$delay" -gt 0 ]; then sleep "$delay"; fi
@@ -152,12 +155,14 @@ jobs:
           echo 'Could not checkpoint discovered bounties before model startup' >&2
           exit 1
 
-      - name: Cache fast-decision model for a non-watch evaluation
+      - name: Cache the models needed for this work
         if: steps.probe.outputs.needs_model == 'true'
         uses: actions/cache@v4
         with:
           path: .ollama-cache/models
-          key: gambit-qwen3-triage-1-7b-v1
+          key: gambit-qwen3-${{ steps.probe.outputs.needs_production_model == 'true' && 'production-8b-triage-1-7b-v2' || 'triage-1-7b-v1' }}
+          restore-keys: |
+            gambit-qwen3-triage-1-7b-v1
 
       - name: Enable free public web search when research work appears
         if: steps.probe.outputs.needs_model == 'true'

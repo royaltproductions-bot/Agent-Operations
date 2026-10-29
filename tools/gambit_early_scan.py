@@ -92,7 +92,7 @@ def other_pages(api_key, endpoint, collection, initial_cursor=None):
                             delay = 2 ** attempt
                     else:
                         delay = 2 ** attempt
-                    time.sleep(min(12, max(1, delay)))
+                    time.sleep(max(1, delay))
                     continue
                 raise
         if not isinstance(page, dict) or not isinstance(page.get(collection), list):
@@ -132,6 +132,7 @@ def admission(state, opened, held, events, now=None):
                  for e in events if isinstance(e, dict)
                  and e.get("type") in actionable_events
                  and isinstance(e.get("data"), dict) and e["data"].get("bounty_id")}
+    triggered.update(state.get("deferred_bounty_ids") or [])
     new = [item for item in opened if isinstance(item, dict) and (
         str(item.get("_id")) in triggered or
         (records.get(str(item.get("_id"))) or {}).get("version") != item.get("version") or
@@ -149,13 +150,19 @@ def admission(state, opened, held, events, now=None):
               (records.get(str(item.get("_id"))) or {}).get("reason") ==
               "website_visual_quality_unverified")]
     has_bid = any(x.get("action") in {"bid_sent", "bid_active"} for x in records.values())
+    listed = {str(item.get("_id")) for item in opened + held if isinstance(item, dict)}
+    recovery_due = any(bid not in listed and (
+        entry.get("action") == "evaluation_pending" or
+        entry.get("action") == "retry_evaluation" and retry_ready(entry, now))
+        for bid, entry in records.items())
     ledger_due = minutes_since(state, "last_bid_reconciliation", now) >= (15 if has_bid else 55)
     cursor_due = minutes_since(state, "last_check", now) >= 360
-    return {"needs_run": bool(new or active or events or ledger_due or cursor_due),
+    return {"needs_run": bool(new or active or events or recovery_due or
+                               state.get("deferred_bounty_ids") or ledger_due or cursor_due),
             "needs_model": bool(new or active),
             "needs_production_model": bool(active),
             "new_or_changed": len(new), "claimed_ready": len(active),
-            "pending_events": len(events)}
+            "pending_events": len(events), "recovery_due": recovery_due}
 
 
 def output(fields):
@@ -184,8 +191,10 @@ def run(probe_mode=False):
     changed = capture_ids(state, opened)
     if changed:
         STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
-        STATE_PATH.write_text(json.dumps(state, indent=2, sort_keys=True) + "\n",
-                              encoding="utf-8")
+        temporary = STATE_PATH.with_suffix(".tmp")
+        temporary.write_text(json.dumps(state, indent=2, sort_keys=True) + "\n",
+                             encoding="utf-8")
+        temporary.replace(STATE_PATH)
         # Expose the urgent checkpoint before reading unrelated event feeds.
         # The workflow can persist this ID even if a later request times out.
         if probe_mode:
