@@ -1,0 +1,130 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-29T16:14:05.590863+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 7,
+    "source_counts": {
+      "open_web": 7
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 7,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/Joebannerlord/TV-Tracking/issues/1",
+        "title": "Review relevant TV debuts by year: 2000\u20132009",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Element-Ventures-Canada-Ltd/openchokepoint/issues/19",
+        "title": "[Slice D] Standards crosswalk: W3C PROV-O, QIF (ISO 23952), STEP AP242 (ISO 10303-242)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/sebastianspicker/tiz0wn/issues/1",
+        "title": "Have you managed to get root?",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/FuRongJun-1999/dsh-bounty/issues/1995",
+        "title": "\u7b2c\u4e09\u65b9\u72ec\u7acb\u590d\u9a8c\uff1alingshu PR #1137\uff08#1103 next_state_loss \u96f6\u6b65\u8bda\u5b9e\uff09\u2014\u2014\u53cc\u817f\u5077\u8dd1\u2192\u96f6\u63a8\u8fdb+\u5b88\u536b8/\u65cf\u56de\u5f5217\uff08\u7ecf\u4e24\u8f6e\u5b50\u4ee3\u7406\u5ba1\u6838\u4fee\u8ba2\uff09",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Scottcjn/rustchain-bounties/issues/17148",
+        "title": "[WALLET] Register SovereignSektorz payout identity",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://duckduckgo.com/y.js?ad_domain=wix.com&ad_provider=bingv7aa&ad_type=txad&click_metadata=n9hMMl3_oOV6EFsIuqpFMBudOHJLR9-53FaHXR_9PysBgXRNDADV1k9C-_R7-kO4cDcGFLiff4GZFrpL5RqTssWAoYC9rVnFikajbV3F1",
+        "title": "Build A Professional Website - Build a Website with Wix",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-30 create lead generation",
+      "is:issue is:open bounty created:>=2026-08-30 ",
+      "looking for someone to build a simple website with contact form"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a simple website with contact form",
+      "hiring a freelancer to create a lead generation landing page",
+      "need paid help with designing a social media ad campaign",
+      "can anyone create a basic Google Sheets template for task management"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 30,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a simple website with contact form",
+        "hiring a freelancer to create a lead generation landing page",
+        "need paid help with designing a social media ad campaign",
+        "can anyone create a basic Google Sheets template for task management"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 140,
+      "known_pages": 1169
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
