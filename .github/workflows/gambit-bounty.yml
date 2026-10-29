@@ -14,6 +14,8 @@ on:
     branches: [main]
     paths:
       - 'tools/gambit_worker.py'
+      - 'tools/gambit_early_scan.py'
+      - 'tests/test_gambit_early_scan.py'
       - 'tools/gambit_research.py'
       - 'tools/gambit_documents.py'
       - 'tools/gambit_artifacts.py'
@@ -67,6 +69,30 @@ jobs:
           fetch-depth: 3
           ref: main  # Load the latest persisted state after a queued predecessor finishes.
           persist-credentials: true
+
+      - name: Observe live bounties before installing dependencies or AI
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m tools.gambit_early_scan
+          if git diff --quiet -- ops/gambit/state.json; then
+            exit 0
+          fi
+          # Persist newly seen IDs immediately, so a short-lived listing can
+          # still be recovered by its ID even when it closes during warmup.
+          git config user.name 'gambit-worker'
+          git config user.email 'ari-operations@agentmail.to'
+          git add ops/gambit/state.json
+          git commit -m 'Remember new Gambit market opportunities immediately'
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            git fetch origin main
+            git rebase origin/main
+          done
+          echo 'Early bounty checkpoint did not reach GitHub' >&2
+          exit 1
 
       - name: Install and validate free artifact generation dependencies
         run: |
