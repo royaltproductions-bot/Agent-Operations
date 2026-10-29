@@ -1,0 +1,142 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-29T01:23:38.308587+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 9
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "RemoteDisconnected"
+      }
+    ],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 13,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/sinanisler/gumroad-connect/issues/3",
+        "title": "Unauthenticated arbitrary user creation with role assignment (endpoint secret leaked via public REST API index)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ahmedfuzayl-gif/commit-monitor/issues/118",
+        "title": "commit-monitor: new leads 2026-10-06_0030Z",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ahmedfuzayl-gif/commit-monitor/issues/102",
+        "title": "commit-monitor: new leads 2026-10-01_0615Z",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ahmedfuzayl-gif/commit-monitor/issues/101",
+        "title": "commit-monitor: new leads 2026-09-30_2234Z",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ahmedfuzayl-gif/commit-monitor/issues/73",
+        "title": "commit-monitor: new leads 2026-09-23_0453Z",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.upwork.com/hire/wordpress-plugin-developers/",
+        "title": "Hire the Best WordPress Plugin Developers - Upwork",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-30 build custom wordpress",
+      "looking for someone to build a custom WordPress plugin",
+      "need paid help with designing a mobile-first landing page"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a custom WordPress plugin",
+      "need paid help with designing a mobile-first landing page",
+      "can anyone create a Shopify app for inventory sync?",
+      "looking for someone to develop a simple affiliate tracking tool"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 3,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a custom WordPress plugin",
+        "need paid help with designing a mobile-first landing page",
+        "can anyone create a Shopify app for inventory sync?",
+        "looking for someone to develop a simple affiliate tracking tool"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 140,
+      "known_pages": 990
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
