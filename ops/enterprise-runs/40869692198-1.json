@@ -1,0 +1,131 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-29T12:01:43.464676+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 7,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/Mumega-com/mupot/issues/2106",
+        "title": "approval bot post-merge review (#2098 @4065cede): P1 revoked-identity race at bot session mint + 5 P2",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Expensify/App/issues/104050",
+        "title": "[$175] Auto -Split- Report total is calculating totals incorrectly when offline",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/pursekeeper/api/issues/89",
+        "title": "Initiative #12: operators wanted \u2014 your agent pays for its own model calls in Nano, under a cap you set",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/MyZubster-Ecosystem/myzubster/issues/1519",
+        "title": "Seller Skills Pilot \u2014 contributors offer verifiable services on Marketplace",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Kevin-Wei-sudo/claude-scope/issues/6",
+        "title": "Possible usage-limit news (2026-10-06)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://interactionmetrics.com/customer-feedback-dashboard/",
+        "title": "The Customer Feedback Dashboard | Interaction Metrics",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-30 build customer feedback",
+      "looking for someone to build a customer feedback dashboard",
+      "hiring a freelancer to design a mobile app landing page"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a customer feedback dashboard",
+      "hiring a freelancer to design a mobile app landing page",
+      "need paid help with creating a social media content calendar",
+      "can anyone create a data-driven email marketing template"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 10,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a customer feedback dashboard",
+        "hiring a freelancer to design a mobile app landing page",
+        "need paid help with creating a social media content calendar",
+        "can anyone create a data-driven email marketing template"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 1124
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
