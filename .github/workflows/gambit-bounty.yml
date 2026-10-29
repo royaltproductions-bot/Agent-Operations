@@ -4,12 +4,6 @@ on:
   schedule:
     - cron: '*/5 * * * *'
   workflow_dispatch:
-    inputs:
-      mode:
-        description: 'Use watch for the free continuous polling chain'
-        required: false
-        default: once
-        type: string
   push:
     branches: [main]
     paths:
@@ -40,12 +34,11 @@ on:
 
 permissions:
   contents: write
-  actions: read
 
 concurrency:
   group: gambit-bounty-worker
-  # Never cancel a buyer's paid delivery because a code or cron event fired.
-  cancel-in-progress: ${{ github.event_name == 'push' }}
+  # Keep an accepted bounty running through unrelated code pushes or scheduled checks.
+  cancel-in-progress: false
 
 jobs:
   find-and-fulfill:
@@ -61,7 +54,6 @@ jobs:
       OLLAMA_NUM_PARALLEL: '1'
       OLLAMA_MAX_LOADED_MODELS: '1'
       OLLAMA_HOST: 127.0.0.1:11434
-      GAMBIT_WATCH_MODE: ${{ inputs.mode || 'once' }}
 
     steps:
       - uses: actions/checkout@v4
