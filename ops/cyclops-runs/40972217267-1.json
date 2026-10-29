@@ -1,0 +1,179 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-29T23:20:27.360488+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 9,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "duckduckgo": 4,
+      "hn_ask": 1,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 8,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 1,
+    "market_candidates_considered": 1,
+    "public_sources_available_for_judgment": 8,
+    "public_market_sample": [
+      {
+        "url": "https://www.markdownword.com/",
+        "title": "MarkdownWord \u2014 ChatGPT & Markdown to Word, in Your Own Template",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=1873288",
+        "title": "Review my .NET-based scripting environment",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://webscraper.io/blog/extract-website-data-to-excel-csv-automatically",
+        "title": "Extract website data to Excel or CSV automatically - Web Scraper",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://usezivo.com/tools/word-to-markdown",
+        "title": "Word to Markdown Converter - DOCX to Markdown for ChatGPT & Claude ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://tools.promptspace.in/web-scraper",
+        "title": "Free Web Scraper \u2014 Extract Any Page in Seconds",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.octoparse.com/blog/what-is-web-scraping-basics-and-use-cases",
+        "title": "What is web scraping and how it works",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://www.markdownword.com/",
+        "title": "MarkdownWord \u2014 ChatGPT & Markdown to Word, in Your Own Template",
+        "displayed_sales_count": null,
+        "listed_price_usd": "19.00"
+      }
+    ],
+    "candidates_without_email": 8,
+    "search_queries": [
+      "Word Markdown Converter DOCX ChatGPT Claude",
+      "data extraction websites csv tool",
+      "Scrape data website Excel Free Excel Web Scraper Website Scraper",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 24,
+      "invented_site_filters_removed": 4,
+      "executed_queries": [
+        "Word Markdown Converter DOCX ChatGPT Claude",
+        "Scrape data website Excel Free Excel Web Scraper Website Scraper",
+        "data extraction websites csv tool",
+        "pdf excel converter standalone app"
+      ],
+      "next_query_queue": 8,
+      "frontier_size": 136,
+      "known_pages": 1322
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:8 candidates reviewed; novel valu; The candidate_id 'web:4f4eeb6a8dd36a6d00' presents a niche but potentially valuable service for converting PDFs to Markdown for AI analysis. However, the mar"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0,
+    "product_pages": 0,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [],
+  "market_assessments": [
+    {
+      "candidate_id": "web:7f01a3db0e6d6c8330",
+      "decision": "pass",
+      "reason": "The product offers a unique value proposition by converting Markdown to Word with custom templates and placeholders, which could appeal to content creators and professionals. However, the absence of a displayed sales count and the lack of independent verification of the paid offer make it difficult to assess market demand and viability. Additionall"
+    },
+    {
+      "candidate_id": "web:753e23f6007100541b",
+      "decision": "pass",
+      "reason": "The candidate lacks pricing and sales data, making it difficult to assess market viability. Additionally, the product is a .NET-based scripting tool, which may have limited appeal compared to more widely used tools like Python-based solutions. The absence of clear demand signals or competitive positioning makes it hard to justify pursuing this prod"
+    },
+    {
+      "candidate_id": "web:8b00c32f3901244d40",
+      "decision": "pass",
+      "reason": "The tool described in the candidate_id 'web:8b00c32f3901244d40' offers a free web scraper that extracts content from any static-HTML page. While the tool is free and has a clear use case, the market for web scraping tools is highly competitive with established players like Web Scraper, Octoparse, and others. The lack of pricing or sales data makes "
+    },
+    {
+      "candidate_id": "web:fc04a5f01f04eb9f2a",
+      "decision": "pass",
+      "reason": "The candidate is a web scraping tool that offers automation for extracting data to Excel or CSV. While there is demand for such tools, the market is already saturated with established players like Octoparse and Web Scraper Cloud. The lack of a listed price or sales count makes it difficult to assess the viability of a new entrant. Additionally, the"
+    },
+    {
+      "candidate_id": "web:df29e99e573d40bda6",
+      "decision": "pass",
+      "reason": "The tool described is a Word to Markdown converter for use with AI models like ChatGPT and Claude. While there is clear demand for tools that help users prepare documents for AI analysis, the evidence does not show any sales or pricing, making it difficult to assess its viability. Additionally, there are existing competitors in the market for docum"
+    },
+    {
+      "candidate_id": "web:ccde8355c8e889f0ad",
+      "decision": "pass",
+      "reason": "The market for web scraping tools is highly competitive, with established platforms like Octoparse already offering comprehensive solutions. The demand for scraping tools is well-documented, but the presence of existing players and the lack of unique differentiation in the candidate's offering make it unlikely to succeed without a clear, novel valu"
+    },
+    {
+      "candidate_id": "web:4f4eeb6a8dd36a6d00",
+      "decision": "pass",
+      "reason": "The candidate_id 'web:4f4eeb6a8dd36a6d00' presents a niche but potentially valuable service for converting PDFs to Markdown for AI analysis. However, the market for PDF-to-Markdown conversion is already being addressed by existing tools, and the demand for such a service is not clearly differentiated from competitors. Additionally, there is no evid"
+    },
+    {
+      "candidate_id": "web:61e467309d187b4ba5",
+      "decision": "pass",
+      "reason": "The content is an educational blog post about web scraping, not a product. There is no indication of a paid offer, sales count, or a specific product being offered for sale. The candidate does not represent a viable product opportunity."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "no_saleable_products",
+    "indexable_product_pages": 0,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 8,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:8 candidates reviewed; novel valu; The candidate_id 'web:4f4eeb6a8dd36a6d00' presents a niche but potentially valuable service for c"
+  }
+}
