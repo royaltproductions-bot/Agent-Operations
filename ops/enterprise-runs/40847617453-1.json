@@ -1,0 +1,134 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-29T09:12:08.272515+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 9
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 12,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/telegraphprotocol/bounties/issues/75",
+        "title": "SATELLITE_IMAGERY_ANALYSIS: evaluation material and an evaluator adapter",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2198",
+        "title": "[wildcard] The rule-mutation score: measure what the corpus can actually detect, and gate every GUARANTEES.md row on a k",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2197",
+        "title": "[wildcard] Verdict-differential fuzzing: make the corpus a generator, not an artifact",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/pursekeeper/api/issues/132",
+        "title": "[integration] Slot 1: LangChain (Python) \u2014 langchain-nano-x402",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/dailydollar-bot/agent-bounty-feed/issues/2",
+        "title": "[Bounty] Framework-native x402 client paying in Nano (XNO): four slots, 150 XNO each",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://duckduckgo.com/y.js?ad_domain=wix.com&ad_provider=bingv7aa&ad_type=txad&click_metadata=oLd2beOlVv1eUs5P8neS0OIwkcIi7Do9v58GwAySnnGWn-RciCMpTB7DcJVBKmZrhD0nL1EaK0UakndRSRV8DgJXakGt-8hmbnEYDaXUU",
+        "title": "Wix\u00ae Landing Page Builder - Create a Landing Page with Wix",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-30 ",
+      "looking for someone to build a simple lead magnet landing page",
+      "can anyone create a basic email automation sequence for Shopify"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a simple lead magnet landing page",
+      "can anyone create a basic email automation sequence for Shopify",
+      "looking for someone to develop a low-code customer feedback form",
+      "hiring a freelancer to build a basic website for a local service"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 36,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a simple lead magnet landing page",
+        "can anyone create a basic email automation sequence for Shopify",
+        "looking for someone to develop a low-code customer feedback form",
+        "hiring a freelancer to build a basic website for a local service"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 140,
+      "known_pages": 1090
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
