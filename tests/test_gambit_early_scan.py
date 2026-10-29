@@ -138,3 +138,45 @@ class EarlyMarketTests(TestCase):
         self.assertEqual(call.call_count, 2)
         sleep.assert_called_once()
 
+
+    def test_open_listing_retries_network_timeout(self):
+        class Response:
+            def __enter__(self):
+                return io.BytesIO(b'{"bounties":[{"_id":"fresh","version":1}],"has_more":false}')
+            def __exit__(self, *args):
+                return False
+        with patch.object(early.urllib.request, "urlopen",
+                          side_effect=[TimeoutError(), Response()]) as request, \
+             patch.object(early.time, "sleep") as sleep:
+            self.assertEqual(early.open_listing_pages("key")[0]["_id"], "fresh")
+        self.assertEqual(request.call_count, 2)
+        sleep.assert_called_once()
+
+    def test_settlement_event_does_not_reevaluate_old_open_listing(self):
+        from datetime import datetime, timezone
+        now = datetime.now(timezone.utc)
+        state = {"bounties": {"old": {"action": "pass_unsupported", "version": 1}},
+                 "last_check": now.isoformat(),
+                 "last_bid_reconciliation": now.isoformat()}
+        older = [{"_id": "old", "version": 1}]
+        event = [{"type": "work.completed", "data": {"bounty_id": "old"}}]
+        result = early.admission(state, older, [], event, now)
+        self.assertTrue(result["needs_run"])
+        self.assertFalse(result["needs_model"])
+        edit = [{"type": "bounty.updated", "data": {"bounty_id": "old"}}]
+        self.assertTrue(early.admission(state, older, [], edit, now)["needs_model"])
+
+    def test_expired_cursor_distinct_from_other_http_400(self):
+        import urllib.error
+        def bad(code):
+            return urllib.error.HTTPError(
+                "https://api.trybounty.ai/v1/agent/events", 400, "Bad Request",
+                {}, io.BytesIO(json.dumps({"error": {"code": code}}).encode()))
+        with patch.object(early.urllib.request, "urlopen",
+                          side_effect=bad("INVALID_CURSOR")):
+            with self.assertRaisesRegex(ValueError, "invalid_event_cursor"):
+                early.other_pages("key", "/v1/agent/events?limit=100", "events")
+        with patch.object(early.urllib.request, "urlopen",
+                          side_effect=bad("INVALID_FILTER")):
+            with self.assertRaises(urllib.error.HTTPError):
+                early.other_pages("key", "/v1/agent/events?limit=100", "events")
