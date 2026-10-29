@@ -12,8 +12,11 @@
       "version": 1
     },
     "mx7dzny0f4hm4ypp05ch6xws5n8h79xt": {
-      "action": "evaluation_pending",
-      "at": "2026-10-29T14:40:48.320589+00:00",
+      "action": "retry_evaluation",
+      "at": "2026-10-29T14:45:59.386792+00:00",
+      "last_error": "TimeoutError",
+      "retry_at": "2026-10-29T14:46:59.386770+00:00",
+      "retry_count": 1,
       "version": 1
     }
   },
@@ -52,8 +55,9 @@
   },
   "deferred_bounty_ids": [],
   "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjozLCJjaGVja3BvaW50QXQiOjE3OTMyODE3NzA2NzF9",
+  "handled_event_ids": [],
   "last_bid_reconciliation": "2026-10-29T13:49:31.096830+00:00",
-  "last_check": "2026-10-29T13:49:31.097429+00:00",
+  "last_check": "2026-10-29T14:45:59.387742+00:00",
   "recent_outcomes": [
     {
       "action": "bid_sent",
@@ -77,6 +81,13 @@
       "at": "2026-10-29T00:36:52.809923+00:00",
       "bounty_id": "mx79vrwcx8375g78rky2gb4wvx8h5zft",
       "platform_status": "claimed"
+    },
+    {
+      "action": "evaluation_retry_scheduled",
+      "at": "2026-10-29T14:45:59.386803+00:00",
+      "bounty_id": "mx7dzny0f4hm4ypp05ch6xws5n8h79xt",
+      "reason": "TimeoutError",
+      "retry_count": 1
     }
   ],
   "schema": 1,
