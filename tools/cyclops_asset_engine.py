@@ -329,7 +329,7 @@ class MarketDeclined(ValueError):
 
 
 def choose_asset_concept(rows,existing_assets=None):
-    visible=public_market_evidence(rows)[:10]
+    visible=public_market_evidence(rows)
     if not visible:
         raise ValueError("no_fetched_firsthand_market_evidence")
     assessments=[]
@@ -357,10 +357,10 @@ def choose_asset_concept(rows,existing_assets=None):
         "not every other market. Existing competition or missing public sales counts alone "
         "does not establish that a useful differentiated experiment is unviable. "
         "Cite one actual candidate_id. Return JSON only."
-    ),{"public_market_observations":remaining,
+    ),{"public_market_observations":remaining[:4],
         "existing_catalog":[a.get("title") for a in (existing_assets or [])[:12]]},
         num_ctx=4096,num_predict=350,temperature=0.2)
-        selected=next((p for p in remaining
+        selected=next((p for p in remaining[:4]
                        if p["candidate_id"]==str(judgment.get("candidate_id") or "")),None)
         if not selected:
             raise ValueError("market_judgment_selected_unknown_listing")
