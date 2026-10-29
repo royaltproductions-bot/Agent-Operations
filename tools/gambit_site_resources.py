@@ -25,6 +25,21 @@ PALETTES = {
 }
 
 
+def multipage_requested(details: dict) -> bool:
+    """Recognize a request for linked static pages, not research ABOUT pages."""
+    bounty = details.get("bounty") or {}
+    title = str(bounty.get("title") or "").lower()
+    brief = " ".join(str(bounty.get(field) or "") for field in
+                     ("title", "description", "verification")).lower()
+    if re.search(r"^(?:audit|review|analy[sz]e|compare|research|explain)\b", title):
+        return False
+    return bool(re.search(
+        r"\b(?:multi[- ]pages?|multiple pages|[2-9][0-9]?[- ]pages?|"
+        r"several pages|separate pages|linked pages|page[- ]to[- ]page|"
+        r"home[, ]+about[, ]+contact|website with (?:an? )?(?:about|services|contact) page)\b",
+        brief))
+
+
 def static_site_eligible(details: dict) -> bool:
     """Only source-only frontend work; server features need different resources."""
     bounty = details.get("bounty") or {}
@@ -45,7 +60,8 @@ def static_site_eligible(details: dict) -> bool:
             r"landing[- ]page|one[- ]page\s+(?:web)?site|"
             r"one[- ]page\s+web ?page|single[- ]page\s+(?:web)?site|"
             r"single[- ]page\s+web ?page|html|css|front[- ]end|"
-            r"portfolio page|webpage mockup)\b", joined):
+            r"portfolio page|webpage mockup|web ?site|website|"
+            r"web design|multi[- ]page)\b", joined):
         return False
     if re.search(r"\b(?:backend|back.end|database|login|authentication|server.side|"
                  r"payments?|stripe|shopify|wordpress|user accounts?|api integration|"
@@ -107,7 +123,7 @@ def validate_spec(spec: dict, public_brief: str) -> dict:
     # Optional linked pages share the homepage design system and assets.
     # Slugs are simple local filenames: never URLs, paths, or remote content.
     pages = spec.get("pages") or []
-    if not isinstance(pages, list) or len(pages) > 6:
+    if not isinstance(pages, list) or len(pages) > 12:
         raise ValueError("website_invalid_pages")
     seen = set()
     data["pages"] = []
