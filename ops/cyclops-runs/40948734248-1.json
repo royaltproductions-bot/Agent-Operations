@@ -1,0 +1,212 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-29T20:30:12.698602+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "duckduckgo": 7,
+      "bing": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 16,
+    "verified_firsthand_problem_pages": 3,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 16,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=41694203",
+        "title": "Best Practices for Building and Scaling an Online Form Builder",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=34583932",
+        "title": "Ask HN: LinkedIn sent me a cease and desist for my Chrome extension. Help?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=22622949",
+        "title": "Seeking remote job due to coronavirus unemployment",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=6272897",
+        "title": "Ask HN: Why aren't there HTTP style standards for invoicing things?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=41480094",
+        "title": "CyberScraper 2077 \u2013 A OpenAI / Gemini Based Web Scraper",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=1420137",
+        "title": "Ask HN: good startup ideas?",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 15,
+    "search_queries": [
+      "automate data scraping from websites to excel",
+      "extract data from website to excel for free",
+      "how to convert word to markdown without software",
+      "convert pdf to markdown online tool"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 10,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "how to convert word to markdown without software",
+        "automate data scraping from websites to excel",
+        "convert pdf to markdown online tool",
+        "extract data from website to excel for free"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 140,
+      "known_pages": 1281
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:16 candidates reviewed;  well-established and widely used tool with a large user base. The market for PDF conversion tools is highly competitive, and the existing offerings provide similar fun"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0,
+    "product_pages": 0,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [],
+  "market_assessments": [
+    {
+      "candidate_id": "web:08b2142e72d541e7c7",
+      "decision": "pass",
+      "reason": "The candidate_id 'web:08b2142e72d541e7c7' refers to a discussion about building an online form builder called Core Form. While the discussion highlights features like drag-and-drop interfaces, responsive layouts, and integrations, there is no evidence of a completed product, sales, or user engagement. The absence of a listed price, sales count, or "
+    },
+    {
+      "candidate_id": "web:ed6b2ced3dedb79058",
+      "decision": "pass",
+      "reason": "The candidate involves a Chrome extension that automates LinkedIn activities, which has led to a cease and desist from LinkedIn. This indicates significant legal and operational risks, and the market for such tools is highly regulated and contested. The existing competition and legal challenges make it a high-risk proposition without clear differen"
+    },
+    {
+      "candidate_id": "web:b33062f48cbe089558",
+      "decision": "pass",
+      "reason": "The candidate is seeking a remote job, which indicates a need for employment, not a product to be built. There is no evidence of a product or service being offered for sale, and the post is primarily a job search request. Therefore, it does not represent a viable product opportunity."
+    },
+    {
+      "candidate_id": "web:723e45dff39237492c",
+      "decision": "pass",
+      "reason": "The discussion highlights a clear pain point in the invoicing process for both businesses and individuals, suggesting a potential market for an open standard solution. However, the lack of adoption and the existence of existing services like Recurly indicate that the market may be saturated or that the problem is not as pressing as the discussion s"
+    },
+    {
+      "candidate_id": "web:2ae329a54a9552e1fe",
+      "decision": "pass",
+      "reason": "While the concept of an AI-based web scraper is intriguing and could serve niche markets like data analysts or researchers, there is no evidence of a paid offer, sales, or buyer activity. The product is described as a prototype or idea without clear market validation. Additionally, there is significant competition in the web scraping space, and wit"
+    },
+    {
+      "candidate_id": "web:059405eb994f6191c7",
+      "decision": "pass",
+      "reason": "The candidate idea for an API Anything service is interesting, but there is no evidence of demand or sales to validate its market potential. The idea is somewhat generic and lacks differentiation from existing tools like Zapier or IFTTT, which already offer similar functionalities. Without specific evidence of buyer interest or utility, it's not cl"
+    },
+    {
+      "candidate_id": "web:3ef6d4c3e9b8435894",
+      "decision": "pass",
+      "reason": "The tool 'WordToMD' is already available as a free online converter, and there is no evidence of paid sales or demand for a competing product. The market for converting Word documents to Markdown is saturated with existing solutions, and there is no clear differentiation or unique value proposition to justify building a new product."
+    },
+    {
+      "candidate_id": "web:e1f5876104f7edba4c",
+      "decision": "pass",
+      "reason": "WinRAR is a well-established compression tool with a large user base and strong market position. While there is potential for a differentiated product in the compression software space, the existing competition and the lack of a clear unmet need or unique value proposition make it less compelling to pursue at this time."
+    },
+    {
+      "candidate_id": "web:ce12ce6442ba48f814",
+      "decision": "pass",
+      "reason": "The content on the page is educational and provides information on how to extract data from websites to Excel automatically. However, there is no indication of a product being offered for sale, and the page does not present a clear value proposition or a unique product that would justify building a new offering. The existing competition and lack of"
+    },
+    {
+      "candidate_id": "web:e3fe73972e03910fd4",
+      "decision": "pass",
+      "reason": "The candidate is a free Word to Markdown converter, which suggests low monetization potential. There is no listed price or sales count, and the tool is already available as a free service. Building a similar product would not offer a competitive advantage or clear value proposition."
+    },
+    {
+      "candidate_id": "web:9e5f934f95cc92b88a",
+      "decision": "pass",
+      "reason": "The Unit Converter tool is a common utility with low differentiation and no clear monetization path. It lacks unique features or a compelling value proposition beyond basic functionality, making it unlikely to attract significant user adoption or revenue."
+    },
+    {
+      "candidate_id": "web:9df0c5f9fe32aa360d",
+      "decision": "pass",
+      "reason": "The candidate is an online tool for converting Word documents to Markdown. While there is demand for such a tool, the market is already saturated with similar offerings (e.g., Smallpdf, Markdown Tools Blog). The tool's unique value proposition is not clearly differentiated, and there is no evidence of significant sales or user engagement to justify"
+    },
+    {
+      "candidate_id": "web:847fca261233cd4bb2",
+      "decision": "pass",
+      "reason": "The content highlights a significant pain point (data scraping from websites to Excel) with a clear demand (14,000 monthly searches). However, the existing solutions are described as fragile, manual, or broken on modern websites. While this indicates a gap, the market is already served by APIs and tools like Power Query and IMPORTXML, which are wid"
+    },
+    {
+      "candidate_id": "web:4434a2e97e926b7b81",
+      "decision": "pass",
+      "reason": "The content on the page discusses web scraping in Excel, which is a technical skill rather than a product. There is no indication of a paid product or sales, and the page appears to be an educational resource. Therefore, it does not represent a viable product opportunity."
+    },
+    {
+      "candidate_id": "web:e87e2df2e48903fbca",
+      "decision": "pass",
+      "reason": "The PDF Converter service by Smallpdf is already a well-established and widely used tool with a large user base. The market for PDF conversion tools is highly competitive, and the existing offerings provide similar functionality. There is no clear differentiation or unique value proposition that would justify building a new product in this space. A"
+    },
+    {
+      "candidate_id": "web:001d4985ec7eccbc57",
+      "decision": "pass",
+      "reason": "The candidate does not represent a product but rather a blog post/tutorial about converting Word documents to Markdown. There is no indication of a paid product, sales, or a specific offering to build. The existing catalog includes more viable product ideas with clear utility and market relevance."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "no_saleable_products",
+    "indexable_product_pages": 0,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 16,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:16 candidates reviewed;  well-established and widely used tool with a large user base. The market for PDF conversion tools is highly"
+  }
+}
