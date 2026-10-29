@@ -10,6 +10,9 @@ on:
       - 'tools/connected_commerce_tools.py'
       - 'tools/open_web_discovery.py'
       - 'tools/research_memory.py'
+      - 'tools/persist_run_receipt.py'
+      - 'tools/paid_market.py'
+      - 'tests/test_variant_optimization.py'
       - '.github/workflows/commerce-engine.yml'
 
 permissions:
@@ -38,12 +41,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 5
           persist-credentials: true
 
       - name: Check live-market execution before loading Qwen
         id: preflight
-        run: python3 -m unittest discover -s tests -p 'test_x_variant_execution.py' -q
+        run: |
+          python3 -m pip install --quiet --disable-pip-version-check cryptography pypdf
+          python3 -m unittest discover -s tests -p 'test_x_variant_execution.py' -q
+          python3 -m unittest discover -s tests -p 'test_variant_optimization.py' -q
 
       - uses: actions/cache@v4
         continue-on-error: true
@@ -140,11 +147,7 @@ jobs:
               json.dump(data,f,indent=2); f.write("\n")
           PY
           fi
-          encoded="$(base64 -w0 "$receipt")"
-          gh api --method PUT "repos/$GITHUB_REPOSITORY/contents/$receipt" \
-            -f message='Record commerce experiment outcome' \
-            -f content="$encoded" \
-            -f branch='main' >/dev/null
+          python3 -m tools.persist_run_receipt "$receipt" "Record commerce experiment outcome"
 
       - name: Surface actual engine exit status
         if: always()

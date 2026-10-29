@@ -60,9 +60,23 @@ def cycle():
         checkpoint()  # failed jobs retain retries and upload receipts
 
 
+def record_health(successes, failures):
+    path=Path('ops/gambit/state.json')
+    state=json.loads(path.read_text())
+    from datetime import datetime, timezone
+    state['watch_health']={'at':datetime.now(timezone.utc).isoformat(),
+                           'successful_cycles':successes, 'failed_cycles':failures,
+                           'run_id':os.getenv('GITHUB_RUN_ID','local')}
+    temporary=path.with_suffix('.tmp')
+    temporary.write_text(json.dumps(state,indent=2,sort_keys=True)+'\n')
+    temporary.replace(path)
+    checkpoint()
+
+
 def watch(seconds=5400, interval=30, clock=time.monotonic, sleep=time.sleep):
     deadline = clock() + seconds
     successes = failures = 0
+    last_health = clock()
     while clock() < deadline:
         started = clock()
         try:
@@ -76,6 +90,9 @@ def watch(seconds=5400, interval=30, clock=time.monotonic, sleep=time.sleep):
             checkpoint()
         print(json.dumps({'watch_cycle': 'finished', 'successes': successes,
                           'failures': failures, 'elapsed_seconds': round(clock()-started, 2)}), flush=True)
+        if clock()-last_health >= 300:
+            record_health(successes, failures)
+            last_health=clock()
         delay = min(max(0, interval - (clock()-started)), max(0, deadline-clock()))
         if delay:
             sleep(delay)

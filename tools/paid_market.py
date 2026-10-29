@@ -11,6 +11,7 @@ from datetime import datetime, timezone
 from decimal import Decimal
 import re
 from urllib.parse import urlsplit
+from tools.gambit_research import relevant_excerpt
 
 SALE_COUNT=re.compile(
     r"(?i)(?<![\w])(?:(\d[\d,]*)\s+(?:sales|purchases|orders)\b|"
@@ -109,7 +110,7 @@ def public_market_evidence(rows):
                 "url":url,"title":str(row.get("title") or "")[:180],
                 "signal_type":"unclassified_public_page",
                 "source_fetched":True,
-                "evidence_excerpt":body[:620],
+                "evidence_excerpt":relevant_excerpt(body, heading+" "+str(row.get("search_query") or ""), 1100),
                 "listed_price_usd":None,
                 "displayed_sales_count":None,
             }

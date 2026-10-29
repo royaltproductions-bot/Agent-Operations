@@ -320,11 +320,23 @@ def firsthand_problem_excerpt(row):
             return sentence[:420]
     return ""
 
+class MarketDeclined(ValueError):
+    def __init__(self, assessments):
+        self.assessments=assessments
+        super().__init__("market_opportunity_declined:"+str(len(assessments))+
+                         " candidates reviewed; "+
+                         "; ".join(a["reason"] for a in assessments)[-600:])
+
+
 def choose_asset_concept(rows,existing_assets=None):
     visible=public_market_evidence(rows)[:10]
     if not visible:
         raise ValueError("no_fetched_firsthand_market_evidence")
-    judgment=model_json(MARKET_JUDGMENT_SCHEMA,(
+    assessments=[]
+    remaining=list(visible)
+    selected=None
+    while remaining:
+        judgment=model_json(MARKET_JUDGMENT_SCHEMA,(
         "You are the independent commercial decision-maker. Evaluate real "
         "fetched public market observations and choose whether an original "
         "product in any of these markets is worth building. A paid offer is "
@@ -341,17 +353,25 @@ def choose_asset_concept(rows,existing_assets=None):
         "one. Choose 'pursue' only when the evidence merits a genuine product. "
         "Otherwise choose 'pass' with a concrete reason. Never fabricate "
         "sales or buyers, and NEVER demand private transaction verification. "
+        "Select the strongest remaining candidate. A pass rejects ONLY the selected candidate, "
+        "not every other market. Existing competition or missing public sales counts alone "
+        "does not establish that a useful differentiated experiment is unviable. "
         "Cite one actual candidate_id. Return JSON only."
-    ),{"public_market_observations":visible,
+    ),{"public_market_observations":remaining,
         "existing_catalog":[a.get("title") for a in (existing_assets or [])[:12]]},
         num_ctx=4096,num_predict=350,temperature=0.2)
-    selected=next((p for p in visible
-                   if p["candidate_id"]==str(judgment.get("candidate_id") or "")),None)
-    if not selected:
-        raise ValueError("market_judgment_selected_unknown_listing")
-    if judgment.get("decision")!="pursue":
-        raise ValueError("market_opportunity_declined:"+
-                         str(judgment.get("reason") or "not worth producing")[:180])
+        selected=next((p for p in remaining
+                       if p["candidate_id"]==str(judgment.get("candidate_id") or "")),None)
+        if not selected:
+            raise ValueError("market_judgment_selected_unknown_listing")
+        assessments.append({"candidate_id":selected["candidate_id"],
+                            "decision":judgment.get("decision"),
+                            "reason":str(judgment.get("reason") or "")[:350]})
+        if judgment.get("decision")=="pursue":
+            break
+        remaining=[p for p in remaining if p["candidate_id"]!=selected["candidate_id"]]
+    else:
+        raise MarketDeclined(assessments)
     judgment_reason=str(judgment.get("reason") or "").strip()
     if not judgment_reason:
         raise ValueError("market_judgment_missing_reason")
@@ -417,6 +437,7 @@ def choose_asset_concept(rows,existing_assets=None):
         raise ValueError("product_source_not_selected_paid_listing")
     plan["evidence_quote"]=selected["evidence_excerpt"]
     plan["evidence_source_url"]=selected["url"]
+    plan["market_assessments"]=assessments
     plan["market_validation"]={
         "status":"agent_assessed_public_market",
         "decision":"pursue",
@@ -848,6 +869,19 @@ def create_asset(rows,existing_assets=None):
     plan["_files"]=finished
     plan["_quality_reason"]=reason
     return plan
+
+
+def complete_asset(rows, assets):
+    progressed=set()
+    while True:
+        try:
+            return create_asset(rows,assets)
+        except ProductionPending as progress:
+            marker=str(progress)
+            if not marker.startswith("artifact_created_and_saved:") or marker in progressed:
+                raise
+            progressed.add(marker)
+            # Durably saved outputs continue immediately, not an hour per file.
 
 
 def cyclops_checkout(plan):
@@ -1650,7 +1684,7 @@ def run():
         pending=read_pending()
         should_produce=bool(rows) or pending.get("stage") not in (None,"empty")
         if should_produce:
-            plan=create_asset(rows,assets)
+            plan=complete_asset(rows,assets)
             asset=publish_finished_asset(plan)
             receipt["economic_result"]["new_asset_created"]=1
             receipt["asset"]={
@@ -1688,6 +1722,8 @@ def run():
             receipt["production"]={"result":"no_current_product_opportunity"}
     except (ValueError,RuntimeError) as exc:
         reason=(str(exc) or type(exc).__name__)[:220]
+        if isinstance(exc,MarketDeclined):
+            receipt["market_assessments"]=exc.assessments
         try:
             pending=read_pending()
             stage=pending.get("stage") or "empty"

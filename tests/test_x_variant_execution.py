@@ -416,8 +416,8 @@ class CyclopsEfficiencyTests(unittest.TestCase):
 
         # A model that declines the opportunity must not load the workshop.
         with patch.object(cyclops,"discover_tools") as tools:
-            with patch.object(cyclops,"model_json",return_value={
-                "decision":"pass","candidate_id":"web:makerone",
+            with patch.object(cyclops,"model_json",side_effect=lambda schema,system,obs,**kw: {
+                "decision":"pass","candidate_id":obs["public_market_observations"][0]["candidate_id"],
                 "reason":"Too difficult to reach buyers"}):
                 with self.assertRaisesRegex(ValueError,"market_opportunity_declined"):
                     cyclops.choose_asset_concept(rows)

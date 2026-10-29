@@ -653,7 +653,7 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
         if len(page.strip())<40:
             page=""
             evidence=(title+"\n"+snippet).strip()
-        contact=safe_email(evidence)
+        contact=safe_email(page)
         ident=hashlib.sha256(final.encode()).hexdigest()[:18]
         row={
             "id":"web:"+ident,"channel":"email" if contact else None,

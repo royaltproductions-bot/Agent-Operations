@@ -163,6 +163,14 @@ class ResearchMemory:
             "recent_searches_with_new_pages":sum(bool(x.get("new_pages")) for x in recent),
             "recent_runs_without_an_offer":sum(not bool(x.get("offers")) for x in recent_outcomes),
             "recent_runs_observed":len(recent_outcomes),
+            "commercial_feedback":[{
+                "outcome":x.get("commercial_reasons") or [],
+                "production":x.get("production_result") or "",
+                "assessment":x.get("market_assessments") or [],
+            } for x in recent_outcomes[-4:]],
+            "recent_public_findings":[{"title":x.get("title"), "source":x.get("url"),
+                                       "excerpt":x.get("snippet")} for x in
+                                      (self.state.get("observations") or [])[-4:]],
             "known_page_count":len(self.state.get("pages") or []),
             "unvisited_link_count":len(self.state.get("frontier") or []),
             "directive":"Search for firsthand public evidence, freely changing industries and methods. Do not invent hypothetical buyers. If recent offers are zero, choose demonstrably different discovery approaches and prioritize reachability over merely finding pages.",
@@ -345,7 +353,13 @@ class ResearchMemory:
              "offers":int(econ.get("new_offers_sent") or econ.get("new_product_offers_sent") or 0),
              "verified_revenue_cents":int(econ.get("verified_autonomous_revenue_cents_seen") or econ.get("verified_cyclops_revenue_cents_seen") or 0),
              "failure_reasons":[str(x.get("reason"))[:75] for x in receipt.get("structural_failures") or []][:4],
-             "discovered":int((receipt.get("discovery") or {}).get("candidate_count") or 0)}
+             "discovered":int((receipt.get("discovery") or {}).get("candidate_count") or 0),
+             "commercial_reasons":[str(x.get("reason") or "")[:220]
+                                   for x in receipt.get("commercial_outcomes") or []][-4:],
+             "production_result":str((receipt.get("production") or {}).get("reason") or
+                                     (receipt.get("production") or {}).get("result") or "")[:350],
+             "market_assessments":(receipt.get("market_assessments") or [])[-5:]}
+
         self.state.setdefault("outcomes",[]).append(row)
 
     def save(self):
