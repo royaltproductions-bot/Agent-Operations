@@ -1,0 +1,131 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-29T14:21:45.471951+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 8,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "candidates_without_email": 13,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/MyZubster-Ecosystem/myzubster/issues/1665",
+        "title": "[ONION PILOT] Integrate MyZubster homepage with restored Tor v3 endpoint (Wasim opt-in)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/farmer911/belooga/issues/181",
+        "title": "[BEL-222] [P0-FIGMA-FULL-30-FRAMES] V\u1ebd \u0110\u1ee7 30+ Frame Ri\u00eang Bi\u1ec7t Cho To\u00e0n B\u1ed9 24 Trang Web, 12 Modal, 20 T\u00ednh N\u0103ng M\u1edbi & 12",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/farmer911/belooga/issues/166",
+        "title": "[BEL-217] [P0-FIGMA-REAL] Connect WebSocket :3055 & Draw REAL Frames on Figma Canvas (Zero Fake Markdown node-id)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/farmer911/belooga/issues/70",
+        "title": "[BEL-152] [Stage 1 - Design] Setup Free Talk-to-Figma-MCP & Draw Platform Design System + Screens on Figma",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/NSPG13/agent-bounties/issues/1672",
+        "title": "Maintainer notice: immutable managed-service quotes and order acceptance",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://www.upwork.com/freelance-jobs/landing-pages/",
+        "title": "Landing Page Design Freelance Jobs: Work Remote & Earn Online",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-30 design landing page",
+      "hiring a freelancer to design a landing page for a SaaS product",
+      "can anyone create a data dashboard with Power BI"
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to design a landing page for a SaaS product",
+      "can anyone create a data dashboard with Power BI",
+      "looking for someone to develop a simple mobile app for iOS",
+      "hiring a freelancer to write SEO content for a niche blog"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 8,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to design a landing page for a SaaS product",
+        "can anyone create a data dashboard with Power BI",
+        "looking for someone to develop a simple mobile app for iOS",
+        "hiring a freelancer to write SEO content for a niche blog"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 139,
+      "known_pages": 1149
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
