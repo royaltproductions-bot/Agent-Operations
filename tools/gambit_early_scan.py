@@ -67,7 +67,8 @@ def other_pages(api_key, endpoint, collection, initial_cursor=None):
         request = urllib.request.Request(
             BASE + endpoint + suffix,
             headers={"Authorization": "Bearer " + api_key, "Accept": "application/json",
-                     "Cache-Control": "no-cache", "User-Agent": "AriOperations-Gambit/1.0"})
+                     "Cache-Control": "no-cache", "Pragma": "no-cache",
+                     "User-Agent": "AriOperations-Gambit/1.0"})
         for attempt in range(3):
             try:
                 with urllib.request.urlopen(request, timeout=35) as response:
