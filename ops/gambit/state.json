@@ -4,6 +4,20 @@
       "action": "bid_missing",
       "at": "2026-10-28T22:19:52.821583+00:00",
       "version": 1
+    },
+    "mx79vrwcx8375g78rky2gb4wvx8h5zft": {
+      "action": "evaluation_pending",
+      "at": "2026-10-29T00:14:39+00:00",
+      "version": null
+    }
+  },
+  "bounty_archive": {
+    "mx79vrwcx8375g78rky2gb4wvx8h5zft": {
+      "first_detected_at": "2026-10-29T00:14:39+00:00",
+      "last_known_status": "not_in_open_list",
+      "recovered_from": "2026-10-29 GitHub Actions failure log",
+      "version": null,
+      "versions": {}
     }
   },
   "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjozLCJjaGVja3BvaW50QXQiOjE3OTMyMzQwNDYxODZ9",
