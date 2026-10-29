@@ -12,11 +12,9 @@
       "version": 1
     },
     "mx76pb43azzzk2yndfwpqkcvjs8h7vz4": {
-      "action": "retry_evaluation",
-      "at": "2026-10-29T19:48:32.408105+00:00",
-      "last_error": "TimeoutError",
-      "retry_at": "2026-10-29T19:49:32.408087+00:00",
-      "retry_count": 1,
+      "action": "bid_active",
+      "at": "2026-10-29T19:54:12.994585+00:00",
+      "last_declined_bid": null,
       "version": 1
     },
     "mx79vrwcx8375g78rky2gb4wvx8h5zft": {
@@ -91,9 +89,9 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo2LCJjaGVja3BvaW50QXQiOjE3OTMzMDMzMTYzMjh9",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo2LCJjaGVja3BvaW50QXQiOjE3OTMzMDM0MzY2MTB9",
   "last_bid_reconciliation": "2026-10-29T19:17:04.789485+00:00",
-  "last_check": "2026-10-29T19:48:36.372668+00:00",
+  "last_check": "2026-10-29T19:54:12.995480+00:00",
   "recent_outcomes": [
     {
       "action": "bid_sent",
@@ -152,6 +150,13 @@
       "bounty_id": "mx76pb43azzzk2yndfwpqkcvjs8h7vz4",
       "reason": "TimeoutError",
       "retry_count": 1
+    },
+    {
+      "action": "bid_sent",
+      "at": "2026-10-29T19:54:12.994567+00:00",
+      "bounty_id": "mx76pb43azzzk2yndfwpqkcvjs8h7vz4",
+      "payout_cents": 8000,
+      "version": 1
     }
   ],
   "schema": 1,
