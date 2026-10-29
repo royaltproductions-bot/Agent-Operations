@@ -186,6 +186,10 @@ def run(probe_mode=False):
         STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
         STATE_PATH.write_text(json.dumps(state, indent=2, sort_keys=True) + "\n",
                               encoding="utf-8")
+        # Expose the urgent checkpoint before reading unrelated event feeds.
+        # The workflow can persist this ID even if a later request times out.
+        if probe_mode:
+            output({"changed": True})
     if probe_mode:
         held = other_pages(api_key,
                            "/v1/agent/bounties?status=claimed,submitted,reviewing,settling,disputed&limit=100",
