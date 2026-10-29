@@ -1,0 +1,132 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-29T22:59:34.748523+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 8,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/RUMBO-IA/Rumbo/issues/135",
+        "title": "Cashflow execution ledger \u2014 2026-09-13",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://github.com/HyperLeafHQ/HyperLeaf/issues/7",
+        "title": "Asset Support Roadmap \u2014 10 LIVE Leafs + 2 pre-market; hORDER / Nado queued",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ldavis2700/ai-revenue-agent/issues/85",
+        "title": "APEX: Autonomous Job-to-Cash Engine \u2014 discovery \u2192 winning \u2192 execution \u2192 payout",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ruohong2018/ruohong2018.github.io/issues/1339",
+        "title": "[\u6bcf\u65e5\u4fe1\u606f\u6d41] 2026-10-09",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/MM0x02/RSS-Push/issues/656",
+        "title": "[\u6bcf\u65e5\u4fe1\u606f\u6d41] 2026-10-09",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.atlassian.com/software/confluence/resources/guides/extend-functionality/confluence-jira",
+        "title": "Tutorial: How to Use Confluence and Jira Together | Atlassian",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-30 create saas admin",
+      "is:issue is:open bounty created:>=2026-08-30 confluence jira integration",
+      "need paid help with Confluence and Jira integration",
+      "hiring a freelancer to create a SaaS admin dashboard"
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to create a SaaS admin dashboard",
+      "need paid help with Confluence and Jira integration",
+      "can anyone create a Jira add-on for task automation",
+      "looking for someone to design a SaaS dashboard theme"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 10,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to create a SaaS admin dashboard",
+        "need paid help with Confluence and Jira integration",
+        "can anyone create a Jira add-on for task automation",
+        "looking for someone to design a SaaS dashboard theme"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 137,
+      "known_pages": 1269
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:The request is too vague and lacks the necessary details to define a clear scope of work, deliverables, and pricing. "
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
