@@ -28,28 +28,9 @@ def timestamp():
 
 
 def open_listing_pages(api_key):
-    """Fail closed on incomplete pagination; never mistake an error for empty."""
-    found, cursor = [], None
-    for _ in range(MAX_PAGES):
-        endpoint = BASE + "/v1/agent/bounties?status=open&limit=100"
-        if cursor:
-            endpoint += "&cursor=" + urllib.parse.quote(cursor, safe="")
-        request = urllib.request.Request(
-            endpoint, headers={"Authorization": "Bearer " + api_key,
-                               "Accept": "application/json",
-                               "Cache-Control": "no-cache", "Pragma": "no-cache",
-                               "User-Agent": "AriOperations-Gambit/1.0"})
-        with urllib.request.urlopen(request, timeout=12) as response:
-            page = json.load(response)
-        if not isinstance(page, dict) or not isinstance(page.get("bounties"), list):
-            raise ValueError("invalid_market_page")
-        found.extend(page["bounties"])
-        if not page.get("has_more"):
-            return found
-        cursor = page.get("next_cursor")
-        if not cursor:
-            raise ValueError("incomplete_market_pagination")
-    raise ValueError("market_page_limit")
+    """Use the retry-capable client for all live marketplace listings."""
+    return other_pages(api_key, "/v1/agent/bounties?status=open&limit=100",
+                       "bounties")
 
 
 def capture_ids(state, opened):
