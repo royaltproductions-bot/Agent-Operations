@@ -1142,7 +1142,8 @@ def handle_open(item, state):
             api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/bid", "POST", {
                 "payout_cents": payout, "expected_version": version,
                 "note": bid_note[:2000],
-                "idempotency_key": key("bid", bounty_id, version, payout)})
+                "idempotency_key": key("bid", bounty_id, version, payout,
+                                       declined_token or "")})
             action = "bid_active"
             note(state, "bid_sent", bounty_id, payout_cents=payout, version=version)
     elif action == "claim" and current.get("flow") == "claim":
