@@ -1,0 +1,212 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-29T21:23:22.501481+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 2,
+      "duckduckgo": 10,
+      "bing": 2,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "verified_firsthand_problem_pages": 2,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 15,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=34497303",
+        "title": "Ask HN: Embeddable Value-Oriented Languages?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=14855944",
+        "title": "Ask HN: Google Sheet user's next learning path as a non-programmer",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.craftmarkdown.com/best-word-to-markdown-converters",
+        "title": "Best Word to Markdown Converters (2026) \u2014 Free & Paid Tools Compared",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://github.com/OrPhe0/powershell_selenium_web_scraping_to_excel",
+        "title": "GitHub - OrPhe0/powershell_selenium_web_scraping_to_excel",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.adobe.com/acrobat/about-adobe-pdf.html",
+        "title": "What is a PDF? Portable Document Format | Adobe Acrobat",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://howtoconvert.co/blog/best-docx-to-markdown-converters",
+        "title": "18 Best Word to Markdown Converters in 2026 (Free and Paid)",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 14,
+    "search_queries": [
+      "web scraping to excel script download",
+      "convert word to markdown tool for sale",
+      "pdf to excel converter standalone app",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 5,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "convert word to markdown tool for sale",
+        "web scraping to excel script download",
+        "pdf to excel converter standalone app",
+        "data extraction from websites to csv tool"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 138,
+      "known_pages": 1297
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:15 candidates reviewed; d utility compared to existing tools and lacks a clear value proposition. The tool is free and does not demonstrate a strong demand or unique differentiation. There is "
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0,
+    "product_pages": 0,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [],
+  "market_assessments": [
+    {
+      "candidate_id": "web:b679ae13c8a6de81b5",
+      "decision": "pass",
+      "reason": "The discussion highlights the need for embeddable value-oriented languages, but there is no clear evidence of demand or sales. The focus on Lisp and minimal languages does not translate to a viable product without further market validation or demonstrated utility."
+    },
+    {
+      "candidate_id": "web:820e175e2d609723ec",
+      "decision": "pass",
+      "reason": "The candidate's request is specific and detailed, indicating a clear need for automation in data handling and analysis using Google tools. However, there is no evidence of existing sales or demand beyond the user's expressed interest. The market for such tools is competitive, and without verified sales or a clear differentiation, it's difficult to "
+    },
+    {
+      "candidate_id": "web:45d72bd5a64663ca7f",
+      "decision": "pass",
+      "reason": "The market for Word to Markdown converters is already well-served with existing tools like Craft Markdown and Pandoc. The evidence shows that there is significant competition and that the demand is primarily for accurate, secure, and user-friendly conversion tools. There is no clear gap or unmet need that would justify building a new product in thi"
+    },
+    {
+      "candidate_id": "web:542ad8940d54aebbe8",
+      "decision": "pass",
+      "reason": "The GitHub repository appears to be a script for web scraping, which is a technical tool with limited commercial appeal. There is no evidence of demand, pricing, or sales, and the utility is niche. It lacks a clear market need or monetization potential."
+    },
+    {
+      "candidate_id": "web:fb03821d3ea5480605",
+      "decision": "pass",
+      "reason": "The content about Word to Markdown converters indicates a niche but existing demand for tools that convert DOCX to Markdown. However, the evidence does not show a clear market gap or strong buyer utility. The existing competition, such as Pandoc, and the lack of public sales counts suggest that building a new tool in this space may not be viable un"
+    },
+    {
+      "candidate_id": "web:cf09baf933e113b9cf",
+      "decision": "pass",
+      "reason": "The candidate is a public page explaining the PDF format and Adobe Acrobat, which is a well-established product with no indication of a new product or market opportunity. There is no evidence of a new product or service being offered, and the page is informational rather than commercial."
+    },
+    {
+      "candidate_id": "web:72d69d4f42186f6501",
+      "decision": "pass",
+      "reason": "The page is an Adobe Acrobat login page, which is not a product or service offering. It does not provide evidence of a viable product or market opportunity."
+    },
+    {
+      "candidate_id": "web:d9ead429da6bacf3ff",
+      "decision": "pass",
+      "reason": "The candidate is a GitHub repository for a Word to Markdown converter add-in. While there is potential for a niche audience, there is no evidence of paid offerings, sales, or active demand beyond the repository's star count and fork count. The market for document conversion tools is competitive, and without a clear value proposition or monetization"
+    },
+    {
+      "candidate_id": "web:a2bc6d641e257a51ca",
+      "decision": "pass",
+      "reason": "The content is a blog post about scraping data from websites into Excel, which is a common task with existing tools and solutions. There is no indication of a unique product or service being offered, and the content does not suggest a viable commercial opportunity. The other candidates also lack clear commercial potential or unique value propositio"
+    },
+    {
+      "candidate_id": "web:3c48f717647c12cf53",
+      "decision": "pass",
+      "reason": "The tool 'Word to Markdown' appears to be a niche utility with limited public demand. While there is potential for a tool that converts Word documents to Markdown, the lack of pricing, sales data, and clear customer activity suggests that the market is either saturated or not yet validated. Additionally, the presence of similar tools (e.g., 'Markdo"
+    },
+    {
+      "candidate_id": "web:e4f9f4bada7b798f17",
+      "decision": "pass",
+      "reason": "The GitHub repository for the Excel & Python Web Scraper Automation tool has no displayed sales count or listed price, and the evidence excerpt does not indicate active customer activity or demand. The tool's utility is niche and may not have a broad enough market to justify development."
+    },
+    {
+      "candidate_id": "web:4a840c92bc574ee54a",
+      "decision": "pass",
+      "reason": "The product described appears to be a web scraping tool that exports data to Excel, but there is no clear evidence of demand or sales. The page does not show any pricing or sales figures, and the content is more of a service description than a verified product. There is no indication of a specific target audience or utility that would justify build"
+    },
+    {
+      "candidate_id": "web:dda6d73bfdd2c6ebed",
+      "decision": "pass",
+      "reason": "The market for Word to Markdown conversion tools is saturated with multiple competitors offering similar services, and there is no clear differentiation or unique value proposition in the observed candidates. Additionally, the absence of pricing and sales data makes it difficult to assess the viability of the product. The demand for such tools is l"
+    },
+    {
+      "candidate_id": "web:f15db0a114c2fbae70",
+      "decision": "pass",
+      "reason": "The Markdown to Word converter has limited utility compared to existing tools and lacks a clear value proposition. The tool is free and does not demonstrate a strong demand or unique differentiation. There is no evidence of sales or customer activity to justify building a similar product."
+    },
+    {
+      "candidate_id": "web:cfbed3f7289fad76a0",
+      "decision": "pass",
+      "reason": "The product 'Word to Markdown' appears to be a tool for converting documents into Markdown format, which is useful for AI processing. However, there is no clear evidence of demand or sales, and the tool is not differentiated from existing solutions. The lack of pricing and sales data makes it difficult to assess its viability as a commercial produc"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "no_saleable_products",
+    "indexable_product_pages": 0,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 15,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:15 candidates reviewed; d utility compared to existing tools and lacks a clear value proposition. The tool is free and does not demo"
+  }
+}
