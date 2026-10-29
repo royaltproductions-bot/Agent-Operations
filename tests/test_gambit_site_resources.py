@@ -79,6 +79,76 @@ class SiteResourceTests(unittest.TestCase):
             self.assertIn(b"MIT License", bundle.read("assets/LICENSE"))
         self.assertIn("assets/custom.css", assets)
 
+    def test_complete_multipage_site_links_and_packages_all_pages(self):
+        spec = {**SPEC, "pages": [
+            {"slug": "about", "nav_label": "About", "headline": "Meet our ceramics studio",
+             "intro": "Learn how the Orchard House studio approaches handmade work.",
+             "sections": [{"title": "Our craft",
+                           "description": "Small-batch handmade ceramic pieces for everyday use."}]},
+            {"slug": "services", "nav_label": "Services", "headline": "Pottery and workshops",
+             "intro": "Explore tableware, custom pottery and introductory wheel workshops.",
+             "sections": [{"title": "Handmade tableware",
+                           "description": "Durable tableware is made by hand in small batches."}]},
+            {"slug": "contact", "nav_label": "Contact", "headline": "Speak to the studio",
+             "intro": "Ask Orchard House about available pottery and studio workshops.",
+             "sections": [{"title": "Start a conversation",
+                           "description": "Get in touch about a project or an introductory workshop."}]}]}
+        archive, html, assets = sites.create_project(spec, BRIEF)
+        with ZipFile(io.BytesIO(archive)) as bundle:
+            files = set(bundle.namelist())
+            self.assertTrue({"index.html", "about.html", "services.html",
+                             "contact.html", "assets/framework.css",
+                             "assets/custom.css"}.issubset(files))
+            for page in ("index.html", "about.html", "services.html", "contact.html"):
+                source = bundle.read(page).decode("utf-8")
+                self.assertIn('href="assets/framework.css"', source)
+                self.assertIn('href="assets/custom.css"', source)
+                self.assertIn('href="index.html"', source)
+                for linked in ("about.html", "services.html", "contact.html"):
+                    self.assertIn(f'href="{linked}"', source)
+                self.assertIn("<h1>", source)
+        self.assertEqual(html, ZipFile(io.BytesIO(archive)).read("index.html").decode())
+        self.assertIn("services.html", assets)
+
+    def test_multipage_invalid_slug_or_duplicate_page_fails(self):
+        extra = {"nav_label": "About", "headline": "Meet our pottery makers",
+                 "intro": "Learn more about the small pottery studio.",
+                 "sections": [{"title": "Our approach",
+                               "description": "Handmade ceramics for everyday moments."}]}
+        for pages in ([{"slug": "../bad", **extra}],
+                      [{"slug": "about", **extra}, {"slug": "about", **extra}],
+                      [{"slug": "index", **extra}]):
+            with self.assertRaises(ValueError):
+                sites.create_project({**SPEC, "pages": pages}, BRIEF)
+
+    def test_multipage_request_is_eligible_without_paid_tools(self):
+        details = {"bounty": {"title": "Build a four-page website",
+                              "description": "Create a multi-page static website with an About page.",
+                              "verification": "Provide linked HTML and CSS source files."}}
+        self.assertTrue(sites.multipage_requested(details))
+        self.assertTrue(sites.static_site_eligible(details))
+        with patch.object(gambit, "website_capable", return_value=True):
+            self.assertIsNone(gambit.unsupported_deliverable(details))
+
+    def test_worker_generates_multiple_linked_pages_without_website_vendor(self):
+        details = {"bounty": {"title": "Build a multi-page website",
+                              "description": BRIEF + " Include separate About and Services pages.",
+                              "verification": "Linked, responsive HTML files in one ZIP."}}
+        extra = {"slug": "about", "nav_label": "About",
+                 "headline": "Orchard House pottery craft",
+                 "intro": "Explore our pottery studio and its everyday handmade work.",
+                 "sections": [{"title": "About the studio",
+                               "description": "Independent ceramics made through thoughtful craftsmanship."}]}
+        with (patch.object(gambit, "website_capable", return_value=True),
+              patch.object(gambit, "infer",
+                           return_value={**SPEC, "pages": [extra]}) as infer):
+            output = gambit.produce(details, [])
+        self.assertEqual(output["status"], "ready")
+        self.assertEqual(output["deliverable_format"], "site_zip")
+        with ZipFile(io.BytesIO(output["_site_binary"])) as archive:
+            self.assertIn("about.html", archive.namelist())
+        self.assertTrue(infer.call_args.kwargs["num_predict"] > 1800)
+
     def test_unverified_contact_and_placeholder_rejected(self):
         self.assertRaises(ValueError, sites.create_project,
                           {**SPEC, "contact_url": "https://fake-payments.test"}, BRIEF)
