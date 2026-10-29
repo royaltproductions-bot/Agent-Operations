@@ -1,0 +1,134 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-29T04:07:57.568531+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 15,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 10
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "candidates_without_email": 14,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/VictoriqueMoe/umineko_city_of_books/issues/132",
+        "title": "Before I send anything: how should backend analysis reach you?",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/facesnatcher56-star/curse/issues/15",
+        "title": "Coordination channel: TD \u2194 coordinator",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/humanaios-ui/operations/issues/588",
+        "title": "HumanAIOS Resource System \u2014 commit Miner + Manager + PII + Activity Graph as repository project",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Smarter-Software-PIQ/Smarter-Poker-Club-Arena/issues/5070",
+        "title": "Production Alerts Fleet \u2014 Board (cloud)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ZcashCommunityGrants/zcashcommunitygrants/issues/405",
+        "title": "Grant Application \u2014 Zcash World, Mumbai (Devcon 8 week)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.upwork.com/hire/course-freelancers/",
+        "title": "Best Course Freelancers for Hire (Oct 2026) - Upwork",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-30 create online course",
+      "hiring a freelancer to create a paid online course template",
+      "can anyone create a simple web app for scheduling appointments"
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to create a paid online course template",
+      "can anyone create a simple web app for scheduling appointments",
+      "need paid help with developing a mobile-friendly landing page",
+      "looking for someone to design a SaaS dashboard with charts"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 4,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to create a paid online course template",
+        "can anyone create a simple web app for scheduling appointments",
+        "need paid help with developing a mobile-friendly landing page",
+        "looking for someone to design a SaaS dashboard with charts"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 140,
+      "known_pages": 1035
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
