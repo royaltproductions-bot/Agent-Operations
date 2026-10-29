@@ -1,0 +1,147 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-29T01:41:10.938642+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "duckduckgo": 8,
+      "hn_ask": 7,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "verified_firsthand_problem_pages": 7,
+    "observed_public_paid_offers": 2,
+    "market_candidates_considered": 2,
+    "public_sources_available_for_judgment": 15,
+    "public_market_sample": [
+      {
+        "url": "https://www.simplesheets.co/content-calendar-template",
+        "title": "Content Calendar Template for Excel & Google Sheets",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://www.someka.net/products/content-calendar-excel-template/",
+        "title": "Content Calendar Excel Template | Social Media Content Planner - Someka",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=36345700",
+        "title": "Do you think writing backend with Python feels wrong?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=7449128",
+        "title": "Ask HN: Will soon have lots of time and little money \u2013 how to spend it?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=3379386",
+        "title": "Ask HN: Advice needed: Career Pivot? (Long)",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=2420813",
+        "title": "Ask HN: Would you like to work with me on some nice app?",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://www.simplesheets.co/content-calendar-template",
+        "title": "Content Calendar Template for Excel & Google Sheets",
+        "displayed_sales_count": null,
+        "listed_price_usd": "49.97"
+      },
+      {
+        "url": "https://www.someka.net/products/content-calendar-excel-template/",
+        "title": "Content Calendar Excel Template | Social Media Content Planner - Someka",
+        "displayed_sales_count": null,
+        "listed_price_usd": "250.00"
+      }
+    ],
+    "candidates_without_email": 16,
+    "search_queries": [
+      "buy Excel template for social media content calendar",
+      "pay for ready-made Python tool to scrape product prices",
+      "downloadable script to rename multiple files by date",
+      "purchase CSV file with 1000+ free stock photo URLs"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 1,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "buy Excel template for social media content calendar",
+        "downloadable script to rename multiple files by date",
+        "pay for ready-made Python tool to scrape product prices",
+        "purchase CSV file with 1000+ free stock photo URLs"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 140,
+      "known_pages": 1001
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:The content calendar template for Excel and Google Sheets is a paid offer with a price of $49.97, but there is no displayed sales count to indicate demand. While the product offers"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0,
+    "product_pages": 0,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "no_saleable_products",
+    "indexable_product_pages": 0,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 15,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:The content calendar template for Excel and Google Sheets is a paid offer with a price of $49.97, but there is no displayed sales co"
+  }
+}
