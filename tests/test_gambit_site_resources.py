@@ -37,6 +37,20 @@ SPEC = {
 
 
 class SiteResourceTests(unittest.TestCase):
+    def test_one_page_report_is_not_misclassified_as_website(self):
+        self.assertFalse(sites.static_site_eligible({
+            "bounty": {"title": "Summarize a customer memo",
+                       "description": "Write a one-page summary of the supplied memo.",
+                       "verification": "Deliver an accurate prose report."}}))
+        self.assertFalse(sites.static_site_eligible({
+            "bounty": {"title": "Static analysis of CSV figures",
+                       "description": "Calculate a one-page table of averages.",
+                       "verification": "A CSV analysis report."}}))
+        self.assertTrue(sites.static_site_eligible({
+            "bounty": {"title": "Create a single-page website",
+                       "description": "Deliver standalone HTML and CSS.",
+                       "verification": "Source ZIP."}}))
+
     def test_packaged_real_assets_and_licensed_source(self):
         archive, html, assets = sites.create_project(SPEC, BRIEF)
         self.assertIn('href="assets/framework.css"', html)
