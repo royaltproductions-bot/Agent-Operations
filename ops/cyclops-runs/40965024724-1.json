@@ -1,0 +1,209 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-29T22:22:04.094646+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "duckduckgo": 8
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 16,
+    "verified_firsthand_problem_pages": 5,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 16,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=43325133",
+        "title": "Tell HN: TIL Notion's TOS makes using it for MCP illegal",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=42574273",
+        "title": "Ask HN: Who the Hell Do We Need to Hire?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=36148850",
+        "title": "Tell HN: Proposal for Saving Reddit",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=2032887",
+        "title": "Ask HN: Advice on a public health project.",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=25508834",
+        "title": "Ask HN: Future proof project documentation?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=16587698",
+        "title": "Ask HN: How should one format plain-text documents?",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 15,
+    "search_queries": [
+      "Scrape data from a website to Excel: Free Excel Web Scraper | Website Scraper",
+      "Word to Markdown Converter \u2014 DOCX for ChatGPT & Claude"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 7,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "Scrape data from a website to Excel: Free Excel Web Scraper | Website Scraper",
+        "Word to Markdown Converter \u2014 DOCX for ChatGPT & Claude",
+        "Markdown \u2192 Word",
+        "Word to Markdown"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 139,
+      "known_pages": 1313
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:16 candidates reviewed; dering, content stripping, and automatic refunds, but there is no listed price or sales count to assess market viability. The lack of pricing and sales data makes it di"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0,
+    "product_pages": 0,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [],
+  "market_assessments": [
+    {
+      "candidate_id": "web:2192fb80ab89959c33",
+      "decision": "pass",
+      "reason": "The candidate's issue with Notion's TOS regarding scraping data for MCP (which appears to be a specific use case) is a legal and technical challenge, but there is no clear evidence of a market demand for a product that circumvents this restriction. The discussion is more about a legal limitation than a demonstrated need for a new product. Additiona"
+    },
+    {
+      "candidate_id": "web:1a7460b433466b0d39",
+      "decision": "pass",
+      "reason": "The candidate presents a unique, gamified intelligent tutoring system for MCAT preparation, which could have strong demand in the education technology sector. However, there is no evidence of sales or pricing, and the discussion is focused on hiring needs rather than product validation. Without concrete data on buyer utility, demand, or competitive"
+    },
+    {
+      "candidate_id": "web:1fc8bcc9a8cd701ffe",
+      "decision": "pass",
+      "reason": "The proposal for saving Reddit is an interesting idea, but it lacks concrete evidence of demand or buyer utility. The discussion is theoretical and does not provide clear data on potential users or market size. Additionally, the absence of sales counts or pricing makes it difficult to assess the viability of the product."
+    },
+    {
+      "candidate_id": "web:2ce68265198140845b",
+      "decision": "pass",
+      "reason": "The candidate presents a clear need for a data aggregation and analysis tool in public health, but there is no evidence of demand or sales to validate the market. The project is highly technical and requires significant resources, which may not be feasible without clear buyer interest or funding."
+    },
+    {
+      "candidate_id": "web:534c7f9f973988d4ed",
+      "decision": "pass",
+      "reason": "The discussion highlights a need for future-proof documentation, but the lack of a clear product offering or sales data makes it difficult to assess viability. The focus on Markdown and alternatives suggests a niche audience, but without a concrete product or demonstrated demand, the opportunity remains speculative."
+    },
+    {
+      "candidate_id": "web:c0789e53b0528090c3",
+      "decision": "pass",
+      "reason": "The discussion highlights a need for a plain-text document format that is readable without conversion, but there is no clear demand for a new format. The existing solutions like Markdown and org-mode are already in use, and the user's current approach is a custom solution. There is no evidence of a market gap or a clear buyer utility for a new form"
+    },
+    {
+      "candidate_id": "web:b8fa42dfc58a080b35",
+      "decision": "pass",
+      "reason": "The candidate highlights a specific pain point for non-technical students who need to export documents from Markdown to Word and PDF without relying on command-line tools. However, the lack of listed price and displayed sales count makes it difficult to assess market viability. Additionally, there are existing tools like Word2Markdown (candidate_id"
+    },
+    {
+      "candidate_id": "web:52d0baaa9343b50bf4",
+      "decision": "pass",
+      "reason": "The candidate is a discussion thread on Hacker News about alternatives to MS Word for academic reports, which indicates a niche interest rather than a clear product opportunity. There is no evidence of a product being offered for sale, and the discussion does not suggest a viable market for a new product. The focus is on markup languages and tools,"
+    },
+    {
+      "candidate_id": "web:5bc4c3f23667d58965",
+      "decision": "pass",
+      "reason": "The article discusses free web scraping tools, but there is no clear indication of a specific product being offered for sale. The content is more of a review and comparison rather than a commercial product. Additionally, there are no listed prices or sales counts, making it difficult to assess the viability of building a product in this space."
+    },
+    {
+      "candidate_id": "web:644762834341abf1ad",
+      "decision": "pass",
+      "reason": "The candidate_id 'web:644762834341abf1ad' addresses a specific need for converting Word documents to Markdown for AI tools and RAG pipelines. However, there is no listed price or displayed sales count, which makes it difficult to assess the commercial viability. Additionally, there are existing tools like 'Web Scraper' and 'Markdown Converters' tha"
+    },
+    {
+      "candidate_id": "web:efbd2d0a0576033703",
+      "decision": "pass",
+      "reason": "The article highlights the need for free web scrapers, but it does not indicate a clear demand for a new product in this space. The existing tools already cover the free-tier needs, and the article does not suggest a gap that a new product could fill. Additionally, the lack of displayed sales counts or pricing information makes it difficult to asse"
+    },
+    {
+      "candidate_id": "web:406eca03e7090dc714",
+      "decision": "pass",
+      "reason": "The candidate_id 'web:406eca03e7090dc714' is a Word to Markdown converter for AI chatbots like ChatGPT and Claude. While there is a clear need for such a tool, the market is already saturated with similar offerings, and there is no evidence of unique differentiation or significant sales. Additionally, the lack of pricing and sales data makes it dif"
+    },
+    {
+      "candidate_id": "web:94d62229938e24cb6c",
+      "decision": "pass",
+      "reason": "The content discusses the issue of converting Word documents to Markdown for better AI interaction, but there is no clear evidence of demand or sales. The article is informative but does not indicate a viable product with a clear customer base or utility. The existing competition and lack of sales data make it difficult to justify pursuing this ide"
+    },
+    {
+      "candidate_id": "web:164ba6e0c7a06e7949",
+      "decision": "pass",
+      "reason": "The product claims to be the #1 AI-powered web scraping extension, but there is no listed price or sales count to validate its market position. The lack of concrete pricing and sales data makes it difficult to assess its viability as a genuine product."
+    },
+    {
+      "candidate_id": "web:050b596fcef28efb34",
+      "decision": "pass",
+      "reason": "The website scraper tool appears to offer a unique value proposition with features like JavaScript rendering, content stripping, and automatic refunds, but there is no listed price or sales count to assess market viability. The lack of pricing and sales data makes it difficult to evaluate the product's commercial potential without further market va"
+    },
+    {
+      "candidate_id": "web:f21dba8c7dc419e0b6",
+      "decision": "pass",
+      "reason": "The observed product is a free Word to Markdown converter, which lacks a clear monetization strategy. The absence of a listed price or sales count indicates it is not a paid product, and there is no evidence of a viable business model or demand for a premium version. The existing catalog includes more viable product ideas with clear utility and pot"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "no_saleable_products",
+    "indexable_product_pages": 0,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 16,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:16 candidates reviewed; dering, content stripping, and automatic refunds, but there is no listed price or sales count to assess mark"
+  }
+}
