@@ -67,21 +67,32 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # Code-change jobs perform one live check and code validation.
           if [ "$GITHUB_EVENT_NAME" != 'schedule' ]; then
             python3 -m tools.gambit_early_scan --probe
             exit 0
           fi
-          # Only stdlib and HTTP while idle: NO Ollama install, AI inference,
-          # dependency installation, benchmarks or self-dispatched run chains.
-          # The five-minute cron queues the next lightweight watch window.
           successful=0
           for iteration in $(seq 1 20); do
             started=$SECONDS
             if python3 -m tools.gambit_early_scan --probe; then
               successful=1
-              if grep -q '^needs_run=true
-
+              if grep -q 'needs_run=true' "$GITHUB_OUTPUT"; then
+                echo "Marketplace work detected on scan $iteration"
+                break
+              fi
+            else
+              echo 'Temporary TryBounty check failed; retrying' >&2
+            fi
+            if [ "$iteration" -lt 20 ]; then
+              elapsed=$((SECONDS - started))
+              delay=$((30 - elapsed))
+              if [ "$delay" -gt 0 ]; then sleep "$delay"; fi
+            fi
+          done
+          if [ "$successful" -eq 0 ]; then
+            echo 'TryBounty unavailable throughout watch window' >&2
+            exit 1
+          fi
       - name: Preserve discovered IDs immediately
         if: always() && steps.market.outputs.changed == 'true'
         shell: bash
