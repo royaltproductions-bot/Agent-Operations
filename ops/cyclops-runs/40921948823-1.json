@@ -1,0 +1,132 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-29T17:31:43.158597+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 1,
+      "duckduckgo": 15
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "verified_firsthand_problem_pages": 3,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 15,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=43968074",
+        "title": "My little script turned into a Profitable SaaS",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://talks.co/p/podcast-tools/",
+        "title": "27 Best Podcast Tools: Recording, Editing, Publishing, SEO & Marketing",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://github.com/eppic/ytBATCH",
+        "title": "GitHub - eppic/ytBATCH: An easy to use Batch Script for downloading ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://civicdesign.org/tools/pdf-forms/",
+        "title": "Creating accessible forms for print and PDF - civicdesign.org",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://lowerstreet.co/templates/podcast-workflow",
+        "title": "The Perfect Podcast Workflow: Download Our Template",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://apify.com/transcriptdl/transcript-downloader-youtube-audio-scraper",
+        "title": "YouTube MP3 Audio Downloader - Bulk & API-Based \u00b7 Apify",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 14,
+    "search_queries": [
+      "free script to batch convert YouTube videos to MP3",
+      "downloadable tool to organize podcast editing workflow",
+      "paid template for creating accessible PDF forms"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "downloadable tool to organize podcast editing workflow",
+        "free script to batch convert YouTube videos to MP3",
+        "paid template for creating accessible PDF forms",
+        "script to extract data from PDF tables"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 140,
+      "known_pages": 1223
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:The evidence suggests that the creator faced significant challenges in acquiring initial users for their SaaS product, indicating a potential lack of demand or difficulty in market"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0,
+    "product_pages": 0,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "no_saleable_products",
+    "indexable_product_pages": 0,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 15,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:The evidence suggests that the creator faced significant challenges in acquiring initial users for their SaaS product, indicating a "
+  }
+}
