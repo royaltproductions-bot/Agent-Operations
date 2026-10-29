@@ -70,7 +70,8 @@ jobs:
       - name: Install and validate free artifact generation dependencies
         run: |
           python3 -m pip install --disable-pip-version-check --quiet \
-            'pypdf>=5,<8' 'python-docx>=1.2,<2' 'openpyxl>=3.1,<4' 'reportlab>=4,<5'
+            'pypdf>=5,<8' 'python-docx>=1.2,<2' 'openpyxl>=3.1,<4' \
+            'reportlab>=4,<5' 'cryptography>=43,<48'
 
       - name: Validate worker code
         run: python3 -m unittest discover -s tests -p 'test_gambit_*.py' -q
@@ -131,6 +132,28 @@ jobs:
             fi
           done
           cat "$poll_report" >> "$GITHUB_OUTPUT"
+
+      - name: Preserve discovered bounty IDs and encrypted briefs before model startup
+        if: steps.probe.outputs.needs_run == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'gambit-worker'
+          git config user.email 'ari-operations@agentmail.to'
+          git add ops/gambit/state.json
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m 'Checkpoint Gambit bounty discoveries before inference'
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            git fetch origin main
+            git rebase origin/main
+          done
+          echo 'Could not checkpoint discovered bounties before model startup' >&2
+          exit 1
 
       - name: Cache open-source model
         if: steps.probe.outputs.needs_model == 'true'

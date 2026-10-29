@@ -8,6 +8,7 @@ No buyer data or API credentials are written to GitHub.
 from __future__ import annotations
 
 import csv
+import base64
 from datetime import datetime, timedelta, timezone
 import hashlib
 import io
@@ -20,6 +21,8 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+
+from cryptography.fernet import Fernet, InvalidToken
 
 from tools.gambit_documents import (MAX_BINARY_BYTES, convert_document,
                                     csv_to_xlsx, kind_for)
@@ -37,6 +40,7 @@ MAX_PAGES = 20
 MAX_TEXT_FILE_BYTES = 30_000
 MAX_SOURCE_CHARS = 24_000
 CLARIFICATION_TIMEOUT = timedelta(hours=24)
+EVALUATION_TIMEOUT_SECONDS = int(os.getenv("GAMBIT_EVALUATION_TIMEOUT_SECONDS", "180"))
 
 
 def timestamp():
@@ -44,7 +48,7 @@ def timestamp():
 
 
 def retry_due(entry, now=None):
-    if entry.get("action") != "retry_search" or not entry.get("retry_at"):
+    if entry.get("action") not in {"retry_search", "retry_evaluation"} or not entry.get("retry_at"):
         return False
     try:
         due = datetime.fromisoformat(entry["retry_at"])
@@ -256,6 +260,154 @@ def save_state(state):
     STATE_PATH.write_text(json.dumps(state, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
+def encrypted_brief(details):
+    """Retain the buyer's terms without publishing them in this public repository.
+
+    The existing high-entropy agent credential supplies the encryption key; its
+    value and the plaintext never enter committed state or CI logs.
+    """
+    credential = os.environ.get("BOUNTY_AGENT_API_KEY")
+    if not credential:
+        return None
+    bounty = details.get("bounty") or {}
+    allowed = ("title", "description", "verification", "version", "flow",
+               "budget_cents", "payout_cents", "currency", "delivery_window_ms")
+    data = {name: bounty.get(name) for name in allowed}
+    secret = hashlib.sha256(("gambit-brief-v1:" + credential).encode()).digest()
+    cipher = Fernet(base64.urlsafe_b64encode(secret))
+    return cipher.encrypt(json.dumps(data, ensure_ascii=False).encode()).decode()
+
+
+def saved_brief(state, bounty_id, version=None):
+    """Recover archived terms using the configured credential, even after delisting."""
+    record = state.get("bounty_archive", {}).get(bounty_id) or {}
+    selected = str(record.get("version") if version is None else version)
+    token = (record.get("versions", {}).get(selected) or {}).get("encrypted_brief")
+    credential = os.environ.get("BOUNTY_AGENT_API_KEY")
+    if not token or not credential:
+        return None
+    secret = hashlib.sha256(("gambit-brief-v1:" + credential).encode()).digest()
+    try:
+        decoded = Fernet(base64.urlsafe_b64encode(secret)).decrypt(token.encode())
+        return json.loads(decoded)
+    except (InvalidToken, ValueError, TypeError):
+        return None
+
+
+def remember_open_bounties(state, opened):
+    """Save every discovered ID immediately; never confuse unlisted with closed."""
+    archive = state.setdefault("bounty_archive", {})
+    known = set()
+    changed = False
+    for item in opened:
+        bounty_id = str(item.get("_id") or "")
+        if not bounty_id:
+            continue
+        known.add(bounty_id)
+        version = item.get("version")
+        if bounty_id not in archive:
+            archive[bounty_id] = {"first_detected_at": timestamp(),
+                                  "last_seen_open_at": timestamp(),
+                                  "last_known_status": "open", "version": version,
+                                  "versions": {}}
+            changed = True
+        else:
+            record = archive[bounty_id]
+            if record.get("version") != version or record.get("last_known_status") != "open":
+                record.update(version=version, last_known_status="open",
+                              last_seen_open_at=timestamp())
+                changed = True
+        if bounty_id not in state["bounties"]:
+            state["bounties"][bounty_id] = {
+                "action": "evaluation_pending", "version": version, "at": timestamp()}
+            changed = True
+    for bounty_id, record in archive.items():
+        if bounty_id not in known and record.get("last_known_status") == "open":
+            record["last_known_status"] = "not_in_open_list"
+            record["first_unlisted_at"] = timestamp()
+            changed = True
+    return changed
+
+
+def remember_details(state, bounty_id, details):
+    """Store each version's encrypted terms before slow model inference."""
+    bounty = details.get("bounty") or {}
+    record = state.setdefault("bounty_archive", {}).setdefault(
+        bounty_id, {"first_detected_at": timestamp(), "versions": {}})
+    version = bounty.get("version")
+    version_key = str(version)
+    record.setdefault("versions", {})
+    if version_key not in record["versions"]:
+        ciphertext = encrypted_brief(details)
+        if ciphertext:
+            record["versions"][version_key] = {
+                "captured_at": timestamp(), "encrypted_brief": ciphertext}
+    record["version"] = version
+    if bounty.get("status"):
+        record["last_known_status"] = bounty["status"]
+
+
+def capture_new_details(state, waiting):
+    """Read and secure new briefs during the fast probe, before Qwen boots."""
+    for item in waiting[:8]:
+        bounty_id = str(item.get("_id") or "")
+        version = str(item.get("version"))
+        record = state.setdefault("bounty_archive", {}).get(bounty_id) or {}
+        if version in record.get("versions", {}):
+            continue
+        try:
+            details = api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}")
+            remember_details(state, bounty_id, details)
+        except (OSError, RuntimeError, ValueError):
+            # ID and evaluation_pending were already recorded. The next run retries.
+            continue
+
+
+def schedule_evaluation_retry(state, bounty_id, exc):
+    previous = state["bounties"].get(bounty_id) or {}
+    attempt = min(int(previous.get("retry_count") or 0) + 1, 10)
+    minutes = min(60, 2 ** min(attempt - 1, 6))
+    state["bounties"][bounty_id] = {
+        "action": "retry_evaluation", "version": previous.get("version"),
+        "retry_count": attempt, "last_error": safe_failure_reason(exc),
+        "retry_at": (datetime.now(timezone.utc) + timedelta(minutes=minutes)).isoformat(),
+        "at": timestamp()}
+    note(state, "evaluation_retry_scheduled", bounty_id,
+         retry_count=attempt, reason=safe_failure_reason(exc))
+
+
+def recover_unlisted_evaluations(state, opened, waiting):
+    """Retry known IDs by detail endpoint even after the open list omits them."""
+    listed = {str(item.get("_id")) for item in opened}
+    changed = False
+    for bounty_id, entry in list(state["bounties"].items()):
+        if bounty_id in listed or entry.get("action") not in {
+                "evaluation_pending", "retry_evaluation"}:
+            continue
+        if entry.get("action") == "retry_evaluation" and not retry_due(entry):
+            continue
+        try:
+            details = api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}")
+            remember_details(state, bounty_id, details)
+            changed = True
+            bounty = details.get("bounty") or {}
+            if bounty.get("status") == "open":
+                # Detail access can remain possible after feed release ends.
+                # Do not repeatedly label that ambiguous case as closed/open.
+                state["bounty_archive"][bounty_id]["last_known_status"] = "open_via_detail"
+                waiting.append({"_id": bounty_id, "version": bounty.get("version")})
+            else:
+                state["bounties"][bounty_id] = {
+                    "action": "closed_before_evaluation", "version": bounty.get("version"),
+                    "platform_status": bounty.get("status"), "at": timestamp()}
+                note(state, "closed_before_evaluation", bounty_id,
+                     platform_status=bounty.get("status"))
+        except (OSError, RuntimeError, ValueError) as exc:
+            schedule_evaluation_retry(state, bounty_id, exc)
+            changed = True
+    return changed
+
+
 def note(state, action, bounty_id=None, **details):
     # Only operational receipts, never task content or personal buyer data.
     state["recent_outcomes"].append({"at": timestamp(), "action": action,
@@ -320,8 +472,12 @@ def scan(state):
                 if e.get("type") in relevant and e.get("data", {}).get("bounty_id")}
     waiting = [item for item in opened
                if state["bounties"].get(str(item.get("_id")), {}).get("version") != item.get("version")
+               or state["bounties"].get(str(item.get("_id")), {}).get("action") == "evaluation_pending"
                or retry_due(state["bounties"].get(str(item.get("_id")), {}))
-               or str(item.get("_id")) in triggers
+               or (str(item.get("_id")) in triggers and not (
+                   state["bounties"].get(str(item.get("_id")), {}).get("action") ==
+                   "retry_evaluation" and not
+                   retry_due(state["bounties"].get(str(item.get("_id")), {}))))
                or (state.get("_cursor_reset") and
                    state["bounties"].get(str(item.get("_id")), {}).get("action") in
                    {"asked", "bid_sent", "bid_active"})]
@@ -351,7 +507,8 @@ def infer(schema, system, context, *, num_predict=900, num_ctx=5500):
             "messages": [{"role": "system", "content": system},
                          {"role": "user", "content": json.dumps(context, ensure_ascii=False)}],
         }).encode(), headers={"Content-Type": "application/json"})
-    with urllib.request.urlopen(request, timeout=600) as response:
+    timeout = EVALUATION_TIMEOUT_SECONDS if num_predict <= 900 else 600
+    with urllib.request.urlopen(request, timeout=timeout) as response:
         value = json.load(response).get("message", {}).get("content", "")
     result = json.loads(value)
     if not isinstance(result, dict):
@@ -741,8 +898,14 @@ def respond_to_buyer(details, messages):
 def handle_open(item, state):
     bounty_id = str(item["_id"])
     details = api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}")
+    remember_details(state, bounty_id, details)
     current = details.get("bounty") or {}
     if current.get("status") != "open":
+        state["bounties"][bounty_id] = {
+            "version": current.get("version"), "action": "closed_before_evaluation",
+            "platform_status": current.get("status"), "at": timestamp()}
+        note(state, "closed_before_evaluation", bounty_id,
+             platform_status=current.get("status"))
         return
     previous = state["bounties"].get(bounty_id) or {}
     version = current.get("version")
@@ -1412,12 +1575,21 @@ def run(mode="run"):
     global CURRENT_EVENTS
     state = load_state()
     opened, held, events, cursor, waiting, active = scan(state)
+    discoveries_changed = remember_open_bounties(state, opened)
+    recovery_changed = recover_unlisted_evaluations(state, opened, waiting)
+    if waiting:
+        capture_new_details(state, waiting)
+    # Persist new IDs and encrypted terms before a potentially slow AI call.
+    # The workflow pushes this state in its pre-model checkpoint step.
+    if discoveries_changed or recovery_changed or waiting:
+        save_state(state)
     CURRENT_EVENTS = events
     if mode == "probe":
         needs_model = bool(waiting or active)
         needs_run = (needs_model or bool(events) or state.get("_cursor_reset") or
                      cursor_refresh_due(state, cursor) or
-                     bid_reconciliation_due(state, opened))
+                      bid_reconciliation_due(state, opened) or
+                      discoveries_changed or recovery_changed)
         output = os.environ.get("GITHUB_OUTPUT")
         if output:
             with open(output, "a", encoding="utf-8") as f:
@@ -1444,6 +1616,7 @@ def run(mode="run"):
         try:
             handle_open(item, state)
         except Exception as exc:
+            schedule_evaluation_retry(state, bounty_id, exc)
             failures.append((bounty_id, safe_failure_reason(exc)))
         save_state(state)
     for item in active[:5]:

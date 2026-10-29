@@ -5,6 +5,8 @@ from importlib.util import find_spec
 import io
 import json
 import os
+from pathlib import Path
+import tempfile
 import unittest
 import urllib.error
 from unittest.mock import patch
@@ -13,6 +15,14 @@ from tools import gambit_worker as gambit
 
 
 class GambitTests(unittest.TestCase):
+    def setUp(self):
+        # Worker tests must never overwrite the live committed watch state.
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        location = patch.object(gambit, 'STATE_PATH', Path(temporary.name) / 'state.json')
+        location.start()
+        self.addCleanup(location.stop)
+
     def test_public_csv_sources_must_be_actually_read(self):
         data = b"company,source_url\nAcme,https://example.org/acme\n"
         evidence = {"results": [{"url": "https://example.org/acme",
@@ -62,6 +72,103 @@ class GambitTests(unittest.TestCase):
              patch.dict(os.environ, {'GITHUB_OUTPUT': ''}), redirect_stdout(output):
             gambit.run('probe')
         self.assertFalse(json.loads(output.getvalue())['needs_run'])
+
+    def test_new_bounty_is_preserved_and_encrypted_during_probe(self):
+        state = {'schema': 1, 'bounties': {}, 'events_cursor': None,
+                 'recent_outcomes': [], 'last_bid_reconciliation':
+                 datetime.now(timezone.utc).isoformat()}
+        item = {'_id': 'new-123', 'version': 4, 'status': 'open'}
+        details = {'bounty': {'_id': 'new-123', 'version': 4,
+                              'status': 'open', 'title': 'Private Buyer Project',
+                              'description': 'Confidential buyer instructions',
+                              'budget_cents': 25000, 'flow': 'bid'}}
+        with patch.object(gambit, 'load_state', return_value=state), \
+             patch.object(gambit, 'scan', return_value=(
+                 [item], [], [], None, [item], [])), \
+             patch.object(gambit, 'api', return_value=details), \
+             patch.object(gambit, 'save_state') as save, \
+             patch.dict(os.environ, {'BOUNTY_AGENT_API_KEY': 'test-secret',
+                                      'GITHUB_OUTPUT': ''}), \
+             redirect_stdout(io.StringIO()):
+            gambit.run('probe')
+        self.assertEqual(state['bounties']['new-123']['action'], 'evaluation_pending')
+        archive = state['bounty_archive']['new-123']
+        self.assertIn('4', archive['versions'])
+        ciphertext = archive['versions']['4']['encrypted_brief']
+        self.assertNotIn('Private Buyer Project', json.dumps(state))
+        self.assertNotIn('Confidential buyer instructions', json.dumps(state))
+        self.assertNotIn('test-secret', json.dumps(state))
+        with patch.dict(os.environ, {'BOUNTY_AGENT_API_KEY': 'test-secret'}):
+            self.assertEqual(gambit.saved_brief(state, 'new-123')['title'],
+                             'Private Buyer Project')
+        with patch.dict(os.environ, {'BOUNTY_AGENT_API_KEY': 'wrong-key'}):
+            self.assertIsNone(gambit.saved_brief(state, 'new-123'))
+        save.assert_called()
+
+    def test_timeout_remains_pending_and_retries_without_duplicate_bid(self):
+        state = {'schema': 1, 'bounties': {}, 'events_cursor': None,
+                 'recent_outcomes': [], 'last_bid_reconciliation':
+                 datetime.now(timezone.utc).isoformat()}
+        item = {'_id': 'slow-456', 'version': 1}
+        details = {'bounty': {'_id': 'slow-456', 'version': 1,
+                              'status': 'open', 'title': 'Research task',
+                              'description': 'Analyze a supplied dataset',
+                              'flow': 'bid'}}
+        with patch.object(gambit, 'load_state', return_value=state), \
+             patch.object(gambit, 'scan', return_value=(
+                 [item], [], [], None, [item], [])), \
+             patch.object(gambit, 'api', return_value=details) as api, \
+             patch.object(gambit, 'assess', side_effect=TimeoutError()), \
+             patch.object(gambit, 'save_state'), \
+             patch.dict(os.environ, {'BOUNTY_AGENT_API_KEY': 'test-secret'}), \
+             redirect_stdout(io.StringIO()):
+            with self.assertRaisesRegex(RuntimeError, 'failed_bounty_jobs'):
+                gambit.run()
+        self.assertEqual(state['bounties']['slow-456']['action'], 'retry_evaluation')
+        self.assertEqual(state['bounties']['slow-456']['retry_count'], 1)
+        self.assertFalse(gambit.retry_due(state['bounties']['slow-456']))
+        self.assertIn('1', state['bounty_archive']['slow-456']['versions'])
+        self.assertFalse(any(call.args[1] == 'POST' for call in api.call_args_list
+                             if len(call.args) > 1))
+
+    def test_missing_listing_is_rechecked_and_retained(self):
+        past = (datetime.now(timezone.utc) - timedelta(minutes=5)).isoformat()
+        state = {'schema': 1, 'bounties': {'unlisted-789': {
+            'version': 2, 'action': 'retry_evaluation', 'retry_at': past}},
+            'bounty_archive': {'unlisted-789': {'first_detected_at': past,
+                'last_known_status': 'open', 'version': 2, 'versions': {}}},
+            'events_cursor': None, 'recent_outcomes': [],
+            'last_bid_reconciliation': datetime.now(timezone.utc).isoformat()}
+        detail = {'bounty': {'_id': 'unlisted-789', 'version': 2,
+                             'status': 'open', 'title': 'Still available', 'flow': 'bid'}}
+        output = io.StringIO()
+        with patch.object(gambit, 'load_state', return_value=state), \
+             patch.object(gambit, 'scan', return_value=([], [], [], None, [], [])), \
+             patch.object(gambit, 'api', return_value=detail), \
+             patch.object(gambit, 'save_state'), \
+             patch.dict(os.environ, {'BOUNTY_AGENT_API_KEY': 'test-secret',
+                                      'GITHUB_OUTPUT': ''}), redirect_stdout(output):
+            gambit.run('probe')
+        self.assertTrue(json.loads(output.getvalue())['needs_model'])
+        self.assertIn('2', state['bounty_archive']['unlisted-789']['versions'])
+        self.assertIn('unlisted-789', state['bounty_archive'])
+
+    def test_closed_listing_keeps_history_and_stops_bidding(self):
+        past = (datetime.now(timezone.utc) - timedelta(minutes=5)).isoformat()
+        state = {'bounties': {'b1': {'action': 'retry_evaluation', 'version': 1,
+                                   'retry_at': past}},
+                 'bounty_archive': {'b1': {'last_known_status': 'open',
+                                          'versions': {}}}, 'recent_outcomes': []}
+        detail = {'bounty': {'_id': 'b1', 'version': 1, 'status': 'claimed',
+                             'title': 'Previously open'}}
+        with patch.object(gambit, 'api', return_value=detail), \
+             patch.dict(os.environ, {'BOUNTY_AGENT_API_KEY': 'test-secret'}):
+            recovered = []
+            self.assertTrue(gambit.recover_unlisted_evaluations(state, [], recovered))
+        self.assertEqual(recovered, [])
+        self.assertEqual(state['bounties']['b1']['action'], 'closed_before_evaluation')
+        self.assertIn('1', state['bounty_archive']['b1']['versions'])
+        self.assertEqual(state['bounty_archive']['b1']['last_known_status'], 'claimed')
 
     def test_settlement_event_runs_without_loading_model(self):
         state = {'schema': 1, 'bounties': {}, 'events_cursor': None, 'recent_outcomes': []}
