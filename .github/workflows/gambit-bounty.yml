@@ -98,7 +98,7 @@ jobs:
           path: .ollama-cache/models
           key: gambit-qwen3-triage-1-7b-v1
 
-      - name: Start and warm fast decision model before monitoring
+      - name: Launch model warmup in background while market polling starts
         if: github.event_name == 'push' || github.event_name == 'schedule' || env.GAMBIT_WATCH_MODE == 'watch'
         shell: bash
         run: |
@@ -106,12 +106,19 @@ jobs:
           if [ -z "${BOUNTY_AGENT_API_KEY:-}" ]; then
             exit 0
           fi
+          # This process warms Ollama independently. The next step begins
+          # querying TryBounty immediately, rather than losing ~2 minutes
+          # installing Ollama before the first marketplace observation.
+          cat > "${RUNNER_TEMP}/gambit-warm.sh" <<'WARM'
+          set -euo pipefail
           if ! command -v ollama >/dev/null 2>&1; then
             curl -fsSL https://ollama.com/install.sh | sh
           fi
           sudo systemctl stop ollama.service 2>/dev/null || true
           mkdir -p "$OLLAMA_MODELS"
-          nohup ollama serve >/tmp/gambit-ollama.log 2>&1 &
+          if ! curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
+            nohup ollama serve >/tmp/gambit-ollama.log 2>&1 < /dev/null &
+          fi
           for attempt in $(seq 1 90); do
             if curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
               break
@@ -121,40 +128,15 @@ jobs:
           if ! ollama show "$GAMBIT_TRIAGE_MODEL" >/dev/null 2>&1; then
             ollama pull "$GAMBIT_TRIAGE_MODEL"
           fi
-          # Keep the compact model resident while the 30-second market watch polls.
           curl -fsS http://127.0.0.1:11434/api/generate \
             -H 'Content-Type: application/json' \
             -d "{\"model\":\"$GAMBIT_TRIAGE_MODEL\",\"prompt\":\"ready\",\"stream\":false,\"keep_alive\":\"60m\",\"options\":{\"num_predict\":1}}" \
             >/dev/null
-
-      - name: Benchmark and check fast commercial decisions on a synthetic bounty
-        if: github.event_name == 'push'
-        continue-on-error: true
-        run: |
-          python3 - <<'PY'
-          import json
-          import time
-          from tools import gambit_worker as worker
-
-          example = {"bounty": {
-              "title": "Summarize the supplied product memo",
-              "description": "Memo: The Orion lamp has two brightness settings, "
-                             "USB-C charging, and a two-year warranty. Write "
-                             "a factual five-sentence summary of this memo.",
-              "verification": "Deliver a five-sentence summary faithful to the memo.",
-              "status": "open", "flow": "bid", "budget_cents": 2500,
-              "currency": "usd", "version": 1}}
-          started = time.monotonic()
-          decision = worker.assess(example)
-          elapsed = round(time.monotonic() - started, 2)
-          print(json.dumps({"synthetic_full_triage_seconds": elapsed,
-                            "target_seconds": 60,
-                            "within_target": elapsed < 60,
-                            "decision": decision.get("decision"),
-                            "audit_disagreement": bool(decision.get("_audit_disagreement")),
-                            "correctly_considered_feasible": decision.get("decision") == "bid"}))
-          assert decision.get("decision") == "bid", "feasible_bounty_rejected_by_triage"
-          PY
+          touch "$RUNNER_TEMP/gambit-fast-model-ready"
+          WARM
+          nohup bash "${RUNNER_TEMP}/gambit-warm.sh" \
+            >/tmp/gambit-model-warmup.log 2>&1 < /dev/null &
+          echo "Warmup started asynchronously; marketplace polling will not wait."
 
       - name: Check authorized live market for work
         id: probe
@@ -200,6 +182,35 @@ jobs:
           done
           cat "$poll_report" >> "$GITHUB_OUTPUT"
 
+      - name: Benchmark and check fast commercial decisions on a synthetic bounty
+        if: github.event_name == 'push'
+        continue-on-error: true
+        run: |
+          python3 - <<'PY'
+          import json
+          import time
+          from tools import gambit_worker as worker
+
+          example = {"bounty": {
+              "title": "Summarize the supplied product memo",
+              "description": "Memo: The Orion lamp has two brightness settings, "
+                             "USB-C charging, and a two-year warranty. Write "
+                             "a factual five-sentence summary of this memo.",
+              "verification": "Deliver a five-sentence summary faithful to the memo.",
+              "status": "open", "flow": "bid", "budget_cents": 2500,
+              "currency": "usd", "version": 1}}
+          started = time.monotonic()
+          decision = worker.assess(example)
+          elapsed = round(time.monotonic() - started, 2)
+          print(json.dumps({"synthetic_full_triage_seconds": elapsed,
+                            "target_seconds": 60,
+                            "within_target": elapsed < 60,
+                            "decision": decision.get("decision"),
+                            "audit_disagreement": bool(decision.get("_audit_disagreement")),
+                            "correctly_considered_feasible": decision.get("decision") == "bid"}))
+          assert decision.get("decision") == "bid", "feasible_bounty_rejected_by_triage"
+          PY
+
       - name: Preserve discovered bounty IDs and encrypted briefs before model startup
         if: steps.probe.outputs.needs_run == 'true'
         shell: bash
@@ -244,6 +255,18 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # If a watcher found work during background warmup, wait for that
+          # process instead of launching two competing installers or downloads.
+          if [ "${GITHUB_EVENT_NAME}" = "schedule" ] || \
+             [ "${GAMBIT_WATCH_MODE}" = "watch" ] || \
+             [ "${GITHUB_EVENT_NAME}" = "push" ]; then
+            for attempt in $(seq 1 150); do
+              if [ -f "${RUNNER_TEMP}/gambit-fast-model-ready" ]; then
+                break
+              fi
+              sleep 2
+            done
+          fi
           if ! command -v ollama >/dev/null 2>&1; then
             curl -fsSL https://ollama.com/install.sh | sh
           fi
