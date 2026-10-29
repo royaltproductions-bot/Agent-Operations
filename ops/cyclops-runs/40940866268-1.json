@@ -1,0 +1,142 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-29T19:33:47.945894+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 13,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "duckduckgo": 11,
+      "bing": 1,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "verified_firsthand_problem_pages": 5,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 10,
+    "public_market_sample": [
+      {
+        "url": "https://krawly.io/tool/table-extractor",
+        "title": "HTML Table Extractor \u2014 Scrape Tables to CSV | Krawly",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://developers.google.com/apps-script",
+        "title": "Apps Script | Google for Developers",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/power-query/connectors/web/web-by-example",
+        "title": "Extract data from a web page by example - Power Query",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://acrobat.adobe.com/tools/pdf-to-word",
+        "title": "Convert PDF to Word for free - PDF to DOCX Converter",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://cocopdf.com/tools/pdf-to-word",
+        "title": "Convert PDF to Word Editable Document Free | CocoPDF",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://pypi.org/project/html-table-extractor/",
+        "title": "html-table-extractor \u00b7 PyPI",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 11,
+    "search_queries": [
+      "downloadable tool to convert PDFs to editable Word documents",
+      "paid script to extract data from HTML tables",
+      "script to automatically rename and organize photo files by date",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "downloadable tool to convert PDFs to editable Word documents",
+        "paid script to extract data from HTML tables",
+        "buy Excel macro to clean up duplicate customer records",
+        "script to automatically rename and organize photo files by date"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 139,
+      "known_pages": 1249
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:The HTML Table Extractor tool is already available on Krawly.io, and there is no evidence of a paid offer or sales count. The market for web scraping tools is competitive, and the "
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0,
+    "product_pages": 0,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "no_saleable_products",
+    "indexable_product_pages": 0,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 10,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:The HTML Table Extractor tool is already available on Krawly.io, and there is no evidence of a paid offer or sales count. The market"
+  }
+}
