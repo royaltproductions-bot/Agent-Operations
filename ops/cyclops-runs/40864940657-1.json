@@ -1,0 +1,140 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-29T11:24:50.770538+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "duckduckgo": 12
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "URLError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "verified_firsthand_problem_pages": 6,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 13,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=40992776",
+        "title": "Tell HN: Devices for agricultural/enviro monitoring/automation I'm developing",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=32901369",
+        "title": "Ask HN: Renter's Real Estate Investment Trust (REIT)",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=1288317",
+        "title": "Ask HN: In London? Looking for a startup idea? I have a MVP for you.",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=817637",
+        "title": "The \"Game\"",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.scrapingbee.com/blog/scrape-html-tables-python/",
+        "title": "How to Web Scrape HTML Tables With Python: Step-by-Step",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://knackpad.com/pdf-to-excel-offline",
+        "title": "PDF to Excel Converter \u2014 Offline, No Upload, Free | Knackpad",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 16,
+    "search_queries": [
+      "buy ready-made script for email list cleaning and deduplication",
+      "downloadable tool for converting PDFs to Excel without internet",
+      "paid Python script to extract data from web tables"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 7,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "downloadable tool for converting PDFs to Excel without internet",
+        "paid Python script to extract data from web tables",
+        "buy ready-made script for email list cleaning and deduplication",
+        "how to create a self-contained app for tracking work hours offline"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 140,
+      "known_pages": 1139
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:The candidate's post describes a product for agricultural and environmental monitoring, but there is no evidence of demand, sales, or specific features that would make it a viable "
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0,
+    "product_pages": 0,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "no_saleable_products",
+    "indexable_product_pages": 0,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 13,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:The candidate's post describes a product for agricultural and environmental monitoring, but there is no evidence of demand, sales, o"
+  }
+}
