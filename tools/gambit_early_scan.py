@@ -89,16 +89,21 @@ def other_pages(api_key, endpoint, collection, initial_cursor=None):
                      "Cache-Control": "no-cache", "User-Agent": "AriOperations-Gambit/1.0"})
         for attempt in range(3):
             try:
-                with urllib.request.urlopen(request, timeout=18) as response:
+                with urllib.request.urlopen(request, timeout=35) as response:
                     page = json.load(response)
                 break
-            except urllib.error.HTTPError as exc:
-                if exc.code == 429 and attempt < 2:
-                    try:
-                        delay = float(exc.headers.get("Retry-After", "1"))
-                    except (ValueError, TypeError):
+            except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as exc:
+                retryable = (not isinstance(exc, urllib.error.HTTPError) or
+                             exc.code in {429, 502, 503, 504})
+                if retryable and attempt < 2:
+                    if isinstance(exc, urllib.error.HTTPError):
+                        try:
+                            delay = float(exc.headers.get("Retry-After", "1"))
+                        except (ValueError, TypeError):
+                            delay = 2 ** attempt
+                    else:
                         delay = 2 ** attempt
-                    time.sleep(min(30, max(1, delay)))
+                    time.sleep(min(12, max(1, delay)))
                     continue
                 raise
         if not isinstance(page, dict) or not isinstance(page.get(collection), list):

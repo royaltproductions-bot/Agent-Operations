@@ -123,3 +123,18 @@ class EarlyMarketTests(TestCase):
                 early.run(probe_mode=True)
             self.assertEqual(json.loads(path.read_text())["bounties"]["new"]["action"],
                              "evaluation_pending")
+
+    def test_preflight_network_timeout_retries_without_false_no_work(self):
+        class Response:
+            def __enter__(self):
+                return io.BytesIO(b'{"events":[],"has_more":false}')
+            def __exit__(self, *args):
+                return False
+        with patch.object(early.urllib.request, "urlopen",
+                          side_effect=[TimeoutError(), Response()]) as call, \
+             patch.object(early.time, "sleep") as sleep:
+            self.assertEqual(early.other_pages(
+                "key", "/v1/agent/events?limit=100", "events"), [])
+        self.assertEqual(call.call_count, 2)
+        sleep.assert_called_once()
+
