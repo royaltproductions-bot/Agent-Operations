@@ -1,0 +1,126 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-29T20:23:06.427853+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 11,
+    "source_counts": {
+      "open_web": 11
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 6
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "candidates_without_email": 11,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/ZcashCommunityGrants/zcashcommunitygrants/issues/522",
+        "title": "Grant Application - Zynova: Online Zcash Privacy Education and Adoption Programme",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/israelrc2004-cmd/PlayGround/issues/1",
+        "title": "A Metroidvania featuring cowboys, antique weapons, abandoned towns, mines, ghosts, bandits, Indians, wild anim",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Sidiora-Labs/paxeer-monorepo/issues/1232",
+        "title": "Conflicting Security Policies: No Bug Bounty vs. Advertised Rewards ($50k)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ktsu-dev/CounterStrikeProgression/issues/65",
+        "title": "After a plugin hot reload, bots in slots before the first human get no session until they respawn, and none are renamed ",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Agenta-AI/agenta/issues/7914",
+        "title": "Automation instructions that start with \"/\" or \"$\" reach the agent as empty text",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.fiverr.com/gigs/jira-integration",
+        "title": "24 Best Jira Integration Services To Buy Online | Fiverr",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-30 ",
+      "looking for someone to build a custom Jira integration",
+      "hiring a freelancer to develop Jira Service Management automation"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a custom Jira integration",
+      "hiring a freelancer to develop Jira Service Management automation",
+      "need paid help with Jira dashboards and reporting",
+      "can anyone create a Jira workflow for project management"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 11,
+      "skipped_revisits": 5,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a custom Jira integration",
+        "hiring a freelancer to develop Jira Service Management automation",
+        "need paid help with Jira dashboards and reporting",
+        "can anyone create a Jira workflow for project management"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 140,
+      "known_pages": 1224
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
