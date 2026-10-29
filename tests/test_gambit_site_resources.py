@@ -155,7 +155,8 @@ class SiteResourceTests(unittest.TestCase):
         self.assertRaises(ValueError, sites.create_project,
                           {**SPEC, "headline": "Your company goes here"}, BRIEF)
 
-    def test_website_offer_requires_live_renderer(self):
+    @patch.object(gambit, "website_capable", return_value=False)
+    def test_website_offer_requires_live_renderer(self, _capable):
         details = {"bounty": {"title": "Static landing page", "description": BRIEF,
                               "verification": "ZIP source files, mobile layout"}}
         self.assertEqual("website_visual_quality_unverified",

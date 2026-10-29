@@ -500,7 +500,8 @@ class GambitTests(unittest.TestCase):
             'bounty': {'title': 'Send outreach emails to leads',
                        'verification': 'Provide sent email confirmations.'}}))
 
-    def test_static_site_source_cannot_be_bid_until_visual_qa_exists(self):
+    @patch.object(gambit, "website_capable", return_value=False)
+    def test_static_site_source_cannot_be_bid_until_visual_qa_exists(self, _capable):
         self.assertEqual('website_visual_quality_unverified',
                          gambit.unsupported_deliverable({'bounty': {
             'title': 'Build a static HTML landing page',
@@ -513,7 +514,8 @@ class GambitTests(unittest.TestCase):
                        'description': 'Deploy and host the landing page publicly.',
                        'verification': 'Deliver a URL.'}}))
 
-    def test_hired_static_site_is_released_before_unverified_delivery(self):
+    @patch.object(gambit, "website_capable", return_value=False)
+    def test_hired_static_site_is_released_before_unverified_delivery(self, _capable):
         details = {'bounty': {'_id': 'web1', 'status': 'claimed',
                               'title': 'Build a static HTML landing page',
                               'verification': 'Deliver the source ZIP.'},
