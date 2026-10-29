@@ -104,6 +104,25 @@ def validate_spec(spec: dict, public_brief: str) -> dict:
     data["contact_label"] = (_line(spec.get("contact_label"), 60) if raw_contact
                              else "Explore services")
     data["contact_enabled"] = bool(raw_contact)
+    # Optional linked pages share the homepage design system and assets.
+    # Slugs are simple local filenames: never URLs, paths, or remote content.
+    pages = spec.get("pages") or []
+    if not isinstance(pages, list) or len(pages) > 6:
+        raise ValueError("website_invalid_pages")
+    seen = set()
+    data["pages"] = []
+    for page in pages:
+        if not isinstance(page, dict):
+            raise ValueError("website_invalid_page")
+        slug = str(page.get("slug") or "").strip().lower()
+        if not re.fullmatch(r"[a-z][a-z0-9-]{0,39}", slug) or slug in {"index", "assets"} or slug in seen:
+            raise ValueError("website_unsafe_or_duplicate_page")
+        seen.add(slug)
+        data["pages"].append({
+            "slug": slug, "nav_label": _line(page.get("nav_label"), 36),
+            "headline": _line(page.get("headline"), 200),
+            "intro": _line(page.get("intro"), 500),
+            "sections": _items(page.get("sections"), 1, 6)})
     return data
 
 
@@ -193,6 +212,46 @@ def create_project(spec: dict, public_brief: str) -> tuple[bytes, str, dict[str,
     assets = {"assets/framework.css": (RESOURCE_DIR / "output.css").read_bytes(),
               "assets/custom.css": css.encode("utf-8"),
               "assets/LICENSE": (RESOURCE_DIR / "LICENSE").read_bytes()}
+    if data["pages"]:
+        # Same navigation on *every* page; all href targets are packaged below.
+        # Retain the existing single-page layout untouched for landing-page bids.
+        links = '<a href="index.html">Home</a>' + "".join(
+            f'<a href="{e(page["slug"])}.html">{e(page["nav_label"])}</a>'
+            for page in data["pages"])
+        html = html.replace('class="wordmark" href="#top"',
+                            'class="wordmark" href="index.html"')
+        html = re.sub(r'<div class="nav-links">.*?</div>',
+                      lambda _: '<div class="nav-links">' + links + nav_contact + '</div>',
+                      html, count=1)
+        html = re.sub(r'<div class="menu-content">.*?</div>',
+                      lambda _: '<div class="menu-content">' + links + nav_contact + '</div>',
+                      html, count=1)
+        header = html.split('<header class="site-nav">', 1)[1].split('</header>', 1)[0]
+        header = '<header class="site-nav">' + header + '</header>'
+        for page in data["pages"]:
+            body = "".join(
+                f'<article class="service-card"><h2>{e(title)}</h2><p>{e(description)}</p></article>'
+                for title, description in page["sections"])
+            heading = e(page["headline"])
+            intro = e(page["intro"])
+            extra = f'''<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{heading} — {e(data["brand"])}</title><meta name="description" content="{intro}">
+<meta name="theme-color" content="#0d111a"><link rel="stylesheet" href="assets/framework.css"><link rel="stylesheet" href="assets/custom.css"></head>
+<body><a class="visually-hidden-focusable" href="#main">Skip to content</a>{header}
+<main id="main"><section class="hero" id="top"><div class="container"><div class="hero-copy">
+<div class="eyebrow">{e(page["nav_label"])}</div><h1>{heading}</h1>
+<p class="hero-description">{intro}</p></div></div></section>
+<section class="services section-pad"><div class="container"><div class="services-grid">{body}</div></div></section>
+</main><footer><div class="container footer-inner"><span>{e(data["brand"])}</span>
+<a href="index.html">Back to Home</a></div></footer></body></html>'''
+            assets[page["slug"] + ".html"] = extra.encode("utf-8")
+        # Every linked page is a real source file, not an inert menu item.
+        for text_page in [html] + [data.decode("utf-8") for path, data in assets.items()
+                                   if path.endswith(".html")]:
+            for target in re.findall(r'href="([a-z][a-z0-9-]*\.html)"', text_page):
+                if target != "index.html" and target not in assets:
+                    raise ValueError("website_broken_local_navigation")
     readme = (f"{data['brand']} - static website source\n\nOpen index.html in a browser or "
               "deploy these files to any static web host. No hosting or domain is included.\n"
               "Responsive CSS foundation: Landwind Tailwind CSS, MIT licensed.\n"
