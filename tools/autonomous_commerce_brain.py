@@ -263,8 +263,31 @@ ADVICE_PAGE=re.compile(
     r"(?:best|top) .{0,50}freelancers? for hire|"
     r"freelancers? for hire|career advice|jobs?,? employment)\b")
 
+def seller_marketing_page(row):
+    """An agency advertising its OWN service is not a buyer's solicitation.
+
+    Advertising calls to action like 'request a proposal' / 'send your quote'
+    can match request vocabulary. Require independent buyer demand before outreach.
+    """
+    from urllib.parse import urlsplit
+    url = str(row.get("source_url") or "").lower()
+    title = str(row.get("title") or "").lower()
+    body = str(row.get("page_text") or "").lower()
+    path = urlsplit(url).path.rstrip("/")
+    seller_copy = bool(re.search(
+        r"\b(?:our services|we offer|we provide|we specialize|book a call|"
+        r"request a quote|schedule a consultation|hire our|we help businesses|"
+        r"our team delivers|our solutions|contact us for)\b", body))
+    service_path = bool(re.search(
+        r"/(?:services|solutions|what-we-do|our-services)(?:/|$)", path))
+    seller_title = bool(re.search(
+        r"\b(?:marketing agency|development company|consulting firm|"
+        r"agency services|dashboard development|promotion services)\b", title))
+    return seller_copy and (service_path or seller_title)
+
+
 def is_requester_page(row):
-    return not bool(ADVICE_PAGE.search(str(row.get("title") or "")))
+    return not bool(ADVICE_PAGE.search(str(row.get("title") or ""))) and not seller_marketing_page(row)
 
 
 def requester_evidence(row):
