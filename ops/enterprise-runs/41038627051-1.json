@@ -1,0 +1,122 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-30T10:11:17.965261+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 9,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 8,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/ZecHub/zechub/issues/2565",
+        "title": "fix(glossary): ignore fenced examples when importing review kits",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ruohong2018/ruohong2018.github.io/issues/1360",
+        "title": "[\u6bcf\u65e5\u4fe1\u606f\u6d41] 2026-10-30",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/chainreactors/picker/issues/1410",
+        "title": "[\u6bcf\u65e5\u4fe1\u606f\u6d41] 2026-10-30",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Uniswap/v4-periphery/issues/623",
+        "title": "fix(descriptor): defensively decode string in SafeCurrencyMetadata to prevent ABI decode panic and tokenURI DoS",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2189",
+        "title": "[wildcard] Zero-allocation heap freedom proofs: static escape closures that guarantee 0-GC latency for checked tasks (fl",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/panoskokmotos/panoskokmotos/issues/16",
+        "title": "ZecHub bounty: German: native review of the ZecHub glossary ... - GitHub",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-31 create native review",
+      "looking for someone to create a native review for zechub glossary",
+      "hiring a freelancer to review chinese menus for zechub"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create a native review for zechub glossary",
+      "hiring a freelancer to review chinese menus for zechub",
+      "need paid help with native translation of technical terms",
+      "can anyone create a glossary review for zechub wiki"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 1,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create a native review for zechub glossary",
+        "hiring a freelancer to review chinese menus for zechub",
+        "need paid help with native translation of technical terms",
+        "can anyone create a glossary review for zechub wiki"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 1422
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:No explicit request for a paid service or deliverable was identified in the source content."
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
