@@ -1,0 +1,125 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-30T05:17:20.847233+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 5,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 13,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/animearenaax/animation/issues/2",
+        "title": "Can One Agency Handle Ecommerce And ICO And B2B Tech Marketing Together",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraloom-labs/paraloom-core/issues/1189",
+        "title": "[BOUNTY] Medium: CPI ordering violation in slash_validator (SVM balance isolation), unguarded zero-lamport mutation, and",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/rrahul0904/agent-work-os/issues/184",
+        "title": "Pentest Swarm AI donor \u2192 governed Autonomous Security Validation Swarm",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/NSPG13/agent-bounties/issues/1719",
+        "title": "Maintainer notice: recognize autonomous-v2 claim coverage in the browser",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Rohank143/BountyScout/issues/41",
+        "title": "\ud83c\udfaf Bounty Alert: 7 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.fiverr.com/gigs/inventory-dashboard",
+        "title": "24 Best Inventory Dashboard Services To Buy Online | Fiverr",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-31 create influencer marketing",
+      "is:issue is:open bounty created:>=2026-08-31 dashboard builder real",
+      "is:issue is:open bounty created:>=2026-08-31 ",
+      "looking for someone to build a dashboard for inventory tracking",
+      "hiring a freelancer to create an influencer marketing dashboard"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a dashboard for inventory tracking",
+      "hiring a freelancer to create an influencer marketing dashboard",
+      "need paid help with dashboard builder for real-time data",
+      "can anyone create a dashboard tool for business analytics"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 27,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a dashboard for inventory tracking",
+        "hiring a freelancer to create an influencer marketing dashboard",
+        "need paid help with dashboard builder for real-time data",
+        "can anyone create a dashboard tool for business analytics"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 1367
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
