@@ -1,0 +1,140 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-30T21:00:15.985248+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 9,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 13,
+    "contactable_sources": 3,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/Expensify/App/issues/101684",
+        "title": "[$250] Inbox - Marking all as read does not clear unread chats and unread markers",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/dev-kp-eloper/BountyScout/issues/1702",
+        "title": "\ud83c\udfaf Bounty Alert: 13 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/HexaHexes/tensura-faction-spawn/issues/46",
+        "title": "Integration register - spec section 13 targets vs the actual pack",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/freedom-winds/BountyScout/issues/1355",
+        "title": "\ud83c\udfaf Bounty Alert: 13 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Iniwura/falsum/issues/1",
+        "title": "Independent AppSec reviewers needed: validate FALSUM's draft evaluation cases",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.warden-ai.com/resources/who-audits-ai-systems",
+        "title": "Who Audits AI Systems for Bias in Hiring? - Warden AI",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-31 conduct ai bias",
+      "is:issue is:open bounty created:>=2026-08-31 ",
+      "looking for someone to conduct ai bias audit",
+      "hiring a freelancer for ai bias testing"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to conduct ai bias audit",
+      "hiring a freelancer for ai bias testing",
+      "need paid help with ai bias audit services",
+      "can anyone create ai bias audit report"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 31,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to conduct ai bias audit",
+        "hiring a freelancer for ai bias testing",
+        "need paid help with ai bias audit services",
+        "can anyone create ai bias audit report"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 138,
+      "known_pages": 1567
+    }
+  },
+  "offer": {
+    "source_url": "https://www.affirmity.com/blog/4-step-approach-ai-bias-audit/",
+    "title": "AI Bias Audit & Workforce Compliance Services",
+    "scope": "Perform a comprehensive AI bias audit aligned with the 4-step approach outlined in the blog post. This includes data collection, bias detection, impact analysis, and mitigation strategy development. Additionally, provide workforce compliance services to navigate complex compliance and non-discrimination reporting requirements at state and federal levels.",
+    "price_usd": "1500.00",
+    "price_cents": 150000,
+    "offer_id": "939b21027d8ad820c3966f7d",
+    "payment_link_id": "plink_1UWN4DBto3o776uyAZHMVJGx"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://www.affirmity.com/blog/4-step-approach-ai-bias-audit/"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 2,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "none"
+  }
+}
