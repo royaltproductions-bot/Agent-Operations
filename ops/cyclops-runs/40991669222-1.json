@@ -1,0 +1,211 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-30T02:28:13.592667+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "duckduckgo": 6,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "verified_firsthand_problem_pages": 5,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 15,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=44051555",
+        "title": "Feedback on a \"Financial Trends Feed\" for Early Money-Making Opportunities",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=32261464",
+        "title": "My Criteria for Picking Startup Ideas",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=4814349",
+        "title": "TakeOff Conf 2013 - A broad look at all the trends of the upcoming year",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=41281750",
+        "title": "Ask HN: Best resources for job market trends and data?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=40032987",
+        "title": "Ask HN: Features for GPU price-per-hour tracker for A100/H100s",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=50285879",
+        "title": "Ask HN: Why not AI assisted ZFS rewrite?",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 15,
+    "search_queries": [
+      "What are the recent trends in web scraping tools?",
+      "Are there any new or emerging tools in the web scraping space?",
+      "What are the top AI-powered web scraping tools for 2026?",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 4,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "What are the recent trends in web scraping tools?",
+        "Are there any new or emerging tools in the web scraping space?",
+        "What are the top AI-powered web scraping tools for 2026?",
+        "What is the current demand for PDF-to-Markdown conversion tools?"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 138,
+      "known_pages": 1370
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:15 candidates reviewed; s no clear indication of a product being offered for sale. The page appears to be informational and educational rather than a commercial product. Additionally, there is"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0,
+    "product_pages": 0,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [],
+  "market_assessments": [
+    {
+      "candidate_id": "web:c19aa576f37c5da00a",
+      "decision": "pass",
+      "reason": "While the idea of a 'Financial Trends Feed' for early money-making opportunities is intriguing and addresses a potential niche, there is no clear evidence of demand or sales to validate the market. The feedback from the HN post is anecdotal and does not indicate a substantial user base or verified sales. Additionally, the absence of a listed price "
+    },
+    {
+      "candidate_id": "web:fae32ab9ed50a53b1c",
+      "decision": "pass",
+      "reason": "The article discusses the author's criteria for selecting startup ideas, including the importance of a clear value proposition and market trends. However, it does not provide evidence of a specific product or market demand for a new product. The focus is more on the author's experience and criteria rather than a viable product opportunity."
+    },
+    {
+      "candidate_id": "web:04d9433767500e0920",
+      "decision": "pass",
+      "reason": "The candidate is a conference event, not a product. There is no clear indication of a product being offered for sale or a market demand for a productized version of the conference content."
+    },
+    {
+      "candidate_id": "web:eee81ca7cd4a0dc34e",
+      "decision": "pass",
+      "reason": "The candidate represents a potential demand for job market trend analysis tools, but there is no evidence of a viable product or sales. The discussion is about the need for such a tool, not its existence or adoption. Without a demonstrated product or sales, it's not a strong candidate for pursuit."
+    },
+    {
+      "candidate_id": "web:61b82ecc50814ec725",
+      "decision": "pass",
+      "reason": "The candidate is a prototype for a GPU price-per-hour tracker, which shows potential interest in the niche market of GPU pricing. However, there is no evidence of actual sales or verified buyer activity, and the tool is still in a prototype stage. Without demonstrated demand or traction, it's not clear if the product would be viable or worth pursui"
+    },
+    {
+      "candidate_id": "web:e2c32af686be2efe4d",
+      "decision": "pass",
+      "reason": "The idea of an AI-assisted ZFS rewrite is intriguing, but it lacks concrete evidence of demand or buyer utility. The discussion is speculative and does not provide clear market validation, such as existing sales, customer activity, or competitive positioning. Without a demonstrated need or a viable path to adoption, the project remains a theoretica"
+    },
+    {
+      "candidate_id": "web:49bc6fe36673ac7fe8",
+      "decision": "pass",
+      "reason": "The evidence suggests that AI in accounting faces significant challenges due to the high precision required in financial data. While there is potential for AI to assist in accounting, the evidence indicates that current AI solutions are not yet reliable enough for critical tasks. The existing competition and the difficulty of achieving 100% accurac"
+    },
+    {
+      "candidate_id": "web:8c6380757d0c6d11f2",
+      "decision": "pass",
+      "reason": "The candidate is a free course on harness engineering, which lacks a clear monetization strategy or demonstrated demand for paid offerings. While the content is valuable, there is no evidence of a viable business model or buyer interest beyond the free course. The absence of listed price or sales count further weakens its commercial viability."
+    },
+    {
+      "candidate_id": "web:de86aab25874036363",
+      "decision": "pass",
+      "reason": "The article discusses trends and challenges in web scraping but does not present a specific product or service for sale. It serves more as a market analysis rather than an indication of a viable product. There is no clear evidence of a product being offered for sale, and no sales count or pricing is provided."
+    },
+    {
+      "candidate_id": "web:662a5d5aa25a354bb8",
+      "decision": "pass",
+      "reason": "The page discusses web scraping tools but does not provide clear evidence of a specific product being offered for sale. There is no listed price or displayed sales count, and the content appears to be promotional rather than indicative of a viable product. Without concrete evidence of a product being sold or a clear value proposition, it is not a s"
+    },
+    {
+      "candidate_id": "web:c9804084a588522fe2",
+      "decision": "pass",
+      "reason": "The article lists multiple AI web scraping tools with specific APIs and integrations, indicating a mature market with established players. There is no clear gap or unmet need that suggests a new product would be viable. The existing competition and lack of unique differentiation make it unlikely that a new entrant would succeed without a significan"
+    },
+    {
+      "candidate_id": "web:0cbfbd953b6747dd22",
+      "decision": "pass",
+      "reason": "The article discusses web scraping frameworks but does not indicate any direct demand for a product in this space. There is no evidence of buyers, sales, or specific utility for a new product. The focus is on existing tools rather than a gap for a new offering."
+    },
+    {
+      "candidate_id": "web:44e7c92283cc2b00b3",
+      "decision": "pass",
+      "reason": "The article highlights the distinction between web scraping and crawling, but it does not provide evidence of demand for a new crawling tool. The market is already saturated with existing tools, and there is no indication of a unique value proposition or buyer interest."
+    },
+    {
+      "candidate_id": "web:5aebe8325dc6e609db",
+      "decision": "pass",
+      "reason": "The content suggests a learning hub for web scraping, but there is no clear indication of a product being offered for sale. The page appears to be informational and educational rather than a commercial product. Additionally, there is no listed price or sales count, making it difficult to assess market viability."
+    },
+    {
+      "candidate_id": "web:f2ebc29d8e443c9e35",
+      "decision": "pass",
+      "reason": "The tool 'MD to PDF' appears to be a simple conversion utility with no clear differentiation or unique value proposition. There is no evidence of demand beyond the tool's existence, and no indication of a specific target audience or utility that would justify building a similar product. The lack of pricing, sales data, or competitive differentiatio"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "no_saleable_products",
+    "indexable_product_pages": 0,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 15,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:15 candidates reviewed; s no clear indication of a product being offered for sale. The page appears to be informational and educatio"
+  }
+}
