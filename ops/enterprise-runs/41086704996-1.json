@@ -1,0 +1,137 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-30T16:07:50.364370+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 10,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 12,
+    "contactable_sources": 4,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/fatalbananas7/bot-chatroom/issues/1",
+        "title": "AlphaBot x Caleb's bot - the chat room",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/chiuhehe1-design/conm/issues/20",
+        "title": "[Bounty Solution] gyroflow/gyroflow#45: Optical only stabilization",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Hirokimm/ai-tool-lab/issues/6",
+        "title": "Open bounty: build one reusable AI/automation micro-tool \u2014 revenue-share proposals welcome",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://github.com/ConcatenaLabs/seqln/issues/138",
+        "title": "A SeqLN node that holds a coin at a taproot address on Sequentia goes down when it spends it",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ConcatenaLabs/SWK/issues/55",
+        "title": "SWK's live covenant example uses the wrong testnet base58 prefixes",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://inferensys.com/use-cases/ethics-bias-mitigation-and-fair-ai-frameworks/ai-bias-detection-in-hiring-algorithms",
+        "title": "AI Bias Detection in Hiring Algorithms Use Cases",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-31 build bias detection",
+      "is:issue is:open bounty created:>=2026-08-31 create ai bias",
+      "is:issue is:open bounty created:>=2026-08-31 ",
+      "looking for someone to build a bias detection tool for ai hiring",
+      "hiring a freelancer to create ai bias testing framework"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a bias detection tool for ai hiring",
+      "hiring a freelancer to create ai bias testing framework",
+      "need paid help with analyzing hiring bias in freelance platforms",
+      "can anyone create ai model bias metrics dashboard"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 18,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a bias detection tool for ai hiring",
+        "hiring a freelancer to create ai bias testing framework",
+        "need paid help with analyzing hiring bias in freelance platforms",
+        "can anyone create ai model bias metrics dashboard"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 139,
+      "known_pages": 1492
+    }
+  },
+  "offer": {
+    "source_url": "https://aivalidationlab.com/",
+    "title": "AI Hiring Compliance & Bias Testing Validation Report",
+    "scope": "Provide a comprehensive validation report for AI hiring systems, including compliance assessments against active AI hiring laws, bias testing, and vendor validation. The report will include analysis of legal requirements, risk domains, and recommendations for fair and compliant AI hiring practices.",
+    "price_usd": "499.95",
+    "price_cents": 49995,
+    "offer_id": "209694ff226fa059a151547a",
+    "payment_link_id": "plink_1UWIU4Bto3o776uyoyxnWj5A"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://aivalidationlab.com/"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "none"
+  }
+}
