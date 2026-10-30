@@ -42,7 +42,8 @@ MAX_PAGES = 20
 MAX_TEXT_FILE_BYTES = 30_000
 MAX_SOURCE_CHARS = 24_000
 CLARIFICATION_TIMEOUT = timedelta(hours=24)
-EVALUATION_TIMEOUT_SECONDS = int(os.getenv("GAMBIT_EVALUATION_TIMEOUT_SECONDS", "180"))
+EVALUATION_TIMEOUT_SECONDS = int(os.getenv("GAMBIT_EVALUATION_TIMEOUT_SECONDS", "120"))
+TRIAGE_TOTAL_DEADLINE_SECONDS = int(os.getenv("GAMBIT_TRIAGE_TOTAL_DEADLINE_SECONDS", "180"))
 
 
 def timestamp():
@@ -634,7 +635,7 @@ def infer(schema, system, context, *, num_predict=900, num_ctx=5500, fast=False)
             completed = False
             reason = None
             for line in response:
-                if fast and time.monotonic() - started > 300:
+                if fast and time.monotonic() - started > TRIAGE_TOTAL_DEADLINE_SECONDS:
                     raise TimeoutError("triage_total_deadline")
                 if not line.strip():
                     continue
