@@ -1,0 +1,205 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-30T01:43:48.094432+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "duckduckgo": 6,
+      "bing": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "verified_firsthand_problem_pages": 4,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 14,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=45141995",
+        "title": "Are LLMs better suited for PR reviews than full codebases?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=43113083",
+        "title": "Ask HN: How would you build a dev/design agency in 2025 alongside AI?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=32409632",
+        "title": "Ask HN: What are the best tools for web scraping in 2022?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=22059404",
+        "title": "Ask HN: What info would you web scrape in 2020?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=43745025",
+        "title": "How to build and launch apps (using AI), fast",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47121433",
+        "title": "Amazon's Project Starfish caught scraping despite GDPR opt-out [evidence]",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 16,
+    "search_queries": [
+      "web scraping tools 2026",
+      "pdf to markdown converter tools",
+      "data extraction tools 2026"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 6,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "web scraping tools 2026",
+        "pdf to markdown converter tools",
+        "data extraction tools 2026",
+        "AI data scraping tools"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 140,
+      "known_pages": 1354
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:14 candidates reviewed; ools is already well-served, and there is no clear differentiation or unique value proposition that would make this a viable product to pursue.; The Wikipedia page on '"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0,
+    "product_pages": 0,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [],
+  "market_assessments": [
+    {
+      "candidate_id": "web:04beb7f16886279c79",
+      "decision": "pass",
+      "reason": "The evidence suggests that LLMs are not yet capable of replacing dedicated SAST tools for full codebases, especially due to limitations in accuracy, coverage, context size, and cost. While they may be useful for smaller-scale tasks like PR reviews, the lack of demonstrated sales or pricing makes it difficult to assess viability. The market for code"
+    },
+    {
+      "candidate_id": "web:4f757860aeed5abdb2",
+      "decision": "pass",
+      "reason": "The candidate's idea is speculative and lacks concrete evidence of demand or sales. While there is interest in AI and product development, the absence of verified sales or clear market validation makes it difficult to justify pursuing this idea without further data."
+    },
+    {
+      "candidate_id": "web:5859474eb7bbccb36d",
+      "decision": "pass",
+      "reason": "The discussion around web scraping tools and techniques indicates a niche but active community of developers and data enthusiasts. However, the absence of a clear product offering or sales data makes it difficult to assess the viability of a new tool in this space. The market is highly competitive, and without a unique value proposition or demonstr"
+    },
+    {
+      "candidate_id": "web:7f41d8d5f47bd86f5d",
+      "decision": "pass",
+      "reason": "The candidate involves scraping and circumvention of security measures, which is legally and ethically problematic. It lacks clear customer utility and may face significant legal challenges, making it a high-risk proposition."
+    },
+    {
+      "candidate_id": "web:23e60200dc49509223",
+      "decision": "pass",
+      "reason": "The candidate is a discussion thread asking for web scraping ideas, not a product or service. There is no evidence of a specific product being offered for sale, no listed price, and no displayed sales count. Therefore, it does not meet the criteria for a viable product to pursue."
+    },
+    {
+      "candidate_id": "web:5e4cb7a2ec190095ea",
+      "decision": "pass",
+      "reason": "The candidate lacks a clear product offering or monetization strategy. The content is more of a guide or tutorial rather than a specific product. There is no listed price or sales count to indicate demand or viability. The focus on AI app development is broad and lacks a unique value proposition or differentiation."
+    },
+    {
+      "candidate_id": "web:b320f8fbb2087927ad",
+      "decision": "pass",
+      "reason": "The candidate involves a highly specialized and abstract formal system (PEPC) with no clear market application or demand. The content is theoretical and lacks evidence of practical utility, buyer interest, or commercial viability. There is no indication of a target audience or real-world use case, making it unsuitable for a product launch."
+    },
+    {
+      "candidate_id": "web:d2d28f74daa91911ad",
+      "decision": "pass",
+      "reason": "While the article provides a comprehensive comparison of web scraping tools, there is no clear indication of a specific product or service being offered for sale. The content is more of a review and analysis rather than a commercial proposition. Additionally, the absence of listed prices and sales counts makes it difficult to assess the viability o"
+    },
+    {
+      "candidate_id": "web:b00db31bd3661fad8f",
+      "decision": "pass",
+      "reason": "The PDF to Markdown converter tool is already well-established with a free, accessible service. The market for such tools is highly competitive, and there is no clear differentiation or unique value proposition that would justify building a similar product. The existing tool meets the basic needs of users, and the lack of a listed price or sales co"
+    },
+    {
+      "candidate_id": "web:86d214666472edbef2",
+      "decision": "pass",
+      "reason": "The page discusses web scraping tools, which is a niche and competitive market. While there is demand for such tools, the existing competition and lack of clear differentiation make it difficult to justify building a new product without a unique value proposition."
+    },
+    {
+      "candidate_id": "web:308cbfc37385a51d9d",
+      "decision": "pass",
+      "reason": "The page discusses AI web scraping tools, which is a niche and competitive market. While there is demand for data extraction, the existing tools are well-established, and the market is saturated. There is no clear differentiation or unique value proposition presented in the evidence to justify building a new product in this space."
+    },
+    {
+      "candidate_id": "web:5e1c2e4a4500ecc703",
+      "decision": "pass",
+      "reason": "The tool for converting PDFs to Markdown is a useful utility, but there is no evidence of demand or sales to justify building a similar product. The existing market for PDF-to-Markdown tools is already well-served, and there is no clear differentiation or unique value proposition that would make this a viable product to pursue."
+    },
+    {
+      "candidate_id": "web:90245ffbddec9bc696",
+      "decision": "pass",
+      "reason": "The Wikipedia page on 'Data' is an informational resource and does not indicate a viable product or market opportunity. It lacks evidence of demand, sales, or a clear product offering. The content is educational and not a commercial product."
+    },
+    {
+      "candidate_id": "web:da881345a4d74fc2bf",
+      "decision": "pass",
+      "reason": "The candidate is a government website offering open data, which is not a product but a resource. The existing catalog includes tools and services, so this candidate does not align with the product-building focus."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "no_saleable_products",
+    "indexable_product_pages": 0,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 14,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:14 candidates reviewed; ools is already well-served, and there is no clear differentiation or unique value proposition that would ma"
+  }
+}
