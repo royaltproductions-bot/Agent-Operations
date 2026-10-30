@@ -1,0 +1,235 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-30T12:22:17.703159+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "duckduckgo": 9,
+      "hn_ask": 5,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "verified_firsthand_problem_pages": 1,
+    "observed_public_paid_offers": 1,
+    "market_candidates_considered": 1,
+    "public_sources_available_for_judgment": 15,
+    "public_market_sample": [
+      {
+        "url": "https://www.technavio.com/report/ai-driven-web-scraping-market-industry-analysis",
+        "title": "AI Driven Web Scraping Market Analysis, Size, and Forecast 2025-2029:",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46481814",
+        "title": "Skeptic impressed by colleague's AI workflow",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46221924",
+        "title": "I built an AI web-scraper that bypasses captchas and login pages",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45889786",
+        "title": "World Agent Web \u2013 Protocols for AI agents to discover and use web services",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45460226",
+        "title": "Ask HN: How would you use an AI-powered browser agent?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44984904",
+        "title": "Janito 2.33.0",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://www.technavio.com/report/ai-driven-web-scraping-market-industry-analysis",
+        "title": "AI Driven Web Scraping Market Analysis, Size, and Forecast 2025-2029:",
+        "displayed_sales_count": null,
+        "listed_price_usd": "3.16"
+      }
+    ],
+    "candidates_without_email": 15,
+    "search_queries": [
+      "AI web scraping tools market demand",
+      "AI web scraping tools sales data",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 21,
+      "skipped_revisits": 14,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "AI web scraping tools market demand",
+        "AI web scraping tools sales data",
+        "AI web scraping tools pricing",
+        "AI web scraping tools customer testimonials"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 138,
+      "known_pages": 1548
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:15 candidates reviewed; g and sales data, making it difficult to assess viability. While there is potential in data scraping services, the absence of concrete evidence of demand or competitive"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        },
+        {
+          "source": "public_page_fetch",
+          "reason": "HTTPError"
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:7ced8f314899ae835c",
+      "decision": "pass",
+      "reason": "The candidate_id 'web:7ced8f314899ae835c' appears to be a paid market analysis report, but there is no evidence of actual sales or buyer demand. The displayed sales count is null, and the listed price is low, which may indicate a low-value product. Additionally, the evidence excerpt does not provide specific customer problems or utility, making it "
+    },
+    {
+      "candidate_id": "web:e6c0a9af3df3830cb0",
+      "decision": "pass",
+      "reason": "The observation highlights potential benefits of a well-structured codebase and iterative AI workflows, but lacks concrete evidence of demand, pricing, or sales. Without a clear product offering or user feedback, it's speculative and not sufficient to justify building a product."
+    },
+    {
+      "candidate_id": "web:89df0899756edc07c3",
+      "decision": "pass",
+      "reason": "While the product offers unique features like bypassing CAPTCHAs and login pages, there is no evidence of actual sales or pricing, and the market for web scraping tools is highly competitive. The lack of concrete buyer demand or pricing makes it difficult to justify pursuing this idea without further validation."
+    },
+    {
+      "candidate_id": "web:a59821328998c0089c",
+      "decision": "pass",
+      "reason": "While the problem described (fragile web scraping and hardcoded integrations) is valid, there is no evidence of demand or sales to justify building a new product in this space. The existing competition and lack of concrete buyer activity make it a low-priority candidate."
+    },
+    {
+      "candidate_id": "web:e6a2b85613acf92ce5",
+      "decision": "pass",
+      "reason": "The HN discussion highlights a clear user need for AI-powered browser agents, but there is no evidence of existing sales, pricing, or a preexisting product to validate the market demand. While the idea is promising, the lack of concrete data on buyer utility, competitive positioning, or production feasibility makes it speculative without further va"
+    },
+    {
+      "candidate_id": "web:11258165a6ce639ff7",
+      "decision": "pass",
+      "reason": "The evidence excerpt for Janito 2.33.0 highlights specific features like live context with datetime + timezone and enhanced web scraping capabilities, which are relevant to developers needing AI assistants with temporal awareness. However, there is no listed price or displayed sales count, making it difficult to assess market viability. While the p"
+    },
+    {
+      "candidate_id": "web:d2077d3371de0a2ab8",
+      "decision": "pass",
+      "reason": "The market for AI-driven web scraping is growing rapidly with a CAGR of 19.93% from 2025 to 2035, indicating strong demand. However, the evidence does not provide specific customer problems or buyer utility, and there is no indication of a unique value proposition or differentiation from existing competitors. The absence of concrete sales data or p"
+    },
+    {
+      "candidate_id": "web:9ae8338e08d255c014",
+      "decision": "pass",
+      "reason": "While ScrapeStorm presents an AI-powered web scraping tool with visual operation and no programming needed, the lack of listed price and displayed sales count makes it difficult to assess its market viability. Additionally, the presence of competitors like Browse AI and the growing AI-driven web scraping market indicates a saturated space. Without "
+    },
+    {
+      "candidate_id": "web:c35ee5fe9d710f628b",
+      "decision": "pass",
+      "reason": "The market report indicates significant growth in the AI-driven web scraping market, but there is no concrete evidence of actual sales or pricing. Additionally, the candidate lacks a clear differentiation or specific customer problem that justifies building an original product. Without verified sales or a defined value proposition, the opportunity "
+    },
+    {
+      "candidate_id": "web:a2194e410ad39493c2",
+      "decision": "pass",
+      "reason": "While the AI-driven web scraping market is projected to grow significantly, there is no concrete evidence of a specific product or service being offered. The report provides market size and growth projections but lacks details on existing products, pricing, or sales data. Without a clear product offering or demonstrated demand, it is not feasible t"
+    },
+    {
+      "candidate_id": "web:ab0468d2939df7ea6d",
+      "decision": "pass",
+      "reason": "While the product offers a no-code web scraping solution with a wide range of use cases, there is no clear evidence of actual sales or pricing, which makes it difficult to assess its viability. Additionally, the market for web scraping tools is highly competitive, and without a clear differentiator or demonstrated demand, the product may not be wor"
+    },
+    {
+      "candidate_id": "web:611920a2814cf023bf",
+      "decision": "pass",
+      "reason": "The market forecast indicates significant growth in the AI-driven web scraping market, but there is no concrete evidence of existing sales or pricing. While the potential is promising, the lack of verified sales data and pricing makes it difficult to assess the viability of building a product in this space without further market validation."
+    },
+    {
+      "candidate_id": "web:26f8a29ca7accd5828",
+      "decision": "pass",
+      "reason": "The AI Web Scraping API presents a viable opportunity, but the lack of displayed sales count and pricing makes it difficult to assess market demand and competitive positioning. While the product addresses a clear need for dynamic data extraction, without concrete evidence of buyer activity or pricing, it's hard to justify pursuing it without furthe"
+    },
+    {
+      "candidate_id": "web:6efd4898dc2648f8ee",
+      "decision": "pass",
+      "reason": "The candidate lacks clear pricing and sales data, making it difficult to assess viability. While there is potential in data scraping services, the absence of concrete evidence of demand or competitive positioning makes it a speculative opportunity rather than a justified product."
+    },
+    {
+      "candidate_id": "web:9c99974f7d6939dc7b",
+      "decision": "pass",
+      "reason": "The candidate lacks a clear value proposition and pricing structure, and the evidence excerpt does not demonstrate a specific customer problem or utility. The product appears to be a generic scraping service without differentiation or a clear use case. Additionally, there is no indication of actual buyer demand or sales, making it difficult to just"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 15,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
