@@ -1,0 +1,221 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-30T15:34:55.555050+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "duckduckgo": 9,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 15,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 15,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=34830465",
+        "title": "Ask HN: Alternatives to Bing Search API",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=1849928",
+        "title": "Ask HN: Internet-scale fax service w/ API?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46748618",
+        "title": "Components I created \u2013 for database users",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45778487",
+        "title": "Blazeio vs. FastAPI vs. Robyn: Benchmarking Reveals 86x Performance Difference",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.scraperapi.com/web-scraping/best-web-scraping-apis/",
+        "title": "The 8 Best Web Scraping APIs in 2024 (Pros, Cons, Pricing)",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://blog.apify.com/ai-web-scraping-trends-predictions/",
+        "title": "AI and web scraping trends and predictions for 2024 - Apify Blog",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 16,
+    "search_queries": [
+      "web scraping API pricing 2024",
+      "web scraping tools for data extraction",
+      "AI web scraping tools market demand 2024",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 22,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "AI web scraping tools market demand 2024",
+        "web scraping API pricing 2024",
+        "web scraping solutions for e-commerce",
+        "web scraping tools for data extraction"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 137,
+      "known_pages": 1597
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:15 candidates reviewed;  no concrete data on actual sales, pricing, or specific customer problems. The content is promotional and lacks real-world buyer activity or utility. Without verified s"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:d31c562d4d4633b654",
+      "decision": "pass",
+      "reason": "The demand for alternatives to Bing Search API is evident due to the significant price increase, but there is no clear indication of a specific, unmet need that a new product could address. The existing competition and lack of concrete sales data or pricing make it difficult to justify pursuing this opportunity without further market validation."
+    },
+    {
+      "candidate_id": "web:761b0e1abb12d209f2",
+      "decision": "pass",
+      "reason": "The HN post indicates a specific need for an internet-scale fax service with an API, but there is no evidence of existing sales or pricing models for such a service. While the demand is clear, the lack of concrete market data or competitor analysis makes it difficult to assess the viability of building such a product without further research."
+    },
+    {
+      "candidate_id": "web:7f6e64fcf0d6748bf3",
+      "decision": "pass",
+      "reason": "The candidate presents two free utilities for database users, but there is no evidence of paid sales or pricing. While the creator has a clear need for feedback, the lack of a monetized model or demonstrated demand makes it difficult to justify building a paid product. Additionally, the absence of a clear problem statement or unique value propositi"
+    },
+    {
+      "candidate_id": "web:6880573b4d7ba8ae0d",
+      "decision": "pass",
+      "reason": "While Blazeio shows significant performance advantages over FastAPI and Robyn in benchmarking, there is no evidence of a product being built or sold in this space. The evidence is purely technical and does not indicate actual buyer demand or a viable market for an original product. Without a clear customer problem or demonstrated demand, pursuing t"
+    },
+    {
+      "candidate_id": "web:27fec24c9f760ad613",
+      "decision": "pass",
+      "reason": "The article highlights the existing competition in the web scraping APIs market, with established players like ScraperAPI, Traject Data, and others. While there is potential for innovation, the market is already saturated with well-established solutions. There is no clear, specific customer problem that a new entrant could solve in a differentiated"
+    },
+    {
+      "candidate_id": "web:2721555b8b98378117",
+      "decision": "pass",
+      "reason": "The article discusses AI and web scraping trends but does not present a specific, actionable product or service. It lacks concrete evidence of a viable product, sales, or customer demand. The content is more of a thought leadership piece rather than a clear indication of a market-ready offering."
+    },
+    {
+      "candidate_id": "web:e6701685c996191de8",
+      "decision": "pass",
+      "reason": "The article highlights the importance of web scraping APIs and lists several competitors, but it does not provide concrete evidence of demand or a specific customer problem that a new product could solve. The existing market has established players with robust features, and there is no clear differentiation or unique value proposition presented for"
+    },
+    {
+      "candidate_id": "web:3e425ad6730f70b77d",
+      "decision": "pass",
+      "reason": "The page for Bright Data's Web Scraper API pricing plans shows a clear structure with tiered pricing and specific use cases, indicating a viable market. However, the lack of concrete sales data or direct customer testimonials makes it difficult to assess actual demand. While the market for web scraping tools is growing, the absence of verified sale"
+    },
+    {
+      "candidate_id": "web:7cac16923b0551b2cb",
+      "decision": "pass",
+      "reason": "The page provides information about WebScrapingAPI's products and services, but it lacks specific evidence of customer demand, sales, or pricing. There is no clear indication of a specific problem being solved or a unique value proposition that differentiates the product from competitors. Without concrete evidence of buyer utility or demand, it is "
+    },
+    {
+      "candidate_id": "web:845d1247180bb6f83a",
+      "decision": "pass",
+      "reason": "The LinkedIn article is not accessible due to login requirements, and the excerpt does not provide concrete market data or evidence of demand. Without verified sales, pricing, or specific customer problems, it is not possible to determine if a product in this space is viable."
+    },
+    {
+      "candidate_id": "web:4a0aae90f53ab98cc5",
+      "decision": "pass",
+      "reason": "The page provides information about ScraperAPI's pricing and features, but there is no clear evidence of actual sales or buyer demand. The content is more about promoting their services than indicating a viable market for a new product. Additionally, the lack of specific customer problems or utility for a new product makes it difficult to justify p"
+    },
+    {
+      "candidate_id": "web:911ec4fc01ad7842bb",
+      "decision": "pass",
+      "reason": "The page provides information about Bright Data's products, including proxy services and scraping APIs, but lacks concrete evidence of sales or pricing. While there is potential in the market for data extraction and proxy services, the absence of verified sales or pricing data makes it difficult to assess the viability of a new product in this spac"
+    },
+    {
+      "candidate_id": "web:1a35293b6a96162f79",
+      "decision": "pass",
+      "reason": "The evidence excerpt primarily highlights a market research report with a 20% discount offer, but lacks specific details about actual product offerings, customer demand, or competitive positioning. There is no concrete indication of a viable product or customer need that can be addressed with a differentiated offering. The focus on discounts and re"
+    },
+    {
+      "candidate_id": "web:f782eecfeb6ccfae63",
+      "decision": "pass",
+      "reason": "The evidence excerpt indicates a market research report with a 20% discount offer, but there is no concrete data on actual sales, pricing, or specific customer problems. The content is promotional and lacks real-world buyer activity or utility. Without verified sales or specific user needs, it is not a viable candidate for a genuine product."
+    },
+    {
+      "candidate_id": "web:62a72381389895f31b",
+      "decision": "pass",
+      "reason": "The provided content is a marketing report with no concrete evidence of actual sales, buyer activity, or specific customer problems. It lacks actionable insights or a clear product idea that can be tested with a low-cost prototype. The absence of verified sales or pricing, combined with the speculative nature of the report, makes it unsuitable for "
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 15,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
