@@ -17,3 +17,4 @@ jobs:
         run: python3 -m unittest discover -s tests -p test_gambit_worker.py -q
       - name: Validate full Gambit test suite
         run: python3 -m unittest discover -s tests -p 'test_gambit_*.py' -q
+# Final revision: past-tense enforcement and retry handling
