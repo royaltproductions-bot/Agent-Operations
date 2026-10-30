@@ -1,0 +1,125 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-30T04:54:06.105217+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 13,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 4,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 13,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/Crypto-Moonboys/Crypto-Moonboys.github.io/issues/1576",
+        "title": "MASTER BACKLOG \u2014 Website, Telegram WebAuth, My Moonboy, navigation & interaction integrity",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/lizTheDeveloper/privacy-the-game/issues/412",
+        "title": "[find opt-out] United One Resources, Inc.: find the official opt-out route",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/beesyst/beeagent/issues/350",
+        "title": "Feature: BS-12 \u2014 autonomous governed Web investigation CLI MVP",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/dev-kp-eloper/BountyScout/issues/1697",
+        "title": "\ud83c\udfaf Bounty Alert: 10 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/FuRongJun-1999/dsh-bounty/issues/2023",
+        "title": "[intake \u8f93\u5165][\u7f3a\u9677\u62a5\u544a] dsh-memory \u91cd\u590d\u952e\u5b88\u536b\u6f0f\u68c0 1 / 1.0 \u7b49\u5b9e\u9645\u76f8\u7b49\u7684\u6570\u5b57\u952e\uff0c\u53d1\u751f\u8986\u76d6\u4ecd rc=0",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.freelancer.com/projects/data-visualization/performance-metrics-dashboard-design",
+        "title": "Performance Metrics Dashboard Design - Freelancer",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-31 build performance dashboard",
+      "is:issue is:open bounty created:>=2026-08-31 create loan management",
+      "is:issue is:open bounty created:>=2026-08-31 ",
+      "looking for someone to build a performance dashboard with real-time metrics",
+      "hiring a freelancer to create a loan management dashboard tool"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a performance dashboard with real-time metrics",
+      "hiring a freelancer to create a loan management dashboard tool",
+      "need paid help with swing trading dashboard development",
+      "can anyone create a white label dashboard builder for financial data"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 20,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a performance dashboard with real-time metrics",
+        "hiring a freelancer to create a loan management dashboard tool",
+        "need paid help with swing trading dashboard development",
+        "can anyone create a white label dashboard builder for financial data"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 134,
+      "known_pages": 1353
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
