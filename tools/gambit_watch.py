@@ -13,13 +13,13 @@ def command(args, **kwargs):
 
 
 def checkpoint():
-    """Publish only the worker state; never overwrite a concurrent state writer."""
-    path = 'ops/gambit/state.json'
-    if subprocess.run(['git', 'diff', '--quiet', '--', path]).returncode == 0:
+    """Publish worker state and the conservative API budget ledger together."""
+    paths = ['ops/gambit/state.json', 'ops/gambit/openai_budget.json']
+    if subprocess.run(['git', 'diff', '--quiet', '--', *paths]).returncode == 0:
         return
     command(['git', 'config', 'user.name', 'gambit-worker'])
     command(['git', 'config', 'user.email', 'ari-operations@agentmail.to'])
-    command(['git', 'add', path])
+    command(['git', 'add', *paths])
     command(['git', 'commit', '-m', 'Record Gambit market and delivery checkpoint'])
     for _ in range(3):
         if subprocess.run(['git', 'push', 'origin', 'HEAD:main']).returncode == 0:
