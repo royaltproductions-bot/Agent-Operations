@@ -1,0 +1,76 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops",
+  "status": "active",
+  "asset_id": "6380f853132221ff30b7",
+  "title": "Web Data Extraction Dashboard for Real-Time Market Insights",
+  "description": "A reusable digital product that provides real-time market insights by extracting and visualizing data from web sources, tailored for businesses and analysts in e-commerce, finance, and real estate.",
+  "audience": "Business analysts, e-commerce retailers, financial analysts, real estate professionals, and market researchers.",
+  "pitch": "This dashboard enables users to extract and visualize real-time data from web sources, offering actionable insights for market trends, competitor analysis, and pricing strategies.",
+  "price_usd": "199.99",
+  "price_cents": 19999,
+  "target_terms": [
+    "web data extraction dashboard",
+    "real-time market insights",
+    "competitive pricing analysis",
+    "e-commerce data monitoring",
+    "real estate market trends"
+  ],
+  "evidence_source_url": "https://gitnux.org/web-data-extraction-industry-statistics/",
+  "files": [
+    "web_data_extraction_dashboard.html",
+    "web_data_extraction_dashboard.css",
+    "web_data_extraction_dashboard.js",
+    "web_data_extraction_dashboard_data.json"
+  ],
+  "artifact_manifest": [
+    {
+      "filename": "web_data_extraction_dashboard.html",
+      "bytes": 1477,
+      "sha256": "ec6821ebd5a81eab13ce16b5dc07268cab41863b73b2c2e4008eb68fe7abab77",
+      "content_type": "text/html"
+    },
+    {
+      "filename": "web_data_extraction_dashboard.css",
+      "bytes": 1245,
+      "sha256": "9a9413ab106152d7693c427d3a4a0df0b8ccb36867d379aedb449962a7b3fe38",
+      "content_type": "text/css"
+    },
+    {
+      "filename": "web_data_extraction_dashboard.js",
+      "bytes": 1742,
+      "sha256": "b2e3d8851a2b5c151e7cd33d699193a5be27681f7ec66506e40de29d51ad5632",
+      "content_type": "text/javascript"
+    },
+    {
+      "filename": "web_data_extraction_dashboard_data.json",
+      "bytes": 2672,
+      "sha256": "b56debb7fd366f478be51b69314fc473653f0d0a6090aa015eb1f1a619bf01ab",
+      "content_type": "application/json"
+    }
+  ],
+  "production_tool": "isolated_tool_workshop",
+  "quality_gate": "content_and_evidence_verified",
+  "market_validation": {
+    "status": "agent_assessed_public_market",
+    "decision": "pursue",
+    "reason": "The candidate_id 'web:870a002fdaf791f077' presents a strong opportunity in the web data extraction industry. The evidence excerpt highlights specific use cases such as e-commerce price monitoring (68% of retailers), lead generation (42% of B2B sales), and financial sentiment analysis (80% of hedge funds). These indicate a clear demand for data extraction tools in various sectors. Additionally, the market is growing with a CAGR of 17.39% and is projected to reach $4.1 billion by 2031. The data suggests that there is a significant and diverse set of use cases, which can support the development of a differentiated product. The existing catalog does not include a product that directly addresses these specific needs, making this a viable opportunity for a new product.",
+    "observation": {
+      "candidate_id": "web:870a002fdaf791f077",
+      "url": "https://gitnux.org/web-data-extraction-industry-statistics/",
+      "title": "70+ Web Data Extraction Industry Statistics (2026, Verified)",
+      "signal_type": "unclassified_public_page",
+      "source_fetched": true,
+      "evidence_excerpt": "70+ Web Data Extraction Industry Statistics (2026, Verified) Services Market Data Software Advice Editorial Process Company Contact Us Contact Us Home Services Market Data Software [...]  legal and anti bot barriers are surging. Related reading Technology Digital Media Web Data Collection Industry Statistics Data Science Analytics Top 10 Best Web Data Extraction Software of 2026 Data Science Analytics Top 10 Best Text Extraction Software of 2026 Data Science Analytics Top 10 Best OCR Data Extraction Software of 2026 01 \u00b7 Category Applications and Use Cases 14 stats 01 Web data extraction via e-commerce price monitoring used by 68% of retailers. 02 Lead generation accounts for 42% of web scraping use cases in B2B sales. 03 Real estate market analysis via scraping covers 55% of property listings daily. 04 Competitor SEO tracking utilizes 75% of scraped SERP data monthly. 05 Financial sentiment analysis from news sites scraped by 80% of hedge funds. 06 Job market intelligence gathered from 90% of boards for HR analytics. 07 Product review aggregation for 65% of e-com recommendation engi",
+      "listed_price_usd": null,
+      "displayed_sales_count": null
+    }
+  },
+  "verified_market_problem_quote": "70+ Web Data Extraction Industry Statistics (2026, Verified) Services Market Data Software Advice Editorial Process Company Contact Us Contact Us Home Services Market Data Software [...]  legal and anti bot barriers are surging. Related reading Technology Digital Media Web Data Collection Industry Statistics Data Science Analytics Top 10 Best Web Data Extraction Software of 2026 Data Science Analytics Top 10 Best Text Extraction Software of 2026 Data Science Analytics Top 10 Best OCR Data Extraction Software of 2026 01 \u00b7 Category Applications and Use Cases 14 stats 01 Web data extraction via e-commerce price monitoring used by 68% of retailers. 02 Lead generation accounts for 42% of web scraping use cases in B2B sales. 03 Real estate market analysis via scraping covers 55% of property listings daily. 04 Competitor SEO tracking utilizes 75% of scraped SERP data monthly. 05 Financial sentiment analysis from news sites scraped by 80% of hedge funds. 06 Job market intelligence gathered from 90% of boards for HR analytics. 07 Product review aggregation for 65% of e-com recommendation engi",
+  "commercial_review_reason": "The delivered artifacts include a functional HTML dashboard with CSS styling and JavaScript logic, along with a JSON data file. The dashboard is designed to visualize real-time market insights across e-commerce, finance, and real estate, aligning with the mark",
+  "delivery": "private_encrypted_vault",
+  "vault_path": "ops/cyclops-vault/assets/6380f853132221ff30b7.json",
+  "payment_link_id": "plink_1UW9IPBto3o776uyBwbgpMzY",
+  "checkout_url": "https://buy.stripe.com/6oUdR8dwc62P37seft7Re0n",
+  "created_at": "2026-10-30T06:28:13.236777+00:00"
+}
