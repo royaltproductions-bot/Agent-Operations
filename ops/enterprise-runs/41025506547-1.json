@@ -1,0 +1,124 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-30T08:20:19.758906+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 15,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 6,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 13,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/openobserve/openobserve/issues/16022",
+        "title": "Logs, Metrics & SQL: Visualize builds invalid SQL, regexp_match_to_fields repeats row 0, small display issues",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/abdulsalam-create/bounty-watch/issues/165",
+        "title": "Scope digest 2026-10-24: 4 changes across 3 bounty programs",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/abdulsalam-create/bounty-watch/issues/161",
+        "title": "New in-scope 2026-10-23: 3 program(s) added targets",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/abdulsalam-create/bounty-watch/issues/160",
+        "title": "Scope digest 2026-10-23: 5 changes across 4 bounty programs",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ahmedfuzayl-gif/commit-monitor/issues/155",
+        "title": "commit-monitor: new leads 2026-10-20_1214Z",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.zite.com/blog/no-code-dashboard",
+        "title": "9 Best No-Code Dashboard Tools in 2026 (Tested and Ranked)",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-31 build code dashboard",
+      "is:issue is:open bounty created:>=2026-08-31 create cloud dashboard",
+      "looking for someone to build a no-code dashboard",
+      "hiring a freelancer to create a cloud dashboard tool"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a no-code dashboard",
+      "hiring a freelancer to create a cloud dashboard tool",
+      "need paid help with building an AI form builder",
+      "can anyone create a real-time dashboard for sales data"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 25,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a no-code dashboard",
+        "hiring a freelancer to create a cloud dashboard tool",
+        "need paid help with building an AI form builder",
+        "can anyone create a real-time dashboard for sales data"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 135,
+      "known_pages": 1407
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
