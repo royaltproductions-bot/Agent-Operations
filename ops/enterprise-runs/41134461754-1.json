@@ -1,0 +1,125 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-30T21:56:19.520470+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 9,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 8,
+    "candidates_without_email": 9,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/gazetta-studio/gazetta-studio/issues/1540",
+        "title": "Executable specifications: consider Dave Farley's four-layer acceptance testing for AI-written code",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/rhettl/multi-village-selector/issues/6",
+        "title": "With mvs, /locate structure (village) yields false positive results (no village at location)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/smv620/Discord-DMbot/issues/2790",
+        "title": "Lore and story reads: resolve who \"he\", \"the king\" and \"his sister\" are, with an AI fallback, and keep unnamed people",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Chain-Love/chain-love/issues/4777",
+        "title": "[DBIP] Separate mainnet native-gas assistance from testnet token faucets",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/zai-org/feedback/issues/1319",
+        "title": "[Feedback] ZSRC bug bounty is effectively inaccessible to international researchers (Vulbox-only + CN ID/bank withdrawal",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Udish-dev/ai-bias-auditing-tool/blob/main/ai-bias-auditor.py",
+        "title": "ai-bias-auditor.py",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-31 anyone create ai",
+      "is:issue is:open bounty created:>=2026-08-31 "
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to create ai bias audit report",
+      "need paid help with ai bias assessment",
+      "can anyone create ai bias audit tool",
+      "looking for ai bias audit service provider"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 28,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to create ai bias audit report",
+        "need paid help with ai bias assessment",
+        "can anyone create ai bias audit tool",
+        "looking for ai bias audit service provider"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 136,
+      "known_pages": 1576
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
