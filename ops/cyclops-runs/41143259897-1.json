@@ -1,0 +1,227 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-30T23:15:54.659517+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 5,
+      "bing": 1,
+      "duckduckgo": 6,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "verified_firsthand_problem_pages": 6,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 15,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=42304953",
+        "title": "Ask HN: How to build an AI to find info I care about online?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=40774339",
+        "title": "Ask HN: Supabase vs. Neon Database: Which One Should I Choose?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=49371913",
+        "title": "Offline RAG on iOS with Spatial Integration",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=36168046",
+        "title": "Logging Personal Data Matters Now More Than Ever for LLMs",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=34431457",
+        "title": "Managing tabular data with Conversational AI",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://ai.google/",
+        "title": "Google AI - How we're making AI helpful for everyone",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 14,
+    "search_queries": [
+      "web scraping cost-effective strategies",
+      "AI data preparation tools for scraping",
+      "web scraping ROI calculator",
+      "web scraping tools market demand",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 18,
+      "skipped_revisits": 23,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "web scraping tools market demand",
+        "web scraping ROI calculator",
+        "web scraping cost-effective strategies",
+        "AI data preparation tools for scraping"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 137,
+      "known_pages": 1732
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:15 candidates reviewed;  of existing sales or pricing. While the topic is relevant, there is no clear indication of a specific customer problem that a differentiated product could solve. Addit"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:b5658f4a34d77beabd",
+      "decision": "pass",
+      "reason": "The candidate presents a technical question about building an AI agent to find relevant information online, but it lacks evidence of a specific customer problem, buyer demand, or a clear product offering. The question is speculative and does not indicate a viable product or market opportunity. There is no indication of existing sales, pricing, or a"
+    },
+    {
+      "candidate_id": "web:d363fe24020208d818",
+      "decision": "pass",
+      "reason": "The discussion around Supabase vs. Neon Database indicates a niche but specific need for serverless Postgres solutions, particularly for SaaS projects with real-time capabilities and performance requirements. However, the absence of concrete sales data, pricing, or direct evidence of customer demand makes it difficult to assess the viability of a n"
+    },
+    {
+      "candidate_id": "web:4565ca56c143180274",
+      "decision": "pass",
+      "reason": "The candidate presents a unique concept of integrating offline RAG (Retrieval-Augmented Generation) with spatial mapping on iOS, which could offer a novel solution for users needing localized, on-device AI capabilities. However, the absence of pricing and sales data makes it difficult to assess market viability. Additionally, while the technical fe"
+    },
+    {
+      "candidate_id": "web:62d5183163919c627c",
+      "decision": "pass",
+      "reason": "While the article highlights the growing importance of logging personal data for interaction with advanced LLMs, there is no clear evidence of a product or service currently available in this space. The discussion is speculative and lacks concrete examples of existing tools or platforms that offer structured logging solutions for AI interaction. Wi"
+    },
+    {
+      "candidate_id": "web:da75383f1736816e51",
+      "decision": "pass",
+      "reason": "The evidence suggests a growing interest in conversational AI for data management, with examples like Chat Data Prep and Google's GPT for Sheets. However, the lack of specific sales data, pricing, and clear differentiation from existing solutions makes it difficult to assess the viability of a new product in this space. The market is competitive, a"
+    },
+    {
+      "candidate_id": "web:692572d7a5c5577c9c",
+      "decision": "pass",
+      "reason": "The content discusses the economics of web scraping and provides a calculator for ROI, but there is no evidence of a completed product or sales. The focus is on educational content rather than a tangible product. Without a clear product offering or sales data, it's not a viable candidate for development."
+    },
+    {
+      "candidate_id": "web:b776bae4df96d87aa4",
+      "decision": "pass",
+      "reason": "The page content appears to be corrupted or non-readable, making it impossible to assess the actual offering or its value proposition. Without clear, actionable information about the product or service, it is not possible to determine if it is worth pursuing."
+    },
+    {
+      "candidate_id": "web:eaad46b99a42a9bb08",
+      "decision": "pass",
+      "reason": "The article discusses the importance of measuring ROI in web scraping for business leaders, highlighting the challenge of quantifying the value of web scraping initiatives. However, there is no evidence of a specific product or service being offered for sale, and no pricing or sales data is provided. While the topic is relevant, the absence of a co"
+    },
+    {
+      "candidate_id": "web:60b73c22351587a158",
+      "decision": "pass",
+      "reason": "The ROI calculator for web scraping is a niche tool that primarily serves businesses already engaged in web scraping. While there is some demand for such a tool, the lack of pricing and sales data makes it difficult to assess its viability. Additionally, there are existing competitors offering similar tools, which suggests that the market is alread"
+    },
+    {
+      "candidate_id": "web:36c9e32c47d713cdb8",
+      "decision": "pass",
+      "reason": "The candidate presents a tool for calculating proxy and web-scraping costs and ROI, which is a niche but potentially valuable offering. However, the lack of listed price and displayed sales count makes it difficult to assess market viability. Additionally, the tool's utility depends on the target audience's willingness to pay for such a specialized"
+    },
+    {
+      "candidate_id": "web:15c24409e43e97084a",
+      "decision": "pass",
+      "reason": "The candidate lacks concrete evidence of demand, such as listed prices or sales counts, and the content appears to be more of a general discussion on ROI calculation rather than a specific product offering. The market for web scraping solutions is competitive, and without clear differentiation or verified buyer interest, the opportunity is not comp"
+    },
+    {
+      "candidate_id": "web:2f2a7b096c60ea4872",
+      "decision": "pass",
+      "reason": "While the article highlights the importance of news scraping APIs for AI and data pipelines, there is no clear indication of a specific customer problem that a new product could solve. The existing competition and lack of displayed sales counts suggest that the market is already saturated with established solutions. Without a clear, unique value pr"
+    },
+    {
+      "candidate_id": "web:599e48c2876597e008",
+      "decision": "pass",
+      "reason": "The article discusses the need for chatbot scrapers to extract data from AI-powered interfaces, but there is no evidence of existing sales or pricing for such tools. While the problem is identified, there is no clear indication of a viable market or demand for a specific product in this space. Additionally, the existing competition and lack of conc"
+    },
+    {
+      "candidate_id": "web:a063f11b54f4f70dd6",
+      "decision": "pass",
+      "reason": "The article discusses the need for LLM-ready web scraping APIs for AI agents, but there is no evidence of existing sales or pricing. While the topic is relevant, there is no clear indication of a specific customer problem that a differentiated product could solve. Additionally, the market for web scraping APIs is competitive, and without concrete e"
+    },
+    {
+      "candidate_id": "web:fe92a582ff8a9f01b2",
+      "decision": "pass",
+      "reason": "The article discusses free web scrapers but does not provide evidence of a specific customer problem or demand for a paid solution. There is no indication of a unique value proposition or a clear need for a differentiated product in this space. The existing competition and lack of pricing or sales data make it difficult to justify pursuing this opp"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 15,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
