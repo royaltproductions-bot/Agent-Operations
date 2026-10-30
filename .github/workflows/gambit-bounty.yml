@@ -52,9 +52,9 @@ jobs:
     env:
       BOUNTY_AGENT_API_KEY: ${{ secrets.BOUNTY_AGENT_API_KEY }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      # Free local model until a dedicated OpenAI API key is explicitly
-      # configured as a repository secret; never spend by default.
-      GAMBIT_INFERENCE_PROVIDER: auto
+      # Free marketplace polling continues without a key; never let the old
+      # local model submit new bids after switching Gambit to GPT-6.1 Sol.
+      GAMBIT_INFERENCE_PROVIDER: openai
       GAMBIT_OPENAI_MODEL: gpt-6.1-sol
       GAMBIT_OPENAI_TRIAGE_MODEL: gpt-6.1-sol
       GAMBIT_OPENAI_DECISION_MODEL: gpt-6.1-sol
