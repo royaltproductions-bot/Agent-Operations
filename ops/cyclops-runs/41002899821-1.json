@@ -1,0 +1,211 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-30T04:28:18.613418+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "duckduckgo": 7,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "URLError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "verified_firsthand_problem_pages": 4,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 15,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=45757480",
+        "title": "Using Residential Proxy to Overcome Captcha Barriers",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45051968",
+        "title": "Ask HN: Which LinkedIn roles should I target for web scraping products/services?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=41645600",
+        "title": "Making the Most of Your LLM: The Tech of Validate My SaaS",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=40407117",
+        "title": "Looking for co-founder / AI Outbound Tool",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=10278858",
+        "title": "Ask HN: Should I add AWS scripting automation functionality to AppRobot?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=2674439",
+        "title": "Ask HN: Is this project interesting?",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 14,
+    "search_queries": [
+      "web scraping tools market demand 2024",
+      "markdown to pdf tool market analysis",
+      "data extraction services pricing trends",
+      "web crawling tools customer feedback"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 6,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "web scraping tools market demand 2024",
+        "markdown to pdf tool market analysis",
+        "data extraction services pricing trends",
+        "web crawling tools customer feedback"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 140,
+      "known_pages": 1402
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:15 candidates reviewed; tware market to $10.3 billion by 2033, but there is no concrete evidence of actual sales or buyer activity. The absence of verified sales counts and pricing details mak"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0,
+    "product_pages": 0,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [],
+  "market_assessments": [
+    {
+      "candidate_id": "web:f5d5247fe388a70c84",
+      "decision": "pass",
+      "reason": "While the use of residential proxies to overcome CAPTCHA barriers is a recognized pain point for developers and marketing teams, there is no clear evidence of a viable product or market demand for such a solution. The discussion is more about the problem than a specific product offering. Additionally, the absence of listed prices or sales counts ma"
+    },
+    {
+      "candidate_id": "web:a37b2e83cecd818ff2",
+      "decision": "pass",
+      "reason": "The product described (Prosp.ai) is an AI tool for hyper-personalized outbound outreach with features like LinkedIn lead extraction, personalized messaging, and web scraping. While the product has clear value for growth marketers and sales professionals, the evidence does not show any sales or pricing, making it difficult to assess viability. Addit"
+    },
+    {
+      "candidate_id": "web:4db541ebf2ef0056ad",
+      "decision": "pass",
+      "reason": "The discussion highlights a clear demand for web scraping tools targeting specific LinkedIn roles, but there is no direct evidence of existing sales or a viable product. While the idea has potential, the lack of concrete sales data or a demonstrated product makes it difficult to assess its viability as a genuine business opportunity."
+    },
+    {
+      "candidate_id": "web:6bc114c8b003603ad5",
+      "decision": "pass",
+      "reason": "While the candidate presents a detailed description of a competitor analysis tool for SaaS startup ideas, there is no evidence of actual sales or pricing, making it difficult to assess market viability. Additionally, the tool's value proposition is somewhat unclear, and the lack of demonstrated demand or traction reduces its appeal as a viable prod"
+    },
+    {
+      "candidate_id": "web:4f632984d907f895f1",
+      "decision": "pass",
+      "reason": "The candidate lacks concrete evidence of demand or sales, and the proposed product's value proposition is not clearly differentiated from existing automation tools. The absence of pricing and sales data makes it difficult to assess market viability."
+    },
+    {
+      "candidate_id": "web:b2bce435b8651657e7",
+      "decision": "pass",
+      "reason": "The project described is an editing tool for generating professional-looking documents using Markdown and Textile, with plans for integration with Basecamp, Backpack, and Google Docs. While the idea has potential, there is no evidence of demand or sales to validate the market interest. The project is in the early planning stage, and the lack of pub"
+    },
+    {
+      "candidate_id": "web:943d970c3d4be7a901",
+      "decision": "pass",
+      "reason": "While the product description highlights advanced AI capabilities for customer feedback analysis, there is no evidence of actual sales or buyer activity to validate demand. The absence of listed price or sales count makes it difficult to assess commercial viability. Additionally, the platform's value proposition is highly dependent on real-world ad"
+    },
+    {
+      "candidate_id": "web:a4796e551db7f7a03b",
+      "decision": "pass",
+      "reason": "The candidate's issue is about Google ignoring a website, which is a technical problem rather than a product opportunity. There is no evidence of a viable product or market demand for a solution to this specific issue. The other candidates are either unrelated or lack clear market validation."
+    },
+    {
+      "candidate_id": "web:b04f699c91cba5c7c3",
+      "decision": "pass",
+      "reason": "The market report indicates growth in the web scraping tools market, but there is no direct evidence of a specific product or demand for an original product in this space. The report is a general market analysis and does not provide concrete data on existing sales, customer activity, or specific product offerings. Without a clear, actionable signal"
+    },
+    {
+      "candidate_id": "web:3d3119e6c0fa408b12",
+      "decision": "pass",
+      "reason": "The candidate lacks a clear monetization model, and the tool's value proposition is not sufficiently differentiated from existing solutions. While there is demand for Markdown-to-PDF conversion in academic contexts, the absence of pricing or sales data makes it difficult to assess viability. Additionally, the tool's utility is limited to specific u"
+    },
+    {
+      "candidate_id": "web:f017c8050d1c5fcdb4",
+      "decision": "pass",
+      "reason": "Google Chrome is a dominant browser with a large user base and significant market presence. While there is potential for innovation in web browsing, the market is highly competitive and dominated by established players. There is no clear evidence of a specific unmet need or a unique value proposition that would justify building a new browser. The e"
+    },
+    {
+      "candidate_id": "web:1a1ac189ffb07e13ba",
+      "decision": "pass",
+      "reason": "While the web scraping market is projected to grow significantly with a CAGR of 14.3%, the evidence does not provide clear indications of actual buyer utility, demand strength, or competitive positioning. The excerpt mentions market size and growth but lacks specific details on customer activity, production feasibility, or attainable buyers. Additi"
+    },
+    {
+      "candidate_id": "web:22c581eac3e019ba45",
+      "decision": "pass",
+      "reason": "The MD to PDF Converter tool is a free online service with no monetization or sales data provided. While it offers a useful feature for converting Markdown to PDF, there is no evidence of a commercial product or demand for a paid version. The absence of pricing, sales, or buyer activity makes it difficult to justify pursuing a commercial product in"
+    },
+    {
+      "candidate_id": "web:828be89a302b04e73a",
+      "decision": "pass",
+      "reason": "The market report indicates a projected growth of the web scraping software market to $10.3 billion by 2033, but there is no concrete evidence of actual sales or buyer activity. The absence of verified sales counts and pricing details makes it difficult to assess the viability of a product in this space. Additionally, the existing catalog already i"
+    },
+    {
+      "candidate_id": "web:90ef3c96b9e790eba8",
+      "decision": "pass",
+      "reason": "The market report indicates strong demand for web scraping tools, but there is no evidence of existing sales or buyers. Additionally, the existing catalog includes similar tools, suggesting potential competition. Without verified sales or buyer activity, the viability of a new product in this space remains uncertain."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "no_saleable_products",
+    "indexable_product_pages": 0,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 15,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:15 candidates reviewed; tware market to $10.3 billion by 2033, but there is no concrete evidence of actual sales or buyer activity. "
+  }
+}
