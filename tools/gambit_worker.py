@@ -687,6 +687,67 @@ REPLY_SCHEMA = {"type": "object", "properties": {
     "reply_text": {"type": "string"},
 }, "required": ["reply_text"], "additionalProperties": False}
 
+BID_NOTE_SCHEMA = {"type": "object", "properties": {
+    "note": {"type": "string"},
+}, "required": ["note"], "additionalProperties": False}
+
+
+def bid_note_issue(text):
+    """Fail closed on unpersuasive or retrospective proposals, before POST /bid.
+
+    A proposed work scope is not a completed deliverable. Do not allow a model
+    to convert future steps into fabricated accomplishments.
+    """
+    note = str(text or "").strip()
+    if len(note) < 85 or len(note) > 2000:
+        return "bid_note_missing_specific_scope"
+    if re.search(
+            r"\b(?:i|we)\s+(?:have|had|already|previously)\s+"
+            r"(?:successfully\s+)?(?:completed|delivered|built|developed|"
+            r"implemented|tested|verified|researched|created|produced|"
+            r"generated|prepared|compiled|finished|selected|chosen)\b", note,
+            flags=re.IGNORECASE):
+        return "bid_note_unverified_completed_work"
+    if re.search(
+            r"\b(?:the|this|our|my)\s+(?:project|app|site|analysis|"
+            r"research|report|solution|code|results?|files?|deliverables?|"
+            r"application|website)\s+(?:has|have|is|was|were)\s+"
+            r"(?:already\s+)?(?:completed|delivered|built|developed|"
+            r"implemented|tested|verified|created|produced|prepared|"
+            r"compiled|finished|ready)\b", note, flags=re.IGNORECASE):
+        return "bid_note_unverified_completed_work"
+    if not re.search(
+            r"\b(?:i|we)\s+(?:will|would|propose|plan|intend|aim|can\s+deliver)\b"
+            r"|\b(?:i'll|we'll|i'd|we'd)\b"
+            r"|\b(?:my|our)\s+(?:proposed\s+)?(?:approach|plan|scope|proposal)\s+(?:is|will|would)\b"
+            r"|\bupon\s+(?:acceptance|being\s+hired|hire|approval)\b",
+            note, flags=re.IGNORECASE):
+        return "bid_note_missing_prospective_intent"
+    return None
+
+
+def repair_bid_note(details, note):
+    """One bounded model rewrite, never invent delivery or broaden the bid."""
+    answer = infer(BID_NOTE_SCHEMA,
+        "Rewrite an agent's proposed TryBounty bid into a concise future-tense "
+        "statement of intent. Open with 'I propose to' or 'I will'. Describe "
+        "the buyer-specific goal, exact realistic scope and output, approach, "
+        "and how it will be checked IF hired. No claims that any deliverable, "
+        "research, testing, deployment or file is already completed. Do not "
+        "imply work is attached or completed. Do not invent ability to build "
+        "a live application, deploy backend systems, use credentials, or "
+        "deliver anything outside the original supported scope. If the "
+        "requested result exceeds available resources, return an EMPTY note. "
+        "Return JSON only.",
+        {"title": (details.get("bounty") or {}).get("title"),
+         "requirements": str((details.get("bounty") or {}).get("description") or "")[:3500],
+         "verification": str((details.get("bounty") or {}).get("verification") or "")[:1200],
+         "original_proposal": str(note or "")[:2000],
+         "supported_outputs": sorted(SUPPORTED_FORMATS)},
+        fast=True, num_ctx=5500, num_predict=430)
+    return str(answer.get("note") or "").strip()
+
+
 RESEARCH_PLAN_SCHEMA = {"type": "object", "properties": {
     "requires_web": {"type": "boolean"},
     "queries": {"type": "array", "items": {"type": "string"}},
@@ -1021,7 +1082,14 @@ def assess(details, messages=None, sources=None, unreadable_count=0):
         "answer would make the task feasible. Judge the evidence yourself; no arbitrary "
         "minimum demand counts or quota. A bid payout is in cents, at least 500, at most "
         "10,000,000; use stated budget as guidance and price work rationally. "
-        "When bidding, write a short, compelling buyer-facing note, not a generic pitch. "
+        "When bidding, write a short, compelling buyer-facing PROPOSAL, not a "
+        "status report or generic recap. Start with 'I propose to' or 'I will'. "
+        "Clearly state the exact buyer-specific need, proposed scope, work approach "
+        "and outputs to be delivered AFTER hire, and realistic quality checks. "
+        "Never phrase future work as completed; do not write 'I have built', "
+        "'I have researched', 'I delivered', or imply that files are already "
+        "prepared, attached, verified, or included. Bid only on the FULL scope, "
+        "not a convenient subset. "
         "In ordinary language, identify the buyer's specific problem, the concrete final "
         "deliverable and its form, a feasible turnaround based on the actual work, and "
         "how the buyer can check its quality. Mention a real limitation or dependency "
@@ -1219,6 +1287,15 @@ def handle_open(item, state):
             action = "pass"
         else:
             bid_note = str(decision.get("note") or "").strip()
+            issue = bid_note_issue(bid_note)
+            if issue:
+                # Repair prose once, never silently post an unsupported promise.
+                bid_note = repair_bid_note(details, bid_note)
+                issue = bid_note_issue(bid_note)
+            if issue:
+                schedule_evaluation_retry(state, bounty_id,
+                                          ValueError(issue))
+                return
             proof = str(decision.get("sample_source_url") or "").strip()
             proof_line = "\nPublic source reviewed: " + proof
             if proof and proof not in bid_note and len(bid_note) + len(proof_line) <= 2000:
