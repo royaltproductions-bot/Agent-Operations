@@ -743,12 +743,47 @@ class GambitTests(unittest.TestCase):
             return details if method == 'GET' else {'bid': {'id': 'bid1'}}
         with patch.object(gambit, 'api', side_effect=request), \
              patch.object(gambit, 'assess', return_value={
-                 'decision': 'bid', 'payout_cents': 1700, 'note': 'I can deliver the report.'}):
+                 'decision': 'bid', 'payout_cents': 1700, 'note': ('I propose to review the supplied data, organize the findings in a clear report, and provide a final file with each finding checked against the brief.')}):
             gambit.handle_open({'_id': 'b1'}, state)
         sent = [c for c in calls if c[1] == 'POST']
         self.assertEqual(len(sent), 1)
         self.assertEqual(sent[0][2]['expected_version'], 6)
         self.assertEqual(sent[0][2]['payout_cents'], 1700)
+
+    def test_bid_note_requires_future_intent_and_specific_scope(self):
+        good = ("I propose to review the supplied nonprofit domains, research publicly "
+                "confirmed auction events, and deliver a sourced CSV with unknown "
+                "fields clearly marked after completing source checks.")
+        self.assertIsNone(gambit.bid_note_issue(good))
+        self.assertEqual(gambit.bid_note_issue(
+            "The app includes a CSV sample. Results are verified and the website "
+            "is built using a suitable model and available tools; setup is included."),
+            "bid_note_unverified_completed_work")
+        self.assertEqual(gambit.bid_note_issue(
+            "The proposal includes a sample CSV and results file; the app will be "
+            "built with public sources and an appropriate AI model after award."),
+            "bid_note_missing_prospective_intent")
+        self.assertEqual(gambit.bid_note_issue(
+            "I have completed the research and delivered a fully working research "
+            "application with tested results for all nonprofits."),
+            "bid_note_unverified_completed_work")
+        self.assertEqual(gambit.bid_note_issue("I can do it."),
+                         "bid_note_missing_specific_scope")
+
+    def test_past_tense_or_generic_bid_is_never_submitted(self):
+        details = {"bounty": {"_id": "b1", "status": "open", "flow": "bid",
+                              "version": 1, "title": "Compile a sourced report"}}
+        state = {"bounties": {}, "recent_outcomes": []}
+        with patch.object(gambit, "api", return_value=details) as request, \\
+             patch.object(gambit, "assess", return_value={
+                 "decision": "bid", "payout_cents": 2200,
+                 "note": "The report has been completed, all facts verified and the "
+                         "final spreadsheet is ready for delivery."}), \\
+             patch.object(gambit, "repair_bid_note", return_value="I can do it."):
+            gambit.handle_open({"_id": "b1"}, state)
+        self.assertFalse(any(len(call.args) > 1 and call.args[1] == "POST"
+                             for call in request.call_args_list))
+        self.assertEqual(state["bounties"]["b1"]["action"], "retry_evaluation")
 
     def test_passed_market_listing_leaves_a_sanitized_learning_receipt(self):
         details = {'bounty': {'_id': 'b1', 'status': 'open', 'version': 3,
@@ -777,7 +812,7 @@ class GambitTests(unittest.TestCase):
         with patch.object(gambit, 'api', side_effect=request), \
              patch.object(gambit, 'assess', return_value={
                  'decision': 'bid', 'payout_cents': 2500,
-                 'note': 'I will supply a sourced company directory.',
+                 'note': ('I will research the requested companies, verify the public sources, and deliver a structured directory with clear source links and missing fields marked.'),
                  'sample_source_url': 'https://example.com/about'}):
             gambit.handle_open({'_id': 'b1'}, state)
         self.assertIn('https://example.com/about', calls[0]['note'])
@@ -1191,7 +1226,7 @@ class GambitTests(unittest.TestCase):
         with patch.object(gambit, "api", side_effect=request) as request_api, \
              patch.object(gambit, "messages_for", return_value=[]), \
              patch.object(gambit, "assess", return_value={
-                 "decision": "bid", "payout_cents": 2400, "note": "Revised scope"}):
+                 "decision": "bid", "payout_cents": 2400, "note": ("I propose to analyze the customer report, identify the key findings, and deliver a documented summary with data-backed conclusions.")}):
             gambit.handle_open({"_id": "b1"}, state)
         bids = [call for call in request_api.call_args_list
                 if len(call.args) >= 2 and call.args[1] == "POST"
