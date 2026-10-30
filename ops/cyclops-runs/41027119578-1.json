@@ -1,0 +1,224 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-30T08:34:24.669796+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "duckduckgo": 6,
+      "bing": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "verified_firsthand_problem_pages": 6,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 15,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=48919162",
+        "title": "I reverse-engineered the three biggest agent-memory tools",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45899478",
+        "title": "Ask HN: Seeking advice on designing a personal document server",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37431642",
+        "title": "ChatGPT, EmbedAI, Bard, or Aria? Which is the best assistant for you?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=34070008",
+        "title": "Ask HN: Built months of teams roadmap myself. How to proceed?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46979156",
+        "title": "Ask HN: Freelance Dev Available \u2013 Discord Bots, Web Scraping, GitHub Automation",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46940958",
+        "title": "Why is price comparison still so bad in 2026?",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 14,
+    "search_queries": [
+      "data extraction services",
+      "e-commerce scraping",
+      "ai-powered scraping"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 20,
+      "skipped_revisits": 14,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "data extraction services",
+        "e-commerce scraping",
+        "ai-powered scraping",
+        "lead generation scraping"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 136,
+      "known_pages": 1477
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:15 candidates reviewed; customer problem or a feasible, original product. The content is more about market research and advisory services rather than a concrete product offering. There is no i"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:bb3ac605e1f25f7f65",
+      "decision": "pass",
+      "reason": "The candidate highlights a personal use case where existing agent-memory tools are seen as overkill due to their complexity and infrastructure requirements. While the user prefers a simpler approach using `.md` files and existing tools like Obsidian, the evidence does not indicate a clear market demand or a specific problem that a new product would"
+    },
+    {
+      "candidate_id": "web:10c67e96e2750eba8e",
+      "decision": "pass",
+      "reason": "The candidate presents a detailed technical problem with a specific need for a personal document server, but there is no evidence of actual buyer demand or utility. The discussion is speculative and lacks concrete sales or pricing data, making it difficult to justify a genuine product without further validation."
+    },
+    {
+      "candidate_id": "web:e4054318035a115ba6",
+      "decision": "pass",
+      "reason": "The problem of price comparison remains underserved despite its apparent simplicity, and the existing solution (YourPriceHub) is a viable experiment. However, the market is fragmented, with existing players like Google Shopping and browser extensions, and the challenge is more technical and legal than just a data aggregation problem. While the cand"
+    },
+    {
+      "candidate_id": "web:56eeb036a5fc6a9c32",
+      "decision": "pass",
+      "reason": "The discussion around AI assistants highlights the demand for specialized tools, but the evidence does not provide specific customer problems or buyer utility that justify a unique product. The existing competition and lack of concrete sales or pricing data make it difficult to determine if a differentiated offering is viable."
+    },
+    {
+      "candidate_id": "web:054befae8c21d59a67",
+      "decision": "pass",
+      "reason": "The candidate presents a technical challenge within a Rails monolith with a proposed solution, but there is no clear evidence of a market need, buyer demand, or a viable product. The discussion is speculative and lacks concrete data on customer activity or utility."
+    },
+    {
+      "candidate_id": "web:123b195d76aa97fd41",
+      "decision": "pass",
+      "reason": "The candidate presents a freelance developer offering specific services (Discord bots, web scraping, GitHub automation) with clear value propositions. However, there is no evidence of actual sales or pricing, and the listing is a personal offer rather than a product. Without a defined product, pricing, or sales data, it is not possible to evaluate "
+    },
+    {
+      "candidate_id": "web:a31b3c20b53f9f1d4a",
+      "decision": "pass",
+      "reason": "While SiteAssist presents an interesting concept for adding AI assistants to websites, there is no evidence of pricing, sales, or customer engagement to validate its market viability. The absence of concrete data makes it difficult to assess the demand or competitive positioning. Additionally, the lack of a clear business model or monetization stra"
+    },
+    {
+      "candidate_id": "web:1d16b17e11dbccdd88",
+      "decision": "pass",
+      "reason": "While the product description highlights a specific problem with AI coding environments, there is no evidence of actual sales or pricing, which makes it difficult to assess market viability. Additionally, the technical complexity and niche audience may limit the product's appeal and scalability."
+    },
+    {
+      "candidate_id": "web:3392c91ff95653abea",
+      "decision": "pass",
+      "reason": "The candidate lacks clear pricing or sales data, and the evidence excerpt does not demonstrate a specific, actionable customer problem that a unique product could solve. The focus on data extraction services is broad and already well-served by existing competitors, without clear differentiation or demonstrated demand for a new product."
+    },
+    {
+      "candidate_id": "web:63fa074d05e13172a0",
+      "decision": "pass",
+      "reason": "The article discusses the importance of scraping e-commerce websites for competitive advantage, but it does not present a specific, actionable problem that a unique product could solve. The existing market for data extraction services is well-established, and the article does not indicate a clear gap or unmet need that a new product could address. "
+    },
+    {
+      "candidate_id": "web:82f1ec420a076522e3",
+      "decision": "pass",
+      "reason": "The evidence suggests a niche market for e-commerce data extraction services, but there is no clear indication of a specific, unmet customer need or a unique value proposition. The existing competition and lack of pricing or sales data make it difficult to assess the viability of a new product in this space without further differentiation or valida"
+    },
+    {
+      "candidate_id": "web:4197f9715b01616318",
+      "decision": "pass",
+      "reason": "The page discusses data extraction services and lists competitors with scores, but there is no clear indication of a specific, unmet customer need or a unique product idea that can be developed. The focus is on existing services rather than a novel product or a specific problem that requires a new solution. Additionally, there is no evidence of a d"
+    },
+    {
+      "candidate_id": "web:5b7d54409f2a9b2acd",
+      "decision": "pass",
+      "reason": "The page for Google Gemini appears to be a technical interface or landing page, but there is no clear evidence of a specific product or service being offered. The content provided is mostly CSS and HTML code, which does not indicate a viable product or market opportunity. Additionally, there is no mention of pricing, sales, or specific customer pro"
+    },
+    {
+      "candidate_id": "web:12d4a6aa400dad5b52",
+      "decision": "pass",
+      "reason": "The page lists data extraction services but does not provide clear evidence of a specific, actionable customer problem or a feasible, original product. The content is more about market research and advisory services rather than a concrete product offering. There is no indication of a unique value proposition or a specific buyer need that can be add"
+    },
+    {
+      "candidate_id": "web:3f938759c250eb2471",
+      "decision": "pass",
+      "reason": "The article discusses the technical process of scraping e-commerce product data, but it does not present a specific customer problem or a clear demand for a product that solves a unique, bounded utility. There is no evidence of existing sales, pricing, or a defined buyer need that justifies building a differentiated product. The focus on scraping t"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 15,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
