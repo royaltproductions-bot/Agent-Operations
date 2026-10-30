@@ -8,6 +8,8 @@ on:
     branches: [main]
     paths:
       - 'tools/gambit_worker.py'
+      - 'tools/gambit_openai.py'
+      - 'tests/test_gambit_openai.py'
       - 'tools/gambit_watch.py'
       - 'tools/gambit_models.sh'
       - 'tests/test_gambit_watch.py'
@@ -49,6 +51,13 @@ jobs:
     timeout-minutes: 120
     env:
       BOUNTY_AGENT_API_KEY: ${{ secrets.BOUNTY_AGENT_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      # Free local model until a dedicated OpenAI API key is explicitly
+      # configured as a repository secret; never spend by default.
+      GAMBIT_INFERENCE_PROVIDER: auto
+      GAMBIT_OPENAI_MODEL: gpt-6.1-terra
+      GAMBIT_OPENAI_TRIAGE_MODEL: gpt-6.1-terra
+      GAMBIT_OPENAI_MAX_ESTIMATED_CALL_USD: '0.08'
       GAMBIT_WEBSITE_BUILDER: '1'
       GAMBIT_MODEL: qwen3:8b
       GAMBIT_TRIAGE_MODEL: qwen3:1.7b
@@ -76,6 +85,7 @@ jobs:
         run: python3 -m unittest discover -s tests -p 'test_gambit_*.py' -q
 
       - name: Restore reusable models
+        if: env.OPENAI_API_KEY == ''
         uses: actions/cache@v4
         with:
           path: .ollama-cache/models
