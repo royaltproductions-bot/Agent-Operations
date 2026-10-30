@@ -1,0 +1,224 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-30T22:19:13.737407+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "followup": 2,
+      "hn_ask": 7,
+      "duckduckgo": 7
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 14,
+    "verified_firsthand_problem_pages": 4,
+    "observed_public_paid_offers": 1,
+    "market_candidates_considered": 1,
+    "public_sources_available_for_judgment": 14,
+    "public_market_sample": [
+      {
+        "url": "https://pmarketresearch.com/worldwide-web-scraping-services-market-research/",
+        "title": "Worldwide Web Scraping Services Market",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=41592536",
+        "title": "Ask HN: Passionate bootcamper without a degree seeking advice",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=21486289",
+        "title": "Ask HN: Doing transactional email (and beyond) in your SaaS product?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=18960278",
+        "title": "Ask HN: Marketable dev skills for designers",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=10041438",
+        "title": "Ask HN: Premature optimization \u2013 when to use?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=43240647",
+        "title": "You need threat exposure management tool at work",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://pmarketresearch.com/worldwide-web-scraping-services-market-research/",
+        "title": "Worldwide Web Scraping Services Market",
+        "displayed_sales_count": null,
+        "listed_price_usd": "1.15"
+      }
+    ],
+    "candidates_without_email": 16,
+    "search_queries": [
+      "",
+      "AI-powered web scraping tools",
+      "no-code web scraping market",
+      "web scraping tools competitors",
+      "web scraping API demand"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 19,
+      "skipped_revisits": 25,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "web scraping API demand",
+        "AI-powered web scraping tools",
+        "no-code web scraping market",
+        "web scraping tools competitors"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 136,
+      "known_pages": 1714
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:14 candidates reviewed; does not provide evidence of a specific customer problem or demand for an original product. It lacks concrete buyer utility, demand strength, and competitive positionin"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:89a5d6853c95f40dee",
+      "decision": "pass",
+      "reason": "The market research indicates a growing demand for web scraping services, but the provided evidence is a paid market research report, not a product or service offering. There is no indication of an actual product being sold or a specific problem being solved by a digital product. The data is speculative and lacks concrete evidence of a viable produ"
+    },
+    {
+      "candidate_id": "web:c6bc205473baa0ba23",
+      "decision": "pass",
+      "reason": "The candidate's query highlights a specific pain point for self-taught developers seeking to differentiate themselves in the job market. However, the lack of concrete evidence of demand (e.g., sales, pricing, or existing products) and the absence of a clear, actionable product idea make it difficult to justify pursuing this as a viable business. Th"
+    },
+    {
+      "candidate_id": "web:df83b9a20695bb0014",
+      "decision": "pass",
+      "reason": "The discussion highlights a clear pain point in managing transactional emails within SaaS products, with users expressing a need for more advanced features like WYSIWYG editors, dynamic content, and analytics. However, there is no evidence of existing products or sales to validate the market demand. While the problem is identifiable, the absence of"
+    },
+    {
+      "candidate_id": "web:610127750144516899",
+      "decision": "pass",
+      "reason": "The candidate presents a discussion about marketable dev skills for designers, but it lacks concrete evidence of demand or a specific product idea. While there is interest in combining design and development skills, the post does not clearly outline a viable product or market opportunity. Additionally, there is no mention of a specific tool, servic"
+    },
+    {
+      "candidate_id": "web:3800e79070f3c0dd72",
+      "decision": "pass",
+      "reason": "The user is asking about premature optimization for a personal project with no market fit concerns. While the problem is valid, there is no clear demand or buyer utility for a product that addresses this specific scenario. The user is not looking for a tool but rather advice on optimization techniques. There is no evidence of a market need for a pr"
+    },
+    {
+      "candidate_id": "web:8926985c9f328b183f",
+      "decision": "pass",
+      "reason": "While the anecdote highlights a real need for threat exposure management tools in businesses, there is no concrete evidence of demand or sales. The absence of listed prices and sales counts makes it difficult to assess the market viability. Additionally, the mention of a specific product (NordStellar) does not confirm its popularity or effectivenes"
+    },
+    {
+      "candidate_id": "web:39a82e00bdbc07dc85",
+      "decision": "pass",
+      "reason": "The candidate lacks a clear product offering or pricing, and the evidence excerpt is fragmented, making it difficult to assess the viability of the product. The discussion appears to be a list of tools rather than a specific product idea, and there is no indication of a unique value proposition or demand for a new product."
+    },
+    {
+      "candidate_id": "web:669d796c7024c6c703",
+      "decision": "pass",
+      "reason": "The HN discussion highlights a niche but real use case for web scraping, such as personal automation (e.g., transit delays) or competitive price tracking. However, the absence of pricing, sales data, or direct customer demand metrics makes it difficult to assess viability. While the idea has potential, there is no clear evidence of a large or consi"
+    },
+    {
+      "candidate_id": "web:3d46e2f16022443c16",
+      "decision": "pass",
+      "reason": "The article highlights the need for a web scraping API that provides clean Markdown, structured data, and handles modern challenges like JavaScript rendering and bot protection. However, the lack of listed price and sales count makes it difficult to assess market viability. While the problem is relevant, there is no clear evidence of a specific cus"
+    },
+    {
+      "candidate_id": "web:c969a64f45ae283220",
+      "decision": "pass",
+      "reason": "The article highlights the growing interest in AI-powered web scraping solutions, but there is no clear evidence of a specific, unmet customer need that a new product could address. The existing competition and the lack of concrete sales data or pricing details make it difficult to justify pursuing a new product in this space without further differ"
+    },
+    {
+      "candidate_id": "web:c272ae13dac2c67982",
+      "decision": "pass",
+      "reason": "The article highlights the need for AI-powered web scraping tools but does not provide evidence of a specific product or demand for an original offering. While there is interest in the space, there is no clear indication of a unique value proposition or a specific problem that the candidate product would solve. Additionally, the absence of pricing "
+    },
+    {
+      "candidate_id": "web:afe975548db10f75f7",
+      "decision": "pass",
+      "reason": "While the article highlights Scrape.do as a leading web scraping API with strong TrustScore and features, there is no evidence of a specific, unmet customer need or a clear differentiation that would justify building a new product in this space. The market is already well-served by existing tools, and the absence of pricing or sales data makes it d"
+    },
+    {
+      "candidate_id": "web:642a09e6558b00b401",
+      "decision": "pass",
+      "reason": "The article discusses AI web scraping tools but does not provide evidence of a specific customer problem or demand for an original product. It lacks concrete buyer utility, demand strength, and competitive positioning. Additionally, there is no indication of a feasible differentiated small digital product that can be tested with low cost."
+    },
+    {
+      "candidate_id": "web:a38a1556ece66ae3a7",
+      "decision": "pass",
+      "reason": "The ROI calculator for web scraping lacks clear evidence of demand or buyer utility. While the topic is relevant, there is no indication of a specific customer problem or a feasible differentiated product. The content is speculative and does not demonstrate a real-world use case or a verified market need."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 14,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
