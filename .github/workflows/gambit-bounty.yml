@@ -55,8 +55,12 @@ jobs:
       # Free local model until a dedicated OpenAI API key is explicitly
       # configured as a repository secret; never spend by default.
       GAMBIT_INFERENCE_PROVIDER: auto
-      GAMBIT_OPENAI_MODEL: gpt-6.1-terra
-      GAMBIT_OPENAI_TRIAGE_MODEL: gpt-6.1-terra
+      GAMBIT_OPENAI_MODEL: gpt-6.1-sol
+      GAMBIT_OPENAI_TRIAGE_MODEL: gpt-6.1-sol
+      GAMBIT_OPENAI_DECISION_MODEL: gpt-6.1-sol
+      GAMBIT_OPENAI_WRITING_MODEL: gpt-6.1-sol
+      GAMBIT_OPENAI_REASONING_EFFORT: medium
+      GAMBIT_OPENAI_MONTHLY_LIMIT_USD: '20.00'
       GAMBIT_OPENAI_MAX_ESTIMATED_CALL_USD: '0.08'
       GAMBIT_WEBSITE_BUILDER: '1'
       GAMBIT_MODEL: qwen3:8b
