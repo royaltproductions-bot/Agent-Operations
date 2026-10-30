@@ -1,0 +1,132 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-30T19:10:43.651923+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 13,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 4,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 9,
+    "contactable_sources": 4,
+    "linked_requester_contacts": 3,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/1890",
+        "title": "[wildcard] Run the O18 tripwire on bugs we didn't write: put the PROVISIONAL A1 ruling up against GoBench's 35 real-worl",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2269",
+        "title": "queue_sweeper: reject negative closure and age limits before API access",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2161",
+        "title": "[tooling] Differential harness ignores registered EXPECTED-DIAGNOSTIC pins",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/malachi-hq/malachi/issues/303",
+        "title": "Malachi has no funding and uses none of the free programs open source projects qualify for",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/commonworld-one/commonworld/issues/207",
+        "title": "Agents doing real work: one way to give, verify, credit and pay for every kind of task",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.warden-ai.com/ai-bias-auditing",
+        "title": "AI Bias Audit Services for HR Compliance & Trust | Warden AI",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-31 build ai bias",
+      "is:issue is:open bounty created:>=2026-08-31 ai tool development",
+      "looking for someone to build ai bias audit tool",
+      "hiring a freelancer to create ai bias detection system"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build ai bias audit tool",
+      "hiring a freelancer to create ai bias detection system",
+      "need paid help with ai hiring tool development",
+      "can anyone create ai bias audit deliverable"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 26,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build ai bias audit tool",
+        "hiring a freelancer to create ai bias detection system",
+        "need paid help with ai hiring tool development",
+        "can anyone create ai bias audit deliverable"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 135,
+      "known_pages": 1535
+    }
+  },
+  "offer": {
+    "source_url": "https://www.warden-ai.com/ai-bias-auditing",
+    "title": "AI Bias Auditing for HR Compliance & Trust",
+    "scope": "Continuous AI bias auditing for HR tech platforms to ensure compliance with NYC LL 144 and other regulations, including real-time dashboards, reports, and risk detection.",
+    "price_usd": "1499.99",
+    "price_cents": 149999,
+    "offer_id": "b9d7a41688055f7573eab164",
+    "payment_link_id": "plink_1UWLcVBto3o776uywbQkNVFT"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://www.warden-ai.com/ai-bias-auditing"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 4,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "none"
+  }
+}
