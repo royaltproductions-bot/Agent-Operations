@@ -1,0 +1,225 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-30T13:44:39.807066+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "duckduckgo": 5,
+      "bing": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 16,
+    "verified_firsthand_problem_pages": 5,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 16,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=46137711",
+        "title": "Ask HN: Who Is Working to Combat AI-Powered Fraud?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46042185",
+        "title": "I built Jelly: an SSH-only social space (no passwords, no emails)",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=43353755",
+        "title": "AI-powered app building beyond no code",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=48447980",
+        "title": "Ask HN: How to escalate a rejected Google extension?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47318231",
+        "title": "I built a tool to export Gemini chat to PDF, Word, Docs, and Notion",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47110744",
+        "title": "Open-Source Bionic Reading Chrome Extension (MIT)",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 16,
+    "search_queries": [
+      "AI-powered web scraping solutions demand",
+      "Chrome Web Store extension sales data",
+      "web scraping tools market size 2024"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 19,
+      "skipped_revisits": 29,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "web scraping tools market size 2024",
+        "AI-powered web scraping solutions demand",
+        "Chrome Web Store extension sales data",
+        "no-code web scraping platform revenue"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 137,
+      "known_pages": 1567
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:16 candidates reviewed; rentiated product. The Wikipedia page on Google Chrome is a general overview and does not provide actionable insights or a clear opportunity for a new product. There is"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:0eec51dac48a576ddb",
+      "decision": "pass",
+      "reason": "The discussion highlights a significant problem with AI-powered fraud, but there is no evidence of a product or service already addressing this issue. While the problem is real and growing, the absence of a specific, actionable product or service makes it difficult to justify building a solution without further market validation."
+    },
+    {
+      "candidate_id": "web:6c8abd9c6c5b34450e",
+      "decision": "pass",
+      "reason": "While the concept of Jelly is intriguing and aligns with a niche interest in early internet communities, the lack of demonstrated demand, sales, or pricing makes it difficult to justify pursuing this product. The target audience is highly specific and may not be large enough to support a viable business. Additionally, the technical feasibility and "
+    },
+    {
+      "candidate_id": "web:4e86d77d21bda3ba43",
+      "decision": "pass",
+      "reason": "While the candidate presents an innovative idea for an AI-powered app builder that aims to overcome the limitations of no-code platforms like Bubble.io, there is no evidence of actual sales, pricing, or user engagement beyond the waitlist. The absence of concrete data on demand, pricing, or user feedback makes it difficult to assess the viability o"
+    },
+    {
+      "candidate_id": "web:0a4cccfe86fc518ec6",
+      "decision": "pass",
+      "reason": "The candidate represents a problem with Google's extension review process, but there is no clear evidence of a viable product or demand for a solution. The user is seeking to escalate a rejection, not to build a new product. There is no indication of a market need for a tool to bypass Google's policies, and the existing competition or lack of sales"
+    },
+    {
+      "candidate_id": "web:5c3cc9f3bc3651de9d",
+      "decision": "pass",
+      "reason": "While the tool addresses a specific pain point for users of Gemini, there is no evidence of sales or pricing, and the market for chat export tools is not clearly defined. The tool's utility is limited to Gemini users, which may not represent a large enough audience to justify development without further validation."
+    },
+    {
+      "candidate_id": "web:d80049c8814758c7ce",
+      "decision": "pass",
+      "reason": "While the Bionic Reading Chrome extension addresses a specific need for users with ADHD or those looking to improve reading speed, there is no clear evidence of demand or sales to justify building a similar product. The absence of pricing, sales counts, or direct user feedback makes it difficult to assess the market viability. Additionally, the ope"
+    },
+    {
+      "candidate_id": "web:0e43cd77572b149115",
+      "decision": "pass",
+      "reason": "While KironX presents a unique value proposition by focusing on decision support rather than automation, there is no evidence of actual sales or pricing, and the product is currently in a feedback collection phase. The absence of concrete buyer demand or sales data makes it difficult to justify pursuing this idea without further validation."
+    },
+    {
+      "candidate_id": "web:370c1205e5ccc8c583",
+      "decision": "pass",
+      "reason": "The candidate provides a detailed guide on earning a Chrome Web Store Featured Badge, which indicates a potential opportunity for developers to create high-quality extensions. However, there is no direct evidence of a specific product or demand for such an extension. The guide focuses on the process and criteria for achieving a badge, not on the ex"
+    },
+    {
+      "candidate_id": "web:6282dcbf4324b4bb13",
+      "decision": "pass",
+      "reason": "The article discusses AI web scraping tools, but there is no evidence of a specific, actionable customer problem or demand for a new product in this space. The existing competition and lack of clear buyer utility or pricing data make it difficult to justify pursuing a new product without further evidence of a unique value proposition."
+    },
+    {
+      "candidate_id": "web:0bc8c629b21cee3886",
+      "decision": "pass",
+      "reason": "The page lists AI web scraping tools but does not provide specific evidence of a unique product or demand for an original offering. The content is a list of existing tools, not a specific product idea, and there is no indication of a specific customer problem or a feasible differentiated solution. The absence of pricing, sales data, or a clear prod"
+    },
+    {
+      "candidate_id": "web:760f1835538064bb98",
+      "decision": "pass",
+      "reason": "Google Chrome is a well-established browser with a massive user base and no clear opportunity for differentiation. The market is saturated, and there is no evidence of a specific, unmet customer need that a new product could address. The existing competition and lack of unique value proposition make it unlikely to justify building a new product in "
+    },
+    {
+      "candidate_id": "web:3e7d63b104160ecb00",
+      "decision": "pass",
+      "reason": "The market for web scraping tools is growing at a CAGR of 12.6% from 2024 to 2033, reaching $9.2 billion by 2033. However, the evidence does not indicate a specific, unmet customer need or a unique value proposition that differentiates a potential product from existing solutions. The market is competitive, and without a clear, specific problem to s"
+    },
+    {
+      "candidate_id": "web:f5c6644caf9fd70000",
+      "decision": "pass",
+      "reason": "The candidate is a public page for downloading and installing Google Chrome, which is a widely used web browser. There is no evidence of a specific, unmet customer need or a unique product offering. The page does not indicate any sales, pricing, or customer activity that would justify building an original product. The existing catalog already inclu"
+    },
+    {
+      "candidate_id": "web:5cb5dde890505a2f11",
+      "decision": "pass",
+      "reason": "The article discusses AI web scraping tools, indicating a market interest in automation and data extraction. However, there is no clear evidence of a specific, unmet customer need or a unique value proposition that differentiates a potential product from existing solutions. The absence of pricing or sales data further limits the ability to assess m"
+    },
+    {
+      "candidate_id": "web:217cd58e27589f0590",
+      "decision": "pass",
+      "reason": "The evidence provided does not indicate a specific customer problem or a feasible differentiated product. The Wikipedia page on Google Chrome is a general overview and does not provide actionable insights or a clear opportunity for a new product. There is no indication of a specific need that is not already met by existing solutions."
+    },
+    {
+      "candidate_id": "web:8302c538c1fab52666",
+      "decision": "pass",
+      "reason": "The article lists AI web scraping tools but does not provide evidence of a specific customer problem or demand for a new product. There is no indication of a unique value proposition or a feasible differentiated experiment. The absence of pricing, sales data, or direct customer feedback makes it difficult to justify building an original product in "
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 16,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
