@@ -1,0 +1,239 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-30T18:20:41.764707+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "duckduckgo": 8,
+      "hn_ask": 7,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 16,
+    "verified_firsthand_problem_pages": 4,
+    "observed_public_paid_offers": 2,
+    "market_candidates_considered": 2,
+    "public_sources_available_for_judgment": 16,
+    "public_market_sample": [
+      {
+        "url": "https://usestring.ai/comparisons/web-scraping-api-pricing",
+        "title": "Web Scraping API Pricing in 2026: 16 Providers Compared",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://pmarketresearch.com/worldwide-web-scraping-services-market-research/",
+        "title": "Worldwide Web Scraping Services Market 2026 - PW Consulting",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37456860",
+        "title": "Ideas about Amazon Parsing",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=43342294",
+        "title": "Scaling Secure AI Workflows with Databricks",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=6050701",
+        "title": "Ask HN: A bit of direction from people who might know. Crawling/screen scraping",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47888857",
+        "title": "Ask HN: Scaling a targeted web crawler beyond 500M pages/day",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://usestring.ai/comparisons/web-scraping-api-pricing",
+        "title": "Web Scraping API Pricing in 2026: 16 Providers Compared",
+        "displayed_sales_count": null,
+        "listed_price_usd": "1.50"
+      },
+      {
+        "url": "https://pmarketresearch.com/worldwide-web-scraping-services-market-research/",
+        "title": "Worldwide Web Scraping Services Market 2026 - PW Consulting",
+        "displayed_sales_count": null,
+        "listed_price_usd": "1.15"
+      }
+    ],
+    "candidates_without_email": 14,
+    "search_queries": [
+      "Web Scraping API Pricing and Adoption Trends",
+      "eCommerce Web Scraping Services Market Demand Analysis 2026",
+      "ECommerce Data Scraping Tools and Their Market Reach",
+      "Web Scraping for Product Price Tracking: Real-World Adoption"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 17,
+      "skipped_revisits": 18,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "eCommerce Web Scraping Services Market Demand Analysis 2026",
+        "Web Scraping API Pricing and Adoption Trends",
+        "ECommerce Data Scraping Tools and Their Market Reach",
+        "Web Scraping for Product Price Tracking: Real-World Adoption"
+      ],
+      "next_query_queue": 1,
+      "frontier_size": 140,
+      "known_pages": 1646
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:16 candidates reviewed; ar evidence of a specific product being offered or sold. The content is more about benchmarking and comparing APIs rather than promoting a unique product. Additionally,"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:10c1891b4c69b84acc",
+      "decision": "pass",
+      "reason": "The evidence suggests that there is a market for web scraping services, with pricing ranging from $0.10 to $1.50 per 1,000 requests. However, the evidence does not clearly indicate a specific unmet need or a unique value proposition that differentiates the proposed product from existing competitors. The mention of 'premium domains' and 'low success"
+    },
+    {
+      "candidate_id": "web:89a5d6853c95f40dee",
+      "decision": "pass",
+      "reason": "The market research indicates a growing demand for web scraping services, with a projected CAGR of 13.54% from 2025 to 2032. However, the displayed sales count is null, and there is no evidence of actual buyer utility or demand beyond the market projection. Additionally, the listed price is very low, which may indicate a lack of perceived value or "
+    },
+    {
+      "candidate_id": "web:aaf96827b36de283ff",
+      "decision": "pass",
+      "reason": "While the idea of parsing product data from Amazon or eBay is intriguing, there is no clear evidence of demand or a specific customer problem that the product would solve. The user is seeking ideas but has not provided concrete evidence of a market need, buyer utility, or competitive positioning. Additionally, there is no indication of a feasible, "
+    },
+    {
+      "candidate_id": "web:62abaa75f5c8bc3f56",
+      "decision": "pass",
+      "reason": "The article discusses Databricks' capabilities in scaling secure AI workflows, but it does not present a specific, actionable problem that a new product could solve. The focus is on existing platform features rather than a unique customer need or a feasible, bounded product. There is no evidence of a specific customer pain point that a new product "
+    },
+    {
+      "candidate_id": "web:3a262c41b9d65c4193",
+      "decision": "pass",
+      "reason": "The candidate presents a specific problem with screen scraping and crawling, but there is no evidence of a viable product or demand. The user is seeking advice on improving their approach, not indicating a market-ready solution. There is no clear indication of a buyer base or sales, making it difficult to justify pursuing this as a product."
+    },
+    {
+      "candidate_id": "web:ada94b4e8724a62d2a",
+      "decision": "pass",
+      "reason": "The candidate presents a technical challenge related to scaling a targeted web crawler with headless browsers and handling anti-bot systems. While there is a clear problem (scraping product prices and overcoming anti-bot systems), there is no evidence of existing sales, pricing, or demand beyond the technical discussion. The problem is specific but"
+    },
+    {
+      "candidate_id": "web:f4a1cf40e026d0a4d4",
+      "decision": "pass",
+      "reason": "The candidate presents an interesting embedded platform concept with a clear differentiation from Raspberry Pi, focusing on low power, microcontroller capabilities, and a range of peripherals. However, the lack of listed price, sales count, and concrete evidence of demand or buyer interest makes it difficult to assess viability. While the idea is i"
+    },
+    {
+      "candidate_id": "web:ccbac4df6569b36ebe",
+      "decision": "pass",
+      "reason": "The candidate represents a personal need for freelance front-end work, but it lacks a clear business model or market opportunity. There is no evidence of a scalable product or demand beyond an individual's request. The absence of pricing, sales data, and a defined target audience makes it unsuitable for a commercial product."
+    },
+    {
+      "candidate_id": "web:b45d8e23b5fe8ed7f5",
+      "decision": "pass",
+      "reason": "The discussion on HN highlights a specific customer problem related to payment solutions for a marketplace app, but there is no evidence of existing sales or pricing. While the problem is identifiable, the lack of concrete sales data or pricing makes it difficult to assess the viability of building a differentiated product. Additionally, the market"
+    },
+    {
+      "candidate_id": "web:b2437f26592e14dd8c",
+      "decision": "pass",
+      "reason": "While the web scraping services market is projected to grow significantly from $480 million in 2025 to $910 million in 2034 at a CAGR of 7.3%, the market is already well-established with existing competition. The evidence does not indicate a specific, unmet customer need or a differentiated product opportunity. Additionally, there is no mention of "
+    },
+    {
+      "candidate_id": "web:43d1dc87c9efd1b563",
+      "decision": "pass",
+      "reason": "The article provides detailed pricing comparisons and benchmarks for web scraping APIs, indicating a mature and competitive market. However, there is no evidence of a specific, unmet customer need or a unique product idea that differentiates from existing offerings. The focus on pricing and performance metrics does not suggest a viable product to b"
+    },
+    {
+      "candidate_id": "web:f42dc835425a921b59",
+      "decision": "pass",
+      "reason": "The Shopify blog post provides general guidance on starting an e-commerce business but lacks specific evidence of a unique product or customer problem that a new offering could solve. There is no indication of a specific, actionable opportunity or demand for an original product in this space."
+    },
+    {
+      "candidate_id": "web:e507448560b79c84dd",
+      "decision": "pass",
+      "reason": "The article highlights the competitive landscape of web scraping APIs, but there is no clear evidence of a specific customer problem that a differentiated product could solve. The existing competition and lack of verified sales or pricing data make it difficult to justify building a new product in this space without further market validation."
+    },
+    {
+      "candidate_id": "web:6b2529bba025110e9a",
+      "decision": "pass",
+      "reason": "The article provides a detailed comparison of web scraping APIs, indicating a market need for such services. However, there is no evidence of actual sales or pricing, and the content is speculative without a clear, specific customer problem that a differentiated product could solve. The existing catalog includes similar tools, and without concrete "
+    },
+    {
+      "candidate_id": "web:432dcca29a87e8e6f6",
+      "decision": "pass",
+      "reason": "The page appears to be a blog post about web scraping APIs, but there is no clear evidence of a specific product being offered or sold. The content is more about benchmarking and comparing APIs rather than promoting a unique product. Additionally, there is no listed price or sales count provided, making it difficult to assess the viability of a pro"
+    },
+    {
+      "candidate_id": "web:57ce907a7f91451dbe",
+      "decision": "pass",
+      "reason": "The candidate lacks concrete evidence of demand, pricing, or sales, and the provided excerpt appears to be promotional content rather than a verified product. The market report is not a direct indicator of a viable product, and the absence of specific user problems or a clear value proposition makes it unsuitable for pursuit."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 16,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
