@@ -1,0 +1,132 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-30T15:13:13.957319+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 10,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/thiagoamaro91/negotiation-agent/issues/25",
+        "title": "Team bus",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/kaigg96/reddit-daily/issues/15",
+        "title": "Shift reports",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/glunk-works/global-bootstrap/issues/56",
+        "title": "decisions: record plan-role opt-out of :pull_request (supersedes part of GB-D1)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/glunk-works/global-bootstrap/issues/55",
+        "title": "threat_model: name the Environment-reviewer residual for plan roles",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/GUYI-AI/gugu-apps/issues/199",
+        "title": "Polish Forum bounty and reply presentation for 0.2.0",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.bizworkhq.com/blog/ai-bias-in-hiring-causes-risks-how-to-reduce-it/",
+        "title": "AI Bias in Hiring: Causes, Risks & How to Fix It - bizworkhq.com",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-31 address sampling bias",
+      "is:issue is:open bounty created:>=2026-08-31 ",
+      "hiring a freelancer to address sampling bias in ai",
+      "looking for someone to fix sampling bias in ai model"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to fix sampling bias in ai model",
+      "hiring a freelancer to address sampling bias in ai",
+      "need paid help with correcting sampling bias in ai data",
+      "can anyone create a fix for sampling bias in ai models"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 26,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to fix sampling bias in ai model",
+        "hiring a freelancer to address sampling bias in ai",
+        "need paid help with correcting sampling bias in ai data",
+        "can anyone create a fix for sampling bias in ai models"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 139,
+      "known_pages": 1476
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
