@@ -13,7 +13,7 @@ import urllib.error
 import urllib.request
 
 ENDPOINT = "https://api.openai.com/v1/chat/completions"
-DEFAULT_MODEL = "gpt-6.1-terra"
+DEFAULT_MODEL = "gpt-6.1-sol"
 # OpenAI standard short-context rates (USD per million tokens, October 2026).
 # If selecting another model, set GAMBIT_OPENAI_INPUT_USD_PER_MTOK and
 # GAMBIT_OPENAI_OUTPUT_USD_PER_MTOK for conservative budgeting.
@@ -39,6 +39,23 @@ def provider():
     if setting == "openai" and not available():
         raise RuntimeError("openai_key_not_configured")
     return setting
+
+
+
+def choose_model(schema, fast=False):
+    """Spend inference budget in proportion to commercial decision importance.
+
+    Never let a tiny screening model write binding proposals or judge whether
+    a bounty's full implementation is feasible.
+    """
+    properties = set((schema.get("properties") or {}).keys())
+    if {"decision", "payout_cents"}.issubset(properties) or "approved" in properties:
+        return os.getenv("GAMBIT_OPENAI_DECISION_MODEL", "gpt-6.1-sol").strip()
+    if properties == {"note"} or "reply_text" in properties:
+        return os.getenv("GAMBIT_OPENAI_WRITING_MODEL", "gpt-6.1-terra").strip()
+    if "requires_web" in properties or fast:
+        return os.getenv("GAMBIT_OPENAI_TRIAGE_MODEL", "gpt-6-luna").strip()
+    return os.getenv("GAMBIT_OPENAI_MODEL", DEFAULT_MODEL).strip()
 
 
 def strict_schema(schema):
@@ -89,9 +106,7 @@ def infer(schema, system, context, *, num_predict=900, num_ctx=5500, fast=False)
     key = os.getenv("OPENAI_API_KEY", "").strip()
     if not key:
         raise RuntimeError("openai_key_not_configured")
-    model = (os.getenv("GAMBIT_OPENAI_TRIAGE_MODEL") if fast else
-             os.getenv("GAMBIT_OPENAI_MODEL")) or DEFAULT_MODEL
-    model = model.strip()
+    model = choose_model(schema, fast=fast)
     normalized = strict_schema(schema)
     # Reasoning tokens count towards the maximum; grant some headroom for
     # nontrivial reasoning without modifying the public output contract.
@@ -111,7 +126,9 @@ def infer(schema, system, context, *, num_predict=900, num_ctx=5500, fast=False)
         "response_format": {"type": "json_schema", "json_schema": {
             "name": "gambit_output", "strict": True, "schema": normalized}},
         "max_completion_tokens": max_completion,
-        "reasoning_effort": os.getenv("GAMBIT_OPENAI_REASONING_EFFORT", "low"),
+        "reasoning_effort": os.getenv(
+            "GAMBIT_OPENAI_REASONING_EFFORT",
+            "medium" if model == "gpt-6.1-sol" else "low"),
     }
     request = urllib.request.Request(
         ENDPOINT, method="POST",
