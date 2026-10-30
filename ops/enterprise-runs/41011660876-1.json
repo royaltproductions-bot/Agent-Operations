@@ -1,0 +1,123 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-30T06:02:40.789132+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 11,
+    "source_counts": {
+      "open_web": 11
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 2,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 11,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/DimaMend/ChuanhuChatGPT/issues/49",
+        "title": "langchain_community-0.0.38-py3-none-any.whl: 15 vulnerabilities (highest severity is: 9.3)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/FunnymeowwooV0/star-observatory/issues/88",
+        "title": "\ud83d\udcc8 \u6bcf\u65e5\u8da8\u52e2 2026-10-05",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/jgeraigery/AutoPrompt/issues/102",
+        "title": "langchain-0.2.7-py3-none-any.whl: 17 vulnerabilities (highest severity is: 9.3) [main] (unreachable)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/cometbft/cometbft/issues/6103",
+        "title": "New project LIGHTING",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/lightning-cmd/Lightning/issues/1",
+        "title": "New project LIGHTING",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.freelancer.com/projects/data-visualization/powered-dashboard-creation",
+        "title": "AI-Powered Dashboard Creation - Freelancer",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-31 create ai powered",
+      "is:issue is:open bounty created:>=2026-08-31 building real estate",
+      "hiring a freelancer to create an AI-powered dashboard tool"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a dashboard with real-time data",
+      "hiring a freelancer to create an AI-powered dashboard tool",
+      "need paid help with building a real estate tracking dashboard",
+      "can anyone create a dashboard for inventory management"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 11,
+      "skipped_revisits": 33,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a dashboard with real-time data",
+        "hiring a freelancer to create an AI-powered dashboard tool",
+        "need paid help with building a real estate tracking dashboard",
+        "can anyone create a dashboard for inventory management"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 134,
+      "known_pages": 1378
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
