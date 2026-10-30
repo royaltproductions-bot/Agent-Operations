@@ -21,6 +21,17 @@ _MODEL_PRICES = {
     "gpt-6.1-terra": (1.0, 5.0),
     "gpt-6-luna": (0.10, 0.50),
     "gpt-6.1-sol": (2.0, 10.0),
+    # Legacy OpenAI models still offered through the API.
+    "gpt-5.4-mini": (0.75, 4.50),
+    "gpt-5.4-mini-2026-03-17": (0.75, 4.50),
+    "gpt-5.4": (2.50, 15.00),
+    "gpt-5.4-2026-03-05": (2.50, 15.00),
+    "gpt-5.5": (5.00, 30.00),
+    "gpt-5.5-2026-04-23": (5.00, 30.00),
+    "gpt-5.6-terra": (2.00, 12.00),
+    # Preflight uses non-promotional prices as a safety buffer because
+    # GPT-5.6 Sol's $4/$20 promotional rates may change after Nov 21, 2026.
+    "gpt-5.6-sol": (5.00, 30.00),
 }
 
 
@@ -107,6 +118,8 @@ def infer(schema, system, context, *, num_predict=900, num_ctx=5500, fast=False)
     if not key:
         raise RuntimeError("openai_key_not_configured")
     model = choose_model(schema, fast=fast)
+    if model not in _MODEL_PRICES:
+        raise ValueError("openai_model_not_verified_for_gambit")
     normalized = strict_schema(schema)
     # Reasoning tokens count towards the maximum; grant some headroom for
     # nontrivial reasoning without modifying the public output contract.
