@@ -1,0 +1,215 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-30T11:20:25.844182+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 13,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "hn_ask": 1,
+      "duckduckgo": 9,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 13,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 13,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=34368847",
+        "title": "Challenges and Approaches to Ethical Web Scraping",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.scrapingbee.com/scrapers/ecommerce-api/",
+        "title": "eCommerce Scraper API - Skip the Proxy and Browser Stack",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://automationbyexperts.com/blog/ai-web-scraping-guide-2026",
+        "title": "AI Web Scraping Guide 2026 | Intelligent Data Extraction",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://brightdata.com/products/web-scraper/ecommerce",
+        "title": "eCommerce Scraper API - 5K records/Month for Free - Bright Data",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://startup-house.com/blog/what-is-ai-data-scraping",
+        "title": "AI Data Scraping in 2026: How It Works, Use Cases & Legal Risks",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://senkrondata.com/e-commerce-scraper-api",
+        "title": "E-Commerce Scraper API for Product Data | Senkrondata",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 11,
+    "search_queries": [
+      "How AI Is Transforming Web Scraping in 2026",
+      "Ecommerce Scraper API for Seamless Product Data Collection",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 11,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "Ecommerce Scraper API for Seamless Product Data Collection",
+        "How AI Is Transforming Web Scraping in 2026",
+        "How to Extract Data from Website in 2026",
+        "E-commerce Product Data Extraction with High Accuracy"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 137,
+      "known_pages": 1527
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:13 candidates reviewed; irect customer demand signals. The content appears to be a promotional page for a Chrome Web Store extension, but without clear evidence of actual buyers, utility, or c"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "catalog_distribution_failed",
+      "detail": "provider_http_500_api.agentmail.to"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:fd20b2c36c825f2228",
+      "decision": "pass",
+      "reason": "The candidate lacks pricing and sales data, which are essential for assessing market viability. While the product description highlights benefits like AI data extraction and handling bot detection, there is no evidence of actual buyer demand or sales to validate the market opportunity."
+    },
+    {
+      "candidate_id": "web:58a6b279e8d73427e3",
+      "decision": "pass",
+      "reason": "The candidate offers an eCommerce Scraper API with a free tier and mentions being trusted by 50,000+ customers, indicating potential demand. However, the absence of listed prices and sales counts makes it difficult to assess viability. Additionally, the market for web scraping tools is highly competitive, and without a clear differentiation or uniq"
+    },
+    {
+      "candidate_id": "web:4b48ea5b9c8951b0aa",
+      "decision": "pass",
+      "reason": "The article discusses the growing trend of AI-powered web scraping and highlights the shift from traditional CSS selectors to intelligent data extraction. However, there is no evidence of a specific product or service being offered for sale, and no pricing or sales data is provided. While the topic is relevant and shows potential demand, there is n"
+    },
+    {
+      "candidate_id": "web:4b7b0c438a0239feda",
+      "decision": "pass",
+      "reason": "While the E-Commerce Scraper API offers a specific solution for product data extraction, there is no clear evidence of demand or sales to justify building a similar product. The market for web scraping tools is highly competitive, and without a unique value proposition or demonstrated buyer interest, the risk of failure is high."
+    },
+    {
+      "candidate_id": "web:78da165aa5ea89f731",
+      "decision": "pass",
+      "reason": "While the candidate_id 'web:78da165aa5ea89f731' presents a service offering ecommerce data scraping APIs, there is no evidence of actual buyer demand, pricing, or sales counts. The absence of concrete sales figures or pricing details makes it difficult to assess the viability of the product. Additionally, the market for web scraping APIs is highly "
+    },
+    {
+      "candidate_id": "web:dc45d42948cca5897a",
+      "decision": "pass",
+      "reason": "The article discusses AI data scraping in 2026, highlighting its use cases and legal risks, but it does not present a specific, actionable problem that a small digital product could solve. There is no clear indication of a customer need or a feasible, differentiated product that can be tested with low cost. The focus on legal risks and general use "
+    },
+    {
+      "candidate_id": "web:bbfcf648390b0ea374",
+      "decision": "pass",
+      "reason": "The content discusses ethical considerations and challenges in web scraping but does not indicate a specific product or demand for a new offering. There is no evidence of a viable product or customer need that can be addressed with a new offering in this space."
+    },
+    {
+      "candidate_id": "web:749e6db581481663da",
+      "decision": "pass",
+      "reason": "The content is a blog post discussing AI-powered web scraping, but there is no clear indication of a specific product being offered for sale. The blog post does not provide evidence of a completed product, pricing, or sales, making it unsuitable for evaluating the viability of a new product in this space."
+    },
+    {
+      "candidate_id": "web:6d43d09732adc63dbe",
+      "decision": "pass",
+      "reason": "The candidate is a proxy and scraping service, which is a highly competitive market with established players. The lack of listed price and sales count makes it difficult to assess viability. Additionally, the product is not original and does not offer a unique value proposition beyond existing solutions."
+    },
+    {
+      "candidate_id": "web:18edd0b1f95128e75b",
+      "decision": "pass",
+      "reason": "The article discusses AI web scraping and automation tools, but there is no clear evidence of a specific product being offered for sale. The content is more of a guide and comparison rather than a direct indication of a viable product with demonstrated demand or sales. Without a concrete product offering or evidence of buyer activity, it is not suf"
+    },
+    {
+      "candidate_id": "web:d2142970955c1f92dc",
+      "decision": "pass",
+      "reason": "The candidate offers a service for extracting e-commerce data, which is a niche but potentially valuable market. However, the lack of pricing and sales data makes it difficult to assess its viability. Additionally, the market for web scraping tools is highly competitive, and without clear differentiation or evidence of demand, the product may not b"
+    },
+    {
+      "candidate_id": "web:a903e3ed697a3537ae",
+      "decision": "pass",
+      "reason": "The evidence provided does not include any concrete sales figures, pricing information, or direct customer demand signals. The content appears to be a promotional page for a Chrome Web Store extension, but without clear evidence of actual buyers, utility, or competitive positioning, it is not sufficient to justify pursuing this candidate."
+    },
+    {
+      "candidate_id": "web:5fc642ef2d75d3c9dc",
+      "decision": "pass",
+      "reason": "The article discusses the use of AI for web scraping, which is a technical process, but there is no clear indication of a specific customer problem or a feasible, bounded product that can be built. The existing catalog includes similar tools like the 'Web Data Extraction Dashboard for Real-Time Market Insights,' which suggests that the market may a"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 13,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
