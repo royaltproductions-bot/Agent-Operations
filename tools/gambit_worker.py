@@ -702,6 +702,12 @@ def bid_note_issue(text):
     if len(note) < 85 or len(note) > 2000:
         return "bid_note_missing_specific_scope"
     if re.search(
+            r"\b(?:i|we)\s+(?:already\s+)?(?:completed|delivered|built|"
+            r"developed|implemented|tested|verified|researched|created|"
+            r"produced|generated|prepared|compiled|finished)\b",
+            note, flags=re.IGNORECASE):
+        return "bid_note_unverified_completed_work"
+    if re.search(
             r"\b(?:i|we)\s+(?:have|had|already|previously)\s+"
             r"(?:successfully\s+)?(?:completed|delivered|built|developed|"
             r"implemented|tested|verified|researched|created|produced|"
@@ -712,7 +718,7 @@ def bid_note_issue(text):
             r"\b(?:the|this|our|my)\s+(?:project|app|site|analysis|"
             r"research|report|solution|code|results?|files?|deliverables?|"
             r"application|website)\s+(?:has|have|is|was|were)\s+"
-            r"(?:already\s+)?(?:completed|delivered|built|developed|"
+            r"(?:already\s+)?(?:been\s+)?(?:completed|complete|delivered|built|developed|"
             r"implemented|tested|verified|created|produced|prepared|"
             r"compiled|finished|ready)\b", note, flags=re.IGNORECASE):
         return "bid_note_unverified_completed_work"
@@ -1309,7 +1315,11 @@ def handle_open(item, state):
             issue = bid_note_issue(bid_note)
             if issue:
                 # Repair prose once, never silently post an unsupported promise.
-                bid_note = repair_bid_note(details, bid_note)
+                try:
+                    bid_note = repair_bid_note(details, bid_note)
+                except (OSError, RuntimeError, ValueError, TimeoutError) as exc:
+                    schedule_evaluation_retry(state, bounty_id, exc)
+                    return
                 issue = bid_note_issue(bid_note)
             if issue:
                 schedule_evaluation_retry(state, bounty_id,
