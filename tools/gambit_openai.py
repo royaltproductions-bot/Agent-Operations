@@ -6,14 +6,18 @@ No prompts, buyer data, keys, or responses are logged.
 from __future__ import annotations
 
 import copy
+from datetime import datetime, timezone
+import fcntl
 import json
 import math
 import os
+from pathlib import Path
 import urllib.error
 import urllib.request
 
 ENDPOINT = "https://api.openai.com/v1/chat/completions"
 DEFAULT_MODEL = "gpt-6.1-sol"
+BUDGET_PATH = Path("ops/gambit/openai_budget.json")
 # OpenAI standard short-context rates (USD per million tokens, October 2026).
 # If selecting another model, set GAMBIT_OPENAI_INPUT_USD_PER_MTOK and
 # GAMBIT_OPENAI_OUTPUT_USD_PER_MTOK for conservative budgeting.
@@ -63,9 +67,9 @@ def choose_model(schema, fast=False):
     if {"decision", "payout_cents"}.issubset(properties) or "approved" in properties:
         return os.getenv("GAMBIT_OPENAI_DECISION_MODEL", "gpt-6.1-sol").strip()
     if properties == {"note"} or "reply_text" in properties:
-        return os.getenv("GAMBIT_OPENAI_WRITING_MODEL", "gpt-6.1-terra").strip()
+        return os.getenv("GAMBIT_OPENAI_WRITING_MODEL", DEFAULT_MODEL).strip()
     if "requires_web" in properties or fast:
-        return os.getenv("GAMBIT_OPENAI_TRIAGE_MODEL", "gpt-6-luna").strip()
+        return os.getenv("GAMBIT_OPENAI_TRIAGE_MODEL", DEFAULT_MODEL).strip()
     return os.getenv("GAMBIT_OPENAI_MODEL", DEFAULT_MODEL).strip()
 
 
@@ -113,6 +117,42 @@ def estimate_max_cost_usd(system, context, schema, max_output_tokens, model):
             max_output_tokens * output_price) / 1_000_000
 
 
+def reserve_monthly_budget(estimated_usd):
+    """Reserve a conservative call estimate BEFORE network access.
+
+    This is a fail-closed per-repository guard, not the OpenAI billing ledger.
+    A fresh runner checkpoints its reservations to GitHub after each cycle.
+    Account-level hard limits remain necessary for billing enforcement.
+    """
+    limit = float(os.getenv("GAMBIT_OPENAI_MONTHLY_LIMIT_USD", "20"))
+    if not math.isfinite(limit) or not 0 < limit <= 20:
+        raise ValueError("openai_monthly_budget_invalid")
+    if not math.isfinite(estimated_usd) or estimated_usd <= 0:
+        raise ValueError("openai_call_estimate_invalid")
+    requested = math.ceil(estimated_usd * 1_000_000)
+    maximum = int(limit * 1_000_000)
+    month = datetime.now(timezone.utc).strftime("%Y-%m")
+    BUDGET_PATH.parent.mkdir(parents=True, exist_ok=True)
+    # No buyer text, API credentials, or per-bounty details are stored here.
+    with open(str(BUDGET_PATH) + ".lock", "a+", encoding="utf-8") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        ledger = json.loads(BUDGET_PATH.read_text(encoding="utf-8")) if BUDGET_PATH.exists() else {}
+        if ledger.get("month") != month:
+            ledger = {"month": month, "reserved_micro_usd": 0, "call_count": 0}
+        committed = int(ledger.get("reserved_micro_usd") or 0)
+        if committed < 0 or committed > maximum:
+            raise RuntimeError("openai_monthly_budget_invalid_ledger")
+        if requested > maximum - committed:
+            raise RuntimeError("openai_monthly_budget_exhausted")
+        ledger["reserved_micro_usd"] = committed + requested
+        ledger["call_count"] = int(ledger.get("call_count") or 0) + 1
+        temporary = BUDGET_PATH.with_suffix(".tmp")
+        temporary.write_text(json.dumps(ledger, sort_keys=True) + "\n", encoding="utf-8")
+        os.replace(temporary, BUDGET_PATH)
+        fcntl.flock(lock, fcntl.LOCK_UN)
+    return ledger
+
+
 def infer(schema, system, context, *, num_predict=900, num_ctx=5500, fast=False):
     key = os.getenv("OPENAI_API_KEY", "").strip()
     if not key:
@@ -143,6 +183,9 @@ def infer(schema, system, context, *, num_predict=900, num_ctx=5500, fast=False)
             "GAMBIT_OPENAI_REASONING_EFFORT",
             "medium" if model == "gpt-6.1-sol" else "low"),
     }
+    # Budget is reserved before a request: timeouts may still have been billed.
+    # This deliberately overestimates rather than silently overspending.
+    reserve_monthly_budget(bound)
     request = urllib.request.Request(
         ENDPOINT, method="POST",
         data=json.dumps(payload, ensure_ascii=False).encode(),
