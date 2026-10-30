@@ -1,0 +1,206 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-30T16:32:19.428407+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 12,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "duckduckgo": 7,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 12,
+    "verified_firsthand_problem_pages": 3,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 12,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=44489989",
+        "title": "Ask HN: Aggregating authentic user reviews across platforms?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=40620290",
+        "title": "Ask HN: Good Facebook Classic clone (FOSS)?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=22240709",
+        "title": "General Commission \u2013 Full-Time, Full-Stack Developer \u2013 Denver, CO",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=4019032",
+        "title": "Lead PHP Developer with MVC/HMVC experience needed in Bristol",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://webscraper.io/solutions/ecommerce-web-scraping",
+        "title": "E-commerce web scraping | Web Scraper",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.scrapingbee.com/blog/best-data-extraction-software/",
+        "title": "10 Best Tools for Data Extraction in 2026 - scrapingbee.com",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 8,
+    "search_queries": [
+      "web scraping tools data extraction",
+      "web scraping solutions e-commerce",
+      "Web Scraping API competition",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 16,
+      "invented_site_filters_removed": 4,
+      "executed_queries": [
+        "web scraping tools data extraction",
+        "web scraping solutions e-commerce",
+        "Web Scraping API competition",
+        "Web Scraping API sales data"
+      ],
+      "next_query_queue": 8,
+      "frontier_size": 137,
+      "known_pages": 1612
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:12 candidates reviewed; ticle discusses web scraping services for e-commerce but does not provide concrete evidence of a specific product or demand for an original offering. There is no indica"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:a9f3a5bc04c91825e9",
+      "decision": "pass",
+      "reason": "While the idea of aggregating authentic user reviews across platforms is technically interesting, there is no clear evidence of demand or existing sales to justify building a product in this space. The user's question is speculative and lacks specific customer problems or buyer utility. Additionally, the technical and legal challenges mentioned are"
+    },
+    {
+      "candidate_id": "web:28ae3c4704f351f115",
+      "decision": "pass",
+      "reason": "While there is a clear demand for a basic Facebook Classic clone (FOSS), the evidence does not confirm that there is a viable market for such a product. The user is seeking a FOSS solution that is maintained, secure, and scalable for a small community, but there is no indication of existing buyers or sales. Additionally, the user's request is more "
+    },
+    {
+      "candidate_id": "web:a12de946de7c89871b",
+      "decision": "pass",
+      "reason": "The job posting for a Full-Stack Developer at General Commission highlights a need for a self-motivated, entrepreneurial technologist to build a new product from the ground up. However, there is no evidence of existing sales, pricing, or customer activity. The role is more about hiring a developer than validating a product idea. Without clear custo"
+    },
+    {
+      "candidate_id": "web:403bd8a9a2b654c232",
+      "decision": "pass",
+      "reason": "The job posting for a Lead PHP Developer with MVC/HMVC experience in Bristol indicates a demand for skilled developers, but it does not provide evidence of a specific product or service that needs to be built. The focus is on hiring rather than a product opportunity. There is no clear indication of a market gap or a specific problem that a product "
+    },
+    {
+      "candidate_id": "web:119a789bb4db087f43",
+      "decision": "pass",
+      "reason": "The candidate lacks clear pricing and sales data, and the evidence excerpt does not demonstrate a unique value proposition or specific customer problem that a differentiated product could solve. The market for e-commerce web scraping is highly competitive with existing solutions, and without a clear differentiation or demonstrated demand, the produ"
+    },
+    {
+      "candidate_id": "web:afa5000357bca31a56",
+      "decision": "pass",
+      "reason": "The article lists data extraction tools, but there is no clear evidence of a specific customer problem or demand for a new product. The existing competition and lack of pricing or sales data make it difficult to justify building a new product in this space without further differentiation or validation."
+    },
+    {
+      "candidate_id": "web:4d4112575609a11993",
+      "decision": "pass",
+      "reason": "While there is significant interest in e-commerce web scraping solutions, the market is highly competitive with established players offering similar services. The lack of listed prices and sales counts makes it difficult to assess the viability of a new entrant. Additionally, the demand for scraping solutions is often met by existing tools and serv"
+    },
+    {
+      "candidate_id": "web:e0282f93ce8bf7347f",
+      "decision": "pass",
+      "reason": "While Scraping Solution appears to offer a viable service for automation and data extraction, there is no clear evidence of pricing, sales, or specific customer demand beyond anecdotal claims. The lack of listed prices and sales counts makes it difficult to assess the commercial viability of a new product in this space. Additionally, the market for"
+    },
+    {
+      "candidate_id": "web:5722fb477e4236de93",
+      "decision": "pass",
+      "reason": "The candidate represents a service that provides e-commerce web scraping solutions, which is a well-established market with significant demand. However, the absence of listed prices and sales counts makes it difficult to assess the commercial viability of a new product in this space. Additionally, there is substantial existing competition, and the "
+    },
+    {
+      "candidate_id": "web:61a935fa5a41d0f680",
+      "decision": "pass",
+      "reason": "The article highlights the limitations of free web scraping tools, indicating a gap in the market for reliable, free-tier scraping solutions that can handle real-world tasks like scraping Google Maps listings and dynamic pages. However, the absence of displayed sales counts and pricing information makes it difficult to assess the actual demand and "
+    },
+    {
+      "candidate_id": "web:cc9f8df688310c693f",
+      "decision": "pass",
+      "reason": "The article discusses web scraping services for e-commerce but does not provide concrete evidence of a specific product or demand for an original offering. There is no indication of a unique value proposition or a clear customer problem that the proposed product would solve. Additionally, the absence of pricing or sales data makes it difficult to a"
+    },
+    {
+      "candidate_id": "web:2c2c26b40a7f11c6ce",
+      "decision": "pass",
+      "reason": "The candidate lacks a clear value proposition, pricing, and sales evidence. The content is more about explaining web scraping pricing rather than presenting a specific product. There is no indication of a unique, bounded product with actual buyer demand."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 12,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
