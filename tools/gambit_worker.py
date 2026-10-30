@@ -968,6 +968,25 @@ def unsupported_deliverable(details):
                       r".{0,40}\b(?:website|web app|webpage|landing page|application|server|api)\b",
                       requested + " " + verification)):
         return "software_deployment"
+    # A research-sounding title may conceal a full, interactive application
+    # in the requirements. Compare the FULL requested deliverable against
+    # actual execution tools before the static-site exception can apply.
+    full_spec = requested + " " + verification
+    app_build_request = re.search(
+        r"\b(?:build|develop|implement|create|deliver|produce|code|program|"
+        r"provide|make)\b.{0,125}\b(?:web\s*app|application|software|"
+        r"dashboard|portal|platform)\b", full_spec)
+    functional_workflow = re.search(
+        r"\b(?:upload|import|parse|ingest|accept|process)\b.{0,40}"
+        r"\b(?:csv|xlsx|spreadsheet|files?)\b"
+        r"|\b(?:csv|xlsx|spreadsheet|files?)\b.{0,40}"
+        r"\b(?:upload|import|parse|ingest|process)\b"
+        r"|\b(?:automatic|automated|live|interactive|functional|working)\b"
+        r".{0,65}\b(?:app|application|software|search|dashboard)\b"
+        r"|\b(?:backend|database|api endpoints?|user authentication|"
+        r"server-side processing)\b", full_spec)
+    if app_build_request and functional_workflow:
+        return "software_project_not_supported"
     # Browser rendering of locally packaged source is mandatory. Do not offer
     # this capability on runners lacking its independent runtime dependencies.
     if static_site_eligible(details) and not re.search(
