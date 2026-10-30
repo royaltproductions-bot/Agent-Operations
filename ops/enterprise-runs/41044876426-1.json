@@ -1,0 +1,140 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-30T11:01:56.863634+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 5,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "candidates_without_email": 12,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/BruceFeIix/picker/issues/2778",
+        "title": "[\u6bcf\u65e5\u4fe1\u606f\u6d41] 2026-10-30",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/minds-ai-co/minds-integrations/issues/9",
+        "title": "Build Minds for Slack: @minds agent over Minds MCP, threaded research results, widgets and Marketplace launch",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Arrow-air/project-quiver/issues/256",
+        "title": "T-09: Platform Engineering Report, the decision register from PT1 to the 2026 dev kit",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Uuriko/dasha-desk/issues/162",
+        "title": "Deadline Sep 7: Breakpoint ticket content bounty \u2014 OCM machine-paid inference video",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ZcashCommunityGrants/zcashcommunitygrants/issues/510",
+        "title": "Grant Application - Zcash Localization Hub RU/UA",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.upwork.com/hire/food-freelancers/us/",
+        "title": "Best Food Freelancers in the United States (Oct 2026) - Upwork",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-31 create native german",
+      "is:issue is:open bounty created:>=2026-08-31 translating zechub glossary",
+      "hiring a freelancer for Chinese food expertise in October 2026"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create a native German review of the ZecHub glossary",
+      "hiring a freelancer for Chinese food expertise in October 2026",
+      "need paid help with translating ZecHub glossary into German",
+      "can anyone create a native review for ZecHub glossary in German"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 8,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create a native German review of the ZecHub glossary",
+        "hiring a freelancer for Chinese food expertise in October 2026",
+        "need paid help with translating ZecHub glossary into German",
+        "can anyone create a native review for ZecHub glossary in German"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 1434
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [
+    {
+      "reason": "offer_selection_execution_failed",
+      "detail": "provider_http_500_api.agentmail.to"
+    }
+  ],
+  "commercial_outcomes": [
+    {
+      "reason": "offer_selection_failed",
+      "detail": "provider_http_500_api.agentmail.to"
+    },
+    {
+      "reason": "no_feasible_contained_offer"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
