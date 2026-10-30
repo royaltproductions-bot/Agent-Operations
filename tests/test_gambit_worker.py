@@ -782,6 +782,15 @@ class GambitTests(unittest.TestCase):
             "I have completed the research and delivered a fully working research "
             "application with tested results for all nonprofits."),
             "bid_note_unverified_completed_work")
+        self.assertEqual(gambit.bid_note_issue(
+            "I researched the organizations, compiled a verified directory, "
+            "and finished the application with documented setup instructions. "
+            "I propose to hand over this work after acceptance."),
+            "bid_note_unverified_completed_work")
+        self.assertEqual(gambit.bid_note_issue(
+            "The report has been prepared and the application has been built. "
+            "I will deliver these completed artifacts after the buyer hires me."),
+            "bid_note_unverified_completed_work")
         self.assertEqual(gambit.bid_note_issue("I can do it."),
                          "bid_note_missing_specific_scope")
 
