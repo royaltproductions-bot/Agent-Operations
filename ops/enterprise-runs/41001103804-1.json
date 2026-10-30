@@ -1,0 +1,126 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-30T04:09:00.168687+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 11
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 16,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/minerval-ai/minerval/issues/619",
+        "title": "Build Minerval chat for two audiences: people using the graph, and funders/researchers/embedded evaluators",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/logos-co/rfp/issues/239",
+        "title": "[PROPOSAL] RFP-021 \u2014 le-sync: Logos-Ethereum Synchronizer",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ZhiliangTech/deskshell/issues/3",
+        "title": "Contributor board: 12 scoped tasks, each with a fixture and a failing test",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/riteshbonthalakoti/HELPDESK.AI/issues/4116",
+        "title": "bounty: [level:critical] Predictive SLA Breach Forecasting & Dynamic Capacity Balancing Engine",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/riteshbonthalakoti/HELPDESK.AI/issues/4115",
+        "title": "bounty: [level:critical] Agentic Self-Healing Actions Engine: Sandboxed Playbook Execution for Automated Deflection",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://emergent.sh/ai-dashboard-builder/inventory",
+        "title": "Inventory Dashboard Builder: Build a Custom Dashboard With AI",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-31 build real time",
+      "looking for someone to build a real-time inventory dashboard",
+      "hiring a freelancer to create a manufacturing OEE dashboard"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a real-time inventory dashboard",
+      "hiring a freelancer to create a manufacturing OEE dashboard",
+      "need paid help with a financial analytics dashboard tool",
+      "can anyone create a banking performance dashboard"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a real-time inventory dashboard",
+        "hiring a freelancer to create a manufacturing OEE dashboard",
+        "need paid help with a financial analytics dashboard tool",
+        "can anyone create a banking performance dashboard"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 140,
+      "known_pages": 1327
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
