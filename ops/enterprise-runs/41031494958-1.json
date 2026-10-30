@@ -1,0 +1,120 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-30T09:11:56.057459+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 5,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/abdulsalam-create/bounty-watch/issues/194",
+        "title": "bounty-watch 2026-10-30: 0 new, 0 resumed, 5 watchlist changes",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/abdulsalam-create/bounty-watch/issues/193",
+        "title": "bounty-watch 2026-10-29: 1 new, 0 resumed, 3 watchlist changes",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/abdulsalam-create/bounty-watch/issues/190",
+        "title": "bounty-watch 2026-10-29: 0 new, 1 resumed, 4 watchlist changes",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/zwang1111/agenttab-celo/issues/2",
+        "title": "[staging] ZecHub zh glossary+menus FULL native review",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/abdulsalam-create/bounty-watch/issues/189",
+        "title": "bounty-watch 2026-10-29: 0 new, 0 resumed, 7 watchlist changes",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.yunojuno.com/in-house-agencies",
+        "title": "In-house Agencies\n Source and manage freelancers at creative speed",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-31 create dashboard"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a data dashboard",
+      "hiring a freelancer to create a dashboard",
+      "need paid help with dashboard development",
+      "can anyone create a dashboard for my data"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 28,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a data dashboard",
+        "hiring a freelancer to create a dashboard",
+        "need paid help with dashboard development",
+        "can anyone create a dashboard for my data"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 134,
+      "known_pages": 1413
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
