@@ -1,0 +1,225 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-30T17:26:41.025932+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "duckduckgo": 6,
+      "bing": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 16,
+    "verified_firsthand_problem_pages": 1,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 16,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=47876097",
+        "title": "Browser using agents relying on expensive residential proxies?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=29600320",
+        "title": "Don't use Digital Ocean (DO) for production",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=25838578",
+        "title": "Ask HN: Why do people use Puppeteer for webscraping instead of SaaS services?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=20830107",
+        "title": "Rate My Business/Website",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=19810659",
+        "title": "Ask HN: Hire Us?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=2120176",
+        "title": "Ask HN: What to do with competitor excessively crawling site?",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 15,
+    "search_queries": [
+      "Web Scraping Service Pricing",
+      "Web Scraping API for E-commerce",
+      "Web Scraping Tools with Free Tier"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 17,
+      "skipped_revisits": 12,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "Web Scraping Service Pricing",
+        "Web Scraping API for E-commerce",
+        "Web Scraping Tools with Free Tier",
+        "Web Scraping Service Sales Data"
+      ],
+      "next_query_queue": 1,
+      "frontier_size": 139,
+      "known_pages": 1629
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:16 candidates reviewed; not supported on certain browsers, which may suggest a technical limitation or a need for browser compatibility improvements. However, there is no clear indication of a"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:c6978ad9cf8e41da9f",
+      "decision": "pass",
+      "reason": "The discussion highlights a potential inefficiency in using residential proxies for browser agents, but it lacks concrete evidence of a viable product or demand. There is no mention of a specific product, pricing, or sales figures. The issue is speculative and lacks a clear customer problem with a feasible solution. Without a demonstrated need or a"
+    },
+    {
+      "candidate_id": "web:3260a7a923f4db2874",
+      "decision": "pass",
+      "reason": "The user's experience with Digital Ocean highlights a specific pain point\u2014account lockout without proper support. However, this is an isolated incident and does not indicate a widespread issue or a clear market need for a product. There is no evidence of a consistent demand or a viable product idea that addresses this issue. Additionally, the lack "
+    },
+    {
+      "candidate_id": "web:1300de9a8abe61e937",
+      "decision": "pass",
+      "reason": "The discussion highlights a clear customer problem: the preference for Puppeteer over SaaS scraping services, despite the latter's availability. However, the evidence does not provide concrete data on the demand for a new scraping tool or the specific pain points that a new product could solve. The existing competition and lack of pricing or sales "
+    },
+    {
+      "candidate_id": "web:a65f8d06ec84d1ab86",
+      "decision": "pass",
+      "reason": "While the idea of scraping competitor websites to help SaaS businesses price their products is intriguing, there is no clear evidence of demand or buyer utility. The absence of displayed sales counts, pricing, or direct customer engagement makes it difficult to assess the viability of the product. Additionally, the legal and ethical implications of"
+    },
+    {
+      "candidate_id": "web:e8e6722761ae2914cd",
+      "decision": "pass",
+      "reason": "While the candidate presents a potential consultancy service for cloud costing and infrastructure, there is no evidence of actual sales, pricing, or customer demand beyond the initial outreach. The lack of concrete data on buyer utility, competitive positioning, or production feasibility makes it difficult to justify pursuing this idea without furt"
+    },
+    {
+      "candidate_id": "web:eb91c5ed679165e850",
+      "decision": "pass",
+      "reason": "The issue described involves a competitor scraping data, which indicates a potential market for tools or services that help businesses defend against or manage web scraping. However, there is no direct evidence of a viable product or demand for such a service. The problem is specific and may not have a broad market appeal. Additionally, the absence"
+    },
+    {
+      "candidate_id": "web:d541a8a18addf8a82e",
+      "decision": "pass",
+      "reason": "The candidate presents a legal concern rather than a market opportunity. While there is a potential for a non-commercial app, there is no clear evidence of demand or buyer utility. The user is seeking advice on legality and business structure, not a product to build. There is no indication of a viable market for such an app, and the lack of sales o"
+    },
+    {
+      "candidate_id": "web:d4bdca9a6ffd99a260",
+      "decision": "pass",
+      "reason": "While the GPT for web scraping shows potential as an educational tool and a solution for specific scraping needs, there is no clear evidence of demand or pricing. The absence of listed prices and sales counts makes it difficult to assess viability. Additionally, the existing market for web scraping tools and services is competitive, and without a c"
+    },
+    {
+      "candidate_id": "web:b598d10b6ad8c4a372",
+      "decision": "pass",
+      "reason": "The article discusses web scraping costs and potential use cases, but there is no clear evidence of a specific product or service being offered for sale. The absence of listed prices, sales counts, or a defined product makes it difficult to assess market viability. Additionally, the content appears to be informational rather than a direct commercia"
+    },
+    {
+      "candidate_id": "web:75b2945242086e2b61",
+      "decision": "pass",
+      "reason": "The evidence suggests a demand for web scraping services, but there is no clear indication of a specific, unmet customer need that a differentiated product could address. The market is competitive, and the absence of pricing or sales data makes it difficult to assess the viability of a new entrant without further information."
+    },
+    {
+      "candidate_id": "web:dedb370f971c528edc",
+      "decision": "pass",
+      "reason": "The evidence excerpt indicates that WhatsApp is already a well-established platform with a large user base and robust features. There is no clear, unmet customer need or gap that a new product could fill. Additionally, the existing catalog already includes similar tools for market insights and data extraction, which suggests that the market is alre"
+    },
+    {
+      "candidate_id": "web:91a9a81a7a6f06ca88",
+      "decision": "pass",
+      "reason": "The page discusses web scraping services but does not present a specific, actionable product or problem that a unique, bounded digital product could solve. It lacks evidence of a clear customer need, a feasible solution, or a differentiated value proposition. The content is more of a general article or list rather than a concrete market opportunity"
+    },
+    {
+      "candidate_id": "web:734b11a61cb8599a75",
+      "decision": "pass",
+      "reason": "The evidence excerpt indicates a clear demand for eCommerce web scraping solutions, but there is no concrete evidence of actual sales or pricing. While the market for web scraping services exists, the lack of verified sales or pricing data makes it difficult to assess the viability of a new product in this space without further market validation."
+    },
+    {
+      "candidate_id": "web:0a1028353b6dc1b6b4",
+      "decision": "pass",
+      "reason": "The page discusses web scraping services and pricing for 2026 but does not present a specific, actionable product or service with clear demand or utility. It is more of a guide or resource rather than a concrete offering. There is no evidence of a specific product being sold or a clear customer problem being addressed with a unique solution."
+    },
+    {
+      "candidate_id": "web:3310cc9a54e3b7f8cd",
+      "decision": "pass",
+      "reason": "The evidence excerpt indicates that WhatsApp Web is not supported on certain browsers, which may suggest a technical limitation or a need for browser compatibility improvements. However, there is no clear indication of a specific customer problem that a new product could solve, nor is there evidence of demand for a differentiated solution. The exis"
+    },
+    {
+      "candidate_id": "web:9cd3e1f22f3ca97097",
+      "decision": "pass",
+      "reason": "The article discusses web scraping for e-commerce, but it does not present a specific, actionable product idea with a clear customer problem or utility. There is no evidence of a unique value proposition or a feasible, bounded prototype. The content is more of a guide than a viable product offering."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 16,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
