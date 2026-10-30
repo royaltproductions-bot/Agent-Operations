@@ -1,0 +1,213 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-30T21:19:21.695695+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 13,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "hn_ask": 6,
+      "duckduckgo": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "verified_firsthand_problem_pages": 5,
+    "observed_public_paid_offers": 1,
+    "market_candidates_considered": 1,
+    "public_sources_available_for_judgment": 11,
+    "public_market_sample": [
+      {
+        "url": "https://pmarketresearch.com/it/enterprise-grade-web-scraping-service-market/",
+        "title": "Enterprise-grade Web Scraping Service Market",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=6066783",
+        "title": "Ask HN: What is necessary for a launch?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=3978695",
+        "title": "LAMP Developer and Designer",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=3872802",
+        "title": "Looking for LAMP / PHP (Symfony 2.0) Developer - NJ",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=3383433",
+        "title": "Job -- SearchSoft Solutions",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=36779025",
+        "title": "CuraFi Is Hiring a Founding Full Stack Engineer",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://pmarketresearch.com/it/enterprise-grade-web-scraping-service-market/",
+        "title": "Enterprise-grade Web Scraping Service Market",
+        "displayed_sales_count": null,
+        "listed_price_usd": "1.78"
+      }
+    ],
+    "candidates_without_email": 11,
+    "search_queries": [
+      "",
+      "web scraping market growth forecast",
+      "web scraping industry trends 2026",
+      "web scraping tools pricing 2026",
+      "web scraping tools market size 2026"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 25,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "web scraping tools market size 2026",
+        "web scraping market growth forecast",
+        "web scraping industry trends 2026",
+        "web scraping tools pricing 2026"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 138,
+      "known_pages": 1695
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:11 candidates reviewed; al niche for an AI-powered scraping tool. However, there is no clear evidence of demand or sales, and the market is already crowded with existing scraping tools. The la"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:8179100a77633b0e47",
+      "decision": "pass",
+      "reason": "The enterprise-grade web scraping service market shows strong growth potential with a projected CAGR of 12.6% and a market size of $1.78 billion by 2032. However, the provided evidence does not include specific customer problems or utility that justify a unique, differentiated product. Additionally, the absence of verified sales counts and pricing "
+    },
+    {
+      "candidate_id": "web:c37b8ce4b88bd2e091",
+      "decision": "pass",
+      "reason": "The discussion on HN highlights a lack of essential infrastructure for a product launch, such as payment systems, caching, and analytics. While there is a clear need for a product with these features, the absence of a concrete problem or demonstrated demand makes it difficult to justify building a product without further evidence of user need or ma"
+    },
+    {
+      "candidate_id": "web:c69b16018dc3feef30",
+      "decision": "pass",
+      "reason": "The job posting indicates a demand for LAMP developers with specific skills, but it does not provide evidence of a product or service that can be built. The focus is on hiring, not on creating a product. There is no indication of a viable product idea or market opportunity that can be pursued."
+    },
+    {
+      "candidate_id": "web:4bb6c94de9bbe35bf1",
+      "decision": "pass",
+      "reason": "The job posting for a LAMP/PHP (Symfony 2.0) Developer indicates a demand for skilled developers, but it does not provide evidence of a specific product or service that could be built. The focus is on hiring rather than on a product or service that could be offered to customers. There is no clear indication of a product or service that could be dev"
+    },
+    {
+      "candidate_id": "web:c136981ade7bbd0c57",
+      "decision": "pass",
+      "reason": "The job posting for a Java Developer at SearchSoft Solutions highlights a need for a Java Developer, but it does not indicate a product or service that is being offered for sale. The content is a job advertisement, not a product or service that can be built or sold. Therefore, it is not a viable candidate for a new product."
+    },
+    {
+      "candidate_id": "web:7d085ba4f66d0a1d54",
+      "decision": "pass",
+      "reason": "While CuraFi is a venture-funded digital health startup with a clear mission, there is no evidence of a specific product or service being offered for sale. The information provided is about hiring a full-stack engineer, which does not indicate an existing product or market demand for a new product. Without a clear product offering, sales data, or p"
+    },
+    {
+      "candidate_id": "web:4847473b7e6dadb640",
+      "decision": "pass",
+      "reason": "The discussion on HN highlights a specific problem in scaling organizations: balancing autonomy and standardization. While it provides context about Spotify's approach, it does not clearly indicate a demand for a product or a specific solution. There is no evidence of a market gap or a clear customer need that a product could address. Additionally,"
+    },
+    {
+      "candidate_id": "web:7cf98a7411a51e3cf8",
+      "decision": "pass",
+      "reason": "While the market for web scraping APIs is growing with a projected CAGR of 14.58% through 2032, the absence of listed prices and sales counts makes it difficult to assess the viability of a new product in this space. Additionally, the market is already competitive, with established players and tools like ChatGPT being integrated into scraping workf"
+    },
+    {
+      "candidate_id": "web:8ca8df47df2269ccb2",
+      "decision": "pass",
+      "reason": "The evidence suggests a growing market for web scraping tools and services, but there is no direct indication of a specific product or demand for an original offering. The market is competitive, and without a clear differentiation or a specific problem being solved, the opportunity is too speculative to justify pursuing."
+    },
+    {
+      "candidate_id": "web:1f2fe7adb1a336174d",
+      "decision": "pass",
+      "reason": "The content discusses using ChatGPT for web scraping, which suggests a potential niche for an AI-powered scraping tool. However, there is no clear evidence of demand or sales, and the market is already crowded with existing scraping tools. The lack of pricing and sales data makes it difficult to assess the viability of a new product in this space."
+    },
+    {
+      "candidate_id": "web:c5dcba3a451149675f",
+      "decision": "pass",
+      "reason": "The public market observation does not provide evidence of a specific customer problem or demand for a product. It is a general guide on web scraping using Python, which does not indicate a viable product or market opportunity. There is no clear indication of a unique value proposition or a feasible differentiated experiment."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 11,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
