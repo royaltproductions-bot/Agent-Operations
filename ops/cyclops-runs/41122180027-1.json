@@ -1,0 +1,210 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-30T20:21:27.504592+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 12,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "hn_ask": 8
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "verified_firsthand_problem_pages": 2,
+    "observed_public_paid_offers": 1,
+    "market_candidates_considered": 1,
+    "public_sources_available_for_judgment": 11,
+    "public_market_sample": [
+      {
+        "url": "https://pmarketresearch.com/worldwide-web-scraping-services-market-research/",
+        "title": "Worldwide Web Scraping Services Market",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46018506",
+        "title": "Running a 270M LLM on Android (architecture and benchmarks)",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44562374",
+        "title": "Python Developer \u2013 Build Hinge Automation Bot ($20/HR, Remote)",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44494189",
+        "title": "Ask HN: What's the verdict on GPT wrapper companies these days?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44455303",
+        "title": "Ask HN: Why isn't there a universal tool for exporting/transferring our data?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47499429",
+        "title": "Ask HN: HSL 0.1 \u2013 The Human Source License. Please help refining",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://pmarketresearch.com/worldwide-web-scraping-services-market-research/",
+        "title": "Worldwide Web Scraping Services Market",
+        "displayed_sales_count": null,
+        "listed_price_usd": "1.15"
+      }
+    ],
+    "candidates_without_email": 12,
+    "search_queries": [
+      "",
+      "web scraping APIs",
+      "data scraping services"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 10,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "web scraping APIs",
+        "data scraping services",
+        "web scraping price",
+        "web scraping sales"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 135,
+      "known_pages": 1679
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:11 candidates reviewed; uggle to gain traction.; The evidence excerpt does not provide specific customer problems or buyer utility, and there is no indication of actual demand or sales. The ma"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:89a5d6853c95f40dee",
+      "decision": "pass",
+      "reason": "The market research indicates a growing demand for web scraping services, with a projected CAGR of 13.54% from 2025 to 2032. However, the provided data does not include specific evidence of actual buyer demand or utility for a new product. The market is competitive, and without a clear differentiation or a specific customer problem that the product"
+    },
+    {
+      "candidate_id": "web:17b18dc4bb97a20c0a",
+      "decision": "pass",
+      "reason": "While the experiment of running a 270M LLM on Android is technically interesting, there is no clear evidence of demand or buyer utility for such a product. The article describes the technical feasibility and performance metrics, but it does not indicate a specific user need or market for an on-device summarization app. Additionally, there is no men"
+    },
+    {
+      "candidate_id": "web:eb9105d5b5b66c4b1b",
+      "decision": "pass",
+      "reason": "The candidate presents a specific technical problem (automating Hinge interactions) with a clear need for a Python developer. However, the evidence does not indicate a demand for a product that solves this problem, as it is a job posting rather than a product offering. There is no evidence of a market for an automation bot or a demonstrated buyer u"
+    },
+    {
+      "candidate_id": "web:b2a5606870ac34c17f",
+      "decision": "pass",
+      "reason": "While the GPT wrapper companies are visually appealing and have slick demos, the evidence suggests they do not offer significant differentiation from using a foundation model with basic RAG. Many of the proposed features can be replicated with existing tools, and there's no clear value proposition that justifies building a new product in this space"
+    },
+    {
+      "candidate_id": "web:0489f2abf92c03f128",
+      "decision": "pass",
+      "reason": "While the idea of a universal data export tool is compelling and addresses a real user need, there is no clear evidence of demand or existing sales to validate the market. The absence of pricing or sales data makes it difficult to assess the viability of the product. Additionally, the technical complexity and potential legal concerns may pose signi"
+    },
+    {
+      "candidate_id": "web:b3483383767b710fb7",
+      "decision": "pass",
+      "reason": "The Human Source License (HSL) proposal is an interesting legal and ethical concept, but it lacks a clear product or service offering. The discussion is speculative and centered around a potential license rather than a tangible product. There is no evidence of a completed product, sales, or pricing, and the idea is more of a legal framework than a "
+    },
+    {
+      "candidate_id": "web:73762dc8c39f4a1ccb",
+      "decision": "pass",
+      "reason": "The issue described is a technical problem with GPTBot ignoring robots.txt, which is more of a support or configuration issue rather than a market opportunity. There is no clear demand for a product addressing this specific problem, and no evidence of a viable business model or customer need beyond the technical challenge."
+    },
+    {
+      "candidate_id": "web:f21ca7426c510961bd",
+      "decision": "pass",
+      "reason": "The candidate presents a specific problem in lead discovery across niche forums, with a clear need for automation and noise reduction. However, the absence of pricing and sales data makes it difficult to assess market viability. While the problem is real and there's interest in tools like OptaReach, the lack of concrete evidence of demand or compet"
+    },
+    {
+      "candidate_id": "web:d626f0056989f49858",
+      "decision": "pass",
+      "reason": "While the product offers a unique visual approach to web scraping, the absence of pricing and sales data makes it difficult to assess its market viability. Additionally, the competition in the web scraping space is already significant, and without clear differentiation or evidence of demand, the product may struggle to gain traction."
+    },
+    {
+      "candidate_id": "web:a00aa63efa14e2a4e4",
+      "decision": "pass",
+      "reason": "The evidence excerpt does not provide specific customer problems or buyer utility, and there is no indication of actual demand or sales. The market report is speculative and lacks concrete buyer data or actionable insights."
+    },
+    {
+      "candidate_id": "web:23d3f066c90d9ebca3",
+      "decision": "pass",
+      "reason": "The provided evidence does not contain specific, actionable customer problems or demonstrated demand for a unique product. The report is a general market analysis without concrete buyer utility, competitive positioning, or production feasibility details. There is no clear indication of a specific, bounded digital product that can be tested with low"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 11,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
