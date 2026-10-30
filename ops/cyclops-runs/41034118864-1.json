@@ -1,0 +1,224 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-30T09:34:17.742203+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "duckduckgo": 7,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "verified_firsthand_problem_pages": 4,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 15,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=47046601",
+        "title": "Tell HN: Tips for (mostly) free agentic coding setup",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44989884",
+        "title": "Should I focus on B2C cloud or B2B self hosting?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=42847457",
+        "title": "$1000 bug bounty for better healthcare with the FDA, CDC, and Kaiser Permanente",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=42776826",
+        "title": "Ask HN: Best page to always see the best available AI-based IDEs?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=41790585",
+        "title": "Ask HN: How do you cope with a deluge of job applications?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=40412929",
+        "title": "AI Revolution: A Founder's Contrarian Discussion about the AI Application Layer",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 15,
+    "search_queries": [
+      "How many companies are currently offering AI-powered web scraping tools?",
+      "What are the pricing models for AI-powered web scraping tools?",
+      "What are the key differentiators between AI-powered web scraping tools and traditional scraping methods?"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 17,
+      "skipped_revisits": 7,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "How many companies are currently offering AI-powered web scraping tools?",
+        "What are the pricing models for AI-powered web scraping tools?",
+        "Are there any testimonials or case studies from businesses using AI-powered web scraping tools?",
+        "What are the key differentiators between AI-powered web scraping tools and traditional scraping methods?"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 139,
+      "known_pages": 1494
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:15 candidates reviewed; evidence of a specific product or its market demand. While there is mention of Thunderbit as one of the tools, there is no clear indication of a unique value propositio"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:b7b112b0a7e26895cc",
+      "decision": "pass",
+      "reason": "The candidate discusses agentic coding setup with free tools, but there is no clear evidence of a specific product or demand for it. The focus is on tips and resources rather than a concrete product offering. Additionally, the absence of pricing or sales data makes it difficult to assess viability."
+    },
+    {
+      "candidate_id": "web:5a709195339af37472",
+      "decision": "pass",
+      "reason": "The candidate lacks concrete evidence of demand or sales, and the B2C cloud model faces high expenses and backend development challenges. The B2B self-hosting approach is speculative without clear customer validation or a demonstrated product prototype."
+    },
+    {
+      "candidate_id": "web:4f54ef69d1c6ff822d",
+      "decision": "pass",
+      "reason": "The candidate presents a specific, real-world problem in healthcare IT systems that is causing significant operational issues for Kaiser Permanente and affecting healthcare workers. However, the evidence does not provide clear indication of existing demand for a solution, nor does it mention any current sales or pricing. While the problem is signif"
+    },
+    {
+      "candidate_id": "web:5da03f22980388ded0",
+      "decision": "pass",
+      "reason": "The candidate presents a specific problem with AI-based IDEs, but there is no clear evidence of demand or existing solutions that indicate a viable market. The user is looking for a centralized page to compare IDEs, but this is not a unique or clearly defined need. Additionally, the user's request for an IDE that integrates with debugging automatio"
+    },
+    {
+      "candidate_id": "web:896893b7bdec7c5eca",
+      "decision": "pass",
+      "reason": "The discussion around coping with a deluge of job applications highlights a real problem for hiring managers, but the evidence does not provide clear customer demand or specific utility for a product. While there is a need for better hiring tools, the absence of concrete sales data, pricing, or a defined product offering makes it difficult to justi"
+    },
+    {
+      "candidate_id": "web:80f834451c4fe9ce32",
+      "decision": "pass",
+      "reason": "While the article discusses potential opportunities in AI-driven service automation, it lacks concrete evidence of existing demand, pricing, or sales figures. The example provided (Kingdom Stays .ai) is speculative and not independently verified. Without clear buyer activity, utility, or competitive positioning, the idea remains unproven and lacks "
+    },
+    {
+      "candidate_id": "web:d8ec364993e2bfc8b5",
+      "decision": "pass",
+      "reason": "The candidate presents a HRtech tool aimed at connecting top-tier candidates with high-salary job positions, but there is no clear evidence of a specific customer problem or demand for the product. The described services are broad and lack a unique value proposition or differentiation. Additionally, the absence of listed prices or sales counts make"
+    },
+    {
+      "candidate_id": "web:7645a26dab631d8769",
+      "decision": "pass",
+      "reason": "While the article presents a compelling vision for AI-driven disruption in industries like short-term rental management, there is no concrete evidence of a product or service already in the market. The example of 'Kingdom Stays .ai' is speculative and not supported by actual sales, pricing, or independent verification. Additionally, the market for "
+    },
+    {
+      "candidate_id": "web:64969c5c099ec00f55",
+      "decision": "pass",
+      "reason": "While the market for web scraping tools is growing, the evidence provided does not clearly indicate a specific, unmet customer need or a unique value proposition. The excerpt mentions automation and integration capabilities, but there is no concrete evidence of a specific problem that the product would solve or a clear differentiation from existing"
+    },
+    {
+      "candidate_id": "web:990d26422bc41c17b2",
+      "decision": "pass",
+      "reason": "The article discusses existing AI web scraping tools and their features, but there is no clear indication of a specific, unmet customer need or a unique value proposition that differentiates a new product in this space. The focus is on comparing existing tools rather than identifying a gap that a new product could fill. Additionally, there is no ev"
+    },
+    {
+      "candidate_id": "web:0c4ef26ef2741f4c01",
+      "decision": "pass",
+      "reason": "The candidate is a Yahoo Finance page for KeyCorp (KEY) stock, which is not a product or service but rather a financial data source. There is no evidence of an original product being offered for sale or a specific customer problem being addressed. The page does not indicate any viable business opportunity or product that can be developed. The other"
+    },
+    {
+      "candidate_id": "web:b2104603f304d96ec0",
+      "decision": "pass",
+      "reason": "The market for AI web scraping providers is highly competitive with established players offering a wide range of services. The evidence does not indicate a specific gap or unmet need that a new entrant could uniquely address. Additionally, the absence of listed prices and sales counts makes it difficult to assess the viability of a new product in t"
+    },
+    {
+      "candidate_id": "web:86401c0759a3036060",
+      "decision": "pass",
+      "reason": "The article discusses the market for web scraping services but does not present a specific, actionable product idea with clear customer demand or utility. It lacks concrete evidence of a unique value proposition, pricing, or sales figures, making it insufficient to justify building a new product in this space."
+    },
+    {
+      "candidate_id": "web:342dc0e658df1836c6",
+      "decision": "pass",
+      "reason": "The article discusses AI web crawlers but does not provide concrete evidence of a specific product or its market demand. While there is mention of Thunderbit as one of the tools, there is no clear indication of a unique value proposition, pricing, or sales data to justify building an original product in this space."
+    },
+    {
+      "candidate_id": "web:cc72f4233673efa018",
+      "decision": "pass",
+      "reason": "The article lists AI web scrapers but does not provide specific evidence of customer demand or utility for a unique product. There is no clear indication of a specific customer problem that a differentiated product could solve, nor is there evidence of a feasible, bounded prototype. The absence of pricing or sales data does not justify pursuing a p"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 15,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
