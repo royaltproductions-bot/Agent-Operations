@@ -19,3 +19,12 @@ jobs:
         run: python3 -m py_compile tools/gambit_openai.py tools/gambit_worker.py tools/gambit_watch.py tests/test_gambit_openai.py
       - name: OpenAI adapter and full Gambit regression tests
         run: python3 -m unittest discover -s tests -p 'test_gambit_*.py' -q
+      - name: Check whether OpenAI is configured without disclosing credential
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ -n "$OPENAI_API_KEY" ]; then
+            echo 'OPENAI_API_CONFIGURED=yes'
+          else
+            echo 'OPENAI_API_CONFIGURED=no'
+          fi
