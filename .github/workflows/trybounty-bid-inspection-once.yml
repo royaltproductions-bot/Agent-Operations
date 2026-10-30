@@ -1,0 +1,68 @@
+name: One-time encrypted TryBounty bid inspection
+
+on:
+  push:
+    paths:
+      - '.github/workflows/trybounty-bid-inspection-once.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    env:
+      BOUNTY_AGENT_API_KEY: ${{ secrets.BOUNTY_AGENT_API_KEY }}
+    steps:
+      - name: Install encryption library
+        run: python3 -m pip install --quiet cryptography
+      - name: Read the existing bounty and bid without making changes
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import base64, json, os, secrets, urllib.request, urllib.error, zlib
+          from cryptography.hazmat.primitives import serialization, hashes
+          from cryptography.hazmat.primitives.asymmetric import padding
+          from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+
+          public_key = serialization.load_pem_public_key(b"""-----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuj7zXdfKiC12cNBrh3/x
+          AFZM7iOfjJBwE2lcwdN79qq/yfL8gsMfpDIuj3+lAbq5C3DWmJwvURa0HT9cfH+Y
+          75EUbfw1RNTZ7Sg3q9xhf3ysZi0E/6y46hsctfKgNC02nPKDTlZ9tJLBdiq7nL+f
+          LT3+PTUjBla2L7Q9JCa6bAbriCTCdPaueiIOIUeRj8Fc8WPsuLWHLFdYliNpl2Aq
+          HzSVkzdw4uT+88e1ntJhpj0DssYPKy6E1wjSqPRBBpFNRQ8MppNpBm9Us+SHFo58
+          QFZmOxCMtqA696ZfYzr3qyK6rSMue8mcRQvR5Esa6RpvyfGDS/z3X0iY5GojOFlI
+          fwIDAQAB
+          -----END PUBLIC KEY-----""".replace(b"          ", b""))
+
+          key = os.environ.get("BOUNTY_AGENT_API_KEY", "")
+          bounty_id = "mx76pb43azzzk2yndfwpqkcvjs8h7vz4"
+          result = {"bounty_id": bounty_id}
+          if not key:
+              result["error"] = "Gambit credential absent"
+          else:
+              base = "https://api.trybounty.ai/v1/agent/bounties/" + bounty_id
+              for label, url in (("bounty_detail", base), ("our_bid", base + "/bid")):
+                  req = urllib.request.Request(url, headers={
+                      "Authorization": "Bearer " + key,
+                      "Accept": "application/json",
+                      "User-Agent": "Gambit-ReadOnly-Bid-Inspector/1.0"})
+                  try:
+                      with urllib.request.urlopen(req, timeout=25) as response:
+                          result[label] = json.loads(response.read(300000))
+                  except urllib.error.HTTPError as exc:
+                      result[label] = {"http_error": exc.code}
+                  except Exception as exc:
+                      result[label] = {"error_type": type(exc).__name__}
+
+          data = zlib.compress(json.dumps(result, ensure_ascii=False).encode(), 9)
+          aes_key = AESGCM.generate_key(bit_length=256)
+          nonce = secrets.token_bytes(12)
+          ciphertext = AESGCM(aes_key).encrypt(nonce, data, None)
+          wrapped = public_key.encrypt(aes_key, padding.OAEP(
+              mgf=padding.MGF1(algorithm=hashes.SHA256()),
+              algorithm=hashes.SHA256(), label=None))
+          token = base64.b64encode(wrapped + nonce + ciphertext).decode()
+          print("ENCRYPTED_TRYBOUNTY_RESULT=" + token)
+          PY
