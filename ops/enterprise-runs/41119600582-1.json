@@ -1,0 +1,135 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-30T20:00:04.795755+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 9,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/agentshorts/GFGame/issues/76",
+        "title": "Dino Chat Lab: Dinobook simulator and coordination (Big Grumble polls elders, sparing all-chat, no spam)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/glunk-works/bounty-infra/issues/197",
+        "title": "docs: strike the remaining Infisical pointer claim in the hardening roadmap's RoE row",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/glunk-works/bounty-infra/issues/196",
+        "title": "docs: BI-D22's stated reach is stale now the apply role reads SSM; retire its main-ref trust",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/NSPG13/agent-bounties/issues/1731",
+        "title": "Maintainer notice: support keyless Search Console snapshot collection",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Oreocide/TrinityCore/issues/77",
+        "title": "World quests: nothing consumes the scheduled world states yet (conditions, feed, pickup, area POI, callings, emissaries)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://alsconsulting.services/",
+        "title": "ALS Consulting | Algorithmic Bias Audits & AI Enablement Framework ...",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-31 ",
+      "looking for someone to create ai bias audit reports",
+      "hiring a freelancer to conduct algorithmic bias testing"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create ai bias audit reports",
+      "hiring a freelancer to conduct algorithmic bias testing",
+      "need paid help with disability bias analysis in ai systems",
+      "can anyone create a bias audit framework for hr tech platforms"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 17,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create ai bias audit reports",
+        "hiring a freelancer to conduct algorithmic bias testing",
+        "need paid help with disability bias analysis in ai systems",
+        "can anyone create a bias audit framework for hr tech platforms"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 134,
+      "known_pages": 1551
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:The source does not explicitly invite a third-party provider to offer a paid service. It appears to be a directory fo"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
