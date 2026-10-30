@@ -24,6 +24,33 @@ class GambitOpenAITests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "openai_key_not_configured"):
                 gambit_openai.provider()
 
+    def test_older_gpt_models_are_selectable_with_verified_price_bounds(self):
+        for model, expected in {
+            "gpt-5.4-mini": (0.75, 4.50),
+            "gpt-5.4": (2.50, 15.00),
+            "gpt-5.5": (5.00, 30.00),
+            "gpt-5.6-terra": (2.00, 12.00),
+            "gpt-5.6-sol": (5.00, 30.00),
+        }.items():
+            with self.subTest(model=model):
+                self.assertEqual(gambit_openai._MODEL_PRICES[model], expected)
+                cost = gambit_openai.estimate_max_cost_usd(
+                    "Research and produce a proposal", {"buyer": "demo"},
+                    gambit.REVIEW_SCHEMA, 500, model)
+                self.assertGreater(cost, 0)
+
+    def test_legacy_model_configuration_does_not_override_prepaid_key_gate(self):
+        env = {"GAMBIT_INFERENCE_PROVIDER": "auto",
+               "GAMBIT_OPENAI_DECISION_MODEL": "gpt-5.4",
+               "GAMBIT_OPENAI_WRITING_MODEL": "gpt-5.4-mini",
+               "OPENAI_API_KEY": ""}
+        with patch.dict(os.environ, env):
+            self.assertEqual(gambit_openai.provider(), "ollama")
+            self.assertEqual(gambit_openai.choose_model(gambit.DECIDE_SCHEMA),
+                             "gpt-5.4")
+            self.assertEqual(gambit_openai.choose_model(gambit.BID_NOTE_SCHEMA),
+                             "gpt-5.4-mini")
+
     def test_only_explicit_supported_providers_are_allowed(self):
         with patch.dict(os.environ, {"GAMBIT_INFERENCE_PROVIDER": "invalid"},
                         clear=False):
