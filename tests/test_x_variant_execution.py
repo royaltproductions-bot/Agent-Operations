@@ -386,6 +386,16 @@ class CyclopsEfficiencyTests(unittest.TestCase):
         self.assertTrue(brain.seller_marketing_page(seller))
         self.assertFalse(brain.public_buyer_invitation(seller))
         self.assertEqual(brain.requester_evidence(seller), "")
+        media_agency = {
+            "source_url": "https://kmfmedia.com/",
+            "title": "KMF Media",
+            "page_fetched": True, "contact": "info@kmfmedia.example",
+            "page_text": ("Our services include music marketing services. "
+                          "Send your proposal for our music promotion packages. "
+                          "Contact us for a consultation."),
+        }
+        self.assertTrue(brain.seller_marketing_page(media_agency))
+        self.assertFalse(brain.public_buyer_invitation(media_agency))
         buyer = {
             "source_url": "https://example.org/open-request",
             "title": "Request for bids to build our team's dashboard",
