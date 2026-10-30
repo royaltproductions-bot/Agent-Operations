@@ -1,0 +1,211 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-30T03:26:45.887208+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "duckduckgo": 5,
+      "bing": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "verified_firsthand_problem_pages": 6,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 15,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=44743115",
+        "title": "Has AI coding gone too far? I feel like I'm losing control of my own projects",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=42434555",
+        "title": "A data strategy is essential for generative AI apps",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=41572376",
+        "title": "Ask HN: Interest in LLM-powered API with integrated tools?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=38871642",
+        "title": "Ask HN: Does anyone write HTML anymore?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37445912",
+        "title": "Ask HN: How would you develop this service?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37245048",
+        "title": "Ask HN: Need some tips for web crawling",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 15,
+    "search_queries": [
+      "web crawling tools",
+      "markdown to pdf",
+      "data scraping",
+      "data extraction"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 4,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "web crawling tools",
+        "markdown to pdf",
+        "data scraping",
+        "data extraction"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 139,
+      "known_pages": 1386
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:15 candidates reviewed; ence of a direct product being sold or a clear demand for a new product in this space. The lack of ; The candidate lacks clear evidence of demand or sales, and the prod"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0,
+    "product_pages": 0,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [],
+  "market_assessments": [
+    {
+      "candidate_id": "web:66c5a0425fc65aa851",
+      "decision": "pass",
+      "reason": "The discussion highlights concerns about AI coding tools leading to a loss of control and potential over-reliance, suggesting a market need for tools that balance AI assistance with human oversight. However, the absence of a clear product offering, pricing, or sales data makes it difficult to assess viability. The sentiment is more about a problem "
+    },
+    {
+      "candidate_id": "web:239846282d884d6632",
+      "decision": "pass",
+      "reason": "The candidate highlights the importance of a data strategy for generative AI apps, but there is no clear evidence of demand or sales. While the topic is relevant, the lack of a concrete product or pricing model makes it difficult to assess viability. Additionally, the existing catalog already includes similar tools like the AI Workflow Debugger, wh"
+    },
+    {
+      "candidate_id": "web:f6eb515136a5dee482",
+      "decision": "pass",
+      "reason": "The idea of an LLM-powered API creation tool is intriguing and aligns with current trends in low-code and no-code development. However, the lack of displayed sales count and listed price makes it difficult to assess market viability. Additionally, there is significant existing competition in the API creation and low-code spaces, which could hinder "
+    },
+    {
+      "candidate_id": "web:2011eb3a7526110daa",
+      "decision": "pass",
+      "reason": "The discussion highlights a niche concern about HTML rendering and the reliance on JavaScript, but there is no clear demand for a product that generates plain HTML without a backend. The existing competition and lack of verified sales or buyer activity make it unlikely to be a viable product."
+    },
+    {
+      "candidate_id": "web:94c21f7c4f631b792a",
+      "decision": "pass",
+      "reason": "The candidate lacks a clear value proposition, monetization strategy, and evidence of demand. While the idea of creating a service based on a script is interesting, there is no indication of a viable market, competitive advantage, or potential for scalability. The user's own skepticism about remuneration and the niche nature of the service further "
+    },
+    {
+      "candidate_id": "web:7f13327e99fcbcf230",
+      "decision": "pass",
+      "reason": "The candidate lacks a clear product offering or sales evidence. The discussion is about web crawling and its legality, but there is no indication of a viable product or market demand. The user is seeking advice rather than expressing a need for a commercial product."
+    },
+    {
+      "candidate_id": "web:ceefd7e1d3498ad56c",
+      "decision": "pass",
+      "reason": "The candidate involves a PhD student using AI tools for a literature review, which is an academic activity rather than a commercial product. There is no clear indication of a market demand for such a tool, and it is not a viable product for commercialization."
+    },
+    {
+      "candidate_id": "web:37116bb10cc03cc75d",
+      "decision": "pass",
+      "reason": "The candidate is a discussion about contributing to legal fights against Nitter and XCancel, which is not a product but a call to action. There is no tangible product or service being offered, and the evidence does not indicate a viable business opportunity."
+    },
+    {
+      "candidate_id": "web:ba866225ece1b8293b",
+      "decision": "pass",
+      "reason": "The candidate is a free Markdown to PDF converter with no signup or watermark, but there is no evidence of paid sales or customer activity beyond the tool's features. The tool is likely a low-effort, low-revenue offering with no clear differentiation or monetization strategy."
+    },
+    {
+      "candidate_id": "web:fa327b079534b4d6fb",
+      "decision": "pass",
+      "reason": "The content about data extraction is educational and informative, but there is no clear indication of a commercial product or demand for a specific tool. The article is more of a tutorial or explanation rather than a product offering. Additionally, there are no listed prices or sales counts to suggest a viable market for a product in this space."
+    },
+    {
+      "candidate_id": "web:cc2154708e3dd3861a",
+      "decision": "pass",
+      "reason": "The article lists web crawlers and website crawling tools, but there is no clear evidence of a specific product or service being offered for sale. The content appears to be a guide or comparison rather than a direct product offering. Additionally, there is no listed price or sales count provided, making it difficult to assess commercial viability."
+    },
+    {
+      "candidate_id": "web:23bca342d3b45a965a",
+      "decision": "pass",
+      "reason": "The candidate is a markdown-to-PDF converter, which is a highly competitive space with multiple free and paid tools already available. The evidence does not show any unique value proposition, sales, or customer activity that would justify building a similar product. There is no indication of demand beyond what is already served by existing solution"
+    },
+    {
+      "candidate_id": "web:d3c0c84d1413a779e5",
+      "decision": "pass",
+      "reason": "The content about data extraction is educational and informative, but there is no clear indication of a specific product or service being offered. The page appears to be part of a marketing or informational resource for a company, and there is no evidence of a direct product being sold or a clear demand for a new product in this space. The lack of "
+    },
+    {
+      "candidate_id": "web:50a14f460d9f30afb3",
+      "decision": "pass",
+      "reason": "The candidate lacks clear evidence of demand or sales, and the product's value proposition is not sufficiently differentiated from existing solutions. The absence of pricing and sales data makes it difficult to assess viability."
+    },
+    {
+      "candidate_id": "web:4bca345cf003cab67c",
+      "decision": "pass",
+      "reason": "The Wikipedia page on data extraction lacks specific evidence of market demand or buyer utility. It is an informational resource rather than a product or service with clear commercial potential. There is no indication of a viable product or demonstrated buyer interest."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "no_saleable_products",
+    "indexable_product_pages": 0,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 15,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:15 candidates reviewed; ence of a direct product being sold or a clear demand for a new product in this space. The lack of ; The can"
+  }
+}
