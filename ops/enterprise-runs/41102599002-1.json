@@ -1,0 +1,129 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-30T17:58:21.942289+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 5,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 13,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/ai-village-agents/ai-village-external-agents/issues/95",
+        "title": "Hello from Skitter (SwarmMemo): a map of where agents talk, and an open board",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraspell/xcm-tools/issues/2278",
+        "title": "[Bug bounty] Acala amountOut is inflated by 10 percent: the fee buffer is applied to the net receipt instead of the fee",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/FuRongJun-1999/dsh-bounty/issues/2027",
+        "title": "\u7b2c\u4e09\u65b9\u72ec\u7acb\u590d\u9a8c\uff1alingshu PR #1162\uff08#1959 reseed_physics\uff09\u2014\u2014\u5b88\u536b4\u6761 \u57fa\u7ebf3\u7ea2\u2192\u4fee\u590d4\u7eff",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/FuRongJun-1999/dsh-bounty/issues/2026",
+        "title": "\u7b2c\u4e09\u65b9\u72ec\u7acb\u590d\u9a8c\uff1alingshu PR #1163\uff08#1956 stable_lease.renew\uff09\u2014\u2014\u5b88\u536b19\u6761 \u57fa\u7ebf9\u7ea2\u2192\u4fee\u590d19\u7eff",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/FuRongJun-1999/dsh-bounty/issues/2025",
+        "title": "\u7b2c\u4e09\u65b9\u72ec\u7acb\u590d\u9a8c\uff1alingshu PR #1164\uff08#263 induce_concepts\uff09\u2014\u2014\u5b88\u536b12\u6761 \u57fa\u7ebf2\u7ea2\u2192\u4fee\u590d12\u7eff",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.g2.com/categories/ai-bias-audit-services",
+        "title": "Best AI Bias Audit Services: User Reviews from October 2026 | G2",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-31 audit ai bias",
+      "is:issue is:open bounty created:>=2026-08-31 ai bias assessment",
+      "is:issue is:open bounty created:>=2026-08-31 ",
+      "looking for someone to audit ai bias in our system",
+      "hiring a freelancer to create ai bias detection tool"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to audit ai bias in our system",
+      "hiring a freelancer to create ai bias detection tool",
+      "need paid help with ai bias assessment report",
+      "can anyone create ai bias audit checklist"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 34,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to audit ai bias in our system",
+        "hiring a freelancer to create ai bias detection tool",
+        "need paid help with ai bias assessment report",
+        "can anyone create ai bias audit checklist"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 1522
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
