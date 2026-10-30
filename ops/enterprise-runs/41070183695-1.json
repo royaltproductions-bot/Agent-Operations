@@ -1,0 +1,122 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-30T14:17:12.954095+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 9,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 9,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/dev-kp-eloper/BountyScout/issues/1554",
+        "title": "\ud83c\udfaf Bounty Alert: 26 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/freedom-winds/BountyScout/issues/1214",
+        "title": "\ud83c\udfaf Bounty Alert: 23 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/freedom-winds/BountyScout/issues/1212",
+        "title": "\ud83c\udfaf Bounty Alert: 20 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/dev-kp-eloper/BountyScout/issues/1552",
+        "title": "\ud83c\udfaf Bounty Alert: 20 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tenstorrent/tt-metal/issues/56383",
+        "title": "ttnn.pow_bw returns +inf at input == 0, where its own golden expects a finite gradient",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/zhangjiayang6835-cyber/bounty-plaza/pull/1843",
+        "title": "[ATLAS] PR for bounty #1836 - ttnn sampling bias fix - #1843",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-31 fix ttnn sampling",
+      "looking for someone to fix ttnn.sampling distribution bias from low-precision random threshold",
+      "hiring a freelancer to build custom cooking platform website with payout requests"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to fix ttnn.sampling distribution bias from low-precision random threshold",
+      "hiring a freelancer to build custom cooking platform website with payout requests",
+      "need paid help with ttnn.sampling bias in tt-metal project",
+      "can anyone create custom cooking platform with verified creator showcase"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 7,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to fix ttnn.sampling distribution bias from low-precision random threshold",
+        "hiring a freelancer to build custom cooking platform website with payout requests",
+        "need paid help with ttnn.sampling bias in tt-metal project",
+        "can anyone create custom cooking platform with verified creator showcase"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 140,
+      "known_pages": 1460
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
