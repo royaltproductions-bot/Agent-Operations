@@ -1,0 +1,239 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-30T19:29:33.868921+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "followup": 2,
+      "hn_ask": 6,
+      "duckduckgo": 8
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 16,
+    "verified_firsthand_problem_pages": 1,
+    "observed_public_paid_offers": 2,
+    "market_candidates_considered": 2,
+    "public_sources_available_for_judgment": 16,
+    "public_market_sample": [
+      {
+        "url": "https://pmarketresearch.com/worldwide-web-scraper-software-market-research/",
+        "title": "Worldwide Web Scraper Software Market",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://pmarketresearch.com/it/data-scraping-service-market/",
+        "title": "Data Scraping Service Market",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47292281",
+        "title": "Ask HN: How to scale agent systems when Layer 7 is unreliable?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46660455",
+        "title": "Automation Isn't Innovation",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=41766633",
+        "title": "Audioscrape: Building in Rust When Everyone Said I Shouldn't",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=41766551",
+        "title": "Audioscrape: Building in Rust When Everyone Said I Shouldn't",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://pmarketresearch.com/worldwide-web-scraper-software-market-research/",
+        "title": "Worldwide Web Scraper Software Market",
+        "displayed_sales_count": null,
+        "listed_price_usd": "2.40"
+      },
+      {
+        "url": "https://pmarketresearch.com/it/data-scraping-service-market/",
+        "title": "Data Scraping Service Market",
+        "displayed_sales_count": null,
+        "listed_price_usd": "2.06"
+      }
+    ],
+    "candidates_without_email": 16,
+    "search_queries": [
+      "",
+      "web scraping api",
+      "web scraping market",
+      "web scraping competition"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 18,
+      "skipped_revisits": 27,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "web scraping api",
+        "web scraping market",
+        "web scraping pricing",
+        "web scraping competition"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 138,
+      "known_pages": 1664
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:16 candidates reviewed; demonstrate a specific, unmet customer need that a differentiated product could address. The market report from ScrapeOps highlights challenges in the web scraping indu"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:07cd0f67c96853ec4d",
+      "decision": "pass",
+      "reason": "The market research indicates significant growth potential for web scraper software, with a projected market size of $2.40 billion by 2032 and a CAGR of 15.02%. However, the absence of verified sales counts and specific customer problems makes it difficult to assess actual demand. While the market is promising, the lack of concrete evidence of buye"
+    },
+    {
+      "candidate_id": "web:027db6bcd338b9ecfd",
+      "decision": "pass",
+      "reason": "The data scraping service market is projected to grow significantly, with a CAGR of 13.5% and a market size of $2.06 billion by 2032. However, the absence of specific sales data and the lack of differentiation from existing competitors make it difficult to justify a unique value proposition. Additionally, the market is highly competitive, and witho"
+    },
+    {
+      "candidate_id": "web:be451e2dde445fc4da",
+      "decision": "pass",
+      "reason": "The discussion highlights a real problem with scaling agent systems due to Layer 7 failures, which can lead to retry storms and workflow disruptions. However, there is no evidence of existing solutions or market demand for a product addressing this issue. While the problem is valid, the absence of a clear market need, existing competition, or demon"
+    },
+    {
+      "candidate_id": "web:3a60d0e29af3f9df72",
+      "decision": "pass",
+      "reason": "The article discusses the difference between automation and innovation in technology, but it does not present a specific customer problem or a clear opportunity for a new product. It lacks actionable insights or a concrete idea for a product that addresses a real user need. Without a specific problem or a feasible solution, there is no basis to pur"
+    },
+    {
+      "candidate_id": "web:2ecd87bfc1574667f1",
+      "decision": "pass",
+      "reason": "The candidate lacks evidence of actual sales, revenue, or user engagement. While the project is technically interesting and the creator is seeking feedback, there is no indication of real demand or traction. The absence of pricing, sales data, or user activity makes it difficult to justify pursuing this idea without further validation."
+    },
+    {
+      "candidate_id": "web:acb1e1c76e27fba13c",
+      "decision": "pass",
+      "reason": "While the project is technically interesting and the creator has a clear vision, there is no evidence of actual sales or pricing, and the market for podcast exploration platforms is highly saturated. Additionally, the creator's focus on Rust may not be a significant differentiator in this space. Without concrete evidence of demand or a clear value "
+    },
+    {
+      "candidate_id": "web:9201865b7d5f42a212",
+      "decision": "pass",
+      "reason": "The candidate presents an idea for a portal that generates competition analysis and tech stack recommendations for product ideas, but there is no evidence of existing sales, pricing, or user engagement. The idea is speculative and lacks concrete buyer demand or utility. The market for product idea validation tools is already crowded, and without ve"
+    },
+    {
+      "candidate_id": "web:3ad85c4a0f732f2bca",
+      "decision": "pass",
+      "reason": "The candidate represents a community-driven request for educational resources and challenges in web scraping, which lacks direct monetization potential or clear demand for a product. While there is interest in learning and practicing web scraping, there is no evidence of a specific product or service being offered, nor is there a clear path to mone"
+    },
+    {
+      "candidate_id": "web:b4567d34ce170282d6",
+      "decision": "pass",
+      "reason": "The candidate lacks clear pricing and sales data, and the evidence excerpt does not demonstrate a unique value proposition or specific customer problem that the product solves. The market for web scraping APIs is highly competitive, and without a clear differentiation or verified demand, the product is not worth pursuing."
+    },
+    {
+      "candidate_id": "web:5577f225bc53beee7d",
+      "decision": "pass",
+      "reason": "The Web Scraping API market is highly competitive with established players like ScrapingBee and Web Scraping API offering similar services. The lack of displayed sales counts and pricing details makes it difficult to assess the viability of a new entrant. Additionally, the market is saturated with existing solutions, and without a clear differentia"
+    },
+    {
+      "candidate_id": "web:cba2c9c6c64a1b7664",
+      "decision": "pass",
+      "reason": "The page lists web scraping APIs but lacks specific evidence of a unique product or customer need. It is a general guide without a clear, actionable product offering or demonstrated demand for a new solution in this space."
+    },
+    {
+      "candidate_id": "web:00108a73f823c63b97",
+      "decision": "pass",
+      "reason": "ScrapingBee provides a comprehensive web scraping API with features like AI data extraction, proxy IP rotation, and integration with major platforms like Google, Amazon, and YouTube. However, the absence of listed pricing and sales data makes it difficult to assess the market viability of a similar product. Additionally, the market for web scraping"
+    },
+    {
+      "candidate_id": "web:7c962fbde3717601aa",
+      "decision": "pass",
+      "reason": "The market for web scraping is growing, but the evidence provided does not clearly indicate a specific, actionable opportunity. The report mentions market size and growth forecasts, but lacks concrete details on customer pain points, competitive differentiation, or a feasible product idea. Without a clear problem to solve or a unique value proposit"
+    },
+    {
+      "candidate_id": "web:ea21d5eddbe661d81e",
+      "decision": "pass",
+      "reason": "The content is a general guide on web scraping APIs and does not indicate a specific product or demand for a new offering. There is no evidence of a unique problem or a clear customer need that a new product would address. The existing competition and lack of specific sales or pricing data make it difficult to justify pursuing this market."
+    },
+    {
+      "candidate_id": "web:83366b906465481b25",
+      "decision": "pass",
+      "reason": "The candidate lacks clear pricing and sales data, and the evidence excerpt does not demonstrate a specific, unmet customer need that a differentiated product could address. The market report from ScrapeOps highlights challenges in the web scraping industry, but without a clear value proposition or unique differentiation, the opportunity remains spe"
+    },
+    {
+      "candidate_id": "web:1eb62ee305e1d1e56a",
+      "decision": "pass",
+      "reason": "The report highlights the growth potential of the web scraping market, but it does not provide specific evidence of a unique product or customer demand that is not already addressed by existing tools. The absence of a clear, differentiated product idea or verified sales data makes it difficult to justify pursuing this opportunity."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 16,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
