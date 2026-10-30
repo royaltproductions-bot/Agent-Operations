@@ -774,11 +774,11 @@ class GambitTests(unittest.TestCase):
         details = {"bounty": {"_id": "b1", "status": "open", "flow": "bid",
                               "version": 1, "title": "Compile a sourced report"}}
         state = {"bounties": {}, "recent_outcomes": []}
-        with patch.object(gambit, "api", return_value=details) as request, \\
+        with patch.object(gambit, "api", return_value=details) as request, \
              patch.object(gambit, "assess", return_value={
                  "decision": "bid", "payout_cents": 2200,
                  "note": "The report has been completed, all facts verified and the "
-                         "final spreadsheet is ready for delivery."}), \\
+                         "final spreadsheet is ready for delivery."}), \
              patch.object(gambit, "repair_bid_note", return_value="I can do it."):
             gambit.handle_open({"_id": "b1"}, state)
         self.assertFalse(any(len(call.args) > 1 and call.args[1] == "POST"
