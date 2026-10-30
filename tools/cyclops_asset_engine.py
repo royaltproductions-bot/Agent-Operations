@@ -356,6 +356,12 @@ def choose_asset_concept(rows,existing_assets=None):
         "Select the strongest remaining candidate. A pass rejects ONLY the selected candidate, "
         "not every other market. Existing competition or missing public sales counts alone "
         "does not establish that a useful differentiated experiment is unviable. "
+        "A firsthand, specific customer problem with a feasible differentiated small "
+        "digital product can justify a low-cost experiment WITHOUT evidence of competitor "
+        "sales, posted prices, or a preexisting product. Judge whether you can make a "
+        "useful, original, bounded prototype and test actual buyer demand; do NOT treat "
+        "missing sales or pricing as automatic rejection. A general article or merely "
+        "speculative problem without an identifiable user need is NOT enough. "
         "Cite one actual candidate_id. Return JSON only."
     ),{"public_market_observations":remaining[:4],
         "existing_catalog":[a.get("title") for a in (existing_assets or [])[:12]]},
