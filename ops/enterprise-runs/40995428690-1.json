@@ -1,0 +1,138 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-30T03:07:58.896918+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 6,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 11,
+    "contactable_sources": 3,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/arif-rachim/renox.rs/issues/123",
+        "title": "[F7-09][M4/M7/P14] Abuse controls: phishing takedown and abuse endpoint, Safe Browsing checks, card-testing limits in bi",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/LowcountryDigitalWorks/lowcountrydigitalworks.com/issues/81",
+        "title": "WEB-HARDEN-001 \u2014 Bounded website security/cutover hardening from 2026-10-15 audit",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/khanakhun/business-finder/issues/60",
+        "title": "BF-060: Security hardening \u2014 threat model, Postgres RLS defense in depth, sandbox and secrets hardening, ASVS review",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/simondalmasso/boQA-ai-verification/issues/53",
+        "title": "AUD reboot handoff \u2014 CANON_REBUILD from LOG65",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/pixelcatburglar/infinity/issues/4",
+        "title": "Space persistence: position snapshots and a shutdown flush (#1 phase 4)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://growyourwebs.com/services/dashboards-admin-panels",
+        "title": "Custom Admin Panel & Dashboard Development | GrowYourWebs",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-31 build custom dashboard",
+      "is:issue is:open bounty created:>=2026-08-31 create inventory analytics",
+      "is:issue is:open bounty created:>=2026-08-31 finance data visualization",
+      "is:issue is:open bounty created:>=2026-08-31 ",
+      "looking for someone to build a custom dashboard with admin panel",
+      "hiring a freelancer to create inventory analytics dashboards"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a custom dashboard with admin panel",
+      "hiring a freelancer to create inventory analytics dashboards",
+      "need paid help with finance data visualization tools",
+      "can anyone create a user dashboard with real-time data"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 29,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a custom dashboard with admin panel",
+        "hiring a freelancer to create inventory analytics dashboards",
+        "need paid help with finance data visualization tools",
+        "can anyone create a user dashboard with real-time data"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 137,
+      "known_pages": 1311
+    }
+  },
+  "offer": {
+    "source_url": "https://growyourwebs.com/services/dashboards-admin-panels",
+    "title": "Custom Admin Panel & Dashboard Development",
+    "scope": "Development of a custom admin panel and dashboard tailored to manage orders, leads, and daily operations. Includes real-time visualization, role-based access control, secure and scalable architecture, and integration with backend APIs and staff permissions.",
+    "price_usd": "4995.00",
+    "price_cents": 499500,
+    "offer_id": "0c28d329071f3e4fde441adc",
+    "payment_link_id": "plink_1UW6RZBto3o776uyR3kmDius"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://growyourwebs.com/services/dashboards-admin-panels"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 3,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "none"
+  }
+}
