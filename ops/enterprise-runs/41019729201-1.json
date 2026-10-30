@@ -1,0 +1,135 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-30T07:25:05.473659+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 5,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "JSONDecodeError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 13,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 3,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/ROAM-game-org/road-machiners/issues/982",
+        "title": "\"Word reaches you: Pump Station took a claim against you for a robbery of Trader Clem Brandt. The Ma",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ROAM-game-org/road-machiners/issues/972",
+        "title": "we agreed on guns down but this guy is still pulling me on a harpoon",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Sirfloppywaffle/the-last-lamp/issues/62",
+        "title": "Handoff: where the last Claude session stopped (20 Oct 2026)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/dev-kp-eloper/BountyScout/issues/1593",
+        "title": "\ud83c\udfaf Bounty Alert: 21 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ROAM-game-org/road-machiners/issues/571",
+        "title": "Exploration minimap and purchasable maps of unseen areas",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.dronahq.com/dashboard-reporting/",
+        "title": "Dashboard builder - Build dashboards fast with lowcode + AI",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-31 build drag drop",
+      "looking for someone to build a drag-and-drop dashboard",
+      "hiring a freelancer to create a product KPIs dashboard"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a drag-and-drop dashboard",
+      "hiring a freelancer to create a product KPIs dashboard",
+      "need paid help with a proactive monitoring dashboard tool",
+      "can anyone create a farm management dashboard builder"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 9,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a drag-and-drop dashboard",
+        "hiring a freelancer to create a product KPIs dashboard",
+        "need paid help with a proactive monitoring dashboard tool",
+        "can anyone create a farm management dashboard builder"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 1392
+    }
+  },
+  "offer": {
+    "source_url": "https://www.yunojuno.com/skills/dashboards",
+    "title": "Freelancer Dashboard Expert Services",
+    "scope": "Design and develop custom dashboards for data reporting, analysis, and business intelligence using freelance expertise. This includes data transformation, automation of reporting workflows, and integration with existing systems.",
+    "price_usd": "249.99",
+    "price_cents": 24999,
+    "offer_id": "8aea69084b5ab823869e6247",
+    "payment_link_id": "plink_1UWARdBto3o776uyTtpNgbf9"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://www.yunojuno.com/skills/dashboards"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "none"
+  }
+}
