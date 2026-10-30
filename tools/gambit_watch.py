@@ -40,6 +40,10 @@ def probe(module):
 
 
 def prepare_models(production=False):
+    from tools import gambit_openai
+    if gambit_openai.provider() == "openai":
+        # Paid provider is already online; do not download or boot Qwen/Ollama.
+        return
     command(['bash', 'tools/gambit_models.sh', 'production' if production else 'triage'])
 
 
