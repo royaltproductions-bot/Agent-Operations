@@ -28,6 +28,21 @@ class WatchTests(TestCase):
         self.assertEqual(checkpoint.call_count, 3)
         self.assertIn('tools.gambit_worker', command.call_args.args[0])
 
+    def test_missing_openai_key_keeps_market_watch_but_blocks_qwen_bids(self):
+        with patch.dict(watch.os.environ, {
+                 "GAMBIT_INFERENCE_PROVIDER": "openai", "OPENAI_API_KEY": ""}), \
+             patch.object(watch, 'probe', side_effect=[
+                 {'needs_run': 'true'},
+                 {'needs_run': 'true', 'needs_model': 'true',
+                  'needs_production_model': 'false'}]), \
+             patch.object(watch, 'checkpoint') as checkpoint, \
+             patch.object(watch, 'prepare_models') as local_model, \
+             patch.object(watch, 'command') as command:
+            watch.cycle()
+        self.assertEqual(checkpoint.call_count, 2)
+        local_model.assert_not_called()
+        command.assert_not_called()
+
     def test_probe_outputs_do_not_leak_between_cycles(self):
         def command(args, env):
             Path(env['GITHUB_OUTPUT']).write_text('needs_run=false\n')
