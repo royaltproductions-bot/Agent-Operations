@@ -1,0 +1,42 @@
+name: Verify Gambit OpenAI key and Sol access (no generation)
+on:
+  push:
+    paths: ['.github/workflows/one-time-verify-gambit-openai.yml']
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+    steps:
+      - name: Verify API authentication and GPT-6.1 Sol model accessibility
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import os, json, sys, urllib.request, urllib.error
+          key = os.environ.get("OPENAI_API_KEY","").strip()
+          if not key:
+              print("GAMBIT_OPENAI_KEY=missing")
+              sys.exit(2)
+          print("GAMBIT_OPENAI_KEY=present")
+          for label, endpoint in (("AUTH", "/v1/models"),
+                                  ("SOL_MODEL", "/v1/models/gpt-6.1-sol")):
+              req=urllib.request.Request("https://api.openai.com"+endpoint,
+                                         headers={"Authorization":"Bearer "+key},
+                                         method="GET")
+              try:
+                  with urllib.request.urlopen(req,timeout=25) as response:
+                      result=json.load(response)
+                      print(label+"_HTTP="+str(response.status))
+                      if label=="SOL_MODEL":
+                          print("SOL_MODEL_ID="+str(result.get("id","unknown"))[:80])
+              except urllib.error.HTTPError as exc:
+                  print(label+"_HTTP="+str(exc.code))
+                  sys.exit(3)
+              except Exception as exc:
+                  print(label+"_ERROR="+type(exc).__name__)
+                  sys.exit(4)
+          print("GAMBIT_GENERATION_CALLS=0")
+          PY
