@@ -1,0 +1,140 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-30T13:20:06.653258+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 9,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "URLError"
+      }
+    ],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 8,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/VlcekM/MeitouClient/issues/119",
+        "title": "Feedback: I was stopped and held at sword point but they still hit me even after i paid",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/jCondeData/minecraft-alive-workplace/issues/1",
+        "title": "Nightly tests failing",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Zoverions/AXIOM-MESH/issues/1575",
+        "title": "Watch findings integration backlog \u2014 architecture/security conformance",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/zhangjiayang6835-cyber/bounty-plaza/issues/1836",
+        "title": "[Bounty] [Bounty $3,000] Fix ttnn.sampling distribution bias from low-precision random th",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tenstorrent/tt-metal/issues/59732",
+        "title": "[Bounty $3,000] Fix ttnn.sampling distribution bias from low-precision random threshold",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://lettuce.co/resources/hiring-a-freelancer",
+        "title": "Hiring a Freelancer: Everything You Need to Know - lettuce.co",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-31 build cooking platform",
+      "is:issue is:open bounty created:>=2026-08-31 create membership area",
+      "hiring a freelancer to create a membership area for a cooking blog",
+      "looking for someone to build a cooking platform with KYC and social media integration"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a cooking platform with KYC and social media integration",
+      "hiring a freelancer to create a membership area for a cooking blog",
+      "need paid help with designing a website that wows users",
+      "can anyone create a custom platform for verified creators and payouts"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 12,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a cooking platform with KYC and social media integration",
+        "hiring a freelancer to create a membership area for a cooking blog",
+        "need paid help with designing a website that wows users",
+        "can anyone create a custom platform for verified creators and payouts"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 139,
+      "known_pages": 1451
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [
+    {
+      "reason": "offer_selection_execution_failed",
+      "detail": "provider_http_500_api.agentmail.to"
+    }
+  ],
+  "commercial_outcomes": [
+    {
+      "reason": "offer_selection_failed",
+      "detail": "provider_http_500_api.agentmail.to"
+    },
+    {
+      "reason": "no_feasible_contained_offer"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
