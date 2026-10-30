@@ -1,6 +1,6 @@
 """Optional OpenAI inference for Gambit. No billable calls without explicit opt-in.
 
-Requires OPENAI_API_KEY and GAMBIT_INFERENCE_PROVIDER=openai.
+Requires OPENAI_API_KEY and GAMBIT_INFERENCE_PROVIDER=auto or openai.
 No prompts, buyer data, keys, or responses are logged.
 """
 from __future__ import annotations
@@ -30,8 +30,12 @@ def available():
 
 def provider():
     setting = os.getenv("GAMBIT_INFERENCE_PROVIDER", "ollama").strip().lower()
-    if setting not in {"ollama", "openai"}:
+    if setting not in {"ollama", "openai", "auto"}:
         raise ValueError("unsupported_inference_provider")
+    if setting == "auto":
+        # Connecting a key is the explicit opt-in; absent means existing free
+        # local inference continues with zero external API spending.
+        return "openai" if available() else "ollama"
     if setting == "openai" and not available():
         raise RuntimeError("openai_key_not_configured")
     return setting
