@@ -500,6 +500,21 @@ class GambitTests(unittest.TestCase):
             'bounty': {'title': 'Send outreach emails to leads',
                        'verification': 'Provide sent email confirmations.'}}))
 
+    def test_research_title_cannot_hide_functional_app_requirements(self):
+        request = {"bounty": {
+            "title": "Research nonprofit fundraising events and contacts",
+            "description": ("Build a web application that allows users to upload "
+                            "a CSV of organization domains, performs automatic "
+                            "internet searches and returns auction event dates."),
+            "verification": ("Provide working app source code, setup instructions, "
+                             "and results for a sample CSV.")}}
+        self.assertEqual("software_project_not_supported",
+                         gambit.unsupported_deliverable(request))
+        self.assertIsNone(gambit.unsupported_deliverable({"bounty": {
+            "title": "Research nonprofits and summarize upcoming auctions",
+            "description": "Research public nonprofit auction dates from supplied CSV.",
+            "verification": "Deliver a sourced XLSX report, not a web application."}}))
+
     @patch.object(gambit, "website_capable", return_value=False)
     def test_static_site_source_cannot_be_bid_until_visual_qa_exists(self, _capable):
         self.assertEqual('website_visual_quality_unverified',
