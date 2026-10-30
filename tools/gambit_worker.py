@@ -615,6 +615,11 @@ def market_workload(state, opened, waiting):
 
 
 def infer(schema, system, context, *, num_predict=900, num_ctx=5500, fast=False):
+    from tools import gambit_openai
+    if gambit_openai.provider() == "openai":
+        return gambit_openai.infer(
+            schema, system, context, num_predict=num_predict,
+            num_ctx=num_ctx, fast=fast)
     model_name = TRIAGE_MODEL if fast else MODEL
     request = urllib.request.Request(
         OLLAMA, method="POST", data=json.dumps({
