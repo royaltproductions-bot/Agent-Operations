@@ -373,6 +373,30 @@ class CyclopsEfficiencyTests(unittest.TestCase):
         self.assertIn("consider including",send.call_args.args[2])
         self.assertNotIn("interview",send.call_args.args[2])
 
+    def test_wolverine_does_not_pitch_marketing_agency_as_customer(self):
+        seller = {
+            "source_url": "https://growyourwebs.com/services/dashboards-admin-panels",
+            "title": "Custom Dashboard Development Company",
+            "page_fetched": True, "contact": "business@provider.example",
+            "page_text": (
+                "Our services include custom dashboard development and data integration. "
+                "Request a proposal today. Our team delivers solutions for your business. "
+                "Contact us for a consultation."),
+        }
+        self.assertTrue(brain.seller_marketing_page(seller))
+        self.assertFalse(brain.public_buyer_invitation(seller))
+        self.assertEqual(brain.requester_evidence(seller), "")
+        buyer = {
+            "source_url": "https://example.org/open-request",
+            "title": "Request for bids to build our team's dashboard",
+            "page_fetched": True, "contact": "bids@example.org",
+            "page_text": (
+                "We are seeking a contractor to design a dashboard for our team. "
+                "Send your proposal by November 30; payment is available."),
+        }
+        self.assertFalse(brain.seller_marketing_page(buyer))
+        self.assertTrue(brain.public_buyer_invitation(buyer))
+
     def test_wolverine_does_not_treat_hiring_article_as_direct_buyer(self):
         from tools import autonomous_commerce_brain as brain
         tutorial={"page_fetched":True,"title":"How to Hire a Freelancer: The Complete Guide",
