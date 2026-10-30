@@ -1,0 +1,206 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-30T00:17:09.770710+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "duckduckgo": 5,
+      "bing": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 16,
+    "verified_firsthand_problem_pages": 3,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 15,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=48721577",
+        "title": "Metasearch Tooling for Agents",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47634733",
+        "title": "Scaling tool orchestration data will emerge different intelligence and LLMs",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47380332",
+        "title": "Toolpack SDK, an Open Source TypeScript SDK for Building AI-Powered Applications",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47368865",
+        "title": "Hawkeye \u2013 open-source flight recorder",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47140588",
+        "title": "Ask HN: How to exhaustively search the scientific literature?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46769281",
+        "title": "Qwen3-Max-Thinking Drops: 36T Tokens",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 15,
+    "search_queries": [
+      "web scraping tools",
+      "PDF to Markdown",
+      "data extraction tools"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 2,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "web scraping tools",
+        "PDF to Markdown",
+        "AI document conversion",
+        "data extraction tools"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 140,
+      "known_pages": 1338
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:15 candidates reviewed; or a specific original product. The page lists web scraping tools but does not indicate a unique product or market opportunity. Additionally, there is no verified sales"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 0,
+    "product_pages": 0,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [],
+  "market_assessments": [
+    {
+      "candidate_id": "web:f96eecdc0fdf6a42db",
+      "decision": "pass",
+      "reason": "While the metasearch tooling for agents presents an interesting opportunity, the lack of a listed price and displayed sales count makes it difficult to assess its commercial viability. Additionally, the current state of the product is limited to a single-source search, which may not be sufficient to justify the investment without clear evidence of "
+    },
+    {
+      "candidate_id": "web:a4ef673dfae258671b",
+      "decision": "pass",
+      "reason": "The candidate discusses the future of tool orchestration and intelligence, but lacks concrete evidence of demand, sales, or a clear product offering. It is speculative and lacks actionable market validation."
+    },
+    {
+      "candidate_id": "web:440501f075a33c28e1",
+      "decision": "pass",
+      "reason": "While the Toolpack SDK addresses a clear pain point for developers working with multiple LLM providers, there is no evidence of demand or sales to indicate that a product based on this concept would be viable. The SDK is open-source and free to use, which means there is no direct revenue stream unless a premium version or additional services are of"
+    },
+    {
+      "candidate_id": "web:0b56b3c30902e4d5a5",
+      "decision": "pass",
+      "reason": "While Hawkeye presents an interesting concept for observability and security in AI agents, there is no clear evidence of demand or sales. The project is open-source and lacks a monetization strategy, making it difficult to assess its viability as a commercial product. Additionally, the absence of a listed price or sales count suggests limited marke"
+    },
+    {
+      "candidate_id": "web:fb73727a072eeecca8",
+      "decision": "pass",
+      "reason": "The candidate represents a niche academic need for a comprehensive database of specific seismic events, but there is no evidence of demand or sales to justify building a product. The user is seeking tools for data collection, not a product to sell."
+    },
+    {
+      "candidate_id": "web:7f83976b666555ebb7",
+      "decision": "pass",
+      "reason": "The candidate is a news article about a product (Qwen3-Max-Thinking) that is not for sale, and there is no listed price or sales count. It is not a product that can be built or sold, so it is not a viable candidate for evaluation."
+    },
+    {
+      "candidate_id": "web:c91746bfe08da3c370",
+      "decision": "pass",
+      "reason": "The candidate lacks a clear product offering or pricing model, and the evidence provided is more about a framework for product design rather than a specific product. There is no indication of actual sales or buyer interest, making it difficult to justify pursuing this as a viable business opportunity."
+    },
+    {
+      "candidate_id": "web:1560e77a72f8d311aa",
+      "decision": "pass",
+      "reason": "The discussion around file organization highlights a common pain point, but it lacks clear evidence of a specific product or demand for a solution. While the problem is relatable, there is no indication of a market-ready product or buyer intent, making it difficult to justify pursuing this idea without further validation."
+    },
+    {
+      "candidate_id": "web:17130f05b2dc3e4521",
+      "decision": "pass",
+      "reason": "The article lists ScrapingBee as a top web scraping tool, but there is no evidence of actual sales or buyer activity. The presence of competitors like Diffbot, Bright Data, and Captain Data suggests a crowded market. Without verified sales or clear differentiation, the opportunity for a new product in this space is uncertain."
+    },
+    {
+      "candidate_id": "web:549fb36a0a4fed7a48",
+      "decision": "pass",
+      "reason": "The article highlights Thunderbit as a tool for data extraction, but it does not provide concrete evidence of sales or customer activity. The content is more of a comparison and review rather than a direct indication of a viable product. Additionally, the existing catalog already includes similar tools, which may indicate limited differentiation."
+    },
+    {
+      "candidate_id": "web:c6aadee9fdadeb6119",
+      "decision": "pass",
+      "reason": "The page appears to be a promotional article for CapSolver, which is a CAPTCHA solving service. The content does not indicate a clear product offering or a specific utility that would justify building an original product. The focus is on marketing CapSolver's services rather than presenting a new product idea."
+    },
+    {
+      "candidate_id": "web:1b9746a177def33ef0",
+      "decision": "pass",
+      "reason": "The PDF to Markdown Converter tool appears to have limited market demand compared to other tools in the web scraping space. While it serves a niche purpose, there is no clear evidence of significant customer activity or utility. Additionally, the tool lacks pricing and sales data, making it difficult to assess its viability as a commercial product."
+    },
+    {
+      "candidate_id": "web:30f188f7cf5349c528",
+      "decision": "pass",
+      "reason": "The article lists web scraping tools but does not provide specific evidence of a unique product or demand for an original offering. It serves as a general guide rather than indicating a viable product opportunity."
+    },
+    {
+      "candidate_id": "web:edd07b64c59082dc4b",
+      "decision": "pass",
+      "reason": "The evidence does not provide clear customer activity, demand strength, or competitive positioning for a specific original product. The page lists web scraping tools but does not indicate a unique product or market opportunity. Additionally, there is no verified sales count or buyer utility to support the viability of a new product in this space."
+    },
+    {
+      "candidate_id": "web:af36fbf88206f4db71",
+      "decision": "pass",
+      "reason": "The candidate lacks a clear product offering and does not provide evidence of a viable, differentiated solution. The page appears to be a blog post promoting data extraction tools rather than a specific product. There is no indication of a unique value proposition, production feasibility, or attainable buyers. The absence of a listed price, sales c"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "no_saleable_products",
+    "indexable_product_pages": 0,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 15,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "market_opportunity_declined:15 candidates reviewed; or a specific original product. The page lists web scraping tools but does not indicate a unique product or "
+  }
+}
