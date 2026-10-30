@@ -57,6 +57,13 @@ def cycle():
     if status.get('needs_run') != 'true':
         return
     if status.get('needs_model') == 'true':
+        # Keep marketplace discovery free and running, but do not allow Qwen
+        # to make commercial decisions once OpenAI-only mode is selected.
+        if (os.getenv("GAMBIT_INFERENCE_PROVIDER", "ollama").lower() == "openai"
+                and not os.getenv("OPENAI_API_KEY", "").strip()):
+            print(json.dumps({"market_scan": "complete",
+                              "inference": "awaiting_openai_key"}), flush=True)
+            return
         prepare_models(status.get('needs_production_model') == 'true')
     try:
         command([sys.executable, '-m', 'tools.gambit_worker'])
