@@ -1,0 +1,210 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-30T07:44:05.477904+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 13,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "duckduckgo": 5,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "verified_firsthand_problem_pages": 4,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 12,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=9137244",
+        "title": "Ask HN: Can you guys give me some advice on my resume?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=8472918",
+        "title": "Ask HN: Where can I find some leads for my site?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=24221550",
+        "title": "Would you use web scraping to save time? Do you understand what to use it for?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=2849238",
+        "title": "Ask HN: Are you like people from Greenland?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.scraperapi.com/web-scraping/services/",
+        "title": "Best 12 Web Scraping Services in 2026 (Pros, Cons, Pricing)",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.verifiedmarketreports.com/product/web-scraping-software-market/",
+        "title": "Global Web Scraping Software Market Size, Industry Growth & Forecast ...",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 11,
+    "search_queries": [
+      "web scraping tools market size",
+      "web scraping tools sales",
+      "web scraping tools demand",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 17,
+      "skipped_revisits": 21,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "web scraping tools market size",
+        "web scraping tools demand",
+        "web scraping tools sales",
+        "web scraping tools buyers"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 1457
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:12 candidates reviewed; ready includes a similar product, 'Web Data Ext; The candidate lacks concrete evidence of demand, pricing, or sales, making it difficult to assess viability. The page a"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:875e238662830f081d",
+      "decision": "pass",
+      "reason": "The candidate's resume details suggest a focus on technical skills and experience in web scraping and development, but there is no clear indication of a specific product or service being offered. The resume excerpts do not demonstrate a viable product idea or a clear customer need that can be addressed with a new offering. Additionally, there is no"
+    },
+    {
+      "candidate_id": "web:d5d83e26bbcd00ffe6",
+      "decision": "pass",
+      "reason": "The candidate lacks clear evidence of demand, pricing, or sales, making it difficult to assess viability. While there is interest in web scraping services, the absence of concrete data or a defined product offering makes it speculative."
+    },
+    {
+      "candidate_id": "web:36013849b5e3899af5",
+      "decision": "pass",
+      "reason": "While the discussion highlights potential use cases for web scraping, there is no clear evidence of a specific customer problem or demand for a new product in this space. The existing competition and lack of pricing or sales data make it difficult to justify pursuing a new product without further validation of a unique value proposition."
+    },
+    {
+      "candidate_id": "web:adde8f71c50d10d67e",
+      "decision": "pass",
+      "reason": "The candidate lacks a clear product idea or business model. The discussion about Greenlanders' lifestyle and career choices is anecdotal and does not indicate a viable product or market opportunity. There is no evidence of a specific problem being solved or a demand for a product."
+    },
+    {
+      "candidate_id": "web:f81c2946d51b87a8a9",
+      "decision": "pass",
+      "reason": "The article discusses web scraping services but does not provide specific evidence of a unique product or customer demand that justifies building an original offering. The content is more of a general overview without actionable insights or a clear problem that a new product could solve."
+    },
+    {
+      "candidate_id": "web:b278bb4fb11dc5c9bb",
+      "decision": "pass",
+      "reason": "The market for web scraping software is well-established with significant industry growth and forecasted expansion. However, the absence of listed prices and displayed sales counts makes it difficult to assess the viability of a new product in this space. Existing competition and the presence of multiple established tools suggest that entering this"
+    },
+    {
+      "candidate_id": "web:232fddb213e8e5ed3d",
+      "decision": "pass",
+      "reason": "The page provides a list of web scraping tools, but there is no clear indication of a specific customer problem or a unique value proposition that differentiates a potential product. The existing competition and lack of pricing or sales data make it difficult to justify building a new product in this space without further evidence of a specific, un"
+    },
+    {
+      "candidate_id": "web:02c194100a63bfbfb9",
+      "decision": "pass",
+      "reason": "The market report indicates a growing demand for web scraping software, but there is no concrete evidence of existing sales or pricing. The lack of specific sales data and pricing makes it difficult to assess the viability of entering this market without further research and validation."
+    },
+    {
+      "candidate_id": "web:a73a44ce76aa1ffb21",
+      "decision": "pass",
+      "reason": "The Web Scraping Club appears to be a Substack publication focused on web scraping techniques, interviews, and anti-bot strategies. While it has 7,000 subscribers, this does not necessarily indicate a viable product or demand for a paid service. The content is educational and may not translate into a commercial product with clear buyer utility or p"
+    },
+    {
+      "candidate_id": "web:c04b7da50c2978650d",
+      "decision": "pass",
+      "reason": "The evidence suggests a market for AI-powered web scraping tools, but there is no clear indication of demand or pricing. The content is promotional and lacks specific customer testimonials, sales figures, or pricing details, making it difficult to assess viability. Additionally, the existing catalog already includes a similar product, 'Web Data Ext"
+    },
+    {
+      "candidate_id": "web:2f6a5be8530bdd5524",
+      "decision": "pass",
+      "reason": "The candidate lacks concrete evidence of demand, pricing, or sales, making it difficult to assess viability. The page appears to be a sales pitch without clear value proposition or market validation."
+    },
+    {
+      "candidate_id": "web:2bb545eb001570321c",
+      "decision": "pass",
+      "reason": "The page appears to be a marketing page for a web scraping service, but there is no clear evidence of actual sales or pricing. The content is more promotional than indicative of a viable product. Additionally, the existing catalog includes similar tools like the 'Web Data Extraction Dashboard for Real-Time Market Insights,' which suggests that the "
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 12,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
