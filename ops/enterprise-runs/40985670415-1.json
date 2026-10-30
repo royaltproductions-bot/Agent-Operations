@@ -1,0 +1,128 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-30T01:26:53.836491+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 9,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "JSONDecodeError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 11,
+    "contactable_sources": 5,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/ruohong2018/ruohong2018.github.io/issues/1359",
+        "title": "[\u6bcf\u65e5\u4fe1\u606f\u6d41] 2026-10-29",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/chainreactors/picker/issues/1409",
+        "title": "[\u6bcf\u65e5\u4fe1\u606f\u6d41] 2026-10-29",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/VectoDE/VectoraCloud/issues/14",
+        "title": "Stage 5: Survival, Creative, Mod server (epic)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/GV-Server-Mods/GVK-Settings/issues/741",
+        "title": "KOTH: new GVK KOTH Torch plugin (replaces the KOTH mod and DevPlugin)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/abdulsalam-create/bounty-watch/issues/176",
+        "title": "Scope digest 2026-10-26: 1 changes across 1 bounty programs",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://yunsoft.com/admin-panel-development-company",
+        "title": "Admin Panel Development Company \u2014 Custom Dashboards Built for Your Business",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-31 build custom admin",
+      "is:issue is:open bounty created:>=2026-08-31 create dashboard user",
+      "looking for someone to build a custom admin dashboard",
+      "hiring a freelancer to create a dashboard with user authentication"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a custom admin dashboard",
+      "hiring a freelancer to create a dashboard with user authentication",
+      "can anyone create a real-time data dashboard for my app",
+      "need paid help with a dashboard that integrates with third-party APIs"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 18,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a custom admin dashboard",
+        "hiring a freelancer to create a dashboard with user authentication",
+        "can anyone create a real-time data dashboard for my app",
+        "need paid help with a dashboard that integrates with third-party APIs"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 1297
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
