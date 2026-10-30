@@ -1,0 +1,129 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-30T05:47:15.598956+00:00",
+  "model": "qwen3:8b",
+  "asset": {
+    "asset_id": "6380f853132221ff30b7",
+    "title": "Web Data Extraction Dashboard for Real-Time Market Insights",
+    "price_usd": "199.99",
+    "price_cents": 19999,
+    "payment_link_id": "plink_1UW9IPBto3o776uyBwbgpMzY"
+  },
+  "discovery": {
+    "status": "deferred_for_existing_product",
+    "candidate_count": 0,
+    "new_research_attempted": false,
+    "research_deferred_for_product_completion": true,
+    "previous_product_evidence_count": 8,
+    "source_counts": {},
+    "search_provider_counts": {},
+    "source_errors": [],
+    "fetched_public_pages": 0,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 0,
+    "public_market_sample": [],
+    "paid_offer_sample": [],
+    "candidates_without_email": 0,
+    "search_queries": [],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [],
+      "next_query_queue": 4,
+      "frontier_size": 138,
+      "known_pages": 1422
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "approved_and_published",
+    "asset_id": "6380f853132221ff30b7",
+    "production_tool": "isolated_tool_workshop",
+    "artifact_count": 4,
+    "created_artifacts": [
+      {
+        "filename": "web_data_extraction_dashboard.html",
+        "bytes": 1477,
+        "sha256": "ec6821ebd5a81eab13ce16b5dc07268cab41863b73b2c2e4008eb68fe7abab77",
+        "content_type": "text/html"
+      },
+      {
+        "filename": "web_data_extraction_dashboard.css",
+        "bytes": 1245,
+        "sha256": "9a9413ab106152d7693c427d3a4a0df0b8ccb36867d379aedb449962a7b3fe38",
+        "content_type": "text/css"
+      },
+      {
+        "filename": "web_data_extraction_dashboard.js",
+        "bytes": 1742,
+        "sha256": "b2e3d8851a2b5c151e7cd33d699193a5be27681f7ec66506e40de29d51ad5632",
+        "content_type": "text/javascript"
+      },
+      {
+        "filename": "web_data_extraction_dashboard_data.json",
+        "bytes": 2672,
+        "sha256": "b56debb7fd366f478be51b69314fc473653f0d0a6090aa015eb1f1a619bf01ab",
+        "content_type": "application/json"
+      }
+    ]
+  },
+  "catalog": {
+    "result": "catalog_published",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 3
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": {
+    "result": "no_relevant_opt_in_buyer",
+    "asset_id": "6380f853132221ff30b7"
+  },
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 1,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        },
+        {
+          "source": "public_page_fetch",
+          "reason": "HTTPError"
+        }
+      ]
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": true,
+    "public_sources_reviewable": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
