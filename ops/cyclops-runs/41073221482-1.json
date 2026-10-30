@@ -1,0 +1,200 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-30T14:38:56.677361+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 10,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 10
+    },
+    "search_provider_counts": {
+      "duckduckgo": 7,
+      "hn_ask": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 10,
+    "verified_firsthand_problem_pages": 1,
+    "observed_public_paid_offers": 1,
+    "market_candidates_considered": 1,
+    "public_sources_available_for_judgment": 10,
+    "public_market_sample": [
+      {
+        "url": "https://www.scrapeless.com/en/pricing",
+        "title": "Scrapeless Pricing for Agent Browser & Scraping APIs",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=49124280",
+        "title": "The Mistake That Cost Me a Year",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44230971",
+        "title": "Ask HN: What are your thoughts on LLM routing?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=42756348",
+        "title": "Ask HN: How Do AI Apps Like ChatGPT Achieve Such High Speeds?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://scrapingapi.ai/pricing",
+        "title": "ScrapingAPI.ai Pricing - Choose a Plan That's Right for Your Business",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.browse.ai/pricing",
+        "title": "Pricing - Browse AI",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://www.scrapeless.com/en/pricing",
+        "title": "Scrapeless Pricing for Agent Browser & Scraping APIs",
+        "displayed_sales_count": null,
+        "listed_price_usd": "1.00"
+      }
+    ],
+    "candidates_without_email": 7,
+    "search_queries": [
+      "AI Web Scraping API pricing",
+      "AI Web Scraping API market demand"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 18,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "AI Web Scraping API market demand",
+        "AI Web Scraping API pricing",
+        "AI Web Scraping API sales data",
+        "AI Web Scraping API competition"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 1581
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:10 candidates reviewed;  advancements in AI, ML, and NLP. However, the lack of specific sales data and pricing information makes it difficult to assess the viability of a new product in this s"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:90cffbe476c830e7a0",
+      "decision": "pass",
+      "reason": "The candidate lacks concrete evidence of actual buyer demand or utility. While the pricing model is clear, there is no indication of real-world usage or customer activity. The evidence excerpt focuses on technical capabilities rather than actual buyer needs or willingness to pay. Without verified sales or customer engagement, the product's viabilit"
+    },
+    {
+      "candidate_id": "web:1d373384a4092ea7f9",
+      "decision": "pass",
+      "reason": "The candidate describes a personal project to build a video downloader tool, but there is no evidence of a viable product, sales, or demand. The individual's experience and technical approach are discussed, but there is no indication of a market-ready solution or buyer interest. The project appears to be a personal experiment rather than a commerci"
+    },
+    {
+      "candidate_id": "web:027c1e29e428ce1a19",
+      "decision": "pass",
+      "reason": "The discussion on HN about LLM routing highlights a potential gap in the market for an API that simplifies model selection and integration with tools like web scraping. However, the absence of concrete sales data, pricing, or direct evidence of demand makes it difficult to assess the viability of such a product. While the idea is intriguing, the la"
+    },
+    {
+      "candidate_id": "web:b562fd8e58ea75d6ad",
+      "decision": "pass",
+      "reason": "The discussion highlights a technical curiosity about AI performance optimization, but there is no clear indication of a specific product or market demand. The user is seeking insights into engineering strategies, which suggests a need for educational content rather than a commercial product. There is no evidence of a viable product, sales, or pric"
+    },
+    {
+      "candidate_id": "web:052e386d5d43b396d3",
+      "decision": "pass",
+      "reason": "While ScrapingAPI.ai appears to have a strong market position with claims of 93% better performance and over 12,000 companies using it, there is no concrete evidence of actual sales or pricing. The absence of verified sales counts and listed prices makes it difficult to assess the viability of building a differentiated product in this space. Additi"
+    },
+    {
+      "candidate_id": "web:729e8c4f4a3c0b72c2",
+      "decision": "pass",
+      "reason": "The page for Browse AI lacks clear pricing information and displayed sales counts, making it difficult to assess market viability. While the service offers various data scraping capabilities, the absence of concrete pricing details and sales figures prevents a thorough evaluation of its commercial potential."
+    },
+    {
+      "candidate_id": "web:79117f8a56b3c78c43",
+      "decision": "pass",
+      "reason": "The article highlights the importance of web scraping APIs for AI applications, but it does not provide concrete evidence of a specific product or demand for a new offering. The existing competition (e.g., Spider, Firecrawl, ScrapingBee) suggests a saturated market, and without a clear differentiation or a specific customer problem that the new pro"
+    },
+    {
+      "candidate_id": "web:cfe454a26e521c1f6a",
+      "decision": "pass",
+      "reason": "The market for AI-driven web scraping is growing with a projected CAGR of 19.82% from 2026 to 2035, indicating strong demand. However, the absence of listed prices and displayed sales counts makes it difficult to assess the viability of entering this market. Additionally, the presence of existing competitors like ScrapingAPI.ai suggests a saturated"
+    },
+    {
+      "candidate_id": "web:0c92910d8c2a9ce01c",
+      "decision": "pass",
+      "reason": "The market for AI-driven web scraping is growing due to increasing demand for data-driven insights and advancements in AI, ML, and NLP. However, the lack of specific sales data and pricing information makes it difficult to assess the viability of a new product in this space. Additionally, there are existing competitors like ScrapingAPI.ai, which al"
+    },
+    {
+      "candidate_id": "web:dd6496d8efca98ebaf",
+      "decision": "pass",
+      "reason": "The candidate lacks a clear, specific problem statement and does not demonstrate a unique value proposition beyond general web scraping capabilities. The existing catalog includes similar or overlapping offerings, and the absence of pricing or sales data makes it difficult to assess market viability. The product appears to be a generic web scraping"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 10,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
