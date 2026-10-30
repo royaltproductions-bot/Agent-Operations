@@ -283,7 +283,10 @@ def seller_marketing_page(row):
     seller_title = bool(re.search(
         r"\b(?:marketing agency|development company|consulting firm|"
         r"agency services|dashboard development|promotion services)\b", title))
-    return seller_copy and (service_path or seller_title)
+    home_provider = (path in {"", "/"} and bool(re.search(
+        r"\b(?:marketing agency|marketing services|music promotion services|"
+        r"we are a digital agency|we're a digital agency)\b", body[:3500])))
+    return seller_copy and (service_path or seller_title or home_provider)
 
 
 def is_requester_page(row):
