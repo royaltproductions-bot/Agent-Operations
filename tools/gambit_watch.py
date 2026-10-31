@@ -1,6 +1,7 @@
 """Resident supervisor: keep watching after housekeeping, work and recoverable failure."""
 import json
 import os
+import shutil
 from pathlib import Path
 import subprocess
 import sys
@@ -13,21 +14,47 @@ def command(args, **kwargs):
 
 
 def checkpoint():
-    """Publish worker state and the conservative API budget ledger together."""
-    paths = ['ops/gambit/state.json', 'ops/gambit/openai_budget.json']
-    if subprocess.run(['git', 'diff', '--quiet', '--', *paths]).returncode == 0:
-        return
-    command(['git', 'config', 'user.name', 'gambit-worker'])
-    command(['git', 'config', 'user.email', 'ari-operations@agentmail.to'])
-    command(['git', 'add', *paths])
-    command(['git', 'commit', '-m', 'Record Gambit market and delivery checkpoint'])
-    for attempt in range(6):
-        if subprocess.run(['git', 'push', 'origin', 'HEAD:main']).returncode == 0:
+    """Persist Gambit state and its spending ledger on an isolated branch.
+
+    Other revenue variants continuously commit receipts to main. A dedicated
+    branch prevents their writes from racing Gambit's 30-second checkpoints.
+    Do not allow a new inference call when state persistence fails.
+    """
+    files = ['ops/gambit/state.json', 'ops/gambit/openai_budget.json']
+    for attempt in range(4):
+        command(['git', 'fetch', '--no-tags', 'origin', 'gambit-state'])
+        originals = [
+            subprocess.run(['git', 'show', 'origin/gambit-state:' + p],
+                           check=True, stdout=subprocess.PIPE).stdout
+            for p in files
+        ]
+        if all(Path(p).read_bytes() == original
+               for p, original in zip(files, originals)):
             return
-        command(['git', 'fetch', 'origin', 'main'])
-        command(['git', 'rebase', 'origin/main'])
-        time.sleep(min(2 ** attempt, 8))
-    raise RuntimeError('checkpoint_push_failed')
+        with tempfile.TemporaryDirectory(prefix='gambit-state-') as folder:
+            directory = Path(folder) / 'checkout'
+            command(['git', 'worktree', 'add', '--detach',
+                     str(directory), 'origin/gambit-state'])
+            try:
+                for p in files:
+                    dest = directory / p
+                    dest.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copyfile(p, dest)
+                prefix = ['git', '-C', str(directory)]
+                command(prefix + ['config', 'user.name', 'gambit-worker'])
+                command(prefix + ['config', 'user.email',
+                                  'ari-operations@agentmail.to'])
+                command(prefix + ['add', '--', *files])
+                command(prefix + ['commit', '-m',
+                                  'Checkpoint Gambit market and API budget'])
+                pushed = subprocess.run(
+                    prefix + ['push', 'origin', 'HEAD:refs/heads/gambit-state'])
+                if pushed.returncode == 0:
+                    return
+            finally:
+                command(['git', 'worktree', 'remove', '--force', str(directory)])
+        time.sleep(min(2 ** attempt, 4))
+    raise RuntimeError('checkpoint_isolated_state_push_failed')
 
 
 def probe(module):
