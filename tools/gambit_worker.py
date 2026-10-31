@@ -410,19 +410,16 @@ def schedule_evaluation_retry(state, bounty_id, exc):
 
 
 def schedule_fulfillment_retry(state, bounty_id, exc):
-    """Back off failed hired work, then release it rather than timeout forever."""
+    """Back off transient failures while the platform claim remains active."""
     previous = state["bounties"].get(bounty_id) or {}
     attempt = int(previous.get("retry_count") or 0) + 1
     reason = safe_failure_reason(exc)
     common = {**previous, "claim_id": previous.get("claim_id"),
               "payout_cents": previous.get("payout_cents"),
               "retry_count": attempt, "last_error": reason, "at": timestamp()}
-    if attempt >= 3:
-        state["bounties"][bounty_id] = {
-            **common, "action": "fulfillment_failed_final"}
-        note(state, "fulfillment_retries_exhausted", bounty_id, reason=reason)
-        return
-    delay_minutes = (3, 12)[attempt - 1]
+    # Long tasks need multiple scheduled attempts. Respect the buyer's live
+    # claim status and the external OpenAI budget at every cycle.
+    delay_minutes = min(120, 3 * (2 ** min(attempt - 1, 6)))
     state["bounties"][bounty_id] = {
         **common, "action": "retry_fulfillment",
         "retry_at": (datetime.now(timezone.utc) +
@@ -968,18 +965,6 @@ def unsupported_deliverable(details):
     if re.search(r"\b(?:fillable|interactive|signed|digitally signed)\b.{0,60}\bpdf\b",
                  requested + " " + verification):
         return "unsupported_pdf_form"
-    # Public search does not provide bulk authenticated LinkedIn sourcing.
-    # High-volume individually sourced people records exceed the verified
-    # research budget; never bid on hundreds of identities as though verified.
-    if ("linkedin profile" in verification or "linkedin profile" in requested):
-        amounts=[int(value) for value in re.findall(
-            r"\b(?:exactly|at least|minimum of)?\s*(\d{2,4})\s+"
-            r"(?:candidate|prospect|lead|contact|person|professional|record)s?\b",
-            verification)]
-        if any(amount > int(os.getenv("GAMBIT_MAX_VERIFIABLE_PROSPECTS", "30"))
-               for amount in amounts):
-            return "bulk_linkedin_prospect_research_unverified"
-
     requested_formats = requested_output_format(details)
     if len(requested_formats) > 1 or requested_formats - SUPPORTED_FORMATS:
         return "unsupported_multi_or_file_format"
@@ -1709,18 +1694,12 @@ def handle_hired(item, state):
             "returned and you can hire an appropriately equipped provider.")
         return
     previous = state["bounties"].get(bounty_id) or {}
-    if previous.get("action") == "fulfillment_failed_final":
-        unclaim_unfulfillable(
-            bounty_id, claim["claim_id"], state, "repeated_automated_delivery_failure",
-            "I'm sorry; repeated processing failures prevented a verified delivery. "
-            "I'm releasing this commission so you can hire another provider.")
-        return
-    if previous.get("action") == "quality_rejected_final":
-        unclaim_unfulfillable(
-            bounty_id, claim["claim_id"], state, "quality_review_failed",
-            "I'm sorry; this work did not pass our completion checks. I'm releasing "
-            "the assignment so your payment can be returned.")
-        return
+    # Recover legacy terminal states rather than refunding solely because an
+    # earlier local retry counter hit an artificial threshold.
+    if previous.get("action") in {"fulfillment_failed_final", "quality_rejected_final"}:
+        previous["action"] = "retry_fulfillment"
+        previous["retry_at"] = timestamp()
+        note(state, "resume_legacy_failed_work", bounty_id)
     earned_if_completed = (details.get("bounty") or {}).get("payout_cents")
     if previous.get("claim_id") != claim["claim_id"]:
         note(state, "hired", bounty_id, payout_cents=earned_if_completed)
@@ -1905,22 +1884,16 @@ def handle_hired(item, state):
                  else "quantity" if "explicitly requested" in reason
                  else "review")
         count = int(previous.get("quality_retry_count") or 0) + 1
-        if count <= 2:
-            delay = (15, 45)[count - 1]
-            state["bounties"][bounty_id] = {
-                "action": "quality_rejected", "claim_id": claim["claim_id"],
-                "payout_cents": earned_if_completed, "quality_issue": issue,
-                "quality_retry_count": count,
-                "retry_at": (datetime.now(timezone.utc) + timedelta(minutes=delay)).isoformat()}
-            note(state, "quality_retry_scheduled", bounty_id, attempt=count,
-                 delay_minutes=delay)
-        else:
-            unclaim_unfulfillable(
-                bounty_id, claim["claim_id"], state, "quality_review_failed",
-                "I'm sorry: after additional corrections I cannot verify a complete "
-                "deliverable against the requested criteria. I will release this "
-                "assignment so your funds can be returned and another provider "
-                "can complete the work.")
+        # Work remains pending for a fresh attempt rather than unclaiming
+        # merely because two model revisions were unsuccessful.
+        delay = min(120, 15 * (2 ** min(count - 1, 4)))
+        state["bounties"][bounty_id] = {
+            "action": "quality_rejected", "claim_id": claim["claim_id"],
+            "payout_cents": earned_if_completed, "quality_issue": issue,
+            "quality_retry_count": count,
+            "retry_at": (datetime.now(timezone.utc) + timedelta(minutes=delay)).isoformat()}
+        note(state, "quality_retry_scheduled", bounty_id, attempt=count,
+             delay_minutes=delay)
         return
     if format_name in OUTPUT_FILES:
         filename, mime = OUTPUT_FILES[format_name]
