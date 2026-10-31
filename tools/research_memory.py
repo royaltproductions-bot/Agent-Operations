@@ -173,6 +173,13 @@ class ResearchMemory:
             "recent_searches_with_new_pages":sum(bool(x.get("new_pages")) for x in recent),
             "recent_runs_without_an_offer":sum(not bool(x.get("offers")) for x in recent_outcomes),
             "recent_runs_observed":len(recent_outcomes),
+            # Recent themes that produced research but no commercial contact.
+            # Expose them as explicitly *failed approaches*, not as examples
+            # of niches to continue indefinitely.
+            "avoid_recent_unsuccessful_topics":[
+                str(q.get("query") or "")[:120] for q in recent[-8:]
+            ] if self.lane=="wolverine" and
+                 sum(bool(x.get("offers")) for x in recent_outcomes[-4:])==0 else [],
             "commercial_feedback":[{
                 "outcome":x.get("commercial_reasons") or [],
                 "production":x.get("production_result") or "",
