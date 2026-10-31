@@ -1,0 +1,131 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-31T02:14:02.139216+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 11
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "JSONDecodeError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 16,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2406",
+        "title": "[wildcard] Inline Ghost-Capability Directives: Erasing the .hy file split via standard Go AST comment pragmas",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/lizTheDeveloper/privacy-the-game/issues/413",
+        "title": "[find opt-out] Vintel AI: find the official opt-out route",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/lizTheDeveloper/privacy-the-game/issues/411",
+        "title": "[find opt-out] Statara Solutuions LLC: find the official opt-out route",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/lizTheDeveloper/privacy-the-game/issues/410",
+        "title": "[find opt-out] SalesTech, LLC: find the official opt-out route",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/lizTheDeveloper/privacy-the-game/issues/408",
+        "title": "[find opt-out] Safety Holdings Inc.: find the official opt-out route",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.upwork.com/hire/risk-assessment-freelancers/",
+        "title": "Best Risk Assessment Freelancers for Hire (Oct 2026) - Upwork",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-01 build ai risk",
+      "is:issue is:open bounty created:>=2026-09-01 create ai compliance",
+      "looking for someone to build an AI risk assessment tool",
+      "hiring a freelancer to create an AI compliance checklist"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build an AI risk assessment tool",
+      "hiring a freelancer to create an AI compliance checklist",
+      "need paid help with EU AI Act risk tier classification",
+      "can anyone create an AI risk disposition template"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 18,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build an AI risk assessment tool",
+        "hiring a freelancer to create an AI compliance checklist",
+        "need paid help with EU AI Act risk tier classification",
+        "can anyone create an AI risk disposition template"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 140,
+      "known_pages": 1635
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
