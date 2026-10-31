@@ -173,7 +173,7 @@ def verify_project(files, render):
             "--env","PYTHONDONTWRITEBYTECODE=1",
             "python:3.12-slim","python","-B","-c",
             "import subprocess,sys\n"
-            "a=subprocess.run(['python','-B','-m','unittest','discover','-s','tests','-q'],"
+            "a=subprocess.run(['python','-B','-m','unittest','discover','-s','tests','-t','tests','-q'],"
             "timeout=20)\n"
             "if a.returncode: sys.exit(2)\n"+smoke
         ]
