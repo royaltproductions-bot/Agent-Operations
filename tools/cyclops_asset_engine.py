@@ -233,7 +233,8 @@ def demand_candidates(memory):
             "prior_unvisited_links":len(memory.frontier(limit=140)),
         })
     # Rank directly observed public paid offers; no private sales records needed.
-    rows.sort(key=lambda r:not bool(observed_paid_listing(r)))
+    rows.sort(key=lambda r:(not bool(firsthand_problem_excerpt(r)),
+                            not bool(observed_paid_listing(r))))
     return rows,issues+errors
 
 
@@ -389,7 +390,24 @@ def choose_asset_concept(rows,existing_assets=None):
             break
         remaining=[p for p in remaining if p["candidate_id"]!=selected["candidate_id"]]
     else:
-        raise MarketDeclined(assessments)
+        # A genuine first-person unsolved problem is enough to test a
+        # deliberately small product, even without competitors' sales figures.
+        # Never substitute an editorial article or a seller's advertisement.
+        source_by_id={str(row.get("id")):row for row in rows}
+        trial_candidates=[p for p in visible if (
+            str((source_by_id.get(p["candidate_id"]) or {}).get("search_alignment") or "")
+            in {"first_party_question_post", "original_open_issue"} and
+            firsthand_problem_excerpt(source_by_id[p["candidate_id"]]))]
+        if not trial_candidates:
+            raise MarketDeclined(assessments)
+        selected=trial_candidates[0]
+        judgment={
+            "candidate_id":selected["candidate_id"],
+            "decision":"pursue",
+            "reason":"Low-cost original pilot answering a real first-person user "
+                     "problem, with market validation still to be measured. "
+                     "No verified demand or revenue is claimed."
+        }
     judgment_reason=str(judgment.get("reason") or "").strip()
     if not judgment_reason:
         raise ValueError("market_judgment_missing_reason")
