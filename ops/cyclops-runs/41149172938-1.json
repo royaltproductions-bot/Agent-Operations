@@ -1,0 +1,233 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-31T00:17:18.963737+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 15,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "followup": 3,
+      "duckduckgo": 6
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "verified_firsthand_problem_pages": 5,
+    "observed_public_paid_offers": 2,
+    "market_candidates_considered": 2,
+    "public_sources_available_for_judgment": 14,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=340188",
+        "title": "Trader Joe's Is Not Your Average Business (2002)",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://decodo.com/scraping/web",
+        "title": "Web Scraping API",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=49199957",
+        "title": "Ask HN: Can trivial LLM calls be compiled into conventional data pipelines?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44205881",
+        "title": "I Built an AI Agent with Gmail Access and Discovered a Security Hole",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45910442",
+        "title": "The PUMP.NETWORK experiment: using gambling to calculate trust",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=14227235",
+        "title": "Ask HN: How to best utilize a 6 months sabbatical to improve technical skills",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=340188",
+        "title": "Trader Joe's Is Not Your Average Business (2002)",
+        "displayed_sales_count": null,
+        "listed_price_usd": "4.79"
+      },
+      {
+        "url": "https://decodo.com/scraping/web",
+        "title": "Web Scraping API",
+        "displayed_sales_count": null,
+        "listed_price_usd": "19.00"
+      }
+    ],
+    "candidates_without_email": 13,
+    "search_queries": [
+      "Is there evidence of a specific customer problem that a new product could solve?",
+      "",
+      "Are there any new or emerging trends in web scraping that could create a unique opportunity?",
+      "Are there any unmet customer needs in the web scraping API market?"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 19,
+      "skipped_revisits": 14,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "Are there any unmet customer needs in the web scraping API market?",
+        "Is there evidence of a specific customer problem that a new product could solve?",
+        "Are there any new or emerging trends in web scraping that could create a unique opportunity?",
+        "Is there a lack of competition or differentiation in existing web scraping tools?"
+      ],
+      "next_query_queue": 1,
+      "frontier_size": 136,
+      "known_pages": 1751
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:14 candidates reviewed; there is no evidence of a specific product or sales figures to indicate a viable market opportunity. The content is more of a guide rather than a product offering, and "
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:d0284b6ebb1a2b0ac5",
+      "decision": "pass",
+      "reason": "The evidence excerpt suggests a product offering with detailed product information and pricing, but there is no clear indication of actual buyer demand or utility. The displayed sales count is null, and there is no specific customer problem identified that would justify building a differentiated product. The information provided is more about the p"
+    },
+    {
+      "candidate_id": "web:a5a9bb029f48b8416b",
+      "decision": "pass",
+      "reason": "The Web Scraping API appears to have a clear value proposition with tiered pricing and a free plan for testing. However, the absence of verified sales counts and the lack of specific customer problems or use cases make it difficult to assess actual demand. The market for web scraping tools is competitive, and without evidence of unique differentiat"
+    },
+    {
+      "candidate_id": "web:c144462fc813780868",
+      "decision": "pass",
+      "reason": "The candidate lacks clear evidence of demand, pricing, or sales. While the concept of compiling LLM calls into data pipelines is intriguing, there is no indication of a specific customer problem, buyer utility, or competitive positioning. The evidence provided is speculative and does not demonstrate a viable product or market need."
+    },
+    {
+      "candidate_id": "web:406316fe4a78dd10d0",
+      "decision": "pass",
+      "reason": "The candidate presents a security vulnerability in AI agents with Gmail access, but it does not clearly indicate a viable product or market demand. The issue described is more of a technical problem than a product opportunity. There is no evidence of a specific user need, a clear product offering, or a demonstrated market for a solution to this sec"
+    },
+    {
+      "candidate_id": "web:0ca1d2f2a4f951ca8b",
+      "decision": "pass",
+      "reason": "The PUMP.NETWORK experiment is an intriguing concept that leverages network dynamics to compute trust scores, but it lacks concrete evidence of demand, sales, or a clear value proposition. The idea is speculative and relies on a complex system that has not been tested in a real-world market. Without demonstrated buyer utility, competitive positioni"
+    },
+    {
+      "candidate_id": "web:c7bbf29de17e279175",
+      "decision": "pass",
+      "reason": "The discussion on HN highlights a specific problem: a software engineer seeking to deepen technical skills in distributed systems during a sabbatical. However, this is a personal development goal rather than a marketable product. There is no clear indication of a demand for a product to help others achieve similar goals, nor is there evidence of ex"
+    },
+    {
+      "candidate_id": "web:aa78b9284c3c7c2c16",
+      "decision": "pass",
+      "reason": "While the concept of SpotMarket addresses a potential gap in the local farming and vendor market, the evidence provided does not include verified sales data, pricing, or direct customer validation. The proposal is speculative and lacks concrete evidence of demand or buyer utility. Additionally, the existing catalog already includes a product (Web D"
+    },
+    {
+      "candidate_id": "web:447465143d7082541f",
+      "decision": "pass",
+      "reason": "The Forbes article lacks specific customer problems or actionable insights about real-world applications of new tech. It is more of a general discussion on validation methods rather than a concrete product idea with demonstrated demand or feasibility."
+    },
+    {
+      "candidate_id": "web:8fd5c3ea7b5b94d7da",
+      "decision": "pass",
+      "reason": "The article discusses the future of data scraping in an API-driven world, highlighting challenges and opportunities. While it provides context about the industry, it does not present a specific, actionable product idea with clear customer problems or utility. There is no evidence of a concrete product or demand for a new solution in this space, mak"
+    },
+    {
+      "candidate_id": "web:07d93d1ad837d547f7",
+      "decision": "pass",
+      "reason": "The Forbes article discusses the importance of identifying customer problems to build products, but it does not present a specific, actionable problem or a clear candidate for a product. Without a concrete customer need or a defined market opportunity, there is insufficient evidence to justify pursuing a new product."
+    },
+    {
+      "candidate_id": "web:94f489a740591b795d",
+      "decision": "pass",
+      "reason": "The content from SpotDraft's blog does not provide clear evidence of a specific, actionable product or customer problem that can be solved with a new offering. The blog post discusses building products that solve real problems but lacks concrete details about a specific product, its utility, or demand. Additionally, there is no clear indication of "
+    },
+    {
+      "candidate_id": "web:e0ed53304bf90bae02",
+      "decision": "pass",
+      "reason": "The market for web scraping is growing, but the evidence does not clearly indicate a specific product gap or unmet need. The article mentions trends and tools, but there is no clear indication of a unique product or service that is currently missing. Additionally, the absence of pricing and sales data makes it difficult to assess the viability of a"
+    },
+    {
+      "candidate_id": "web:578fe53b4f5c42e190",
+      "decision": "pass",
+      "reason": "The article highlights the demand for open-source web scraping tools for AI and machine learning, but there is no evidence of a specific product or sales figures to indicate a viable market opportunity. The content is more of a guide rather than a product offering, and without a clear product or pricing, it's not possible to determine if there's a "
+    },
+    {
+      "candidate_id": "web:96dd1026427b936aca",
+      "decision": "pass",
+      "reason": "The evidence excerpt highlights the need for proxies in AI web scraping, particularly for mobile-specific data and SEO analysis. However, there is no clear indication of a specific customer problem that a differentiated product could solve. The market is competitive, and the absence of listed prices or sales counts makes it difficult to assess the "
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 14,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
