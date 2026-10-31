@@ -1,0 +1,128 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-31T10:54:54.242088+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 11
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 16,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/MagneticSnake/agent-jobcenter/issues/4",
+        "title": "[listing] audit-alpha \u2014 static-HTML evidence audit API (x402, USDC on Base)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/MyZubster-Ecosystem/myzubster/issues/1664",
+        "title": "[COMICS PILOT] Link Daniel originals, N4K48 gallery and Genesis agent-25 concept to GitHub provenance and Marketplace pr",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/alextitonis/fly.ai/issues/39",
+        "title": "Confirm community scope; Slop artifact review remains incomplete",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/devodii/hackproof/issues/22",
+        "title": "Claim your project via GitHub OAuth (headline bounty)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/devodii/hackproof/issues/19",
+        "title": "MCP server for hackproof (headline bounty)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.jobbers.io/freelance-project-scope-calculator-time-and-rate-estimate-by-deliverable-type/",
+        "title": "Freelance project scope calculator: time and rate estimate by ...",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-01 create free ai",
+      "is:issue is:open bounty created:>=2026-09-01 build ai app",
+      "is:issue is:open bounty created:>=2026-09-01 ",
+      "hiring a freelancer to build an AI app business travel time calculator",
+      "looking for someone to create a free AI image verification tool"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create a free AI image verification tool",
+      "hiring a freelancer to build an AI app business travel time calculator",
+      "can anyone create an AI-based service area overlap resolver for multi-tech businesses",
+      "need paid help with developing a deepfake detection tool for journalists"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 34,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create a free AI image verification tool",
+        "hiring a freelancer to build an AI app business travel time calculator",
+        "can anyone create an AI-based service area overlap resolver for multi-tech businesses",
+        "need paid help with developing a deepfake detection tool for journalists"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 140,
+      "known_pages": 1773
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
