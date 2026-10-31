@@ -144,9 +144,8 @@
       "version": 1
     },
     "mx7am70nkcy243nynpzvn23e318gg8g4": {
-      "action": "bid_active",
-      "at": "2026-10-30T16:19:06.233687+00:00",
-      "last_declined_bid": null,
+      "action": "bid_missing",
+      "at": "2026-10-31T21:19:17.499470+00:00",
       "version": 1
     },
     "mx7aw00zmf8ksqwqw2w284hx3d8gptjp": {
@@ -156,9 +155,8 @@
       "version": 1
     },
     "mx7b5r22yezh2hsytbgae3ywms8h8r5z": {
-      "action": "bid_active",
-      "at": "2026-10-30T16:35:52.155384+00:00",
-      "last_declined_bid": null,
+      "action": "bid_missing",
+      "at": "2026-10-31T21:19:18.032906+00:00",
       "version": 1
     },
     "mx7bzw2y0xe66kb9j4b4wjv9398h99p4": {
@@ -705,9 +703,9 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxNCwiY2hlY2twb2ludEF0IjoxNzkzNDgxMzE5MjI0fQ",
-  "last_bid_reconciliation": "2026-10-31T21:03:32.446454+00:00",
-  "last_check": "2026-10-31T21:15:19.447569+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxNCwiY2hlY2twb2ludEF0IjoxNzkzNDgxNTU2MTI1fQ",
+  "last_bid_reconciliation": "2026-10-31T21:19:18.032973+00:00",
+  "last_check": "2026-10-31T21:19:18.034658+00:00",
   "recent_outcomes": [
     {
       "action": "bid_sent",
@@ -1092,6 +1090,16 @@
       "bounty_id": "mx75t9qmtd1nxxbjtpq0hawn398hb4gh",
       "reason": "video_production",
       "version": 1
+    },
+    {
+      "action": "bid_missing",
+      "at": "2026-10-31T21:19:17.499487+00:00",
+      "bounty_id": "mx7am70nkcy243nynpzvn23e318gg8g4"
+    },
+    {
+      "action": "bid_missing",
+      "at": "2026-10-31T21:19:18.032923+00:00",
+      "bounty_id": "mx7b5r22yezh2hsytbgae3ywms8h8r5z"
     }
   ],
   "schema": 1,
