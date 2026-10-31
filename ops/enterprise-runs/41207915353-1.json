@@ -1,0 +1,132 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-31T14:00:21.336410+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 10,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/Trinity-S-AI-DNA/trinity/issues/1658",
+        "title": "T27G Epic: Trinity Game \u2014 guided onboarding quests, player progression and achievements",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ROAM-game-org/road-machiners/issues/570",
+        "title": "Add witnessed crimes, funded bounties and Marshall pursuit",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ROAM-game-org/road-machiners/issues/568",
+        "title": "Rework factions into extensible personal and faction relations",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/AstralDeep/AstralDeep/issues/318",
+        "title": "Qualify local contextual privacy filtering for free-form tool text",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/BruceFeIix/picker/issues/2776",
+        "title": "[\u6bcf\u65e5\u4fe1\u606f\u6d41] 2026-10-29",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.sumerudigital.com/blog/image-recognition-model-development-company",
+        "title": "Image Recognition Model Development Company | Sumeru",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-01 build image recognition",
+      "is:issue is:open bounty created:>=2026-09-01 ai image analysis",
+      "looking for someone to build image recognition ai model",
+      "hiring a freelancer to create ai image description tool"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build image recognition ai model",
+      "hiring a freelancer to create ai image description tool",
+      "need paid help with ai image analysis system",
+      "can anyone create ai image tagging application"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 23,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build image recognition ai model",
+        "hiring a freelancer to create ai image description tool",
+        "need paid help with ai image analysis system",
+        "can anyone create ai image tagging application"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 139,
+      "known_pages": 1814
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
