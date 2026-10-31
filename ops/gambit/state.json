@@ -168,8 +168,9 @@
       "version": 1
     },
     "mx7ctr3ev01yjxyyznhmcey2jd8hahek": {
-      "action": "evaluation_pending",
-      "at": "2026-10-31T05:46:14.810271+00:00",
+      "action": "asked",
+      "at": "2026-10-31T05:46:55.596031+00:00",
+      "last_declined_bid": null,
       "version": 1
     },
     "mx7drkexqn2tyzjnswfdebhrmn8gna9x": {
@@ -650,9 +651,9 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5LCJjaGVja3BvaW50QXQiOjE3OTM0MjUzMDA1OTB9",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMCwiY2hlY2twb2ludEF0IjoxNzkzNDI1NTc5NDIxfQ",
   "last_bid_reconciliation": "2026-10-31T05:41:43.311285+00:00",
-  "last_check": "2026-10-31T05:41:43.312432+00:00",
+  "last_check": "2026-10-31T05:46:55.597186+00:00",
   "recent_outcomes": [
     {
       "action": "bid_sent",
@@ -980,6 +981,18 @@
       "pages_read": 14,
       "research_status": "available",
       "version": 2
+    },
+    {
+      "action": "decision_disagreement_resolved",
+      "at": "2026-10-31T05:46:55.163116+00:00",
+      "bounty_id": "mx7ctr3ev01yjxyyznhmcey2jd8hahek",
+      "version": 1
+    },
+    {
+      "action": "asked",
+      "at": "2026-10-31T05:46:55.596041+00:00",
+      "bounty_id": "mx7ctr3ev01yjxyyznhmcey2jd8hahek",
+      "version": 1
     }
   ],
   "schema": 1,
