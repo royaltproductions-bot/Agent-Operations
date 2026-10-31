@@ -1,0 +1,242 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-31T13:32:00.289483+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "duckduckgo": 12,
+      "hn_ask": 1,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "verified_firsthand_problem_pages": 1,
+    "observed_public_paid_offers": 3,
+    "market_candidates_considered": 3,
+    "public_sources_available_for_judgment": 14,
+    "public_market_sample": [
+      {
+        "url": "https://www.24chemicalresearch.com/reports/227858/global-compostable-foodservice-packaging-forecast-market-2023-2030-506",
+        "title": "Compostable Foodservice Packaging Market 2023",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://www.grandviewresearch.com/industry-analysis/compostable-packaging-market-report",
+        "title": "Compostable Packaging Market Size Report, 2024-2030",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://www.researchandmarkets.com/report/compostable-foodservice-packaging-market",
+        "title": "Compostable Foodservice Packaging Market Size & Competitors",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37019255",
+        "title": "What's Wrong with Me?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.verifiedmarketreports.com/product/compostable-plastic-products-market/",
+        "title": "Global Compostable Plastic Products Market Size, Share, Trends ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://dataintelo.com/report/compostable-plastic-products-market",
+        "title": "Compostable Plastic Products Market - dataintelo.com",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://www.24chemicalresearch.com/reports/227858/global-compostable-foodservice-packaging-forecast-market-2023-2030-506",
+        "title": "Compostable Foodservice Packaging Market 2023",
+        "displayed_sales_count": null,
+        "listed_price_usd": "800.00"
+      },
+      {
+        "url": "https://www.grandviewresearch.com/industry-analysis/compostable-packaging-market-report",
+        "title": "Compostable Packaging Market Size Report, 2024-2030",
+        "displayed_sales_count": null,
+        "listed_price_usd": "74.00"
+      },
+      {
+        "url": "https://www.researchandmarkets.com/report/compostable-foodservice-packaging-market",
+        "title": "Compostable Foodservice Packaging Market Size & Competitors",
+        "displayed_sales_count": null,
+        "listed_price_usd": "18.80"
+      }
+    ],
+    "candidates_without_email": 12,
+    "search_queries": [
+      "compostable foodservice packaging market size 2023",
+      "compostable plastic products market demand",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 20,
+      "skipped_revisits": 9,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "compostable foodservice packaging market size 2023",
+        "compostable plastic products market demand",
+        "edible packaging market growth 2024-2030",
+        "compostable food packaging sales trends"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 1975
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:14 candidates reviewed; r problems or buyer utility, and there is no indication of actual demand or sales. The market insights report is not sufficient to justify building an original product "
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:82e7ed8541a0a201dc",
+      "decision": "pass",
+      "reason": "The candidate_id 'web:82e7ed8541a0a201dc' refers to a paid market report on the compostable foodservice packaging market, which is not a product but a research report. The market is growing, but the observation does not indicate a specific product or service that can be built. There is no evidence of a unique, original product idea or a clear custo"
+    },
+    {
+      "candidate_id": "web:4c8f6d02d5b7e6e925",
+      "decision": "pass",
+      "reason": "The candidate_id 'web:4c8f6d02d5b7e6e925' refers to a report on the compostable packaging market, which indicates a growing market with projected values reaching $113.9 billion by 2030. However, the absence of a specific product idea or a clear customer problem that the product would solve makes it difficult to justify building an original product."
+    },
+    {
+      "candidate_id": "web:7228c28a618283221f",
+      "decision": "pass",
+      "reason": "The observed content appears to be a paid report offering for the compostable foodservice packaging market, but there is no evidence of actual sales or buyer demand. The displayed sales count is null, and the content does not provide specific customer problems or utility that would justify building an original product. The signal type is 'public_pa"
+    },
+    {
+      "candidate_id": "web:0f8e89906c0a82f550",
+      "decision": "pass",
+      "reason": "The individual's detailed background and skill set suggest a potential for creating a niche product, but there is no clear indication of a specific, actionable problem or demand for a product. The narrative is more of a personal reflection than a market opportunity. Additionally, there is no evidence of existing sales, pricing, or competitive posit"
+    },
+    {
+      "candidate_id": "web:7bb8c1c48e0a1958fb",
+      "decision": "pass",
+      "reason": "While the market for compostable foodservice packaging is growing, the excerpt does not provide concrete evidence of actual buyer demand or specific customer problems that a differentiated product could solve. The data is speculative and lacks direct proof of utility or market readiness. Additionally, the absence of pricing or sales figures makes i"
+    },
+    {
+      "candidate_id": "web:0812f3d07deed13fe9",
+      "decision": "pass",
+      "reason": "While the compostable plastics market shows strong growth potential due to regulatory pressures and consumer demand for eco-friendly alternatives, the absence of concrete sales data, pricing, and specific customer problems makes it difficult to justify a unique product without further evidence of market readiness. The market is competitive, and wit"
+    },
+    {
+      "candidate_id": "web:3eeab4180a1d72a239",
+      "decision": "pass",
+      "reason": "While the compostable plastics market shows growth potential due to environmental concerns and regulatory pressures, there is no clear evidence of a specific, unmet customer need or a feasible, differentiated product that can be tested with a low-cost prototype. The market is highly competitive with existing players and lacks concrete data on actua"
+    },
+    {
+      "candidate_id": "web:69dedd78adcaf71e0e",
+      "decision": "pass",
+      "reason": "While the compostable plastics market shows growth potential due to regulatory pressures and consumer awareness, the evidence does not provide concrete buyer demand or specific customer problems that a differentiated product could solve. The market is competitive, and without clear evidence of a unique value proposition or a feasible small digital "
+    },
+    {
+      "candidate_id": "web:a76be2bbf423795f1b",
+      "decision": "pass",
+      "reason": "While the compostable packaging market shows growth potential with factors like rising consumer awareness and expansion of the food delivery industry, there is no clear evidence of a specific, unmet customer need that a differentiated product could address. The market is already well-researched, and existing reports do not indicate a gap that a new"
+    },
+    {
+      "candidate_id": "web:d78eae865631027858",
+      "decision": "pass",
+      "reason": "The page appears to be a report on the compostable plastics market, but it lacks concrete evidence of demand, sales, or specific customer problems. The content is generic and does not provide actionable insights or a clear opportunity for a differentiated product. Without specific buyer utility or a feasible small digital product, the market is not"
+    },
+    {
+      "candidate_id": "web:7264e1ba235c90f8cc",
+      "decision": "pass",
+      "reason": "The evidence excerpt does not provide specific customer problems, sales data, or pricing information to justify building a compostable foodservice packaging product. The page appears to be a market research report without actionable insights or buyer demand validation."
+    },
+    {
+      "candidate_id": "web:a5bef2572e0bb038ca",
+      "decision": "pass",
+      "reason": "The provided evidence does not contain specific customer problems, buyer utility, or demand strength for a differentiated product in the commercial foodservice equipment market. The excerpt is generic and lacks actionable insights or specific sales data to justify pursuing a new product in this space."
+    },
+    {
+      "candidate_id": "web:76d31cc5d3155c762a",
+      "decision": "pass",
+      "reason": "The evidence excerpt does not provide specific customer problems or buyer utility, and there is no indication of actual demand or sales. The market insights report is not sufficient to justify building an original product without further concrete evidence of buyer needs or competitive differentiation."
+    },
+    {
+      "candidate_id": "web:d8b36cfe3cb531ad71",
+      "decision": "pass",
+      "reason": "The provided market research page does not offer concrete evidence of a specific product, demand, or buyer utility. It is a general report on the COF Packaging market without actionable insights or a clear product opportunity. There is no indication of a unique problem or a feasible differentiated solution that can be tested with a low-cost prototy"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 14,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
