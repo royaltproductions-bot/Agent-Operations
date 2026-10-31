@@ -186,6 +186,12 @@ def verify_project(files, render):
         except subprocess.TimeoutExpired as exc:
             raise ValueError("app_sandbox_timeout") from exc
         if result.returncode:
+            if os.environ.get("GAMBIT_APP_TEST_DIAGNOSTICS")=="1":
+                # Use only for the repository's PUBLIC synthetic test fixture.
+                # Production buyer results must not be printed in CI logs.
+                print("APP_TEST_DOCKER_CODE", result.returncode)
+                print("APP_TEST_DOCKER_STDERR",result.stderr[-1100:])
+                print("APP_TEST_DOCKER_STDOUT",result.stdout[-1100:])
             raise ValueError("app_sandbox_tests_failed")
         # Use the established Playwright desktop AND mobile QA resource.
         assets={name:code.encode() for name,code in files.items()
