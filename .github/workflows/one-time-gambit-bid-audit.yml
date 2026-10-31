@@ -1,4 +1,5 @@
 name: Read-only Gambit eight-bid capability audit
+# Final read after unsupported-offer reconciliation
 on:
   push:
     paths: ['.github/workflows/one-time-gambit-bid-audit.yml']
