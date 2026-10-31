@@ -90,7 +90,8 @@ def requested(details):
     return bool(re.search(
         r"\b(?:build|create|develop|implement|deliver|produce)\b.{0,140}"
         r"\b(?:web\s*app|web\s*application|ai\s*chat\s*prototype|"
-        r"web\s*prototype|working\s*application)\b",text))
+        r"web\s*prototype|working\s*application|saas\s*application|"
+        r"saas\s*app|interactive\s*dashboard)\b",text))
 
 
 def available():
