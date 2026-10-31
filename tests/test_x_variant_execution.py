@@ -22,6 +22,19 @@ def cyclops_or_skip(test):
 
 
 class WebEfficiencyTests(unittest.TestCase):
+    def test_paid_listing_price_preserves_thousands_separator(self):
+        item={"id":"offer","title":"Analytics template",
+              "source_url":"https://store.example.org/template",
+              "page_fetched":True,
+              "page_text":("This independently offered professional analytics "
+                           "dashboard comes with downloadable reports, "
+                           "setup notes and training material. "
+                           "Price $3,660.00 Add to cart. "
+                           "Complete source materials included.")}
+        result=paid_market.observed_paid_listing(item)
+        self.assertIsNotNone(result)
+        self.assertEqual(result["listed_price_usd"],"3660.00")
+
     def test_comparison_article_price_is_not_a_direct_paid_listing(self):
         article={"page_fetched":True,
                  "source_url":"https://example.org/blogs/top-budget-apps",
