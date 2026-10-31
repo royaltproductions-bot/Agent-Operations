@@ -1,0 +1,188 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-31T19:24:37.432461+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 11,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 11
+    },
+    "search_provider_counts": {
+      "duckduckgo": 11
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "URLError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 7,
+    "verified_firsthand_problem_pages": 2,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 7,
+    "public_market_sample": [
+      {
+        "url": "https://github.com/BenjaminAriasD/invoice-automation-python",
+        "title": "GitHub - BenjaminAriasD/invoice-automation-python: Python script to ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.adobe.com/acrobat/online/pdf-to-excel.html",
+        "title": "Convert PDF to Excel for free: PDF to XLS | Acrobat - Adobe",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://kintly.space/how-to-automate-invoice-generation-with-python/",
+        "title": "How to Automate Invoice Generation with Python (and Never Format ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://apps.microsoft.com/detail/9p6ktcs5d5b0?hl=en-US&gl=US",
+        "title": "Flyingbee PDF to XLS - Free download and install on Windows | Microsoft ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.geeky-gadgets.com/automated-invoice-system-in-python/",
+        "title": "How to build fully automated Invoice System in Python",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://pdf24.tech/how-to-convert-pdf-to-excel/",
+        "title": "How to Convert PDF to Excel Free \u2014 Extract Tables | PDF24",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 9,
+    "search_queries": [
+      "how to automate invoice tracking with Python script",
+      "downloadable tool to convert PDF tables to Excel"
+    ],
+    "research_memory": {
+      "persisted": false,
+      "reason": "previous_research_unreadable",
+      "errors": [
+        "load:JSONDecodeError"
+      ]
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:7 candidates reviewed; olution. However, the market already has multiple similar tools, and the evidence does not show a unique value proposition or differentiation. The absence of pricing and"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        },
+        {
+          "source": "public_page_fetch",
+          "reason": "HTTPError"
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:55d804930f5a0d884f",
+      "decision": "pass",
+      "reason": "The GitHub repository for the invoice automation Python script lacks evidence of active user engagement, sales, or pricing. While the concept has potential, there is no indication of demand or market validation to justify pursuing this idea without further data."
+    },
+    {
+      "candidate_id": "web:ac0539807f13ba5823",
+      "decision": "pass",
+      "reason": "The Adobe PDF to Excel converter is a well-established tool with a large user base, but there is no evidence of a unique, differentiated product or a specific customer problem that isn't already being addressed by existing solutions. The market for PDF-to-Excel conversion is highly competitive, and the lack of pricing or sales data makes it difficu"
+    },
+    {
+      "candidate_id": "web:7c636ce33b94a2719e",
+      "decision": "pass",
+      "reason": "The article discusses automating invoice generation with Python, which is a common task for freelancers and small agencies. However, there is no evidence of a completed product or sales, and the content is more of a tutorial than a commercial offering. The lack of a clear product, pricing, or sales figures makes it difficult to assess its viability"
+    },
+    {
+      "candidate_id": "web:da8f64be3b42326c0e",
+      "decision": "pass",
+      "reason": "The article discusses building an automated invoice system in Python with a GUI, which suggests there is a need for such a tool. However, there is no evidence of existing sales or pricing, and the focus is on development rather than a completed product. Without proof of demand or a clear value proposition, it is not a strong candidate for pursuit."
+    },
+    {
+      "candidate_id": "web:426c99bf5465c70b41",
+      "decision": "pass",
+      "reason": "The candidate lacks clear evidence of demand or sales, and the content is more informational than a product offering. There is no indication of a specific, actionable problem that a differentiated product could solve, nor is there a clear value proposition or competitive advantage. The content appears to be a guide rather than a product, making it "
+    },
+    {
+      "candidate_id": "web:31ec832844d91d1295",
+      "decision": "pass",
+      "reason": "The candidate presents a specific customer problem (converting PDF to Excel offline) with a feasible solution. However, the market already has multiple similar tools, and the evidence does not show a unique value proposition or differentiation. The absence of pricing and sales data makes it difficult to assess demand strength and competitive positi"
+    },
+    {
+      "candidate_id": "web:49d1921d0f903238f5",
+      "decision": "pass",
+      "reason": "The candidate lacks clear evidence of demand, pricing, or sales, making it difficult to assess its viability. The page appears to be a Microsoft Store listing for a PDF to XLS converter, but there is no indication of customer activity, utility, or competitive positioning. Without further data, it is not possible to determine if the product is worth"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 7,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
