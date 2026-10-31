@@ -1,4 +1,5 @@
 name: Validate full X-variant corrections offline
+# Rerun after fixing Qwen test isolation and static-site gating
 on:
   push:
     paths: ['.github/workflows/one-time-validate-complete-agent-list.yml']
