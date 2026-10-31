@@ -1,0 +1,50 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-31T13:13:22.127381+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 0,
+    "source_errors": [
+      {
+        "reason": "InvalidURL"
+      }
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 28,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a simple AI image description tool",
+        "hiring a freelancer to create an AI image detection script",
+        "need paid help with developing an AI-powered app builder tool",
+        "can anyone create a basic AI image classifier for a small project"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 140,
+      "known_pages": 1798
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_research_results_found"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
