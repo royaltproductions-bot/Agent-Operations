@@ -977,7 +977,8 @@ def unsupported_deliverable(details):
     # a request to substitute a one-off CSV for the working app.
     if gambit_app_builder.requested(details):
         full_task = requested + " " + verification
-        if re.search(r"\b(?:live deployed|deployed url|hosted live|production deploy|deploy to)\b",
+        if re.search(r"\b(?:deploy(?:ed|ment)?|live url|hosted|hosting|"
+                     r"publicly accessible url|production deployment)\b",
                      full_task):
             return "software_deployment"
         return None
@@ -1234,11 +1235,15 @@ def respond_to_buyer(details, messages):
         "existing paid-work bid. Answer the actual question briefly and helpfully. "
         "Be truthful about capabilities, timing, and the exact offered deliverable. "
         "This runtime can provide plain-text analysis, writing, structured data, "
-        "CSV, XLSX, PDF, DOCX and standalone static-site ZIP files, "
-        "read text/Markdown/CSV/JSON/PDF/DOCX/XLSX source_files, "
-        "and search public web pages for commissioned research. "
-        "It cannot browse authenticated sites, access private accounts or "
-        "unsupported file types, run code, or operate a buyer's website. "
+        "CSV, XLSX, PDF, DOCX, multi-page static websites, and an "
+        "original functioning application SOURCE package when a verified "
+        "sandbox is available. It can build and offline-test Python stdlib "
+        "backend code and check desktop/mobile browser rendering, and "
+        "continue large source-backed research across encrypted checkpoints. "
+        "It can read text-based buyer files and search public pages. "
+        "It cannot browse authenticated sites, access private buyer accounts, "
+        "claim live external integrations from offline tests, or promise "
+        "hosting and deployment without a verified deployment resource. "
         "Never claim work already done, invent credentials/reviews, or agree to "
         "spending, outside payments, contracts, or unsupported services. "
         "If the buyer has not asked for a response, return an empty reply_text. "
