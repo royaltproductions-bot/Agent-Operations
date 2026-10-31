@@ -76,6 +76,16 @@ def _merge(old,new,lane):
     merged["queued_queries"]=_latest_unique(
         list(old.get("queued_queries") or [])+list(new.get("queued_queries") or []),
         "query",30)
+    # Keep temporary provider rate-limit cooldowns across hourly runs.
+    cooldowns={}
+    for history in (old.get("provider_cooldowns") or {},
+                    new.get("provider_cooldowns") or {}):
+        for provider,deadline in history.items():
+            if _datetime(deadline)>NOW() and (
+                    provider not in cooldowns or
+                    _datetime(deadline)>_datetime(cooldowns[provider])):
+                cooldowns[provider]=deadline
+    merged["provider_cooldowns"]=cooldowns
     merged["updated_at"]=NOW().isoformat()
     merged["executions"]=max(int(old.get("executions") or 0),int(new.get("executions") or 0))
     return merged
@@ -273,6 +283,14 @@ class ResearchMemory:
             return True
         self.skipped_pages+=1
         return False
+
+    def provider_available(self, provider):
+        expires=(self.state.get("provider_cooldowns") or {}).get(provider)
+        return not expires or NOW()>=_datetime(expires)
+
+    def defer_provider(self, provider, minutes=90):
+        self.state.setdefault("provider_cooldowns",{})[provider]=(
+            NOW()+timedelta(minutes=minutes)).isoformat()
 
     def observe_search(self,query,provider,hits,error=None):
         entries=self.state.setdefault("queries",[])
