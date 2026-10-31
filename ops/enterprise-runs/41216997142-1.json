@@ -1,0 +1,140 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-31T15:55:17.320750+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 9,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "candidates_without_email": 16,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/ZcashCommunityGrants/zcashcommunitygrants/issues/498",
+        "title": "Grant Application - Zcash \u4e2d\u6587\u5165\u95e8\u5305 / Zcash Chinese Onboarding Pack",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/sanehunters/sane_android/issues/34",
+        "title": "D16 \u00b7 Native Code, JNI & Memory Safety \u2014 65 tests",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Kshot3000/Oysters4All/issues/1",
+        "title": "Tagging @pearl-research-labs \u2014 50+ open-source PRL apps built for the Pearl ecosystem",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/deepseek-ai/DeepSeek-V3/issues/1631",
+        "title": "Bug:Jailbreak Analysis Report: DeepSeek Incremental Prompt Injection",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2578",
+        "title": "Tooling: check_claims_links reports success when zero claims rows are recognized",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.indeed.com/q-Image-tagging-jobs.html",
+        "title": "Now Hiring: 18,000 Image Tagging Jobs | Indeed",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-01 build image tagging",
+      "is:issue is:open bounty created:>=2026-09-01 ",
+      "looking for someone to build image tagging tool",
+      "hiring a freelancer for ai image tagging service"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build image tagging tool",
+      "hiring a freelancer for ai image tagging service",
+      "need paid help with image auto tagging api",
+      "can anyone create image tagging software"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 21,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build image tagging tool",
+        "hiring a freelancer for ai image tagging service",
+        "need paid help with image auto tagging api",
+        "can anyone create image tagging software"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 138,
+      "known_pages": 1846
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
