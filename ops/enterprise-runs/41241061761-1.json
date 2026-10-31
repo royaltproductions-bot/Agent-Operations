@@ -1,0 +1,132 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-31T20:56:00.029272+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 15,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 6,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 13,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/HexaHexes/tensura-quests/issues/1",
+        "title": "Phase 0 index: research archive, ADRs, requirements and work-issue tracker",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ttnhan18062000/rpg-based-simulation/issues/715",
+        "title": "Approvals log (both leads acknowledge; an ack is not an approval)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Trexzo/SpawnPK-RE/issues/392",
+        "title": "[Canonical] SpawnPK-RE integration and release queue",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/SlopDotCash/slopdotcash/issues/904",
+        "title": "Finish Solana and Robinhood payout qualification and hosted recovery",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/useagenthq/useagent/issues/142",
+        "title": "Bots: check that only a bot's owner can use a personal bot from Slack",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.upwork.com/hire/geospatial-freelancers/",
+        "title": "Best Freelance Geospatial Specialists for Hire (Oct 2026) - Upwork",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-01 annotate land classes",
+      "is:issue is:open bounty created:>=2026-09-01 anyone create labeled",
+      "hiring a freelancer for geospatial data labeling tasks",
+      "looking for someone to annotate land use classes in satellite imagery"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to annotate land use classes in satellite imagery",
+      "hiring a freelancer for geospatial data labeling tasks",
+      "can anyone create labeled datasets for environmental monitoring projects",
+      "need paid help with satellite image annotation for vegetation analysis"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 15,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to annotate land use classes in satellite imagery",
+        "hiring a freelancer for geospatial data labeling tasks",
+        "can anyone create labeled datasets for environmental monitoring projects",
+        "need paid help with satellite image annotation for vegetation analysis"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 1947
+    }
+  },
+  "offer": {
+    "source_url": "https://www.opentrain.ai/solutions/satellite-imagery-annotation/",
+    "title": "Satellite Imagery Annotation Services",
+    "scope": "Hire remote sensing annotators, GIS specialists, and geospatial experts to label satellite imagery data. Tasks include building footprints, road networks, land cover, and object identification.",
+    "price_usd": "499.95",
+    "price_cents": 49995,
+    "offer_id": "e7a03f528139f518bda8a9d4",
+    "payment_link_id": "plink_1UWjSyBto3o776uytqA23mmX"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://www.opentrain.ai/solutions/satellite-imagery-annotation/"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 2,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "none"
+  }
+}
