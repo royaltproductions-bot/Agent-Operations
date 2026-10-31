@@ -1,4 +1,5 @@
 name: One-time start Cyclops source-backed product experiment
+# Rerun dispatch with explicit repository after initial no-worktree CLI failure
 on:
   push:
     paths: ['.github/workflows/one-time-run-cyclops-production.yml']
