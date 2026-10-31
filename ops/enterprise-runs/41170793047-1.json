@@ -1,0 +1,128 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-31T05:02:28.181850+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 5,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 14,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/rroland10/dex223-bug-bounty/issues/29",
+        "title": "[Security Audit Report] Critical MarginModule uint8 Position Counter Overflow (Total Protocol Drain), Cross-Standard ERC",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/methakon/homeguardian-ai/issues/14",
+        "title": "HG-NET-02A \u2014 Hermes 1: Oracle WireGuard control-plane pilot, mail-safe",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/alston-personal/agentmanager/issues/2003",
+        "title": "Bounty Golden Path v1: qualified paid-issue discovery \u2192 governed execution \u2192 verified payout",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/sails-protocol/Sails-Protocol/issues/420",
+        "title": "Beta Readiness \u2014 Industry Precedent / Incident Corpus",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Mulaydm10/ehl-switzerland-hackathon/issues/3",
+        "title": "design node handshake: Mulaydm10/ehl-switzerland-hackathon",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.upwork.com/hire/ai-policy-compliance-professionals/",
+        "title": "Best Freelance AI Policy Compliance Professionals for Hire ... - Upwork",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-01 create compliance checklist",
+      "is:issue is:open bounty created:>=2026-09-01 develop ai powered",
+      "hiring a freelancer to develop AI-powered compliance tool",
+      "looking for someone to create compliance checklist template with AI"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create compliance checklist template with AI",
+      "hiring a freelancer to develop AI-powered compliance tool",
+      "need paid help with AI-generated content fact-checking service",
+      "can anyone create AI-based freelance checklist for legal tasks"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 18,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create compliance checklist template with AI",
+        "hiring a freelancer to develop AI-powered compliance tool",
+        "need paid help with AI-generated content fact-checking service",
+        "can anyone create AI-based freelance checklist for legal tasks"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 1681
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
