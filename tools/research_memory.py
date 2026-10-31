@@ -178,7 +178,7 @@ class ResearchMemory:
             # of niches to continue indefinitely.
             "avoid_recent_unsuccessful_topics":[
                 str(q.get("query") or "")[:120] for q in recent[-8:]
-            ] if self.lane=="wolverine" and
+            ] if getattr(self,"lane",None)=="wolverine" and
                  sum(bool(x.get("offers")) for x in recent_outcomes[-4:])==0 else [],
             "commercial_feedback":[{
                 "outcome":x.get("commercial_reasons") or [],
