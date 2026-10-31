@@ -1,0 +1,129 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-31T19:08:14.350549+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 15,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 8,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 14,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/ariahendrawan-sudo/project-a/issues/13",
+        "title": "Bounty Scout \u2014 2026-10-19",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/294",
+        "title": "[wildcard] Lexical Split-Join Slice Capabilities via Zero-Allocation 3-Index Capacity Clipping",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/MyZubster-Ecosystem/myzubster/issues/1518",
+        "title": "External Contributor VPS Pilot \u2014 connect projects, evidence, and Contributor Passports",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Jarvichi/jarvs-amazing-web-game/issues/2321",
+        "title": "[UI 4.0.2] Finish the icon system for the shared concepts \u2014 1,099 emoji across 174 files",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Clawland-AI/picclaw/issues/36",
+        "title": "Chinese documentation bounty: remaining scope, AI assistance and CNY payout",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://roboflow.com/blog/best-image-annotation-tools",
+        "title": "5 Best Image Annotation Tools in 2026 - Roboflow Blog",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-01 create image annotation",
+      "is:issue is:open bounty created:>=2026-09-01 build labeling software",
+      "is:issue is:open bounty created:>=2026-09-01 ",
+      "looking for someone to create image annotation tool",
+      "hiring a freelancer to build labeling software"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create image annotation tool",
+      "hiring a freelancer to build labeling software",
+      "need paid help with image tagging system",
+      "can anyone create image labeling platform"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 29,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create image annotation tool",
+        "hiring a freelancer to build labeling software",
+        "need paid help with image tagging system",
+        "can anyone create image labeling platform"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 138,
+      "known_pages": 1890
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
