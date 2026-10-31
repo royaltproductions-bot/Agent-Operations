@@ -82,6 +82,17 @@ def validate_plan(plan):
     return paths
 
 
+def requested(details):
+    """Identify commissioned working applications, not research about websites."""
+    bounty=details.get("bounty") or {}
+    text=" ".join(str(bounty.get(key) or "") for key in
+                  ("title","description","verification")).lower()
+    return bool(re.search(
+        r"\b(?:build|create|develop|implement|deliver|produce)\b.{0,140}"
+        r"\b(?:web\s*app|web\s*application|ai\s*chat\s*prototype|"
+        r"web\s*prototype|working\s*application)\b",text))
+
+
 def available():
     if not shutil.which("docker"):
         return False
