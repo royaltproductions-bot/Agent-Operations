@@ -1598,7 +1598,18 @@ def requested_list_size(details):
         r"(?:(?:qualified|relevant|potential|targeted|local|sales|public)\s+){0,3}"
         r"(?:leads|contacts|companies|businesses|competitors|candidates|"
         r"suppliers|agencies|investors|creators)\b", task, re.IGNORECASE)
-    return int(match.group(1)) if match else None
+    if match:
+        return int(match.group(1))
+    # Acceptance criteria often say "exactly 500 candidate records" or
+    # "at least 20 distinct companies" instead of "find 20 companies".
+    fallback=re.search(
+        r"\b(?:exactly|at\s+least|minimum\s+of|one\s+list\s+containing)?\s*"
+        r"(\d{1,4})\s+"
+        r"(?:(?:distinct|unique|verified|qualified|potential|current|"
+        r"relevant|targeted|professional|seed-stage)\s+){0,4}"
+        r"(?:records|rows|leads|contacts|companies|startups|"
+        r"candidates|prospects|investors|professionals)\b",task,re.I)
+    return int(fallback.group(1)) if fallback else None
 
 
 class NoUploadRedirect(urllib.request.HTTPRedirectHandler):
