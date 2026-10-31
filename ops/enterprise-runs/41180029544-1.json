@@ -1,0 +1,137 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-31T07:19:03.250342+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 10,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/telegraphprotocol/bounties/issues/150",
+        "title": "PLAGIARISM_DETECTION: evaluation material and an evaluator adapter",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Mantitup-Org/vista/issues/61",
+        "title": "Bounty: hunt bugs across the entire Vista framework",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Nish916/revenue-command-runner/issues/1",
+        "title": "Cloud Revenue Command Dashboard",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ZcashCommunityGrants/zcashcommunitygrants/issues/528",
+        "title": "Grant Proposal: Shielded Quest 2026",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2446",
+        "title": "[wildcard] Linear Place-Capability Tokens (cap[P]): Replacing Whole-Block Alias/Loan/Freeze Machinery with Affine Capabi",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://uncodemy.com/blog/build-an-ai-based-plagiarism-checker-for-writers-a-step-by-step-guide",
+        "title": "Build an AI-Based Plagiarism Checker for Writers: A Step-by-Step Guide",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-01 build plagiarism detection",
+      "is:issue is:open bounty created:>=2026-09-01 developing ai content",
+      "is:issue is:open bounty created:>=2026-09-01 ",
+      "looking for someone to create a plagiarism checker tool",
+      "hiring a freelancer to build a plagiarism detection script"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create a plagiarism checker tool",
+      "hiring a freelancer to build a plagiarism detection script",
+      "need paid help with developing an AI content analyzer",
+      "can anyone create a free online plagiarism checking service"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 13,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create a plagiarism checker tool",
+        "hiring a freelancer to build a plagiarism detection script",
+        "need paid help with developing an AI content analyzer",
+        "can anyone create a free online plagiarism checking service"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 139,
+      "known_pages": 1712
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
