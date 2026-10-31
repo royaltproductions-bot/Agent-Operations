@@ -1,0 +1,131 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-31T19:36:07.251281+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 13,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 4,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "JSONDecodeError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "URLError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "candidates_without_email": 11,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/HCTDIP/corps-jobs/issues/143",
+        "title": "Railway \u8d4f\u91d1\uff1a\u6709 8 \u6761\u503c\u5f97\u62a2",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/dotnet/announcements/issues/495",
+        "title": "Microsoft Security Advisory CVE-2026-114148 | .NET Elevation of Privilege Vulnerability",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/HCTDIP/corps-jobs/issues/119",
+        "title": "Railway \u8d4f\u91d1\uff1a\u6709 30 \u6761\u503c\u5f97\u62a2",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/nisiyasu/-luke-quest/issues/16",
+        "title": "[MODERN-3D][M03] \u4eee\u5f62\u72b6\u3067\u69cb\u56f3\u3068\u901a\u884c\u3092\u691c\u8a3c",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Devpen787/yourturn/issues/18",
+        "title": "ETHOnline submission finish line \u2014 qualification, judge rehearsal, video and repository delivery",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.neowork.com/insights/image-annotation-outsourcing-guide",
+        "title": "Image Annotation Outsourcing Guide 2026 - neowork.com",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-01 build custom image",
+      "is:issue is:open bounty created:>=2026-09-01 creating data labeling",
+      "looking for someone to build a custom image annotation tool"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a custom image annotation tool",
+      "hiring a freelancer to develop a paid image tagging solution",
+      "need paid help with creating a data labeling platform",
+      "can anyone create an image annotation API for a web app"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 26,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a custom image annotation tool",
+        "hiring a freelancer to develop a paid image tagging solution",
+        "need paid help with creating a data labeling platform",
+        "can anyone create an image annotation API for a web app"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 1903
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
