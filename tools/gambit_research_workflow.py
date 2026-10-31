@@ -74,8 +74,8 @@ def _clean_columns(columns):
         raise ValueError("research_duplicate_columns")
     if not 2 <= len(cleaned) <= 18 or any(not c for c in cleaned):
         raise ValueError("research_invalid_columns")
-    if not any(c.lower().replace(" ","_")=="source_url" for c in cleaned):
-        cleaned.append("source_url")
+    cleaned=[c for c in cleaned
+             if c.lower().replace(" ","_")!="source_url"]+["source_url"]
     return cleaned
 
 
@@ -172,7 +172,11 @@ def progress(details,state,bounty_id,claim_id,needed,infer,search):
     sources=[source for source in evidence.get("results",[])
              if source.get("evidence_level")=="page_read" and
              source.get("url") and source.get("page_text")]
-    known={tuple(row["cells"]) for row in project["rows"]}
+    identity_index=next((i for i,c in enumerate(columns[:-1])
+                         if "linkedin" in c.lower() or "profile url" in c.lower()),0)
+    def identity(item):
+        return item["cells"][identity_index].strip().casefold()
+    known={identity(row) for row in project["rows"]}
     for source in sources[:3]:
         if len(project["rows"])>=needed:
             break
@@ -193,7 +197,7 @@ def progress(details,state,bounty_id,claim_id,needed,infer,search):
             verified=_verified(row,source,columns)
             if not verified:
                 continue
-            fingerprint=tuple(verified["cells"])
+            fingerprint=identity(verified)
             if fingerprint in known:
                 continue
             known.add(fingerprint)
@@ -212,6 +216,9 @@ def request_revision(state,bounty_id,feedback):
     if not token:
         return
     obj=_unseal(token)
-    # Keep verified rows, revisit the failed acceptance criterion next cycle.
+    # Keep all other verified work, but replace the most recent row on review
+    # failure so the next research cycle can seek additional real evidence.
+    if obj.get("rows"):
+        obj["rows"].pop()
     obj["feedback"]=str(feedback)[:500]
     state["research_projects"][bounty_id]=_seal(obj)
