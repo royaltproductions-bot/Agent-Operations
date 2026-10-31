@@ -175,7 +175,7 @@ class GambitTests(unittest.TestCase):
         self.assertTrue(result['_retry_decision'])
         self.assertEqual(result['decision'], 'pass')
 
-    def test_fulfillment_failures_back_off_and_eventually_release(self):
+    def test_fulfillment_failures_remain_retryable_after_three_attempts(self):
         state = {'bounties': {'b1': {'action': 'hired', 'claim_id': 'c1'}},
                  'recent_outcomes': []}
         gambit.schedule_fulfillment_retry(state, 'b1', TimeoutError())
@@ -183,7 +183,8 @@ class GambitTests(unittest.TestCase):
         self.assertFalse(gambit.fulfillment_retry_due(state['bounties']['b1']))
         for _ in range(2):
             gambit.schedule_fulfillment_retry(state, 'b1', TimeoutError())
-        self.assertEqual(state['bounties']['b1']['action'], 'fulfillment_failed_final')
+        self.assertEqual(state['bounties']['b1']['action'], 'retry_fulfillment')
+        self.assertEqual(state['bounties']['b1']['retry_count'], 3)
         self.assertEqual(state['bounties']['b1']['claim_id'], 'c1')
 
     def test_claimed_work_waits_for_retry_due_date(self):
@@ -200,17 +201,21 @@ class GambitTests(unittest.TestCase):
              patch.object(gambit, 'relevant_events', return_value=([], None)):
             self.assertEqual(gambit.scan(state)[-1], [item])
 
-    def test_exhausted_delivery_refunds_claim_instead_of_stalling(self):
+    def test_legacy_terminal_retry_state_does_not_automatically_unclaim(self):
         details = {'bounty': {'_id': 'b1', 'status': 'claimed'},
                    'claim': {'status': 'active', 'claim_id': 'c1'}}
         state = {'bounties': {'b1': {'action': 'fulfillment_failed_final',
                                      'claim_id': 'c1'}}, 'recent_outcomes': []}
-        with patch.object(gambit, 'api', side_effect=lambda path, method='GET',
-                          payload=None: details if method == 'GET' else {}) as api:
+        with patch.object(gambit, 'api',
+                          side_effect=lambda path, method='GET', payload=None:
+                          details if method == 'GET' else {}) as api, \
+             patch.object(gambit, 'messages_for', return_value=[]), \
+             patch.object(gambit, 'produce', return_value={
+                 'status':'need_information', 'question':'Please provide missing input.'}):
             gambit.handle_hired({'_id': 'b1'}, state)
-        self.assertEqual(state['bounties']['b1']['action'], 'unclaimed_unfulfillable')
-        self.assertTrue(any(call.args[0].endswith('/unclaim')
-                            for call in api.call_args_list))
+        self.assertEqual(state['bounties']['b1']['action'], 'awaiting_info')
+        self.assertFalse(any(call.args[0].endswith('/unclaim')
+                             for call in api.call_args_list))
 
     def test_unresolved_decision_cannot_permanently_pass_open_bounty(self):
         details = {'bounty': {'_id': 'b1', 'status': 'open',
@@ -496,20 +501,14 @@ class GambitTests(unittest.TestCase):
             self.assertEqual(gambit.unsupported_deliverable(details),
                              "software_project_not_supported")
 
-    def test_bulk_linkedin_profiles_exceed_current_verified_research_capacity(self):
-        for number in (50,500):
+    def test_buyer_defined_prospect_count_is_not_arbitrarily_rejected(self):
+        for number in (10, 50, 500):
             details={"bounty":{
                 "title":"Find research contacts",
                 "description":"Research decision makers and their LinkedIn profiles.",
                 "verification":f"Submit exactly {number} prospect records with "
                                "LinkedIn profile URLs and supporting sources."}}
-            self.assertEqual(gambit.unsupported_deliverable(details),
-                             "bulk_linkedin_prospect_research_unverified")
-        feasible={"bounty":{
-            "title":"Research ten professionals",
-            "description":"Compile a small public business contact list.",
-            "verification":"Submit exactly 10 prospect records with LinkedIn profile URLs."}}
-        self.assertIsNone(gambit.unsupported_deliverable(feasible))
+            self.assertIsNone(gambit.unsupported_deliverable(details))
 
     def test_company_website_urls_do_not_trigger_static_site_requirements(self):
         details={"bounty":{"title":"Find 15 New York Seed-Stage Fintech Startups",
@@ -1428,7 +1427,7 @@ class GambitTests(unittest.TestCase):
         self.assertEqual(len(requests), 1)
         self.assertIn('/messages', requests[0].args[0])
 
-    def test_repeated_quality_failure_notifies_and_refunds_buyer(self):
+    def test_repeated_quality_failure_schedules_new_retry_without_refund(self):
         details = {'bounty': {'_id': 'b1', 'status': 'claimed', 'payout_cents': 1800},
                    'claim': {'status': 'active', 'claim_id': 'c1'}}
         state = {'bounties': {'b1': {'action': 'quality_rejected',
@@ -1444,12 +1443,12 @@ class GambitTests(unittest.TestCase):
              patch.object(gambit, 'review', return_value={
                  'approved': False, 'reason': 'Not source verified'}):
             gambit.handle_hired({'_id': 'b1'}, state)
-        self.assertEqual(state['bounties']['b1']['action'], 'unclaimed_unfulfillable')
+        self.assertEqual(state['bounties']['b1']['action'], 'quality_rejected')
+        self.assertEqual(state['bounties']['b1']['quality_retry_count'], 3)
+        self.assertTrue(state['bounties']['b1'].get('retry_at'))
         posts = [c for c in api.call_args_list
                  if len(c.args) > 1 and c.args[1] == 'POST']
-        self.assertEqual(len(posts), 2)
-        self.assertIn('/messages', posts[0].args[0])
-        self.assertIn('/unclaim', posts[1].args[0])
+        self.assertFalse(any('/unclaim' in c.args[0] for c in posts))
 
     def test_live_market_workload_excludes_old_withdrawn_offer_from_fresh_work(self):
         opened = [{"_id": "old", "version": 1}, {"_id": "new", "version": 2},
