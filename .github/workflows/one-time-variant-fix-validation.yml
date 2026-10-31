@@ -1,0 +1,23 @@
+name: Verify X Variant Minimal Fixes
+on:
+  push:
+    paths: ['.github/workflows/one-time-variant-fix-validation.yml']
+permissions:
+  contents: read
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install offline unit test dependencies
+        run: |
+          python3 -m pip install --quiet --disable-pip-version-check \
+            'pypdf>=5,<8' 'python-docx>=1.2,<2' 'openpyxl>=3.1,<4' \
+            'reportlab>=4,<5' 'cryptography>=43,<48' ddgs==9.16.1 pillow
+      - name: Run reliability, price extraction and market tests
+        run: |
+          python3 -m py_compile tools/gambit_watch.py tools/open_web_discovery.py tools/research_memory.py tools/paid_market.py tools/cyclops_asset_engine.py
+          python3 -m unittest discover -s tests -p 'test_variant_optimization.py' -q
+          python3 -m unittest discover -s tests -p 'test_x_variant_execution.py' -q
+          python3 -m unittest discover -s tests -p 'test_gambit_watch.py' -q
