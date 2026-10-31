@@ -1,0 +1,208 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-31T18:16:58.041079+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 12,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "bing": 1,
+      "duckduckgo": 7,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "verified_firsthand_problem_pages": 1,
+    "observed_public_paid_offers": 2,
+    "market_candidates_considered": 2,
+    "public_sources_available_for_judgment": 10,
+    "public_market_sample": [
+      {
+        "url": "https://www.liquid.trade/",
+        "title": "Liquid Trading \u2014 Trade Global Markets",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://www.gminsights.com/industry-analysis/pharmaceutical-packaging-market",
+        "title": "Pharmaceutical Packaging Market Size & Share 2026-2035",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://www.towardspackaging.com/insights/eco-friendly-food-packaging-market-sizing",
+        "title": "Eco-friendly Food Packaging Market Size and Trends 2035",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.expertmarketresearch.com/reports/pharmaceutical-contract-packaging-market",
+        "title": "Pharmaceutical Contract Packaging Market Size & Growth 2035",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.expertmarketresearch.com/reports/united-states-sustainable-packaging-market",
+        "title": "US Sustainable Packaging Market - Size, Share, Forecast 2035",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.emergenresearch.com/industry-report/sustainable-packaging-market",
+        "title": "Sustainable Packaging Market (2025-2035) - Emergen Research",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://www.liquid.trade/",
+        "title": "Liquid Trading \u2014 Trade Global Markets",
+        "displayed_sales_count": null,
+        "listed_price_usd": "1.00"
+      },
+      {
+        "url": "https://www.gminsights.com/industry-analysis/pharmaceutical-packaging-market",
+        "title": "Pharmaceutical Packaging Market Size & Share 2026-2035",
+        "displayed_sales_count": null,
+        "listed_price_usd": "4.00"
+      }
+    ],
+    "candidates_without_email": 11,
+    "search_queries": [
+      "liquid packaging market growth projections",
+      "pharmaceutical contract packaging market size 2026-2035",
+      "eco-friendly packaging market trends 2025-2035",
+      ""
+    ],
+    "research_memory": {
+      "persisted": false,
+      "reason": "JSONDecodeError",
+      "errors": [
+        "save:JSONDecodeError"
+      ]
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:10 candidates reviewed; product in the pharmaceutical packaging market. The page appears to be a directory or search interface rather than a specific product or service offering. Without concr"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:ed05876ce77f979b04",
+      "decision": "pass",
+      "reason": "The candidate lacks clear evidence of actual buyer demand or verified sales. While the product description suggests potential interest in prediction markets, there is no independent corroboration of sales or buyer activity. Additionally, the listed price is extremely low, which may indicate a lack of perceived value or a speculative offering. Witho"
+    },
+    {
+      "candidate_id": "web:08d28e1eac43536a0a",
+      "decision": "pass",
+      "reason": "The eco-friendly food packaging market is projected to grow significantly, but the provided evidence lacks specific customer problems or actionable insights that would justify a unique, original product. The market is highly competitive, and without a clear differentiation or a specific user need that can be addressed with a small digital product, "
+    },
+    {
+      "candidate_id": "web:915e31e1afa7ad10de",
+      "decision": "pass",
+      "reason": "The pharmaceutical packaging market is highly established with significant growth projections, but the provided evidence is a paid report with no verified sales or buyer activity. The lack of concrete customer demand or specific problem-solving utility for an original product makes it unsuitable for a genuine product launch."
+    },
+    {
+      "candidate_id": "web:ecb384ba71568f0048",
+      "decision": "pass",
+      "reason": "While the US Sustainable Packaging Market report indicates growth potential, there is no concrete evidence of actual buyer demand or sales figures to validate the market's viability. The absence of specific customer problems or a clear, differentiated product idea makes it difficult to justify pursuing this market without further data."
+    },
+    {
+      "candidate_id": "web:3ceb05c1bfe25b7e52",
+      "decision": "pass",
+      "reason": "The provided excerpt does not offer concrete evidence of a specific product, demand, or market opportunity. It appears to be a report page with no actionable data or product details. Without a clear product idea or customer problem being addressed, it is not sufficient to justify pursuing this market."
+    },
+    {
+      "candidate_id": "web:b10433f8173d779ee2",
+      "decision": "pass",
+      "reason": "While the sustainable packaging market is projected to grow significantly, there is no concrete evidence of a specific product or demand for an original offering in this space. The provided information is more about market trends and reports rather than a verified product or customer demand. Additionally, the absence of listed prices or sales count"
+    },
+    {
+      "candidate_id": "web:a0653392bedf032534",
+      "decision": "pass",
+      "reason": "The article discusses increasing consumer demand for eco-friendly and biodegradable packaging, which indicates a growing market trend. However, the content is not directly actionable for a product without specific details on a unique offering, pricing, or sales data. The LinkedIn page appears to be a promotional piece rather than a verified source "
+    },
+    {
+      "candidate_id": "web:fad62078e3fb20a0de",
+      "decision": "pass",
+      "reason": "While the pharmaceutical unit-dose packaging market is projected to grow significantly, there is no evidence of a specific, unmet customer need or a feasible, differentiated product that can be tested at a low cost. The market is highly competitive and dominated by established players, and without a clear, actionable problem or a unique value propo"
+    },
+    {
+      "candidate_id": "web:67809ac68a33ad9cd0",
+      "decision": "pass",
+      "reason": "The evidence provided does not clearly indicate a specific customer problem or demand for an original product in the pharmaceutical packaging market. The page appears to be a directory or search interface rather than a specific product or service offering. Without concrete evidence of a unique problem or a feasible differentiated solution, the mark"
+    },
+    {
+      "candidate_id": "web:aec749b315670b0af2",
+      "decision": "pass",
+      "reason": "The provided market observation lacks specific customer problems or user needs that a differentiated product could address. While the liquid packaging market is broad, there is no clear indication of a unique opportunity or a feasible, bounded prototype that can be tested with actual buyer demand. The absence of specific sales data, pricing, or com"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 10,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
