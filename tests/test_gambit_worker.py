@@ -12,6 +12,7 @@ import urllib.error
 from unittest.mock import patch
 
 from tools import gambit_worker as gambit
+from tools import gambit_app_builder
 
 
 class GambitTests(unittest.TestCase):
@@ -489,7 +490,7 @@ class GambitTests(unittest.TestCase):
             'title': 'Analyze expenses from a CSV',
             'verification': 'Summarize totals in a report.'}}))
 
-    def test_live_web_apps_cannot_hide_behind_research_wording(self):
+    def test_live_app_scope_uses_real_app_build_resource_not_static_site(self):
         nonprofit={"bounty":{"title":"Research Nonprofit Fundraising Events and Contacts",
             "description":"Build a simple web app where users upload nonprofit domains "
                           "and the app searches public sources for events.",
@@ -498,8 +499,13 @@ class GambitTests(unittest.TestCase):
             "description":"Deliver a standalone AI chat prototype using an AI model API key.",
             "verification":"The prototype includes a chat input and generated report."}}
         for details in (nonprofit,prototype):
-            self.assertEqual(gambit.unsupported_deliverable(details),
-                             "software_project_not_supported")
+            self.assertIsNone(gambit.unsupported_deliverable(details))
+            with patch.object(gambit, "app_capable", return_value=False):
+                result=gambit.assess(details)
+                self.assertEqual(result["decision"],"pass")
+                self.assertTrue(result["_retry_decision"])
+                self.assertEqual(result["reason"],
+                                 "app_build_resource_temporarily_unavailable")
 
     def test_buyer_defined_prospect_count_is_not_arbitrarily_rejected(self):
         for number in (10, 50, 500):
@@ -541,8 +547,8 @@ class GambitTests(unittest.TestCase):
                             "internet searches and returns auction event dates."),
             "verification": ("Provide working app source code, setup instructions, "
                              "and results for a sample CSV.")}}
-        self.assertEqual("software_project_not_supported",
-                         gambit.unsupported_deliverable(request))
+        self.assertTrue(gambit_app_builder.requested(request))
+        self.assertIsNone(gambit.unsupported_deliverable(request))
         self.assertIsNone(gambit.unsupported_deliverable({"bounty": {
             "title": "Research nonprofits and summarize upcoming auctions",
             "description": "Research public nonprofit auction dates from supplied CSV.",
@@ -554,7 +560,7 @@ class GambitTests(unittest.TestCase):
                          gambit.unsupported_deliverable({'bounty': {
             'title': 'Build a static HTML landing page',
             'verification': 'Deliver a ZIP of the standalone front-end source.'}}))
-        self.assertEqual('software_project_not_supported', gambit.unsupported_deliverable({
+        self.assertIsNone(gambit.unsupported_deliverable({
             'bounty': {'title': 'Build a SaaS application',
                        'verification': 'Implement a backend and database.'}}))
         self.assertEqual('software_deployment', gambit.unsupported_deliverable({

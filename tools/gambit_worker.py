@@ -31,6 +31,8 @@ from tools.gambit_artifacts import (OUTPUT_FILES, SUPPORTED_FORMATS,
                                     make_document, requested_output_format)
 from tools.gambit_site_resources import static_site_eligible, multipage_requested
 from tools import gambit_resources as resources
+from tools import gambit_app_builder
+from tools import gambit_research_workflow
 from tools.gambit_early_scan import fulfillment_cooling
 
 BASE = "https://api.trybounty.ai"
@@ -804,6 +806,11 @@ def website_capable():
             and resources.available("site_visual"))
 
 
+def app_capable():
+    """Working application source requires a real isolated executor and device QA."""
+    return resources.available("app_build")
+
+
 def produce_website(details, messages, feedback="", sources=None):
     """Use the free model for grounded copy, a licensed layout resource for design."""
     bounty = details.get("bounty") or {}
@@ -965,6 +972,17 @@ def unsupported_deliverable(details):
     if re.search(r"\b(?:fillable|interactive|signed|digitally signed)\b.{0,60}\bpdf\b",
                  requested + " " + verification):
         return "unsupported_pdf_form"
+    # Functional apps are assembled and tested by the independent, resumable
+    # app-production resource. A requested CSV *inside* the application is not
+    # a request to substitute a one-off CSV for the working app.
+    if gambit_app_builder.requested(details):
+        full_task = requested + " " + verification
+        if re.search(r"\b(?:deploy(?:ed|ment)?|live url|hosted|hosting|"
+                     r"publicly accessible url|production deployment)\b",
+                     full_task):
+            return "software_deployment"
+        return None
+
     requested_formats = requested_output_format(details)
     if len(requested_formats) > 1 or requested_formats - SUPPORTED_FORMATS:
         return "unsupported_multi_or_file_format"
@@ -1094,6 +1112,9 @@ def cross_check_decision(context, proposal, num_ctx):
 
 def assess(details, messages=None, sources=None, unreadable_count=0):
     gap = unsupported_deliverable(details)
+    if gambit_app_builder.requested(details) and not app_capable():
+        return {"decision": "pass", "reason": "app_build_resource_temporarily_unavailable",
+                "_retry_decision": True, "payout_cents": 0, "note": "", "question": ""}
     if gap:
         return {"decision": "pass", "reason": "unsupported_" + gap,
                 "payout_cents": 0, "note": "", "question": ""}
@@ -1113,15 +1134,23 @@ def assess(details, messages=None, sources=None, unreadable_count=0):
         "Never fabricate names, decision makers, emails, sites, or claimed verification. "
         "It can produce PDF and DOCX reports from completed original text using "
         "real local document-generation tools, CSV or XLSX tables. "
-        "For explicitly static website SOURCE commissions, it can create a landing "
+        "For web-application SOURCE commissions, when the app_build resource "
+        "is available, Gambit can generate a source project across multiple "
+        "checkpointed cycles, run independent tests in an unprivileged "
+        "network-isolated container, and check frontend desktop and mobile "
+        "rendering. It never claims a deployed live URL or a live third-party "
+        "API integration solely from offline tests. For explicitly static "
+        "website SOURCE commissions, it can create a landing "
         "page or multiple linked pages with shared navigation, when every requested "
         "page and feature fits the available static-site resources. It can "
         "produce a responsive source ZIP through a licensed design resource "
         "and actually render the result on desktop/mobile browsers. Never promise "
         "pixel-perfect reproduction, bespoke branding assets, backend functionality, "
-        "a live URL, domain, hosting or deploy. It cannot "
-        "edit the buyer's website, run or test untrusted code, browse authenticated "
-        "systems, make images/videos, "
+        "a live URL, domain, hosting or deploy from static sources. It cannot "
+        "edit the buyer's website or browse authenticated "
+        "systems or operate buyer accounts. App code only runs in the "
+        "isolated production sandbox; it cannot use buyer secrets. "
+        "It cannot make images/videos, "
         "or inspect other private file formats. Do not bid on tasks needing those abilities. "
         "If an unreadable attachment is reported, bid only if the owner's messages "
         "already contain sufficient replacement input to do the work faithfully. "
@@ -1206,11 +1235,15 @@ def respond_to_buyer(details, messages):
         "existing paid-work bid. Answer the actual question briefly and helpfully. "
         "Be truthful about capabilities, timing, and the exact offered deliverable. "
         "This runtime can provide plain-text analysis, writing, structured data, "
-        "CSV, XLSX, PDF, DOCX and standalone static-site ZIP files, "
-        "read text/Markdown/CSV/JSON/PDF/DOCX/XLSX source_files, "
-        "and search public web pages for commissioned research. "
-        "It cannot browse authenticated sites, access private accounts or "
-        "unsupported file types, run code, or operate a buyer's website. "
+        "CSV, XLSX, PDF, DOCX, multi-page static websites, and an "
+        "original functioning application SOURCE package when a verified "
+        "sandbox is available. It can build and offline-test Python stdlib "
+        "backend code and check desktop/mobile browser rendering, and "
+        "continue large source-backed research across encrypted checkpoints. "
+        "It can read text-based buyer files and search public pages. "
+        "It cannot browse authenticated sites, access private buyer accounts, "
+        "claim live external integrations from offline tests, or promise "
+        "hosting and deployment without a verified deployment resource. "
         "Never claim work already done, invent credentials/reviews, or agree to "
         "spending, outside payments, contracts, or unsupported services. "
         "If the buyer has not asked for a response, return an empty reply_text. "
@@ -1446,6 +1479,19 @@ def produce(details, messages, verification_feedback="", quality_feedback="", so
 
 
 def review(details, work, sources=None):
+    if work.get("deliverable_format") == "app_zip":
+        return infer(REVIEW_SCHEMA,
+            "Review an ORIGINAL WORKING web-application source ZIP against the "
+            "exact buyer criteria and independently recorded tests. Approve "
+            "only if source previews substantiate the required features and "
+            "backend + frontend tests passed. Offline tests do NOT verify "
+            "production hosting, paid APIs or live web searches. Never "
+            "claim live integration from offline smoke testing. JSON only.",
+            {"task":clean_context(details,sources=sources),
+             "build_plan":work.get("_app_plan"),
+             "code_evidence":work.get("_app_review_files"),
+             "tests":work.get("_app_evidence")},
+            num_predict=300,num_ctx=14000)
     if work.get("deliverable_format") == "site_zip":
         system = (
             "Strict commercial website content reviewer. Examine the actual buyer brief, "
@@ -1476,11 +1522,19 @@ def review(details, work, sources=None):
         "suitable for submission. "
         "Return strict JSON."
     )
+    evidence=work.get("_web_evidence") or {}
+    rows=evidence.get("results") or []
+    safe_evidence={
+        **{k:v for k,v in evidence.items() if k!="results"},
+        "total_source_records":len(rows),
+        "results":rows[:12]+rows[-8:] if len(rows)>20 else rows}
+    draft={k:(v[:7000] if k=="deliverable_text" and isinstance(v,str)
+              else v) for k,v in work.items() if not k.startswith("_")}
     return infer(REVIEW_SCHEMA, system,
                  {"task": clean_context(details, sources=sources),
-                  "draft": {k: v for k, v in work.items() if not k.startswith("_")},
+                  "draft": draft,
                   "calculated_csv_statistics": summarize_csv_sources(sources),
-                  "web_evidence": work.get("_web_evidence") or {}},
+                  "web_evidence": safe_evidence},
                  num_predict=250, num_ctx=15000 if (work.get("_web_evidence") or {}).get("results")
                  else (9500 if sources else 6500))
 
@@ -1549,7 +1603,18 @@ def requested_list_size(details):
         r"(?:(?:qualified|relevant|potential|targeted|local|sales|public)\s+){0,3}"
         r"(?:leads|contacts|companies|businesses|competitors|candidates|"
         r"suppliers|agencies|investors|creators)\b", task, re.IGNORECASE)
-    return int(match.group(1)) if match else None
+    if match:
+        return int(match.group(1))
+    # Acceptance criteria often say "exactly 500 candidate records" or
+    # "at least 20 distinct companies" instead of "find 20 companies".
+    fallback=re.search(
+        r"\b(?:exactly|at\s+least|minimum\s+of|one\s+list\s+containing)?\s*"
+        r"(\d{1,4})\s+"
+        r"(?:(?:distinct|unique|verified|qualified|potential|current|"
+        r"relevant|targeted|professional|seed-stage)\s+){0,4}"
+        r"(?:records|rows|leads|contacts|companies|startups|"
+        r"candidates|prospects|investors|professionals)\b",task,re.I)
+    return int(fallback.group(1)) if fallback else None
 
 
 class NoUploadRedirect(urllib.request.HTTPRedirectHandler):
@@ -1764,7 +1829,34 @@ def handle_hired(item, state):
         "quantity": "Meet the buyer's explicit record count using actual evidence.",
         "review": "Prior attempts failed quality review. Recheck each buyer requirement and source."
     }.get(previous_quality_issue, "")
-    result = produce(details, incoming, failure_reason, correction, sources=sources)
+    incremental_research=(
+        not gambit_app_builder.requested(details) and
+        os.getenv("GAMBIT_INCREMENTAL_RESEARCH")=="1" and
+        gambit_research_workflow.qualifies(
+            details,requested_list_size(details),requested_output_format(details)))
+    if gambit_app_builder.requested(details):
+        if not app_capable():
+            schedule_fulfillment_retry(
+                state,bounty_id,RuntimeError("app_build_resource_unavailable"))
+            return
+        result = gambit_app_builder.progress(
+            details,state,bounty_id,claim["claim_id"],infer,
+            lambda html,asset_files: resources.execute(
+                "site_visual",html,asset_files=asset_files))
+        if result.get("status") == "building":
+            note(state,"app_section_checkpointed",bounty_id,
+                 stage=result.get("stage"),sections_done=result.get("completed"))
+            return
+    elif incremental_research:
+        result=gambit_research_workflow.progress(
+            details,state,bounty_id,claim["claim_id"],requested_list_size(details),
+            infer,lambda queries: resources.execute("public_search",queries))
+        if result.get("status")=="building":
+            note(state,"research_batch_checkpointed",bounty_id,
+                 sections_done=result.get("completed"),total=result.get("total"))
+            return
+    else:
+        result = produce(details, incoming, failure_reason, correction, sources=sources)
     if result.get("status") == "need_information":
         question = str(result.get("question") or "").strip()
         if question:
@@ -1794,12 +1886,14 @@ def handle_hired(item, state):
         return
     for attempt in range(2):
         content = str(result.get("deliverable_text") or "").strip()
-        if not content or len(content) > 100000:
+        max_text = 1_000_000 if incremental_research else 100_000
+        if not content or len(content) > max_text:
             raise ValueError("invalid_text_deliverable")
         format_name = result.get("deliverable_format") or "text"
         try:
             required_formats = requested_output_format(details)
-            if required_formats and format_name not in required_formats:
+            if (required_formats and format_name not in required_formats
+                    and format_name != "app_zip"):
                 raise ValueError("requested_output_format_mismatch")
             if format_name in {"csv", "xlsx"}:
                 csv_content = prepare_csv(content)
@@ -1810,6 +1904,10 @@ def handle_hired(item, state):
                 normalized_content = content
             elif format_name in {"pdf", "docx"}:
                 normalized_content = make_document(format_name, content)
+            elif (format_name == "app_zip" and
+                  gambit_app_builder.requested(details) and
+                  app_capable() and result.get("_app_binary")):
+                normalized_content = result["_app_binary"]
             elif (format_name == "site_zip" and static_site_eligible(details)
                   and website_capable() and result.get("_site_binary")):
                 assets = result["_site_assets"]
@@ -1861,6 +1959,14 @@ def handle_hired(item, state):
             break
         if attempt == 0:
             note(state, "quality_revision_attempt", bounty_id)
+            if format_name == "app_zip":
+                gambit_app_builder.request_revision(
+                    state,bounty_id,quality.get("reason") or "Review rejected")
+                break
+            if incremental_research:
+                gambit_research_workflow.request_revision(
+                    state,bounty_id,quality.get("reason") or "Review rejected")
+                break
             result = produce(details, incoming, failure_reason,
                              str(quality.get("reason") or "The deliverable failed quality review"),
                              sources=sources, research=result.get("_web_evidence"))

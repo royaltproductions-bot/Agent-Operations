@@ -1,0 +1,50 @@
+name: Gambit capability integration verification
+on:
+  push:
+    branches: ['feature/gambit-capability-integration']
+    paths:
+      - 'tools/gambit_*'
+      - 'tests/test_gambit_*'
+      - '.github/workflows/gambit-capability-integration.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install app and document test dependencies
+        run: |
+          python3 -m pip install --quiet --disable-pip-version-check \
+            'pypdf>=5,<8' 'python-docx>=1.2,<2' 'openpyxl>=3.1,<4' \
+            'reportlab>=4,<5' 'cryptography>=43,<48' ddgs==9.16.1 pillow playwright
+      - name: Verify syntax and existing commercial tests
+        env:
+          GAMBIT_INFERENCE_PROVIDER: ollama
+          GAMBIT_APP_BUILDER: '0'
+        run: |
+          python3 -m compileall -q tools tests
+          python3 -m unittest discover -s tests -p 'test_gambit_*.py' -q
+      - name: Prove independent backend runtime and desktop/mobile browser QA
+        env:
+          GAMBIT_APP_TEST_DIAGNOSTICS: '1'
+        run: python3 -m tools.gambit_app_smoke
+      - name: Confirm original static site, state branch and budget remain intact
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          flow=Path('.github/workflows/gambit-bounty.yml').read_text()
+          watch=Path('tools/gambit_watch.py').read_text()
+          for item in ("GAMBIT_WEBSITE_BUILDER: '1'",
+                       "GAMBIT_APP_BUILDER: '1'",
+                       "GAMBIT_INCREMENTAL_RESEARCH: '1'",
+                       "GAMBIT_OPENAI_MONTHLY_LIMIT_USD: '20.00'",
+                       "GAMBIT_WATCH_SECONDS: '240'"):
+              assert item in flow, item
+          assert 'gambit-state' in flow and 'gambit-state' in watch
+          assert "site_source" in Path('tools/gambit_resources.py').read_text()
+          assert "site_visual" in Path('tools/gambit_resources.py').read_text()
+          print("Original capacity and budget controls preserved")
+          PY

@@ -75,6 +75,13 @@ def _load_defaults():
                       lambda *a, **k: gambit_site_resources.create_project(*a, **k)))
     register(Provider("desktop-mobile-browser", "site_visual", _browser_available,
                       lambda *a, **k: gambit_visual_qa.render_browser_evidence(*a, **k)))
+    # The web-app builder is an extension; the proven static-site provider stays
+    # available independently. No generated app code executes in this process.
+    from tools import gambit_app_builder
+    register(Provider("isolated-app-source", "app_build",
+                      lambda: (os.getenv("GAMBIT_APP_BUILDER") == "1" and
+                               _browser_available() and gambit_app_builder.available()),
+                      lambda *a, **k: gambit_app_builder.verify_project(*a, **k)))
 
 
 def _load():
