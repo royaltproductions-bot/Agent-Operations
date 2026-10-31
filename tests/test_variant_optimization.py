@@ -15,6 +15,22 @@ from tools import research_memory
 
 
 class OptimizationTests(unittest.TestCase):
+    def test_provider_rate_limit_carries_between_research_runs(self):
+        from tools import research_memory
+        from datetime import datetime, timezone, timedelta
+        memory=research_memory.ResearchMemory.__new__(research_memory.ResearchMemory)
+        memory.state={"lane":"wolverine"}
+        self.assertTrue(memory.provider_available("brave"))
+        memory.defer_provider("brave",minutes=90)
+        self.assertFalse(memory.provider_available("brave"))
+        merged=research_memory._merge({},memory.state,"wolverine")
+        self.assertIn("brave",merged["provider_cooldowns"])
+        memory.state=merged
+        self.assertFalse(memory.provider_available("brave"))
+        memory.state["provider_cooldowns"]["brave"]=(
+            datetime.now(timezone.utc)-timedelta(minutes=1)).isoformat()
+        self.assertTrue(memory.provider_available("brave"))
+
     def test_cyclops_rechecks_fabricated_candidate_id_once(self):
         rows=[{"id":"candidate", "title":"Business data report",
                "source_url":"https://example.org/report",
