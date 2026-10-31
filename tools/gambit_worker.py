@@ -968,6 +968,18 @@ def unsupported_deliverable(details):
     if re.search(r"\b(?:fillable|interactive|signed|digitally signed)\b.{0,60}\bpdf\b",
                  requested + " " + verification):
         return "unsupported_pdf_form"
+    # Public search does not provide bulk authenticated LinkedIn sourcing.
+    # High-volume individually sourced people records exceed the verified
+    # research budget; never bid on hundreds of identities as though verified.
+    if ("linkedin profile" in verification or "linkedin profile" in requested):
+        amounts=[int(value) for value in re.findall(
+            r"\b(?:exactly|at least|minimum of)?\s*(\d{2,4})\s+"
+            r"(?:candidate|prospect|lead|contact|person|professional|record)s?\b",
+            verification)]
+        if any(amount > int(os.getenv("GAMBIT_MAX_VERIFIABLE_PROSPECTS", "30"))
+               for amount in amounts):
+            return "bulk_linkedin_prospect_research_unverified"
+
     requested_formats = requested_output_format(details)
     if len(requested_formats) > 1 or requested_formats - SUPPORTED_FORMATS:
         return "unsupported_multi_or_file_format"
