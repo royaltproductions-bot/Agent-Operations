@@ -369,7 +369,19 @@ def choose_asset_concept(rows,existing_assets=None):
         selected=next((p for p in remaining[:4]
                        if p["candidate_id"]==str(judgment.get("candidate_id") or "")),None)
         if not selected:
-            raise ValueError("market_judgment_selected_unknown_listing")
+            # Correct one hallucinated selection ID using real observed IDs.
+            judgment=model_json(
+                MARKET_JUDGMENT_SCHEMA,
+                "Your candidate_id was invalid. Choose exactly one supplied "
+                "candidate_id, then pursue or pass based on the evidence. "
+                "Never invent a listing or its identifier. Return JSON only.",
+                {"candidate_ids":[p["candidate_id"] for p in remaining[:4]],
+                 "public_market_observations":remaining[:4]},
+                num_ctx=2400,num_predict=250,temperature=0)
+            selected=next((p for p in remaining[:4]
+                           if p["candidate_id"]==str(judgment.get("candidate_id") or "")),None)
+            if not selected:
+                raise ValueError("market_judgment_selected_unknown_listing")
         assessments.append({"candidate_id":selected["candidate_id"],
                             "decision":judgment.get("decision"),
                             "reason":str(judgment.get("reason") or "")[:350]})
