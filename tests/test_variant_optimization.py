@@ -49,6 +49,25 @@ class OptimizationTests(unittest.TestCase):
         self.assertEqual(infer.call_count,3)
         self.assertEqual(result["evidence_candidate_id"],"candidate")
 
+    def test_firsthand_problem_can_produce_a_small_market_trial(self):
+        row={"id":"actual-buyer","title":"Ask HN: Invoice reconciliation",
+             "source_url":"https://news.ycombinator.com/item?id=123456",
+             "search_alignment":"first_party_question_post","page_fetched":True,
+             "page_text":("I need help organizing recurring invoice payments. "
+                          "My manual spreadsheet takes hours to reconcile weekly. ")*3}
+        plan={"evidence_candidate_id":"actual-buyer","title":"Invoice workbook",
+              "description":"Original reusable workbook","audience":"Small businesses",
+              "pitch":"Reduce repeat invoice reconciliation","price_usd":"12",
+              "target_terms":["invoice"],"output_files":["invoice.csv"],
+              "production_goal":"Build source-backed reusable invoice file"}
+        with patch.object(cyclops,"model_json",side_effect=[
+             {"candidate_id":"actual-buyer","decision":"pass",
+              "reason":"No public sales metrics"},plan]) as infer, \
+             patch.object(cyclops,"discover_tools",return_value={}):
+            result=cyclops.choose_asset_concept([row])
+        self.assertEqual(result["evidence_candidate_id"],"actual-buyer")
+        self.assertEqual(infer.call_count,2)
+
     def test_cyclops_reviews_remaining_market_after_first_pass(self):
         rows=[{'id':str(i),'source_url':f'https://example.org/{i}',
                'title':f'Useful product {i}','page_fetched':True,
