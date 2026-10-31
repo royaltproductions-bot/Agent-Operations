@@ -1,0 +1,139 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-31T22:54:04.907848+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 9
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "JSONDecodeError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 14,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/Ikalus1988/MisakaNet/issues/4013",
+        "title": "[Bounty] Run a real crash through fatal-guard and post the tombstone + the draft it produced",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/hanzoai/cli/issues/12",
+        "title": "Rewrite CONTRIBUTING.md for the Rust CLI; it describes a Python app",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/lizTheDeveloper/privacy-the-game/issues/419",
+        "title": "[opt-out check] RocketReach: find a no-account opt-out route",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/lizTheDeveloper/privacy-the-game/issues/400",
+        "title": "[find opt-out] NATIONAL STUDENT CLEARINGHOUSE: find the official opt-out route",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Uuriko/project-room/issues/3224",
+        "title": "[tracking] Finish raw members[...] migration behind ownMember/requireMember and add the lint ban",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://dev.to/potpie/i-built-an-ai-agent-that-creates-readme-file-for-your-code-57l2",
+        "title": "I built an AI Agent that creates README file for your code",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-01 create concise readme",
+      "is:issue is:open bounty created:>=2026-09-01 migrating config code",
+      "looking for someone to create a concise README for a Discord bot",
+      "hiring a freelancer to improve API documentation for a Web Service"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create a concise README for a Discord bot",
+      "hiring a freelancer to improve API documentation for a Web Service",
+      "need paid help with migrating config as code to NIXPACKS",
+      "can anyone create a Discord command reference for a public bot"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 21,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create a concise README for a Discord bot",
+        "hiring a freelancer to improve API documentation for a Web Service",
+        "need paid help with migrating config as code to NIXPACKS",
+        "can anyone create a Discord command reference for a public bot"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
