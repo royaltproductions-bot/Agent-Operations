@@ -16,7 +16,7 @@ from tools.gambit_research import relevant_excerpt
 SALE_COUNT=re.compile(
     r"(?i)(?<![\w])(?:(\d[\d,]*)\s+(?:sales|purchases|orders)\b|"
     r"\bsold\s+(\d[\d,]*)\s+(?:copies|units|times)\b)")
-PRICE=re.compile(r"(?i)(?<![\w])(?:US\s*)?\$\s*(\d+(?:\.\d{1,2})?)\b")
+PRICE=re.compile(r"(?i)(?<![\w])(?:US\s*)?\$\s*(\d{1,3}(?:,\d{3})+(?:\.\d{1,2})?|\d+(?:\.\d{1,2})?)\b")
 BUY_CONTROL=re.compile(
     r"(?i)\b(?:add to (?:cart|basket)|cart|buy now|purchase|checkout|"
     r"subscribe|order now|buy|pay now|purchase now|hire now)\b")
@@ -46,7 +46,7 @@ def observed_paid_listing(row):
         window=body[max(0,match.start()-180):match.end()+220]
         if not BUY_CONTROL.search(window):
             continue
-        price=Decimal(match.group(1))
+        price=Decimal(match.group(1).replace(",",""))
         if price<=0:
             continue
         sale=SALE_COUNT.search(window)
