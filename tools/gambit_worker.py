@@ -32,6 +32,7 @@ from tools.gambit_artifacts import (OUTPUT_FILES, SUPPORTED_FORMATS,
 from tools.gambit_site_resources import static_site_eligible, multipage_requested
 from tools import gambit_resources as resources
 from tools import gambit_app_builder
+from tools import gambit_research_workflow
 from tools.gambit_early_scan import fulfillment_cooling
 
 BASE = "https://api.trybounty.ai"
@@ -1516,11 +1517,19 @@ def review(details, work, sources=None):
         "suitable for submission. "
         "Return strict JSON."
     )
+    evidence=work.get("_web_evidence") or {}
+    rows=evidence.get("results") or []
+    safe_evidence={
+        **{k:v for k,v in evidence.items() if k!="results"},
+        "total_source_records":len(rows),
+        "results":rows[:12]+rows[-8:] if len(rows)>20 else rows}
+    draft={k:(v[:7000] if k=="deliverable_text" and isinstance(v,str)
+              else v) for k,v in work.items() if not k.startswith("_")}
     return infer(REVIEW_SCHEMA, system,
                  {"task": clean_context(details, sources=sources),
-                  "draft": {k: v for k, v in work.items() if not k.startswith("_")},
+                  "draft": draft,
                   "calculated_csv_statistics": summarize_csv_sources(sources),
-                  "web_evidence": work.get("_web_evidence") or {}},
+                  "web_evidence": safe_evidence},
                  num_predict=250, num_ctx=15000 if (work.get("_web_evidence") or {}).get("results")
                  else (9500 if sources else 6500))
 
@@ -1804,6 +1813,11 @@ def handle_hired(item, state):
         "quantity": "Meet the buyer's explicit record count using actual evidence.",
         "review": "Prior attempts failed quality review. Recheck each buyer requirement and source."
     }.get(previous_quality_issue, "")
+    incremental_research=(
+        not gambit_app_builder.requested(details) and
+        os.getenv("GAMBIT_INCREMENTAL_RESEARCH")=="1" and
+        gambit_research_workflow.qualifies(
+            details,requested_list_size(details),requested_output_format(details)))
     if gambit_app_builder.requested(details):
         if not app_capable():
             schedule_fulfillment_retry(
@@ -1816,6 +1830,14 @@ def handle_hired(item, state):
         if result.get("status") == "building":
             note(state,"app_section_checkpointed",bounty_id,
                  stage=result.get("stage"),sections_done=result.get("completed"))
+            return
+    elif incremental_research:
+        result=gambit_research_workflow.progress(
+            details,state,bounty_id,claim["claim_id"],requested_list_size(details),
+            infer,lambda queries: resources.execute("public_search",queries))
+        if result.get("status")=="building":
+            note(state,"research_batch_checkpointed",bounty_id,
+                 sections_done=result.get("completed"),total=result.get("total"))
             return
     else:
         result = produce(details, incoming, failure_reason, correction, sources=sources)
@@ -1848,7 +1870,8 @@ def handle_hired(item, state):
         return
     for attempt in range(2):
         content = str(result.get("deliverable_text") or "").strip()
-        if not content or len(content) > 100000:
+        max_text = 1_000_000 if incremental_research else 100_000
+        if not content or len(content) > max_text:
             raise ValueError("invalid_text_deliverable")
         format_name = result.get("deliverable_format") or "text"
         try:
@@ -1922,6 +1945,10 @@ def handle_hired(item, state):
             note(state, "quality_revision_attempt", bounty_id)
             if format_name == "app_zip":
                 gambit_app_builder.request_revision(
+                    state,bounty_id,quality.get("reason") or "Review rejected")
+                break
+            if incremental_research:
+                gambit_research_workflow.request_revision(
                     state,bounty_id,quality.get("reason") or "Review rejected")
                 break
             result = produce(details, incoming, failure_reason,
