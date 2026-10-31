@@ -1,4 +1,5 @@
 name: Validate full X-variant corrections offline
+# Final bid-scope update: test 50/500 prospect feasibility guards
 # Final rerun after research-memory lane initialization fix
 on:
   push:
