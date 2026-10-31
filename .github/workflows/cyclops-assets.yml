@@ -3,21 +3,6 @@ on:
   schedule:
     - cron: '47 * * * *'
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'tools/cyclops_asset_engine.py'
-      - 'tools/cyclops_workshop.py'
-      - 'tools/cyclops-workshop.Dockerfile'
-      - 'tools/cyclops_vault.py'
-      - 'tools/connected_commerce_tools.py'
-      - 'tools/research_memory.py'
-      - 'tools/persist_run_receipt.py'
-      - 'tools/paid_market.py'
-      - 'tests/test_variant_optimization.py'
-      - 'tools/open_web_discovery.py'
-      - '.github/workflows/cyclops-assets.yml'
-
 permissions:
   contents: write
 

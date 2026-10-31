@@ -3,18 +3,6 @@ on:
   schedule:
     - cron: '23 * * * *'
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'tools/autonomous_commerce_brain.py'
-      - 'tools/connected_commerce_tools.py'
-      - 'tools/open_web_discovery.py'
-      - 'tools/research_memory.py'
-      - 'tools/persist_run_receipt.py'
-      - 'tools/paid_market.py'
-      - 'tests/test_variant_optimization.py'
-      - '.github/workflows/commerce-engine.yml'
-
 permissions:
   contents: write
   actions: write
