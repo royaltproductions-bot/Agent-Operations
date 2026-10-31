@@ -137,10 +137,19 @@ def verify_project(files, render):
     if not available():
         raise RuntimeError("app_isolated_runner_unavailable")
     with tempfile.TemporaryDirectory(prefix="gambit-app-") as folder:
+        # The sandbox runs as nobody (UID 65534). Temp directories default to
+        # 0700, which would make the read-only source invisible inside Docker.
+        Path(folder).chmod(0o755)
         for name,content in files.items():
             target=Path(folder)/name
             target.parent.mkdir(parents=True,exist_ok=True)
+            for directory in target.parents:
+                if directory==Path(folder):
+                    break
+                if Path(folder) in directory.parents:
+                    directory.chmod(0o755)
             target.write_text(content,encoding="utf-8")
+            target.chmod(0o644)
         # Run real supplied unit tests AND an independent HTTP smoke test.
         # Generated code can neither read the worker environment nor use network.
         smoke=(
