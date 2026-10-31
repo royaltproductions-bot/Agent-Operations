@@ -1,0 +1,137 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-31T19:49:13.635700+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 8,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/doctordoomies/MACSPLOIT/issues/45",
+        "title": "M1.5 real-target acceptance and run-results UX",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/stoicsatvik/utsavfootprint/issues/1",
+        "title": "Bootstrap Utsav Footprint: action engine + virtual live sensor",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Rohank143/BountyScout/issues/50",
+        "title": "\ud83c\udfaf Bounty Alert: 12 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Opire/.github/issues/1",
+        "title": "Bounty payout support for individual developers in mainland China",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2594",
+        "title": "[wildcard] Turn rejection into the product: synthesize the boundary from the failing alias graph, then prove the repair ",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.peopleforai.com/",
+        "title": "Data Labeling Company - High-Quality AI Training Data Services",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-01 build data labeling",
+      "is:issue is:open bounty created:>=2026-09-01 geospatial data labeling",
+      "is:issue is:open bounty created:>=2026-09-01 ",
+      "looking for someone to build a data labeling tool",
+      "hiring a freelancer to create image annotation software"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a data labeling tool",
+      "hiring a freelancer to create image annotation software",
+      "need paid help with geospatial data labeling",
+      "can anyone create a satellite imagery annotation platform"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 25,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a data labeling tool",
+        "hiring a freelancer to create image annotation software",
+        "need paid help with geospatial data labeling",
+        "can anyone create a satellite imagery annotation platform"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 137,
+      "known_pages": 1919
+    }
+  },
+  "offer": {
+    "source_url": "https://www.opentrain.ai/hire-freelance-data-labelers/",
+    "title": "Freelance Data Labeling & AI Training Services",
+    "scope": "Provide vetted freelance data labelers and AI trainers for annotation tasks, including RLHF red-teaming, SFT data labeling, and clinical data annotation. Support deployment to platforms like Argilla, Label Studio, and Roboflow.",
+    "price_usd": "49.95",
+    "price_cents": 4995,
+    "offer_id": "6d4dd452e14b1aa23bac88d5",
+    "payment_link_id": "plink_1UWienBto3o776uyKlQz2DiH"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://www.opentrain.ai/hire-freelance-data-labelers/"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "none"
+  }
+}
