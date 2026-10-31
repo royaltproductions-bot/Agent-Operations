@@ -12,6 +12,7 @@ import urllib.error
 from unittest.mock import patch
 
 from tools import gambit_worker as gambit
+from tools import gambit_app_builder
 
 
 class GambitTests(unittest.TestCase):
@@ -546,8 +547,8 @@ class GambitTests(unittest.TestCase):
                             "internet searches and returns auction event dates."),
             "verification": ("Provide working app source code, setup instructions, "
                              "and results for a sample CSV.")}}
-        self.assertEqual("software_project_not_supported",
-                         gambit.unsupported_deliverable(request))
+        self.assertTrue(gambit_app_builder.requested(request))
+        self.assertIsNone(gambit.unsupported_deliverable(request))
         self.assertIsNone(gambit.unsupported_deliverable({"bounty": {
             "title": "Research nonprofits and summarize upcoming auctions",
             "description": "Research public nonprofit auction dates from supplied CSV.",
@@ -559,7 +560,7 @@ class GambitTests(unittest.TestCase):
                          gambit.unsupported_deliverable({'bounty': {
             'title': 'Build a static HTML landing page',
             'verification': 'Deliver a ZIP of the standalone front-end source.'}}))
-        self.assertEqual('software_project_not_supported', gambit.unsupported_deliverable({
+        self.assertIsNone(gambit.unsupported_deliverable({
             'bounty': {'title': 'Build a SaaS application',
                        'verification': 'Implement a backend and database.'}}))
         self.assertEqual('software_deployment', gambit.unsupported_deliverable({
