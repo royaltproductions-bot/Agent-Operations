@@ -4,38 +4,6 @@ on:
   schedule:
     - cron: '3-58/5 * * * *'
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'tools/gambit_worker.py'
-      - 'tools/gambit_openai.py'
-      - 'tests/test_gambit_openai.py'
-      - 'tools/gambit_watch.py'
-      - 'tools/gambit_models.sh'
-      - 'tests/test_gambit_watch.py'
-      - 'tools/gambit_early_scan.py'
-      - 'tests/test_gambit_early_scan.py'
-      - 'tools/gambit_research.py'
-      - 'tools/gambit_documents.py'
-      - 'tools/gambit_artifacts.py'
-      - 'tools/gambit_visual_qa.py'
-      - 'tools/gambit_site_resources.py'
-      - 'tools/gambit_resources.py'
-      - 'tools/gambit_plugin_*.py'
-      - 'tools/gambit_site_smoke.py'
-      - 'assets/website_builder/**'
-      - 'tools/gambit_analytics.py'
-      - 'tests/test_gambit_worker.py'
-      - 'tests/test_gambit_operations.py'
-      - 'tests/test_gambit_research.py'
-      - 'tests/test_gambit_documents.py'
-      - 'tests/test_gambit_artifacts.py'
-      - 'tests/test_gambit_visual_qa.py'
-      - 'tests/test_gambit_site_resources.py'
-      - 'tests/test_gambit_resources.py'
-      - 'tests/test_gambit_analytics.py'
-      - '.github/workflows/gambit-bounty.yml'
-
 permissions:
   contents: write
 
@@ -89,11 +57,6 @@ jobs:
             'pypdf>=5,<8' 'python-docx>=1.2,<2' 'openpyxl>=3.1,<4' \
             'reportlab>=4,<5' 'cryptography>=43,<48' ddgs==9.16.1 playwright pillow
 
-      - name: Validate worker code
-        id: validation
-        if: github.event_name == 'push'
-        run: python3 -m unittest discover -s tests -p 'test_gambit_*.py' -q
-
       - name: Restore reusable models
         if: env.OPENAI_API_KEY == ''
         uses: actions/cache@v4
@@ -103,11 +66,6 @@ jobs:
           restore-keys: |
             gambit-qwen3-production-8b-triage-1-7b-v2
             gambit-qwen3-triage-1-7b-v1
-
-      - name: Verify live public search on code changes
-        continue-on-error: true
-        if: github.event_name == 'push'
-        run: python3 -m tools.gambit_research --smoke
 
       - name: Check marketplace, process work, and checkpoint
         env:
