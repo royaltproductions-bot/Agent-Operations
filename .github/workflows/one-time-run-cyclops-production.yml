@@ -1,0 +1,16 @@
+name: One-time start Cyclops source-backed product experiment
+on:
+  push:
+    paths: ['.github/workflows/one-time-run-cyclops-production.yml']
+permissions:
+  actions: write
+  contents: read
+jobs:
+  launch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Dispatch latest tested Cyclops workflow once
+        run: gh workflow run cyclops-assets.yml --ref main
