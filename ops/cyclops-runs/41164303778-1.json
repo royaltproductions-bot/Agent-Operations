@@ -1,0 +1,228 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-31T03:26:50.079667+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "bing": 2,
+      "duckduckgo": 3,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 15,
+    "verified_firsthand_problem_pages": 4,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 15,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=47367003",
+        "title": "Notes from the trough of sorrow: why we killed our own product",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47110844",
+        "title": "Ask HN: How do you track 2026 AI price wars? I built a tool to help",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45954586",
+        "title": "Experiment: AI workflow for fast SEO-optimized article creation",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45286506",
+        "title": "9 Years Solo: Building Complex AI Competition in a Game Management SIM",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44474800",
+        "title": "Ask HN: Is there a market for agentic scraping tools?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=43936369",
+        "title": "EatDoSleep \u2013 AI Travel Planner with Free Membership",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 15,
+    "search_queries": [
+      "AI Scraping Tools Market Size 2026",
+      "Headless Browsers as a Service",
+      "Web Scraping APIs Revenue Growth",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 19,
+      "skipped_revisits": 17,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "AI Scraping Tools Market Size 2026",
+        "Web Scraping APIs Revenue Growth",
+        "Residential Proxies for AI Scraping",
+        "Headless Browsers as a Service"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 138,
+      "known_pages": 1806
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:15 candidates reviewed; g tools and monetization, but there is no clear evidence of a specific product or demand for an original offering. The page appears to be promotional for Apify's servic"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        },
+        {
+          "source": "open_web_search",
+          "provider": "google",
+          "reason": "URLError",
+          "http_code": null
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:433bc72bf6fd2ac2e8",
+      "decision": "pass",
+      "reason": "While the product Alias had some traction and interest from fintech and enterprise companies, the evidence does not provide clear proof of actual sales or customer adoption. The decision to pivot was based on resource constraints, not market demand. Without verified sales or pricing, it's difficult to assess the viability of a similar product. The "
+    },
+    {
+      "candidate_id": "web:963553b7ba619e0bfc",
+      "decision": "pass",
+      "reason": "While the tool for tracking AI price wars has potential, there is no clear evidence of demand or buyer utility. The tool's features are described, but there is no indication of actual users or sales. Additionally, the absence of pricing and sales data makes it difficult to assess the market viability. The tool's niche audience may be too small to j"
+    },
+    {
+      "candidate_id": "web:2fcffbfa2dcce178e6",
+      "decision": "pass",
+      "reason": "While the problem described (time-consuming SEO article creation) is valid, there is no evidence of existing sales or pricing, and the candidate does not provide a clear value proposition or differentiation from existing tools like Jasper, Frase, or SurferSEO. Without concrete evidence of demand or a unique angle, the opportunity lacks sufficient c"
+    },
+    {
+      "candidate_id": "web:4b71de4c9e330a39ae",
+      "decision": "pass",
+      "reason": "While the project presents a technically complex and innovative idea with a clear niche in game management simulation, there is no evidence of actual sales, pricing, or customer engagement to validate demand. The absence of concrete buyer data or market traction makes it difficult to justify pursuing this idea without further validation."
+    },
+    {
+      "candidate_id": "web:8ce92fb2e30946db42",
+      "decision": "pass",
+      "reason": "The candidate lacks concrete evidence of demand, such as sales counts or pricing, and the question about willingness to pay ($0.025 to $0.03 per request) is speculative. While there is interest in agentic scraping tools, the absence of verified market data or customer activity makes it difficult to justify pursuing this idea without further validat"
+    },
+    {
+      "candidate_id": "web:6ffe0e4a446fa7e34e",
+      "decision": "pass",
+      "reason": "While EatDoSleep presents an interesting concept for an AI travel planner, the evidence does not demonstrate sufficient traction, demand, or competitive differentiation. The creator is actively seeking growth strategies and destination coverage, which suggests the product is still in early development and lacks a clear value proposition or user bas"
+    },
+    {
+      "candidate_id": "web:f8f7a898dff08bd74a",
+      "decision": "pass",
+      "reason": "The candidate lacks concrete evidence of demand, sales, or pricing. While the discussion around Stargate AI and its implications for smaller-scale innovations is intriguing, it does not provide a clear, actionable product idea with verified customer activity or utility. The absence of specific sales counts, pricing, or direct customer problems make"
+    },
+    {
+      "candidate_id": "web:eb53625d71ab068cce",
+      "decision": "pass",
+      "reason": "The candidate is a discussion about building SaaS projects and sharing experiences, not an actual product. There is no evidence of a specific product being offered for sale, no listed price, and no displayed sales count. The content is more about advice and learning rather than a viable product offering."
+    },
+    {
+      "candidate_id": "web:6d4744f02fde27f683",
+      "decision": "pass",
+      "reason": "The AI Web Scraping Market Report 2026 indicates strong growth potential with a projected 10.7% CAGR from 2026 to 2033. However, the absence of concrete sales data or pricing information makes it difficult to assess the viability of a new product in this space. Additionally, the market is already competitive, and without a clear differentiation or "
+    },
+    {
+      "candidate_id": "web:5f553556f41f15dafe",
+      "decision": "pass",
+      "reason": "The LinkedIn article highlights a projected 10.7% CAGR for the enterprise-grade web scraping service market from 2026 to 2033, indicating strong growth potential. However, the article does not provide concrete evidence of existing demand, specific customer problems, or a clear value proposition for a new product. While the market growth is promisin"
+    },
+    {
+      "candidate_id": "web:21ff1496530bebac11",
+      "decision": "pass",
+      "reason": "The Microsoft Edge Headless Mode policy documentation does not indicate a clear market opportunity or demand for a product. It is primarily informational and does not suggest a viable product or service that can be built or sold. There is no evidence of customer activity, buyer utility, or demand strength to justify pursuing this as a commercial op"
+    },
+    {
+      "candidate_id": "web:a61cc4c278c65ecf82",
+      "decision": "pass",
+      "reason": "The evidence suggests that Puppeteer is a well-documented library for controlling Chromium-based browsers, including Microsoft Edge. However, there is no clear indication of a specific product or service that is being offered for sale, and no pricing or sales data is provided. The content appears to be technical documentation rather than a commerci"
+    },
+    {
+      "candidate_id": "web:7d48ca31ddac67e2ad",
+      "decision": "pass",
+      "reason": "The web scraping academy content suggests a niche educational product, but there is no clear evidence of demand or pricing. The lack of listed price and sales count makes it difficult to assess viability without further market validation."
+    },
+    {
+      "candidate_id": "web:9aa005ec920b5227a3",
+      "decision": "pass",
+      "reason": "The content suggests a platform for web scraping tools and monetization, but there is no clear evidence of a specific product or demand for an original offering. The page appears to be promotional for Apify's services rather than showcasing a unique product. Additionally, there is no indication of a specific customer problem that a new product coul"
+    },
+    {
+      "candidate_id": "web:7b5bdf8eb9aa8e5517",
+      "decision": "pass",
+      "reason": "The content is a blog post about proxies for web scraping, which does not indicate a specific product or service being offered for sale. There is no evidence of a paid offer, sales count, or a clear product being presented. The page appears to be informational rather than a commercial offering."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 15,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
