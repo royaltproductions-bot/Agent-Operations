@@ -1,0 +1,188 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-31T14:21:13.157464+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 9,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "duckduckgo": 8,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 8,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 8,
+    "public_market_sample": [
+      {
+        "url": "https://purecompostables.com/compostable-supplies/",
+        "title": "Wholesale Compostable Foodservice Supplies",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://amscompostableusa.com/",
+        "title": "AMS Compostable | Compostable Foodservice Packaging Manufacturer",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.thebusinessresearchcompany.com/report/compostable-packaging-global-market-report",
+        "title": "Compostable Packaging Market Size, Share Report 2026-2030",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.terravive.com/",
+        "title": "Compostable Foodservice Disposables Made in USA | Terravive",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://dataintelo.com/report/global-compostable-packaging-materials-sales-market",
+        "title": "Compostable Packaging Materials Market Size, Share & Forecast Report ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.emergenresearch.com/industry-report/compostable-packaging-market",
+        "title": "Compostable Packaging Market Size, Share & Trends | Industry Report 2035",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 7,
+    "search_queries": [
+      "compostable foodservice equipment buyers",
+      "compostable packaging sales data",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 5,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "compostable foodservice packaging market demand",
+        "compostable packaging sales data",
+        "compostable foodservice equipment buyers",
+        "compostable packaging customer problems"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 1988
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:8 candidates reviewed; f 11.2% from 2026 to 2034, there is no clear evidence of a specific, unmet customer need or a differentiated product opportunity. The market is already well-established "
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:99cf4578a62013e5d0",
+      "decision": "pass",
+      "reason": "The candidate lacks clear pricing and sales data, which are essential for assessing market viability. While the product offers a comprehensive range of compostable foodservice supplies, the absence of concrete sales figures or pricing makes it difficult to evaluate demand and profitability. Additionally, the market for compostable packaging is comp"
+    },
+    {
+      "candidate_id": "web:288f0e90b9e270cc85",
+      "decision": "pass",
+      "reason": "The evidence suggests a niche market for compostable foodservice packaging, but there is no clear indication of a specific customer problem that a new product could solve. The existing players like AMS Compostable and Terravive already offer comprehensive solutions, and the market is growing but not yet saturated with clear gaps. Without a specific"
+    },
+    {
+      "candidate_id": "web:5e6ab50202e4192178",
+      "decision": "pass",
+      "reason": "The report is a paid market analysis and does not provide evidence of actual sales or customer demand for compostable packaging products. It lacks specific customer problems or buyer utility, and the absence of verified sales counts or pricing makes it insufficient to justify building an original product in this market."
+    },
+    {
+      "candidate_id": "web:1f04ffaf568e67bfde",
+      "decision": "pass",
+      "reason": "While Terravive offers compostable foodservice disposables, there is no evidence of actual sales or pricing, which makes it difficult to assess market viability. Additionally, the market for compostable packaging is highly competitive, with multiple reports indicating significant growth, but without specific customer demand or a clear differentiati"
+    },
+    {
+      "candidate_id": "web:1421d1424da0a48dfc",
+      "decision": "pass",
+      "reason": "While the compostable packaging market is projected to grow significantly, the evidence does not provide specific customer problems or buyer utility that justify a unique, differentiated product. The market is already well-researched and dominated by established players, and there is no clear indication of a specific gap or unmet need that a new pr"
+    },
+    {
+      "candidate_id": "web:f96b951f894332a55e",
+      "decision": "pass",
+      "reason": "The compostable packaging market is growing with a CAGR of 8.2% from 2026 to 2035, indicating strong demand. However, the market is already well-established with multiple players and existing reports. There is no clear differentiation or unique value proposition presented in the evidence to justify building a new product in this space. The existing"
+    },
+    {
+      "candidate_id": "web:4e09316df50e7a53b4",
+      "decision": "pass",
+      "reason": "While the compostable packaging materials market shows strong growth potential with a projected CAGR of 11.2% from 2026 to 2034, there is no clear evidence of a specific, unmet customer need or a differentiated product opportunity. The market is already well-established with existing players, and the absence of a concrete problem or a unique value "
+    },
+    {
+      "candidate_id": "web:0adc3ae21f3eb68b52",
+      "decision": "pass",
+      "reason": "The candidate lacks concrete evidence of demand, such as sales figures, pricing, or direct customer engagement. While the market for wellhead components exists, there is no indication of a specific, actionable problem that a digital product could solve. The absence of a clear customer need or a feasible differentiated product makes it unsuitable fo"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 8,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
