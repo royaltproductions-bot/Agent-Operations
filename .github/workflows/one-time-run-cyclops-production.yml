@@ -13,4 +13,4 @@ jobs:
       GH_TOKEN: ${{ github.token }}
     steps:
       - name: Dispatch latest tested Cyclops workflow once
-        run: gh workflow run cyclops-assets.yml --ref main
+        run: gh workflow run cyclops-assets.yml --repo "$GITHUB_REPOSITORY" --ref main
