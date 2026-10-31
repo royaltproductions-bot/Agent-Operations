@@ -1,0 +1,133 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-31T08:05:51.805781+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 6,
+      "bing": 1,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/xeprotocol/xe/issues/229",
+        "title": "[Track 1 Bug Bounty] Descendant-receive race in conflict-resolution swap \u2192 supply inflation (plan\u2192apply window skips pen",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/xeprotocol/xe/issues/228",
+        "title": "[Track 1 Bug Bounty] Directory-gossip panic still reproduces on master 9787859 \u2014 #15/#89 fix incomplete: unauthenticated",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2454",
+        "title": "[wildcard] Rewrite us \u2014 freeze the oracle first: a differential-parity rewrite of the checker (thin slice, not a big ban",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2445",
+        "title": "[wildcard] Self-Hosted Pure Go Analysis Engine: Deleting the Rust/Cargo Toolchain Barrier for Zero-Friction go install &",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2444",
+        "title": "[soundness] Data-carrying enum equality == / != bypasses SPEC T16 & HYB-E2006, failing go build (cannot be compared)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.upwork.com/freelance-jobs/apply/plagiarism-detection-reports-from-recognized-tool_~022110686860296422666/",
+        "title": "plagiarism/AI detection reports from a recognized tool",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-01 ",
+      "hiring a freelancer to create plagiarism detection tool",
+      "need paid help with plagiarism checker script development",
+      "looking for someone to build plagiarism checker script"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build plagiarism checker script",
+      "hiring a freelancer to create plagiarism detection tool",
+      "need paid help with plagiarism checker script development",
+      "can anyone create plagiarism detection script for me"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 9,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build plagiarism checker script",
+        "hiring a freelancer to create plagiarism detection tool",
+        "need paid help with plagiarism checker script development",
+        "can anyone create plagiarism detection script for me"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 1728
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:No explicit request for a paid service or deliverable is present. The content is marketing-focused and does not invit"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
