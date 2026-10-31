@@ -1,0 +1,219 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-31T21:39:34.163188+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 15,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "duckduckgo": 11,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 14,
+    "verified_firsthand_problem_pages": 1,
+    "observed_public_paid_offers": 1,
+    "market_candidates_considered": 1,
+    "public_sources_available_for_judgment": 14,
+    "public_market_sample": [
+      {
+        "url": "https://www.gminsights.com/industry-analysis/in-vitro-diagnostics-packaging-market",
+        "title": "In-Vitro Diagnostics Packaging Market",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://meyers.com/meyers-blog/5-sustainabl-pharmaceutical-packaging-trends/",
+        "title": "5 Sustainable Pharmaceutical Packaging Trends - Meyers",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.pharmafocuseurope.com/articles/eco-friendly-pharma-packaging-2026",
+        "title": "Eco Friendly Pharma Packaging: Waste Reduction Strategies 2026",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.verifiedmarketresearch.com/product/biodegradable-packaging-market/",
+        "title": "Biodegradable Packaging Market Report: Size, Growth, Trends & Forecast ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://dataintelo.com/report/biodegradable-packaging-market",
+        "title": "Biodegradable Packaging Market Size, Share & Forecast Report 2025 to ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.custommarketinsights.com/healthcare/sustainable-pharmaceutical-packaging/",
+        "title": "Sustainable Pharmaceutical Packaging: Trends & Innovations",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://www.gminsights.com/industry-analysis/in-vitro-diagnostics-packaging-market",
+        "title": "In-Vitro Diagnostics Packaging Market",
+        "displayed_sales_count": null,
+        "listed_price_usd": "4123.00"
+      }
+    ],
+    "candidates_without_email": 12,
+    "search_queries": [
+      "sustainable pharmaceutical packaging solutions",
+      "",
+      "biodegradable packaging demand 2025"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 6,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "sustainable pharmaceutical packaging solutions",
+        "biodegradable packaging demand 2025",
+        "pharmaceutical unit-dose packaging market size 2034",
+        "liquid packaging market growth 2026-2035"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:14 candidates reviewed; et, but there is no concrete evidence of a specific product or customer problem being addressed. The content is generic and lacks specific details about an original pro"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "public_page_fetch",
+          "reason": "HTTPError"
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:abd907180494965c18",
+      "decision": "pass",
+      "reason": "The observed public paid offer for the in-vitro diagnostics packaging market report is not indicative of a viable product for development. The report is a market analysis and not a product that can be built or sold as a standalone offering. Additionally, the absence of verified sales data and the high price point make it an unattractive candidate f"
+    },
+    {
+      "candidate_id": "web:e71f485788f173c040",
+      "decision": "pass",
+      "reason": "The article discusses sustainable pharmaceutical packaging trends, but it does not provide evidence of a specific product or demand for an original product in this space. There is no indication of a viable product idea, customer demand, or competitive positioning that would justify pursuing this opportunity."
+    },
+    {
+      "candidate_id": "web:9623fe27033bf40acf",
+      "decision": "pass",
+      "reason": "The article discusses eco-friendly pharma packaging strategies, but there is no evidence of a specific product or demand for an original product in this space. The focus is on industry trends and strategies rather than a concrete product offering. Additionally, there is no indication of a viable market for a new product in this area, and the existi"
+    },
+    {
+      "candidate_id": "web:0224130a9e37c5d6a2",
+      "decision": "pass",
+      "reason": "The page discusses sustainable pharmaceutical packaging trends and innovations, which indicates a potential niche market. However, there is no clear evidence of a specific product or demand for an original product in this space. The content is more about industry trends and challenges rather than a concrete product opportunity. Additionally, there "
+    },
+    {
+      "candidate_id": "web:4bc959f01f843af25c",
+      "decision": "pass",
+      "reason": "While the article highlights a real customer problem in the pharmaceutical industry regarding sustainable packaging, it lacks concrete evidence of a specific, actionable solution or product. The focus is on general recommendations and collaboration rather than a clear, original product idea with defined utility. Additionally, there is no indication"
+    },
+    {
+      "candidate_id": "web:1ad6bfbbe076d1503d",
+      "decision": "pass",
+      "reason": "While the article highlights growing consumer demand for biodegradable packaging and mentions a projected market increase, it lacks concrete evidence of actual buyer utility, demand strength, or competitive positioning. The absence of verified sales data, pricing, or specific customer problems makes it difficult to justify a genuine product without"
+    },
+    {
+      "candidate_id": "web:34bc865d1750f39dc4",
+      "decision": "pass",
+      "reason": "While the article highlights trends in sustainable pharmaceutical packaging, it does not provide concrete evidence of a specific product or market demand that justifies building an original product. The focus is on industry trends and innovations without a clear, actionable opportunity for a new product. Additionally, there is no indication of a sp"
+    },
+    {
+      "candidate_id": "web:227fe663fd1266b426",
+      "decision": "pass",
+      "reason": "The evidence excerpt does not provide specific customer problems, buyer utility, or demand strength. It only mentions general market segments and research areas without actionable insights or verified sales data. The lack of concrete customer activity or specific buyer needs makes it insufficient to justify building an original product in this mark"
+    },
+    {
+      "candidate_id": "web:945ed9cb0f158e42ce",
+      "decision": "pass",
+      "reason": "The biodegradable packaging market is growing, but the evidence provided does not indicate a specific, actionable customer problem or a clear opportunity for a unique, original product. The reports focus on market size and segments without highlighting a particular gap or unmet need that a new product could address. Additionally, there is no eviden"
+    },
+    {
+      "candidate_id": "web:11c21fac2ba72b0226",
+      "decision": "pass",
+      "reason": "The Pet Food Packaging Market is projected to grow at a CAGR of 6.1% from 2025 to 2035, indicating a strong and growing demand. However, the market is already well-established with existing players and reports, and there is no clear indication of a specific, unmet customer need that a new product could address. The data does not provide evidence of"
+    },
+    {
+      "candidate_id": "web:7e4f78c1c5511ea3bb",
+      "decision": "pass",
+      "reason": "The evidence suggests a growing market for recycled polyethylene terephthalate (rPET) with a projected CAGR of 7.0% from 2026 to 2035. However, the absence of specific customer problems or buyer utility in the excerpt makes it difficult to justify a differentiated product without further investigation. The market is competitive, and without a clear"
+    },
+    {
+      "candidate_id": "web:c20cc2a984fe168ea3",
+      "decision": "pass",
+      "reason": "While the biodegradable packaging market is growing and there is interest in sustainable solutions, the evidence provided does not include specific customer problems, actual buyer utility, or a clear demand signal. The reports are general market analyses without concrete examples of user needs or product differentiation. Without a specific, actiona"
+    },
+    {
+      "candidate_id": "web:c3f081db7755499202",
+      "decision": "pass",
+      "reason": "The page appears to be a marketing report page for the biodegradable packaging market, but there is no concrete evidence of a specific product or customer problem being addressed. The content is generic and lacks specific details about an original product or a clear customer need that can be fulfilled with a bounded digital solution. There is no in"
+    },
+    {
+      "candidate_id": "web:f8d7d386b6332d7e37",
+      "decision": "pass",
+      "reason": "The candidate lacks concrete evidence of demand, such as sales figures, pricing, or direct customer engagement. While the topic of sustainable packaging is relevant, the absence of specific buyer utility, competitive positioning, or production feasibility makes it difficult to justify a genuine product without further validation."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 14,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
