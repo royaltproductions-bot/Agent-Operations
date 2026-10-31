@@ -292,7 +292,13 @@ def seller_marketing_page(row):
     home_provider = (path in {"", "/"} and bool(re.search(
         r"\b(?:marketing agency|marketing services|music promotion services|"
         r"we are a digital agency|we're a digital agency)\b", body[:3500])))
-    return seller_copy and (service_path or seller_title or home_provider)
+    # A provider's own /solutions/.../service landing page is NOT a buyer
+    # inviting an outside contractor. This prevented false sales outreach
+    # to an imagery-annotation vendor promoted in web search results.
+    provider_landing = bool(service_path and re.search(
+        r"\b(?:service|services|solutions|providers|agency|managed)\b",
+        title))
+    return provider_landing or seller_copy and (service_path or seller_title or home_provider)
 
 
 def is_requester_page(row):
