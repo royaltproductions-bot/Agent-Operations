@@ -286,7 +286,10 @@ def progress(details,state,bounty_id,claim_id,infer,render):
             "deliverable_title":str(plan["app_name"])[:90]+" — tested app source",
             "deliverable_text":"Application source, setup instructions, and offline smoke tests.",
             "_app_binary":archive,"_app_evidence":evidence,
-            "_app_plan":plan}
+            "_app_plan":plan,
+            "_app_review_files":[
+                {"path":name,"source_excerpt":code[:3000]}
+                for name,code in obj["files"].items()]}
 
 
 def request_revision(state,bounty_id,feedback):
