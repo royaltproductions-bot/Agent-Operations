@@ -1,0 +1,31 @@
+name: Gambit capability integration verification
+on:
+  push:
+    branches: ['feature/gambit-capability-integration']
+    paths:
+      - 'tools/gambit_*'
+      - 'tests/test_gambit_*'
+      - '.github/workflows/gambit-capability-integration.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install app and document test dependencies
+        run: |
+          python3 -m pip install --quiet --disable-pip-version-check \
+            'pypdf>=5,<8' 'python-docx>=1.2,<2' 'openpyxl>=3.1,<4' \
+            'reportlab>=4,<5' 'cryptography>=43,<48' ddgs==9.16.1 pillow playwright
+      - name: Verify syntax and existing commercial tests
+        env:
+          GAMBIT_INFERENCE_PROVIDER: ollama
+          GAMBIT_APP_BUILDER: '0'
+        run: |
+          python3 -m compileall -q tools tests
+          python3 -m unittest discover -s tests -p 'test_gambit_*.py' -q
+      - name: Prove independent backend runtime and desktop/mobile browser QA
+        run: python3 -m tools.gambit_app_smoke
