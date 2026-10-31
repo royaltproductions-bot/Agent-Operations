@@ -536,6 +536,8 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
         for provider,search in providers:
             if provider in blocked_providers:
                 continue
+            if memory and hasattr(memory, "provider_available") and not memory.provider_available(provider):
+                continue
             if provider!="duckduckgo" and strong_primary>=3:
                 continue
             try:
@@ -574,6 +576,8 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
                 # remaining run retrying the same blocked search endpoint.
                 if isinstance(exc,urllib.error.HTTPError) and exc.code in (403,429,503):
                     blocked_providers.add(provider)
+                    if memory and hasattr(memory, "defer_provider"):
+                        memory.defer_provider(provider, minutes=90)
                 if memory:
                     memory.observe_search(query,provider,0,error=type(exc).__name__)
 
