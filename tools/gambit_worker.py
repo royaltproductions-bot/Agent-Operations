@@ -996,12 +996,25 @@ def unsupported_deliverable(details):
         r".{0,65}\b(?:app|application|software|search|dashboard)\b"
         r"|\b(?:backend|database|api endpoints?|user authentication|"
         r"server-side processing)\b", full_spec)
-    if app_build_request and functional_workflow:
+    # A web app or AI-chat prototype is not a static website: acceptance
+    # typically requires working uploads, live extraction, or model calls.
+    full_app_title = bool(re.search(
+        r"\\b(?:build|develop|create|implement)\\b.{0,125}"
+        r"\\b(?:web\\s*app|ai\\s*chat\\s*prototype|web\\s*prototype)\\b",
+        title))
+    ai_runtime = bool(re.search(
+        r"\\b(?:chat input|ai model api key|model api key|ai-powered chat|"
+        r"calls? (?:an? )?ai model)\\b",full_spec))
+    if (app_build_request and functional_workflow or
+            full_app_title and ("web app" in title or ai_runtime)):
         return "software_project_not_supported"
     # Browser rendering of locally packaged source is mandatory. Do not offer
     # this capability on runners lacking its independent runtime dependencies.
-    if static_site_eligible(details) and not re.search(
-            r"\b(?:research|audit|review|analysis|analyze|compare)\b", title):
+    wants_website = bool(re.search(
+        r"\\b(?:build|create|design|develop|redesign|code|make|produce)\\b"
+        r".{0,90}\\b(?:website|webpage|landing page|static site)\\b",
+        title + " " + description[:220]))
+    if wants_website and static_site_eligible(details):
         return None if website_capable() else "website_visual_quality_unverified"
     if (re.search(r"\b(?:build|develop|code|program|implement|redesign|create)\b"
                   r".{0,65}\b(?:web app|application|website|webpage|dashboard|"
