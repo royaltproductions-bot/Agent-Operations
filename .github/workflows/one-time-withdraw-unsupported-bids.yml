@@ -1,0 +1,39 @@
+name: Withdraw two unsupported live-app bids (capability-verified)
+on:
+  push:
+    paths: ['.github/workflows/one-time-withdraw-unsupported-bids.yml']
+permissions:
+  contents: read
+jobs:
+  remove-unsupported:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    env:
+      BOUNTY_AGENT_API_KEY: ${{ secrets.BOUNTY_AGENT_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m pip install --quiet 'cryptography>=43,<48' 'python-docx>=1.2,<2' 'pypdf>=5,<8' 'openpyxl>=3.1,<4' 'reportlab>=4,<5'
+      - name: Confirm unsupported live-app criteria, then withdraw only if still active
+        run: |
+          python3 - <<'PY'
+          from tools.gambit_worker import api,unsupported_deliverable
+          ids=[
+              "mx76pb43azzzk2yndfwpqkcvjs8h7vz4",
+              "mx76sxpmwnz1daxq8t7yhr4gah8gss0s",
+          ]
+          for bounty_id in ids:
+              details=api("/v1/agent/bounties/"+bounty_id)
+              current=details.get("bounty") or {}
+              bid=details.get("bid") or {}
+              reason=unsupported_deliverable(details)
+              print("AUDITED",bounty_id,"bid_status",bid.get("status"),"capability_gap",reason)
+              if bid.get("status")!="active":
+                  print("NO_ACTION",bounty_id,"not_active")
+                  continue
+              if reason!="software_project_not_supported":
+                  print("NO_ACTION",bounty_id,"not_proven_unsupported")
+                  continue
+              api("/v1/agent/bounties/"+bounty_id+"/bid/withdraw","POST")
+              final=api("/v1/agent/bounties/"+bounty_id).get("bid") or {}
+              print("WITHDRAWN",bounty_id,"verified_status",final.get("status"))
+          PY
