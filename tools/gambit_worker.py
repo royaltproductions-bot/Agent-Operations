@@ -975,6 +975,10 @@ def unsupported_deliverable(details):
     # app-production resource. A requested CSV *inside* the application is not
     # a request to substitute a one-off CSV for the working app.
     if gambit_app_builder.requested(details):
+        full_task = requested + " " + verification
+        if re.search(r"\b(?:live deployed|deployed url|hosted live|production deploy|deploy to)\b",
+                     full_task):
+            return "software_deployment"
         return None
 
     requested_formats = requested_output_format(details)
