@@ -38,7 +38,6 @@ on:
 
 permissions:
   contents: write
-  actions: write
 
 concurrency:
   group: gambit-bounty-worker
@@ -103,17 +102,7 @@ jobs:
         if: github.event_name == 'push'
         run: python3 -m tools.gambit_research --smoke
 
-      - name: Watch, process, checkpoint, and resume watching
-        run: python3 -u -m tools.gambit_watch
-
-      - name: Hand off directly to the next runner
-        if: always() && !cancelled() && steps.validation.outcome != 'failure'
+      - name: Check marketplace, process work, and checkpoint
         env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          # Dispatch is immediate; cron remains a fallback if handoff fails.
-          for attempt in 1 2 3; do
-            if gh workflow run gambit-bounty.yml --ref main; then exit 0; fi
-            sleep 5
-          done
-          exit 1
+          GAMBIT_WATCH_SECONDS: '240'
+        run: python3 -u -m tools.gambit_watch

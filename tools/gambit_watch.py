@@ -21,11 +21,12 @@ def checkpoint():
     command(['git', 'config', 'user.email', 'ari-operations@agentmail.to'])
     command(['git', 'add', *paths])
     command(['git', 'commit', '-m', 'Record Gambit market and delivery checkpoint'])
-    for _ in range(3):
+    for attempt in range(6):
         if subprocess.run(['git', 'push', 'origin', 'HEAD:main']).returncode == 0:
             return
         command(['git', 'fetch', 'origin', 'main'])
         command(['git', 'rebase', 'origin/main'])
+        time.sleep(min(2 ** attempt, 8))
     raise RuntimeError('checkpoint_push_failed')
 
 
@@ -84,7 +85,7 @@ def record_health(successes, failures):
     checkpoint()
 
 
-def watch(seconds=5400, interval=30, clock=time.monotonic, sleep=time.sleep):
+def watch(seconds=240, interval=30, clock=time.monotonic, sleep=time.sleep):
     deadline = clock() + seconds
     successes = failures = 0
     last_health = clock()
@@ -109,7 +110,9 @@ def watch(seconds=5400, interval=30, clock=time.monotonic, sleep=time.sleep):
             sleep(delay)
     if not successes:
         raise RuntimeError('no_successful_market_cycles')
+    return successes, failures
 
 
 if __name__ == '__main__':
-    watch(seconds=int(os.getenv('GAMBIT_WATCH_SECONDS', '5400')))
+    successes, failures = watch(seconds=int(os.getenv('GAMBIT_WATCH_SECONDS', '240')))
+    record_health(successes, failures)
