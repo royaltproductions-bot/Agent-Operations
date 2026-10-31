@@ -30,6 +30,8 @@ jobs:
       GAMBIT_OPENAI_MONTHLY_LIMIT_USD: '20.00'
       GAMBIT_OPENAI_MAX_ESTIMATED_CALL_USD: '0.08'
       GAMBIT_WEBSITE_BUILDER: '1'
+      GAMBIT_APP_BUILDER: '1'
+      GAMBIT_INCREMENTAL_RESEARCH: '1'
       GAMBIT_MODEL: qwen3:8b
       GAMBIT_TRIAGE_MODEL: qwen3:1.7b
       OLLAMA_MODELS: ${{ github.workspace }}/.ollama-cache/models
