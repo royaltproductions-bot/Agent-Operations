@@ -1,0 +1,138 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-31T05:58:16.188677+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 10,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/SuperteamDAO/earn/issues/1522",
+        "title": "Proposal: Official MCP server for Superteam Earn",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/zhangjiayang6835-cyber/bounty-plaza/issues/1603",
+        "title": "# [BOUNTY] [$25000] [AGENTIC] [AI] DAXDA Recursive Bounty Architect \u2013 Five-Fold Esoteric Expansion Protocol  ## Overview",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ducminhgd/gossip-bot/issues/464",
+        "title": "Daily News Digest - 2026-10-05",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/mbartzoka-ui/thetaai.gr/issues/120",
+        "title": "AI Radar Digest \u2014 31/10/2026 \u00b7 Sonnet",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/permission-protocol/deploy-gate/issues/78",
+        "title": "Bounty #36: exact-call verification does not bind the destination server/resource",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.guru99.com/best-ai-plagiarism-checkers.html",
+        "title": "7 Best AI Plagiarism Checkers (2026) - Guru99",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-01 create ai plagiarism",
+      "is:issue is:open bounty created:>=2026-09-01 build ai plagiarism",
+      "is:issue is:open bounty created:>=2026-09-01 ",
+      "looking for someone to create ai plagiarism checker tool",
+      "hiring a freelancer to build ai plagiarism checker",
+      "can anyone create ai plagiarism checker tool"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create ai plagiarism checker tool",
+      "hiring a freelancer to build ai plagiarism checker",
+      "can anyone create ai plagiarism checker tool",
+      "need paid help with ai plagiarism checker development"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 12,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create ai plagiarism checker tool",
+        "hiring a freelancer to build ai plagiarism checker",
+        "can anyone create ai plagiarism checker tool",
+        "need paid help with ai plagiarism checker development"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 140,
+      "known_pages": 1696
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
