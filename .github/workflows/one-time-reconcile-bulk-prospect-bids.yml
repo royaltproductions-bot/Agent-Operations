@@ -1,0 +1,52 @@
+name: Reconcile two unfulfillable bulk prospecting bids
+on:
+  push:
+    paths: ['.github/workflows/one-time-reconcile-bulk-prospect-bids.yml']
+permissions:
+  contents: read
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      BOUNTY_AGENT_API_KEY: ${{ secrets.BOUNTY_AGENT_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m pip install --quiet --disable-pip-version-check 'cryptography>=43,<48' 'pypdf>=5,<8' 'python-docx>=1.2,<2' 'openpyxl>=3.1,<4' 'reportlab>=4,<5'
+      - name: Verify source-backed capability mismatch before withdrawing any existing offer
+        run: |
+          python3 - <<'PY'
+          from tools.gambit_worker import api, pages, unsupported_deliverable
+          targets={
+           "mx7b5r22yezh2hsytbgae3ywms8h8r5z":"Identify 500 Brazil-Based Series A CFO Candidates",
+           "mx7am70nkcy243nynpzvn23e318gg8g4":"Research 50 Oil And Gas Technology Decision Makers"
+          }
+          def active_ids():
+              ids=set()
+              for offer in pages("/v1/agent/bids?limit=100","bids"):
+                  if not isinstance(offer,dict) or offer.get("status") not in ("active",None):
+                      continue
+                  b=offer.get("bounty") or {}
+                  ident=offer.get("bounty_id") or offer.get("bountyId") or (b.get("_id") if isinstance(b,dict) else "")
+                  if ident: ids.add(str(ident))
+              return ids
+          initial=active_ids()
+          for ident,expected in targets.items():
+              if ident not in initial:
+                  print("SKIP_NOT_ACTIVE",ident)
+                  continue
+              detail=api("/v1/agent/bounties/"+ident)
+              current=detail.get("bounty") or {}
+              actual=str(current.get("title") or "")
+              reason=unsupported_deliverable(detail)
+              if actual!=expected or reason!="bulk_linkedin_prospect_research_unverified":
+                  raise RuntimeError("target_no_longer_matches_verified_capability_gap:"+ident)
+              api("/v1/agent/bounties/"+ident+"/bid/withdraw",method="POST")
+              print("WITHDRAW_SENT",ident,"reason",reason)
+          after=active_ids()
+          print("ACTIVE_BIDS_AFTER",len(after))
+          for ident in targets:
+              print("TARGET_ACTIVE_AFTER",ident,int(ident in after))
+              if ident in after:
+                  raise RuntimeError("withdrawal_not_reflected:"+ident)
+          PY
