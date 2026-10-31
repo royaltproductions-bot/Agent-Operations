@@ -94,6 +94,7 @@ class GambitTests(unittest.TestCase):
         self.assertEqual(request.call_count, 1)
         sleep.assert_not_called()
 
+    @patch.dict(os.environ, {"GAMBIT_INFERENCE_PROVIDER": "ollama"})
     def test_fast_decisions_use_small_model_while_delivery_keeps_large_model(self):
         answer = io.BytesIO(b'{"message":{"content":"{\\"decision\\":\\"pass\\"}"},"done":true,"done_reason":"stop"}\n')
         with patch.object(gambit.urllib.request, 'urlopen', return_value=answer) as request, \
