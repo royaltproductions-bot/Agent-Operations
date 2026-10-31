@@ -48,8 +48,9 @@
       "version": 1
     },
     "mx75t9qmtd1nxxbjtpq0hawn398hb4gh": {
-      "action": "evaluation_pending",
-      "at": "2026-10-31T21:15:14.234534+00:00",
+      "action": "pass_unsupported",
+      "at": "2026-10-31T21:15:19.445987+00:00",
+      "reason": "video_production",
       "version": 1
     },
     "mx76cjf7d9qqscbw9an1ct84dn8h2mzp": {
@@ -704,9 +705,9 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMywiY2hlY2twb2ludEF0IjoxNzkzNDgwNjA5NTY1fQ",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxNCwiY2hlY2twb2ludEF0IjoxNzkzNDgxMzE5MjI0fQ",
   "last_bid_reconciliation": "2026-10-31T21:03:32.446454+00:00",
-  "last_check": "2026-10-31T21:03:32.452147+00:00",
+  "last_check": "2026-10-31T21:15:19.447569+00:00",
   "recent_outcomes": [
     {
       "action": "bid_sent",
@@ -1084,6 +1085,13 @@
       "at": "2026-10-31T21:03:30.904671+00:00",
       "bounty_id": "mx76sxpmwnz1daxq8t7yhr4gah8gss0s",
       "reason": "software_project_not_supported"
+    },
+    {
+      "action": "pass_unsupported",
+      "at": "2026-10-31T21:15:19.445980+00:00",
+      "bounty_id": "mx75t9qmtd1nxxbjtpq0hawn398hb4gh",
+      "reason": "video_production",
+      "version": 1
     }
   ],
   "schema": 1,
