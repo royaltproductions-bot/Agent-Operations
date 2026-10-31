@@ -28,4 +28,6 @@ jobs:
           python3 -m compileall -q tools tests
           python3 -m unittest discover -s tests -p 'test_gambit_*.py' -q
       - name: Prove independent backend runtime and desktop/mobile browser QA
+        env:
+          GAMBIT_APP_TEST_DIAGNOSTICS: '1'
         run: python3 -m tools.gambit_app_smoke
