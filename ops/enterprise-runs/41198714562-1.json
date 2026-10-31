@@ -1,0 +1,122 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-31T11:55:03.582750+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 9,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 9,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/MyZubster-Ecosystem/myzubster/issues/1674",
+        "title": "[Zorgax] Correggere onboarding Marketplace: vendita, acquisto e profilo",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/hanzoai/agents/issues/7",
+        "title": "Fix 9 broken relative links in the examples and Go SDK READMEs",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Amiga500/Onion/issues/310",
+        "title": "[Source bug] M3U generator accepts PNG discs and emits empty playlists for bracketed titles",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/btxchain/btx/issues/356",
+        "title": "Windows: native build and unit tests on btx-035/swarm (MSVC and clang-cl)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/deepakA18/gitpay-demo-http/issues/7",
+        "title": "[GitPay Phase 7 sandbox] Omit nullish form values",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.twine.net/ai",
+        "title": "AI & Machine Learning\n Use our experts to train\u00a0AI, build datasets or explore our off-the-self datasets at Twine AI.",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-01 build free ai",
+      "is:issue is:open bounty created:>=2026-09-01 create ai image",
+      "is:issue is:open bounty created:>=2026-09-01 "
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a free ai image detector tool",
+      "hiring a freelancer to create an ai image detection service",
+      "need paid help with developing an ai image detector",
+      "can anyone create an ai image detector for journalists"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 32,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a free ai image detector tool",
+        "hiring a freelancer to create an ai image detection service",
+        "need paid help with developing an ai image detector",
+        "can anyone create an ai image detector for journalists"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 1782
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
