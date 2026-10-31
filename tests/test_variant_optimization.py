@@ -15,6 +15,39 @@ from tools import research_memory
 
 
 class OptimizationTests(unittest.TestCase):
+    def test_large_cyclops_research_state_loads_from_git_blob(self):
+        state={"schema_version":1,"lane":"cyclops","pages":[{"url":"https://example.org/1"}]}
+        sha="a"*40
+        original={"encoding":"none","sha":sha,"size":1049100,"content":""}
+        blob={"encoding":"base64","content":base64.b64encode(
+            json.dumps(state).encode()).decode()}
+        responses=[io.BytesIO(json.dumps(original).encode()),
+                   io.BytesIO(json.dumps(blob).encode())]
+        with patch.object(research_memory,"_remote",return_value=(
+              "ops/research-state/cyclops.json",
+              "https://api.github.com/repos/org/repo/contents/ops/research-state/cyclops.json",{})), \
+             patch.object(research_memory.urllib.request,"urlopen",
+                          side_effect=responses) as opener:
+            recovered,version=research_memory._get("cyclops")
+        self.assertEqual(recovered,state)
+        self.assertEqual(version,sha)
+        self.assertEqual(opener.call_count,2)
+        self.assertIn("/git/blobs/"+sha,opener.call_args.args[0].full_url)
+
+    def test_vendor_solution_page_cannot_trigger_wolverine_offer(self):
+        row={"id":"seller", "source_url":"https://www.opentrain.ai/solutions/satellite-imagery-annotation/",
+             "title":"Satellite Imagery Annotation Services",
+             "page_fetched":True,"contact":"sales@example.org",
+             "page_text":("We provide satellite imagery annotation services. "
+                          "Send a proposal to our team and request a quote. ")*3}
+        self.assertTrue(brain.seller_marketing_page(row))
+        self.assertFalse(brain.public_buyer_invitation(row))
+        with patch.object(brain,"agent_send") as send:
+            outcome=brain.send_offer(row,{"price_usd":"499.95"}, {})
+        self.assertEqual(outcome["result"],"unverified_buyer_invitation")
+        send.assert_not_called()
+
+
     def test_provider_rate_limit_carries_between_research_runs(self):
         from tools import research_memory
         from datetime import datetime, timezone, timedelta
