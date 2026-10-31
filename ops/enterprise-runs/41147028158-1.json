@@ -1,0 +1,131 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-30T23:54:30.420299+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 4,
+      "duckduckgo": 10,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "JSONDecodeError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 13,
+    "contactable_sources": 3,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/mautic/mautic/issues/18022",
+        "title": "Custom email modal: HTML body text is invisible in dark theme until selected",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/howwmingnew/Privateers/issues/140",
+        "title": "feat: \u5948\u5fb7\u8207\u51f1\u8389\u4e4b\u9593\u52a0\u4e00\u500b\u4e2d\u9593\u61f8\u8cde\uff08Lv 5\uff5e6\uff09",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Herobrot/heroslevels/issues/1",
+        "title": "[BUG]: Mod fails to load on server",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/NSPG13/agent-bounties/issues/1735",
+        "title": "Keep the card launch test separate from customer-growth metrics",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://easyhireai.com/blog/ai-recruiting/ai-recruiting-ethics-bias-fairness",
+        "title": "AI Recruiting Ethics: Bias, Fairness, and Responsible Hiring in 2026",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://duckduckgo.com/y.js?ad_domain=capterra.com&ad_provider=bingv7aa&ad_type=txad&click_metadata=EhwPDe5NKgr_VLE1ANj0wTNqGQ_PolQysrbxuPBgidXqLj8Lq1QP2pAH6KESxbSuB4Yn1dj87cRLx7bSUxkSwCDI1y4cASrlrXqq",
+        "title": "Top 10 Compliance AI - AI Compliance Software",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-08-31 ",
+      "hiring a freelancer to build an AI hiring bias detection system",
+      "can anyone create an AI compliance risk matrix tool"
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to build an AI hiring bias detection system",
+      "can anyone create an AI compliance risk matrix tool",
+      "need paid help with AI audit and EEOC compliance",
+      "looking for someone to develop an AI bias risk assessment tool"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 28,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to build an AI hiring bias detection system",
+        "can anyone create an AI compliance risk matrix tool",
+        "need paid help with AI audit and EEOC compliance",
+        "looking for someone to develop an AI bias risk assessment tool"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 138,
+      "known_pages": 1603
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:The source explicitly offers the matrix for free and does not solicit paid services. The deliverable is already avail"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
