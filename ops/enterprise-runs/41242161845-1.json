@@ -1,0 +1,127 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-31T21:10:02.782243+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 10,
+    "source_counts": {
+      "open_web": 10
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "bing": 5
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 9,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/VectoDE/VectolynCloud/issues/14",
+        "title": "Stage 5: Survival, Creative, Mod server (epic)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/smartcontractkit/chainlink/issues/24123",
+        "title": "[SMRT] Base VRF v2.5 subscription cannot be cancelled after the consumer already finished",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Monkestation/Monkestation2.0/issues/12882",
+        "title": "Helio and other station issues",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Monkestation/Monkestation2.0/issues/12881",
+        "title": "Deconstructing a titanium rail makes rods",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2607",
+        "title": "[soundness] hy-check / hy-emit: same-scope multi-var short redeclaration (q, tag := ...) of O8 map-slot loan bypasses HY",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.upwork.com/freelance-jobs/apply/Power-Dashboard-Development_~022115669298726698693/",
+        "title": "Power BI Dashboard Development - Freelance Job in Data ... - Upwork",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-01 build simple data",
+      "is:issue is:open bounty created:>=2026-09-01 ",
+      "looking for someone to build a simple data dashboard",
+      "hiring a freelancer to create a paid newsletter template"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a simple data dashboard",
+      "hiring a freelancer to create a paid newsletter template",
+      "can anyone create a basic website for a local business",
+      "need paid help with designing a user-friendly form"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 36,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a simple data dashboard",
+        "hiring a freelancer to create a paid newsletter template",
+        "can anyone create a basic website for a local business",
+        "need paid help with designing a user-friendly form"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 1956
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
