@@ -1,0 +1,233 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-31T11:16:12.102704+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "duckduckgo": 9,
+      "hn_ask": 2,
+      "bing": 2,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 1,
+    "market_candidates_considered": 1,
+    "public_sources_available_for_judgment": 14,
+    "public_market_sample": [
+      {
+        "url": "https://www.knowledge-sourcing.com/report/proxy-servers-market",
+        "title": "Proxy Servers Market Insights: Growth, Trends, Forecast 2031",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44136022",
+        "title": "Self-Hosted Cloudflare Alternatives",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=39863684",
+        "title": "Ask HN: Projects You Thought Were Cool but Failed Miserably \u2013 What Happened?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://dataintelo.com/report/proxy-network-software-market",
+        "title": "Proxy Network Software Market Research Report 2034",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.cloudwards.net/best-free-proxy/",
+        "title": "The Best Free Proxy Websites in 2026: Unblock Everything",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.researchandmarkets.com/reports/6218627/proxy-servers-market-forecast",
+        "title": "Proxy Servers Market - Forecast from 2026 to 2031",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://www.knowledge-sourcing.com/report/proxy-servers-market",
+        "title": "Proxy Servers Market Insights: Growth, Trends, Forecast 2031",
+        "displayed_sales_count": null,
+        "listed_price_usd": "3.00"
+      }
+    ],
+    "candidates_without_email": 15,
+    "search_queries": [
+      "proxy server market growth forecast 2026-2031",
+      "proxy network software market analysis",
+      "proxy server industry insights 2026-2031",
+      "proxy servers market trends 2026-2031",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 18,
+      "skipped_revisits": 12,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "proxy server market growth forecast 2026-2031",
+        "proxy network software market analysis",
+        "proxy servers market trends 2026-2031",
+        "proxy server industry insights 2026-2031"
+      ],
+      "next_query_queue": 1,
+      "frontier_size": 138,
+      "known_pages": 1940
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:14 candidates reviewed; e mar; The content is not accessible due to LinkedIn's login requirement, and there is no evidence of actual sales or pricing. The market projection alone does not just"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:b82e151e359ba36c3f",
+      "decision": "pass",
+      "reason": "The proxy servers market is growing with a CAGR of 6.5% from 2026 to 2031, indicating potential demand. However, the provided data is a market report and not a product offering. There is no clear evidence of a specific product or service being offered for sale, and the displayed sales count is null. Without a concrete product idea or a verified buy"
+    },
+    {
+      "candidate_id": "web:d37cdac5bebc3c3867",
+      "decision": "pass",
+      "reason": "While there is a clear need for self-hosted Cloudflare alternatives, the evidence does not provide concrete sales figures, pricing, or direct customer demand beyond a single user's perspective. The proposed solution requires collaboration with cloud/VPS providers, which introduces complexity and uncertainty. Additionally, the market for such a prod"
+    },
+    {
+      "candidate_id": "web:5fcbf83bf94e476947",
+      "decision": "pass",
+      "reason": "The candidate's project, interfAIce, failed to gain traction due to a mismatch in technology stacks between Java/Kotlin developers and AI developers. While the concept is interesting, the lack of demonstrated demand, absence of sales data, and the niche nature of the target audience make it a low-priority opportunity. The problem is not clearly val"
+    },
+    {
+      "candidate_id": "web:7b751bd81c394fc444",
+      "decision": "pass",
+      "reason": "The Proxy Network Software Market Research Report indicates a growing market with a 7.2% CAGR from 2025 to 2031. However, the report does not provide specific evidence of customer demand, buyer utility, or competitive positioning. The absence of concrete sales data, pricing, or direct customer problems makes it difficult to justify building an orig"
+    },
+    {
+      "candidate_id": "web:dc3e30dc9065a1b37a",
+      "decision": "pass",
+      "reason": "The candidate_id 'web:dc3e30dc9065a1b37a' discusses free proxy websites, but there is no evidence of a specific product or service being offered for sale. The content is informational and does not indicate a viable product with a clear market demand or competitive positioning. Additionally, there is no indication of actual buyer utility or demand s"
+    },
+    {
+      "candidate_id": "web:a8ccc0768de813eb47",
+      "decision": "pass",
+      "reason": "While the proxy servers market is projected to grow at a 7.2% CAGR, the evidence provided does not include specific customer problems or buyer utility that would justify building a differentiated product. The market forecast is general and lacks concrete examples of unmet needs or specific user pain points that a new product could address. Addition"
+    },
+    {
+      "candidate_id": "web:ac7c8507cae8e556ac",
+      "decision": "pass",
+      "reason": "The article lists 20 free online proxy websites, indicating a saturated market with existing free solutions. There is no evidence of a specific, unmet customer need or a unique value proposition that would justify building a new product in this space. The existing competition and lack of demonstrated demand for a paid solution make it unlikely to s"
+    },
+    {
+      "candidate_id": "web:fa898d383d2a632fb7",
+      "decision": "pass",
+      "reason": "While the Proxy Network Software Market shows projected growth with a CAGR of 15.5% from 2026 to 2035, there is no evidence of a specific, actionable customer problem or a clear differentiation that would justify building an original product. The market is highly competitive, and the absence of concrete sales data or pricing information makes it di"
+    },
+    {
+      "candidate_id": "web:4dfb6f9d82039c07ca",
+      "decision": "pass",
+      "reason": "The evidence suggests a growing market for mobile proxy servers with a projected CAGR of 7.19% from 2026 to 2031. However, the absence of concrete sales data, pricing, and specific customer problems makes it difficult to assess the viability of a differentiated product. Without clear buyer utility or a specific problem to solve, the market potentia"
+    },
+    {
+      "candidate_id": "web:0b3fbb33dd2e2d4dd5",
+      "decision": "pass",
+      "reason": "The market for proxy network software is discussed in the report, but there is no concrete evidence of actual buyer demand, specific customer problems, or a feasible differentiated product. The report is a general market analysis without actionable data on real sales, pricing, or customer activity. Without a clear, specific problem or a viable prod"
+    },
+    {
+      "candidate_id": "web:9d9cfd5526e6f696e2",
+      "decision": "pass",
+      "reason": "The proxy servers market report indicates potential growth and demand, but there is no concrete evidence of actual buyer utility, specific customer problems, or a feasible differentiated product. The absence of sales data, pricing, and direct customer engagement signals makes it difficult to justify building an original product without further vali"
+    },
+    {
+      "candidate_id": "web:d4c97fc11e7d25f59a",
+      "decision": "pass",
+      "reason": "The proxy software market is a broad and competitive space with existing players and no clear indication of a specific, underserved niche. The report does not provide concrete evidence of a unique problem or a feasible, differentiated product that can be tested with low cost. Without a specific customer problem or a clear value proposition, the mar"
+    },
+    {
+      "candidate_id": "web:6d2f9a055518d7cec9",
+      "decision": "pass",
+      "reason": "The content is not accessible due to LinkedIn's login requirement, and there is no evidence of actual sales or pricing. The market projection alone does not justify pursuing a product without verified buyer demand or competitive positioning."
+    },
+    {
+      "candidate_id": "web:eb216ad7a9654e20c5",
+      "decision": "pass",
+      "reason": "The candidate lacks concrete evidence of demand, such as specific sales figures, pricing, or direct customer engagement. The market report is not actionable without further details on the target audience, unique value proposition, or competitive differentiation. Without a clear problem to solve or a demonstrated need, the opportunity is speculative"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 14,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
