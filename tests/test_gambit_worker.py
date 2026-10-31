@@ -496,6 +496,21 @@ class GambitTests(unittest.TestCase):
             self.assertEqual(gambit.unsupported_deliverable(details),
                              "software_project_not_supported")
 
+    def test_bulk_linkedin_profiles_exceed_current_verified_research_capacity(self):
+        for number in (50,500):
+            details={"bounty":{
+                "title":"Find research contacts",
+                "description":"Research decision makers and their LinkedIn profiles.",
+                "verification":f"Submit exactly {number} prospect records with "
+                               "LinkedIn profile URLs and supporting sources."}}
+            self.assertEqual(gambit.unsupported_deliverable(details),
+                             "bulk_linkedin_prospect_research_unverified")
+        feasible={"bounty":{
+            "title":"Research ten professionals",
+            "description":"Compile a small public business contact list.",
+            "verification":"Submit exactly 10 prospect records with LinkedIn profile URLs."}}
+        self.assertIsNone(gambit.unsupported_deliverable(feasible))
+
     def test_company_website_urls_do_not_trigger_static_site_requirements(self):
         details={"bounty":{"title":"Find 15 New York Seed-Stage Fintech Startups",
            "description":"Find 15 seed-stage fintech companies with company website URLs.",
