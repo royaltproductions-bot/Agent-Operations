@@ -1,0 +1,136 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-31T08:59:49.875366+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 5,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 14,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/ConcatenaLabs/sequentia-web-wallet/issues/332",
+        "title": "A hosted Lightning node is not up when the wallet first asks for an invoice after a restart",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/mojtabarozegar11-ship-it/Saeit/issues/1514",
+        "title": "P0 | Five hourly cycles \u2014 real deliverables and unfinished-work carryover",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ZcashCommunityGrants/zcashcommunitygrants/issues/518",
+        "title": "Grant Application - {Zcash Durable Payment Outbox}",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/LibreSprite/LibreSprite/issues/699",
+        "title": "bloxd.io code fix",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/relayhop/ClaudeEarnSelf-runtime/issues/1178",
+        "title": "[demand] high-priority 2026-10-31T08:47",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.upwork.com/hire/compiler-freelancers/",
+        "title": "Best Freelance Compiler Specialists for Hire (Oct 2026) - Upwork",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-01 create online code",
+      "is:issue is:open bounty created:>=2026-09-01 ",
+      "hiring a freelancer to create an online code compiler",
+      "looking for someone to build an ai plagiarism checker"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build an ai plagiarism checker",
+      "hiring a freelancer to create an online code compiler",
+      "need paid help with developing a plagiarism detection tool",
+      "can anyone create a web app for content originality check"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 18,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build an ai plagiarism checker",
+        "hiring a freelancer to create an online code compiler",
+        "need paid help with developing a plagiarism detection tool",
+        "can anyone create a web app for content originality check"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 1742
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
