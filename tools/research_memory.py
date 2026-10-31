@@ -48,10 +48,10 @@ def _merge(old,new,lane):
     """Merge separately persisted observations, rather than overwrite a newer run."""
     merged={"schema_version":1,"lane":lane}
     for key,field,limit in (
-        ("queries","query",800),
-        ("pages","url",3500),
-        ("frontier","url",140),
-        ("observations","url",60),
+        ("queries","query",500),
+        ("pages","url",1800),
+        ("frontier","url",120),
+        ("observations","url",50),
         ("outcomes","run_id",100),
     ):
         values=list(old.get(key) or [])+list(new.get(key) or [])
@@ -116,7 +116,22 @@ def _get(lane):
         if exc.code==404:
             return {},None
         raise
-    raw=base64.b64decode(obj["content"].replace("\n",""))
+    content=obj.get("content") or ""
+    if not content:
+        # GitHub Contents returns encoding='none' for files over 1 MiB.
+        # Fetch that same revision by its verified blob SHA instead.
+        sha=str(obj.get("sha") or "")
+        if not re.fullmatch(r"[0-9a-f]{40}",sha):
+            raise ValueError("research_state_blob_sha_missing")
+        blob_url=url.split("/contents/",1)[0]+"/git/blobs/"+sha
+        with urllib.request.urlopen(
+                urllib.request.Request(blob_url,headers=headers),
+                timeout=25) as response:
+            blob=json.load(response)
+        if blob.get("encoding")!="base64" or not blob.get("content"):
+            raise ValueError("research_state_blob_unreadable")
+        content=blob["content"]
+    raw=base64.b64decode(content.replace("\n",""))
     state=json.loads(raw.decode("utf-8"))
     if not isinstance(state,dict) or state.get("lane")!=lane:
         raise ValueError("research_state_lane_mismatch")
