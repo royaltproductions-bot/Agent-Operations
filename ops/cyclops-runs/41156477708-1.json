@@ -1,0 +1,220 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-31T01:42:53.829017+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "duckduckgo": 7,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 15,
+    "verified_firsthand_problem_pages": 7,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 15,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=48851812",
+        "title": "Reality of Commercial AI World from a 16 Year Old's Perspective",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=48556530",
+        "title": "Ask HN: Is our data warehouse setup normal or over-complicated?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45587522",
+        "title": "How to Sell an MVP Pre-Revenue?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37575472",
+        "title": "Ask HN: Do Business Owners Know the Value of AI?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=27815668",
+        "title": "Help me figure out whether I invented tracking cookies in 1995",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=15465563",
+        "title": "Businesses looking for partners/successors?",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 15,
+    "search_queries": [
+      "Are there any existing sales figures or pricing for AI-powered web scraping tools?",
+      "What is the current demand for LLM-ready web scraping APIs?",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 18,
+      "skipped_revisits": 13,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "Are there any existing sales figures or pricing for AI-powered web scraping tools?",
+        "What is the current demand for LLM-ready web scraping APIs?",
+        "Is there a clear customer problem that a differentiated web scraping tool could solve?",
+        "Are there any specific, actionable market opportunities in the AI data collection space?"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 138,
+      "known_pages": 1769
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:15 candidates reviewed; ecific use cases like AI CRM, coding agents, and documentation tools. However, the absence of listed prices and displayed sales counts makes it difficult to assess the "
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:c306889efa4c722911",
+      "decision": "pass",
+      "reason": "The evidence suggests a significant barrier to entry in the AI commercial space, with a lack of visibility for new developers and a preference for established credentials. While there is potential in building an AI tool, the market is saturated with giants and the competition is fierce. The described problem of building in public being 'completely "
+    },
+    {
+      "candidate_id": "web:5642468d3789f678d6",
+      "decision": "pass",
+      "reason": "The evidence excerpt describes a complex data warehouse setup with multiple pain points, but it does not provide clear customer demand or a specific problem that a product can solve. The issue seems to be more about internal processes and integration challenges rather than a market need for a new product. There is no indication of a clear customer "
+    },
+    {
+      "candidate_id": "web:5c8427ffa92ccfe40d",
+      "decision": "pass",
+      "reason": "The candidate presents a viable product idea with a clear target market and potential differentiation, but lacks concrete evidence of demand or sales. While the product concept is promising, there is no verified sales count or pricing, and the absence of a pre-existing audience or network makes it difficult to assess the viability of the sales path"
+    },
+    {
+      "candidate_id": "web:029f519a4ed871b419",
+      "decision": "pass",
+      "reason": "While the SaaS platform integrating ChatGPT with a custom rule set and knowledge base shows potential for automating tasks like customer support and lead generation, there is no evidence of traction or sales. The creator mentions struggling to gain attention despite a case study showing revenue growth for a client. Without verified sales or clear c"
+    },
+    {
+      "candidate_id": "web:5244b863b1b7687f68",
+      "decision": "pass",
+      "reason": "The candidate's story about inventing tracking cookies in 1995 is historical and does not indicate current market demand or a viable product. There is no evidence of a product being offered for sale, and the narrative does not provide a clear, actionable idea for a modern product. The focus on a historical claim without a current market application"
+    },
+    {
+      "candidate_id": "web:28dca467fff648d208",
+      "decision": "pass",
+      "reason": "The candidate presents a potential opportunity to build a product that addresses a specific market need, but there is no clear evidence of demand or sales. The idea is speculative and lacks concrete buyer utility or competitive positioning. Without further validation or a clear customer problem, it is not a strong candidate for pursuit."
+    },
+    {
+      "candidate_id": "web:2e1d213d26f1244d2c",
+      "decision": "pass",
+      "reason": "The article discusses AI web scraping tools, which is a niche and competitive market. While there is demand for such tools, the existing competition (ScrapingAPI.ai, Firecrawl, Crawl4AI, Bright Data, Diffbot) suggests that entering this space would require significant differentiation. Additionally, the lack of pricing and sales data makes it diffic"
+    },
+    {
+      "candidate_id": "web:791f7202f8661b8617",
+      "decision": "pass",
+      "reason": "The content discusses LLM-ready web data APIs but lacks specific evidence of a clear, unmet customer need or a unique value proposition. While there is interest in AI agents and RAG workflows, the market is already saturated with competing products, and the absence of concrete sales data or customer testimonials makes it difficult to justify buildi"
+    },
+    {
+      "candidate_id": "web:bb46299a9786ec5e01",
+      "decision": "pass",
+      "reason": "The article discusses a comparison of web search APIs for AI agents, but it does not present a specific, actionable product idea with clear customer needs or utility. The content is more of a vendor comparison rather than a unique product opportunity. Additionally, there is no evidence of actual buyer demand or specific customer problems that the p"
+    },
+    {
+      "candidate_id": "web:7fa585c9a7ec317767",
+      "decision": "pass",
+      "reason": "The article discusses AI web scraping tools, which is a niche and highly competitive market. While there is demand for such tools, the existing competition (e.g., Scrapfly, Crawl4AI, etc.) is well-established, and the market is saturated. There is no clear differentiation or unique value proposition presented in the excerpt. Additionally, the absen"
+    },
+    {
+      "candidate_id": "web:cb1e3cd43bf27e6232",
+      "decision": "pass",
+      "reason": "The article discusses AI web scraping tools for LLM and RAG pipelines, but there is no clear evidence of a specific product or demand for an original product in this space. The focus is on existing tools and their capabilities rather than a unique, unmet customer need that a new product could address. Additionally, there is no indication of a viabl"
+    },
+    {
+      "candidate_id": "web:264c073f303c4c8828",
+      "decision": "pass",
+      "reason": "The post describes a niche need for individuals seeking partners or successors in established businesses, but it lacks concrete evidence of demand, pricing, or existing solutions. While the problem is specific, there is no clear indication of a viable product or market size. Additionally, the absence of sales data or pricing makes it difficult to a"
+    },
+    {
+      "candidate_id": "web:11f8d6be21a9f59755",
+      "decision": "pass",
+      "reason": "The candidate presents a niche opportunity for connecting entrepreneurs with potential partners or successors, but lacks concrete evidence of demand, pricing, or sales. The problem statement is speculative and lacks a clear, actionable product idea. There is no indication of a feasible, bounded prototype or testable buyer demand. The post is more o"
+    },
+    {
+      "candidate_id": "web:b2513219a5f4acdc69",
+      "decision": "pass",
+      "reason": "The evidence suggests that there is a demand for real-time web content APIs for LLM pipelines, with specific use cases like AI CRM, coding agents, and documentation tools. However, the absence of listed prices and displayed sales counts makes it difficult to assess the market viability. Additionally, the existing catalog already includes a similar "
+    },
+    {
+      "candidate_id": "web:cffdd2fdf8a8812f78",
+      "decision": "pass",
+      "reason": "The article discusses web scraping as a tool for businesses, but it does not present a specific, actionable problem that a unique product could solve. The existing market has tools like the 'Web Data Extraction Dashboard for Real-Time Market Insights' which already addresses similar needs. Without a clear, unmet customer need or a differentiator, t"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 15,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
