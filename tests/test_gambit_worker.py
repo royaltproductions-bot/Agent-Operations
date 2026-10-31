@@ -483,6 +483,24 @@ class GambitTests(unittest.TestCase):
             'title': 'Analyze expenses from a CSV',
             'verification': 'Summarize totals in a report.'}}))
 
+    def test_live_web_apps_cannot_hide_behind_research_wording(self):
+        nonprofit={"bounty":{"title":"Research Nonprofit Fundraising Events and Contacts",
+            "description":"Build a simple web app where users upload nonprofit domains "
+                          "and the app searches public sources for events.",
+            "verification":"Submit a CSV sample file and receive results from the app."}}
+        prototype={"bounty":{"title":"Build an AI Business Opportunity Analysis Prototype",
+            "description":"Deliver a standalone AI chat prototype using an AI model API key.",
+            "verification":"The prototype includes a chat input and generated report."}}
+        for details in (nonprofit,prototype):
+            self.assertEqual(gambit.unsupported_deliverable(details),
+                             "software_project_not_supported")
+
+    def test_company_website_urls_do_not_trigger_static_site_requirements(self):
+        details={"bounty":{"title":"Find 15 New York Seed-Stage Fintech Startups",
+           "description":"Find 15 seed-stage fintech companies with company website URLs.",
+           "verification":"15 rows with company name, website, founder and funding link."}}
+        self.assertIsNone(gambit.unsupported_deliverable(details))
+
     def test_unsupported_presentation_and_deployment_are_blocked(self):
         self.assertEqual('unsupported_file_output', gambit.unsupported_deliverable({
             'bounty': {'title': 'Market analysis',
