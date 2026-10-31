@@ -1,0 +1,133 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-31T17:51:27.128078+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 13,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 6,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 13,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/pyatkoff/poisk-turov-test/issues/3419",
+        "title": "AnyTour development coordination \u2014 continuation of #2530",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/26zl/cybersec-toolkit/issues/125",
+        "title": "Vendored skills: upstream updates available",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/VlcekM/MeitouClient/issues/171",
+        "title": "Feedback: Add MA dmg to limbs like vanilla",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/verdikta/verdikta-applications/issues/123",
+        "title": "Stake attestation P2e: StakeAttestation: late claims, recordByHash, deploy scripts, final sweep",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/verdikta/verdikta-applications/issues/118",
+        "title": "Stake attestation P1: Scaffold the stake-attestation app with its own CI",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.upwork.com/services/product/development-it-data-annotation-and-image-labeling-1658071356223127552",
+        "title": "Data annotation and image labeling - Upwork",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-01 build image labeling",
+      "is:issue is:open bounty created:>=2026-09-01 automated image classification",
+      "is:issue is:open bounty created:>=2026-09-01 ",
+      "hiring a freelancer to build image labeling tool",
+      "looking for someone to create image tagging software"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create image tagging software",
+      "hiring a freelancer to build image labeling tool",
+      "need paid help with automated image classification",
+      "can anyone create AI image tagging solution"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 36,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create image tagging software",
+        "hiring a freelancer to build image labeling tool",
+        "need paid help with automated image classification",
+        "can anyone create AI image tagging solution"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 138,
+      "known_pages": 1875
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
