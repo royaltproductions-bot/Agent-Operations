@@ -76,6 +76,13 @@ jobs:
           ref: main  # Load the latest persisted state after a queued predecessor finishes.
           persist-credentials: true
 
+      - name: Restore isolated Gambit state and monthly budget
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin gambit-state
+          git show origin/gambit-state:ops/gambit/state.json > ops/gambit/state.json
+          git show origin/gambit-state:ops/gambit/openai_budget.json > ops/gambit/openai_budget.json
+
       - name: Install runtime dependencies
         run: |
           python3 -m pip install --disable-pip-version-check --quiet \
