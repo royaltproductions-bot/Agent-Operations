@@ -193,6 +193,12 @@ def discovery_queries(memory):
         "generate broad 2026 RFP, tender, procurement, bid-directory, job "
         "board, or sector-overview searches: they have repeatedly yielded "
         "no reachable buyer. Do not invent buyers, contact details or demand. "
+        "Read avoid_recent_unsuccessful_topics from research history: choose "
+        "DIFFERENT buyer problems and response channels instead of repeating "
+        "the same industry with reworded searches. At least four generated "
+        "searches must target materially distinct buyer needs. Prioritize "
+        "public first-person requests that publish a way to submit a bid, "
+        "email, or proposal. A seller advertisement is not a buyer request. "
         "Return schema-compliant JSON only."
     )
     result=model_json(
