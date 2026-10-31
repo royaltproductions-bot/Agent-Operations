@@ -1,0 +1,222 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-31T16:17:56.844899+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 14,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "duckduckgo": 8,
+      "bing": 2,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 1,
+    "market_candidates_considered": 1,
+    "public_sources_available_for_judgment": 13,
+    "public_market_sample": [
+      {
+        "url": "https://www.researchandmarkets.com/reports/6269460/compostable-packaging-market-outlook-market",
+        "title": "Compostable Packaging Market Outlook 2026-2034: Market Share, and ...",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://www.marketresearchintellect.com/product/eco-friendly-packaging-market/",
+        "title": "Eco-Friendly Packaging Market Share | Industry Report 2035",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://greenfieldesg.com/what-does-compostable-mean/",
+        "title": "What Does Compostable Mean? Understanding the Benefits and ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.marketresearchfuture.com/reports/eco-friendly-packaging-market-27440",
+        "title": "Eco Friendly Packaging Market Size, Share & Forecast Report 2035",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://greeneworks.org/p/what-is-biodegradable-vs-compostable-and-does-it-matter/",
+        "title": "What is biodegradable vs. compostable \u2014 and does it matter?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://straitsresearch.com/report/compostable-packaging-market",
+        "title": "Compostable Packaging Market Size, Share, Growth, 2034",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://www.researchandmarkets.com/reports/6269460/compostable-packaging-market-outlook-market",
+        "title": "Compostable Packaging Market Outlook 2026-2034: Market Share, and ...",
+        "displayed_sales_count": null,
+        "listed_price_usd": "1.00"
+      }
+    ],
+    "candidates_without_email": 14,
+    "search_queries": [
+      "compostable packaging materials market growth 2026-2034",
+      "eco-friendly packaging market challenges 2025-2035",
+      "compostable packaging materials demand 2024-2030",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 8,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "compostable packaging materials market growth 2026-2034",
+        "eco-friendly packaging market challenges 2025-2035",
+        "sustainable packaging customer pain points",
+        "compostable packaging materials demand 2024-2030"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 2019
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:13 candidates reviewed; gh 2035. However, the absence of listed prices and sales counts makes it difficult to assess the viability of a new product without further market-specific data. Additi"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:53ed4d02bb0b701c13",
+      "decision": "pass",
+      "reason": "The eco-friendly packaging market report indicates a growing demand for sustainable packaging solutions, but there is no direct evidence of a specific product or customer problem that a new product could address. While the market is expanding, the absence of concrete buyer utility or a specific problem that a new product could solve makes it diffic"
+    },
+    {
+      "candidate_id": "web:1ed95a3fb7e55e9b8d",
+      "decision": "pass",
+      "reason": "The candidate is a paid market research report, which does not indicate actual product demand or buyer utility. The displayed sales count is null, and the listed price is not indicative of real-world market traction. There is no evidence of a specific customer problem or a feasible differentiated product. The other candidates are informational page"
+    },
+    {
+      "candidate_id": "web:4892467711793612a3",
+      "decision": "pass",
+      "reason": "While the compostable packaging market is projected to grow significantly with a CAGR of 8.4% from 2026 to 2034, there is no evidence of a specific product or service being offered for sale in this market. The absence of listed prices, sales counts, or direct references to an existing product makes it difficult to assess the viability of a new offe"
+    },
+    {
+      "candidate_id": "web:7a24a086652279317b",
+      "decision": "pass",
+      "reason": "The market for eco-friendly packaging is growing with a projected CAGR of 5.72% from 2025 to 2035, indicating a strong demand for sustainable solutions. However, the absence of listed prices and sales counts makes it difficult to assess the viability of a new product without further data. While the market is promising, the lack of concrete sales fi"
+    },
+    {
+      "candidate_id": "web:413fa221bcc36ae51f",
+      "decision": "pass",
+      "reason": "The article discusses the concept of compostable materials and their importance in sustainability, but it does not present a clear, actionable problem that a specific product could solve. There is no evidence of existing sales, pricing, or a defined customer need that a product could directly address. While the topic is relevant, the lack of a spec"
+    },
+    {
+      "candidate_id": "web:e156a3c6336e88845f",
+      "decision": "pass",
+      "reason": "The article discusses the distinction between biodegradable and compostable materials, highlighting consumer confusion and the importance of understanding these terms for making informed environmental choices. However, there is no direct evidence of a product or service currently available in the market that addresses this specific problem. While t"
+    },
+    {
+      "candidate_id": "web:54cfc15e58c39608aa",
+      "decision": "pass",
+      "reason": "While the eco-friendly packaging market shows growth potential, the evidence highlights significant challenges such as higher production costs and limited infrastructure for composting and recycling. These factors may hinder adoption, especially among SMEs and price-sensitive segments. Additionally, the lack of displayed sales counts and pricing ma"
+    },
+    {
+      "candidate_id": "web:d757c9286709989215",
+      "decision": "pass",
+      "reason": "The compostable packaging market is growing, but there is no direct evidence of a specific customer problem or demand for an original product in this space. The market report is general and does not indicate a clear opportunity for a unique, differentiated product. Additionally, there is no mention of existing sales or pricing, which makes it diffi"
+    },
+    {
+      "candidate_id": "web:52358f90ab74945aae",
+      "decision": "pass",
+      "reason": "While the sustainable packaging market shows growth potential, the evidence does not clearly indicate a specific customer problem that a differentiated product could solve. The market is already dominated by established players like Amcor Plc and Tetra Pak, and the opportunity for e-commerce packaging solutions is not sufficiently detailed to justi"
+    },
+    {
+      "candidate_id": "web:9ad2fd3bd7dd399e23",
+      "decision": "pass",
+      "reason": "While the pharmaceutical temperature-controlled packaging solutions market shows strong growth potential with a CAGR of 6.7%, the evidence does not provide specific customer problems or buyer utility that justify a differentiated product. The market is already well-established with existing players, and the lack of concrete buyer demand or specific"
+    },
+    {
+      "candidate_id": "web:19874a4d8f73239c3f",
+      "decision": "pass",
+      "reason": "The fiber-based packaging market is growing at a CAGR of 3.85%, driven by e-commerce expansion and sustainability trends. However, the market is already well-established with significant players and existing solutions. The evidence does not indicate a specific, unmet customer need or a feasible, differentiated product that can be tested at low cost"
+    },
+    {
+      "candidate_id": "web:8877d4c416def02af5",
+      "decision": "pass",
+      "reason": "The pharmaceutical packaging market shows strong growth potential with a projected CAGR of 8.73% through 2035. However, the absence of listed prices and sales counts makes it difficult to assess the viability of a new product without further market-specific data. Additionally, the market is highly competitive, and without a clear differentiation or"
+    },
+    {
+      "candidate_id": "web:51894880fae7eda1b8",
+      "decision": "pass",
+      "reason": "The liquid packaging market is projected to grow significantly, but the provided evidence does not indicate a specific, actionable product opportunity. There is no mention of a unique product idea, customer problem, or differentiation strategy. Additionally, the absence of pricing or sales data makes it difficult to assess viability without further"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 13,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
