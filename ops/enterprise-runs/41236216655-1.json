@@ -1,0 +1,137 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-31T20:16:26.769217+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 13,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 4,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "candidates_without_email": 11,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/PioneerAIAcademy/cowork-genealogy/issues/3547",
+        "title": "search-records agent: have record_search write its own log entry, and stop the calls that fail on the skill's own names",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ivcained/fiddy/issues/1",
+        "title": "Fiddy: Farcaster client + read node + 3-command tutorial ($2048 bounty)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/bannff/python-software-factory/issues/19",
+        "title": "epic: agent-economy learning loop \u2014 governance phase",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2603",
+        "title": "[soundness] hy-check: same-scope short redeclaration (m, tag := ...) and rebind (m = ...) drop closure capture move-free",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/lucasporfz/classificador/issues/27",
+        "title": "Multiplicadores finais um por um, cada um com FLOOR",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.indeed.com/q-Image-Annotation-l-Remote-jobs.html",
+        "title": "Flexible Image Annotation Jobs - Apply Today to Work From ... - Indeed",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-01 image annotation tool",
+      "is:issue is:open bounty created:>=2026-09-01 anyone create image",
+      "is:issue is:open bounty created:>=2026-09-01 ",
+      "need paid help with image annotation tool development",
+      "hiring a freelancer for image labeling project"
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer for image labeling project",
+      "need paid help with image annotation tool development",
+      "can anyone create image annotation tool for data labeling",
+      "looking for someone to build image labeling tool"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 38,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer for image labeling project",
+        "need paid help with image annotation tool development",
+        "can anyone create image annotation tool for data labeling",
+        "looking for someone to build image labeling tool"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 137,
+      "known_pages": 1932
+    }
+  },
+  "offer": {
+    "source_url": "https://www.opentrain.ai/data-labeling-solutions/",
+    "title": "Data Labeling Services for AI Training",
+    "scope": "Provide labeled datasets for AI training, including image annotation, document annotation, and structured data labeling.",
+    "price_usd": "49.95",
+    "price_cents": 4995,
+    "offer_id": "3138b0d6204deec6fddeb412",
+    "payment_link_id": "plink_1UWizQBto3o776uyVsLvBfKj"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://www.opentrain.ai/data-labeling-solutions/"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "none"
+  }
+}
