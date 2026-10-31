@@ -15,6 +15,24 @@ from tools import research_memory
 
 
 class OptimizationTests(unittest.TestCase):
+    def test_cyclops_rechecks_fabricated_candidate_id_once(self):
+        rows=[{"id":"candidate", "title":"Business data report",
+               "source_url":"https://example.org/report",
+               "page_fetched":True,
+               "page_text":"A real user describes difficulty updating routine reports. "*4}]
+        plan={"evidence_candidate_id":"candidate","title":"Reporting helper",
+              "description":"Original structured report","audience":"Small business",
+              "pitch":"Simplify repeated work","price_usd":"17",
+              "target_terms":["reports"],"output_files":["report.html"],
+              "production_goal":"Make a complete report"}
+        with patch.object(cyclops,"model_json",side_effect=[
+             {"candidate_id":"invented","decision":"pursue","reason":"Potential"},
+             {"candidate_id":"candidate","decision":"pursue","reason":"Real problem"},
+             plan]) as infer, patch.object(cyclops,"discover_tools",return_value={}):
+            result=cyclops.choose_asset_concept(rows)
+        self.assertEqual(infer.call_count,3)
+        self.assertEqual(result["evidence_candidate_id"],"candidate")
+
     def test_cyclops_reviews_remaining_market_after_first_pass(self):
         rows=[{'id':str(i),'source_url':f'https://example.org/{i}',
                'title':f'Useful product {i}','page_fetched':True,
