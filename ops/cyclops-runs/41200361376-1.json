@@ -1,0 +1,212 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-31T12:18:14.528898+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 11,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 11
+    },
+    "search_provider_counts": {
+      "duckduckgo": 7,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 7,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 4,
+    "market_candidates_considered": 4,
+    "public_sources_available_for_judgment": 7,
+    "public_market_sample": [
+      {
+        "url": "https://www.researchandmarkets.com/reports/6105069/demineralized-bone-matrix-market-report",
+        "title": "Demineralized Bone Matrix Market Report 2026",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://www.grandviewresearch.com/industry-analysis/demineralized-bone-matrix-market-report",
+        "title": "Demineralized Bone Matrix Market (2025 - 2030) - Grand View Research",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://www.marketresearch.com/LP-Information-Inc-v4134/Global-Compostable-Foodservice-Products-Growth-46205352/",
+        "title": ";\r\n Global Compostable Foodservice Products Market Growth (Status and Outlook) 2026-2032\n LP Information, Inc.\n Sep 2026\n USD $3,660\n Shop Now",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://www.marketresearch.com/LP-Information-Inc-v4134/Global-Compostable-Foodservice-Products-Growth-42891699/",
+        "title": ";\r\n Global Compostable Foodservice Products Market Growth (Status and Outlook) 2025-2031\n LP Information, Inc.\n Nov 2025\n USD $3,660\n Shop Now",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://www.reportsandmarkets.com/reports/global-sterile-demineralized-bone-matrix-market-4680382",
+        "title": "Sterile Demineralized Bone Matrix Market Report - Research, Industry ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.marketresearch.com/GlobalInfoResearch-v4117/Global-Compostable-Plastic-Products-Company-46625620/",
+        "title": ";\r\n Global Compostable Plastic Products Market 2026 by Company, Regions, Type and Application, Forecast to 2032\n GlobalInfoResearch\n Oct 2026\n USD $3,480\n Shop ",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://www.researchandmarkets.com/reports/6105069/demineralized-bone-matrix-market-report",
+        "title": "Demineralized Bone Matrix Market Report 2026",
+        "displayed_sales_count": null,
+        "listed_price_usd": "1.12"
+      },
+      {
+        "url": "https://www.grandviewresearch.com/industry-analysis/demineralized-bone-matrix-market-report",
+        "title": "Demineralized Bone Matrix Market (2025 - 2030) - Grand View Research",
+        "displayed_sales_count": null,
+        "listed_price_usd": "1.00"
+      },
+      {
+        "url": "https://www.marketresearch.com/LP-Information-Inc-v4134/Global-Compostable-Foodservice-Products-Growth-46205352/",
+        "title": ";\r\n Global Compostable Foodservice Products Market Growth (Status and Outlook) 2026-2032\n LP Information, Inc.\n Sep 2026\n USD $3,660\n Shop Now",
+        "displayed_sales_count": null,
+        "listed_price_usd": "3.00"
+      },
+      {
+        "url": "https://www.marketresearch.com/LP-Information-Inc-v4134/Global-Compostable-Foodservice-Products-Growth-42891699/",
+        "title": ";\r\n Global Compostable Foodservice Products Market Growth (Status and Outlook) 2025-2031\n LP Information, Inc.\n Nov 2025\n USD $3,660\n Shop Now",
+        "displayed_sales_count": null,
+        "listed_price_usd": "3.00"
+      }
+    ],
+    "candidates_without_email": 10,
+    "search_queries": [
+      "sterile demineralized bone matrix market report",
+      "",
+      "proxy network software market report"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 14,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "sterile demineralized bone matrix market report",
+        "proxy network software market report",
+        "compostable foodservice products market report",
+        "reconstituted wood products market report"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 1955
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:7 candidates reviewed; crete evidence of current demand or sales figures, making it difficult to assess viability. Additionally, the market is highly competitive with existing players, and wit"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:4565c284d52bf3e5c2",
+      "decision": "pass",
+      "reason": "The compostable foodservice products market is growing, but the evidence does not clearly indicate a specific customer problem or a feasible, differentiated product that can be tested with a low-cost prototype. The market reports highlight growth projections but lack concrete examples of actual buyer demand or utility for a specific product. Additi"
+    },
+    {
+      "candidate_id": "web:83062cd749110ff2e6",
+      "decision": "pass",
+      "reason": "The evidence excerpt indicates a growing market for demineralized bone matrix, but there is no clear indication of a specific product or customer problem that can be addressed with a differentiated, original digital product. The data provided is more about market size and growth rather than actionable customer needs or opportunities for a new produ"
+    },
+    {
+      "candidate_id": "web:e5fdf40703910595f1",
+      "decision": "pass",
+      "reason": "The observed market data indicates a paid report for the compostable foodservice products market, but there is no evidence of actual sales or buyer demand for an original product. The reports are likely for market research purposes and not indicative of a viable product offering. Additionally, the absence of specific customer problems or utility fo"
+    },
+    {
+      "candidate_id": "web:98dafdacc1bb0bc388",
+      "decision": "pass",
+      "reason": "The candidate is a paid market research report, but there is no evidence of actual sales or buyer demand. The displayed sales count is null, and the signal type is a public paid offer, which does not indicate real customer activity. Without verified buyer utility or demand, the market research report does not justify building an original product."
+    },
+    {
+      "candidate_id": "web:4ab929e6b911554b4f",
+      "decision": "pass",
+      "reason": "The Sterile Demineralized Bone Matrix market report indicates a potential niche but lacks concrete evidence of demand, sales, or pricing. While the market is growing, there is no clear indication of a specific customer problem that a differentiated product could solve. The absence of verified sales data and pricing makes it difficult to assess the "
+    },
+    {
+      "candidate_id": "web:56e67f876b000d76a8",
+      "decision": "pass",
+      "reason": "The market report for compostable plastic products lacks concrete evidence of current demand or sales figures, making it difficult to assess viability. Additionally, the market is highly competitive with existing players, and without a clear differentiation or unique value proposition, the product may struggle to gain traction."
+    },
+    {
+      "candidate_id": "web:4860e63df647d86ef7",
+      "decision": "pass",
+      "reason": "The candidate lacks concrete evidence of demand, such as sales counts or pricing, and the market insights page does not provide specific buyer utility or customer activity. Without a clear, specific problem or a feasible differentiated product, the opportunity is speculative and not sufficiently justified for a genuine product."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 7,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
