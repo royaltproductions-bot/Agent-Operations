@@ -1,0 +1,230 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-31T06:21:14.788136+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 15,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "duckduckgo": 6,
+      "hn_ask": 5,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "verified_firsthand_problem_pages": 5,
+    "observed_public_paid_offers": 1,
+    "market_candidates_considered": 1,
+    "public_sources_available_for_judgment": 13,
+    "public_market_sample": [
+      {
+        "url": "https://pmarketresearch.com/worldwide-proxy-services-and-software-market-research/",
+        "title": "Worldwide Proxy Services and Software Market 2026",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=22227733",
+        "title": "Ask HN: Best proxy provider for web scraping?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=21535880",
+        "title": "Ask HN: Is anyone aware of mobile app Proxy SDKs?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=11817989",
+        "title": "Ask HN: HTTP Proxy pool as a service \u2013 Should I bother with this idea?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=40725312",
+        "title": "Mobile Proxies, How to Choose?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=18290651",
+        "title": "Ask HN: Best residential proxy provider to scrape web?",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://pmarketresearch.com/worldwide-proxy-services-and-software-market-research/",
+        "title": "Worldwide Proxy Services and Software Market 2026",
+        "displayed_sales_count": null,
+        "listed_price_usd": "10.25"
+      }
+    ],
+    "candidates_without_email": 15,
+    "search_queries": [
+      "web scraping proxy services market size 2026",
+      "web scraping proxy providers list 2026",
+      "web scraping proxy demand trends 2026",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 17,
+      "skipped_revisits": 11,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "web scraping proxy services market size 2026",
+        "web scraping proxy demand trends 2026",
+        "web scraping proxy providers list 2026",
+        "web scraping proxy market growth 2026"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 139,
+      "known_pages": 1858
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:13 candidates reviewed; te lacks clear pricing and sales data, making it difficult to assess market viability. While the product offers potential value in web scraping, the absence of concrete"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        },
+        {
+          "source": "public_page_fetch",
+          "reason": "HTTPError"
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:67ec9c8e61bcef24c8",
+      "decision": "pass",
+      "reason": "The market research indicates strong growth potential for proxy services and software, with a projected market size of $10.25 billion by 2032 and a CAGR of 20.0%. However, the absence of specific customer problems or unique value propositions in the observed data makes it difficult to justify building a differentiated product. The existing competit"
+    },
+    {
+      "candidate_id": "web:81dcbc0e9c5bdcc194",
+      "decision": "pass",
+      "reason": "The discussion suggests there is a need for a proxy pool service, but the evidence does not provide clear proof of demand or willingness to pay. The idea is speculative without concrete sales data or pricing information. Additionally, there is existing competition in the proxy service market, and the feasibility of building a differentiated product"
+    },
+    {
+      "candidate_id": "web:804ec033e3a3a7ac0d",
+      "decision": "pass",
+      "reason": "The candidate lacks concrete evidence of demand, pricing, or sales. While there is interest in proxy services for web scraping, the absence of specific sales figures, pricing, or verified customer activity makes it difficult to assess the viability of a product in this space. Additionally, the existing competition and the ethical concerns raised in"
+    },
+    {
+      "candidate_id": "web:131b7d9ab77ea24e01",
+      "decision": "pass",
+      "reason": "The discussion around mobile app Proxy SDKs raises ethical concerns and questions about user privacy. While there is demand for proxies in web scraping, the specific model described in the HN post is controversial and may not align with user expectations for ethical and transparent services. Additionally, there is no clear evidence of a viable prod"
+    },
+    {
+      "candidate_id": "web:a2fa2e848db101ce86",
+      "decision": "pass",
+      "reason": "The candidate lacks evidence of demand or sales, and the problem described is speculative. While there is interest in proxies for web scraping, the absence of pricing, sales data, or a clear product offering makes it difficult to justify building a differentiated product without further validation."
+    },
+    {
+      "candidate_id": "web:56fd0e917d763cd631",
+      "decision": "pass",
+      "reason": "The discussion on HN indicates a need for residential proxies for web scraping, but there is no clear evidence of a product or service being offered for sale. The absence of listed prices or displayed sales counts makes it difficult to assess the viability of building a product in this space. Additionally, the market is highly competitive, and with"
+    },
+    {
+      "candidate_id": "web:2f8fcdee980a799457",
+      "decision": "pass",
+      "reason": "While the article highlights increased demand and spending on web scraping proxies, there is no clear indication of a specific customer problem that a new product could solve. The market is already well-served by existing tools and services, and the evidence provided does not demonstrate a unique value proposition or a feasible, differentiated prod"
+    },
+    {
+      "candidate_id": "web:b809fc131a075f4ee3",
+      "decision": "pass",
+      "reason": "The article discusses the growth of the web scraping industry, but it does not provide specific evidence of a product or service that is currently being offered for sale. There is no mention of a specific product, its features, pricing, or sales figures. Therefore, there is insufficient evidence to determine if a product in this space is worth buil"
+    },
+    {
+      "candidate_id": "web:93a2a4f2b35decffc8",
+      "decision": "pass",
+      "reason": "The Proxyway report indicates a market for proxy servers, but there is no evidence of a specific product or demand for an original offering. The report is a press release and does not indicate a viable product or customer need that can be addressed with a new offering. The lack of pricing, sales, or direct customer feedback makes it difficult to ju"
+    },
+    {
+      "candidate_id": "web:36bab5fa007995ca17",
+      "decision": "pass",
+      "reason": "The provided content is a report on retail industry trends, but it lacks specific details about an original product or a clear customer problem that can be addressed with a differentiated solution. The report does not mention any specific product or service that is currently being offered or sold, making it difficult to assess the viability of buil"
+    },
+    {
+      "candidate_id": "web:bbc91cc77048415fdc",
+      "decision": "pass",
+      "reason": "The article discusses the challenges of web scraping and the need for a web unblocker, but there is no clear evidence of a product being offered for sale or a demonstrated demand for such a product. The content is more of a guide than a product offering, and there is no listed price or sales count to indicate market viability."
+    },
+    {
+      "candidate_id": "web:4c21bd3c3e93dc543d",
+      "decision": "pass",
+      "reason": "The candidate lacks clear pricing and sales data, making it difficult to assess market viability. While the product offers potential value in web scraping, the absence of concrete evidence of demand or competitive positioning weakens the case for pursuing it."
+    },
+    {
+      "candidate_id": "web:0fa1d3aee6db90b77c",
+      "decision": "pass",
+      "reason": "The candidate lacks a clear product offering and pricing information, making it difficult to assess its viability. While the page mentions scraping APIs and tools, there is no indication of a specific product or service being offered. Additionally, the absence of pricing and sales data makes it challenging to evaluate market demand or competitive p"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 13,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
