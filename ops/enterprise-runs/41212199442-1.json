@@ -1,0 +1,127 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-31T14:54:38.926559+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 11
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/TheLordDuck/endstep-arena/issues/3",
+        "title": "Endstep changed (build f142e434a)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/joeloverbeck/arkham-unfolded/issues/55",
+        "title": "Play a prepared Study escape attempt with all three investigators",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/obsoletelabs/unnamed_tracking_app_2/issues/382",
+        "title": "track selective Rosefall PR 472 follow-ups and inherited defects (v0.0.5)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/eneelkant/pen-testing/issues/52",
+        "title": "security: track upstream pinned-image vulnerability gate blockers",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/1LineAtaTime/LoA-Pandaria-Playerbots/issues/16",
+        "title": "Data from our fork: quest NPCs without spawns and dungeon completion numbers (candidate lists)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://mipaoverseas.com/automate-image-tagging-ai/",
+        "title": "Automate Image Tagging with AI: Practical Guide 2026",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-01 build image metadata",
+      "is:issue is:open bounty created:>=2026-09-01 ",
+      "looking for someone to create an AI image tagging tool",
+      "hiring a freelancer to build an image metadata generator"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create an AI image tagging tool",
+      "hiring a freelancer to build an image metadata generator",
+      "can anyone create an AI-powered image tagging system",
+      "need paid help with AI image description tool development"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 32,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create an AI image tagging tool",
+        "hiring a freelancer to build an image metadata generator",
+        "can anyone create an AI-powered image tagging system",
+        "need paid help with AI image description tool development"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 140,
+      "known_pages": 1830
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
