@@ -1,0 +1,215 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-10-31T15:18:35.119413+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 13,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "duckduckgo": 9,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 1,
+    "market_candidates_considered": 1,
+    "public_sources_available_for_judgment": 12,
+    "public_market_sample": [
+      {
+        "url": "https://www.gminsights.com/industry-analysis/compostable-packaging-market",
+        "title": "Compostable Packaging Market Size, Share & Forecast - 2034",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://www.congruencemarketinsights.com/report/compostable-packaging-market",
+        "title": "Compostable Packaging Market Intelligence | Future Growth & Strategic ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.emergenresearch.com/industry-report/sustainable-compostable-packaging-and-labels-market",
+        "title": "Sustainable Compostable Packaging and Labels Market (2024-2034)",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.futuremarketinsights.com/reports/compostable-mailer-market",
+        "title": "Compostable Mailer Market Size & Outlook 2024-2034",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://industrytoday.co.uk/packaging/compostable-packaging-market-size-share-and-industry-report-2024-2031",
+        "title": "Compostable Packaging Market Size, Share and Industry Report 2024-2031",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.verifiedmarketreports.com/product/compostable-packaging-materials-market/",
+        "title": "Global Compostable Packaging Materials Market Size, Industry Growth ...",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://www.gminsights.com/industry-analysis/compostable-packaging-market",
+        "title": "Compostable Packaging Market Size, Share & Forecast - 2034",
+        "displayed_sales_count": null,
+        "listed_price_usd": "4.00"
+      }
+    ],
+    "candidates_without_email": 12,
+    "search_queries": [
+      "compostable packaging market growth 2024",
+      "compostable packaging market demand 2024",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 17,
+      "skipped_revisits": 8,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "compostable packaging market demand 2024",
+        "compostable packaging market growth 2024",
+        "compostable packaging customer pain points",
+        "compostable packaging pricing trends 2024"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 136,
+      "known_pages": 2005
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:12 candidates reviewed;  that justify a differentiated product. The page appears to be a market research report without actionable insights or verified sales data. There is no clear indication"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:0d62ed219316b9ed30",
+      "decision": "pass",
+      "reason": "The candidate is a paid market report, not an original product. The evidence excerpt indicates it is a report on the compostable packaging market, not a product offering. There is no indication of an original product being developed or sold, and the displayed sales count is null. Therefore, it does not meet the criteria for a genuine product."
+    },
+    {
+      "candidate_id": "web:3ab1c391a184d1688b",
+      "decision": "pass",
+      "reason": "While the compostable packaging market shows growth potential due to regulatory changes and increasing consumer demand for sustainable solutions, there is no clear evidence of a specific customer problem that a unique, bounded digital product could solve. The market is highly competitive with existing players, and the absence of concrete sales data"
+    },
+    {
+      "candidate_id": "web:f31cbb2c4b81911f44",
+      "decision": "pass",
+      "reason": "While the compostable packaging and labels market shows potential due to growing environmental awareness and regulatory changes, there is no concrete evidence of actual sales or pricing. The reports are speculative and do not provide sufficient data to validate a viable product. Without specific customer problems or a clear differentiation, the mar"
+    },
+    {
+      "candidate_id": "web:c4bc3f233831a53c22",
+      "decision": "pass",
+      "reason": "The evidence excerpt does not provide specific customer activity, demand strength, or competitive positioning. The report mentions market growth and segmentation but lacks concrete buyer utility or actual sales data to justify a unique product. The absence of detailed customer problems or feasible differentiated small digital product ideas makes it"
+    },
+    {
+      "candidate_id": "web:a70d740d29ab6e19ea",
+      "decision": "pass",
+      "reason": "While the compostable packaging market is projected to grow significantly, the evidence does not provide concrete sales data, pricing, or direct customer activity. The market is competitive, and without a clear differentiation or a specific customer problem that the product addresses, there is insufficient evidence to justify pursuing this market. "
+    },
+    {
+      "candidate_id": "web:7578704adced343dda",
+      "decision": "pass",
+      "reason": "While the compostable packaging market shows potential due to growing environmental awareness and regulatory changes, the evidence provided does not include specific customer problems, buyer utility, or demand strength. The excerpts are general and do not indicate a clear, actionable opportunity for a unique product. Additionally, there is no menti"
+    },
+    {
+      "candidate_id": "web:c0ddd982bf254e3daf",
+      "decision": "pass",
+      "reason": "The biodegradable packaging market is projected to grow at a CAGR of 5.74% from 2026 to 2035, indicating strong demand. However, the market is already well-established with significant competition from existing players. The evidence does not show a specific, unmet customer need or a clear opportunity for a differentiated product. Without a unique v"
+    },
+    {
+      "candidate_id": "web:e52105069e72e5add6",
+      "decision": "pass",
+      "reason": "While the eco-friendly packaging market is projected to grow significantly, the evidence does not provide specific customer problems or a clear, differentiated product idea. The market is highly competitive, and without a unique value proposition or a feasible small digital product that addresses a specific user need, the opportunity lacks the foun"
+    },
+    {
+      "candidate_id": "web:72547a5c5f0194812a",
+      "decision": "pass",
+      "reason": "While the packaging market is growing, the evidence does not clearly indicate a specific, actionable problem that a new product can solve. The market is broad and highly competitive, with many existing players already addressing sustainability and reusable packaging. Without a clear, differentiated value proposition or a specific customer pain poin"
+    },
+    {
+      "candidate_id": "web:eb5f8831eebc8a60fa",
+      "decision": "pass",
+      "reason": "The evidence excerpt indicates a growing market for compostable packaging materials, but there is no concrete data on sales counts, pricing, or specific customer problems. Without clear evidence of demand, competitive positioning, or a feasible product idea, it's not possible to determine if a differentiated product would be viable. The market is b"
+    },
+    {
+      "candidate_id": "web:dbc94756f5465428bf",
+      "decision": "pass",
+      "reason": "The provided evidence does not contain specific customer problems or buyer utility that justify a differentiated product. The page appears to be a market research report without actionable insights or verified sales data. There is no clear indication of a specific user need or a feasible small digital product that can be tested."
+    },
+    {
+      "candidate_id": "web:751208f69718a127a6",
+      "decision": "pass",
+      "reason": "The market report for Oman's Roadm Wss Component Market lacks concrete evidence of actual buyer demand or specific customer problems. There is no indication of a feasible, differentiated product that can be tested with a low-cost prototype. The absence of verified sales counts, pricing, or direct customer activity makes it difficult to justify purs"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 12,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
