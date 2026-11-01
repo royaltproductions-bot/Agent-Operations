@@ -1,0 +1,114 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-01T06:01:49.516433+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 10,
+    "source_counts": {
+      "open_web": 10
+    },
+    "search_provider_counts": {
+      "hn_ask": 1,
+      "github_paid_issues": 5,
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 10,
+    "candidates_without_email": 7,
+    "contactable_sources": 3,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=48723854",
+        "title": "Build an agent first Kanban board",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ROAM-game-org/road-machiners/issues/506",
+        "title": "Add remote off-road survey contracts",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/HCTDIP/corps-jobs/issues/59",
+        "title": "Railway \u8d4f\u91d1\uff1a\u6709 6 \u6761\u503c\u5f97\u62a2",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/thanhtantran/agents-radar/issues/466",
+        "title": "\u2624 B\u1ea3n tin h\u00e0ng ng\u00e0y h\u1ec7 sinh th\u00e1i Hermes Agent 2026-10-01",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/3a7i3/crypto-ia-terminal/issues/285",
+        "title": "MASTER ROADMAP II \u2014 Burn-in prot\u00e9g\u00e9 \u2192 Cockpit unifi\u00e9 \u2192 Research \u2192 \u00c9conomie d\u2019agents",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/apiiskan/ai-agent-radar/issues/69",
+        "title": "AI Agent Radar \u5468\u699c \u00b7 2026-W39",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create a Telegram bot with proxy integration for me",
+      "is:issue is:open bounty created:>=2026-09-02 create telegram bot",
+      "is:issue is:open bounty created:>=2026-09-02 telegram bot development"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a Telegram bot with proxy integration",
+      "hiring a freelancer to create a Telegram bot with proxy support",
+      "need paid help with Telegram bot development and proxy setup",
+      "can anyone create a Telegram bot with proxy integration for me"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 10,
+      "skipped_revisits": 31,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a Telegram bot with proxy integration",
+        "hiring a freelancer to create a Telegram bot with proxy support",
+        "need paid help with Telegram bot development and proxy setup",
+        "can anyone create a Telegram bot with proxy integration for me"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 112,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
