@@ -1,0 +1,125 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-01T14:56:52.650444+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 13,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "hn_ask": 1,
+      "github_paid_issues": 1,
+      "duckduckgo": 7,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 13,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=11449737",
+        "title": "Apply HN \u2013 Seedu \u2013 Equity Financing for Education",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/diclogic/ai-daily-digest/issues/151",
+        "title": "AI Daily Digest \u2014 2026-09-13",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.chatbot.com/integrations/whatsapp/",
+        "title": "WhatsApp Chatbot for Business: AI That Sells | ChatBot.com",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://metadesignsolutions.com/services/whatsapp-ai-bot-development-services",
+        "title": "WhatsApp AI Bot Development Company | Hire WhatsApp",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://sendpulse.com/features/chatbot/whatsapp",
+        "title": "Create a free WhatsApp chatbot using our no-code builder",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.fiverr.com/categories/programming-tech/chatbots/ai-chatbot-development",
+        "title": "AI chatbot development services | Fiverr",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "need paid help with creating a chatbot for whatsapp business api",
+      "is:issue is:open bounty created:>=2026-09-02 build whatsapp chatbot",
+      "looking for someone to build a whatsapp chatbot with ai integration",
+      "hiring a freelancer to develop a telegram bot for group management"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a whatsapp chatbot with ai integration",
+      "hiring a freelancer to develop a telegram bot for group management",
+      "need paid help with creating a chatbot for whatsapp business api",
+      "can anyone create a bot for telegram group automation"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 21,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a whatsapp chatbot with ai integration",
+        "hiring a freelancer to develop a telegram bot for group management",
+        "need paid help with creating a chatbot for whatsapp business api",
+        "can anyone create a bot for telegram group automation"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
