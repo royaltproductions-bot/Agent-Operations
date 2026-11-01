@@ -1,0 +1,134 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-01T09:05:10.596577+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 5,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 13,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/ritik4ever/stellar-bounty-board/issues/1768",
+        "title": "[Wave 10 Attribution] Link merged PRs & resolved issues for @sparkysolutions10-pixel on Drips Wave",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/freedom-winds/BountyScout/issues/1366",
+        "title": "\ud83c\udfaf Bounty Alert: 8 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2771",
+        "title": "hy-check: arrays of different lengths ([3]int vs [4]int) compared or assigned pass check; go build fails",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2770",
+        "title": "hy-check: f32 and f64 values mixed in arithmetic, comparisons and assignments pass check; go build fails (HYB-E1002)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/openobserve/openobserve/issues/16175",
+        "title": "Search result cache: re-running a query that aliases _timestamp returns the newest rows twice",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.fiverr.com/farouqeng/build-telegram-mini-app-telegram-shop-bot-telegram-store-bot-ecommerce-bot",
+        "title": "Build telegram mini app, telegram shop bot, telegram store bot ... - Fiverr",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-02 ",
+      "looking for someone to build a Telegram bot with shop integration"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a Telegram bot with shop integration",
+      "hiring a freelancer to create a Telegram bot with bulk messaging",
+      "can anyone create a Telegram bot with rate limit handling",
+      "need paid help with Telegram bot development for e-commerce"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 44,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a Telegram bot with shop integration",
+        "hiring a freelancer to create a Telegram bot with bulk messaging",
+        "can anyone create a Telegram bot with rate limit handling",
+        "need paid help with Telegram bot development for e-commerce"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": {
+    "source_url": "https://telezoid.in/blog/telegram-bot-development-cost.html",
+    "title": "Custom AI-Powered Telegram Bot with Payment Integration",
+    "scope": "Development of a fully-custom AI-powered Telegram bot with payment integration (Stripe/Razorpay/crypto), database, admin panel, and CRM integration. The bot will support natural language processing for user interactions and include a secure payment gateway for transactions.",
+    "price_usd": "2499.99",
+    "price_cents": 249999,
+    "offer_id": "01460a3a569f2072f22ffd4a",
+    "payment_link_id": "plink_1UWv4cBto3o776uyGTBNAEMJ"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://telezoid.in/blog/telegram-bot-development-cost.html"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "none"
+  }
+}
