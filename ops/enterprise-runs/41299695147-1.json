@@ -1,0 +1,136 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-01T10:58:39.586538+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 15,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 6,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 12,
+    "contactable_sources": 3,
+    "linked_requester_contacts": 2,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/openclaw/openclaw/issues/156895",
+        "title": "[automations] Agent-created jobs fail closed in ~20ms with \"Scheduled account ... is unavailable\" although the account i",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2834",
+        "title": "[buildable] method expression calls (pt.get(1), pt.get(), pt.add(q, \"a\"), g := pt.add; g(q)) are never checked: receiver",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/dseelinger/d47/issues/2039",
+        "title": "Music folder for ground conflict zones",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/wr-max52/dune-game/issues/381",
+        "title": "Time of day: changes on its own in freeplay, follows the chapters in story, a setting after the cruiser win",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/relayhop/ClaudeEarnSelf-runtime/issues/1183",
+        "title": "[demand] high-priority 2026-11-01T09:07",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.fiverr.com/hire/whatsapp-automation",
+        "title": "12 Best Freelance Whatsapp Automation for Hire in October 2026",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-02 create whatsapp bot",
+      "is:issue is:open bounty created:>=2026-09-02 ",
+      "hiring a freelancer to create a WhatsApp bot with automation features",
+      "looking for someone to build a Telegram bot with search functionality"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a Telegram bot with search functionality",
+      "hiring a freelancer to create a WhatsApp bot with automation features",
+      "need paid help with developing a Telegram bot for group management",
+      "can anyone create a bot for Telegram that integrates with external APIs"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 33,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a Telegram bot with search functionality",
+        "hiring a freelancer to create a WhatsApp bot with automation features",
+        "need paid help with developing a Telegram bot for group management",
+        "can anyone create a bot for Telegram that integrates with external APIs"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 115,
+      "known_pages": 1800
+    }
+  },
+  "offer": {
+    "source_url": "https://thedevs.org/hire/freelancer-for-whatsapp-bot",
+    "title": "WhatsApp Bot Development Services",
+    "scope": "Development of WhatsApp bots with custom functionality, integration with backend systems, and deployment-ready code.",
+    "price_usd": "499.99",
+    "price_cents": 49999,
+    "offer_id": "8f9ae3e64cc0fb743a136c6b",
+    "payment_link_id": "plink_1UWwrLBto3o776uy2iqffCdb"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://thedevs.org/hire/freelancer-for-whatsapp-bot"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 3,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "none"
+  }
+}
