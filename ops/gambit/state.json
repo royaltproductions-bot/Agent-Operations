@@ -25,9 +25,10 @@
       "version": 1
     },
     "mx72q5yhr8a957eezp17js3wgs8h4769": {
-      "action": "bid_missing",
-      "at": "2026-10-28T22:19:52.821583+00:00",
-      "version": 1
+      "action": "pass_unsupported",
+      "at": "2026-11-01T17:26:47.554372+00:00",
+      "reason": "video_production",
+      "version": 2
     },
     "mx72vg2dw6paysrp4wq9qth5kn8gdpy1": {
       "action": "pass_unsupported",
@@ -172,8 +173,9 @@
       "version": 1
     },
     "mx7b7z298wjrvhsayb175bve0x8hd27y": {
-      "action": "evaluation_pending",
-      "at": "2026-11-01T17:26:39.558206+00:00",
+      "action": "pass_unsupported",
+      "at": "2026-11-01T17:26:47.320093+00:00",
+      "reason": "video_production",
       "version": 1
     },
     "mx7bzw2y0xe66kb9j4b4wjv9398h99p4": {
@@ -761,21 +763,10 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxNiwiY2hlY2twb2ludEF0IjoxNzkzNTUyMTA2MTQyfQ",
-  "last_bid_reconciliation": "2026-11-01T16:55:07.713413+00:00",
-  "last_check": "2026-11-01T16:55:07.715156+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxOCwiY2hlY2twb2ludEF0IjoxNzkzNTU0MDA1NDE5fQ",
+  "last_bid_reconciliation": "2026-11-01T17:26:47.096268+00:00",
+  "last_check": "2026-11-01T17:26:47.555307+00:00",
   "recent_outcomes": [
-    {
-      "action": "bid_missing",
-      "at": "2026-10-28T22:19:52.821607+00:00",
-      "bounty_id": "mx72q5yhr8a957eezp17js3wgs8h4769"
-    },
-    {
-      "action": "closed_before_evaluation",
-      "at": "2026-10-29T00:36:52.809923+00:00",
-      "bounty_id": "mx79vrwcx8375g78rky2gb4wvx8h5zft",
-      "platform_status": "claimed"
-    },
     {
       "action": "evaluation_retry_scheduled",
       "at": "2026-10-29T14:45:59.386803+00:00",
@@ -1159,6 +1150,20 @@
       "bounty_id": "mx78kk7yaefsdwz1vgp7djcjz58hdqc8",
       "reason": "authenticated_account_operation",
       "version": 1
+    },
+    {
+      "action": "pass_unsupported",
+      "at": "2026-11-01T17:26:47.320090+00:00",
+      "bounty_id": "mx7b7z298wjrvhsayb175bve0x8hd27y",
+      "reason": "video_production",
+      "version": 1
+    },
+    {
+      "action": "pass_unsupported",
+      "at": "2026-11-01T17:26:47.554369+00:00",
+      "bounty_id": "mx72q5yhr8a957eezp17js3wgs8h4769",
+      "reason": "video_production",
+      "version": 2
     }
   ],
   "schema": 1,
