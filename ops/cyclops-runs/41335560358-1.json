@@ -1,0 +1,145 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-01T18:16:14.890400+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 13,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "duckduckgo": 8,
+      "bing": 1,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "verified_firsthand_problem_pages": 3,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 12,
+    "public_market_sample": [
+      {
+        "url": "https://www.geeksforgeeks.org/web-scraping/scrape-and-save-table-data-in-csv-file-using-selenium-in-python/",
+        "title": "Scrape and Save Table Data in CSV file using Selenium in Python",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://thepythoncode.com/article/convert-html-tables-into-csv-files-in-python",
+        "title": "How to Convert HTML Tables into CSV Files in Python",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://freegames.org/",
+        "title": "Free Games \u2013 100% Free Online Games | FreeGames.org",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.smartsheet.com/content/milestone-templates",
+        "title": "Free Project Milestone Templates - Smartsheet",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.projectmanager.com/templates/milestones-template",
+        "title": "Milestones Template for Excel (Free Download) - ProjectManager",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://github.com/Professional-SS/Web-Scraper-for-Tabular-Data-Extraction-and-CSV-Export",
+        "title": "GitHub - Professional-SS/Web-Scraper-for-Tabular-Data-Extraction-and ...",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 13,
+    "search_queries": [
+      "Python script to automate CSV data export from web tables",
+      "Free downloadable workflow automation dashboard template",
+      "Downloadable Excel template for tracking project milestones",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 18,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "Python script to automate CSV data export from web tables",
+        "Downloadable Excel template for tracking project milestones",
+        "Automate invoice processing with Python script",
+        "Free downloadable workflow automation dashboard template"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:a627fe4f7d17f3d51696:ModuleNotFoundError: No module named 'selenium'",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 2,
+    "product_pages": 2,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:a627fe4f7d17f3d51696:ModuleNotFoundError: No module named 'selenium'"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 2,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 12,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
