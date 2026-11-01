@@ -1,0 +1,129 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-01T05:09:10.596972+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 2,
+      "github_paid_issues": 5,
+      "duckduckgo": 6,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=39702263",
+        "title": "Ask HN: Starting a business is way harder than Twitter-bros claim. Any advice?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=1525200",
+        "title": "Ask HN: Can you be sued for stealing an idea?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/killerboyyy777/Machine-Learning-mmo/issues/499",
+        "title": "Research: which SpaceMolt systems transplant into our engine (bot-first audit)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/PersonalClaw/PersonalClawApps/issues/312",
+        "title": "A public board of apps for community authors to build, each with its spec, its bar and a way to claim it",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/SysAdminDoc/HushGram/issues/429",
+        "title": "bug: screen flickering issue",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/hherb/localmail/issues/429",
+        "title": "Attachment-name rules match malformed attachments JSONB (lax jsonpath), disagreeing with HAS_ATTACHMENT_SQL",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to create offline lesson packs for Chromebooks",
+      "hiring a freelancer to build a Telegram bot with proxy setup",
+      "is:issue is:open bounty created:>=2026-09-02 create offline lesson",
+      "is:issue is:open bounty created:>=2026-09-02 telegram bot 429"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create offline lesson packs for Chromebooks",
+      "hiring a freelancer to build a Telegram bot with proxy setup",
+      "need paid help with Telegram bot 429 error handling solutions",
+      "can anyone create downloadable HTML lesson files for offline use"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 25,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create offline lesson packs for Chromebooks",
+        "hiring a freelancer to build a Telegram bot with proxy setup",
+        "need paid help with Telegram bot 429 error handling solutions",
+        "can anyone create downloadable HTML lesson files for offline use"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:TheDevs explicitly invites a relevant outside provider for Telegram bot development, has a public business contact ro"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
