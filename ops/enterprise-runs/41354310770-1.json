@@ -1,0 +1,123 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-01T21:55:22.221516+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "hn_ask": 3,
+      "github_paid_issues": 4,
+      "duckduckgo": 5
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 11,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=439515",
+        "title": "My structure editing theories",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=30611877",
+        "title": "Feedback on yet another recipe and mealplanning website",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=1721552",
+        "title": "Computer Build Tracking",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/rroland10/dex223-bug-bounty/issues/36",
+        "title": "[Audit @ 18fa327] High/Medium \u2014 Dex223QuoteLib.quoteSwap exact-output return inversion, Dex223Pool.quoteSwap Error(strin",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/BrentWJacobs/Py/issues/210",
+        "title": "transformers-4.30.2-py3-none-any.whl: 31 vulnerabilities (highest severity is: 9.6)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/chiuhehe1-design/conm/issues/21",
+        "title": "[Bounty Solution] gyroflow/gyroflow#150: Support lensfun database",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to create a high-converting signup form",
+      "can anyone create a popup builder for a newsletter sign-up",
+      "is:issue is:open bounty created:>=2026-09-02 create high converting",
+      "is:issue is:open bounty created:>=2026-09-02 ",
+      "hiring a freelancer to build a newsletter landing page"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create a high-converting signup form",
+      "hiring a freelancer to build a newsletter landing page",
+      "need paid help with designing a quiz builder landing page",
+      "can anyone create a popup builder for a newsletter sign-up",
+      "looking for someone to design a form builder for event pages"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 24,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create a high-converting signup form",
+        "hiring a freelancer to build a newsletter landing page",
+        "need paid help with designing a quiz builder landing page",
+        "can anyone create a popup builder for a newsletter sign-up",
+        "looking for someone to design a form builder for event pages"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
