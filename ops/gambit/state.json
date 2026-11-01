@@ -102,8 +102,9 @@
       "version": 1
     },
     "mx781v2nmz4asd8663ke7qbnvs8hc740": {
-      "action": "evaluation_pending",
-      "at": "2026-11-01T02:25:41.193005+00:00",
+      "action": "asked",
+      "at": "2026-11-01T02:26:13.522375+00:00",
+      "last_declined_bid": null,
       "version": 1
     },
     "mx78apwsra2pbng9yehfhbr5mh8hah01": {
@@ -720,17 +721,10 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxNCwiY2hlY2twb2ludEF0IjoxNzkzNDk2Nzc5Njg0fQ",
-  "last_bid_reconciliation": "2026-11-01T01:33:01.371397+00:00",
-  "last_check": "2026-11-01T01:33:01.373055+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxNSwiY2hlY2twb2ludEF0IjoxNzkzNDk5OTQ3NTY5fQ",
+  "last_bid_reconciliation": "2026-11-01T02:25:49.228355+00:00",
+  "last_check": "2026-11-01T02:26:13.524192+00:00",
   "recent_outcomes": [
-    {
-      "action": "bid_sent",
-      "at": "2026-10-28T19:26:29.424614+00:00",
-      "bounty_id": "mx72q5yhr8a957eezp17js3wgs8h4769",
-      "payout_cents": 25000,
-      "version": 1
-    },
     {
       "action": "buyer_replied",
       "at": "2026-10-28T19:42:55.831384+00:00",
@@ -1117,6 +1111,12 @@
       "action": "bid_missing",
       "at": "2026-10-31T21:19:18.032923+00:00",
       "bounty_id": "mx7b5r22yezh2hsytbgae3ywms8h8r5z"
+    },
+    {
+      "action": "asked",
+      "at": "2026-11-01T02:26:13.522394+00:00",
+      "bounty_id": "mx781v2nmz4asd8663ke7qbnvs8hc740",
+      "version": 1
     }
   ],
   "schema": 1,
