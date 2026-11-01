@@ -40,7 +40,8 @@ from tools.connected_commerce_tools import (
 
 from tools.open_web_discovery import open_web_candidates, public_request_signal
 from tools.paid_market import (observed_paid_listing, paid_listing_evidence,
-                               public_market_evidence, validated_market_proof)
+                               public_market_evidence, validated_market_proof,
+    is_editorial_market_page)
 from tools.cyclops_workshop import discover_tools, manufacture, _safe_path
 from tools.research_memory import ResearchMemory
 from tools.cyclops_vault import (read_pending, save_pending, seal_asset,
@@ -394,10 +395,13 @@ def choose_asset_concept(rows,existing_assets=None):
         # deliberately small product, even without competitors' sales figures.
         # Never substitute an editorial article or a seller's advertisement.
         source_by_id={str(row.get("id")):row for row in rows}
-        trial_candidates=[p for p in visible if (
-            str((source_by_id.get(p["candidate_id"]) or {}).get("search_alignment") or "")
-            in {"first_party_question_post", "original_open_issue"} and
-            firsthand_problem_excerpt(source_by_id[p["candidate_id"]]))]
+        trial_candidates=[
+            candidate for candidate in visible
+            if (source:=source_by_id.get(candidate["candidate_id"]))
+            and source.get("page_fetched")
+            and not is_editorial_market_page(source)
+            and firsthand_problem_excerpt(source)
+        ]
         if not trial_candidates:
             raise MarketDeclined(assessments)
         selected=trial_candidates[0]
