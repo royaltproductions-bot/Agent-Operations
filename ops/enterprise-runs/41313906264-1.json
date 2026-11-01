@@ -1,0 +1,115 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-01T14:01:31.995164+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "github_paid_issues": 5,
+      "duckduckgo": 7
+    },
+    "source_errors": [],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 16,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=46474054",
+        "title": "My 25 Rants from 2025",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44479661",
+        "title": "Ratefin Investment Scam Exposed: Cybercriminals Cash in on Fake Returns",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=43501611",
+        "title": "Who's building open source personal AI",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=34061658",
+        "title": "Ask HN: Has Hacker News already been hacked by GPT-3 accounts?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Tyaoo/picker/issues/1543",
+        "title": "[\u6bcf\u65e5\u4fe1\u606f\u6d41] 2026-10-16",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ruohong2018/ruohong2018.github.io/issues/1346",
+        "title": "[\u6bcf\u65e5\u4fe1\u606f\u6d41] 2026-10-16",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a WhatsApp bot with API integration",
+      "can anyone create a bot that automates Telegram group messages?",
+      "is:issue is:open bounty created:>=2026-09-02 build whatsapp bot",
+      "hiring a freelancer to create a Telegram bot with user management"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a WhatsApp bot with API integration",
+      "hiring a freelancer to create a Telegram bot with user management",
+      "need paid help with developing a Telegram account creation system",
+      "can anyone create a bot that automates Telegram group messages?"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 12,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a WhatsApp bot with API integration",
+        "hiring a freelancer to create a Telegram bot with user management",
+        "need paid help with developing a Telegram account creation system",
+        "can anyone create a bot that automates Telegram group messages?"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
