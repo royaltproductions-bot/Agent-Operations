@@ -1,0 +1,126 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-01T19:55:39.625364+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "github_paid_issues": 5,
+      "duckduckgo": 3
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=35150356",
+        "title": "Passive co-founder, no proactivity,coding",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=34995634",
+        "title": "Ask HN: Scrappy way to create landing pages?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=27530052",
+        "title": "Co-founder for fintech startup (trucking industry)",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=27525819",
+        "title": "Ask HN: What is your \u201csales stack\u201d?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=23707682",
+        "title": "Don't be afraid to put yourself out there",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=22767791",
+        "title": "No Code Opportunities",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to create a landing page with newsletter signup",
+      "can anyone create a landing page for a new SaaS product",
+      "is:issue is:open bounty created:>=2026-09-02 create landing page",
+      "is:issue is:open bounty created:>=2026-09-02 build landing page",
+      "is:issue is:open bounty created:>=2026-09-02 ",
+      "hiring a freelancer to build a landing page for email list growth"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create a landing page with newsletter signup",
+      "hiring a freelancer to build a landing page for email list growth",
+      "need paid help with designing a newsletter signup form template",
+      "can anyone create a landing page for a new SaaS product"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 27,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create a landing page with newsletter signup",
+        "hiring a freelancer to build a landing page for email list growth",
+        "need paid help with designing a newsletter signup form template",
+        "can anyone create a landing page for a new SaaS product"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:The request is for a Zoom call and referral, which cannot be fulfilled through file-generation or structured data del"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
