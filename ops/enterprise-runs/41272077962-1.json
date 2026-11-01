@@ -1,0 +1,125 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-01T04:13:56.465728+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "github_paid_issues": 5,
+      "duckduckgo": 3
+    },
+    "source_errors": [],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=48548530",
+        "title": "Ask HN: Active GitHub accounts (probably) delivering malware, now what?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=11494458",
+        "title": "Apply HN: EcommerceBot \u2013 A bot for ecommerce to handle customer support",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44517469",
+        "title": "Built Podflyy.com, a NoteBookLM Alternative \u2013 Is There PMF?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37675989",
+        "title": "Ask HN: I spent months building an app and now I don't know how to get users",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37088792",
+        "title": "Ask HN: Stuck at $500 MRR and Seeking Distribution/Marketing Advice",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=35138517",
+        "title": "My co-founder isn't scaling our business",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a Telegram bot that handles HTTP 429 errors",
+      "need paid help with creating a script to automate HTTP 429 retry logic",
+      "is:issue is:open bounty created:>=2026-09-02 build telegram bot",
+      "is:issue is:open bounty created:>=2026-09-02 creating script automate",
+      "is:issue is:open bounty created:>=2026-09-02 ",
+      "hiring a freelancer to fix Telegram bot issues and rate limit handling"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a Telegram bot that handles HTTP 429 errors",
+      "hiring a freelancer to fix Telegram bot issues and rate limit handling",
+      "need paid help with creating a script to automate HTTP 429 retry logic",
+      "can anyone create a tool to monitor and fix Telegram bot connection errors"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 32,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a Telegram bot that handles HTTP 429 errors",
+        "hiring a freelancer to fix Telegram bot issues and rate limit handling",
+        "need paid help with creating a script to automate HTTP 429 retry logic",
+        "can anyone create a tool to monitor and fix Telegram bot connection errors"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": {
+    "source_url": "https://mobileproxy.space/en/pages/telegram-bot-api-via-proxy-setting-up-long-polling-webhooks-and-handling-429-errors.html",
+    "title": "Telegram Bot API Setup with Proxy and 429 Error Handling",
+    "scope": "A step-by-step guide to setting up a Telegram bot using a proxy, including long polling, webhook setup with HTTPS and secret token, and handling 429 errors. The guide will cover all the steps from creating the bot, connecting the proxy, running long polling, setting up the webhook, and ensuring robust error handling.",
+    "price_usd": "29.99",
+    "price_cents": 2999,
+    "offer_id": "b79d5f1a5727e423ba366fd3",
+    "payment_link_id": "plink_1UWqXmBto3o776uyai1AHeYv"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://mobileproxy.space/en/pages/telegram-bot-api-via-proxy-setting-up-long-polling-webhooks-and-handling-429-errors.html"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 2,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "none"
+  }
+}
