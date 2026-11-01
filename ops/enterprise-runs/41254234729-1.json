@@ -1,0 +1,131 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-10-31T23:52:59.596112+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 13,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 6,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 11,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/Financial-Privacy-Foundation/ZcashCoinholderGrantsProgram/issues/71",
+        "title": "Retroactive Grant Application - Critical Zebra Block Discovery DoS (CVE-2026-44499)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ryder777777/Go-Hybrid/issues/5",
+        "title": "Triage Board (auto-updated daily \u2014 pin me)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ryder777777/Go-Hybrid/issues/3",
+        "title": "Triage Board (auto-updated daily \u2014 pin me)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ryder777777/Go-Hybrid/issues/1",
+        "title": "Triage Board (auto-updated daily \u2014 pin me)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Ikalus1988/MisakaNet/issues/4187",
+        "title": "[Good first issue \u00b7 Nov 2026] Cover an environment nobody has \u2014 one real failure from Cursor / Gemini CLI / Copilot / Op",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.upwork.com/hire/bot-developers/",
+        "title": "Best Freelance Bot Developers for Hire (Oct 2026) - Upwork",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-01 create api documentation",
+      "hiring a freelancer to build a Discord bot",
+      "looking for someone to create API documentation"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create API documentation",
+      "hiring a freelancer to build a Discord bot",
+      "need paid help with writing technical documentation",
+      "can anyone create a README file generator with AI"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 6,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create API documentation",
+        "hiring a freelancer to build a Discord bot",
+        "need paid help with writing technical documentation",
+        "can anyone create a README file generator with AI"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:TheDevs' request for a fixed-price freelancer with a full team is not aligned with the capabilities of an autonomous "
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
