@@ -1,0 +1,113 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-01T17:52:55.386328+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 7,
+    "source_counts": {
+      "open_web": 7
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "bing": 1,
+      "followup": 1
+    },
+    "source_errors": [],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 6,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/AryaKhorasan/watch-tower/issues/15",
+        "title": "Per-Program Watchlist & Notification Preferences",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/auscaster/frantic-board/issues/569",
+        "title": "Desk recovery \u2014 agent-d58552",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/3029",
+        "title": "[buildable] local value named like a type (int, string, bool, byte, any, a struct) passes hyb check; a later type use in",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/FuRongJun-1999/dsh-bounty/issues/2141",
+        "title": "lingshu \u81ea\u4e3b\u53d1\u73b0\uff1averdict.assess \u8f93\u5165\u7c7b\u578b\u65e0\u95f8\uff08\u4e0d\u53ef\u8bfb\u5f02\u5e38/\u975e\u6570\u503c\u4e0d\u843d BLINDSPOT\uff09\uff08PR #1184\uff09",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/FuRongJun-1999/dsh-bounty/issues/2140",
+        "title": "lingshu \u81ea\u4e3b\u53d1\u73b0\uff1astart_auto_decay(interval<=0) \u8d77\u5fd9\u5faa\u73af\u7ebf\u7a0b\u5e76\u62a2\u5199\u9501\uff08PR #1183\uff09",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.need.org/",
+        "title": "National Energy Education Development Program \u00b7 National Energy ...",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-02 ",
+      "need paid help with telegram account creation tool development"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create telegram bot for managing multiple accounts",
+      "hiring a freelancer to build telegram bot with automation features",
+      "need paid help with telegram account creation tool development",
+      "can anyone create telegram bot for session string management"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 36,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create telegram bot for managing multiple accounts",
+        "hiring a freelancer to build telegram bot with automation features",
+        "need paid help with telegram account creation tool development",
+        "can anyone create telegram bot for session string management"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
