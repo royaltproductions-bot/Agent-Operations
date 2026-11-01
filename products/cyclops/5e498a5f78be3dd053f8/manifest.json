@@ -1,0 +1,69 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops",
+  "status": "active",
+  "asset_id": "5e498a5f78be3dd053f8",
+  "title": "Automated Workflow Builder for Repetitive Tasks",
+  "description": "A tool that helps users automate repetitive browser tasks like email sorting, social media engagement, and form filling by creating custom workflows that adapt to dynamic content and API limitations.",
+  "audience": "Individuals and small businesses dealing with repetitive digital tasks, developers looking to streamline workflows, and productivity enthusiasts.",
+  "pitch": "This product addresses the real-world problem of managing repetitive browser tasks that are often time-consuming and error-prone. It offers a solution that adapts to dynamic content and API limitations, making it a unique and useful tool for users who want to automate their workflows without the hassle of manual coding.",
+  "price_usd": "29.99",
+  "price_cents": 2999,
+  "target_terms": [
+    "automated workflow builder",
+    "browser task automation",
+    "repetitive task automation",
+    "dynamic content handling",
+    "API workflow integration"
+  ],
+  "evidence_source_url": "https://news.ycombinator.com/item?id=47507733",
+  "files": [
+    "automated_workflow_builder.py",
+    "README.md",
+    "requirements.txt"
+  ],
+  "artifact_manifest": [
+    {
+      "filename": "automated_workflow_builder.py",
+      "bytes": 2425,
+      "sha256": "39337e224fe5b88463d3fb8c54eb13c1e03c4db5f88e69ef3e2b08326b267592",
+      "content_type": "text/x-python"
+    },
+    {
+      "filename": "README.md",
+      "bytes": 1256,
+      "sha256": "72d21abbec6387ac42d4f157f9055e08bd6294922af882bbed3c01b3c85d103b",
+      "content_type": "text/markdown"
+    },
+    {
+      "filename": "requirements.txt",
+      "bytes": 345,
+      "sha256": "e0be60fffcb885b371a2276f00e30ae3aa344fec78aa66a56461fa1ff5b3eb8d",
+      "content_type": "text/plain"
+    }
+  ],
+  "production_tool": "isolated_tool_workshop",
+  "quality_gate": "content_and_evidence_verified",
+  "market_validation": {
+    "status": "agent_assessed_public_market",
+    "decision": "pursue",
+    "reason": "Low-cost original pilot answering a real first-person user problem, with market validation still to be measured. No verified demand or revenue is claimed.",
+    "observation": {
+      "candidate_id": "web:ab42ffcac8025d5a8d",
+      "url": "https://news.ycombinator.com/item?id=47507733",
+      "title": "Started as a simple GitHub side project, but it keeps on going forever",
+      "signal_type": "unclassified_public_page",
+      "source_fetched": true,
+      "evidence_excerpt": "Started as a simple GitHub side project, but it keeps on going forever Hey everyone, Not posting this as a \u201cgo upvote us\u201d thing - genuinely just want to share what happened over th [...] e last couple of weeks. I started with a very simple idea. I was building a small GitHub embedded card - basically a GitHub profile analyzer that I even embedded on my own profile, u can check it here: https://github.com/S4nfs It was fun\u2026 but honestly, it started to feel weirdly stupid and simple and kind of lonely product. So I thought - why not take it a bit further? That\u2019s when things shifted. I started trying to automate some boring browser tasks we deal with every day, like: sorting emails connecting/following like-minded people on social media posting on LinkedIn And then it expanded into things like: checking updates across multiple sites (like Hacker News) filling repetitive forms managing small workflows that don\u2019t have APIs Nothing new, right? But everything we tried kept breaking. Selectors failed. APIs didn\u2019t exist. MCPs just ended up wasting tokens. Workflows were fragile. And honestly, ",
+      "listed_price_usd": null,
+      "displayed_sales_count": null
+    }
+  },
+  "verified_market_problem_quote": "Started as a simple GitHub side project, but it keeps on going forever Hey everyone, Not posting this as a \u201cgo upvote us\u201d thing - genuinely just want to share what happened over th [...] e last couple of weeks. I started with a very simple idea. I was building a small GitHub embedded card - basically a GitHub profile analyzer that I even embedded on my own profile, u can check it here: https://github.com/S4nfs It was fun\u2026 but honestly, it started to feel weirdly stupid and simple and kind of lonely product. So I thought - why not take it a bit further? That\u2019s when things shifted. I started trying to automate some boring browser tasks we deal with every day, like: sorting emails connecting/following like-minded people on social media posting on LinkedIn And then it expanded into things like: checking updates across multiple sites (like Hacker News) filling repetitive forms managing small workflows that don\u2019t have APIs Nothing new, right? But everything we tried kept breaking. Selectors failed. APIs didn\u2019t exist. MCPs just ended up wasting tokens. Workflows were fragile. And honestly, ",
+  "commercial_review_reason": "The delivered artifacts include a functional Python script for browser automation, a README with clear usage instructions, and a requirements file. The script supports workflow creation for repetitive tasks like form filling and element interaction, aligning w",
+  "delivery": "private_encrypted_vault",
+  "vault_path": "ops/cyclops-vault/assets/5e498a5f78be3dd053f8.json",
+  "payment_link_id": "plink_1UWtl9Bto3o776uyPO8cBjgX",
+  "checkout_url": "https://buy.stripe.com/fZu00i8bSfDpazU0oD7Re0A",
+  "created_at": "2026-11-01T08:04:59.199023+00:00"
+}
