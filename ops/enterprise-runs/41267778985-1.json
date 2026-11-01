@@ -1,0 +1,133 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-01T03:07:39.464530+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "github_paid_issues": 5,
+      "duckduckgo": 7
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=34817163",
+        "title": "Tell HN: GitHub suspended my account without warning or explanation",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=48735500",
+        "title": "Ask HN: How would you launch an open-source app with a small budget?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=21374363",
+        "title": "Making open-source development work for businesses",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=881134",
+        "title": "Ask HN: How do I find a marketing person for my startup?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/freedom-winds/BountyScout/issues/1329",
+        "title": "\ud83c\udfaf Bounty Alert: 12 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/artkamote/examples/issues/1174",
+        "title": "CVE-2021-3749 (High) detected in multiple libraries",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create a Telegram app automation trigger fix",
+      "need paid help with deploying GHCR image on Railway",
+      "is:issue is:open bounty created:>=2026-09-02 fix telegram bot",
+      "looking for someone to fix Telegram bot automation trigger",
+      "hiring a freelancer to resolve Railway US East HTTP 429 issue"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to fix Telegram bot automation trigger",
+      "hiring a freelancer to resolve Railway US East HTTP 429 issue",
+      "can anyone create a Telegram app automation trigger fix",
+      "need paid help with deploying GHCR image on Railway"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 2,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to fix Telegram bot automation trigger",
+        "hiring a freelancer to resolve Railway US East HTTP 429 issue",
+        "can anyone create a Telegram app automation trigger fix",
+        "need paid help with deploying GHCR image on Railway"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": {
+    "source_url": "https://www.kenzabyte.com/telegram-bot-errors-and-fixes/",
+    "title": "Telegram Bot Development and Error Handling Service",
+    "scope": "Custom Telegram bot development with error handling, scalable architecture, and automation setup.",
+    "price_usd": "4999.99",
+    "price_cents": 499999,
+    "offer_id": "ca994528c41aa917f157a0ec",
+    "payment_link_id": "plink_1UWpH7Bto3o776uy1teXiDu5"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://www.kenzabyte.com/telegram-bot-errors-and-fixes/"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 2,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "none"
+  }
+}
