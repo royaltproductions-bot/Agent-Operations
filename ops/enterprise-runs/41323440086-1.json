@@ -1,0 +1,125 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-01T15:54:44.958416+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "hn_ask": 1,
+      "github_paid_issues": 5,
+      "duckduckgo": 5,
+      "followup": 3
+    },
+    "source_errors": [],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 13,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=30552091",
+        "title": "HN call for help: Thousand of IT specialists flee Russia as job market collapses",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Chain-Love/chain-love/issues/4613",
+        "title": "[DBIP] Add documented wallet recovery methods without inferring them from custody or key export",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/quantdeus/quantdeus.github.io/issues/552",
+        "title": "[MISSION][MCP MESH] Agent Embassy: reconnaissance of Moltbook, Colony & agent networks (zero spend)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/rajshevde-01/Linkedin-Daily-Post/issues/416",
+        "title": "\ud83d\udea8 Cybersecurity News Digest - 2026-11-01",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/anthropics/claude-code/issues/106580",
+        "title": "[BUG] WSL2: ~10-minute stall before the first API request of a turn after /compact or idle (context rebuild)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/freedom-winds/BountyScout/issues/1367",
+        "title": "\ud83c\udfaf Bounty Alert: 12 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "hiring a developer to set up telegram bot with payment gateway",
+      "is:issue is:open bounty created:>=2026-09-02 telegram account creation",
+      "is:issue is:open bounty created:>=2026-09-02 ",
+      "need paid help with telegram account creation using hero sms system",
+      "hiring a freelancer to create a telegram bot with sms and voice features"
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to create a telegram bot with sms and voice features",
+      "need paid help with telegram account creation using hero sms system",
+      "can anyone create a telegram bot that handles payments and sms",
+      "hiring a developer to set up telegram bot with payment gateway"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 38,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to create a telegram bot with sms and voice features",
+        "need paid help with telegram account creation using hero sms system",
+        "can anyone create a telegram bot that handles payments and sms",
+        "hiring a developer to set up telegram bot with payment gateway"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": {
+    "source_url": "https://www.kenzabyte.com/telegram-bulk-account-creator/",
+    "title": "Telegram Bulk Account Creation Service",
+    "scope": "Automated Telegram account creation with SMS-based verification using integrated SMS API services (Hero SMS, 5sim, SMSPVA).",
+    "price_usd": "49.95",
+    "price_cents": 4995,
+    "offer_id": "c8889d4e4b0c6cf2418c0124",
+    "payment_link_id": "plink_1UX1SHBto3o776uyOrgTJT2V"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://www.kenzabyte.com/telegram-bulk-account-creator/"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "none"
+  }
+}
