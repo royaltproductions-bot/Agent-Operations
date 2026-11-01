@@ -1,0 +1,204 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-01T02:32:30.815971+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 14,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "duckduckgo": 10,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 1,
+    "market_candidates_considered": 1,
+    "public_sources_available_for_judgment": 12,
+    "public_market_sample": [
+      {
+        "url": "https://www.customboxesinc.com/custom/eco-friendly-sustainable-boxes/",
+        "title": "Eco-Friendly & Sustainable Packaging Boxes | Custom Boxes Inc.",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://ecopacks.us/",
+        "title": "Order Custom Packaging Wholesale - EcoPacks",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.theinnovativepackaging.com/eco-friendly-boxes/",
+        "title": "Eco-Friendly Packaging Boxes - The Innovative Packaging",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://tealpackaging.com/eco-friendly-custom-packaging/",
+        "title": "Custom Sustainable Packaging, FSC & Recycled | Teal",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://tealpackaging.com/eco-friendly-custom-boxes/",
+        "title": "Custom Eco-Friendly Custom Boxes Guide | Teal Packaging",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://upacked.com/custom-eco-friendly-boxes/",
+        "title": "Custom Eco Friendly Boxes | FSC Certified, Low Minimum",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://www.customboxesinc.com/custom/eco-friendly-sustainable-boxes/",
+        "title": "Eco-Friendly & Sustainable Packaging Boxes | Custom Boxes Inc.",
+        "displayed_sales_count": null,
+        "listed_price_usd": "0.21"
+      }
+    ],
+    "candidates_without_email": 6,
+    "search_queries": [
+      "eco-friendly packaging boxes for food industry",
+      "custom eco-friendly packaging solutions for small businesses",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 9,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "custom eco-friendly packaging solutions for small businesses",
+        "eco-friendly packaging boxes for food industry",
+        "market demand for biodegradable takeaway containers",
+        "cost-effective sustainable packaging alternatives"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:12 candidates reviewed; ecyclable packaging as a sustainable option but lacks specific evidence of customer demand, pricing, or sales. There is no clear indication of a unique value propositio"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 1,
+    "product_pages": 1,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:0d7f1c714fb9328045",
+      "decision": "pass",
+      "reason": "The candidate offers eco-friendly packaging boxes at a low price, but there is no evidence of actual sales or buyer engagement. The displayed sales count is null, and the product is not clearly differentiated from competitors. Without verified sales or customer activity, it is not possible to determine if there is a genuine demand for the product."
+    },
+    {
+      "candidate_id": "web:25dafca1fed0be71e5",
+      "decision": "pass",
+      "reason": "While Teal Packaging offers custom sustainable packaging solutions with FSC-certified materials and recyclable options, the evidence does not provide clear customer demand or sales data to justify building a differentiated product. The existing competition in the eco-friendly packaging market is strong, and without a specific, unmet customer need o"
+    },
+    {
+      "candidate_id": "web:4f28c3679b84458ce0",
+      "decision": "pass",
+      "reason": "The candidate lacks clear evidence of demand, pricing, or sales, and the content appears to be a generic website with no specific product offering or customer problem addressed. The other candidates in the market also lack concrete sales data or pricing, making it difficult to assess viability without further information."
+    },
+    {
+      "candidate_id": "web:2623a06fa36353d064",
+      "decision": "pass",
+      "reason": "The page contains repetitive contact information and lacks specific details about the product, pricing, or sales. There is no clear evidence of customer activity, demand strength, or competitive positioning. The content appears to be a generic marketing page without actionable data to justify pursuing the product."
+    },
+    {
+      "candidate_id": "web:c2bb272524d87fd2c0",
+      "decision": "pass",
+      "reason": "While the page highlights the demand for eco-friendly packaging and Teal Packaging's offerings, there is no concrete evidence of sales, pricing, or customer engagement beyond the company's claims. The absence of verified sales data and pricing makes it difficult to assess the market viability of a similar product. Additionally, the market is alread"
+    },
+    {
+      "candidate_id": "web:bc9f8de589e73c3dab",
+      "decision": "pass",
+      "reason": "The candidate lacks clear pricing and sales data, making it difficult to assess market viability. While the product idea (custom eco-friendly boxes) is relevant and has potential, the absence of concrete evidence about demand, pricing, or sales makes it hard to justify pursuing without further research."
+    },
+    {
+      "candidate_id": "web:9ddf760e063a926526",
+      "decision": "pass",
+      "reason": "The candidate lacks clear evidence of sales or pricing, and the evidence excerpt appears to be a mix of unrelated technical content and product listings without a clear customer problem or demand. The page does not demonstrate a specific, actionable need that a differentiated product could address, and there is no indication of a feasible, bounded "
+    },
+    {
+      "candidate_id": "web:721771a0a498690805",
+      "decision": "pass",
+      "reason": "The content suggests a demand for eco-friendly packaging solutions for small businesses, but there is no clear evidence of a specific product or pricing model. The page appears to be a marketing page for a packaging company rather than an actual product offering. Without a clear product, pricing, or sales data, it is not possible to determine if th"
+    },
+    {
+      "candidate_id": "web:56e341efd77d89a0d8",
+      "decision": "pass",
+      "reason": "The content on PackPrintMatrix highlights a specific, functional need for white food packaging that meets regulatory and performance standards. It addresses a clear problem in the food industry\u2014ensuring packaging that is both sustainable and compliant with FDA regulations. The excerpt emphasizes the importance of white packaging for light-sensitive"
+    },
+    {
+      "candidate_id": "web:af9b2bc46e3250e8e3",
+      "decision": "pass",
+      "reason": "The evidence excerpt does not provide clear customer activity, buyer utility, or demand strength. The page appears to be a marketing page for EcoEnclose's sustainable packaging solutions, but there is no indication of actual sales, pricing, or specific customer problems being addressed. The content is more about promoting the brand than demonstrati"
+    },
+    {
+      "candidate_id": "web:7bd7668331003f5cd2",
+      "decision": "pass",
+      "reason": "The content discusses recyclable packaging as a sustainable option but lacks specific evidence of customer demand, pricing, or sales. There is no clear indication of a unique value proposition or a specific problem that the product would solve. The existing catalog includes tools for sustainability and productivity, which may overlap with the poten"
+    },
+    {
+      "candidate_id": "web:c4e6fe8bfa80177421",
+      "decision": "pass",
+      "reason": "The candidate lacks concrete evidence of demand, such as displayed sales counts or pricing, and the content is primarily promotional without specific customer problems or utility. The existing catalog includes more viable, differentiated products with clearer user needs."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 1,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 12,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
