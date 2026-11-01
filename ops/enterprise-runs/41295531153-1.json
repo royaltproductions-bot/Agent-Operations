@@ -1,0 +1,123 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-01T10:01:44.413178+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 5,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "candidates_without_email": 14,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2812",
+        "title": "[buildable] hy-check: bare generic calls with an uninferable type parameter (zero(), mk(), conv(1)) pass check, fail go ",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2810",
+        "title": "[wildcard] Allocation-freedom as a checked effect: an `alloc` summary (none/bounded/unbounded) plus opt-in `noalloc` adm",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2789",
+        "title": "[buildable] hy-check: slicing an unaddressable array value (array literal, call result, map element) passes check, fails",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/momoponwork1415-lgtm/wordpress-bounty-harness/issues/739",
+        "title": "\u9078\u5b9a\u306e\u4e0b\u9650\u3092 5,000 \u306b\u4e0b\u3052\u3001\u30bf\u30b0\u4e00\u89a7\u3092\u5916\u3059",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/openobserve/openobserve/issues/16176",
+        "title": "Logs > stream selector: hovering with 2+ streams selected no longer shows the selected-streams tooltip",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://botsbaker.com/telegram",
+        "title": "Telegram Bot Development \u00b7 Payments, CRM, Automation \u2014 BotsBaker",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-02 ",
+      "looking for someone to build a Telegram bot with payment integration",
+      "hiring a freelancer to create a Telegram bot for customer support"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a Telegram bot with payment integration",
+      "hiring a freelancer to create a Telegram bot for customer support",
+      "need paid help with developing a Telegram bot for a small business",
+      "can anyone create a Telegram bot that handles bookings and payments"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 47,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a Telegram bot with payment integration",
+        "hiring a freelancer to create a Telegram bot for customer support",
+        "need paid help with developing a Telegram bot for a small business",
+        "can anyone create a Telegram bot that handles bookings and payments"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
