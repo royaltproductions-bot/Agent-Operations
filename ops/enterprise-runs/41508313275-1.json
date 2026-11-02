@@ -1,0 +1,139 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-02T19:17:19.390958+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "github_paid_issues": 5,
+      "duckduckgo": 3,
+      "bing": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=21883848",
+        "title": "Ask HN: Assistance with Rebuilding Life in Amsterdam",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=13283540",
+        "title": "Broke, in debt, lots of skills. Need your advice",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=8392394",
+        "title": "Ask HN: What should I do, 17 year-old dev?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=5271008",
+        "title": "Help me Obi-Wan: Need advice on career switch into web/software development",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=3340880",
+        "title": "Any resources for mobile app website design?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=11586338",
+        "title": "Apply HN: Mental Health Medication Self-Assesment App",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "need paid help with designing a recurring donation feature",
+      "can anyone create a nonprofit event registration tool",
+      "is:issue is:open bounty created:>=2026-09-03 build donation tracking",
+      "is:issue is:open bounty created:>=2026-09-03 create volunteer sign",
+      "looking for someone to build a donation tracking system",
+      "hiring a freelancer to create a volunteer sign-up form"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a donation tracking system",
+      "hiring a freelancer to create a volunteer sign-up form",
+      "need paid help with designing a recurring donation feature",
+      "can anyone create a nonprofit event registration tool"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 12,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a donation tracking system",
+        "hiring a freelancer to create a volunteer sign-up form",
+        "need paid help with designing a recurring donation feature",
+        "can anyone create a nonprofit event registration tool"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:No explicit paid service request, no public business contact route, and no deliverable can be defined."
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
