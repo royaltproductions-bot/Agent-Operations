@@ -636,6 +636,42 @@ class GambitTests(unittest.TestCase):
                 self.assertEqual(result["reason"],
                                  "app_build_resource_temporarily_unavailable")
 
+    def test_functional_portal_routes_to_existing_app_builder_not_text(self):
+        details = {'bounty': {'_id': 'portal1', 'status': 'claimed',
+                              'title': 'Build a client portal',
+                              'description': 'Implement a backend and working client dashboard.',
+                              'verification': 'Deliver a tested Python source ZIP.'},
+                   'claim': {'status': 'active', 'claim_id': 'claim-portal'}}
+        self.assertTrue(gambit_app_builder.requested(details))
+        self.assertIsNone(gambit.unsupported_deliverable(details))
+        state = {'bounties': {}, 'recent_outcomes': []}
+        with patch.object(gambit, 'api', return_value=details) as api, \
+             patch.object(gambit, 'app_capable', return_value=True), \
+             patch.object(gambit, 'messages_for', return_value=[]), \
+             patch.object(gambit_app_builder, 'progress', return_value={
+                 'status': 'building', 'stage': 'planned', 'completed': 0}) as progress, \
+             patch.object(gambit, 'produce') as normal_produce:
+            gambit.handle_hired({'_id': 'portal1'}, state)
+        progress.assert_called_once()
+        normal_produce.assert_not_called()
+        self.assertFalse(any('/submissions' in c.args[0]
+                             for c in api.call_args_list))
+        self.assertIn('app_section_checkpointed',
+                      [o['action'] for o in state['recent_outcomes']])
+
+    def test_live_deployment_must_be_rejected_even_if_app_runner_offline(self):
+        details = {'bounty': {
+            'title': 'Build a client portal',
+            'description': 'Develop a Python dashboard and deploy publicly.',
+            'verification': 'Deliver publicly hosted working app URL.'}}
+        self.assertTrue(gambit_app_builder.requested(details))
+        self.assertEqual(gambit.unsupported_deliverable(details),
+                         'software_deployment')
+        with patch.object(gambit, 'app_capable', return_value=False):
+            result = gambit.assess(details)
+        self.assertEqual(result['reason'], 'unsupported_software_deployment')
+        self.assertFalse(result.get('_retry_decision'))
+
     def test_buyer_defined_prospect_count_is_not_arbitrarily_rejected(self):
         for number in (10, 50, 500):
             details={"bounty":{

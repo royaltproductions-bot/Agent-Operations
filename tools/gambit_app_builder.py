@@ -83,15 +83,59 @@ def validate_plan(plan):
 
 
 def requested(details):
-    """Identify commissioned working applications, not research about websites."""
+    """Route actual commissioned application work into the existing app builder.
+
+    The title alone is unreliable: buyers may call a functional backend
+    "a website" or "a dashboard". Conversely, researching dashboards or
+    supplying a static brochure must not invoke the app builder.
+    """
     bounty=details.get("bounty") or {}
-    text=" ".join(str(bounty.get(key) or "") for key in
-                  ("title","description","verification")).lower()
-    return bool(re.search(
-        r"\b(?:build|create|develop|implement|deliver|produce)\b.{0,140}"
-        r"\b(?:web\s*app|web\s*application|ai\s*chat\s*prototype|"
-        r"web\s*prototype|working\s*application|saas\s*application|"
-        r"saas\s*app|interactive\s*dashboard)\b",text))
+    title=str(bounty.get("title") or "").lower()
+    description=str(bounty.get("description") or "").lower()
+    verification=bounty.get("verification") or ""
+    if not isinstance(verification,str):
+        verification=json.dumps(verification,ensure_ascii=False)
+    text=" ".join((title,description,verification.lower()))
+    commissioned=re.search(
+        r"\b(?:build|create|develop|implement|deliver|produce|code|program|make)\b"
+        r".{0,155}",text)
+    if not commissioned:
+        return False
+    # Explicit application products and buyer-facing tools, regardless of
+    # whether the brief happens to spell the word "web app".
+    app_product = (
+        r"(?:web[- ]?app(?:lication)?|ai\s*chat\s*prototype|"
+        r"web\s*prototype|working\s*application|"
+        r"saas\s*(?:app|application|product|dashboard)|"
+        r"browser[- ]based\s*(?:app|application|tool)|"
+        r"web[- ]based\s*(?:app|application|tool)|"
+        r"(?:client|customer|admin|member|staff)\s*portal|"
+        r"(?:interactive|functional|working|admin|internal|client)\s*dashboard)"
+    )
+    # Require the product to be directly associated with a commissioned
+    # creation verb, not merely mentioned later in marketing copy.
+    explicit_product = re.search(
+        r"\b(?:build|create|develop|implement|deliver|produce|code|program|make)\b"
+        r"\s+(?:[\w-]+\s+){0,5}" + app_product + r"\b", text)
+    if explicit_product:
+        return True
+    # A website needing executable server-side behavior is NOT a static site.
+    # Require a commissioned site/dashboard plus a concrete dynamic feature.
+    website=re.search(
+        r"\b(?:website|webpage|web\s*site|landing\s*page|dashboard|portal)\b",
+        commissioned.group(0))
+    backend=re.search(
+        r"\b(?:backend|back[- ]end|server[- ]side|database|"
+        r"api\s*endpoints?|user\s*(?:logins?|authentication|accounts?)|"
+        r"account\s*(?:registration|logins?)|"
+        r"file\s*uploads?|upload\s+(?:csv|xlsx|files?|spreadsheets?|data)|"
+        r"(?:csv|xlsx|files?)\s*uploads?|"
+        r"(?:process|parse|analyze)\s+(?:uploaded|user[- ]submitted)\s*"
+        r"(?:csv|files?|spreadsheets?|data)|"
+        r"save\s+(?:user|submitted)\s*(?:data|records|results)|"
+        r"working\s+(?:search|booking|submission)\s*(?:form|system)|"
+        r"automated\s+(?:report|data)\s*generation)\b",text)
+    return bool(website and backend)
 
 
 def available():
