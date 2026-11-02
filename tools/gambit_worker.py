@@ -1328,9 +1328,16 @@ def buyer_is_asking(message):
 
 def buyer_identity_question(message):
     text = str((message.get("content") or {}).get("text") or "").lower()
+    # "Who the fuck are you?" and "who tf is Ari?" ask for an
+    # introduction, not a new scope clarification. Normalize common
+    # intensifiers without copying the customer's language into replies.
+    text = re.sub(r"\b(?:the\s+)?(?:fuck(?:ing)?|hell|heck|tf)\b", " ", text)
+    text = re.sub(r"\s+", " ", text).strip()
     return bool(re.search(
         r"\b(?:who\s+(?:is|are|this|'s|the)\s+"
-        r"(?:ari|gambit|you)|who\s+this\s+ari|"
+        r"(?:this\s+)?(?:ari|gambit|you)|"
+        r"who\s+(?:is\s+|['’]s\s+)?this\b|"
+        r"who\s+(?:am\s+i\s+talking\s+to|you|this\s+ari)|"
         r"what\s+(?:is|does)\s+ari|"
         r"are\s+you\s+(?:an?\s+)?(?:ai|bot|agent)|"
         r"is\s+this\s+(?:an?\s+)?(?:ai|bot|agent))\b", text))
