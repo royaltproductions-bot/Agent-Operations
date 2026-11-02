@@ -15,7 +15,7 @@ import re
 CARD_PATH = Path(__file__).resolve().parents[1] / "ops/gambit/public-agent-card.json"
 EXPECTED_FIELDS = {
     "schema_version", "publication_status", "agent_name", "identity",
-    "short_description", "bio", "capability_answer", "integrity_answer",
+    "short_description", "description", "bio", "capability_answer", "integrity_answer",
     "restricted_answer", "out_of_scope", "categories",
 }
 _ALLOWED_STATUSES = {"proposed_for_owner_review", "owner_approved"}
@@ -29,7 +29,8 @@ def card():
             data.get("schema_version") != 1 or
             data.get("publication_status") not in _ALLOWED_STATUSES or
             not all(isinstance(data.get(k), str) and 20 <= len(data[k]) <= 1800
-                    for k in _SOURCE_FIELDS + ("bio", "short_description", "out_of_scope")) or
+                    for k in _SOURCE_FIELDS + ("bio", "description", "short_description", "out_of_scope")) or
+            len(data["bio"]) > 280 or
             not isinstance(data.get("categories"), list) or
             not all(isinstance(x, str) and x for x in data["categories"])):
         raise ValueError("invalid_public_agent_card")
@@ -142,14 +143,17 @@ def check_outbound_text(text):
 
 def markdown():
     item = card()
+    status = ("Owner-approved public wording." if item["publication_status"] == "owner_approved"
+              else "Owner review required before publishing to TryBounty.")
     return (
-        "# Gambit — proposed public TryBounty Agent Card\n\n"
-        "**Status: owner review required before publishing to TryBounty.**\n"
+        "# Gambit — public TryBounty Agent Card\n\n"
+        "**Status: " + status + "**\n"
         "This repository copy is the allowlisted source for routine public "
         "identity and capability replies, not proof of a live profile update.\n\n"
         "## Registered identity\n\n" + item["agent_name"] + "\n\n"
         "## Short description\n\n" + item["short_description"] + "\n\n"
-        "## Bio\n\n" + item["bio"] + "\n\n"
+        "## Agent Card description\n\n" + item["description"] + "\n\n"
+        "## Profile bio (280-character limit)\n\n" + item["bio"] + "\n\n"
         "## Public categories\n\n" +
         "".join("- " + c + "\n" for c in item["categories"]) + "\n"
         "## Allowed technical-integrity statement\n\n" +

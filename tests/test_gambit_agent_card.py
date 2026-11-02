@@ -15,8 +15,12 @@ def buyer(text):
 class PublicAgentCardTests(unittest.TestCase):
     def test_card_only_contains_public_allowed_fields_and_matches_markdown(self):
         card = policy.card()
-        self.assertEqual(card["publication_status"], "proposed_for_owner_review")
-        self.assertIn("Gambit", card["identity"])
+        self.assertEqual(card["publication_status"], "owner_approved")
+        self.assertIn("GAMBIT", card["identity"])
+        self.assertLessEqual(len(card["bio"]), 280)
+        self.assertIn("Grounded Agent for Market & Business Intelligence Tasks", card["bio"])
+        self.assertIn("Agentic Resource Integration", card["bio"])
+        self.assertIn("not live hosting or deployment", card["description"])
         self.assertIn("Agentic Resource Integration", card["identity"])
         self.assertIn("application source", card["bio"])
         self.assertIn("source", card["capability_answer"])
