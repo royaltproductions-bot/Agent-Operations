@@ -55,7 +55,9 @@ def topic(message):
         r"source\s*code|repositories|repo\s*(?:url|link|name)|"
         r"backend\s*architecture|internal\s*(?:architecture|infrastructure|logs?)|"
         r"account\s*owner|legal\s*owner|real\s*name|personal\s*(?:phone|email|address)|"
-        r"model\s*(?:name|version|provider)|which\s+(?:model|llm)|"
+        r"who\s+(?:owns|built|created|developed|programmed)\s+(?:you|ari|gambit)|"
+        r"your\s+(?:owner|boss|creator|developer)|"
+        r"model\s*(?:name|version|provider)|(?:which|what)\s+(?:model|llm|stack|framework|hosting)|"
         r"your\s+(?:model|stack|hosting|budget|api|provider|operator|code)|"
         r"where\s+(?:are\s+you\s+hosted|is\s+your\s+server))\b"
     )
@@ -70,7 +72,7 @@ def topic(message):
         r"who\s+(?:is\s+|['’]s\s+)?this\b|"
         r"who\s+(?:am\s+i\s+talking\s+to|you(?=\s*(?:[?!.,;:]|$))|this\s+ari)|"
         r"what\s+(?:is|does)\s+ari|"
-        r"are\s+you\s+(?:an?\s+)?(?:ai|bot|agent)|"
+        r"are\s+you\s+(?:an?\s+)?(?:ai|bot|agent|human)|"
         r"is\s+this\s+(?:an?\s+)?(?:ai|bot|agent))\b", cleaned):
         return "identity"
     if re.search(
@@ -78,14 +80,16 @@ def topic(message):
         r"check|protect|ensure)|what\s+(?:checks?|tests?|standards?)\s+"
         r"(?:do\s+you|are\s+used)|"
         r"(?:are|is)\s+(?:you|your\s+work)\s+(?:certified|verified|secure)|"
-        r"security\s+(?:certification|audit|controls?))\b", cleaned):
+        r"security\s+(?:certification|audit|controls?)|"
+        r"soc\s*2|iso\s*27001|penetration\s+tests?)\b", cleaned):
         return "integrity"
     if re.search(
         r"\b(?:what\s+(?:can\s+you|services?\s+do\s+you|work\s+do\s+you)|"
         r"(?:your|gambit['’]?s|ari['’]?s)\s+(?:capabilit(?:y|ies)|"
         r"specialt(?:y|ies)|services?|skills?|expertise)|"
         r"what\s+(?:can|does)\s+(?:gambit|ari)\s+do|"
-        r"are\s+you\s+(?:able|capable)\s+to)\b", cleaned):
+        r"are\s+you\s+(?:able|capable)\s+to|"
+        r"can\s+(?:you|gambit|ari)\s+(?:build|create|make|develop|deliver|do|handle|deploy|code|produce))\b", cleaned):
         return "capability"
     return None
 
@@ -117,7 +121,10 @@ def check_outbound_text(text):
     if not isinstance(text, str):
         raise ValueError("invalid_customer_text")
     lower = text.lower()
-    if any(x in lower for x in _PRIVATE_BRANDS) or _SECRET_TEMPLATES.search(text):
+    if (any(x in lower for x in _PRIVATE_BRANDS) or _SECRET_TEMPLATES.search(text) or
+        re.search(r"\b(?:my|our|we\s+use|i\s+use|i\s+run|powered\s+by)\b"
+                  r".{0,55}\b(?:gpt[- ]?\d|qwen|ollama|github\s+actions|"
+                  r"openai\s+api|docker|playwright)\b", lower)): 
         raise ValueError("private_metadata_disclosure_blocked")
     for name in ("BOUNTY_AGENT_API_KEY", "OPENAI_API_KEY", "GITHUB_TOKEN",
                  "BOUNTY_WEBHOOK_SECRET", "RENDER_API_KEY", "STRIPE_SECRET_KEY"):
