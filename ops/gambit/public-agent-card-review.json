@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "review_policy": "New capabilities require approval; source changes trigger weekly review, never automatic public expansion.",
+  "source_git_blobs": {
+    "tools/gambit_resources.py": "d776a9fdd1fb7cf6ecc1835903a25db2375940fb",
+    "tools/gambit_artifacts.py": "0107fbdb6fe2c8e6ef896942c0d7996cd86cb71e",
+    "tools/gambit_site_resources.py": "ba06fba6379ae5bd0ef0a7284a12d6741a84a0d5",
+    "tools/gambit_app_builder.py": "e295b46bd8fef206428aa323223820dfdd248d80",
+    "tools/gambit_documents.py": "f60f959b02c63a548cace8f1813dce71c196e864"
+  }
+}
