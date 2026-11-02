@@ -452,7 +452,9 @@ def choose_asset_concept(rows,existing_assets=None):
     )
     # One substantive concept attempt. The 45-minute GitHub job is the
     # execution boundary, not a separate inference clock.
-    attempts=[(selected,4096,1050)]
+    # Run 41410535278-1 ended mid-JSON at char 4466 near the former
+    # 1050-token ceiling. Give this one local-model concept room to close.
+    attempts=[(selected,4096,1800)]
     last=None
     for observation,ctx,predict in attempts:
         try:
