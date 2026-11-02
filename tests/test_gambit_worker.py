@@ -695,9 +695,9 @@ class GambitTests(unittest.TestCase):
                  'recent_outcomes': []}
         def request(path, method='GET', payload=None):
             return details if method == 'GET' else {'message_id': 'agent-reply'}
-        with patch.object(gambit, 'api', side_effect=request) as api, \\
-             patch.object(gambit, 'CURRENT_EVENTS', [event]), \\
-             patch.object(gambit, 'messages_for', return_value=[latest]), \\
+        with patch.object(gambit, 'api', side_effect=request) as api, \
+             patch.object(gambit, 'CURRENT_EVENTS', [event]), \
+             patch.object(gambit, 'messages_for', return_value=[latest]), \
              patch.object(gambit, 'infer') as infer:
             gambit.handle_open({'_id': 'video1'}, state)
             gambit.handle_open({'_id': 'video1'}, state)
@@ -725,8 +725,8 @@ class GambitTests(unittest.TestCase):
                               'verification': 'Deliver final MP4 video.'},
                    'bid': {'status': 'active', 'bounty_version': 2}}
         state = {'bounties': {}, 'recent_outcomes': []}
-        with patch.object(gambit, 'api', return_value=details) as api, \\
-             patch.object(gambit, 'CURRENT_EVENTS', []), \\
+        with patch.object(gambit, 'api', return_value=details) as api, \
+             patch.object(gambit, 'CURRENT_EVENTS', []), \
              patch.object(gambit, 'messages_for') as messages:
             gambit.handle_open({'_id': 'video1'}, state)
         messages.assert_not_called()
