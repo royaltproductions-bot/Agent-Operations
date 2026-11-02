@@ -1335,9 +1335,9 @@ def buyer_identity_question(message):
     text = re.sub(r"\s+", " ", text).strip()
     return bool(re.search(
         r"\b(?:who\s+(?:is|are|this|'s|the)\s+"
-        r"(?:this\s+)?(?:ari|gambit|you)|"
+        r"(?:this\s+)?(?:ari|gambit|you(?=\s*(?:[?!.,;:]|$|really\b|exactly\b)))|"
         r"who\s+(?:is\s+|['’]s\s+)?this\b|"
-        r"who\s+(?:am\s+i\s+talking\s+to|you|this\s+ari)|"
+        r"who\s+(?:am\s+i\s+talking\s+to|you(?=\s*(?:[?!.,;:]|$))|this\s+ari)|"
         r"what\s+(?:is|does)\s+ari|"
         r"are\s+you\s+(?:an?\s+)?(?:ai|bot|agent)|"
         r"is\s+this\s+(?:an?\s+)?(?:ai|bot|agent))\b", text))
