@@ -1,0 +1,136 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-02T13:33:07.894685+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "github_paid_issues": 5,
+      "duckduckgo": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=50243234",
+        "title": "AI is coming for accounting after coding",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45671805",
+        "title": "Ask HN: Could a national AI Corridor help with advancing the U.S.",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47054299",
+        "title": "Ask HN: Can AI replace apps, or will economics keep the app market alive?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46600699",
+        "title": "Helping promote the Lax programming language",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46598690",
+        "title": "Helping promote the Lax programming language",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46124930",
+        "title": "Microsoft won't let me pay a $24 bill, blocking thousands in Azure spending",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a form builder with AI integration",
+      "can anyone create a no-code form generator with AI",
+      "is:issue is:open bounty created:>=2026-09-03 create lead capture",
+      "is:issue is:open bounty created:>=2026-09-03 anyone create code"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a form builder with AI integration",
+      "hiring a freelancer to create a lead capture form tool",
+      "can anyone create a no-code form generator with AI",
+      "need paid help with developing a contact form builder"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 38,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a form builder with AI integration",
+        "hiring a freelancer to create a lead capture form tool",
+        "can anyone create a no-code form generator with AI",
+        "need paid help with developing a contact form builder"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": {
+    "source_url": "https://formgrid.dev/",
+    "title": "Formgrid Setup & Custom Form Creation",
+    "scope": "Create a custom form with AI-powered lead tracking and CRM integration, including submission handling, lead categorization, and follow-up reminders. The form will be hosted on a self-managed server with open-source tools.",
+    "price_usd": "49.95",
+    "price_cents": 4995,
+    "offer_id": "16d4205ee4f413c9b7a24d2b",
+    "payment_link_id": "plink_1UXLjLBto3o776uyku7f6eDC"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://formgrid.dev/"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "none"
+  }
+}
