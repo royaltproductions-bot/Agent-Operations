@@ -103,16 +103,21 @@ def requested(details):
         return False
     # Explicit application products and buyer-facing tools, regardless of
     # whether the brief happens to spell the word "web app".
-    app_product=re.search(
-        r"\b(?:web[- ]?app(?:lication)?|ai\s*chat\s*prototype|"
+    app_product = (
+        r"(?:web[- ]?app(?:lication)?|ai\s*chat\s*prototype|"
         r"web\s*prototype|working\s*application|"
         r"saas\s*(?:app|application|product|dashboard)|"
         r"browser[- ]based\s*(?:app|application|tool)|"
         r"web[- ]based\s*(?:app|application|tool)|"
         r"(?:client|customer|admin|member|staff)\s*portal|"
         r"(?:interactive|functional|working|admin|internal|client)\s*dashboard)"
-        r"\b",commissioned.group(0))
-    if app_product:
+    )
+    # Require the product to be directly associated with a commissioned
+    # creation verb, not merely mentioned later in marketing copy.
+    explicit_product = re.search(
+        r"\b(?:build|create|develop|implement|deliver|produce|code|program|make)\b"
+        r"\s+(?:[\w-]+\s+){0,5}" + app_product + r"\b", text)
+    if explicit_product:
         return True
     # A website needing executable server-side behavior is NOT a static site.
     # Require a commissioned site/dashboard plus a concrete dynamic feature.
