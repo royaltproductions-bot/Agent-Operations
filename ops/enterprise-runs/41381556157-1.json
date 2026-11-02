@@ -1,0 +1,125 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-02T03:12:05.854740+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "github_paid_issues": 5,
+      "duckduckgo": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=46854270",
+        "title": "The AI \"Competence Speedrun\" and the Organizational Trilemma",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44202103",
+        "title": "Tiptap open-sources 10 formerly Pro extensions under MIT license",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=25622558",
+        "title": "Need help: Pricing strategy for a developer tool with 400000 users",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=22364941",
+        "title": "How we reached $6250 monthly recurring revenue in 77 days from launch",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=20576371",
+        "title": "Ask HN: Open-source authors, would you use this?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=16766408",
+        "title": "Ask HN: Why hasn't anyone disrupted the restaurant credit card payment process?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a lead capture form with no-code tools",
+      "need paid help with integrating a form with email marketing platforms",
+      "is:issue is:open bounty created:>=2026-09-03 create form auto",
+      "is:issue is:open bounty created:>=2026-09-03 ",
+      "hiring a freelancer to create a form that auto-saves data to a database"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a lead capture form with no-code tools",
+      "hiring a freelancer to create a form that auto-saves data to a database",
+      "need paid help with integrating a form with email marketing platforms",
+      "looking for someone to design a high-converting lead capture form"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 31,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a lead capture form with no-code tools",
+        "hiring a freelancer to create a form that auto-saves data to a database",
+        "need paid help with integrating a form with email marketing platforms",
+        "looking for someone to design a high-converting lead capture form"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:No explicit request for external development work; the posting invites direct contact with the company's COO for empl"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
