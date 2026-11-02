@@ -1,0 +1,120 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-02T04:20:27.092618+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "github_paid_issues": 5,
+      "duckduckgo": 3
+    },
+    "source_errors": [],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=50333045",
+        "title": "Pepperwind, a fictional company dataset with 223 tables and 79M rows",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45038276",
+        "title": "Reddit's Automated Ban System Trapping Legitimate New Users",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=21076823",
+        "title": "Ask HN: Will software get shipped without any management?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=16528509",
+        "title": "Ask HN: Can anyone provide some genuine feedback?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=10734635",
+        "title": "Ask HN: Does Costco information collection bother you as much as it bothers me?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=5103956",
+        "title": "Why the startup world needs a \"Vendor API\"",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "need paid help with setting up a form that connects to a CRM system",
+      "can anyone create a form that tracks user behavior for marketing insights",
+      "is:issue is:open bounty created:>=2026-09-03 setting form connects",
+      "is:issue is:open bounty created:>=2026-09-03 anyone create form",
+      "is:issue is:open bounty created:>=2026-09-03 "
+    ],
+    "attempted_search_queries": [
+      "need paid help with setting up a form that connects to a CRM system",
+      "can anyone create a form that tracks user behavior for marketing insights"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 28,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "need paid help with setting up a form that connects to a CRM system",
+        "can anyone create a form that tracks user behavior for marketing insights"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": {
+    "source_url": "https://news.ycombinator.com/item?id=16528509",
+    "title": "Feedback Collection for Engagebay Beta",
+    "scope": "Collect and organize user feedback from the Engagebay beta program via email and public comments.",
+    "price_usd": "49.95",
+    "price_cents": 4995,
+    "offer_id": "865dc9b62ed1cf8e8c869d33",
+    "payment_link_id": "plink_1UXD4PBto3o776uyjzGjAq2c"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://news.ycombinator.com/item?id=16528509"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "none"
+  }
+}
