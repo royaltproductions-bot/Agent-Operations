@@ -96,6 +96,36 @@ class EarlyMarketTests(TestCase):
         self.assertFalse(result["needs_run"])
         self.assertFalse(result["needs_model"])
 
+    def test_prior_account_rejections_queued_once_without_touching_other_passes(self):
+        from datetime import datetime, timezone
+        now = datetime.now(timezone.utc)
+        state = {"bounties": {
+            "old": {"action": "pass_unsupported", "version": 1,
+                    "reason": "authenticated_account_operation"},
+            "already_checked": {"action": "pass_unsupported", "version": 1,
+                    "reason": "authenticated_account_operation",
+                    "account_policy_review_version": early.ACCOUNT_POLICY_RECHECK_VERSION},
+            "unrelated": {"action": "pass_unsupported", "version": 1,
+                          "reason": "video_production"},
+            "active": {"action": "bid_active", "version": 1,
+                       "reason": "authenticated_account_operation"},
+        }, "last_check": now.isoformat(),
+           "last_bid_reconciliation": now.isoformat()}
+        listed = [{"_id": bid, "version": 1} for bid in state["bounties"]]
+        result = early.admission(state, listed, [], [], now)
+        self.assertTrue(result["needs_run"])
+        self.assertTrue(result["needs_model"])
+        self.assertEqual(result["new_or_changed"], 1)
+        self.assertTrue(early.account_policy_recheck_due(state["bounties"]["old"]))
+        self.assertFalse(early.account_policy_recheck_due(
+            state["bounties"]["already_checked"]))
+        self.assertFalse(early.account_policy_recheck_due(
+            state["bounties"]["unrelated"]))
+        self.assertFalse(early.account_policy_recheck_due(state["bounties"]["active"]))
+        state["bounties"]["old"]["account_policy_review_version"] = (
+            early.ACCOUNT_POLICY_RECHECK_VERSION)
+        self.assertFalse(early.admission(state, listed, [], [], now)["needs_run"])
+
     def test_new_work_and_buyer_events_are_scheduled(self):
         from datetime import datetime, timezone
         now = datetime.now(timezone.utc)
