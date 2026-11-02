@@ -1323,17 +1323,17 @@ def buyer_is_asking(message):
     text = str((message.get("content") or {}).get("text") or "").strip().lower()
     return bool("?" in text or re.match(
         r"^(?:who|what|where|when|why|how|can|could|would|will|is|are|"
-        r"do|does|did|tell me|please explain)\\b", text))
+        r"do|does|did|tell me|please explain)\b", text))
 
 
 def buyer_identity_question(message):
     text = str((message.get("content") or {}).get("text") or "").lower()
     return bool(re.search(
-        r"\\b(?:who\\s+(?:is|are|this|'s|the)\\s+"
-        r"(?:ari|gambit|you)|who\\s+this\\s+ari|"
-        r"what\\s+(?:is|does)\\s+ari|"
-        r"are\\s+you\\s+(?:an?\\s+)?(?:ai|bot|agent)|"
-        r"is\\s+this\\s+(?:an?\\s+)?(?:ai|bot|agent))\\b", text))
+        r"\b(?:who\s+(?:is|are|this|'s|the)\s+"
+        r"(?:ari|gambit|you)|who\s+this\s+ari|"
+        r"what\s+(?:is|does)\s+ari|"
+        r"are\s+you\s+(?:an?\s+)?(?:ai|bot|agent)|"
+        r"is\s+this\s+(?:an?\s+)?(?:ai|bot|agent))\b", text))
 
 
 def prebid_buyer_reply(details, messages, latest):
@@ -1464,7 +1464,9 @@ def handle_open(item, state):
                     previous.get("version") == version and
                     (previous.get("action") == "asked" or
                      previous.get("last_question_version") == version))
+    new_owner_statement_id = None
     if prebid_asked:
+        previous["last_question_version"] = version
         previous["last_asked_review_at"] = timestamp()
         messages = sorted(messages_for(bounty_id),
                           key=lambda m: m.get("created_at") or 0)
@@ -1473,6 +1475,8 @@ def handle_open(item, state):
         latest = incoming[-1] if incoming else None
         last_id = buyer_message_id(latest) if latest else None
         if not latest or last_id == previous.get("last_owner_reply_id"):
+            previous["action"] = "asked"
+            previous.pop("retry_at", None)
             # Keep the original question pending. A periodic reconciliation
             # must never re-ask it or spend a model call on an empty thread.
             state["bounties"][bounty_id] = previous
@@ -1485,14 +1489,15 @@ def handle_open(item, state):
                 "POST", {"content": {"type": "text", "text": reply[:3000]},
                          "idempotency_key": key("prebid-buyer-reply", bounty_id, last_id)})
             previous["last_owner_reply_id"] = last_id
+            previous["action"] = "asked"
+            previous.pop("retry_at", None)
             state["bounties"][bounty_id] = previous
             note(state, "prebid_buyer_question_answered", bounty_id)
             return
         # A statement is likely a response to the original clarification.
         # Reassess with that statement, allowing a real supported proposal
         # but never issuing another same-version qualification question.
-        previous["last_owner_reply_id"] = last_id
-        state["bounties"][bounty_id] = previous
+        new_owner_statement_id = last_id
     # Pre-claim owner replies on legacy claim Bounties belong to the public
     # thread, not the private Work Conversation (which opens after claiming).
     if current.get("flow") == "claim":
@@ -1529,6 +1534,8 @@ def handle_open(item, state):
     if action in {"bid", "claim"} and unsupported_deliverable(details):
         action = "pass"
     if action == "ask" and prebid_asked:
+        if new_owner_statement_id:
+            previous["last_owner_reply_id"] = new_owner_statement_id
         # The buyer already received a question for this exact brief version.
         # Never repeat, paraphrase, or silently replace it with another ask.
         previous["action"] = "asked"
@@ -1591,8 +1598,9 @@ def handle_open(item, state):
                   "at": timestamp(), "last_declined_bid": declined_token}
     if action == "asked" and current.get("flow") == "bid":
         next_entry["last_question_version"] = version
-    if previous.get("last_owner_reply_id"):
-        next_entry["last_owner_reply_id"] = previous["last_owner_reply_id"]
+    if new_owner_statement_id or previous.get("last_owner_reply_id"):
+        next_entry["last_owner_reply_id"] = (new_owner_statement_id or
+                                             previous["last_owner_reply_id"])
     if previous.get("last_question_version") == version:
         next_entry["last_question_version"] = version
     if action == "pass" and decision.get("_retry_search"):
