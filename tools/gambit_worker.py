@@ -951,7 +951,7 @@ def authenticated_account_operation(requested, verification):
                       r"(?:[\w-]+\s+){0,4}" + target + r"\s+" + content + r"\b", requested) or
             re.search(r"\b(?:post|publish|schedule|upload)\b\s+"
                       r"(?:[\w-]+\s+){0,4}" + content +
-                      r"\s+(?:on|to|for|via|through)\s+" + target + r"\b", requested)):
+                      r"\s+(?:on|to|for|in|via|through)\s+" + target + r"\b", requested)):
         return True
     # Managing the account / campaign itself requires access; managing a
     # spreadsheet of Instagram statistics does not.
