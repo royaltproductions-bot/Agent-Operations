@@ -1,0 +1,115 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-01T23:52:35.899555+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "github_paid_issues": 5,
+      "duckduckgo": 3
+    },
+    "source_errors": [],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=49669620",
+        "title": "Ask HN: New way of organizing Mathematical Research",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47477073",
+        "title": "New Open Source from Non-Traditional Builder",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47476842",
+        "title": "Ask HN:35,0 CS background, built real apps with AI, need suggestion",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47434784",
+        "title": "New Open Source Release",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46960408",
+        "title": "Ask HN: How to find joy in writing/learning about tech in this AI world?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46307300",
+        "title": "Ask HN: Should I start a software foundation (goal: help emergency services)?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a no-code form with high conversion rate",
+      "can anyone create a form builder that auto-logs user data to a database",
+      "is:issue is:open bounty created:>=2026-09-02 build code form",
+      "hiring a freelancer to create a signup form that integrates with email marketing tools"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a no-code form with high conversion rate",
+      "hiring a freelancer to create a signup form that integrates with email marketing tools",
+      "need paid help with designing a lead capture form for a SaaS product",
+      "can anyone create a form builder that auto-logs user data to a database"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 10,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a no-code form with high conversion rate",
+        "hiring a freelancer to create a signup form that integrates with email marketing tools",
+        "need paid help with designing a lead capture form for a SaaS product",
+        "can anyone create a form builder that auto-logs user data to a database"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:No explicit request for a paid service or deliverable was identified in the source content."
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
