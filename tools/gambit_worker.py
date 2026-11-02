@@ -937,7 +937,9 @@ def authenticated_account_operation(requested, verification):
     # an operation as its SUBJECT, not as the commissioned action.
     purely_explanatory = bool(re.search(
         r"^\s*(?:research|study|analyze|review|document|summarize)\s+how\b",
-        requested))
+        requested)) and not re.search(
+        r"\b(?:and|then|also)\b.{0,40}"
+        r"\b(?:post|publish|schedule|upload|manage|operate)\b", requested)
     if not purely_explanatory and (
             re.search(r"\b(?:post|publish|schedule|upload)\b\s+"
                       r"(?:directly\s+)?(?:to|on|via|through)\s+"
