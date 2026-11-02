@@ -431,6 +431,20 @@ class CyclopsEfficiencyTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,"model_price_invalid"):
             brain.normalize_price_usd("0.00")
 
+    def test_cyclops_usd_price_parser_handles_clear_single_amounts(self):
+        cyclops=cyclops_or_skip(self)
+        for supplied in ("19.99", "$19.99", "$ 19.99", "USD 19.99",
+                         "US$ 19.99", "19.99 USD", "19.99 dollars",
+                         "19.99 US dollars", "1,299.95"):
+            with self.subTest(supplied=supplied):
+                expected="1299.95" if "," in supplied else "19.99"
+                self.assertEqual(cyclops.normalize_price_usd(supplied),expected)
+        for invalid in ("Free", "0", "-1", "19.99-29.99",
+                        "around $19.99", "19.999", "NaN"):
+            with self.subTest(invalid=invalid):
+                with self.assertRaises(ValueError):
+                    cyclops.normalize_price_usd(invalid)
+
     def test_model_judges_public_offer_before_workshop(self):
         cyclops=cyclops_or_skip(self)
         rows=[{
