@@ -1196,12 +1196,15 @@ def cross_check_decision(context, proposal, num_ctx):
 
 def assess(details, messages=None, sources=None, unreadable_count=0):
     gap = unsupported_deliverable(details)
-    if gambit_app_builder.requested(details) and not app_capable():
-        return {"decision": "pass", "reason": "app_build_resource_temporarily_unavailable",
-                "_retry_decision": True, "payout_cents": 0, "note": "", "question": ""}
+    # A required live deployment stays unsupported even when the isolated
+    # app resource is offline. Don't turn an impossible hosted deliverable
+    # into an endlessly retried "temporary builder" problem.
     if gap:
         return {"decision": "pass", "reason": "unsupported_" + gap,
                 "payout_cents": 0, "note": "", "question": ""}
+    if gambit_app_builder.requested(details) and not app_capable():
+        return {"decision": "pass", "reason": "app_build_resource_temporarily_unavailable",
+                "_retry_decision": True, "payout_cents": 0, "note": "", "question": ""}
     system = (
         "You are Gambit, an independent paid digital-work operator. Assess this REAL posted "
         "bounty. Choose bid or claim only if you can actually complete and verify every "
