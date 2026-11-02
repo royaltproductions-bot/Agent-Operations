@@ -916,12 +916,20 @@ def unsupported_deliverable(details):
     # These assignments require authenticated publishing or transaction
     # resources. Preparing a draft social post or analyzing a campaign is still
     # fine; actually operating a buyer account is not a deliverable we support.
-    if (re.search(r"\b(?:post|publish|schedule|upload|manage|run|launch)\b"
+    # Actions on a buyer account require authentication. Plain research such
+    # as "run searches on LinkedIn" or "research how teams launch on TikTok"
+    # must not be mistaken for account operation by a nearby keyword.
+    if (re.search(r"\b(?:post|publish|schedule|upload|manage)\b"
                   r".{0,75}\b(?:instagram|tiktok|facebook|linkedin|youtube|"
                   r"social media account|social accounts?|ad campaigns?|"
                   r"paid ads|google ads|meta ads)\b", requested) or
-            re.search(r"\b(?:log in|sign in|access|connect)\b"
+            re.search(r"\b(?:run|launch)\b.{0,75}"
+                      r"\b(?:ad campaigns?|paid ads|google ads|meta ads)\b", requested) or
+            re.search(r"\b(?:log\\s*(?:in|into)|sign\\s*in|connect to)\b"
                       r".{0,65}\b(?:account|dashboard|admin panel|crm)\b", requested) or
+            re.search(r"\baccess\b.{0,45}"
+                      r"\b(?:private|authenticated|login-protected)\b.{0,45}"
+                      r"\b(?:account|dashboard|admin panel|crm)\b", requested) or
             re.search(r"\b(?:published|posted|scheduled|live campaign)\b"
                       r".{0,55}\b(?:instagram|tiktok|facebook|linkedin|youtube|"
                       r"social media|ad campaign)\b", verification)):
