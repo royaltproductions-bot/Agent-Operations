@@ -1272,15 +1272,20 @@ def handle_open(item, state):
     gap = unsupported_deliverable(details)
     if gap:
         if bid.get("status") == "active":
-            api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/bid/withdraw",
-                "POST")
-            action = "unsupported_bid_withdrawn"
-            note(state, action, bounty_id, reason=gap)
+            # A heuristic capability check must not destroy an existing buyer
+            # opportunity. Retain the bid and record the concern for subsequent
+            # capability reassessment; never promise an unsupported deliverable.
+            state["bounties"][bounty_id] = {
+                **previous, "version": version, "action": "bid_active",
+                "capability_review_reason": gap,
+                "at": previous.get("at") or timestamp()}
+            if previous.get("capability_review_reason") != gap:
+                note(state, "bid_capability_review_pending", bounty_id, reason=gap)
         else:
-            action = "pass_unsupported"
-            note(state, action, bounty_id, reason=gap, version=version)
-        state["bounties"][bounty_id] = {"version": version, "action": action,
-                                         "reason": gap, "at": timestamp()}
+            state["bounties"][bounty_id] = {
+                "version": version, "action": "pass_unsupported",
+                "reason": gap, "at": timestamp()}
+            note(state, "pass_unsupported", bounty_id, reason=gap, version=version)
         return
     declined_token = previous.get("last_declined_bid")
     if bid.get("status") == "declined":
@@ -1700,17 +1705,20 @@ def reconcile_active_bids(opened, state, *, skip_ids=()):
         if status == "active":
             gap = unsupported_deliverable(details)
             if gap:
-                api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/bid/withdraw",
-                    "POST")
-                state["bounties"][bounty_id] = {
-                    "version": current.get("version"),
-                    "action": "unsupported_bid_withdrawn", "reason": gap,
-                    "at": timestamp()}
-                note(state, "unsupported_bid_withdrawn", bounty_id, reason=gap)
-            else:
+                # Reconciliation is observational. A regex hit is insufficient
+                # authority to withdraw a live offer without a full work review.
                 state["bounties"][bounty_id] = {
                     **previous, "version": current.get("version"),
-                    "action": "bid_active", "at": previous.get("at") or timestamp()}
+                    "action": "bid_active", "capability_review_reason": gap,
+                    "at": previous.get("at") or timestamp()}
+                if previous.get("capability_review_reason") != gap:
+                    note(state, "bid_capability_review_pending", bounty_id, reason=gap)
+            else:
+                record = {**previous, "version": current.get("version"),
+                          "action": "bid_active",
+                          "at": previous.get("at") or timestamp()}
+                record.pop("capability_review_reason", None)
+                state["bounties"][bounty_id] = record
                 if not previous:
                     note(state, "active_bid_recovered", bounty_id)
         elif status in {"declined", "withdrawn", "replaced", "stale", "missing"}:
