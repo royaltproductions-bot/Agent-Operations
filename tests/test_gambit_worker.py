@@ -1039,6 +1039,156 @@ class GambitTests(unittest.TestCase):
         self.assertFalse(any(len(c.args)>1 and c.args[1]=='POST'
                              for c in api.call_args_list))
 
+    def test_prebid_buyer_identity_is_answered_before_qualification(self):
+        # Synthetic question representing a customer identity inquiry, not a
+        # verbatim extract of any private marketplace conversation.
+        details = {'bounty': {'_id': 'buyer-job', 'status': 'open',
+                              'version': 1, 'flow': 'bid',
+                              'title': 'Research regional ecommerce brands',
+                              'verification': '100 source-backed records.'}}
+        incoming = {'_id': 'inbound-1', 'author_type': 'user',
+                    'content': {'type': 'text', 'text': 'Who is ARI?'},
+                    'created_at': '2026-11-01T12:00:00+00:00'}
+        earlier = {'_id': 'outbound-1', 'author_type': 'agent',
+                   'content': {'type': 'text', 'text': 'Please clarify market.'},
+                   'created_at': '2026-11-01T11:00:00+00:00'}
+        state = {'bounties': {'buyer-job': {'action': 'asked', 'version': 1,
+                    'at': '2026-11-01T11:00:00+00:00'}}, 'recent_outcomes': []}
+        def request(path, method='GET', payload=None):
+            return details if method == 'GET' else {'message_id': 'agent-identity'}
+        with patch.object(gambit, 'api', side_effect=request) as api, \
+             patch.object(gambit, 'messages_for', return_value=[earlier, incoming]), \
+             patch.object(gambit, 'assess') as assess, \
+             patch.object(gambit, 'infer') as infer:
+            gambit.handle_open({'_id': 'buyer-job'}, state)
+            gambit.handle_open({'_id': 'buyer-job'}, state)
+        posts = [c for c in api.call_args_list
+                 if len(c.args) > 1 and c.args[1] == 'POST']
+        self.assertEqual(len(posts), 1)
+        self.assertTrue(posts[0].args[0].endswith('/messages'))
+        self.assertIn("I'm Gambit", posts[0].args[2]['content']['text'])
+        self.assertIn('Agentic Resource Integration',
+                      posts[0].args[2]['content']['text'])
+        self.assertNotIn('currency', posts[0].args[2]['content']['text'].lower())
+        self.assertEqual(state['bounties']['buyer-job']['action'], 'asked')
+        self.assertEqual(state['bounties']['buyer-job']['last_owner_reply_id'],
+                         'inbound-1')
+        self.assertEqual(state['bounties']['buyer-job']['last_question_version'], 1)
+        assess.assert_not_called()
+        infer.assert_not_called()
+
+    def test_prebid_buyer_new_question_uses_reply_handler_not_assess(self):
+        details = {'bounty': {'_id': 'buyer-job', 'status': 'open',
+                              'version': 1, 'flow': 'bid',
+                              'title': 'Analyze buyer-supplied data'}}
+        incoming = {'_id': 'inbound-2', 'author_type': 'user',
+                    'content': {'type': 'text',
+                                'text': 'Can you explain your research method?'}}
+        state = {'bounties': {'buyer-job': {'action': 'asked', 'version': 1}},
+                 'recent_outcomes': []}
+        with patch.object(gambit, 'api', return_value=details) as api, \
+             patch.object(gambit, 'messages_for', return_value=[incoming]), \
+             patch.object(gambit, 'respond_to_buyer', return_value={
+                 'reply_text': 'I will check cited public sources.'}) as reply, \
+             patch.object(gambit, 'assess') as assess:
+            gambit.handle_open({'_id': 'buyer-job'}, state)
+        reply.assert_called_once()
+        assess.assert_not_called()
+        posts = [c for c in api.call_args_list
+                 if len(c.args) > 1 and c.args[1] == 'POST']
+        self.assertEqual(len(posts), 1)
+        self.assertIn('cited public sources', posts[0].args[2]['content']['text'])
+
+    def test_prebid_buyer_answer_allows_bid_not_second_question(self):
+        details = {'bounty': {'_id': 'buyer-job', 'status': 'open',
+                              'version': 1, 'flow': 'bid',
+                              'title': 'Build a sourced report'}}
+        incoming = {'_id': 'inbound-3', 'author_type': 'user',
+                    'content': {'type': 'text', 'text': 'USD, total company revenue.'}}
+        state = {'bounties': {'buyer-job': {'action': 'asked', 'version': 1}},
+                 'recent_outcomes': []}
+        note = ('I propose to research the specified companies using public '
+                'evidence, document revenue estimates, and deliver a sourced '
+                'CSV that meets the buyer criteria after hiring.')
+        with patch.object(gambit, 'api', return_value=details) as api, \
+             patch.object(gambit, 'messages_for', return_value=[incoming]), \
+             patch.object(gambit, 'assess', return_value={
+                 'decision': 'bid', 'payout_cents': 4500, 'note': note}):
+            gambit.handle_open({'_id': 'buyer-job'}, state)
+        posts = [c for c in api.call_args_list
+                 if len(c.args) > 1 and c.args[1] == 'POST']
+        self.assertEqual(len(posts), 1)
+        self.assertTrue(posts[0].args[0].endswith('/bid'))
+        self.assertEqual(state['bounties']['buyer-job']['action'], 'bid_active')
+        self.assertEqual(state['bounties']['buyer-job']['last_owner_reply_id'],
+                         'inbound-3')
+
+    def test_prebid_clarification_loop_is_suppressed_after_buyer_response(self):
+        details = {'bounty': {'_id': 'buyer-job', 'status': 'open',
+                              'version': 1, 'flow': 'bid',
+                              'title': 'Compile market report'}}
+        incoming = {'_id': 'inbound-3', 'author_type': 'user',
+                    'content': {'type': 'text', 'text': 'Use company revenue.'}}
+        state = {'bounties': {'buyer-job': {'action': 'asked', 'version': 1}},
+                 'recent_outcomes': []}
+        with patch.object(gambit, 'api', return_value=details) as api, \
+             patch.object(gambit, 'messages_for', return_value=[incoming]), \
+             patch.object(gambit, 'assess', return_value={
+                 'decision': 'ask', 'question': 'Can you clarify company revenue?'}) as assess:
+            gambit.handle_open({'_id': 'buyer-job'}, state)
+            gambit.handle_open({'_id': 'buyer-job'}, state)
+        assess.assert_called_once()
+        self.assertFalse(any(len(c.args) > 1 and c.args[1] == 'POST'
+                             for c in api.call_args_list))
+        self.assertEqual(state['bounties']['buyer-job']['action'], 'asked')
+        self.assertEqual(state['bounties']['buyer-job']['last_owner_reply_id'],
+                         'inbound-3')
+        self.assertIn('duplicate_clarification_suppressed',
+                      [x['action'] for x in state['recent_outcomes']])
+
+    def test_prebid_reply_post_failure_does_not_mark_buyer_answered(self):
+        details = {'bounty': {'_id': 'buyer-job', 'status': 'open',
+                              'version': 1, 'flow': 'bid'}}
+        incoming = {'_id': 'inbound-4', 'author_type': 'user',
+                    'content': {'type': 'text', 'text': 'Who is Gambit?'}}
+        state = {'bounties': {'buyer-job': {'action': 'asked', 'version': 1}},
+                 'recent_outcomes': []}
+        sent = []
+        def request(path, method='GET', payload=None):
+            if method == 'POST':
+                sent.append(payload)
+                if len(sent) == 1:
+                    raise RuntimeError('bounty_api_UNAVAILABLE')
+            return details
+        with patch.object(gambit, 'api', side_effect=request), \
+             patch.object(gambit, 'messages_for', return_value=[incoming]), \
+             patch.object(gambit, 'infer') as infer:
+            with self.assertRaisesRegex(RuntimeError, 'UNAVAILABLE'):
+                gambit.handle_open({'_id': 'buyer-job'}, state)
+            self.assertIsNone(state['bounties']['buyer-job'].get('last_owner_reply_id'))
+            gambit.schedule_evaluation_retry(
+                state, 'buyer-job', RuntimeError('bounty_api_UNAVAILABLE'))
+            gambit.handle_open({'_id': 'buyer-job'}, state)
+        self.assertEqual(len(sent), 2)
+        self.assertEqual(sent[0]['idempotency_key'], sent[1]['idempotency_key'])
+        self.assertEqual(state['bounties']['buyer-job']['action'], 'asked')
+        self.assertEqual(state['bounties']['buyer-job']['last_owner_reply_id'], 'inbound-4')
+        infer.assert_not_called()
+
+    def test_prebid_recheck_without_new_message_does_not_regenerate_question(self):
+        details = {'bounty': {'_id': 'buyer-job', 'status': 'open',
+                              'version': 1, 'flow': 'bid'}}
+        state = {'bounties': {'buyer-job': {'action': 'asked', 'version': 1}},
+                 'recent_outcomes': []}
+        with patch.object(gambit, 'api', return_value=details) as api, \
+             patch.object(gambit, 'messages_for', return_value=[]), \
+             patch.object(gambit, 'assess') as assess:
+            gambit.handle_open({'_id': 'buyer-job'}, state)
+        assess.assert_not_called()
+        self.assertEqual(state['bounties']['buyer-job']['action'], 'asked')
+        self.assertFalse(any(len(c.args) > 1 and c.args[1] == 'POST'
+                             for c in api.call_args_list))
+
     def test_unsupported_hired_video_stops_before_fabricated_submission(self):
         details = {'bounty': {'_id': 'video1', 'status': 'claimed',
                               'title': 'Make a video', 'verification': 'Upload MP4.'},
