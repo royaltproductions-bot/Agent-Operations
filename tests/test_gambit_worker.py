@@ -494,6 +494,100 @@ class GambitTests(unittest.TestCase):
                 self.assertIsNone(gambit.unsupported_deliverable({'bounty': {
                     'title': title, 'verification': verification}}))
 
+    def test_account_policy_research_vs_real_platform_actions(self):
+        # These are representative constructions, not decrypted historical
+        # buyer briefs. The archived marketplace descriptions stay encrypted.
+        eligible = [
+            ("Schedule LinkedIn interviews and research prospects",
+             "Deliver a research report with public LinkedIn URLs."),
+            ("Manage a spreadsheet of Instagram post metrics",
+             "Analyze an attached CSV and deliver a statistical report."),
+            ("Publish a market research report on TikTok trends",
+             "Provide a PDF of public examples, not a live TikTok post."),
+            ("Post performance analysis for Facebook advertising",
+             "Submit a sourced written overview of competitor activity."),
+            ("Upload a TikTok analytics CSV for analysis",
+             "Deliver a new XLSX report using the supplied file."),
+            ("Summarize published Instagram posts",
+             "Provide a report about already-published public posts."),
+            ("Research how agencies schedule Facebook posts",
+             "Deliver a documentation-only report with examples."),
+        ]
+        for title, verification in eligible:
+            with self.subTest(title=title):
+                self.assertIsNone(gambit.unsupported_deliverable({
+                    "bounty": {"title": title, "verification": verification}}))
+        requires_login = [
+            ("Publish captions to Instagram", "Three posts live on Instagram."),
+            ("Schedule Instagram posts", "Publish three posts for our page."),
+            ("Manage Instagram business account", "Maintain our company feed."),
+            ("Post updates on LinkedIn", "Posts must be live on LinkedIn."),
+            ("Upload videos to TikTok", "Videos must appear on our account."),
+            ("Manage Facebook ads", "Campaigns must be active."),
+            ("Log into our account dashboard", "Change our campaign settings."),
+            ("Research social campaign performance",
+             "Provide evidence the posts are published on Instagram."),
+        ]
+        for title, verification in requires_login:
+            with self.subTest(title=title):
+                self.assertEqual("authenticated_account_operation",
+                    gambit.unsupported_deliverable({
+                        "bounty": {"title": title, "verification": verification}}))
+
+    def test_recheck_historical_account_rejection_once_then_preserve_decision(self):
+        from tools.gambit_early_scan import ACCOUNT_POLICY_RECHECK_VERSION
+        bounty_id = "historical-reject"
+        details = {"bounty": {"_id": bounty_id, "status": "open",
+                               "version": 1, "flow": "bid",
+                               "title": "Schedule LinkedIn research interviews",
+                               "verification": "Deliver a sourced CSV report."}}
+        state = {"bounties": {bounty_id: {
+            "action": "pass_unsupported", "version": 1,
+            "reason": "authenticated_account_operation"}},
+            "recent_outcomes": []}
+        with patch.object(gambit, "pages", side_effect=[
+             [{"_id": bounty_id, "version": 1}], []]), patch.object(
+             gambit, "relevant_events", return_value=([], None)):
+            _, _, _, _, waiting, _ = gambit.scan(state)
+        self.assertEqual([x["_id"] for x in waiting], [bounty_id])
+        with patch.object(gambit, "api", return_value=details) as api, patch.object(
+                gambit, "assess", return_value={"decision": "pass"}) as assess:
+            gambit.handle_open(waiting[0], state)
+        assess.assert_called_once()
+        self.assertEqual(state["bounties"][bounty_id]["action"], "pass")
+        self.assertFalse(any(len(c.args) > 1 and c.args[1] == "POST"
+                             for c in api.call_args_list))
+        with patch.object(gambit, "pages", side_effect=[
+             [{"_id": bounty_id, "version": 1}], []]), patch.object(
+             gambit, "relevant_events", return_value=([], None)):
+            _, _, _, _, waiting, _ = gambit.scan(state)
+        self.assertEqual(waiting, [])
+
+    def test_recheck_still_restricted_account_job_is_not_requeued(self):
+        from tools.gambit_early_scan import ACCOUNT_POLICY_RECHECK_VERSION
+        bounty_id = "still-restricted"
+        details = {"bounty": {"_id": bounty_id, "status": "open",
+                               "version": 1, "flow": "bid",
+                               "title": "Manage Instagram business account",
+                               "verification": "Three posts live."}}
+        state = {"bounties": {bounty_id: {
+            "action": "pass_unsupported", "version": 1,
+            "reason": "authenticated_account_operation"}}, "recent_outcomes": []}
+        with patch.object(gambit, "api", return_value=details) as api, patch.object(
+                gambit, "assess") as assess:
+            gambit.handle_open({"_id": bounty_id}, state)
+        assess.assert_not_called()
+        self.assertEqual(state["bounties"][bounty_id]["action"], "pass_unsupported")
+        self.assertEqual(state["bounties"][bounty_id]["account_policy_review_version"],
+                         ACCOUNT_POLICY_RECHECK_VERSION)
+        self.assertFalse(any(len(c.args) > 1 and c.args[1] == "POST"
+                             for c in api.call_args_list))
+        with patch.object(gambit, "pages", side_effect=[
+             [{"_id": bounty_id, "version": 1}], []]), patch.object(
+             gambit, "relevant_events", return_value=([], None)):
+            _, _, _, _, waiting, _ = gambit.scan(state)
+        self.assertEqual(waiting, [])
+
     def test_real_account_operations_remain_ineligible(self):
         account_actions = [
             ('Run paid ads on Facebook', 'Campaign must be live.'),
