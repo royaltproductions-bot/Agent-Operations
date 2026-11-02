@@ -420,6 +420,39 @@ class CyclopsEfficiencyTests(unittest.TestCase):
         self.assertFalse(brain.seller_marketing_page(buyer))
         self.assertTrue(brain.public_buyer_invitation(buyer))
 
+    def test_wolverine_product_homepage_is_not_buyer_demand(self):
+        # A real 2026 offer went to a form-tool vendor after its sales CTA
+        # ("Need someone to set this up for you?") matched request vocabulary.
+        vendor = {
+            "source_url": "https://formgrid.dev/",
+            "title": "Form Builder and Lead CRM",
+            "page_fetched": True,
+            "contact": "founder@example.test",
+            "page_text": (
+                "Form Builder and Lead CRM. Features Pricing Sign Up Free. "
+                "Get Started Free. Need someone to set this up for you? "
+                "See done-for-you setup options. Contact us for help."),
+        }
+        self.assertIsNotNone(brain.PUBLIC_INVITATION.search(vendor["page_text"]))
+        self.assertTrue(brain.seller_marketing_page(vendor))
+        self.assertFalse(brain.public_buyer_invitation(vendor))
+        with patch.object(brain, "agent_send") as send:
+            result = brain.send_offer(vendor, {"pitch": "Paid work",
+                "deliverable": "Form integration", "price_usd": "49.95"},
+                {"checkout_url": "https://pay.example.test/offer"})
+        self.assertEqual(result["result"], "unverified_buyer_invitation")
+        send.assert_not_called()
+
+        # A business with a genuine first-person outside-contractor request
+        # remains eligible even if its root page also sells a product.
+        buyer = {**vendor, "source_url": "https://buyer.example.test/",
+                 "page_text": (
+                     "Software platform Features Pricing Sign Up Free. "
+                     "We are seeking a contractor to create an integration. "
+                     "Send your proposal to bids@buyer.example.test.")}
+        self.assertFalse(brain.seller_marketing_page(buyer))
+        self.assertTrue(brain.public_buyer_invitation(buyer))
+
     def test_wolverine_does_not_treat_hiring_article_as_direct_buyer(self):
         from tools import autonomous_commerce_brain as brain
         tutorial={"page_fetched":True,"title":"How to Hire a Freelancer: The Complete Guide",
@@ -467,9 +500,10 @@ class CyclopsEfficiencyTests(unittest.TestCase):
              patch.object(cyclops,"model_json",side_effect=[
                 {"decision":"pursue","candidate_id":"web:makerone",
                  "reason":"Observable paid demand and a deliverable we can build"},
-                plan]):
+                plan]) as inference:
             picked=cyclops.choose_asset_concept(rows)
         tools.assert_called_once()
+        self.assertEqual(inference.call_args_list[1].kwargs["num_predict"],1800)
         self.assertEqual(picked["market_validation"]["status"],"agent_assessed_public_market")
         self.assertEqual(picked["market_validation"]["observation"]["displayed_sales_count"],95)
         self.assertEqual(picked["market_validation"]["decision"],"pursue")

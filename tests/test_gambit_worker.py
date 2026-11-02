@@ -1066,7 +1066,8 @@ class GambitTests(unittest.TestCase):
                  if len(c.args) > 1 and c.args[1] == 'POST']
         self.assertEqual(len(posts), 1)
         self.assertTrue(posts[0].args[0].endswith('/messages'))
-        self.assertIn("I'm Gambit", posts[0].args[2]['content']['text'])
+        self.assertIn(gambit.gambit_agent_card.card()['identity'],
+                      posts[0].args[2]['content']['text'])
         self.assertIn('Agentic Resource Integration',
                       posts[0].args[2]['content']['text'])
         self.assertNotIn('currency', posts[0].args[2]['content']['text'].lower())
@@ -1091,7 +1092,7 @@ class GambitTests(unittest.TestCase):
                 with patch.object(gambit, "respond_to_buyer") as model:
                     answer = gambit.prebid_buyer_reply(
                         {"bounty": {}}, [buyer], buyer)
-                self.assertIn("I'm Gambit", answer)
+                self.assertIn(gambit.gambit_agent_card.card()['identity'], answer)
                 self.assertIn("Agentic Resource Integration", answer)
                 self.assertNotIn("fuck", answer.lower())
                 self.assertNotIn("payment", answer.lower())

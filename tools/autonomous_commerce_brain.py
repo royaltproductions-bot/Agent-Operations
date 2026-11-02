@@ -298,7 +298,26 @@ def seller_marketing_page(row):
     provider_landing = bool(service_path and re.search(
         r"\b(?:service|services|solutions|providers|agency|managed)\b",
         title))
-    return provider_landing or seller_copy and (service_path or seller_title or home_provider)
+    # A vendor's root product/pricing page is not an invitation to hire us.
+    # "Need someone to set this up for you?" is seller copy, even though it
+    # matches PUBLIC_INVITATION. Preserve genuine first-person hiring notices.
+    product_home = (
+        path in {"", "/"}
+        and bool(re.search(r"\b(?:pricing|plans)\b", body[:3500]))
+        and bool(re.search(r"\b(?:sign up|get started|start free|free trial)\b", body[:3500]))
+        and bool(re.search(
+            r"\b(?:product|platform|software|form builder|crm|features|templates|api)\b",
+            title + " " + body[:3500]))
+    )
+    buyer_owned_request = bool(re.search(
+        r"\b(?:we (?:are|'re) (?:seeking|hiring|looking for) (?:an? |outside |external )?"
+        r"(?:contractor|freelancer|developer|designer|writer|consultant|provider)"
+        r"|we need (?:someone to|an? (?:contractor|freelancer|developer|designer|writer|consultant|provider))"
+        r"|we (?:are|'re) accepting (?:bids|proposals)|request for proposals? (?:for|to))\b",
+        body))
+    return (provider_landing or
+            (seller_copy and (service_path or seller_title or home_provider)) or
+            (product_home and not buyer_owned_request))
 
 
 def is_requester_page(row):
