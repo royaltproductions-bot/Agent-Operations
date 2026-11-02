@@ -1,0 +1,207 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-02T13:52:50.392365+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 13,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "duckduckgo": 8,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "verified_firsthand_problem_pages": 1,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 10,
+    "public_market_sample": [
+      {
+        "url": "https://maccove.com/utilities/blog/image-to-excel-mac-data-from-picture",
+        "title": "converting an image to Excel with Data From Picture",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/answers/questions/5388232/how-to-sync-the-excel-connected-to-a-forms-without",
+        "title": "How to sync the Excel connected to a Forms without opening it to use it ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/answers/questions/5400301/how-to-auto-sync-from-ms-forms-to-excel-without-op",
+        "title": "how to auto-sync from MS-forms to excel without opening the excel file ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://apps.apple.com/us/app/microsoft-excel/id586683407",
+        "title": "Microsoft Excel - App Store",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://thunderbit.com/tool/free-online-pdf-to-excel-converter",
+        "title": "Convert PDF to Excel \u2014 Free OCR, Keep Layout",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://freedom251.com/how-to-sync-microsoft-forms-to-excel-2-tested-methods-2024/",
+        "title": "How to Sync Microsoft Forms to Excel [2 Tested Methods 2024]",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 12,
+    "search_queries": [
+      "",
+      "convert pdf to excel online for free with ocr",
+      "automate microsoft forms to excel sync without api",
+      "excel template for automating form data entry"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 41,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "convert pdf to excel online for free with ocr",
+        "automate microsoft forms to excel sync without api",
+        "downloadable python script to extract data from pdf",
+        "excel template for automating form data entry"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:10 candidates reviewed; n dealing with PDF data in Excel, but the solution is already partially addressed by the 'PDF to Excel' converter. The 'cleaning PDF data pasted into Excel' article hig"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 2,
+    "product_pages": 2,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:c964b937c53501dbf4",
+      "decision": "pass",
+      "reason": "The candidate presents a specific user problem (converting image data to Excel on Mac) and outlines a potential solution (Data From Picture feature). However, the evidence does not provide clear evidence of demand or sales, nor does it indicate that the feature is missing or not working for users. The article is more of a guide than a product offer"
+    },
+    {
+      "candidate_id": "web:846381800929c949fb",
+      "decision": "pass",
+      "reason": "The problem described is a specific technical issue with Microsoft Forms and Excel synchronization, which is not a general market need. The user is seeking a workaround for an update that broke their existing workflow. While there is a clear problem, the solution would be a niche tool or integration, and there is no evidence of demand beyond this s"
+    },
+    {
+      "candidate_id": "web:ec69e5db774fba2b93",
+      "decision": "pass",
+      "reason": "The candidate presents a specific problem with Microsoft Power Automate and Excel integration, but there is no clear evidence of a demand for a new product to solve this issue. The existing Microsoft ecosystem already provides tools for automation, and the problem described is more of a technical limitation within the current system rather than a g"
+    },
+    {
+      "candidate_id": "web:4b9d90f93056eca02a",
+      "decision": "pass",
+      "reason": "While Microsoft Excel is a widely used productivity tool with a large user base, the evidence does not indicate a specific, unmet customer need that a new product could address. The existing competition and the lack of clear differentiation or unique value proposition make it unlikely that a new product in this space would succeed without significa"
+    },
+    {
+      "candidate_id": "web:c808995e0b0eb082fc",
+      "decision": "pass",
+      "reason": "The candidate offers a free PDF to Excel conversion tool, but there is no evidence of paid offerings or sales. The tool's value is limited to a specific use case, and there is no indication of a viable business model or demand for a paid version. The existing competition and lack of pricing or sales data make it difficult to justify pursuing this a"
+    },
+    {
+      "candidate_id": "web:74913daec3b94ca0ad",
+      "decision": "pass",
+      "reason": "The content discusses syncing Microsoft Forms to Excel, which is a common task for businesses and individuals. However, there are existing tools and methods (like Power Automate) that already address this need. The article does not present a unique problem or a specific unmet need that a new product could solve. Additionally, the article includes a"
+    },
+    {
+      "candidate_id": "web:f8fa6d69d48c251b13",
+      "decision": "pass",
+      "reason": "The content appears to be a blog post about a technical problem related to Microsoft Forms and Excel synchronization with Power Automate, but there is no clear indication of a product being offered for sale. The page does not provide any evidence of a product, pricing, or sales, and it seems to be more of a tutorial or guide rather than a commercia"
+    },
+    {
+      "candidate_id": "web:41aa79f5fb00ec5426",
+      "decision": "pass",
+      "reason": "The problem described (copying a table from a PDF into Excel) is common, but the evidence does not indicate a clear demand for a dedicated product. The article suggests that existing tools like Preview can handle the task, and the user is advised to use built-in features rather than a paid solution. There is no indication of a specific need for a n"
+    },
+    {
+      "candidate_id": "web:7c54029f6620daba66",
+      "decision": "pass",
+      "reason": "The problem described is common when dealing with PDF data in Excel, but the solution is already partially addressed by the 'PDF to Excel' converter. The 'cleaning PDF data pasted into Excel' article highlights a specific pain point, but there is no clear evidence of a unique product or service that hasn't already been covered by existing tools. Ad"
+    },
+    {
+      "candidate_id": "web:d49150919666827edd",
+      "decision": "pass",
+      "reason": "The observed market for PDF to Excel conversion lacks clear evidence of demand or pricing, and the product is not differentiated enough from existing solutions. There is no indication of a unique value proposition or customer need that justifies building a new product in this space."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 2,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 10,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
