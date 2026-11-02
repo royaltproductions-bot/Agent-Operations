@@ -919,7 +919,8 @@ def authenticated_account_operation(requested, verification):
     "publish a research report about TikTok trends." Require a posting,
     campaign, private login, or live publication action explicitly.
     """
-    platform = r"(?:instagram|tiktok|facebook|linkedin|youtube)"
+    platform = r"(?:instagram|tiktok|facebook|linkedin|youtube|social media|social accounts?|meta ads|google ads)"
+    target = r"(?:(?:our|the|their|your|client's|company)\s+)?" + platform
     content = r"(?:posts?|captions?|updates?|messages?|reels?|videos?|photos?|stories?|ads?|campaigns?|content)"
     # An explicit login, private administration, or ads operation needs buyer
     # account credentials / external resources unavailable in this worker.
@@ -943,14 +944,14 @@ def authenticated_account_operation(requested, verification):
     if not purely_explanatory and (
             re.search(r"\b(?:post|publish|schedule|upload)\b\s+"
                       r"(?:directly\s+)?(?:to|on|via|through)\s+"
-                      + platform + r"\b", requested) or
+                      + target + r"\b", requested) or
             re.search(r"\b(?:post|publish|schedule|upload)\b.{0,60}"
-                      r"\bto\s+" + platform + r"\b", requested) or
+                      r"\bto\s+" + target + r"\b", requested) or
             re.search(r"\b(?:post|publish|schedule|upload)\b\s+"
-                      r"(?:[\w-]+\s+){0,4}" + platform + r"\s+" + content + r"\b", requested) or
+                      r"(?:[\w-]+\s+){0,4}" + target + r"\s+" + content + r"\b", requested) or
             re.search(r"\b(?:post|publish|schedule|upload)\b\s+"
                       r"(?:[\w-]+\s+){0,4}" + content +
-                      r"\s+(?:on|to|for|via|through)\s+" + platform + r"\b", requested)):
+                      r"\s+(?:on|to|for|via|through)\s+" + target + r"\b", requested)):
         return True
     # Managing the account / campaign itself requires access; managing a
     # spreadsheet of Instagram statistics does not.
