@@ -1,0 +1,24 @@
+name: Gambit blunt-identity question tests
+on:
+  push:
+    branches: ['fix/gambit-colloquial-identity-20261102']
+permissions:
+  contents: read
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install test dependencies
+        run: |
+          python3 -m pip install --quiet --disable-pip-version-check \
+            'pypdf>=5,<8' 'python-docx>=1.2,<2' 'openpyxl>=3.1,<4' \
+            'reportlab>=4,<5' 'cryptography>=43,<48' ddgs==9.16.1 pillow \
+            beautifulsoup4 jinja2
+      - name: Check direct response and overall Gambit tests
+        run: |
+          python3 -m py_compile tools/gambit_worker.py tests/test_gambit_worker.py
+          python3 -m unittest discover -s tests -p 'test_gambit_worker.py' -q
+          python3 -m unittest discover -s tests -p 'test_gambit_early_scan.py' -q
+          python3 -m unittest discover -s tests -p 'test_gambit_operations.py' -q
