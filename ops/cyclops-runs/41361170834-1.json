@@ -1,0 +1,163 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-01T23:16:26.229453+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 15,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "duckduckgo": 11,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "verified_firsthand_problem_pages": 4,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 11,
+    "public_market_sample": [
+      {
+        "url": "https://dev.to/koshirok096/simple-python-script-to-scrape-and-download-all-files-from-a-web-page-bite-size-article-5en4",
+        "title": "Simple Python Script to Scrape and Download All Files from a Web Page ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://artifex.com/blog/converting-pdfs-to-images-with-pymupdf-a-complete-guide",
+        "title": "Converting PDFs to Images with PyMuPDF: A Complete Guide",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://opensourceoptions.com/use-python-to-download-multiple-files-or-urls-in-parallel/",
+        "title": "Use Python to Download Multiple Files (or URLs) in Parallel",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://pythonguides.com/copy-files-to-another-directory-in-python/",
+        "title": "How to Copy Files to Another Directory in Python?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://github.com/benjaminfortunato/pdf-to-image-converter",
+        "title": "GitHub - benjaminfortunato/pdf-to-image-converter: Python script to ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://realpython.com/python-download-file-from-url/",
+        "title": "How to Download Files From URLs With Python",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 15,
+    "search_queries": [
+      "python script to automate downloading multiple files from URLs",
+      "buy python script to convert PDF to image batch",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 31,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "python script to automate downloading multiple files from URLs",
+        "buy python script to convert PDF to image batch",
+        "downloadable python tool to extract text from PDF files",
+        "purchase python script for web scraping with user agents"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:e9681115360a360b5562:ModuleNotFoundError: No module named 'bs4'",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 2,
+    "product_pages": 2,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:e9681115360a360b5562:ModuleNotFoundError: No module named 'bs4'"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 2,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 11,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
