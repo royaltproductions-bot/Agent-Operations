@@ -31,8 +31,9 @@
       "version": 2
     },
     "mx72vg2dw6paysrp4wq9qth5kn8gdpy1": {
+      "account_policy_review_version": "account-research-v2",
       "action": "pass_unsupported",
-      "at": "2026-10-30T16:19:06.839476+00:00",
+      "at": "2026-11-02T05:36:41.398841+00:00",
       "reason": "authenticated_account_operation",
       "version": 1
     },
@@ -131,8 +132,8 @@
     },
     "mx78kk7yaefsdwz1vgp7djcjz58hdqc8": {
       "action": "pass_unsupported",
-      "at": "2026-11-01T09:19:51.063366+00:00",
-      "reason": "authenticated_account_operation",
+      "at": "2026-11-02T05:36:40.893797+00:00",
+      "reason": "video_production",
       "version": 1
     },
     "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": {
@@ -211,8 +212,8 @@
     },
     "mx7cdd2dcm83vn86rd9jbc2qwn8gvkkv": {
       "action": "pass_unsupported",
-      "at": "2026-10-30T16:12:56.255936+00:00",
-      "reason": "authenticated_account_operation",
+      "at": "2026-11-02T05:36:41.146915+00:00",
+      "reason": "video_production",
       "version": 1
     },
     "mx7cnqwhjc94wnxryvwxyr3e698g8n4z": {
@@ -252,7 +253,9 @@
     "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": {
       "action": "asked",
       "at": "2026-10-30T16:21:35.878006+00:00",
+      "last_asked_review_at": "2026-11-02T05:36:39.823771+00:00",
       "last_declined_bid": null,
+      "last_question_version": 1,
       "version": 1
     },
     "mx7ejbyr9v0ygxjws98fqpt2098gae1x": {
@@ -264,7 +267,9 @@
     "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": {
       "action": "asked",
       "at": "2026-10-30T16:22:09.531528+00:00",
+      "last_asked_review_at": "2026-11-02T05:36:40.369541+00:00",
       "last_declined_bid": null,
+      "last_question_version": 1,
       "version": 1
     },
     "mx7fhznv4r1y64xjskvg4btfkd8gnc1c": {
@@ -797,38 +802,11 @@
       }
     }
   },
-  "deferred_bounty_ids": [
-    "mx72vg2dw6paysrp4wq9qth5kn8gdpy1",
-    "mx78kk7yaefsdwz1vgp7djcjz58hdqc8",
-    "mx7cdd2dcm83vn86rd9jbc2qwn8gvkkv",
-    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3",
-    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd"
-  ],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxOSwiY2hlY2twb2ludEF0IjoxNzkzNTkzOTcxNTczfQ",
-  "handled_event_ids": [],
+  "deferred_bounty_ids": [],
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxOSwiY2hlY2twb2ludEF0IjoxNzkzNTk3Nzk5NTI2fQ",
   "last_bid_reconciliation": "2026-11-02T05:35:30.726235+00:00",
-  "last_check": "2026-11-02T05:35:35.982197+00:00",
+  "last_check": "2026-11-02T05:36:41.400658+00:00",
   "recent_outcomes": [
-    {
-      "action": "closed_before_evaluation",
-      "at": "2026-10-29T19:44:39.241718+00:00",
-      "bounty_id": "mx7dzny0f4hm4ypp05ch6xws5n8h79xt",
-      "platform_status": "claimed"
-    },
-    {
-      "action": "evaluation_retry_scheduled",
-      "at": "2026-10-29T19:48:32.408116+00:00",
-      "bounty_id": "mx76pb43azzzk2yndfwpqkcvjs8h7vz4",
-      "reason": "TimeoutError",
-      "retry_count": 1
-    },
-    {
-      "action": "bid_sent",
-      "at": "2026-10-29T19:54:12.994567+00:00",
-      "bounty_id": "mx76pb43azzzk2yndfwpqkcvjs8h7vz4",
-      "payout_cents": 8000,
-      "version": 1
-    },
     {
       "action": "pass_unsupported",
       "at": "2026-10-30T10:53:23.945064+00:00",
@@ -1202,6 +1180,27 @@
       "at": "2026-11-02T05:35:35.982183+00:00",
       "bounty_id": null,
       "count": 5
+    },
+    {
+      "action": "pass_unsupported",
+      "at": "2026-11-02T05:36:40.893803+00:00",
+      "bounty_id": "mx78kk7yaefsdwz1vgp7djcjz58hdqc8",
+      "reason": "video_production",
+      "version": 1
+    },
+    {
+      "action": "pass_unsupported",
+      "at": "2026-11-02T05:36:41.146921+00:00",
+      "bounty_id": "mx7cdd2dcm83vn86rd9jbc2qwn8gvkkv",
+      "reason": "video_production",
+      "version": 1
+    },
+    {
+      "action": "pass_unsupported",
+      "at": "2026-11-02T05:36:41.398848+00:00",
+      "bounty_id": "mx72vg2dw6paysrp4wq9qth5kn8gdpy1",
+      "reason": "authenticated_account_operation",
+      "version": 1
     }
   ],
   "schema": 1,
