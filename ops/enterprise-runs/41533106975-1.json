@@ -1,0 +1,139 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-02T21:59:58.905923+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "github_paid_issues": 5,
+      "duckduckgo": 4,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 16,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=43821259",
+        "title": "How to get an initial user base for a consumer app with no money and no audience",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=42722304",
+        "title": "Goldman Sachs CEO on impact of LLMs to prepare IPO docs",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37799118",
+        "title": "Ask HN: Does an open source model work for me?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=36003151",
+        "title": "Ask HN: Who wants to create a GPT-first company?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=35079262",
+        "title": "Stripe \u2013 Pricing changes for US businesses starting June 1, 2023",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=33759230",
+        "title": "Ask HN: A free open-source 'kickstarter-esque' platform for citizen scientists",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "need paid help with a non-profit donation tracking system",
+      "can anyone create a volunteer sign-up platform for nonprofits",
+      "is:issue is:open bounty created:>=2026-09-03 build volunteer management",
+      "is:issue is:open bounty created:>=2026-09-03 create volunteer scheduling",
+      "looking for someone to build a volunteer management dashboard",
+      "hiring a freelancer to create a volunteer scheduling tool"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a volunteer management dashboard",
+      "hiring a freelancer to create a volunteer scheduling tool",
+      "need paid help with a non-profit donation tracking system",
+      "can anyone create a volunteer sign-up platform for nonprofits"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 11,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a volunteer management dashboard",
+        "hiring a freelancer to create a volunteer scheduling tool",
+        "need paid help with a non-profit donation tracking system",
+        "can anyone create a volunteer sign-up platform for nonprofits"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
