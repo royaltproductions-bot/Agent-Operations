@@ -1,0 +1,132 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-02T06:24:01.954060+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "github_paid_issues": 5,
+      "duckduckgo": 2,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=49061251",
+        "title": "We need to rethink tech stack",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=48327218",
+        "title": "Hybrid local and cloud LLM stack for regulated financial document processing?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=34031436",
+        "title": "Help wanted \u2013 Presscheck.org, a system for verifying journalists on Mastodon",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=33677557",
+        "title": "Is Asahi Linux developer momentum slowing down?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=33626022",
+        "title": "Is discourse on capitalism and it's alternatives possible without bias/dogma?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47115221",
+        "title": "AWS won't discuss my bill, suspended my account, took $1,600, still no human",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a form builder with CRM integration",
+      "need paid help with form builder and CRM connection setup",
+      "can anyone create a form to CRM bridge for a web app",
+      "is:issue is:open bounty created:>=2026-09-03 build form builder",
+      "is:issue is:open bounty created:>=2026-09-03 create form crm",
+      "is:issue is:open bounty created:>=2026-09-03 ",
+      "hiring a freelancer to create a form and CRM integration tool"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a form builder with CRM integration",
+      "hiring a freelancer to create a form and CRM integration tool",
+      "need paid help with form builder and CRM connection setup",
+      "can anyone create a form to CRM bridge for a web app"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 41,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a form builder with CRM integration",
+        "hiring a freelancer to create a form and CRM integration tool",
+        "need paid help with form builder and CRM connection setup",
+        "can anyone create a form to CRM bridge for a web app"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": {
+    "source_url": "https://news.ycombinator.com/item?id=34031436",
+    "title": "Verified Journalist Verification System Development",
+    "scope": "Rebuild and improve the PressCheck.org platform to handle increased user demand, enhance functionality, and ensure scalability. This includes but is not limited to: verifying journalist identities, managing a growing database of verified journalists, and integrating with Mastodon for rel=me links.",
+    "price_usd": "4999.99",
+    "price_cents": 499999,
+    "offer_id": "7edbb2eeb70122685442f266",
+    "payment_link_id": "plink_1UXEtSBto3o776uyC0ZvJpgY"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://news.ycombinator.com/item?id=34031436"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "none"
+  }
+}
