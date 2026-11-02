@@ -1406,6 +1406,86 @@ class GambitTests(unittest.TestCase):
         self.assertEqual(sum(1 for c in api.call_args_list
                              if len(c.args) > 1 and c.args[1] == 'POST'), 1)
 
+    def test_flagged_bid_event_enters_probe_and_survives_reconciliation(self):
+        from tools import gambit_early_scan as early
+        item = {'_id': 'video1', 'version': 2, 'status': 'open'}
+        event = {'id': 'evt-9', 'type': 'work.message.created',
+                 'data': {'bounty_id': 'video1'}}
+        details = {'bounty': {'_id': 'video1', 'status': 'open',
+                              'version': 2, 'flow': 'bid',
+                              'title': 'Produce a product video',
+                              'verification': 'Deliver final MP4 video.'},
+                   'bid': {'status': 'active', 'bounty_version': 1}}
+        latest = {'_id': 'buyer-msg-8', 'author_type': 'user',
+                  'content': {'type': 'text',
+                              'text': 'Can you confirm an MP4?'}}
+        state = {'bounties': {'video1': {'action': 'bid_active', 'version': 2,
+                                        'at': '2026-11-01T12:00:00+00:00'}},
+                 'recent_outcomes': []}
+        admission = early.admission(state, [item], [], [event])
+        self.assertTrue(admission['needs_run'])
+        self.assertTrue(admission['needs_model'])
+        with patch.object(gambit, 'pages', side_effect=[[item], []]), patch.object(
+                gambit, 'relevant_events', return_value=([event], 'cursor')):
+            opened, _, events, _, waiting, _ = gambit.scan(state)
+        self.assertEqual([x['_id'] for x in waiting], ['video1'])
+        def request(path, method='GET', payload=None):
+            return details if method == 'GET' else {'message_id': 'agent-reply'}
+        with patch.object(gambit, 'api', side_effect=request) as api, patch.object(
+                gambit, 'CURRENT_EVENTS', events), patch.object(
+                gambit, 'messages_for', return_value=[latest]), patch.object(
+                gambit, 'platform_active_bid_ids', return_value={'video1'}), patch.object(
+                gambit, 'infer') as infer:
+            gambit.handle_open(waiting[0], state)
+            gambit.reconcile_active_bids(opened, state)
+            gambit.handle_open(waiting[0], state)
+        posts = [call for call in api.call_args_list
+                 if len(call.args) > 1 and call.args[1] == 'POST']
+        self.assertEqual(len(posts), 1)
+        self.assertTrue(posts[0].args[0].endswith('/messages'))
+        self.assertNotIn('/bid/withdraw', str(api.call_args_list))
+        self.assertEqual(state['bounties']['video1']['action'], 'bid_active')
+        self.assertEqual(state['bounties']['video1']['last_owner_reply_id'],
+                         'buyer-msg-8')
+        self.assertEqual(state['bounties']['video1']['capability_review_reason'],
+                         'video_production')
+        infer.assert_not_called()
+
+    def test_flagged_bid_reply_failure_preserves_retry_identity(self):
+        details = {'bounty': {'_id': 'video1', 'status': 'open',
+                              'version': 1, 'flow': 'bid',
+                              'title': 'Produce a product video',
+                              'verification': 'Deliver final MP4 video.'},
+                   'bid': {'status': 'active', 'bounty_version': 1}}
+        event = {'type': 'work.message.created',
+                 'data': {'bounty_id': 'video1'}}
+        latest = {'_id': 'buyer-msg-8', 'author_type': 'user',
+                  'content': {'type': 'text', 'text': 'Is MP4 ready?'}}
+        state = {'bounties': {'video1': {'action': 'bid_active', 'version': 1}},
+                 'recent_outcomes': []}
+        attempts = []
+        def request(path, method='GET', payload=None):
+            if method == 'POST':
+                attempts.append(payload)
+                if len(attempts) == 1:
+                    raise RuntimeError('bounty_api_TEMPORARY_ERROR')
+                return {'message_id': 'agent-reply'}
+            return details
+        with patch.object(gambit, 'api', side_effect=request), patch.object(
+                gambit, 'CURRENT_EVENTS', [event]), patch.object(
+                gambit, 'messages_for', return_value=[latest]), patch.object(
+                gambit, 'infer') as infer:
+            with self.assertRaisesRegex(RuntimeError, 'TEMPORARY_ERROR'):
+                gambit.handle_open({'_id': 'video1'}, state)
+            self.assertIsNone(state['bounties']['video1'].get('last_owner_reply_id'))
+            gambit.handle_open({'_id': 'video1'}, state)
+        self.assertEqual(len(attempts), 2)
+        self.assertEqual(attempts[0]['idempotency_key'],
+                         attempts[1]['idempotency_key'])
+        self.assertEqual(state['bounties']['video1']['last_owner_reply_id'],
+                         'buyer-msg-8')
+        infer.assert_not_called()
+
     def test_quality_failure_gets_one_revision_before_submission(self):
         details = {'bounty': {'_id': 'b1', 'status': 'claimed', 'payout_cents': 1800},
                    'claim': {'status': 'active', 'claim_id': 'c1'}}
