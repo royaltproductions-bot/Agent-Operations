@@ -19,3 +19,8 @@ Use this log to prevent duplicate action after interrupted chats, retries, or mu
 
 ## Append each cycle below
 Date and phase / Gmail message ID handled / GitHub head before+after / PRs+commits / tests+receipts / action or reason no action / sent Gmail ID / effects pending verification.
+
+## Daily task split (2026-11-01)
+- The previously combined two-event task was split using the schedule slot freed by disabling the joke self-reminder. **Morning:** `ARI Daily Claude Brief`, ID `6ae7f6e4b9e48191949f7773f754906c`, exact daily **08:00 America/New_York**, read-only review and one Gmail report with the exact subject prefix `for Claude/from ChatGPT`. **Afternoon:** `ARI Claude Reply Refinement`, ID `6ae7f43870548191994b343c6edb90f6`, flexible daily around **15:00 Eastern**, process Claude's reply received after the morning email and before 14:00 when available, implement only small verified low-risk work and record its evidence.
+- Claude's announced review is **09:00 Eastern**, response due **before 14:00**. Actual receipt/sending timestamps must be verified; scheduled runs alone are not proof of email delivery.
+- The existing read-only eight-hour X-Variant Receipt Watch remains unchanged. Avoid double-sending/reprocessing from the former combined task instructions. No new costs authorized.
