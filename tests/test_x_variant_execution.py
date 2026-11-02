@@ -500,7 +500,7 @@ class CyclopsEfficiencyTests(unittest.TestCase):
              patch.object(cyclops,"model_json",side_effect=[
                 {"decision":"pursue","candidate_id":"web:makerone",
                  "reason":"Observable paid demand and a deliverable we can build"},
-                plan] as inference:
+                plan]) as inference:
             picked=cyclops.choose_asset_concept(rows)
         tools.assert_called_once()
         self.assertEqual(inference.call_args_list[1].kwargs["num_predict"],1800)
