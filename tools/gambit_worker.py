@@ -925,7 +925,7 @@ def unsupported_deliverable(details):
                   r"paid ads|google ads|meta ads)\b", requested) or
             re.search(r"\b(?:run|launch)\b.{0,75}"
                       r"\b(?:ad campaigns?|paid ads|google ads|meta ads)\b", requested) or
-            re.search(r"\b(?:log\\s*(?:in|into)|sign\\s*in|connect to)\b"
+            re.search(r"\b(?:log\s*(?:in|into)|sign\s*in|connect to)\b"
                       r".{0,65}\b(?:account|dashboard|admin panel|crm)\b", requested) or
             re.search(r"\baccess\b.{0,45}"
                       r"\b(?:private|authenticated|login-protected)\b.{0,45}"
