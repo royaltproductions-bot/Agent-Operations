@@ -1,0 +1,21 @@
+name: Gambit Public Agent Card Review
+on:
+  schedule:
+    - cron: '17 12 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify public card and detect changed capability providers
+        run: |
+          python3 -m tools.gambit_agent_card --check
+          python3 -m tools.gambit_card_review
+      - name: Provide review instructions on drift
+        if: failure()
+        run: |
+          echo "::warning::Gambit public agent card needs independent review before any changed capability claims can be published. Do not expose private buyer data or credentials. Update reviewed baseline and card only after validating the actual implementation."
