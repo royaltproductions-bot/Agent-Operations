@@ -624,10 +624,178 @@ class GambitTests(unittest.TestCase):
         self.assertIsNone(gambit.unsupported_deliverable(pdf))
         self.assertEqual('unsupported_pdf_form', gambit.unsupported_deliverable({
             'bounty': {'title': 'Make a fillable PDF form'}}))
-        self.assertEqual('unsupported_multi_or_file_format',
+        self.assertIsNone(gambit.unsupported_deliverable({'bounty': {
+            'title': 'Create an executive report',
+            'verification': 'Deliver a final PDF report and XLSX spreadsheet.'}}))
+        self.assertIsNone(gambit.unsupported_deliverable({'bounty': {
+            'title': 'Customer analysis',
+            'verification': 'Deliver a final DOCX document and CSV file.'}}))
+        self.assertEqual('unsupported_file_output',
                          gambit.unsupported_deliverable({'bounty': {
-                             'title': 'Create an executive report',
-                             'verification': 'Deliver a final PDF report and XLSX spreadsheet.'}}))
+                             'title': 'Create an executive presentation',
+                             'verification': 'Deliver final PDF and PPTX files.'}}))
+
+    def test_multifile_model_receives_real_formats_without_new_tools(self):
+        details = {'bounty': {'title': 'Analyze quarterly metrics',
+                              'verification': 'Deliver final PDF report and XLSX table.'}}
+        response = {'status': 'ready', 'reason': '', 'question': '',
+                    'deliverables': [{'format': 'pdf', 'title': 'Analysis',
+                                      'text': '# Summary\nSales increased'},
+                                     {'format': 'xlsx', 'title': 'Metrics',
+                                      'text': 'month,sales\nOct,25'}]}
+        with patch.object(gambit, 'research_for', return_value={'results': []}), \
+             patch.object(gambit, 'infer', return_value=response) as infer:
+            result = gambit.produce(details, [])
+        self.assertIs(infer.call_args.args[0], gambit.MULTI_WORK_SCHEMA)
+        self.assertIn('xlsx', infer.call_args.args[1])
+        self.assertEqual(result['deliverables'], response['deliverables'])
+
+    @unittest.skipUnless(find_spec('openpyxl') and find_spec('pypdf')
+                         and find_spec('docx'), 'document adapters available')
+    def test_multifile_adapters_generate_real_document_and_table(self):
+        from pypdf import PdfReader
+        from openpyxl import load_workbook
+        from docx import Document
+        details = {'bounty': {'title': 'Business analysis',
+                              'verification': 'Deliver PDF, DOCX, CSV, and XLSX files.'}}
+        work = {'deliverables': [
+            {'format': 'xlsx', 'title': 'Workbook',
+             'text': 'metric,value\nsales,34\norders,2'},
+            {'format': 'docx', 'title': 'Document',
+             'text': '# Analysis\nSales increased by 34 units.'},
+            {'format': 'pdf', 'title': 'Report',
+             'text': '# Executive analysis\nSales increased by 34 units.'},
+            {'format': 'csv', 'title': 'Data',
+             'text': 'metric,value\nsales,34\norders,2'}]}
+        prepared = gambit.prepare_multi_deliverables(details, work)
+        self.assertEqual([x['format'] for x in prepared],
+                         ['csv', 'docx', 'pdf', 'xlsx'])
+        by_format = {x['format']: x['data'] for x in prepared}
+        self.assertTrue(by_format['csv'].startswith(b'metric,value'))
+        self.assertIn('Sales increased', '\n'.join(
+            p.text for p in Document(io.BytesIO(by_format['docx'])).paragraphs))
+        self.assertIn('Sales increased', PdfReader(io.BytesIO(
+            by_format['pdf'])).pages[0].extract_text())
+        self.assertEqual(load_workbook(io.BytesIO(
+            by_format['xlsx']), read_only=True).active['B2'].value, '34')
+
+    def test_multifile_manifest_rejects_missing_duplicates_and_invalid_csv(self):
+        details = {'bounty': {'title': 'Business analysis',
+                              'verification': 'Deliver PDF report and XLSX table.'}}
+        good_pdf = {'format': 'pdf', 'title': 'Report', 'text': 'Report text'}
+        good_xlsx = {'format': 'xlsx', 'title': 'Table',
+                     'text': 'metric,value\nsales,12'}
+        for manifest in [[good_pdf], [good_pdf, good_pdf],
+                         [good_pdf, {'format': 'csv', 'title': 'Data',
+                                     'text': 'metric,value\nsales,12'}],
+                         [good_pdf, {'format': 'xlsx', 'title': 'Broken table',
+                                     'text': 'metric,value\nmissing'}]]:
+            with self.subTest(manifest=manifest):
+                with self.assertRaises(ValueError):
+                    gambit.prepare_multi_deliverables(
+                        details, {'deliverables': manifest})
+
+    @unittest.skipUnless(find_spec('openpyxl') and find_spec('pypdf'),
+                         'document adapters available')
+    def test_hired_multifile_submits_every_format_after_validation(self):
+        from pypdf import PdfReader
+        from openpyxl import load_workbook
+        details = {'bounty': {'_id': 'multi1', 'status': 'claimed',
+                              'title': 'Analyze quarterly operations',
+                              'verification': 'Deliver a PDF report and XLSX table.',
+                              'payout_cents': 5500},
+                   'claim': {'status': 'active', 'claim_id': 'c-multi'}}
+        work = {'status': 'ready', 'reason': '', 'question': '',
+                'deliverables': [
+                    {'format': 'pdf', 'title': 'Written analysis',
+                     'text': '# Quarterly operations\nSales totalled 25.'},
+                    {'format': 'xlsx', 'title': 'Supporting figures',
+                     'text': 'metric,value\nsales,25\ncustomers,5'}]}
+        state = {'bounties': {}, 'recent_outcomes': []}
+        uploaded, submissions = [], []
+        def api(path, method='GET', payload=None):
+            if path.endswith('/submissions'):
+                submissions.append(payload)
+                return {'submission_id': 's-multi'}
+            return details
+        def upload(bid, content, state, claim, digest, *, filename, content_type):
+            uploaded.append((filename, content, digest))
+            return 'att-' + filename
+        with patch.object(gambit, 'api', side_effect=api), \
+             patch.object(gambit, 'messages_for', return_value=[]), \
+             patch.object(gambit, 'produce', return_value=work), \
+             patch.object(gambit, 'review', return_value={'approved': True}) as review, \
+             patch.object(gambit, 'upload_file', side_effect=upload):
+            gambit.handle_hired({'_id': 'multi1'}, state)
+        self.assertEqual(len(submissions), 1)
+        self.assertEqual(len(uploaded), 2)
+        self.assertEqual({x[0] for x in uploaded},
+                         {'gambit-report.pdf', 'gambit-research.xlsx'})
+        self.assertEqual([x['key'] for x in submissions[0]['deliverables']],
+                         ['result_pdf', 'result_xlsx'])
+        self.assertEqual(len({x['data']['attachment_id'] for x in
+                              submissions[0]['deliverables']}), 2)
+        self.assertIn('Sales totalled 25', PdfReader(io.BytesIO(
+            next(x[1] for x in uploaded if x[0].endswith('.pdf'))))
+            .pages[0].extract_text())
+        self.assertEqual(load_workbook(io.BytesIO(next(
+            x[1] for x in uploaded if x[0].endswith('.xlsx'))),
+            read_only=True).active['B2'].value, '25')
+        review.assert_called_once()
+        self.assertEqual(state['bounties']['multi1']['action'], 'submitted')
+        self.assertEqual(state['bounties']['multi1']['submission_id'], 's-multi')
+
+    def test_hired_multifile_incomplete_result_does_not_upload_or_submit(self):
+        details = {'bounty': {'_id': 'multi1', 'status': 'claimed',
+                              'title': 'Quarterly analysis',
+                              'verification': 'Deliver final PDF and XLSX files.',
+                              'payout_cents': 4400},
+                   'claim': {'status': 'active', 'claim_id': 'c-multi'}}
+        bad = {'status': 'ready', 'reason': '', 'question': '',
+               'deliverables': [{'format': 'pdf', 'title': 'Report',
+                                 'text': 'Only one required file.'}]}
+        state = {'bounties': {}, 'recent_outcomes': []}
+        with patch.object(gambit, 'api', return_value=details) as api, \
+             patch.object(gambit, 'messages_for', return_value=[]), \
+             patch.object(gambit, 'produce', return_value=bad), \
+             patch.object(gambit, 'upload_file') as upload:
+            gambit.handle_hired({'_id': 'multi1'}, state)
+        upload.assert_not_called()
+        self.assertFalse(any('/submissions' in c.args[0] for c in api.call_args_list))
+        self.assertEqual(state['bounties']['multi1']['action'], 'quality_rejected')
+
+    def test_multifile_upload_reuses_checkpoint_after_partial_failure(self):
+        bid = 'multi1'
+        state = {'bounties': {bid: {'action': 'hired', 'claim_id': 'c-multi'}},
+                 'recent_outcomes': []}
+        replies = iter(['att-pdf', 'att-xlsx'])
+        def api(path, method='GET', payload=None):
+            if path.endswith('/attachments'):
+                return {'attachment_id': next(replies),
+                        'upload_url': 'https://uploads.example.org/signed',
+                        'headers': {'Content-Type': 'application/octet-stream'}}
+            return {}
+        class Response:
+            status = 200
+            def __enter__(self): return self
+            def __exit__(self, *args): return False
+        class Opener:
+            def open(self, *args, **kwargs): return Response()
+        with patch.object(gambit, 'api', side_effect=api) as api_mock, \
+             patch.object(gambit, 'save_state'), \
+             patch('urllib.request.build_opener', return_value=Opener()):
+            gambit.upload_file(bid, b'pdfbinary', state, 'c-multi', 'digest-pdf',
+                               filename='gambit-report.pdf', content_type='application/pdf')
+            gambit.upload_file(bid, b'xlsxfile', state, 'c-multi', 'digest-xlsx',
+                               filename='gambit-research.xlsx',
+                               content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            gambit.upload_file(bid, b'pdfbinary', state, 'c-multi', 'digest-pdf',
+                               filename='gambit-report.pdf', content_type='application/pdf')
+        self.assertEqual(state['bounties'][bid]['uploaded_files'],
+                         {'digest-pdf': 'att-pdf', 'digest-xlsx': 'att-xlsx'})
+        created = [c for c in api_mock.call_args_list if
+                   c.args[0].endswith('/attachments')]
+        self.assertEqual(len(created), 2)
 
     def test_output_format_mismatch_for_hired_work_is_revised_not_uploaded(self):
         details = {'bounty': {'_id': 'pdf1', 'status': 'claimed',

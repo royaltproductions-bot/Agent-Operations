@@ -683,6 +683,18 @@ WORK_SCHEMA = {"type": "object", "properties": {
                 "deliverable_text", "deliverable_format"],
     "additionalProperties": False}
 
+# An explicit multi-file commission needs independently authored content for
+# each format: e.g. a PDF narrative and a separate XLSX data table.
+MULTI_WORK_SCHEMA = {"type": "object", "properties": {
+    "status": {"type": "string", "enum": ["ready", "need_information", "cannot_deliver"]},
+    "reason": {"type": "string"}, "question": {"type": "string"},
+    "deliverables": {"type": "array", "items": {"type": "object", "properties": {
+        "format": {"type": "string", "enum": ["csv", "xlsx", "pdf", "docx"]},
+        "title": {"type": "string"}, "text": {"type": "string"},
+    }, "required": ["format", "title", "text"], "additionalProperties": False}},
+}, "required": ["status", "reason", "question", "deliverables"],
+    "additionalProperties": False}
+
 REVIEW_SCHEMA = {"type": "object", "properties": {
     "approved": {"type": "boolean"}, "reason": {"type": "string"},
 }, "required": ["approved", "reason"], "additionalProperties": False}
@@ -992,7 +1004,11 @@ def unsupported_deliverable(details):
         return None
 
     requested_formats = requested_output_format(details)
-    if len(requested_formats) > 1 or requested_formats - SUPPORTED_FORMATS:
+    # Only formats with independently verified local file adapters can be
+    # bundled. App/source ZIP and media requirements retain their own gates.
+    if (requested_formats - SUPPORTED_FORMATS or
+            len(requested_formats) > 1 and
+            not requested_formats <= {"csv", "xlsx", "pdf", "docx"}):
         return "unsupported_multi_or_file_format"
 
     if (re.search(r"\b(?:deploy|host|publish)\b"
@@ -1484,6 +1500,23 @@ def produce(details, messages, verification_feedback="", quality_feedback="", so
         "correct the stated defect rather than repeating the same draft. Return strict JSON."
     )
     context = clean_context(details, messages, sources)
+    multi_formats = requested_output_format(details)
+    multi_file = len(multi_formats) > 1 and multi_formats <= {"csv", "xlsx", "pdf", "docx"}
+    if multi_file:
+        system += (
+            " This commission requires MULTIPLE separate final files. "
+            "Return exactly one deliverables array item per required format "
+            "(format, title, text). Required formats: " +
+            ", ".join(sorted(multi_formats)) + ". "
+            "For PDF and DOCX, text is the full original report body. "
+            "For CSV and XLSX, text is the complete CSV-formatted table "
+            "used to create that file, with a real header and data. "
+            "A narrative cannot replace a workbook, and a workbook cannot "
+            "replace a written report. Preserve consistency across the "
+            "related deliverables and do not substitute unsupported files. "
+            "If the entire package cannot be completed accurately, return "
+            "need_information or cannot_deliver instead of ready."
+        )
     context["calculated_csv_statistics"] = summarize_csv_sources(sources)
     evidence = research if research is not None else research_for(details, messages, sources)
     context["web_evidence"] = evidence
@@ -1491,8 +1524,9 @@ def produce(details, messages, verification_feedback="", quality_feedback="", so
         context["verification_feedback"] = verification_feedback[:1500]
     if quality_feedback:
         context["quality_feedback"] = quality_feedback[:1500]
-    result = infer(WORK_SCHEMA, system, context,
-                   num_predict=5000 if evidence.get("results") else 3500,
+    result = infer(MULTI_WORK_SCHEMA if multi_file else WORK_SCHEMA, system, context,
+                   num_predict=6000 if multi_file and evidence.get("results") else
+                               5000 if multi_file or evidence.get("results") else 3500,
                    num_ctx=15000 if evidence.get("results") else
                            (9500 if sources else 6500))
     result["_web_evidence"] = evidence
@@ -1550,7 +1584,18 @@ def review(details, work, sources=None):
         "total_source_records":len(rows),
         "results":rows[:12]+rows[-8:] if len(rows)>20 else rows}
     draft={k:(v[:7000] if k=="deliverable_text" and isinstance(v,str)
-              else v) for k,v in work.items() if not k.startswith("_")}
+              else ([{**item, "text": str(item.get("text") or "")[:7000]}
+                     for item in v if isinstance(item, dict)]
+                    if k=="deliverables" and isinstance(v,list) else v))
+           for k,v in work.items() if not k.startswith("_")}
+    if "deliverables" in draft:
+        system += (
+            " When multiple outputs are requested, examine EVERY file's "
+            "source separately and together. Reject a missing or empty file, "
+            "a narrative substituted for a dataset, inconsistencies between "
+            "the written report and workbook, or unsupported promises. "
+            "Approval requires the complete requested set."
+        )
     return infer(REVIEW_SCHEMA, system,
                  {"task": clean_context(details, sources=sources),
                   "draft": draft,
@@ -1638,6 +1683,42 @@ def requested_list_size(details):
     return int(fallback.group(1)) if fallback else None
 
 
+def prepare_multi_deliverables(details, work, sources=None):
+    """Validate every required file before uploading *any* of them."""
+    required = requested_output_format(details)
+    if not (len(required) > 1 and required <= {"csv", "xlsx", "pdf", "docx"}):
+        raise ValueError("unsupported_multi_output_request")
+    entries = work.get("deliverables")
+    if not isinstance(entries, list) or len(entries) != len(required):
+        raise ValueError("multi_output_manifest_mismatch")
+    completed, seen = [], set()
+    for entry in entries:
+        if not isinstance(entry, dict):
+            raise ValueError("multi_output_manifest_mismatch")
+        fmt = str(entry.get("format") or "").lower().strip()
+        title = str(entry.get("title") or "").strip()
+        body = str(entry.get("text") or "").strip()
+        if fmt not in required or fmt in seen or not title or not body or len(body) > 100_000:
+            raise ValueError("multi_output_manifest_mismatch")
+        seen.add(fmt)
+        if fmt in {"csv", "xlsx"}:
+            csv_data = prepare_csv(body)
+            validate_csv_source_urls(csv_data, work.get("_web_evidence"), sources)
+            if (expected := requested_list_size(details)):
+                count = len(list(csv.reader(io.StringIO(csv_data.decode("utf-8"))))) - 1
+                if count < expected:
+                    raise ValueError(
+                        f"Buyer explicitly requested {expected} records; "
+                        f"draft includes only {count}")
+            data = csv_to_xlsx(csv_data) if fmt == "xlsx" else csv_data
+        else:
+            data = make_document(fmt, body)
+        completed.append({"format": fmt, "title": title, "data": data})
+    if seen != required:
+        raise ValueError("multi_output_manifest_mismatch")
+    return sorted(completed, key=lambda item: item["format"])
+
+
 class NoUploadRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, req, fp, code, msg, headers, newurl):
         raise RuntimeError("unexpected_upload_redirect")
@@ -1648,7 +1729,10 @@ def upload_file(bounty_id, data, state, claim_id, digest, *, filename, content_t
     if (filename, content_type) not in set(OUTPUT_FILES.values()):
         raise ValueError("unsupported_output_file")
     previous = state["bounties"].get(bounty_id) or {}
-    if (previous.get("content_digest") == digest and
+    uploaded = previous.get("uploaded_files") or {}
+    if (previous.get("claim_id") == claim_id and uploaded.get(digest)):
+        attachment_id = uploaded[digest]
+    elif (previous.get("content_digest") == digest and
             previous.get("claim_id") == claim_id and previous.get("attachment_id")):
         attachment_id = previous["attachment_id"]
     else:
@@ -1670,8 +1754,11 @@ def upload_file(bounty_id, data, state, claim_id, digest, *, filename, content_t
         with urllib.request.build_opener(NoUploadRedirect()).open(request, timeout=60) as response:
             if response.status not in (200, 201, 204):
                 raise RuntimeError("attachment_upload_failed")
-        state["bounties"][bounty_id] = {"action": "upload_pending", "claim_id": claim_id,
-                                        "content_digest": digest, "attachment_id": attachment_id,
+        state["bounties"][bounty_id] = {**previous, "action": "upload_pending",
+                                        "claim_id": claim_id,
+                                        "content_digest": digest,
+                                        "attachment_id": attachment_id,
+                                        "uploaded_files": {**uploaded, digest: attachment_id},
                                         "payout_cents": previous.get("payout_cents")}
         save_state(state)
     api(f"/v1/agent/attachments/{attachment_id}/complete", "POST")
@@ -1854,6 +1941,7 @@ def handle_hired(item, state):
         "review": "Prior attempts failed quality review. Recheck each buyer requirement and source."
     }.get(previous_quality_issue, "")
     incremental_research=(
+        len(requested_output_format(details)) <= 1 and
         not gambit_app_builder.requested(details) and
         os.getenv("GAMBIT_INCREMENTAL_RESEARCH")=="1" and
         gambit_research_workflow.qualifies(
@@ -1909,17 +1997,25 @@ def handle_hired(item, state):
         note(state, "buyer_clarification_requested", bounty_id)
         return
     for attempt in range(2):
+        required_formats = requested_output_format(details)
+        multi_file = (len(required_formats) > 1 and
+                      required_formats <= {"csv", "xlsx", "pdf", "docx"} and
+                      not gambit_app_builder.requested(details))
         content = str(result.get("deliverable_text") or "").strip()
         max_text = 1_000_000 if incremental_research else 100_000
-        if not content or len(content) > max_text:
+        if not multi_file and (not content or len(content) > max_text):
             raise ValueError("invalid_text_deliverable")
-        format_name = result.get("deliverable_format") or "text"
+        format_name = "multi" if multi_file else result.get("deliverable_format") or "text"
         try:
-            required_formats = requested_output_format(details)
-            if (required_formats and format_name not in required_formats
+            if multi_file:
+                prepared = prepare_multi_deliverables(details, result, sources)
+                digest = key("multi-content", *[
+                    file["format"] + ":" + hashlib.sha256(file["data"]).hexdigest()
+                    for file in prepared])
+            elif (required_formats and format_name not in required_formats
                     and format_name != "app_zip"):
                 raise ValueError("requested_output_format_mismatch")
-            if format_name in {"csv", "xlsx"}:
+            elif format_name in {"csv", "xlsx"}:
                 csv_content = prepare_csv(content)
                 validate_csv_source_urls(csv_content, result.get("_web_evidence"), sources)
                 normalized_content = (csv_to_xlsx(csv_content) if format_name == "xlsx"
@@ -1967,7 +2063,8 @@ def handle_hired(item, state):
                        "Output must match the buyer's requested final format and "
                        "the resulting file must pass generation and read-back validation"))}
         else:
-            digest = key("content", normalized_content)
+            if not multi_file:
+                digest = key("content", normalized_content)
             if failure_reason and previous.get("content_digest") == digest:
                 quality = {"approved": False, "reason": "Unchanged after failed verification"}
             elif format_name in {"csv", "xlsx"} and (expected := requested_list_size(details)) and (
@@ -2025,7 +2122,19 @@ def handle_hired(item, state):
         note(state, "quality_retry_scheduled", bounty_id, attempt=count,
              delay_minutes=delay)
         return
-    if format_name in OUTPUT_FILES:
+    if format_name == "multi":
+        deliverables = []
+        for item in prepared:
+            filename, mime = OUTPUT_FILES[item["format"]]
+            attachment_id = upload_file(
+                bounty_id, item["data"], state, claim["claim_id"],
+                key("file-content", item["format"], hashlib.sha256(item["data"]).hexdigest()),
+                filename=filename, content_type=mime)
+            deliverables.append({
+                "key": "result_" + item["format"], "type": "file",
+                "label": item["title"][:100],
+                "data": {"attachment_id": attachment_id}})
+    elif format_name in OUTPUT_FILES:
         filename, mime = OUTPUT_FILES[format_name]
         if format_name == "csv":
             attachment_id = upload_csv(bounty_id, normalized_content, state,
