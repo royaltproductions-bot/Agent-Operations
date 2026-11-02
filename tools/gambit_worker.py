@@ -34,7 +34,7 @@ from tools import gambit_resources as resources
 from tools import gambit_app_builder
 from tools import gambit_research_workflow
 from tools.gambit_early_scan import (fulfillment_cooling, account_policy_recheck_due,
-                                     ACCOUNT_POLICY_RECHECK_VERSION)
+                                     asked_recheck_due, ACCOUNT_POLICY_RECHECK_VERSION)
 
 BASE = "https://api.trybounty.ai"
 STATE_PATH = Path("ops/gambit/state.json")
@@ -404,7 +404,7 @@ def schedule_evaluation_retry(state, bounty_id, exc):
     attempt = min(int(previous.get("retry_count") or 0) + 1, 10)
     minutes = min(60, 2 ** min(attempt - 1, 6))
     state["bounties"][bounty_id] = {
-        "action": "retry_evaluation", "version": previous.get("version"),
+        **previous, "action": "retry_evaluation", "version": previous.get("version"),
         "retry_count": attempt, "last_error": safe_failure_reason(exc),
         "retry_at": (datetime.now(timezone.utc) + timedelta(minutes=minutes)).isoformat(),
         "at": timestamp()}
@@ -554,6 +554,8 @@ def scan(state):
                if state["bounties"].get(str(item.get("_id")), {}).get("version") != item.get("version")
                or state["bounties"].get(str(item.get("_id")), {}).get("action") == "evaluation_pending"
                or account_policy_recheck_due(
+                   state["bounties"].get(str(item.get("_id")), {}))
+               or asked_recheck_due(
                    state["bounties"].get(str(item.get("_id")), {}))
                or retry_due(state["bounties"].get(str(item.get("_id")), {}))
                or (str(item.get("_id")) in triggers and not (
@@ -1311,6 +1313,40 @@ def messages_for(bounty_id):
     return pages(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/messages?limit=100", "messages")
 
 
+def buyer_message_id(message):
+    """Stable identifier only; never persist the buyer's raw message."""
+    return str(message.get("_id") or message.get("created_at") or
+               key("buyer-message", (message.get("content") or {}).get("text") or ""))
+
+
+def buyer_is_asking(message):
+    text = str((message.get("content") or {}).get("text") or "").strip().lower()
+    return bool("?" in text or re.match(
+        r"^(?:who|what|where|when|why|how|can|could|would|will|is|are|"
+        r"do|does|did|tell me|please explain)\b", text))
+
+
+def buyer_identity_question(message):
+    text = str((message.get("content") or {}).get("text") or "").lower()
+    return bool(re.search(
+        r"\b(?:who\s+(?:is|are|this|'s|the)\s+"
+        r"(?:ari|gambit|you)|who\s+this\s+ari|"
+        r"what\s+(?:is|does)\s+ari|"
+        r"are\s+you\s+(?:an?\s+)?(?:ai|bot|agent)|"
+        r"is\s+this\s+(?:an?\s+)?(?:ai|bot|agent))\b", text))
+
+
+def prebid_buyer_reply(details, messages, latest):
+    """Respond to the buyer's question; no additional qualification prompt."""
+    if buyer_identity_question(latest):
+        return ("I'm Gambit, an AI agent representing ARI Operations "
+                "(Agentic Resource Integration). I'm reviewing your posted "
+                "project to determine whether I can propose a complete, "
+                "evidence-backed deliverable. I haven't been hired for "
+                "this job and won't claim I've completed it.")
+    return str(respond_to_buyer(details, messages).get("reply_text") or "").strip()
+
+
 def respond_to_buyer(details, messages):
     if unsupported_deliverable(details):
         # Existing bids are retained for review, not automatically withdrawn.
@@ -1326,8 +1362,12 @@ def respond_to_buyer(details, messages):
         )}
     sources, unreadable = text_sources(details, messages)
     system = (
-        "You are Gambit, replying to the latest private buyer message about an "
-        "existing paid-work bid. Answer the actual question briefly and helpfully. "
+        "You are Gambit, replying to the latest private buyer message during "
+        "a pre-bid or active-bid conversation. Address the customer's LAST "
+        "message directly and accurately before any further qualification. "
+        "Do not ask a different scope question when the buyer asks who ARI is, "
+        "whether you are an AI agent, or requests an explanation. "
+        "Keep the reply factual, helpful, concise and non-evasive. "
         "Be truthful about capabilities, timing, and the exact offered deliverable. "
         "This runtime can provide plain-text analysis, writing, structured data, "
         "CSV, XLSX, PDF, DOCX, multi-page static websites, and an "
@@ -1417,6 +1457,49 @@ def handle_open(item, state):
             entry.pop("capability_review_reason", None)
         state["bounties"][bounty_id] = entry
         return
+    # An 'asked' listing is a buyer conversation, not a brand-new prospect.
+    # Handle the customer's question before re-assessing a proposal. The old
+    # path repeatedly asked for the same terms while ignoring "who this ari?".
+    prebid_asked = (current.get("flow") == "bid" and
+                    previous.get("version") == version and
+                    (previous.get("action") == "asked" or
+                     previous.get("last_question_version") == version))
+    new_owner_statement_id = None
+    if prebid_asked:
+        previous["last_question_version"] = version
+        previous["last_asked_review_at"] = timestamp()
+        messages = sorted(messages_for(bounty_id),
+                          key=lambda m: m.get("created_at") or 0)
+        incoming = [m for m in messages if m.get("author_type") == "user" and
+                    str((m.get("content") or {}).get("text") or "").strip()]
+        latest = incoming[-1] if incoming else None
+        # The public state contains only a digest, never private message IDs.
+        last_id = (key("prebid-owner-message", bounty_id, buyer_message_id(latest))
+                   if latest else None)
+        if not latest or last_id == previous.get("last_owner_reply_id"):
+            previous["action"] = "asked"
+            previous.pop("retry_at", None)
+            # Keep the original question pending. A periodic reconciliation
+            # must never re-ask it or spend a model call on an empty thread.
+            state["bounties"][bounty_id] = previous
+            return
+        if buyer_is_asking(latest):
+            reply = prebid_buyer_reply(details, messages, latest)
+            if not reply:
+                raise RuntimeError("buyer_question_reply_empty")
+            api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/messages",
+                "POST", {"content": {"type": "text", "text": reply[:3000]},
+                         "idempotency_key": key("prebid-buyer-reply", bounty_id, last_id)})
+            previous["last_owner_reply_id"] = last_id
+            previous["action"] = "asked"
+            previous.pop("retry_at", None)
+            state["bounties"][bounty_id] = previous
+            note(state, "prebid_buyer_question_answered", bounty_id)
+            return
+        # A statement is likely a response to the original clarification.
+        # Reassess with that statement, allowing a real supported proposal
+        # but never issuing another same-version qualification question.
+        new_owner_statement_id = last_id
     # Pre-claim owner replies on legacy claim Bounties belong to the public
     # thread, not the private Work Conversation (which opens after claiming).
     if current.get("flow") == "claim":
@@ -1433,7 +1516,8 @@ def handle_open(item, state):
         ]
     else:
         messages = (sorted(messages_for(bounty_id), key=lambda m: m.get("created_at") or 0)
-                    if previous.get("action") in {"asked", "bid_sent", "bid_active"}
+                    if previous.get("action") in {"asked", "bid_sent", "bid_active", "retry_evaluation"}
+                    or previous.get("last_question_version") == version
                     or bid.get("status") == "declined" else [])
     sources, unreadable = text_sources(details, messages)
     if unreadable and not messages:
@@ -1451,6 +1535,15 @@ def handle_open(item, state):
     # Independent final boundary even if the decision function is overridden.
     if action in {"bid", "claim"} and unsupported_deliverable(details):
         action = "pass"
+    if action == "ask" and prebid_asked:
+        if new_owner_statement_id:
+            previous["last_owner_reply_id"] = new_owner_statement_id
+        # The buyer already received a question for this exact brief version.
+        # Never repeat, paraphrase, or silently replace it with another ask.
+        previous["action"] = "asked"
+        state["bounties"][bounty_id] = previous
+        note(state, "duplicate_clarification_suppressed", bounty_id)
+        return
     if action == "ask" and current.get("flow") in {"bid", "claim"}:
         question = str(decision.get("question") or "").strip()[:3000]
         if not question:
@@ -1505,6 +1598,13 @@ def handle_open(item, state):
         action = "pass"
     next_entry = {"version": version, "action": action,
                   "at": timestamp(), "last_declined_bid": declined_token}
+    if action == "asked" and current.get("flow") == "bid":
+        next_entry["last_question_version"] = version
+    if new_owner_statement_id or previous.get("last_owner_reply_id"):
+        next_entry["last_owner_reply_id"] = (new_owner_statement_id or
+                                             previous["last_owner_reply_id"])
+    if previous.get("last_question_version") == version:
+        next_entry["last_question_version"] = version
     if action == "pass" and decision.get("_retry_search"):
         previous_count = int(previous.get("retry_count") or 0) if previous.get("version") == version else 0
         retry_count = min(previous_count + 1, 4)
