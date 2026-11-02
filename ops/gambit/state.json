@@ -826,12 +826,6 @@
   "last_check": "2026-11-02T17:36:31.289029+00:00",
   "recent_outcomes": [
     {
-      "action": "asked",
-      "at": "2026-10-30T16:12:04.350684+00:00",
-      "bounty_id": "mx73e9bd3s6pkqt636wwvh4r158h27fn",
-      "version": 1
-    },
-    {
       "action": "decision_disagreement_resolved",
       "at": "2026-10-30T16:12:54.182352+00:00",
       "bounty_id": "mx76cjf7d9qqscbw9an1ct84dn8h2mzp",
@@ -1217,6 +1211,12 @@
       "bounty_id": "mx78wzkqdghteet6beyw1567mx8hewfj",
       "payout_cents": 4500,
       "version": 1
+    },
+    {
+      "action": "event_target_unavailable",
+      "at": "2026-11-02T18:30:38.581405+00:00",
+      "bounty_id": "mx74mv3vj0txj540d4my1ym9gh8heefk",
+      "reason": "bounty_api_BOUNTY_NOT_FOUND"
     }
   ],
   "schema": 1,
