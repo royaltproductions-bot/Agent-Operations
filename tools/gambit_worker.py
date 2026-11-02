@@ -1234,9 +1234,17 @@ def messages_for(bounty_id):
 
 def respond_to_buyer(details, messages):
     if unsupported_deliverable(details):
-        # An unsupported active bid must be withdrawn, never defended by a
-        # model-generated promise to make a file this runtime cannot produce.
-        return {"reply_text": ""}
+        # Existing bids are retained for review, not automatically withdrawn.
+        # A buyer who follows up deserves a truthful status instead of silence.
+        # A fixed response cannot hallucinate tools or promise a deliverable
+        # whose full scope has not been independently verified.
+        return {"reply_text": (
+            "Thanks for following up. I'm reviewing whether I can produce "
+            "and verify the full requested deliverable with the tools "
+            "available. I can't yet confirm that complete scope, so I "
+            "won't promise an unverified result. Would an alternative "
+            "format or adjusted scope be acceptable?"
+        )}
     sources, unreadable = text_sources(details, messages)
     system = (
         "You are Gambit, replying to the latest private buyer message about an "
@@ -1278,22 +1286,11 @@ def handle_open(item, state):
     version = current.get("version")
     bid = details.get("bid") or {}
     gap = unsupported_deliverable(details)
-    if gap:
-        if bid.get("status") == "active":
-            # A heuristic capability check must not destroy an existing buyer
-            # opportunity. Retain the bid and record the concern for subsequent
-            # capability reassessment; never promise an unsupported deliverable.
-            state["bounties"][bounty_id] = {
-                **previous, "version": version, "action": "bid_active",
-                "capability_review_reason": gap,
-                "at": previous.get("at") or timestamp()}
-            if previous.get("capability_review_reason") != gap:
-                note(state, "bid_capability_review_pending", bounty_id, reason=gap)
-        else:
-            state["bounties"][bounty_id] = {
-                "version": version, "action": "pass_unsupported",
-                "reason": gap, "at": timestamp()}
-            note(state, "pass_unsupported", bounty_id, reason=gap, version=version)
+    if gap and bid.get("status") != "active":
+        state["bounties"][bounty_id] = {
+            "version": version, "action": "pass_unsupported",
+            "reason": gap, "at": timestamp()}
+        note(state, "pass_unsupported", bounty_id, reason=gap, version=version)
         return
     declined_token = previous.get("last_declined_bid")
     if bid.get("status") == "declined":
@@ -1302,7 +1299,10 @@ def handle_open(item, state):
         if declined_token != candidate:
             note(state, "bid_declined", bounty_id, version=version)
         declined_token = candidate
-    if bid.get("status") == "active" and bid.get("bounty_version") == version:
+    if bid.get("status") == "active" and (bid.get("bounty_version") == version or gap):
+        # Even when the capability checker flags a live bid, process new
+        # buyer messages instead of returning before the conversation check.
+        # Never re-bid, withdraw or claim as part of this follow-up path.
         last_reply_id = previous.get("last_owner_reply_id")
         owner_trigger = state.get("_cursor_reset") or any(e.get("type") == "work.message.created" and
                             e.get("data", {}).get("bounty_id") == bounty_id
@@ -1322,9 +1322,17 @@ def handle_open(item, state):
                             "idempotency_key": key("buyer-reply", bounty_id, current_reply_id)})
                         note(state, "agent_replied_to_buyer", bounty_id)
                     last_reply_id = current_reply_id
-        state["bounties"][bounty_id] = {"version": version, "action": "bid_active",
-                                         "last_declined_bid": declined_token,
-                                         "last_owner_reply_id": last_reply_id}
+        entry = {**previous, "version": version, "action": "bid_active",
+                 "last_declined_bid": declined_token,
+                 "last_owner_reply_id": last_reply_id,
+                 "at": previous.get("at") or timestamp()}
+        if gap:
+            entry["capability_review_reason"] = gap
+            if previous.get("capability_review_reason") != gap:
+                note(state, "bid_capability_review_pending", bounty_id, reason=gap)
+        else:
+            entry.pop("capability_review_reason", None)
+        state["bounties"][bounty_id] = entry
         return
     # Pre-claim owner replies on legacy claim Bounties belong to the public
     # thread, not the private Work Conversation (which opens after claiming).
