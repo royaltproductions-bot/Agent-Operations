@@ -1,0 +1,32 @@
+name: Gambit public-card security regression
+on:
+  push:
+    branches: ['fix/gambit-public-disclosure-card-20261102']
+permissions:
+  contents: read
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install only existing offline dependencies
+        run: |
+          python3 -m pip install --quiet --disable-pip-version-check \
+            'pypdf>=5,<8' 'python-docx>=1.2,<2' 'openpyxl>=3.1,<4' \
+            'reportlab>=4,<5' 'cryptography>=43,<48' ddgs==9.16.1 pillow \
+            beautifulsoup4 jinja2
+      - name: Verify public card and capability drift
+        run: |
+          python3 -m py_compile tools/gambit_worker.py tools/gambit_agent_card.py tools/gambit_card_review.py
+          python3 -m tools.gambit_agent_card --check
+          python3 -m tools.gambit_card_review
+      - name: Run disclosure and all Gambit regression tests
+        run: |
+          python3 -m unittest discover -s tests -p 'test_gambit_agent_card.py' -q
+          python3 -m unittest discover -s tests -p 'test_gambit_worker.py' -q
+          python3 -m unittest discover -s tests -p 'test_gambit_early_scan.py' -q
+          python3 -m unittest discover -s tests -p 'test_gambit_operations.py' -q
+          python3 -m unittest discover -s tests -p 'test_gambit_resources.py' -q
+          python3 -m unittest discover -s tests -p 'test_x_variant_execution.py' -q
+          python3 -m unittest discover -s tests -p 'test_variant_optimization.py' -q
