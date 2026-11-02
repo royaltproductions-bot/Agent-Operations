@@ -21,6 +21,18 @@ import urllib.request
 STATE_PATH = Path("ops/gambit/state.json")
 BASE = "https://api.trybounty.ai"
 MAX_PAGES = 20
+ACCOUNT_POLICY_RECHECK_VERSION = "account-research-v2"
+
+
+def account_policy_recheck_due(entry):
+    """Reconsider old account-rule rejects once after the improved classifier.
+
+    Never revisit all historical passes or interfere with active bids.
+    """
+    return (entry.get("action") == "pass_unsupported" and
+            entry.get("reason") == "authenticated_account_operation" and
+            entry.get("account_policy_review_version") != ACCOUNT_POLICY_RECHECK_VERSION)
+
 
 
 def timestamp():
@@ -149,6 +161,7 @@ def admission(state, opened, held, events, now=None):
         str(item.get("_id")) in triggered or
         (records.get(str(item.get("_id"))) or {}).get("version") != item.get("version") or
         (records.get(str(item.get("_id"))) or {}).get("action") == "evaluation_pending" or
+        account_policy_recheck_due(records.get(str(item.get("_id"))) or {}) or
         retry_ready(records.get(str(item.get("_id"))) or {}, now))]
     active = [item for item in held if isinstance(item, dict) and
               not fulfillment_cooling(records.get(str(item.get("_id"))) or {}, now) and

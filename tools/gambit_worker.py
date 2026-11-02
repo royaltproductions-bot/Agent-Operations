@@ -33,7 +33,8 @@ from tools.gambit_site_resources import static_site_eligible, multipage_requeste
 from tools import gambit_resources as resources
 from tools import gambit_app_builder
 from tools import gambit_research_workflow
-from tools.gambit_early_scan import fulfillment_cooling
+from tools.gambit_early_scan import (fulfillment_cooling, account_policy_recheck_due,
+                                     ACCOUNT_POLICY_RECHECK_VERSION)
 
 BASE = "https://api.trybounty.ai"
 STATE_PATH = Path("ops/gambit/state.json")
@@ -552,6 +553,8 @@ def scan(state):
     waiting = [item for item in opened
                if state["bounties"].get(str(item.get("_id")), {}).get("version") != item.get("version")
                or state["bounties"].get(str(item.get("_id")), {}).get("action") == "evaluation_pending"
+               or account_policy_recheck_due(
+                   state["bounties"].get(str(item.get("_id")), {}))
                or retry_due(state["bounties"].get(str(item.get("_id")), {}))
                or (str(item.get("_id")) in triggers and not (
                    state["bounties"].get(str(item.get("_id")), {}).get("action") ==
@@ -909,6 +912,76 @@ def clean_context(details, messages=None, sources=None):
             "source_files": sources or []}
 
 
+def authenticated_account_operation(requested, verification):
+    """Detect operating an account, not merely researching a platform.
+
+    A broad "publish ... TikTok" pattern used to reject jobs such as
+    "publish a research report about TikTok trends." Require a posting,
+    campaign, private login, or live publication action explicitly.
+    """
+    platform = r"(?:instagram|tiktok|facebook|linkedin|youtube|social media|social accounts?|meta ads|google ads)"
+    target = r"(?:(?:our|the|their|your|client's|company)\s+)?" + platform
+    content = r"(?:posts?|captions?|updates?|messages?|reels?|videos?|photos?|stories?|ads?|campaigns?|content)"
+    # An explicit login, private administration, or ads operation needs buyer
+    # account credentials / external resources unavailable in this worker.
+    if (re.search(r"\b(?:log\s*(?:in|into)|sign\s*in|connect to)\b"
+                  r".{0,65}\b(?:account|dashboard|admin panel|crm)\b", requested) or
+            re.search(r"\baccess\b.{0,45}"
+                      r"\b(?:private|authenticated|login-protected)\b.{0,45}"
+                      r"\b(?:account|dashboard|admin panel|crm)\b", requested) or
+            re.search(r"\b(?:run|launch)\b.{0,75}"
+                      r"\b(?:ad campaigns?|paid ads|google ads|meta ads)\b", requested)):
+        return True
+    # Publishing or scheduling on a named platform, rather than writing ABOUT
+    # that platform. Allow an ordinary report about posted material.
+    # A task such as "research how agencies schedule Facebook posts" names
+    # an operation as its SUBJECT, not as the commissioned action.
+    purely_explanatory = bool(re.search(
+        r"^\s*(?:research|study|analyze|review|document|summarize)\s+how\b",
+        requested)) and not re.search(
+        r"\b(?:and|then|also)\b.{0,40}"
+        r"\b(?:post|publish|schedule|upload|manage|operate)\b", requested)
+    if not purely_explanatory and (
+            re.search(r"\b(?:post|publish|schedule|upload)\b\s+"
+                      r"(?:directly\s+)?(?:to|on|via|through)\s+"
+                      + target + r"\b", requested) or
+            re.search(r"\b(?:post|publish|schedule|upload)\b.{0,60}"
+                      r"\bto\s+" + target + r"\b", requested) or
+            re.search(r"\b(?:post|publish|schedule|upload)\b\s+"
+                      r"(?:[\w-]+\s+){0,4}" + target + r"\s+" + content + r"\b", requested) or
+            re.search(r"\b(?:post|publish|schedule|upload)\b\s+"
+                      r"(?:[\w-]+\s+){0,4}" + content +
+                      r"\s+(?:on|to|for|in|via|through)\s+" + target + r"\b", requested)):
+        return True
+    # Managing the account / campaign itself requires access; managing a
+    # spreadsheet of Instagram statistics does not.
+    if (re.search(r"\b(?:manage|operate|administer)\b\s+"
+                  r"(?:(?:our|the|a|an|their|client|company|business)\s+){0,2}"
+                  + platform + r"\s+(?:business\s+)?"
+                  r"(?:accounts?|pages?|channels?|ads?|campaigns?|posts?)\b", requested) or
+            re.search(r"\b(?:manage|operate|administer)\b.{0,35}"
+                      r"\b(?:social media accounts?|social accounts?|"
+                      r"google ads|meta ads|paid ads|ad campaigns?)\b", requested) or
+            re.search(r"\b(?:manage|operate|administer)\b.{0,35}"
+                      r"\b(?:ads?|campaigns?|posts?)\s+(?:on|for|in)\s+"
+                      + platform + r"\b", requested)):
+        return True
+    # Buyer acceptance requiring a *live published result* is different from
+    # a research report observing already-posted public marketing examples.
+    if (re.search(r"\b(?:posts?|captions?|updates?|reels?|videos?|"
+                  r"ads?|campaigns?|content)\b.{0,35}"
+                  r"\b(?:published|posted|scheduled|live)\b.{0,35}"
+                  + platform + r"\b", verification) or
+            re.search(r"\b(?:proof|evidence|confirmation)\b.{0,35}"
+                      r"\b(?:published|posted|scheduled)\b.{0,45}"
+                      + platform + r"\b", verification) or
+            re.search(r"\b(?:live|active)\s+"
+                      r"(?:ad campaigns?|paid ads|google ads|meta ads)\b",
+                      verification)):
+        return True
+    return False
+
+
 def unsupported_deliverable(details):
     """Reject output types this worker cannot actually create or verify.
 
@@ -931,20 +1004,7 @@ def unsupported_deliverable(details):
     # Actions on a buyer account require authentication. Plain research such
     # as "run searches on LinkedIn" or "research how teams launch on TikTok"
     # must not be mistaken for account operation by a nearby keyword.
-    if (re.search(r"\b(?:post|publish|schedule|upload|manage)\b"
-                  r".{0,75}\b(?:instagram|tiktok|facebook|linkedin|youtube|"
-                  r"social media account|social accounts?|ad campaigns?|"
-                  r"paid ads|google ads|meta ads)\b", requested) or
-            re.search(r"\b(?:run|launch)\b.{0,75}"
-                      r"\b(?:ad campaigns?|paid ads|google ads|meta ads)\b", requested) or
-            re.search(r"\b(?:log\s*(?:in|into)|sign\s*in|connect to)\b"
-                      r".{0,65}\b(?:account|dashboard|admin panel|crm)\b", requested) or
-            re.search(r"\baccess\b.{0,45}"
-                      r"\b(?:private|authenticated|login-protected)\b.{0,45}"
-                      r"\b(?:account|dashboard|admin panel|crm)\b", requested) or
-            re.search(r"\b(?:published|posted|scheduled|live campaign)\b"
-                      r".{0,55}\b(?:instagram|tiktok|facebook|linkedin|youtube|"
-                      r"social media|ad campaign)\b", verification)):
+    if authenticated_account_operation(requested, verification):
         return "authenticated_account_operation"
 
     # A commissioned analysis of tax or legal *data* is distinct from acting
@@ -1303,9 +1363,13 @@ def handle_open(item, state):
     bid = details.get("bid") or {}
     gap = unsupported_deliverable(details)
     if gap and bid.get("status") != "active":
-        state["bounties"][bounty_id] = {
-            "version": version, "action": "pass_unsupported",
-            "reason": gap, "at": timestamp()}
+        record = {"version": version, "action": "pass_unsupported",
+                  "reason": gap, "at": timestamp()}
+        if gap == "authenticated_account_operation":
+            # Make one policy-version recheck of prior account-related rejects,
+            # but never repeatedly evaluate a still-ineligible same-version job.
+            record["account_policy_review_version"] = ACCOUNT_POLICY_RECHECK_VERSION
+        state["bounties"][bounty_id] = record
         note(state, "pass_unsupported", bounty_id, reason=gap, version=version)
         return
     declined_token = previous.get("last_declined_bid")
