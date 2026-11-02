@@ -1072,7 +1072,7 @@ class GambitTests(unittest.TestCase):
         self.assertNotIn('currency', posts[0].args[2]['content']['text'].lower())
         self.assertEqual(state['bounties']['buyer-job']['action'], 'asked')
         self.assertEqual(state['bounties']['buyer-job']['last_owner_reply_id'],
-                         'inbound-1')
+                         gambit.key("prebid-owner-message", "buyer-job", "inbound-1"))
         self.assertEqual(state['bounties']['buyer-job']['last_question_version'], 1)
         assess.assert_not_called()
         infer.assert_not_called()
@@ -1121,7 +1121,7 @@ class GambitTests(unittest.TestCase):
         self.assertTrue(posts[0].args[0].endswith('/bid'))
         self.assertEqual(state['bounties']['buyer-job']['action'], 'bid_active')
         self.assertEqual(state['bounties']['buyer-job']['last_owner_reply_id'],
-                         'inbound-3')
+                         gambit.key("prebid-owner-message", "buyer-job", "inbound-3"))
 
     def test_prebid_clarification_loop_is_suppressed_after_buyer_response(self):
         details = {'bounty': {'_id': 'buyer-job', 'status': 'open',
@@ -1142,7 +1142,7 @@ class GambitTests(unittest.TestCase):
                              for c in api.call_args_list))
         self.assertEqual(state['bounties']['buyer-job']['action'], 'asked')
         self.assertEqual(state['bounties']['buyer-job']['last_owner_reply_id'],
-                         'inbound-3')
+                         gambit.key("prebid-owner-message", "buyer-job", "inbound-3"))
         self.assertIn('duplicate_clarification_suppressed',
                       [x['action'] for x in state['recent_outcomes']])
 
@@ -1172,8 +1172,19 @@ class GambitTests(unittest.TestCase):
         self.assertEqual(len(sent), 2)
         self.assertEqual(sent[0]['idempotency_key'], sent[1]['idempotency_key'])
         self.assertEqual(state['bounties']['buyer-job']['action'], 'asked')
-        self.assertEqual(state['bounties']['buyer-job']['last_owner_reply_id'], 'inbound-4')
+        self.assertEqual(state['bounties']['buyer-job']['last_owner_reply_id'],
+                         gambit.key("prebid-owner-message", "buyer-job", "inbound-4"))
         infer.assert_not_called()
+
+    def test_scan_requeues_old_asked_thread_without_customer_event(self):
+        old = (datetime.now(timezone.utc) - timedelta(hours=7)).isoformat()
+        state = {'bounties': {'buyer-job': {'action': 'asked', 'version': 1,
+                                            'at': old}}, 'recent_outcomes': []}
+        item = {'_id': 'buyer-job', 'status': 'open', 'version': 1}
+        with patch.object(gambit, 'pages', side_effect=[[item], []]), \
+             patch.object(gambit, 'relevant_events', return_value=([], None)):
+            _, _, _, _, waiting, _ = gambit.scan(state)
+        self.assertEqual([x['_id'] for x in waiting], ['buyer-job'])
 
     def test_prebid_recheck_without_new_message_does_not_regenerate_question(self):
         details = {'bounty': {'_id': 'buyer-job', 'status': 'open',
