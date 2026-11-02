@@ -626,23 +626,21 @@ class GambitTests(unittest.TestCase):
         self.assertEqual('RuntimeError', gambit.safe_failure_reason(
             RuntimeError('buyer secret key 12345')))
 
-    def test_existing_unsupported_video_bid_is_withdrawn(self):
+    def test_existing_unsupported_video_bid_is_preserved_for_review(self):
         details = {'bounty': {'_id': 'video1', 'status': 'open', 'version': 1,
                               'title': 'Produce a product video',
                               'verification': 'Deliver final MP4 video.'},
                    'bid': {'status': 'active', 'bounty_version': 1}}
         state = {'bounties': {}, 'recent_outcomes': []}
-        def request(path, method='GET', payload=None):
-            return details if method == 'GET' else {'status': 'withdrawn'}
-        with patch.object(gambit, 'api', side_effect=request) as api, \
+        with patch.object(gambit, 'api', return_value=details) as api, \
              patch.object(gambit, 'respond_to_buyer') as reply:
             gambit.handle_open({'_id': 'video1'}, state)
-        self.assertEqual([c.args[0] for c in api.call_args_list
-                          if len(c.args) > 1 and c.args[1] == 'POST'],
-                         ['/v1/agent/bounties/video1/bid/withdraw'])
+        self.assertFalse(any(len(c.args) > 1 and c.args[1] == 'POST'
+                             for c in api.call_args_list))
         reply.assert_not_called()
-        self.assertEqual(state['bounties']['video1']['action'],
-                         'unsupported_bid_withdrawn')
+        self.assertEqual(state['bounties']['video1']['action'], 'bid_active')
+        self.assertEqual(state['bounties']['video1']['capability_review_reason'],
+                         'video_production')
 
     def test_unsupported_video_buyer_reply_cannot_promise_mp4(self):
         details = {'bounty': {'title': 'Create an animated demo video',
@@ -665,7 +663,7 @@ class GambitTests(unittest.TestCase):
         self.assertIn('/v1/agent/bounties/video1/unclaim',
                       [c.args[0] for c in api.call_args_list if len(c.args) > 1])
 
-    def test_existing_bid_reconciles_without_buyer_edit_or_model(self):
+    def test_existing_bid_reconciles_without_withdrawal_or_model(self):
         state = {'bounties': {'video1': {'version': 1, 'action': 'bid_active'}},
                  'recent_outcomes': [], 'events_cursor': None,
                  'last_check': datetime.now(timezone.utc).isoformat()}
@@ -675,16 +673,16 @@ class GambitTests(unittest.TestCase):
                               'title': 'Produce a video',
                               'verification': 'Deliver final MP4.'},
                    'bid': {'status': 'active'}}
-        def request(path, method='GET', payload=None):
-            return details if method == 'GET' else {'status': 'withdrawn'}
-        with patch.object(gambit, 'api', side_effect=request) as api, \
-             patch.object(gambit, 'infer') as infer:
+        with patch.object(gambit, 'api', return_value=details) as api, \
+             patch.object(gambit, 'infer') as infer, \
+             patch.object(gambit, 'platform_active_bid_ids', return_value={'video1'}):
             gambit.reconcile_active_bids(opened, state)
         infer.assert_not_called()
-        self.assertEqual(state['bounties']['video1']['action'],
-                         'unsupported_bid_withdrawn')
-        self.assertEqual(len([c for c in api.call_args_list
-                              if len(c.args) > 1 and c.args[1] == 'POST']), 1)
+        self.assertEqual(state['bounties']['video1']['action'], 'bid_active')
+        self.assertEqual(state['bounties']['video1']['capability_review_reason'],
+                         'video_production')
+        self.assertFalse(any(len(c.args) > 1 and c.args[1] == 'POST'
+                             for c in api.call_args_list))
 
     def test_bid_disappearing_from_open_list_is_still_reconciled(self):
         state = {'bounties': {'missing1': {'version': 4, 'action': 'bid_active'}},
@@ -728,12 +726,14 @@ class GambitTests(unittest.TestCase):
             if path.startswith('/v1/agent/bids'):
                 return {'bids': [{'bounty_id': 'lost1', 'status': 'active'}],
                         'has_more': False}
-            return details if method == 'GET' else {'status': 'withdrawn'}
+            return details
         with patch.object(gambit, 'api', side_effect=request) as api:
             gambit.reconcile_active_bids([], state)
-        self.assertEqual(state['bounties']['lost1']['action'], 'unsupported_bid_withdrawn')
-        self.assertTrue(any(c.args[0].endswith('/bid/withdraw')
-                            for c in api.call_args_list))
+        self.assertEqual(state['bounties']['lost1']['action'], 'bid_active')
+        self.assertEqual(state['bounties']['lost1']['capability_review_reason'],
+                         'video_production')
+        self.assertFalse(any(c.args[0].endswith('/bid/withdraw')
+                             for c in api.call_args_list))
 
     def test_bid_sent_is_reconciled_and_recovers_as_active(self):
         state = {'bounties': {'b1': {'action': 'bid_sent', 'version': 2}},
