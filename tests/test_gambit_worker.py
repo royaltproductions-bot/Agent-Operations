@@ -674,8 +674,64 @@ class GambitTests(unittest.TestCase):
                               'verification': 'Provide final video file (MP4).'}}
         with patch.object(gambit, 'infer') as infer:
             result = gambit.respond_to_buyer(details, [])
-        self.assertEqual(result['reply_text'], '')
+        self.assertIn('full requested deliverable', result['reply_text'])
+        self.assertIn("can't yet confirm", result['reply_text'])
+        self.assertNotIn('I can provide an MP4', result['reply_text'])
         infer.assert_not_called()
+
+    def test_flagged_active_bid_answers_buyer_once_without_withdrawing(self):
+        details = {'bounty': {'_id': 'video1', 'status': 'open',
+                              'version': 2, 'flow': 'bid',
+                              'title': 'Produce a product video',
+                              'verification': 'Deliver final MP4 video.'},
+                   'bid': {'status': 'active', 'bounty_version': 1}}
+        latest = {'_id': 'buyer-msg-8', 'author_type': 'user',
+                  'content': {'type': 'text',
+                              'text': 'Can you confirm the video format?'}}
+        event = {'type': 'work.message.created',
+                 'data': {'bounty_id': 'video1'}}
+        state = {'bounties': {'video1': {'action': 'bid_active',
+                                        'last_owner_reply_id': 'buyer-msg-7'}},
+                 'recent_outcomes': []}
+        def request(path, method='GET', payload=None):
+            return details if method == 'GET' else {'message_id': 'agent-reply'}
+        with patch.object(gambit, 'api', side_effect=request) as api, \\
+             patch.object(gambit, 'CURRENT_EVENTS', [event]), \\
+             patch.object(gambit, 'messages_for', return_value=[latest]), \\
+             patch.object(gambit, 'infer') as infer:
+            gambit.handle_open({'_id': 'video1'}, state)
+            gambit.handle_open({'_id': 'video1'}, state)
+        sent = [c for c in api.call_args_list
+                if len(c.args) > 1 and c.args[1] == 'POST']
+        self.assertEqual(len(sent), 1)
+        self.assertTrue(sent[0].args[0].endswith('/messages'))
+        self.assertIn("can't yet confirm",
+                      sent[0].args[2]['content']['text'])
+        self.assertFalse(any('/bid' in c.args[0] and c.args[1] == 'POST'
+                             for c in sent))
+        infer.assert_not_called()
+        self.assertEqual(state['bounties']['video1']['action'], 'bid_active')
+        self.assertEqual(state['bounties']['video1']['capability_review_reason'],
+                         'video_production')
+        self.assertEqual(state['bounties']['video1']['last_owner_reply_id'],
+                         'buyer-msg-8')
+        self.assertIn('agent_replied_to_buyer',
+                      [r['action'] for r in state['recent_outcomes']])
+
+    def test_flagged_bid_without_buyer_message_stays_silent(self):
+        details = {'bounty': {'_id': 'video1', 'status': 'open',
+                              'version': 2, 'flow': 'bid',
+                              'title': 'Produce a product video',
+                              'verification': 'Deliver final MP4 video.'},
+                   'bid': {'status': 'active', 'bounty_version': 2}}
+        state = {'bounties': {}, 'recent_outcomes': []}
+        with patch.object(gambit, 'api', return_value=details) as api, \\
+             patch.object(gambit, 'CURRENT_EVENTS', []), \\
+             patch.object(gambit, 'messages_for') as messages:
+            gambit.handle_open({'_id': 'video1'}, state)
+        messages.assert_not_called()
+        self.assertFalse(any(len(c.args)>1 and c.args[1]=='POST'
+                             for c in api.call_args_list))
 
     def test_unsupported_hired_video_stops_before_fabricated_submission(self):
         details = {'bounty': {'_id': 'video1', 'status': 'claimed',
