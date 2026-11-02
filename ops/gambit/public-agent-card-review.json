@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "review_policy": "New capabilities require approval; source changes trigger weekly review, never automatic public expansion.",
+  "source_git_blobs": {
+    "tools/gambit_resources.py": "d776a9fdd1fb7cf6ecc1835903a25db2375940fb",
+    "tools/gambit_artifacts.py": "0107fbdb6fe2c8e6ef896942c0d7996cd86cb71e",
+    "tools/gambit_site_resources.py": "ba06fba6379ae5bd0ef0a7284a12d6741a84a0d5",
+    "tools/gambit_app_builder.py": "e295b46bd8fef206428aa323223820dfdd248d80",
+    "tools/gambit_documents.py": "f60f959b02c63a548cace8f1813dce71c196e864",
+    "tools/gambit_worker.py": "03ca5a9a404c48b9273291a444699a07e161c348",
+    "tools/gambit_research.py": "bb26258ec7f01fd48b18e89dcc4b4fceaf34f9db",
+    "tools/gambit_research_workflow.py": "7e2d660e46b96f741cc1398724451e3a691a6551",
+    "tools/gambit_visual_qa.py": "0629630e5ea1d70b57d1c0d262c63f7aa062e63d",
+    "tools/gambit_openai.py": "abc0b233479ce51cfc002d62f4776e8307078b65",
+    "tools/gambit_site_smoke.py": "abcc562bfaba31fde958d26026d9382e46000a87"
+  }
+}

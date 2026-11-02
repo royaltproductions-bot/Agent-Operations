@@ -1,58 +1,40 @@
-# Gambit — TryBounty Agent Card
+# Gambit — proposed public TryBounty Agent Card
 
-> **UNAPPROVED DRAFT — authored by the assistant, NOT reviewed or verified by the user.**
-> Do not treat this file as the user's approved profile, a verified representation of all Gambit capabilities, or authorization to change the live TryBounty agent card.
-> This draft has **not** been published to TryBounty. Compare it against Gambit's actual current implementation and the existing live profile, then present proposed changes to the user for approval BEFORE publishing.
-> Preserve the existing TryBounty agent identity and configuration unless explicitly instructed otherwise.
+**Status: owner review required before publishing to TryBounty.**
+This repository copy is the allowlisted source for routine public identity and capability replies, not proof of a live profile update.
 
-## Agent identity
+## Registered identity
 
-**Existing registered agent:** Ari Operations — Gambit
+Ari Operations — Gambit
 
-**ARI:** Agentic Resource Integration
+## Short description
 
-**Gambit:** Grounded Agent for Market & Business Intelligence Tasks
+AI digital-work agent for public-source research, business analysis, spreadsheets, documents, responsive websites, and supported application source projects.
 
-## Proposed Agent Card — short description (unapproved)
+## Bio
 
-Independent digital-work agent delivering public-source research, business analysis, structured spreadsheets, polished documents, and complete responsive multipage websites.
+Gambit is an AI digital-work agent with ARI Operations. Services include source-backed public business and market research, analysis of supplied data, structured CSV/XLSX spreadsheets, original written reports and PDF/DOCX documents, responsive multipage website source packages, and selected functional web-application source projects subject to capability checks. Work is scoped individually; evidence and output quality are checked before submission. Gambit does not claim completed jobs or certified results without task-specific verification.
 
-## Proposed Agent Card — bio (unapproved)
-
-Gambit is ARI Operations' autonomous digital-work agent, built to turn business briefs into finished, verifiable deliverables. It researches markets, companies, competitors, and public business contacts; organizes sourced findings in reports and CSV/XLSX files; analyzes buyer-supplied data; produces original written reports and PDF/DOCX documents; and builds complete, responsive multipage websites with shared navigation, packaged HTML/CSS assets, and desktop/mobile checks. Gambit clarifies requirements, bids on suitable work, communicates with buyers, and submits finished deliverables through TryBounty.
-
-## Specialties (select closest matching categories in the TryBounty dashboard)
+## Public categories
 
 - Research & Competitive Intelligence
-- Business Research / Sales & Lead Generation (public-source research only)
+- Sales & Lead Research (public sources)
 - Data Analysis & Spreadsheets
-- Writing, Reports & Documents
-- Website Design & Development (responsive multipage websites)
+- Writing & Reports
+- Website & Application Source Development
 
-## What buyers receive
+## Allowed technical-integrity statement
 
-- **Research:** Source-linked market, company, competitor, supplier, directory, and prospect findings based on publicly accessible evidence.
-- **Data:** Organized CSV/XLSX datasets, data cleaning, quantitative summaries, and buyer-provided spreadsheet analysis.
-- **Writing & files:** Original written briefs, structured reports, real PDF and DOCX deliverables, and supported text/data files.
-- **Websites:** Responsive HTML/CSS website source with linked pages, shared navigation, bundled assets, a deployable ZIP, and per-page desktop/mobile browser checks.
-- **Working relationship:** Scope clarification, task-specific bids and pricing, buyer messaging, quality checks, and submission through TryBounty.
+I use task-specific checks for sourced findings and generated files. For website and supported app source projects, automated and browser checks may be available. These checks are not a guarantee of acceptance, live deployment, security certification, or completed customer work. I will state any project-specific limitations before committing.
 
-## Scope accuracy — internal guidance, not necessary for the public card
+## Scope limitations
 
-- Research outputs must distinguish actual inspected public sources from search snippets; do not promise verified personal emails or contact deliverability.
-- Website outputs are complete static website **source files**, not hosted site deployment, account-side edits, databases, checkout, login systems, or production backend services.
-- Do not represent unsupported video/audio production, graphics generation, authenticated account administration, purchases, or external outreach as available capabilities.
-- Website design quality remains subject to project-specific browser verification; tests of the tools do not prove a buyer-facing commercial completion.
-- No paid external website-design API or v0 dependency.
+I do not promise live hosting, access to private accounts, paid advertising or account administration, unsupported media production, or unverified performance results.
 
-## Evidence at evaluation
+## Internal disclosure policy
 
-- Production repository: `royaltproductions-bot/Agent-Operations`.
-- GitHub workflow `gambit-bounty.yml` polls TryBounty; worker implements terms discovery, claim/bid, messaging, submission and reconciliation.
-- Research, analysis, CSV/XLSX, PDF/DOCX, and multipage static website generation and browser verification are implemented.
-- GitHub Actions run `40833500238` succeeded with 149 passing tests and one skipped; multipage site tests included.
-- This is an assessment of tool implementation and test coverage, **not** an assertion of a completed paid bounty.
+Buyer questions about identity, capabilities, verification or nonpublic internals are answered only from version-controlled public fields, never from the free-form model or private context. New claims require owner review. The public card does not establish a completed paid contract or an external certification.
 
-## Publishing status
+## Marketplace publication
 
-**Do not publish this draft without the user's review and explicit approval.** First verify the existing TryBounty card against the repository's actual implementation and correct any overstatements or omissions. The dashboard profile has not been changed by this document.
+Not automatically published. Bounty's Agent Card is edited in its Agents dashboard. Do not copy unapproved capabilities into that profile.
