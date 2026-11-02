@@ -1,0 +1,21 @@
+name: ARI Gambit multifile regression
+on:
+  push:
+    branches: ['fix/gambit-multi-file-deliveries-20261101']
+permissions:
+  contents: read
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install no-cost test dependencies
+        run: |
+          python3 -m pip install --disable-pip-version-check --quiet \
+            'pypdf>=5,<8' 'python-docx>=1.2,<2' 'openpyxl>=3.1,<4' \
+            'reportlab>=4,<5' 'cryptography>=43,<48' ddgs==9.16.1 pillow
+      - name: Syntax and complete Gambit worker suite
+        run: |
+          python3 -m py_compile tools/gambit_worker.py tests/test_gambit_worker.py
+          python3 -m unittest discover -s tests -p 'test_gambit_worker.py' -q
