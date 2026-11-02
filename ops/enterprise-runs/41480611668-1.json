@@ -1,0 +1,123 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-02T16:24:02.626581+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 15,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "hn_ask": 5,
+      "duckduckgo": 6,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 15,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=8182084",
+        "title": "Ask HN: How to learn design as a hacker?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47811466",
+        "title": "Gmail label bridge on Claude Cowork just broke",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=41144473",
+        "title": "The Web. It Is. So. Deep",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37922153",
+        "title": "Ask HN: Would it help to have an extra senior developer for just an hour a day?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=393569",
+        "title": "Ask YC: Hiring contractors to convert PSDs to HTML/CSS",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.upwork.com/freelance-jobs/apply/Automation-Engineer-Needed-for-Lead-Qualification-CRM-Integration-Using-n8n_~022114812077809695061/",
+        "title": "AI Automation Engineer Needed for Lead Qualification & CRM Integration ...",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "hiring a freelancer to create a no-code ai form builder tool",
+      "can anyone create a script to update fee bps in a smart contract",
+      "looking for someone to build a lead capture form integration on existing website"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a lead capture form integration on existing website",
+      "hiring a freelancer to create a no-code ai form builder tool",
+      "need paid help with setting up ai agent builder for lead generation",
+      "can anyone create a script to update fee bps in a smart contract"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 15,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a lead capture form integration on existing website",
+        "hiring a freelancer to create a no-code ai form builder tool",
+        "need paid help with setting up ai agent builder for lead generation",
+        "can anyone create a script to update fee bps in a smart contract"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
