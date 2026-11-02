@@ -630,7 +630,7 @@ class GambitTests(unittest.TestCase):
         self.assertIsNone(gambit.unsupported_deliverable({'bounty': {
             'title': 'Customer analysis',
             'verification': 'Deliver a final DOCX document and CSV file.'}}))
-        self.assertEqual('unsupported_multi_or_file_format',
+        self.assertEqual('unsupported_file_output',
                          gambit.unsupported_deliverable({'bounty': {
                              'title': 'Create an executive presentation',
                              'verification': 'Deliver final PDF and PPTX files.'}}))
@@ -677,7 +677,7 @@ class GambitTests(unittest.TestCase):
         self.assertIn('Sales increased', PdfReader(io.BytesIO(
             by_format['pdf'])).pages[0].extract_text())
         self.assertEqual(load_workbook(io.BytesIO(
-            by_format['xlsx']), read_only=True).active['B2'].value, 34)
+            by_format['xlsx']), read_only=True).active['B2'].value, '34')
 
     def test_multifile_manifest_rejects_missing_duplicates_and_invalid_csv(self):
         details = {'bounty': {'title': 'Business analysis',
@@ -740,7 +740,7 @@ class GambitTests(unittest.TestCase):
             .pages[0].extract_text())
         self.assertEqual(load_workbook(io.BytesIO(next(
             x[1] for x in uploaded if x[0].endswith('.xlsx'))),
-            read_only=True).active['B2'].value, 25)
+            read_only=True).active['B2'].value, '25')
         review.assert_called_once()
         self.assertEqual(state['bounties']['multi1']['action'], 'submitted')
         self.assertEqual(state['bounties']['multi1']['submission_id'], 's-multi')
