@@ -1077,6 +1077,32 @@ class GambitTests(unittest.TestCase):
         assess.assert_not_called()
         infer.assert_not_called()
 
+    def test_profane_and_colloquial_identity_questions_get_calm_introduction(self):
+        examples = [
+            "Who the fuck are you?!", "who tf are you?",
+            "Who the hell is Ari?", "Who the fuck is this Gambit?",
+            "Who is this?", "who this ari?", "Who am I talking to?",
+            "What the fuck is ARI?", "Are you a bot?",
+        ]
+        for question in examples:
+            with self.subTest(question=question):
+                buyer = {"content": {"type": "text", "text": question}}
+                self.assertTrue(gambit.buyer_identity_question(buyer))
+                with patch.object(gambit, "respond_to_buyer") as model:
+                    answer = gambit.prebid_buyer_reply(
+                        {"bounty": {}}, [buyer], buyer)
+                self.assertIn("I'm Gambit", answer)
+                self.assertIn("Agentic Resource Integration", answer)
+                self.assertNotIn("fuck", answer.lower())
+                self.assertNotIn("payment", answer.lower())
+                model.assert_not_called()
+        for question in ["Who are you targeting?", "Who is the buyer?",
+                         "Who are the 100 ecommerce companies?",
+                         "What is the cost per lead?"]:
+            with self.subTest(non_identity=question):
+                self.assertFalse(gambit.buyer_identity_question(
+                    {"content": {"text": question}}))
+
     def test_prebid_buyer_new_question_uses_reply_handler_not_assess(self):
         details = {'bounty': {'_id': 'buyer-job', 'status': 'open',
                               'version': 1, 'flow': 'bid',
