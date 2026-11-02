@@ -933,18 +933,29 @@ def authenticated_account_operation(requested, verification):
         return True
     # Publishing or scheduling on a named platform, rather than writing ABOUT
     # that platform. Allow an ordinary report about posted material.
-    if (re.search(r"\b(?:post|publish|schedule|upload)\b"
-                  r".{0,60}\b(?:to|on|via|through)\s+" + platform + r"\b", requested) or
+    # A task such as "research how agencies schedule Facebook posts" names
+    # an operation as its SUBJECT, not as the commissioned action.
+    purely_explanatory = bool(re.search(
+        r"^\s*(?:research|study|analyze|review|document|summarize)\s+how\b",
+        requested))
+    if not purely_explanatory and (
+            re.search(r"\b(?:post|publish|schedule|upload)\b\s+"
+                      r"(?:directly\s+)?(?:to|on|via|through)\s+"
+                      + platform + r"\b", requested) or
+            re.search(r"\b(?:post|publish|schedule|upload)\b.{0,60}"
+                      r"\bto\s+" + platform + r"\b", requested) or
             re.search(r"\b(?:post|publish|schedule|upload)\b\s+"
                       r"(?:[\w-]+\s+){0,4}" + platform + r"\s+" + content + r"\b", requested) or
             re.search(r"\b(?:post|publish|schedule|upload)\b\s+"
                       r"(?:[\w-]+\s+){0,4}" + content +
-                      r"\s+(?:on|to|via|through)\s+" + platform + r"\b", requested)):
+                      r"\s+(?:on|to|for|via|through)\s+" + platform + r"\b", requested)):
         return True
     # Managing the account / campaign itself requires access; managing a
     # spreadsheet of Instagram statistics does not.
-    if (re.search(r"\b(?:manage|operate|administer)\b.{0,40}"
-                  + platform + r"\s+(?:accounts?|pages?|channels?|ads?|campaigns?|posts?)\b", requested) or
+    if (re.search(r"\b(?:manage|operate|administer)\b\s+"
+                  r"(?:(?:our|the|a|an|their|client|company|business)\s+){0,2}"
+                  + platform + r"\s+(?:business\s+)?"
+                  r"(?:accounts?|pages?|channels?|ads?|campaigns?|posts?)\b", requested) or
             re.search(r"\b(?:manage|operate|administer)\b.{0,35}"
                       r"\b(?:social media accounts?|social accounts?|"
                       r"google ads|meta ads|paid ads|ad campaigns?)\b", requested) or
