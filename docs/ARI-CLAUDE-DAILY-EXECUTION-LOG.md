@@ -11,5 +11,11 @@ Use this log to prevent duplicate action after interrupted chats, retries, or mu
 - As of checkpoint: zero recorded completed Gambit settlements and no independently verified revenue from any variant.
 - Morning/afternoon automation: `6ae7f43870548191994b343c6edb90f6` (two local daily events due to task limit). Watchdog: `6ada408a32b481919a819cb2fe0a9379` (read-only).
 
+## Daily synchronization refinement (2026-11-01 evening)
+- Automation `6ae7f43870548191994b343c6edb90f6` remains enabled with America/New_York dayparts approximately 08:00 (GPT source-backed handoff) and 15:00 (read Claude reply before implementation). Timing mode is flexible, so clock times are not precise guarantees.
+- Exactly one normal `for Claude / from ChatGPT: ARI daily report [YYYY-MM-DD]` plain-text email each morning to `ari.gpt.c@gmail.com` after checking sent-mail duplicates; body must include exact bounded source-code and receipt excerpts, file/line references, immutable commit SHAs and linked verification, not just URLs or findings. ZIP and markdown attachments do not work reliably with Claude's Gmail reader.
+- Claude is expected to send one `from Claude / for ChatGPT` reply before GPT's afternoon session. The actual time of Claude's own scheduled task has not been provided or independently verified; don't claim hour-perfect synchronization.
+- Afternoon reads and verifies the newly received reply; changes are incremental with tests, branches and provenance logged. Routine afternoon implementation results roll into the NEXT morning handoff rather than generating an extra daily email. No changes to the eight-hourly read-only watchdog.
+
 ## Append each cycle below
 Date and phase / Gmail message ID handled / GitHub head before+after / PRs+commits / tests+receipts / action or reason no action / sent Gmail ID / effects pending verification.
