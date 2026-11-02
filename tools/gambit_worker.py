@@ -1473,7 +1473,9 @@ def handle_open(item, state):
         incoming = [m for m in messages if m.get("author_type") == "user" and
                     str((m.get("content") or {}).get("text") or "").strip()]
         latest = incoming[-1] if incoming else None
-        last_id = buyer_message_id(latest) if latest else None
+        # The public state contains only a digest, never private message IDs.
+        last_id = (key("prebid-owner-message", bounty_id, buyer_message_id(latest))
+                   if latest else None)
         if not latest or last_id == previous.get("last_owner_reply_id"):
             previous["action"] = "asked"
             previous.pop("retry_at", None)
