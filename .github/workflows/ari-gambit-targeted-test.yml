@@ -1,0 +1,24 @@
+name: ARI Gambit one-time safety regression
+on:
+  push:
+    branches: ['fix/gambit-preserve-active-bids-20261101']
+permissions:
+  contents: read
+jobs:
+  regressions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install test dependencies
+        run: |
+          python3 -m pip install --quiet --disable-pip-version-check \
+            'pypdf>=5,<8' 'python-docx>=1.2,<2' 'openpyxl>=3.1,<4' \
+            'reportlab>=4,<5' 'cryptography>=43,<48' ddgs==9.16.1 pillow playwright
+      - name: Compile and run existing Gambit tests
+        env:
+          GAMBIT_INFERENCE_PROVIDER: ollama
+          GAMBIT_APP_BUILDER: '0'
+        run: |
+          python3 -m compileall -q tools tests
+          python3 -m unittest discover -s tests -p 'test_gambit_*.py' -q
