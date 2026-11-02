@@ -126,6 +126,29 @@ class EarlyMarketTests(TestCase):
             early.ACCOUNT_POLICY_RECHECK_VERSION)
         self.assertFalse(early.admission(state, listed, [], [], now)["needs_run"])
 
+    def test_old_asked_threads_reconcile_only_when_due(self):
+        from datetime import datetime, timezone, timedelta
+        now = datetime.now(timezone.utc)
+        old = (now - timedelta(hours=7)).isoformat()
+        new = (now - timedelta(minutes=5)).isoformat()
+        records = {'old': {'action': 'asked', 'version': 1, 'at': old},
+                   'recent': {'action': 'asked', 'version': 1, 'at': new},
+                   'handled': {'action': 'asked', 'version': 1, 'at': old,
+                               'last_asked_review_at': new},
+                   'non_asked': {'action': 'pass', 'version': 1, 'at': old}}
+        state = {'bounties': records,
+                 'last_check': now.isoformat(),
+                 'last_bid_reconciliation': now.isoformat()}
+        listing = [{'_id': k, 'version': 1} for k in records]
+        decision = early.admission(state, listing, [], [], now)
+        self.assertTrue(decision['needs_model'])
+        self.assertEqual(decision['new_or_changed'], 1)
+        self.assertTrue(early.asked_recheck_due(records['old'], now))
+        self.assertFalse(early.asked_recheck_due(records['recent'], now))
+        self.assertFalse(early.asked_recheck_due(records['handled'], now))
+        records['old']['last_asked_review_at'] = new
+        self.assertFalse(early.admission(state, listing, [], [], now)['needs_model'])
+
     def test_new_work_and_buyer_events_are_scheduled(self):
         from datetime import datetime, timezone
         now = datetime.now(timezone.utc)
