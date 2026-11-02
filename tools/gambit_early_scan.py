@@ -35,6 +35,19 @@ def account_policy_recheck_due(entry):
 
 
 
+def asked_recheck_due(entry, now=None):
+    """Occasionally inspect a pending pre-bid buyer thread without inference.
+
+    No private messages are stored here; the worker reads them through the
+    authenticated marketplace and records only the last handled message ID.
+    """
+    if entry.get("action") != "asked":
+        return False
+    checked = entry.get("last_asked_review_at") or entry.get("at")
+    return minutes_since({"checked": checked}, "checked",
+                         now or datetime.now(timezone.utc)) >= 360
+
+
 def timestamp():
     return datetime.now(timezone.utc).isoformat()
 
@@ -162,6 +175,7 @@ def admission(state, opened, held, events, now=None):
         (records.get(str(item.get("_id"))) or {}).get("version") != item.get("version") or
         (records.get(str(item.get("_id"))) or {}).get("action") == "evaluation_pending" or
         account_policy_recheck_due(records.get(str(item.get("_id"))) or {}) or
+        asked_recheck_due(records.get(str(item.get("_id"))) or {}, now) or
         retry_ready(records.get(str(item.get("_id"))) or {}, now))]
     active = [item for item in held if isinstance(item, dict) and
               not fulfillment_cooling(records.get(str(item.get("_id"))) or {}, now) and
