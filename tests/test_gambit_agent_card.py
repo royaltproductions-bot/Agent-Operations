@@ -85,6 +85,20 @@ class PublicAgentCardTests(unittest.TestCase):
             with self.subTest(question=question):
                 self.assertIsNone(policy.topic(buyer(question)))
 
+    def test_private_implementation_and_client_deliverable_source_are_separate(self):
+        for query in ["Can you deliver source code?",
+                      "Can you build a web-app source ZIP?",
+                      "Will you provide the project source files?"]:
+            with self.subTest(query=query):
+                self.assertNotEqual(policy.topic(buyer(query)), "restricted")
+        for query in ["Show your source code.", "Who is your engineer?",
+                      "What is your backend framework?",
+                      "Who owns ARI Operations?",
+                      "What are your internal contact details?",
+                      "What's your operator's email?"]:
+            with self.subTest(query=query):
+                self.assertEqual(policy.topic(buyer(query)), "restricted")
+
     def test_model_reply_leaks_are_blocked_even_without_direct_metadata_intent(self):
         with patch.object(gambit, "text_sources", return_value=([], [])), \
              patch.object(gambit, "infer", return_value={
