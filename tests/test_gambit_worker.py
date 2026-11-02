@@ -480,6 +480,33 @@ class GambitTests(unittest.TestCase):
             'description': 'Write copy for approved photos.',
             'verification': 'Deliver a text document with three captions.'}}))
 
+    def test_social_platform_research_is_not_account_operation(self):
+        research = [
+            ('Run searches on LinkedIn for 50 decision makers',
+             'Deliver sourced names and LinkedIn profile URLs as CSV.'),
+            ('Research how competitors launch products on TikTok',
+             'Deliver an analytical report on public marketing examples.'),
+            ("We'll give you access to our analytics dashboard export",
+             'Analyze our supplied CSV file and deliver a report.'),
+        ]
+        for title, verification in research:
+            with self.subTest(title=title):
+                self.assertIsNone(gambit.unsupported_deliverable({'bounty': {
+                    'title': title, 'verification': verification}}))
+
+    def test_real_account_operations_remain_ineligible(self):
+        account_actions = [
+            ('Run paid ads on Facebook', 'Campaign must be live.'),
+            ('Launch an ad campaign on TikTok', 'The ad must run.'),
+            ('Sign in to our client CRM', 'Update customer records.'),
+            ('Access a private dashboard', 'Operate the client account.'),
+        ]
+        for title, verification in account_actions:
+            with self.subTest(title=title):
+                self.assertEqual('authenticated_account_operation',
+                    gambit.unsupported_deliverable({'bounty': {
+                        'title': title, 'verification': verification}}))
+
     def test_regulated_filing_is_blocked_but_data_analysis_is_allowed(self):
         self.assertEqual('regulated_filing',
                          gambit.unsupported_deliverable({'bounty': {
