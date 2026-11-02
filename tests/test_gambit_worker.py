@@ -525,6 +525,8 @@ class GambitTests(unittest.TestCase):
             ("Upload videos to TikTok", "Videos must appear on our account."),
             ("Manage Facebook ads", "Campaigns must be active."),
             ("Log into our account dashboard", "Change our campaign settings."),
+            ("Research how teams schedule Instagram posts, then publish posts to Instagram",
+             "Deliver three finalized captions."),
             ("Research social campaign performance",
              "Provide evidence the posts are published on Instagram."),
         ]
