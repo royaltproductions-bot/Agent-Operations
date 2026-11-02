@@ -242,7 +242,11 @@ def demand_candidates(memory):
 def normalize_price_usd(value):
     """Normalize the agent-selected price in dollars without imposing any range."""
     raw=str(value if value is not None else "").strip().lower().replace(",","")
-    raw=raw.removeprefix("$").removesuffix("usd").strip()
+    # Qwen sometimes places the currency before the number ("USD 19.99")
+    # or spells it out ("19.99 dollars"). Accept only one explicit amount;
+    # never invent a price from a range or silently coerce a free product.
+    raw=re.sub(r"^(?:usd\s*\$?\s*|us\s*\$\s*|\$\s*)","",raw)
+    raw=re.sub(r"\s*(?:usd|us dollars?|dollars?)$","",raw).strip()
     try:
         dollars=Decimal(raw)
     except InvalidOperation:
@@ -442,7 +446,7 @@ def choose_asset_concept(rows,existing_assets=None):
         "script or example files; use simple relative paths only. "
         "The vault's current per-file and total size limits are technical "
         "storage capacity, not commercial or media preferences. "
-        "Pricing is a chosen USD-dollar decimal string without invented bands. "
+        "Set price_usd to ONE positive USD-dollar amount as a decimal string (e.g. '19.99'), no currency words, no ranges, no free/zero; choose your own price without invented bands. "
         "Don't invent customer records, fake external assets or claims. "
         "Return only schema-compliant JSON."
     )
