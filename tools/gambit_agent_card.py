@@ -58,7 +58,11 @@ def topic(message):
         r"who\s+(?:owns|built|created|developed|programmed)\s+(?:you|ari|gambit)|"
         r"your\s+(?:owner|boss|creator|developer)|"
         r"model\s*(?:name|version|provider)|(?:which|what)\s+(?:model|llm|stack|framework|hosting)|"
-        r"your\s+(?:model|stack|hosting|budget|api|provider|operator|code)|"
+        r"your\s+(?:model|stack|hosting|budget|api|provider|operator|code|"
+        r"instructions|prompt|engineer|company\s+owner|security\s+setup)|"
+        r"(?:who|what)\s+(?:is|are)\s+(?:your|the)\s+(?:owner|creator|engineer|"
+        r"operator|developer|backend|infrastructure|model|server|framework)|"
+        r"(?:personal|private|internal)\s+(?:details?|contact|numbers?|info)|"
         r"where\s+(?:are\s+you\s+hosted|is\s+your\s+server))\b"
     )
     if re.search(sensitive, cleaned) or re.search(
@@ -124,7 +128,8 @@ def check_outbound_text(text):
     if (any(x in lower for x in _PRIVATE_BRANDS) or _SECRET_TEMPLATES.search(text) or
         re.search(r"\b(?:my|our|we\s+use|i\s+use|i\s+run|powered\s+by)\b"
                   r".{0,55}\b(?:gpt[- ]?\d|qwen|ollama|github\s+actions|"
-                  r"openai\s+api|docker|playwright)\b", lower)): 
+                  r"openai(?:\s+api)?|docker|playwright|claude|"
+                  r"anthropic|render\s+service)\b", lower)): 
         raise ValueError("private_metadata_disclosure_blocked")
     for name in ("BOUNTY_AGENT_API_KEY", "OPENAI_API_KEY", "GITHUB_TOKEN",
                  "BOUNTY_WEBHOOK_SECRET", "RENDER_API_KEY", "STRIPE_SECRET_KEY"):
