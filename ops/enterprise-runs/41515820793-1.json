@@ -1,0 +1,135 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-02T20:05:50.109852+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 2,
+      "github_paid_issues": 5,
+      "duckduckgo": 5,
+      "bing": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 13,
+    "contactable_sources": 3,
+    "linked_requester_contacts": 2,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=27938643",
+        "title": "Corehash Protocol \u2013 Decentralized hashrate liquidity provision with HashFi",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=14425213",
+        "title": "Ask HN: Advice on an idea to democratize capitalism",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/MyZubster-Ecosystem/myzubster/issues/1658",
+        "title": "[CONTRIBUTORS] GitHub-first coordination \u2014 choose a workstream (opt-in, no Linear required)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/lizTheDeveloper/privacy-the-game/issues/346",
+        "title": "[stronger source] Datalogix supplies Meta Platforms (tier C)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/MyZubster-Ecosystem/myzubster/issues/1617",
+        "title": "RFC: governance federata MyZubster \u2014 proposte, decisioni, responsabilit\u00e0 e costi",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/sovereign-codex/Codex-control-center/issues/19",
+        "title": "[LAUNCH-001][P0] Qualify independent code reviewer and separate release approver",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": true
+      }
+    ],
+    "search_queries": [
+      "can anyone create a decentralized role distribution system",
+      "is:issue is:open bounty created:>=2026-09-03 build volunteer sign",
+      "is:issue is:open bounty created:>=2026-09-03 create non profit",
+      "looking for someone to build a volunteer sign-up platform",
+      "hiring a freelancer to create a non-profit donation tracker"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a volunteer sign-up platform",
+      "hiring a freelancer to create a non-profit donation tracker",
+      "need paid help with designing a marketplace UX flow",
+      "can anyone create a decentralized role distribution system"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 15,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a volunteer sign-up platform",
+        "hiring a freelancer to create a non-profit donation tracker",
+        "need paid help with designing a marketplace UX flow",
+        "can anyone create a decentralized role distribution system"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [
+    {
+      "reason": "offer_selection_execution_failed",
+      "detail": "model_price_invalid"
+    }
+  ],
+  "commercial_outcomes": [
+    {
+      "reason": "offer_selection_failed",
+      "detail": "model_price_invalid"
+    },
+    {
+      "reason": "no_feasible_contained_offer"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 3,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
