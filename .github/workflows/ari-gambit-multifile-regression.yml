@@ -14,8 +14,10 @@ jobs:
         run: |
           python3 -m pip install --disable-pip-version-check --quiet \
             'pypdf>=5,<8' 'python-docx>=1.2,<2' 'openpyxl>=3.1,<4' \
-            'reportlab>=4,<5' 'cryptography>=43,<48' ddgs==9.16.1 pillow
+            'reportlab>=4,<5' 'cryptography>=43,<48' ddgs==9.16.1 pillow beautifulsoup4 jinja2
       - name: Syntax and complete Gambit worker suite
         run: |
           python3 -m py_compile tools/gambit_worker.py tests/test_gambit_worker.py
           python3 -m unittest discover -s tests -p 'test_gambit_worker.py' -q
+          python3 -m unittest discover -s tests -p 'test_x_variant_execution.py' -q
+          python3 -m unittest discover -s tests -p 'test_variant_optimization.py' -q
