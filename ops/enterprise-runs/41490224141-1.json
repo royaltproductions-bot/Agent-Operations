@@ -1,0 +1,129 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-02T17:21:46.144632+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "github_paid_issues": 5,
+      "duckduckgo": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=49039128",
+        "title": "Ask HN: How do I find startups that are looking for a dev? How to approach them?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=30372777",
+        "title": "Ask HN: Best place to find a freelance mobile app developer?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=23118999",
+        "title": "Ask HN: Any legal problems working in the same field on the side?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=22411375",
+        "title": "Ask HN: Devs who were let go, how did you spend your notice period?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=19471744",
+        "title": "Ask HN: Inbound marketing with just LinkedIn and GitHub? (freelancer)",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=4862721",
+        "title": "Ask HN: How effective is monthly \"Seeking Work\" post?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": true
+      }
+    ],
+    "search_queries": [
+      "hiring a freelancer to build a contact form with AI integration",
+      "need paid help with designing a survey that collects customer feedback",
+      "is:issue is:open bounty created:>=2026-09-03 build contact form",
+      "is:issue is:open bounty created:>=2026-09-03 ",
+      "looking for someone to create a donation form with recurring payment options"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create a donation form with recurring payment options",
+      "hiring a freelancer to build a contact form with AI integration",
+      "need paid help with designing a survey that collects customer feedback",
+      "can anyone create a quiz with custom branding for a nonprofit organization"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 14,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create a donation form with recurring payment options",
+        "hiring a freelancer to build a contact form with AI integration",
+        "need paid help with designing a survey that collects customer feedback",
+        "can anyone create a quiz with custom branding for a nonprofit organization"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:No explicit invitation for a paid service, no defined deliverable, and no indication of a public business contact rou"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
