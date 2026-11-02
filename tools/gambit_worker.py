@@ -1998,7 +1998,9 @@ def handle_hired(item, state):
         return
     for attempt in range(2):
         required_formats = requested_output_format(details)
-        multi_file = len(required_formats) > 1 and required_formats <= {"csv", "xlsx", "pdf", "docx"}
+        multi_file = (len(required_formats) > 1 and
+                      required_formats <= {"csv", "xlsx", "pdf", "docx"} and
+                      not gambit_app_builder.requested(details))
         content = str(result.get("deliverable_text") or "").strip()
         max_text = 1_000_000 if incremental_research else 100_000
         if not multi_file and (not content or len(content) > max_text):
