@@ -1,0 +1,141 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-02T18:14:24.044951+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 2,
+      "github_paid_issues": 5,
+      "duckduckgo": 5,
+      "bing": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=31261605",
+        "title": "Ask HN: Is it okay to apply for Jr Level jobs if you strike out at Sr/Mid-level?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45712393",
+        "title": "No/Low-Code Tool for Data Pipeline with DLT",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/3312",
+        "title": "[tooling] Concurrent rebaseline runs silently drop another program\u2019s reviewed managed blocks (tested fix)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/relayhop/sn-monetization-runtime/issues/1352",
+        "title": "[radar] SN open bounty 2026-11-02T15:36",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/3297",
+        "title": "[tooling] Test-registration guard counts here-document payloads as executed tests (tested patch)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/3284",
+        "title": "[tooling] check_conflict_markers rejects valid JSON-object workflows (tested patch included)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "hiring a freelancer to test and verify a PR fix for dsh-memory project",
+      "can anyone create a script to monitor and alert on empty sid values in a system",
+      "is:issue is:open bounty created:>=2026-09-03 test verify fix",
+      "looking for someone to build a recurring donations platform with Jotform integration"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a recurring donations platform with Jotform integration",
+      "hiring a freelancer to test and verify a PR fix for dsh-memory project",
+      "need paid help with setting up automated donation subscriptions on DonorSnap",
+      "can anyone create a script to monitor and alert on empty sid values in a system"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 12,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a recurring donations platform with Jotform integration",
+        "hiring a freelancer to test and verify a PR fix for dsh-memory project",
+        "need paid help with setting up automated donation subscriptions on DonorSnap",
+        "can anyone create a script to monitor and alert on empty sid values in a system"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": {
+    "source_url": "https://diggza.com/blog/how-to-verify-a-freelancer-before-you-hire",
+    "title": "Freelancer Verification & Pre-Hire Checklist Service",
+    "scope": "Provide a structured, actionable checklist and verification framework for hiring freelancers, based on the 7 checks outlined in the article. This includes a downloadable checklist, verification badge validation guide, and a small test task proposal template.",
+    "price_usd": "19.99",
+    "price_cents": 1999,
+    "offer_id": "852215f03afd5f318d24ec70",
+    "payment_link_id": "plink_1UXQ3fBto3o776uyoU5sO2NR"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://diggza.com/blog/how-to-verify-a-freelancer-before-you-hire"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "none"
+  }
+}
