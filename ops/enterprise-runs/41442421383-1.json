@@ -1,0 +1,121 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-02T12:11:50.487217+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 11,
+    "source_counts": {
+      "open_web": 11
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 4,
+      "bing": 1,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "candidates_without_email": 11,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/zhangjiayang6835-cyber/bounty-plaza/issues/1907",
+        "title": "[Bounty] [Bounty: $90] Reject unsupported CCTP message versions in decodeCctpMessage",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Asayed36/trading-bot/issues/354",
+        "title": "Scanner alert memory (do not edit; closing it changes nothing)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Arrow-air/project-quiver/issues/252",
+        "title": "T-05: Attachment Developer Guide, the one document for building a Quiver attachment",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraloom-labs/paraloom-core/issues/1315",
+        "title": "[BOUNTY] Medium: WASM-vs-JS hex parser differential in verifiedMint bypasses /transact/scan SPL mint binding, permanentl",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraloom-labs/paraloom-wallet/issues/135",
+        "title": "[BOUNTY] High: claim_withdrawal burns Solana privacy notes before checking Ethereum deposit readiness + cross-network No",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://laborx.com/gigs/solana",
+        "title": "21+ Solana Services Online in November 2026 - laborx.com",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-03 develop solana based",
+      "is:issue is:open bounty created:>=2026-09-03 creating solana program",
+      "need paid help with creating a Solana program interface",
+      "can anyone create a Solana transaction builder for a project"
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to develop a Solana-based SDK",
+      "need paid help with creating a Solana program interface",
+      "can anyone create a Solana transaction builder for a project",
+      "hiring a Solana developer to build a blockchain tool"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 11,
+      "skipped_revisits": 19,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to develop a Solana-based SDK",
+        "need paid help with creating a Solana program interface",
+        "can anyone create a Solana transaction builder for a project",
+        "hiring a Solana developer to build a blockchain tool"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 119,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
