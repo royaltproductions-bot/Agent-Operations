@@ -1,0 +1,144 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-03T09:12:47.489153+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "github_paid_issues": 5,
+      "duckduckgo": 7
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=18214274",
+        "title": "Ask HN: End-to-end encrypted online spreadsheet tool",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=15562850",
+        "title": "Wells Fargo Backdoors RSA 2FA Authentication",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=13689850",
+        "title": "If you were asked to solve the 'fake news' problem, how would you solve it?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=2332349",
+        "title": "Looking for a Technical CoFounder",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/devixmal/un-sanctions-monitor/issues/24",
+        "title": "Weekly review 2026-10-26 (3/3): 120 findings on 9 parties",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/joshualeestone/kosmos/issues/6836",
+        "title": "Marketing research: strengthen the Kosmos+ page, reposition enterprise, surface business on installkosmos.com (proposals",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a secure online form with payment processing",
+      "is:issue is:open bounty created:>=2026-09-04 build secure online",
+      "is:issue is:open bounty created:>=2026-09-04 designing membership sign",
+      "hiring a freelancer to create a volunteer registration form with Stripe"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a secure online form with payment processing",
+      "hiring a freelancer to create a volunteer registration form with Stripe",
+      "need paid help with designing a membership sign-up form that accepts payments",
+      "can anyone create a payment-enabled event sign-up form for nonprofits"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 29,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a secure online form with payment processing",
+        "hiring a freelancer to create a volunteer registration form with Stripe",
+        "need paid help with designing a membership sign-up form that accepts payments",
+        "can anyone create a payment-enabled event sign-up form for nonprofits"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": {
+    "source_url": "https://contra.com/hire/stripe-freelancers",
+    "title": "Stripe Freelancer Research and Talent Identification",
+    "scope": "Identify and compile a list of top Stripe freelancers based on public profiles, project portfolios, and technical expertise. Include details on their specialties, rates, and availability.",
+    "price_usd": "49.95",
+    "price_cents": 4995,
+    "offer_id": "91fdbc09aeacb31f4c047efe",
+    "payment_link_id": "plink_1UXdtkBto3o776uyOjulMWtq"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://contra.com/hire/stripe-freelancers"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 2,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "none"
+  }
+}
