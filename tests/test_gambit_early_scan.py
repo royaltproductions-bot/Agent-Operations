@@ -21,7 +21,7 @@ class EarlyMarketTests(TestCase):
             {"_id": "old", "version": 1},
             {"_id": "new", "version": 3},
         ])
-        self.assertEqual(changed, 2)
+        self.assertEqual(changed, 4)  # two discovery records + two commercial observations
         self.assertEqual(state["bounties"]["old"]["action"], "bid_active")
         self.assertEqual(state["bounty_archive"]["old"]["versions"]["1"]["encrypted_brief"], "cipher")
         self.assertEqual(state["bounties"]["new"]["action"], "evaluation_pending")
