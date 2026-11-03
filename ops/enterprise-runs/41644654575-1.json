@@ -1,0 +1,147 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-03T13:30:02.338430+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "github_paid_issues": 5,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "duckduckgo",
+        "reason": "URLError",
+        "http_code": null
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "open_web_search",
+        "provider": "duckduckgo",
+        "reason": "URLError",
+        "http_code": null
+      },
+      {
+        "source": "open_web_search",
+        "provider": "duckduckgo",
+        "reason": "URLError",
+        "http_code": null
+      },
+      {
+        "source": "open_web_search",
+        "provider": "duckduckgo",
+        "reason": "URLError",
+        "http_code": null
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 14,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=49378057",
+        "title": "Are you good at AI, or just using it?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47791664",
+        "title": "Idea Discussion: Can We Replace Needs of Static Websites with AI Profiles?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46432041",
+        "title": "Debugging for Systems Programming Learning",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46316913",
+        "title": "The reason smart founders pick bad startup ideas",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45898498",
+        "title": "AI vs. the cheating: lessons from building a national exam integrity system",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45743691",
+        "title": "Ask HN: Claude Skills and Bs4 for intelligent scraping",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a simple data dashboard with Python",
+      "is:issue is:open bounty created:>=2026-09-04 build simple data",
+      "is:issue is:open bounty created:>=2026-09-04 create basic website"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a simple data dashboard with Python",
+      "hiring a freelancer to create a basic website for a local business",
+      "can anyone create a script to automate email responses using Zapier",
+      "need paid help with setting up a WordPress site with SEO optimization"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 16,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a simple data dashboard with Python",
+        "hiring a freelancer to create a basic website for a local business",
+        "can anyone create a script to automate email responses using Zapier",
+        "need paid help with setting up a WordPress site with SEO optimization"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 119,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
