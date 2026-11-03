@@ -264,7 +264,7 @@
     "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": {
       "action": "asked",
       "at": "2026-10-30T16:18:21.098504+00:00",
-      "last_asked_review_at": "2026-11-02T18:30:49.367905+00:00",
+      "last_asked_review_at": "2026-11-03T00:41:41.136339+00:00",
       "last_declined_bid": null,
       "last_question_version": 1,
       "version": 1
@@ -272,7 +272,7 @@
     "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": {
       "action": "asked",
       "at": "2026-10-30T16:21:35.878006+00:00",
-      "last_asked_review_at": "2026-11-02T18:31:09.354496+00:00",
+      "last_asked_review_at": "2026-11-03T00:41:42.025477+00:00",
       "last_declined_bid": null,
       "last_question_version": 1,
       "version": 1
@@ -286,7 +286,7 @@
     "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": {
       "action": "asked",
       "at": "2026-10-30T16:22:09.531528+00:00",
-      "last_asked_review_at": "2026-11-02T18:31:09.935617+00:00",
+      "last_asked_review_at": "2026-11-03T00:41:43.069858+00:00",
       "last_declined_bid": null,
       "last_question_version": 1,
       "version": 1
@@ -858,17 +858,10 @@
       }
     }
   },
-  "deferred_bounty_ids": [
-    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg",
-    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3",
-    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd"
-  ],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoyMiwiY2hlY2twb2ludEF0IjoxNzkzNjYzNjEwMzg2fQ",
-  "handled_event_ids": [
-    "ph7fb9b2w0vpycvr3zze6w2xh98hhvtm"
-  ],
+  "deferred_bounty_ids": [],
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoyMywiY2hlY2twb2ludEF0IjoxNzkzNjY2NTAwNjQ2fQ",
   "last_bid_reconciliation": "2026-11-03T00:40:57.753760+00:00",
-  "last_check": "2026-11-03T00:41:34.531124+00:00",
+  "last_check": "2026-11-03T00:41:43.570795+00:00",
   "recent_outcomes": [
     {
       "action": "pass_unsupported",
