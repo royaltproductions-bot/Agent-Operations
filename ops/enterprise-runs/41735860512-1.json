@@ -1,0 +1,142 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-03T23:03:42.300622+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 10,
+    "source_counts": {
+      "open_web": 10
+    },
+    "search_provider_counts": {
+      "hn_ask": 1,
+      "github_paid_issues": 4,
+      "duckduckgo": 1,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 8,
+    "candidates_without_email": 9,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=42604516",
+        "title": "Tell HN: The Quiet Collapse of US Defense Research Infrastructure",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/shouteck/box-bounty-sandbox/issues/73",
+        "title": "[box bounty bt-bb942a8d3a85] Add src/capitalize.js with a test",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/shouteck/box-bounty-sandbox/issues/70",
+        "title": "[box bounty bt-889138a40b50] Add src/clamp.js with a test",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/shouteck/box-bounty-sandbox/issues/69",
+        "title": "[box bounty bt-091d30c1e77b] Add src/wordcount.js with a test",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/telegraphprotocol/bounties/issues/171",
+        "title": "[Protocol/Tooling] Comparator registrations stay pending with \"no published snapshot\" although the child Intent pool has",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://pipedream.com/apps/you-need-a-budget/integrations/jotform/get-user-submissions-with-jotform-api-on-low-account-balance-from-you-need-a-budget-api-int_e9sMWR9",
+        "title": "Get User Submissions with Jotform API on Low Account Balance from You ...",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to develop a secure form solution with Jotform API for a finance tool",
+      "is:issue is:open bounty created:>=2026-09-04 ",
+      "need paid help with Jotform API integration for a budget tracking app"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a secure form integration with Jotform API for a custom web app",
+      "need paid help with Jotform API integration for a budget tracking app",
+      "can anyone create a secure form integration for a custom app using Jotform",
+      "looking for someone to develop a secure form solution with Jotform API for a finance tool",
+      "hiring a developer to implement Jotform API for a personal finance app"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 39,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a secure form integration with Jotform API for a custom web app",
+        "need paid help with Jotform API integration for a budget tracking app",
+        "can anyone create a secure form integration for a custom app using Jotform",
+        "looking for someone to develop a secure form solution with Jotform API for a finance tool",
+        "hiring a developer to implement Jotform API for a personal finance app"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": {
+    "source_url": "https://www.techvinta.com/blog/jotform-pipedrive-crm-integration",
+    "title": "Jotform to Pipedrive CRM Integration Implementation",
+    "scope": "Implement a clean field mapping and idempotent webhook middleware to ensure 100% data integrity and instant sales notifications between Jotform and Pipedrive CRM.",
+    "price_usd": "299.99",
+    "price_cents": 29999,
+    "offer_id": "05a7488f9c9a8739831f0a4a",
+    "payment_link_id": "plink_1UXquyBto3o776uy3Jshbah4"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://www.techvinta.com/blog/jotform-pipedrive-crm-integration"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "none"
+  }
+}
