@@ -1,0 +1,121 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-03T22:05:46.163113+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 11,
+    "source_counts": {
+      "open_web": 11
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 4,
+      "duckduckgo": 3,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "query_planner",
+        "reason": "recovered_fresh_public_research_directions"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 9,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/worknenjoy/gitpay/issues/1626",
+        "title": "[Bug]: Unverified userId query parameter in /callback/github/private allows creating tasks under arbitrary user accounts",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/verdikta/verdikta-applications/issues/76",
+        "title": "[BOUNTY ~$30 x4] Post and fund a real task on Verdikta, publish a write-up (paid on Poidh, Base)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Uuriko/project-room/issues/3299",
+        "title": "Agent coordination log \u2014 Jill (Muse) \u21c4 Codex \u21c4 other fleets",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/shouteck/box-bounty-sandbox/issues/67",
+        "title": "[box bounty bt-112e382a79c5] PF29 proof: checks",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://emergent.sh/integrations/jotform",
+        "title": "Jotform Integration with Emergent | Build Form Workflow Apps by Prompt",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.techvinta.com/services/jotform-development",
+        "title": "Jotform Development | Custom Forms & Workflow Integration | TechVinta",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-04 anyone create secure",
+      "is:issue is:open bounty created:>=2026-09-04 ",
+      "anyone create secure form integration Jotform custom app"
+    ],
+    "attempted_search_queries": [
+      "anyone create secure form integration Jotform custom app",
+      "need paid help Jotform API integration web application",
+      "looking someone create secure form submission system using Jotform API",
+      "hiring freelancer build secure form integration Jotform Python",
+      "anyone create secure form integration Jotform web app"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 11,
+      "skipped_revisits": 31,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "anyone create secure form integration Jotform custom app",
+        "need paid help Jotform API integration web application",
+        "looking someone create secure form submission system using Jotform API",
+        "hiring freelancer build secure form integration Jotform Python",
+        "anyone create secure form integration Jotform web app"
+      ],
+      "next_query_queue": 7,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:No explicit request for a paid service or deliverable is present. The page promotes services but does not invite a pr"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
