@@ -1,0 +1,144 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-03T04:35:15.506071+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "duckduckgo": 7,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "verified_firsthand_problem_pages": 6,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 15,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=44673739",
+        "title": "Drafting Software Recommendation",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=36368160",
+        "title": "Ask HN: Implications of (super)permutations on software testing?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.deadlinktool.com/en/fix-pdf-broken-links",
+        "title": "Fix PDF Broken Links Online | DeadLinkTool",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://pdfcourt.com/link-manager",
+        "title": "Remove Hyperlinks from PDF & Check Links - Free | PDFCourt",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://avepdf.com/convert-to-pdfa",
+        "title": "PDF to PDF/A Converter",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.pdfgear.com/how-to/how-to-convert-jpg-to-pdf-on-windows-10.htm",
+        "title": "How to Convert JPG to PDF on Windows \r\n Here are four ways to convert JPG files to PDF on a Windows PC.",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 13,
+    "search_queries": [
+      "ocr pdf online without software",
+      "fix broken pdf hyperlinks for free",
+      "",
+      "convert scanned pdf to searchable text online"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 33,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "convert scanned pdf to searchable text online",
+        "fix broken pdf hyperlinks for free",
+        "ocr pdf online without software",
+        "turn scanned documents into editable pdf"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 117,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "production_error",
+    "reason": "concept_generation_failed:Expecting value: line 12 column 5528 (char 7278)"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 2,
+    "product_pages": 2,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "production_or_publication_failed",
+      "detail": "concept_generation_failed:Expecting value: line 12 column 5528 (char 7278)"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 2,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 15,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
