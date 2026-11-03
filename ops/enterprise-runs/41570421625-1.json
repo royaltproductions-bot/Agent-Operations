@@ -1,0 +1,146 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-03T03:11:58.706947+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 2,
+      "github_paid_issues": 5,
+      "duckduckgo": 7,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 13,
+    "contactable_sources": 3,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=42140644",
+        "title": "Discussion: Trump Is Changing the Game: What's Next for Tech Startups?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=35945977",
+        "title": "Ask HN: Why don't we have a best-of-class open self-learning platform?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/vllm-project/vllm-omni/issues/7382",
+        "title": "[RFC]: Kernel Reuse and Hardware Integration in vLLM-Omni",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/HCTDIP/corps-jobs/issues/157",
+        "title": "Railway \u8d4f\u91d1\uff1a\u6709 7 \u6761\u503c\u5f97\u62a2",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Rohank143/BountyScout/issues/59",
+        "title": "\ud83c\udfaf Bounty Alert: 7 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tmo1885-lang/constraint-sentinel-action/issues/1",
+        "title": "Experimental beta: volunteer testing and feedback welcome",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "need paid help with developing a volunteer dashboard for a local charity",
+      "can anyone create a volunteer portal with user roles and reporting features",
+      "is:issue is:open bounty created:>=2026-09-04 build volunteer scheduling",
+      "is:issue is:open bounty created:>=2026-09-04 ",
+      "hiring a freelancer to create a volunteer sign-up form with payment integration"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a volunteer scheduling tool with email notifications",
+      "hiring a freelancer to create a volunteer sign-up form with payment integration",
+      "need paid help with developing a volunteer dashboard for a local charity",
+      "can anyone create a volunteer portal with user roles and reporting features"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 26,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a volunteer scheduling tool with email notifications",
+        "hiring a freelancer to create a volunteer sign-up form with payment integration",
+        "need paid help with developing a volunteer dashboard for a local charity",
+        "can anyone create a volunteer portal with user roles and reporting features"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": {
+    "source_url": "https://www.galaxydigital.com/features/volunteer-management-dashboard",
+    "title": "Volunteer Management Dashboard Customization",
+    "scope": "Create a customizable volunteer management dashboard tailored to the specific needs of a nonprofit or volunteer organization, including features like volunteer hours tracking, skills-based volunteering, and event management.",
+    "price_usd": "199.99",
+    "price_cents": 19999,
+    "offer_id": "8ab2a394a64dbb08312f56d6",
+    "payment_link_id": "plink_1UXYQnBto3o776uywy15Rpfu"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://www.galaxydigital.com/features/volunteer-management-dashboard"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "none"
+  }
+}
