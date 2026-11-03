@@ -1,0 +1,126 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-03T10:15:20.821560+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 3,
+      "github_paid_issues": 5,
+      "duckduckgo": 5,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=40776179",
+        "title": "Lambda: The First Open-Source Social Media App",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=9849388",
+        "title": "Send Anywhere's Online Hackathon",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=3798823",
+        "title": "Electronic US Dollar, backed by the Fed. What if?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/manaflow-ai/cmux/issues/13742",
+        "title": "Design and product calls (gallery: #15427), plus CI admin",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/kawamurashingo/cpan-rescue/issues/32",
+        "title": "Design maintainer incentives: what makes CPAN maintenance worth doing?",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tari-project/special_contributions/issues/419",
+        "title": "Security report: tari-ootle consensus: multishard output-lock abort drops foreign output shard groups from Evidence, ret",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create a secure online payment gateway for a website",
+      "is:issue is:open bounty created:>=2026-09-04 designing payment form",
+      "is:issue is:open bounty created:>=2026-09-04 ",
+      "looking for someone to build a secure online payment form",
+      "hiring a freelancer to create a payment form with stripe integration"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a secure online payment form",
+      "hiring a freelancer to create a payment form with stripe integration",
+      "need paid help with designing a payment form for a small business",
+      "can anyone create a secure online payment gateway for a website"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 48,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a secure online payment form",
+        "hiring a freelancer to create a payment form with stripe integration",
+        "need paid help with designing a payment form for a small business",
+        "can anyone create a secure online payment gateway for a website"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
