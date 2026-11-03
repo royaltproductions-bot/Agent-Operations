@@ -1,0 +1,157 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-03T03:34:30.984514+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 14,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "duckduckgo": 9,
+      "followup": 4,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "verified_firsthand_problem_pages": 2,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 11,
+    "public_market_sample": [
+      {
+        "url": "https://www.tenorshare.com/ocr/how-to-make-a-pdf-searchable.html",
+        "title": "How to Make a PDF Searchable - Online/Free/Without Acrobat",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.pdfgear.com/pdf-converter/",
+        "title": "PDF Converter",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://m365.cloud.microsoft/create",
+        "title": "Create documents, presentations and designs with Copilot | Microsoft 365",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://pdfree.io/ocr-pdf/",
+        "title": "OCR PDF Online \u2014 Make Scans Searchable, No Upload | PDFree",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://docs.pdf4me.com/integration/power-automate/pdf/get-pdf-information/",
+        "title": "Get PDF Information in Power Automate | PDF4me",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://avepdf.com/pdf-ocr",
+        "title": "Free Online PDF OCR Tool: Fast, Accurate & Free | AvePDF",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 13,
+    "search_queries": [
+      "convert scanned PDF to searchable text without OCR software",
+      "",
+      "automate PDF metadata tagging for document management",
+      "create custom email signature templates with dynamic fields"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 21,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "convert scanned PDF to searchable text without OCR software",
+        "automate PDF metadata tagging for document management",
+        "generate printable calendar templates with recurring events",
+        "create custom email signature templates with dynamic fields"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:1d9a668836afd36d5fca:ValueError:artifact_invalid_python:ai_pdf_converter.py",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 2,
+    "product_pages": 2,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:1d9a668836afd36d5fca:ValueError:artifact_invalid_python:ai_pdf_converter.py"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 2,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 11,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
