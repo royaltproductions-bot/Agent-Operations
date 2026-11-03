@@ -30,6 +30,7 @@ from tools.gambit_analytics import summarize_csv_sources
 from tools.gambit_artifacts import (OUTPUT_FILES, SUPPORTED_FORMATS,
                                     make_document, requested_output_format)
 from tools.gambit_site_resources import static_site_eligible, multipage_requested
+from tools import gambit_commercial as commercial
 from tools import gambit_resources as resources
 from tools import gambit_agent_card
 from tools import gambit_app_builder
@@ -333,7 +334,8 @@ def encrypted_brief(details):
         return None
     bounty = details.get("bounty") or {}
     allowed = ("title", "description", "verification", "version", "flow",
-               "budget_cents", "payout_cents", "currency", "delivery_window_ms")
+               "budget_cents", "payout_cents", "currency", "delivery_window_ms",
+               "created_at", "posted_at", "_creationTime")
     data = {name: bounty.get(name) for name in allowed}
     secret = hashlib.sha256(("gambit-brief-v1:" + credential).encode()).digest()
     cipher = Fernet(base64.urlsafe_b64encode(secret))
@@ -365,6 +367,7 @@ def remember_open_bounties(state, opened):
         bounty_id = str(item.get("_id") or "")
         if not bounty_id:
             continue
+        changed = commercial.observe(state, item) or changed
         known.add(bounty_id)
         version = item.get("version")
         if bounty_id not in archive:
@@ -391,9 +394,78 @@ def remember_open_bounties(state, opened):
     return changed
 
 
+def record_owner_activity(state, bounty_id, messages):
+    incoming = [m for m in messages if m.get("author_type") == "user"]
+    row = state.setdefault("commercial", {}).setdefault(bounty_id, {})
+    row["owner_activity_status"] = "reply_observed" if incoming else "no_reply_in_fetched_thread"
+    if incoming:
+        row["owner_last_message_at"] = incoming[-1].get("created_at")
+
+
+def send_proposal_preview(bounty_id, version, png, state):
+    """Publish one real QA screenshot per brief version; never alters a claim."""
+    if bounty_id in commercial.APPROVAL_HOLD_IDS:
+        raise ValueError("buyer_changes_awaiting_owner_approval")
+    if not isinstance(png, bytes) or not png.startswith(b"\x89PNG\r\n\x1a\n") or len(png) > 5_000_000:
+        raise ValueError("proposal_preview_invalid")
+    row = state.setdefault("commercial", {}).setdefault(bounty_id, {})
+    if row.get("preview_version") == version and row.get("preview_sent"):
+        return
+    attachment_id = row.get("preview_attachment_id") if row.get("preview_version") == version else None
+    if not attachment_id:
+        created = api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/attachments", "POST",
+                      {"filename": "gambit-preview.png", "content_type": "image/png", "size": len(png)})
+        attachment_id = str(created.get("attachment_id") or "")
+        url = str(created.get("upload_url") or "")
+        from tools.gambit_research import public_url
+        headers = created.get("headers") or {}
+        if (not re.fullmatch(r"[A-Za-z0-9_-]{1,128}", attachment_id) or
+                not url.startswith("https://") or not public_url(url) or
+                any(h.lower() not in {"content-type", "content-disposition"} for h in headers)):
+            raise ValueError("proposal_preview_upload_invalid")
+        req = urllib.request.Request(url, data=png, headers=headers, method="PUT")
+        with urllib.request.build_opener(NoUploadRedirect()).open(req, timeout=60) as response:
+            if response.status not in (200, 201, 204):
+                raise RuntimeError("proposal_preview_upload_failed")
+        row.update(preview_version=version, preview_attachment_id=attachment_id)
+        save_state(state)
+    api(f"/v1/agent/attachments/{attachment_id}/complete", "POST")
+    api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/messages", "POST", {
+        "parts": [{"type": "text", "text": "Preliminary design sample for your brief; final delivery follows hire."},
+                  {"type": "file", "attachment_id": attachment_id}],
+        "idempotency_key": key("proposal-preview", bounty_id, version)})
+    row["preview_sent"] = True
+    save_state(state)
+
+
+def record_bid_measurement(state, bounty_id, bid, *, proposal=None, payout=None, submitted_at=None):
+    record = state.setdefault("commercial", {}).setdefault(bounty_id, {})
+    for source, target in (("_id", "bid_id"), ("id", "bid_id"),
+                           ("created_at", "bid_at"), ("payout_cents", "bid_amount_cents"),
+                           ("status", "bid_status")):
+        if source in bid:
+            record[target] = bid[source]
+    if submitted_at:
+        record["submitted_at"] = submitted_at
+        if not record.get("bid_at"):
+            record["bid_at"] = submitted_at
+            record["bid_time_source"] = "local_post_response"
+    if payout is not None:
+        record["bid_amount_cents"] = payout
+    text = proposal if proposal is not None else bid.get("note")
+    if text and os.getenv("BOUNTY_AGENT_API_KEY"):
+        digest = hashlib.sha256(str(text).encode()).hexdigest()
+        if digest != record.get("proposal_sha256"):
+            secret = hashlib.sha256(("gambit-commercial-v1:" + os.environ["BOUNTY_AGENT_API_KEY"]).encode()).digest()
+            record["proposal_encrypted"] = Fernet(base64.urlsafe_b64encode(secret)).encrypt(str(text).encode()).decode()
+            record["proposal_sha256"] = digest
+
+
 def remember_details(state, bounty_id, details):
     """Store each version's encrypted terms before slow model inference."""
     bounty = details.get("bounty") or {}
+    commercial.observe(state, {**bounty, "_id": bounty_id})
+    record_bid_measurement(state, bounty_id, details.get("bid") or {})
     record = state.setdefault("bounty_archive", {}).setdefault(
         bounty_id, {"first_detected_at": timestamp(), "versions": {}})
     version = bounty.get("version")
@@ -576,6 +648,8 @@ def scan(state):
             opened.append(item)
         elif current.get("status") == "claimed" and (details.get("claim") or {}).get("status") == "active":
             held.append(item)
+    for item in opened:
+        commercial.observe(state, item)
     waiting = [item for item in opened
                if state["bounties"].get(str(item.get("_id")), {}).get("version") != item.get("version")
                or state["bounties"].get(str(item.get("_id")), {}).get("action") == "evaluation_pending"
@@ -611,6 +685,11 @@ def scan(state):
     waiting.sort(key=lambda item: (str(item.get("_id")) not in triggers,
                                   state["bounties"].get(str(item.get("_id")), {}).get("action")
                                   not in {"asked", "bid_active", "bid_sent"}))
+    waiting = [item for item in waiting if not commercial.is_sample(
+        item, state.get("commercial", {}).get(str(item.get("_id"))))]
+    waiting.sort(key=lambda item: (
+        str(item.get("_id")) not in triggers,
+        *commercial.priority(item, state)))
     return opened, held, events, cursor, waiting, active
 
 
@@ -622,6 +701,10 @@ def market_workload(state, opened, waiting):
     status=open feed. Its unchanged version is historical context, not new
     work. Still retain active bids and triggered/version-changed follow-ups.
     """
+    opened = [item for item in opened if not commercial.is_sample(
+        item, state.get("commercial", {}).get(str(item.get("_id"))))]
+    waiting = [item for item in waiting if not commercial.is_sample(
+        item, state.get("commercial", {}).get(str(item.get("_id"))))]
     queued = {str(item.get("_id")) for item in waiting}
     bounties = state.get("bounties") or {}
     new_or_revised = 0
@@ -702,6 +785,11 @@ DECIDE_SCHEMA = {"type": "object", "properties": {
     "reason": {"type": "string"}, "payout_cents": {"type": "integer"},
     "note": {"type": "string"}, "question": {"type": "string"},
     "sample_source_url": {"type": "string"},
+    "sample_excerpt": {"type": "string"},
+    "sample_rows": {"type": "array", "maxItems": 3, "items": {
+        "type": "object", "properties": {k: {"type": "string"}
+        for k in ("name", "fact", "source_url")},
+        "required": ["name", "fact", "source_url"], "additionalProperties": False}},
 }, "required": ["decision", "reason", "payout_cents", "note", "question"],
     "additionalProperties": False}
 
@@ -1042,6 +1130,10 @@ def unsupported_deliverable(details):
                  r"securities filings?|insurance claims?)\b", requested):
         return "regulated_filing"
 
+    if re.search(r"\bfigma\b", requested + " " + verification) and not re.search(
+            r"\bor (?:an? )?(?:equivalent|alternative)\b", requested + " " + verification):
+        return "native_figma_unavailable"
+
     # File formats in acceptance criteria are stronger evidence than an LLM's
     # unsupported promise. Text scripts ABOUT videos remain eligible.
     if (re.search(r"\b(?:mp4|mov|webm|avi)\b", verification) or
@@ -1305,7 +1397,8 @@ def assess(details, messages=None, sources=None, unreadable_count=0):
     context["available_resources"] = resources.manifest()
     context["unreadable_attachment_count"] = unreadable_count
     context["web_evidence"] = research_for(details, messages, sources)
-    decision = infer(DECIDE_SCHEMA, system, context, fast=True,
+    system += "\n" + commercial.PROPOSAL_RULES
+    decision = infer(DECIDE_SCHEMA, system, context, fast=True, num_predict=1500,
                  num_ctx=14000 if context["web_evidence"].get("results") else
                          (7500 if sources else 5500))
     # TryBounty does not require multiple model votes before bidding.
@@ -1324,6 +1417,9 @@ def assess(details, messages=None, sources=None, unreadable_count=0):
     if (context["web_evidence"].get("status") in {"unavailable", "partial"} and
             decision.get("decision") in {"bid", "claim"}):
         decision["decision"] = "pass"
+    decision["_sample_rows"] = commercial.verified_samples(
+        decision.get("sample_rows"), context["web_evidence"])
+    decision["_requires_web"] = context["web_evidence"].get("status") in {"available", "verified", "partial", "unavailable"}
     decision["_research_status"] = str(context["web_evidence"].get("status") or "unknown")
     decision["_pages_read"] = sum(
         1 for item in context["web_evidence"].get("results") or []
@@ -1434,6 +1530,14 @@ def handle_open(item, state):
     details = api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}")
     remember_details(state, bounty_id, details)
     current = details.get("bounty") or {}
+    if commercial.is_sample({**current, "_id": bounty_id}):
+        note(state, "sample_listing_excluded", bounty_id)
+        state["bounties"][bounty_id] = {**state["bounties"].get(bounty_id, {}),
+            "action": "sample_excluded", "version": current.get("version")}
+        return
+    if bounty_id in commercial.APPROVAL_HOLD_IDS:
+        note(state, "buyer_changes_awaiting_owner_approval", bounty_id)
+        return
     if current.get("status") != "open":
         state["bounties"][bounty_id] = {
             "version": current.get("version"), "action": "closed_before_evaluation",
@@ -1472,6 +1576,7 @@ def handle_open(item, state):
                             for e in CURRENT_EVENTS)
         if owner_trigger:
             messages = sorted(messages_for(bounty_id), key=lambda m: m.get("created_at") or 0)
+            record_owner_activity(state, bounty_id, messages)
             incoming = [m for m in messages if m.get("author_type") == "user"]
             if incoming:
                 latest = incoming[-1]
@@ -1510,6 +1615,7 @@ def handle_open(item, state):
         previous["last_asked_review_at"] = timestamp()
         messages = sorted(messages_for(bounty_id),
                           key=lambda m: m.get("created_at") or 0)
+        record_owner_activity(state, bounty_id, messages)
         incoming = [m for m in messages if m.get("author_type") == "user" and
                     str((m.get("content") or {}).get("text") or "").strip()]
         latest = incoming[-1] if incoming else None
@@ -1618,15 +1724,52 @@ def handle_open(item, state):
                 schedule_evaluation_retry(state, bounty_id,
                                           ValueError(issue))
                 return
+            if re.search(r"figma[ -]equivalent", bid_note, re.I):
+                schedule_evaluation_retry(state, bounty_id, ValueError("bid_format_misrepresented"))
+                return
+            sample_rows = decision.get("_sample_rows") or []
+            if decision.get("_requires_web") and len(sample_rows) < 2:
+                schedule_evaluation_retry(state, bounty_id, ValueError("proposal_samples_missing"))
+                return
+            if static_site_eligible(details) and website_capable():
+                preview = produce_website(details, messages, sources=sources)
+                if preview.get("status") != "ready":
+                    schedule_evaluation_retry(state, bounty_id, ValueError("proposal_preview_not_ready"))
+                    return
+                rendered = resources.execute("site_visual", preview["_site_html"],
+                                             asset_files=preview.get("_site_assets"))
+                png = rendered["desktop"]["screenshot"]
+                send_proposal_preview(bounty_id, version, png, state)
+                bid_note += "\nA preliminary desktop design screenshot is in this thread."
+            elif not sample_rows and not decision.get("_requires_web"):
+                # Supplied-data and writing commissions need a labeled excerpt,
+                # not fabricated externally researched rows.
+                excerpt = str(decision.get("sample_excerpt") or "").strip()
+                if not excerpt and "_research_status" in decision:
+                    schedule_evaluation_retry(state, bounty_id, ValueError("proposal_excerpt_missing"))
+                    return
+                if excerpt:
+                    bid_note += "\nPreliminary sample: " + excerpt
+            if sample_rows:
+                sample_text = "\nSample rows (preliminary):\n" + "\n".join(sample_rows)
+                if len(bid_note) + len(sample_text) > 2000:
+                    schedule_evaluation_retry(state, bounty_id, ValueError("proposal_samples_over_length"))
+                    return
+                bid_note += sample_text
             proof = str(decision.get("sample_source_url") or "").strip()
             proof_line = "\nPublic source reviewed: " + proof
             if proof and proof not in bid_note and len(bid_note) + len(proof_line) <= 2000:
                 bid_note += proof_line
-            api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/bid", "POST", {
+            if len(bid_note) > 2000:
+                schedule_evaluation_retry(state, bounty_id, ValueError("proposal_over_length"))
+                return
+            result = api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/bid", "POST", {
                 "payout_cents": payout, "expected_version": version,
                 "note": bid_note[:2000],
                 "idempotency_key": key("bid", bounty_id, version, payout,
                                        declined_token or "")})
+            record_bid_measurement(state, bounty_id, result.get("bid") or {},
+                                   proposal=bid_note, payout=payout, submitted_at=timestamp())
             action = "bid_active"
             note(state, "bid_sent", bounty_id, payout_cents=payout, version=version)
     elif action == "claim" and current.get("flow") == "claim":
@@ -2009,6 +2152,7 @@ def reconcile_active_bids(opened, state, *, skip_ids=()):
             continue
         previous = state["bounties"].get(bounty_id) or {}
         details = api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}")
+        remember_details(state, bounty_id, details)
         bid = details.get("bid") or {}
         current = details.get("bounty") or {}
         status = str(bid.get("status") or "missing")
