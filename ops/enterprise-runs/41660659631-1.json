@@ -1,0 +1,125 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-03T15:11:33.159113+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "github_paid_issues": 5,
+      "duckduckgo": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=41360615",
+        "title": "Frustration that led the creation of new fast, secure & reliable JSON Formatter",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=34071379",
+        "title": "What language we should choose for our project? And where we should be searching",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=3754664",
+        "title": "Apply with me to YC in the next 3 days and change the world",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=2024164",
+        "title": "Two proposals for modern browsers",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=2023475",
+        "title": "Two proposals for browsers - it's about time",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=340188",
+        "title": "Trader Joe's Is Not Your Average Business (2002)",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a secure form integration with Jotform",
+      "hiring a freelancer to create a PCI-compliant form solution",
+      "is:issue is:open bounty created:>=2026-09-04 build secure form",
+      "is:issue is:open bounty created:>=2026-09-04 create pci compliant",
+      "is:issue is:open bounty created:>=2026-09-04 anyone create 256"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a secure form integration with Jotform",
+      "hiring a freelancer to create a PCI-compliant form solution",
+      "can anyone create a 256-bit SSL encryption form workflow",
+      "need paid help with secure web form development using Jotform"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 13,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a secure form integration with Jotform",
+        "hiring a freelancer to create a PCI-compliant form solution",
+        "can anyone create a 256-bit SSL encryption form workflow",
+        "need paid help with secure web form development using Jotform"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:The request is for a co-founder, not a service or product. No deliverable is defined, and the candidate is not inviti"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
