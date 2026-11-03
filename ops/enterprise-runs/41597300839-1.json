@@ -1,0 +1,138 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-03T07:36:39.076727+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 15,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "hn_ask": 1,
+      "github_paid_issues": 5,
+      "duckduckgo": 6,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "candidates_without_email": 15,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=20898130",
+        "title": "Engineering Freelance Community Hiring",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/jalfern/retrogames/issues/1473",
+        "title": "PLATFORM \u2014 seedpin rollout: seed-report + ?seed=N pin for the rest of the arcade (~78 titles)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Emaren/app-prodn/issues/839",
+        "title": "AOE2WAR 2026-10-23 joint release command center \u2014 app and Wolo mainnet lanes",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/SoulSchoolAcademy/NayaPOWER/issues/2472",
+        "title": "Lane 5 \u2014 worker sign-in/out feed",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/scottonchain/microcredit-agent-testbed/issues/15",
+        "title": "Central message board \u2014 Hermes, Claude, Codex and operator coordination",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/LiamBMX/joshymc-plugin/issues/1353",
+        "title": "Audit All JoshyMC Staff Permissions, Commands, and Role Access (Read-Only)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "hiring a freelancer to create an online form with payment processing",
+      "is:issue is:open bounty created:>=2026-09-04 create online form",
+      "is:issue is:open bounty created:>=2026-09-04 designing volunteer sign",
+      "is:issue is:open bounty created:>=2026-09-04 anyone create registration",
+      "need paid help with designing a volunteer sign-up form that accepts payments"
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to create an online form with payment processing",
+      "need paid help with designing a volunteer sign-up form that accepts payments",
+      "can anyone create a registration form with payment gateway for nonprofits",
+      "looking for someone to develop a payment-enabled volunteer sign-up form"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 22,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to create an online form with payment processing",
+        "need paid help with designing a volunteer sign-up form that accepts payments",
+        "can anyone create a registration form with payment gateway for nonprofits",
+        "looking for someone to develop a payment-enabled volunteer sign-up form"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
