@@ -1,0 +1,200 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-03T00:17:07.351809+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 13,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "duckduckgo": 7,
+      "hn_ask": 2,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "verified_firsthand_problem_pages": 1,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 10,
+    "public_market_sample": [
+      {
+        "url": "https://pdf.ai/resources/how-to-extract-tables-from-pdf",
+        "title": "How to extract tables from pdf: Simple, Free Tools for Clean Data",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=17381130",
+        "title": "Self: There is only 1 other 'programmer' at my workplace",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44112008",
+        "title": "My Friend Raised Her Seed Round in 17 Days",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.enjoysharepoint.com/create-pdf-from-excel-using-power-automate/",
+        "title": "Convert Excel to PDF With Power Automate (+ Error Fixes)",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.datanovia.com/blog/extract-text-and-tables-from-pdf-in-r",
+        "title": "Extract Text and Tables From PDFs in R - Datanovia",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/power-automate/desktop-flows/how-to/convert-excel-pdf-vbscript",
+        "title": "Convert Excel to PDF using VBScript - Power Automate",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 13,
+    "search_queries": [
+      "downloadable script to extract data from pdf tables",
+      "excel automation tools for non-programmers",
+      "power automate templates for email reminders",
+      "how to automate excel to pdf conversion without software",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 32,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "how to automate excel to pdf conversion without software",
+        "downloadable script to extract data from pdf tables",
+        "excel automation tools for non-programmers",
+        "power automate templates for email reminders"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:10 candidates reviewed;  common user problem, but the evidence does not indicate a specific product or service being offered. The page appears to be a blog post providing troubleshooting tips "
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 2,
+    "product_pages": 2,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:88a97e82e6e64f019d",
+      "decision": "pass",
+      "reason": "The content discusses the process of extracting tables from PDFs, highlighting the need for tools like Tabula, Camelot, and pdfplumber for native PDFs, and OCR tools like Tesseract for scanned PDFs. While there is a clear problem (extracting tables from PDFs), the evidence does not indicate a specific, actionable product or service that is being of"
+    },
+    {
+      "candidate_id": "web:0c7db0b89c9f3537b7",
+      "decision": "pass",
+      "reason": "The evidence suggests a specific pain point in the workplace involving inefficient data handling and automation challenges, but there is no clear indication of a market demand or buyer utility for a product that addresses this issue. The anecdotal nature of the problem and lack of concrete sales or pricing data make it difficult to justify pursuing"
+    },
+    {
+      "candidate_id": "web:2010cc2e35df3cde53",
+      "decision": "pass",
+      "reason": "The evidence suggests that personalized outreach and automation tools can significantly improve fundraising success for ed-tech startups. However, this is a specific case study and does not provide enough evidence of a general market demand or a clear product opportunity. The focus on fundraising for ed-tech may not translate to a broad market oppo"
+    },
+    {
+      "candidate_id": "web:71f8bb69cdcbe8c774",
+      "decision": "pass",
+      "reason": "The content discusses converting Excel to PDF using Power Automate, highlighting common errors and troubleshooting scenarios. However, there is no clear indication of a specific customer problem that a unique product can solve. The existing tools and methods (like Power Automate, VBScript, and third-party services) already address this need, and th"
+    },
+    {
+      "candidate_id": "web:3d6e1a6837f9fd7974",
+      "decision": "pass",
+      "reason": "The content discusses extracting text and tables from PDFs in R, which is a technical process. However, there is no clear indication of a specific customer problem or demand for a product that solves this issue. The absence of pricing, sales data, or direct user feedback makes it difficult to justify building a product in this space without further"
+    },
+    {
+      "candidate_id": "web:c32b23106acb7da034",
+      "decision": "pass",
+      "reason": "The content is about converting Excel to PDF using VBScript, which is a technical process. There is no clear indication of a specific customer problem or demand for a product that solves this. The Microsoft Learn page is instructional and does not suggest a commercial opportunity for a product. Additionally, there is no evidence of sales or pricing"
+    },
+    {
+      "candidate_id": "web:c2e71a5c0e62856a1e",
+      "decision": "pass",
+      "reason": "The candidate_id 'web:c2e71a5c0e62856a1e' is associated with a blog post about fixing Word to PDF hyperlink issues. While it indicates a potential problem, there is no evidence of a direct product or service being offered for sale. The content is informational and does not suggest a viable product with a clear value proposition or demand. Additiona"
+    },
+    {
+      "candidate_id": "web:6c7f29b6a02811adda",
+      "decision": "pass",
+      "reason": "The content appears to be promotional material for Smallpdf, focusing on troubleshooting PDF issues on iPhone. There is no evidence of a unique product or service being offered. The pages are likely part of a marketing strategy rather than a viable product. No clear customer problem or solution is presented that would justify building an original p"
+    },
+    {
+      "candidate_id": "web:12ff8b8595dbda84cc",
+      "decision": "pass",
+      "reason": "The issue described (scanned document not saving as PDF) is a common user problem, but the evidence does not indicate a specific product or service being offered. The page appears to be a blog post providing troubleshooting tips rather than a commercial product. Without a clear product offering, pricing, or sales data, it is not possible to determi"
+    },
+    {
+      "candidate_id": "web:176d4faca4f1223212",
+      "decision": "pass",
+      "reason": "The evidence does not indicate a specific customer problem or demand for a differentiated product. The page appears to be a collection of tutorials, not a product or service offering. There is no indication of a viable market opportunity or a clear value proposition that would justify building a new product."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 2,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 10,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
