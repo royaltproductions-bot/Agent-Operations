@@ -18,6 +18,8 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
+from tools import gambit_commercial as commercial
+
 STATE_PATH = Path("ops/gambit/state.json")
 BASE = "https://api.trybounty.ai"
 MAX_PAGES = 20
@@ -69,6 +71,7 @@ def capture_ids(state, opened):
         bounty_id = item.get("_id")
         if not isinstance(bounty_id, str) or not bounty_id:
             continue
+        changed += commercial.observe(state, item)
         version = item.get("version")
         if bounty_id not in archive:
             archive[bounty_id] = {
@@ -170,7 +173,8 @@ def admission(state, opened, held, events, now=None):
     pending_due = {bid for bid in state.get("deferred_bounty_ids") or []
                    if not fulfillment_cooling(records.get(bid) or {}, now)}
     triggered.update(pending_due)
-    new = [item for item in opened if isinstance(item, dict) and (
+    new = [item for item in opened if isinstance(item, dict) and not commercial.is_sample(
+        item, state.get("commercial", {}).get(str(item.get("_id")))) and (
         str(item.get("_id")) in triggered or
         (records.get(str(item.get("_id"))) or {}).get("version") != item.get("version") or
         (records.get(str(item.get("_id"))) or {}).get("action") == "evaluation_pending" or
