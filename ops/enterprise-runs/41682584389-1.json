@@ -1,0 +1,131 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-03T17:17:47.066957+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 8,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "query_planner",
+        "reason": "recovered_fresh_public_research_directions"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/FuRongJun-1999/dsh-bounty/issues/2322",
+        "title": "\u7b2c\u4e09\u65b9\u72ec\u7acb\u590d\u9a8c\uff1alingshu PR #1213\uff08decay_cycle \u503c\u57df\u95f8\uff09\u2014\u2014\u811a\u672c\u5b88\u536b9\u6761 \u57fa\u7ebf2/7\u5168\u7ea2\u2192\u4fee\u590d9/0\u5168\u7eff",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/FuRongJun-1999/dsh-bounty/issues/2321",
+        "title": "\u7b2c\u4e09\u65b9\u72ec\u7acb\u590d\u9a8c\uff1alingshu PR #1224\uff08\u7b2c\u4e09\u6279\u5341\u4ef6 fail-loud\uff09\u2014\u201410 \u5b88\u536b\u53cc\u817f \u57fa\u7ebf19\u901a/41\u7ea2\u2192\u4fee\u590d59/0 \u5168\u7eff",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/FuRongJun-1999/dsh-bounty/issues/2320",
+        "title": "\u7b2c\u4e09\u65b9\u72ec\u7acb\u590d\u9a8c\uff1adsh-memory PR #750\uff08#733 verify override \u900f\u4f20\uff09\u2014\u2014\u5b88\u536b\u5168\u901a\u8fc7",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/aktezed/assfin/issues/2",
+        "title": "Unresolvable/garbled hostnames from noisy passive sources are stored as real hosts",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/RSPSApp/tsps/issues/2105",
+        "title": "when pking in bounty hunter cant see xp drops",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.pcicompliance.com/support/",
+        "title": "Need PCI Compliance Help? Contact Our Support Team",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-04 ",
+      "need paid help PCI compliance consultancy services",
+      "anyone create Jotform integration application"
+    ],
+    "attempted_search_queries": [
+      "anyone create Jotform integration application",
+      "need paid help PCI compliance consultancy services",
+      "hiring freelancer fix database lock issues cache-persistence test",
+      "looking someone build Jotform API integration"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 24,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "anyone create Jotform integration application",
+        "need paid help PCI compliance consultancy services",
+        "hiring freelancer fix database lock issues cache-persistence test",
+        "looking someone build Jotform API integration"
+      ],
+      "next_query_queue": 8,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:No paid service offer is requested or implied. The deliverable is an email response from the support team, which is n"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
