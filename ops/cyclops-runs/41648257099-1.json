@@ -1,0 +1,156 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-03T13:54:39.951591+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "duckduckgo": 10,
+      "hn_ask": 3,
+      "bing": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "verified_firsthand_problem_pages": 1,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 14,
+    "public_market_sample": [
+      {
+        "url": "https://pdfcourt.com/merge",
+        "title": "Merge PDF Files Free \u2014 Drag & Drop, No Signup | PDFCourt",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37468536",
+        "title": "Top AI chatbots specially designed for your WordPress website",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=16952414",
+        "title": "Ask HN: How do you bootstrap/start writing data-science/ML applications?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=1843700",
+        "title": "Offer HN: Unix file manipulation",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/power-automate/desktop-flows/actions-reference/webautomation",
+        "title": "Browser automation actions reference - Power Automate",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.online-python.com/",
+        "title": "Online Python - IDE, Editor, Compiler, Interpreter",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 14,
+    "search_queries": [
+      "PDF merger tool with drag-and-drop interface and free download",
+      "Power Automate workflow templates for Google Chrome automation",
+      "Python script to convert CSV files into interactive HTML tables",
+      "Excel macro to automate invoice data extraction from PDFs"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 17,
+      "skipped_revisits": 35,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "PDF merger tool with drag-and-drop interface and free download",
+        "Power Automate workflow templates for Google Chrome automation",
+        "Excel macro to automate invoice data extraction from PDFs",
+        "Python script to convert CSV files into interactive HTML tables"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 119,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "production_error",
+    "reason": "concept_generation_failed:Unterminated string starting at: line 12 column 5904 (char 7215)"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 2,
+    "product_pages": 2,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "production_or_publication_failed",
+      "detail": "concept_generation_failed:Unterminated string starting at: line 12 column 5904 (char 7215)"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 2,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 14,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
