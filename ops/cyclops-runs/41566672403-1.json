@@ -1,0 +1,149 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-03T02:33:50.902197+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 15,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "duckduckgo": 10,
+      "hn_ask": 1,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "verified_firsthand_problem_pages": 3,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 13,
+    "public_market_sample": [
+      {
+        "url": "https://thegeekpage.com/hyperlinks-not-working-in-pdf-7-fixes-solved-2026/",
+        "title": "Hyperlinks Not Working in PDF? 7 Fixes [Solved 2026]",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.wps.com/office-quick-solution/pdf-troubleshooting/how-to-fix-pdf-links-not-working-in-adobe-acrobat-on-iphone/",
+        "title": "How to Fix PDF Links Not Working in Adobe Acrobat on iPhone",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://gadgetsnurture.com/fix-hyperlinks-not-working-in-pdf/",
+        "title": "Fix: Hyperlinks Not Working in PDF [9 Ways] - gadgetsnurture.com",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=30415724",
+        "title": "Ask HN: How do you manage legal documents",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://updf.com/knowledge/hyperlinks-not-working-in-pdf/",
+        "title": "Hyperlinks Not Working in PDF? 5 Fixes That Work (2026) | UPDF",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://tooltea.com/pdf/scan-to-pdf",
+        "title": "Scan to PDF Online Free, OCR + Searchable Output | ToolTea",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 15,
+    "search_queries": [
+      "fix pdf hyperlink not working on iphone",
+      "how to save scanned document as pdf without software",
+      "convert scanned document to pdf online tool",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 39,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "convert scanned document to pdf online tool",
+        "fix pdf hyperlink not working on iphone",
+        "how to save scanned document as pdf without software",
+        "convert excel to pdf without formatting issues"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:f85eaeac73d726722774:RuntimeError:output_file_not_created:pdf_link_fixer.py",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 2,
+    "product_pages": 2,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:f85eaeac73d726722774:RuntimeError:output_file_not_created:pdf_link_fixer.py"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 2,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 13,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
