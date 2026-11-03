@@ -1,0 +1,129 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-03T16:14:24.676393+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "github_paid_issues": 5,
+      "duckduckgo": 7
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 16,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=47117393",
+        "title": "Ask HN: Freelance full-stack dev in between contracts",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=43766369",
+        "title": "Ask HN: Airbnb has internal AirCover refund policy max?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=40869579",
+        "title": "Ask HN: How to get back my domains with Porkbun after fraudulent dispute",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=40359005",
+        "title": "How to Reduce Appointment/ Demo No Shows",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ConcatenaLabs/arca/issues/500",
+        "title": "BTC held in a Bitcoin ark has no watchtower: a holder away past a coin's expiry trusts the operator",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/vjb/hail/issues/91",
+        "title": "FA-1-018: Concurrent claims can break the one-task-per-worker rule",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "need paid help with PCI compliance consultancy services",
+      "is:issue is:open bounty created:>=2026-09-04 fix database lock",
+      "is:issue is:open bounty created:>=2026-09-04 ",
+      "hiring a freelancer to fix database lock issues in cache-persistence test",
+      "looking for someone to build a Jotform API integration"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a Jotform API integration",
+      "hiring a freelancer to fix database lock issues in cache-persistence test",
+      "need paid help with PCI compliance consultancy services",
+      "can anyone create a Jotform integration for a C# application"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 14,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a Jotform API integration",
+        "hiring a freelancer to fix database lock issues in cache-persistence test",
+        "need paid help with PCI compliance consultancy services",
+        "can anyone create a Jotform integration for a C# application"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
