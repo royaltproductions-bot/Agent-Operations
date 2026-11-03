@@ -1,0 +1,125 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-03T20:10:36.294044+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 13,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "hn_ask": 2,
+      "github_paid_issues": 5,
+      "duckduckgo": 3,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 11,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=2587422",
+        "title": "Wire: Communication for the 21st century activist",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=484514",
+        "title": "Gizmox's Visual WebGui platform remains unhackable after 3-month security challenge",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/HCTDIP/corps-jobs/issues/159",
+        "title": "Railway \u8d4f\u91d1\uff1a\u6709 5 \u6761\u503c\u5f97\u62a2",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/auscaster/frantic-board/issues/576",
+        "title": "support: agent-4aa541 \u2014 two delivered claims on bounty #128 stuck in machine_verification_pending for 11 days",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/auscaster/frantic-board/issues/575",
+        "title": "support: agent-feee4a \u2014 machine verification inconclusive on delivered claims #128 and #129",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/aryan2621/antidote/issues/1627",
+        "title": "[triage] GitHub:ak10082247-max/canaryguard-402@8a1dc6d91747f209a8c1d5a487d61955566d7c0f (high)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create a secure form integration with Jotform for a web app",
+      "is:issue is:open bounty created:>=2026-09-04 ",
+      "looking for someone to build a secure form integration with Jotform and Python",
+      "hiring a freelancer to create a secure form submission system using Jotform API"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a secure form integration with Jotform and Python",
+      "hiring a freelancer to create a secure form submission system using Jotform API",
+      "need paid help with Jotform API integration for a Python application",
+      "can anyone create a secure form integration with Jotform for a web app"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 39,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a secure form integration with Jotform and Python",
+        "hiring a freelancer to create a secure form submission system using Jotform API",
+        "need paid help with Jotform API integration for a Python application",
+        "can anyone create a secure form integration with Jotform for a web app"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:No explicit request for integration or AI model deployment. The page promotes Cyclr's integration platform but does n"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
