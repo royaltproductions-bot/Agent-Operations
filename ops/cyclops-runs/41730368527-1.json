@@ -1,0 +1,151 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-03T22:25:32.229333+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 13,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "duckduckgo": 9
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "verified_firsthand_problem_pages": 1,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 12,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=5343644",
+        "title": "Learning to code, with no Internet access.",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=30352820",
+        "title": "GitHub leaked names of private repositories",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=30348980",
+        "title": "Tell HN: GitHub leaked names of private repos with pages",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=26632091",
+        "title": "Self XDSD: The Platform for Automated Management of Distributed Projects",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://spreadsheetdaddy.com/templates/social-media-calendar",
+        "title": "Free\u261d\ufe0f Social Media Calendar Template (Google Sheets, Excel, & PDF ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://excelguru.io/templates/list-tracker-and-logs/content-social-media-calendar/",
+        "title": "Content Social Media Calendar Excel Template - Free Download",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 10,
+    "search_queries": [
+      "how to create a self-contained python tool for data scraping",
+      "github repository for automated invoice generator with pdf",
+      "downloadable excel template for social media content calendar"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 26,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "downloadable excel template for social media content calendar",
+        "github repository for automated invoice generator with pdf",
+        "how to create a self-contained python tool for data scraping",
+        "purchase automated email sender with smtp integration"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 120,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:2fa55bde040fd69e64b1:ValueError: ListFlowable style argument not a ListStyle",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 2,
+    "product_pages": 2,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:2fa55bde040fd69e64b1:ValueError: ListFlowable style argument not a ListStyle"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 2,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 12,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
