@@ -1,0 +1,123 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-03T18:04:57.599561+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "github_paid_issues": 5,
+      "duckduckgo": 2,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=33600837",
+        "title": "Ask HN: Career path choices/FAANG in Europe?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44355555",
+        "title": "Solo or Co-Founder CTO \u2013 Equity Post-MVP/Pre-Revenue",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=36688467",
+        "title": "Ask HN: Turn Key Ubuntu Kiosk Mode",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=32922961",
+        "title": "Ask HN: How to migrate out of Gmail and Google Suite?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=32276864",
+        "title": "Amazon Drive is ending on December 31, 2023",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=12404027",
+        "title": "Ask HN: Admin girl wants to get into radio engineering",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "hiring a freelancer to create a secure form submission system using Jotform",
+      "need paid help with secure form integration for a C# application",
+      "is:issue is:open bounty created:>=2026-09-04 build secure form",
+      "is:issue is:open bounty created:>=2026-09-04 secure form integration",
+      "is:issue is:open bounty created:>=2026-09-04 ",
+      "looking for someone to build a secure form integration with Jotform and C#"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a secure form integration with Jotform and C#",
+      "hiring a freelancer to create a secure form submission system using Jotform",
+      "need paid help with secure form integration for a C# application",
+      "can anyone create a secure form integration with Jotform API"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 34,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a secure form integration with Jotform and C#",
+        "hiring a freelancer to create a secure form submission system using Jotform",
+        "need paid help with secure form integration for a C# application",
+        "can anyone create a secure form integration with Jotform API"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:The request is for a test tutorial to validate a platform idea, and the offer includes a clear deliverable and paymen"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
