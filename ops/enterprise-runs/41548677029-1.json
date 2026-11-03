@@ -1,0 +1,131 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-02T23:54:34.535361+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 5,
+      "bing": 6
+    },
+    "source_errors": [
+      {
+        "source": "query_planner",
+        "reason": "recovered_fresh_public_research_directions"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/jdhart81/viridis-canon/issues/194",
+        "title": "Re-certify Run-133 (CODC) with the finite-path factorization (C1)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tsc862-prog/eldmoor/issues/412",
+        "title": "Hero tool: give by item name (pool loot across the Fellowship)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/relayhop/sn-monetization-runtime/issues/1353",
+        "title": "[radar] SN open bounty 2026-11-02T23:25",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://github.com/Monkestation/Monkestation2.0/issues/12894",
+        "title": "HOP Naval Cap Armor Values",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/dseelinger/d47/issues/2076",
+        "title": "Design module pages and the Modules settings",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.geeksforgeeks.org/javascript/create-a-volunteer-opportunity-finder-using-html-css-and-javascript/",
+        "title": "Create a Volunteer Opportunity Finder using HTML, CSS and JavaScript",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-03 ",
+      "looking someone develop volunteer portal using HTML",
+      "anyone create volunteer tracking system NGO"
+    ],
+    "attempted_search_queries": [
+      "looking someone develop volunteer portal using HTML",
+      "anyone create volunteer tracking system NGO",
+      "need paid help designing responsive NGO platform",
+      "hiring freelancer create volunteer registration portal"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 25,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking someone develop volunteer portal using HTML",
+        "anyone create volunteer tracking system NGO",
+        "need paid help designing responsive NGO platform",
+        "hiring freelancer create volunteer registration portal"
+      ],
+      "next_query_queue": 8,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
