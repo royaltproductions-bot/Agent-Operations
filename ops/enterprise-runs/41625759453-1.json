@@ -1,0 +1,133 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-03T11:15:32.641379+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "github_paid_issues": 5,
+      "duckduckgo": 7
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 13,
+    "contactable_sources": 3,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=50039291",
+        "title": "Ask HN: Do you want a router that has DD-WRT pre-installed?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=42713049",
+        "title": "Lead Engineer Miami Fintech",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=32200863",
+        "title": "What are the best practices (+ hard choices) when building browser SDKs?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=17540190",
+        "title": "Ask HN: Should I abandon a functioning SaaS with no paying users?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/p1ngtoohigh/Jarvus-Pub/issues/1",
+        "title": "[HYDRA] Paid work lead watch",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/SalamLang/Salam/issues/1713",
+        "title": "\ud83c\udf81 Build Something with Salam Programming Language (Community Reward)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a PCI DSS-compliant payment form",
+      "can anyone create a Stripe integration form for a small business",
+      "is:issue is:open bounty created:>=2026-09-04 create appointment form",
+      "is:issue is:open bounty created:>=2026-09-04 ",
+      "hiring a freelancer to create an appointment form template"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a PCI DSS-compliant payment form",
+      "hiring a freelancer to create an appointment form template",
+      "need paid help with designing a volunteer form for online bookings",
+      "can anyone create a Stripe integration form for a small business"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 18,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a PCI DSS-compliant payment form",
+        "hiring a freelancer to create an appointment form template",
+        "need paid help with designing a volunteer form for online bookings",
+        "can anyone create a Stripe integration form for a small business"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": {
+    "source_url": "https://news.ycombinator.com/item?id=17540190",
+    "title": "Market Research and Strategic Guidance for Ekko SaaS",
+    "scope": "Analyze the current market position of Ekko, identify potential customer segments, and provide actionable strategies to increase conversions and user retention. This includes competitor analysis, user feedback synthesis, and a tailored marketing plan.",
+    "price_usd": "299.99",
+    "price_cents": 29999,
+    "offer_id": "f50f806b7351b8aefe6be67d",
+    "payment_link_id": "plink_1UXgEABto3o776uyJ9oPZrp0"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://news.ycombinator.com/item?id=17540190"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 2,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "none"
+  }
+}
