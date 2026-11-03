@@ -1,0 +1,124 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-03T19:17:46.470869+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 11,
+    "source_counts": {
+      "open_web": 11
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "bing": 1,
+      "duckduckgo": 1,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 11,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/ROAM-game-org/road-machiners/issues/1381",
+        "title": "\u0412 \u043a\u043e\u043d\u0442\u0440\u0430\u043a\u0442\u0430\u0445, \u043a\u043e\u0433\u0434\u0430 \u0442\u044b \u0443\u0436\u0435 \u0432\u0437\u044f\u043b \u0435\u0433\u043e \u0438 \u0438\u0441\u043f\u043e\u043b\u043d\u044f\u0435\u0448\u044c, \u043b\u0443\u0447\u0448\u0435 \u043f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043e\u0441\u0442\u0430\u0442\u043e\u043a \u0432\u0440\u0435\u043c\u0435\u043d\u0438 \u0434\u043e \u0435\u0433\u043e \u0438\u0441\u0442\u0435\u0447\u0435\u043d\u0438\u044f:",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Contribuda/trustwork/issues/553",
+        "title": "Owner decision: no contributions from restricted places; every claim and pull request confirms it",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/nullstyle/go-xdr/issues/9",
+        "title": "go-xdr v1 decoder panics on a length prefix whose int32 cast is negative",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/stellar/go-xdr/issues/37",
+        "title": "go-xdr v1 decoder panics on a length prefix whose int32 cast is negative",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/hashgraph/hedera-docs/issues/828",
+        "title": "docs: reframe AI Studio messaging, add audience cards, and fix typos/errors on the AI Studio landing page",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://support.microsoft.com/en-us/windows/",
+        "title": "Windows help and learning | Microsoft Support",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-04 ",
+      "can anyone create a Jotform API integration for a secure form submission system",
+      "need paid help with Jotform API integration for C# application"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build secure form integration with Jotform and C#",
+      "need paid help with Jotform API integration for C# application",
+      "can anyone create a Jotform API integration for a secure form submission system",
+      "hiring freelancer to develop Jotform API integration with C#"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 11,
+      "skipped_revisits": 23,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build secure form integration with Jotform and C#",
+        "need paid help with Jotform API integration for C# application",
+        "can anyone create a Jotform API integration for a secure form submission system",
+        "hiring freelancer to develop Jotform API integration with C#"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 113,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
