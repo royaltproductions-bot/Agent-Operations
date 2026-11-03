@@ -1,0 +1,128 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-03T05:17:45.766442+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "hn_ask": 1,
+      "duckduckgo": 6,
+      "bing": 3,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 14,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=15964209",
+        "title": "Python and Cryptocurrency",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://flexform.ai/tools/ai-volunteer-sign-up-form-generator",
+        "title": "AI Volunteer Sign Up Form Generator \u2014 Free | Flexform",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.signupgenius.com/payments",
+        "title": "Online Payment Collection | SignUpGenius",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.nonprofitlearninglab.org/guidebooks-1/hiring-a-nonprofit-consultant:-your-step-by-step-guide-and-toolkit",
+        "title": "Hiring a Nonprofit Consultant: Your Step-by-Step Guide and Toolkit",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.jotform.com/online-payments/",
+        "title": "Free Form Builder with Payment Integration | Secure Online Payments",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.forbes.com/councils/forbesnonprofitcouncil/2025/10/03/best-practices-for-nonprofits-hiring-freelancers-to-reach-goals/",
+        "title": "Best Practices For Nonprofits Hiring Freelancers To Reach Goals - Forbes",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create a free volunteer sign-up form with email notifications",
+      "looking for someone to create a volunteer sign-up form with payment integration",
+      "hiring a freelancer to build a nonprofit volunteer scheduling tool"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create a volunteer sign-up form with payment integration",
+      "hiring a freelancer to build a nonprofit volunteer scheduling tool",
+      "need paid help with designing a volunteer sign-up page for a nonprofit",
+      "can anyone create a free volunteer sign-up form with email notifications"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 23,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create a volunteer sign-up form with payment integration",
+        "hiring a freelancer to build a nonprofit volunteer scheduling tool",
+        "need paid help with designing a volunteer sign-up page for a nonprofit",
+        "can anyone create a free volunteer sign-up form with email notifications"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
