@@ -1,0 +1,129 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-04T03:10:02.992360+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "hn_ask": 5,
+      "github_paid_issues": 4,
+      "duckduckgo": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 12,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=49104392",
+        "title": "How to get more coding productivity with LLMs",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=49098381",
+        "title": "Ask HN: I'm 52 and my technical skill stopped being a moat. What now?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47446524",
+        "title": "Ask HN: Solo Senior Developers, Where do we find you?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47286643",
+        "title": "Ask HN: 10-year dev, tried earning on the side for a year \u2013 lost $2,200",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46512389",
+        "title": "What I Expected from Computer Engineering and Notes on first public project",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/apiiskan/ai-agent-radar/issues/119",
+        "title": "AI Agent Radar \u65e5\u62a5 \u00b7 2026-11-03",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a mobile app with food delivery features",
+      "is:issue is:open bounty created:>=2026-09-05 build mobile app",
+      "hiring a freelancer to develop a compact button style for game UI"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a mobile app with food delivery features",
+      "hiring a freelancer to develop a compact button style for game UI",
+      "can anyone create a MVP tracker for product launch gates",
+      "need paid help with aligning UI names to Notion vocabulary",
+      "looking for someone to fix interactive target size issues in game buttons"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 13,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a mobile app with food delivery features",
+        "hiring a freelancer to develop a compact button style for game UI",
+        "can anyone create a MVP tracker for product launch gates",
+        "need paid help with aligning UI names to Notion vocabulary",
+        "looking for someone to fix interactive target size issues in game buttons"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 119,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
