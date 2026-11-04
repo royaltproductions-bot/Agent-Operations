@@ -1,0 +1,125 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-04T15:12:20.905863+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "github_paid_issues": 5,
+      "duckduckgo": 5,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 16,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=2170560",
+        "title": "What it's like in Egypt: An email from my mom",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=43504535",
+        "title": "How to use LLMs with unreal engine 5.5 to generate blueprints, assets etc.?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=27012544",
+        "title": "Ask HN: How do I help my friend get his first tech job?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=7048884",
+        "title": "Ask HN: How about a rental focused credit union",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/haterade22/TAOM/issues/1080",
+        "title": "The Long Defeat: a leaderboard, with player submissions and validation",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/GoodDollar/GoodWidget/issues/276",
+        "title": "[DRAFT][GoodBounty] Finalize Next Task component PR (#248)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to setup tor onion service with hosting",
+      "can anyone create a tor onion service for a private website",
+      "is:issue is:open bounty created:>=2026-09-05 ",
+      "hiring a freelancer to configure onion services for dark web site"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to setup tor onion service with hosting",
+      "hiring a freelancer to configure onion services for dark web site",
+      "can anyone create a tor onion service for a private website",
+      "looking for someone to deploy a dark web hosting solution"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 20,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to setup tor onion service with hosting",
+        "hiring a freelancer to configure onion services for dark web site",
+        "can anyone create a tor onion service for a private website",
+        "looking for someone to deploy a dark web hosting solution"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 119,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
