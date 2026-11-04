@@ -1,0 +1,126 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-04T12:08:56.321586+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 4,
+      "duckduckgo": 8
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 12,
+    "candidates_without_email": 12,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/paraloom-labs/paraloom-wallet/issues/155",
+        "title": "[BOUNTY] Medium: Onboarding and multi-account switching fail to sync chrome.storage.session and StoredWallet.address, ca",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/SlopDotCash/slopdotcash/issues/1467",
+        "title": "Finish owner setup, live acceptance and remaining cleanup",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/sebastianspicker/tiz0wn/issues/1",
+        "title": "Have you managed to get root?",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraloom-labs/paraloom-core/issues/1337",
+        "title": "[BUG BOUNTY] High: TransactSpl requires initialized TokenAccounts for recipient and fee_token during internal transfers ",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.fiverr.com/categories/programming-tech/website-development",
+        "title": "Create a secure private onion website or web app on the tor ... - Fiverr",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://privatealps.net/en/blog/what-is-tor-hosting",
+        "title": "Tor Hosting Explained: How to Deploy a v3 .onion Hidden Service",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-05 create secure private",
+      "is:issue is:open bounty created:>=2026-09-05 anyone create secure",
+      "is:issue is:open bounty created:>=2026-09-05 ",
+      "looking for someone to create a secure private onion website on tor",
+      "hiring a freelancer to host a v3 onion hidden service"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create a secure private onion website on tor",
+      "hiring a freelancer to host a v3 onion hidden service",
+      "can anyone create a secure .onion website with tor support",
+      "need paid help with setting up a hidden service on tor",
+      "looking for someone to develop a private onion web app"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 11,
+      "skipped_revisits": 34,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create a secure private onion website on tor",
+        "hiring a freelancer to host a v3 onion hidden service",
+        "can anyone create a secure .onion website with tor support",
+        "need paid help with setting up a hidden service on tor",
+        "looking for someone to develop a private onion web app"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 119,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
