@@ -1,0 +1,124 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-04T04:17:53.505720+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "github_paid_issues": 4,
+      "duckduckgo": 2
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 12,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=47277810",
+        "title": "I started making money online in 10th grade \u2013 some lessons about capital",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46011748",
+        "title": "Ask HN: Suggest tiny website ideas that I can build this Christmas holiday",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45821059",
+        "title": "A Portfolio Ended My 4 Month Job Search and Started My Side Income",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=42056558",
+        "title": "We tried most Backlink building methods \u2013 this is what worked for us",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=35070143",
+        "title": "How we built a social network with No-Code",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=18981032",
+        "title": "Ask HN: Any serverless WordPress companies out there?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a simple website for a local business",
+      "can anyone create a basic WordPress site with SEO setup",
+      "is:issue is:open bounty created:>=2026-09-05 build simple website",
+      "is:issue is:open bounty created:>=2026-09-05 designing logo startup",
+      "is:issue is:open bounty created:>=2026-09-05 ",
+      "hiring a freelancer to create a mobile app prototype"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a simple website for a local business",
+      "hiring a freelancer to create a mobile app prototype",
+      "need paid help with designing a logo for a startup",
+      "can anyone create a basic WordPress site with SEO setup",
+      "looking for someone to develop a landing page for a product launch"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 32,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a simple website for a local business",
+        "hiring a freelancer to create a mobile app prototype",
+        "need paid help with designing a logo for a startup",
+        "can anyone create a basic WordPress site with SEO setup",
+        "looking for someone to develop a landing page for a product launch"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 119,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
