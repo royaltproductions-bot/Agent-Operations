@@ -1,0 +1,125 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-04T18:08:52.061225+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 2,
+      "github_paid_issues": 5,
+      "duckduckgo": 7,
+      "followup": 2
+    },
+    "source_errors": [],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 2,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=17360117",
+        "title": "Which is more private: Pi-Hole and Unbound OR Cloudflare Tor resolver?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=13653828",
+        "title": "Ask HN: Are VMWare / VSphere products any good at what they do?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ruohong2018/ruohong2018.github.io/issues/1323",
+        "title": "[\u6bcf\u65e5\u4fe1\u606f\u6d41] 2026-09-23",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/BruceFeIix/picker/issues/2704",
+        "title": "[\u6bcf\u65e5\u4fe1\u606f\u6d41] 2026-09-23",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/inference-sh/sdk-js/issues/736",
+        "title": "[code-review] test: add type export tests for publish-quarantine (COM-8)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/FuRongJun-1999/dsh-bounty/issues/2370",
+        "title": "\u7b2c\u4e09\u65b9\u72ec\u7acb\u590d\u9a8c\uff1adsh-memory PR #777\uff08#677 hooks dedupe\uff09\u2014\u2014Python \u5b88\u536b\u5168\u8fc7+TS \u6e90\u7801\u786e\u8ba4",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to configure tor onion service for static website",
+      "looking for someone to deploy tor hidden service on my existing server",
+      "is:issue is:open bounty created:>=2026-09-05 setup tor hidden",
+      "is:issue is:open bounty created:>=2026-09-05 ",
+      "hiring a freelancer to setup tor hidden service with docker container"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to configure tor onion service for static website",
+      "hiring a freelancer to setup tor hidden service with docker container",
+      "can anyone create tor onion address for my vps hosting setup",
+      "looking for someone to deploy tor hidden service on my existing server"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 23,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to configure tor onion service for static website",
+        "hiring a freelancer to setup tor hidden service with docker container",
+        "can anyone create tor onion address for my vps hosting setup",
+        "looking for someone to deploy tor hidden service on my existing server"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": {
+    "source_url": "https://anubizhost.com/en/tor-hidden-service-static-site-hosting-2026",
+    "title": "Static Site Hosting on Tor: Jekyll, Hugo, and Next.js on .onion",
+    "scope": "Deployment of static site generators (Jekyll, Hugo, Next.js) on a Tor hidden service. Includes automated build, configuration of Nginx for static file serving, and .onion domain setup.",
+    "price_usd": "199.99",
+    "price_cents": 19999,
+    "offer_id": "8a2893ae9063eab329ebe762",
+    "payment_link_id": "plink_1UY95mBto3o776uyUBMTo671"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://anubizhost.com/en/tor-hidden-service-static-site-hosting-2026"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 2,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "none"
+  }
+}
