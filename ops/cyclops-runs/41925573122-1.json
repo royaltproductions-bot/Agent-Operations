@@ -1,0 +1,146 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-04T22:30:08.676663+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "duckduckgo": 8,
+      "followup": 3,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "verified_firsthand_problem_pages": 7,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 14,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=47614108",
+        "title": "The Founder's Paradox in AI Generation",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=10995717",
+        "title": "Ask HN: What are some common industry problems?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://capig.goto.com/invoice-generator-excel-vba",
+        "title": "Free Excel VBA Invoice Generator for Small Businesses (Download)",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://trumpexcel.com/free-excel-templates/invoice-generator/",
+        "title": "[FREE Invoice Generator Template] Save Excel Invoice as PDF",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.exceldemy.com/excel-auto-generate-number-sequence/",
+        "title": "How to Auto Generate Number Sequence in Excel",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.exceldemy.com/auto-generate-serial-number-in-excel-vba/",
+        "title": "Auto Generate Serial Number in Excel VBA",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 15,
+    "search_queries": [
+      "Automated PDF invoice generator with Excel VBA",
+      "Excel VBA invoice generator template free download",
+      "",
+      "Batch rename files tool for Windows free download",
+      "Digital tool for renaming multiple files quickly"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 33,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "Excel VBA invoice generator template free download",
+        "Batch rename files tool for Windows free download",
+        "Automated PDF invoice generator with Excel VBA",
+        "Digital tool for renaming multiple files quickly"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 117,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "production_error",
+    "reason": "concept_generation_failed:Unterminated string starting at: line 12 column 6642 (char 8262)"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 2,
+    "product_pages": 2,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "production_or_publication_failed",
+      "detail": "concept_generation_failed:Unterminated string starting at: line 12 column 6642 (char 8262)"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 2,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 14,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
