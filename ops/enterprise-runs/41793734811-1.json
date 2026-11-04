@@ -1,0 +1,111 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-04T07:41:30.603644+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "github_paid_issues": 4,
+      "duckduckgo": 2
+    },
+    "source_errors": [],
+    "fetched_public_pages": 12,
+    "candidates_without_email": 11,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=48434252",
+        "title": "Realisation of Unfixable",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=48169701",
+        "title": "Give every tool LLM wiki and bypass Claude Code SSH Throttle",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47567925",
+        "title": "Tell HN: Uni feels so usless, I cant focus anymore",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46050832",
+        "title": "Looking for Open Source Co owners and decision makers",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44696689",
+        "title": "VCs Got Soft and Made Everyone Cowards",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44308475",
+        "title": "I'm 16 and Trying to Save Coral Reefs with Open-Source Symbiotic Biotech",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a Tor SOCKS client for MyZubster Onion Pilot",
+      "is:issue is:open bounty created:>=2026-09-05 anyone create tor",
+      "is:issue is:open bounty created:>=2026-09-05 ",
+      "can anyone create a Tor v3 onion endpoint integration"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a Tor SOCKS client for MyZubster Onion Pilot",
+      "can anyone create a Tor v3 onion endpoint integration"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 10,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a Tor SOCKS client for MyZubster Onion Pilot",
+        "can anyone create a Tor v3 onion endpoint integration"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:The project is already in progress with community contributors, and the request is for a technical guide. A paid serv"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
