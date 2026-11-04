@@ -1,0 +1,209 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-04T13:52:45.833019+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 14,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "hn_ask": 3,
+      "duckduckgo": 7,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 12,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=44624901",
+        "title": "I coined the word \"Distributable Expertize\"",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=38093053",
+        "title": "Ask HN: Multi-tenant headless CRM with workflows and automations?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=27525819",
+        "title": "Ask HN: What is your \u201csales stack\u201d?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://upliftgtm.com/blog/lead-nurturing-emails",
+        "title": "Lead Nurturing Emails: 12 Templates & Best Practices for B2B",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.salesmate.io/blog/lead-nurturing-emails/",
+        "title": "Lead nurturing emails: 5 examples and templates",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://blog.sendspark.com/lead-nurturing-emails",
+        "title": "Lead Nurturing Emails: Templates & Examples | Sendspark",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 14,
+    "search_queries": [
+      "email automation template for lead nurturing",
+      "python script to generate invoice templates",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 34,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "email automation template for lead nurturing",
+        "python script to generate invoice templates",
+        "automate social media posting with python script",
+        "downloadable spreadsheet for project timeline tracking"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:12 candidates reviewed;  niche interest in automating email tasks using Python, but there is no clear evidence of a specific, actionable problem or demand for a new product. The absence of pri"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 2,
+    "product_pages": 2,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "public_page_fetch",
+          "reason": "HTTPError"
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:c7aaa0e4dc61831f12",
+      "decision": "pass",
+      "reason": "While the concept of 'Distributable Expertise' is intriguing and aligns with current trends in automation and workflow sharing, there is no clear evidence of a product or service that directly addresses this need. The discussion is more speculative and lacks concrete examples of existing tools or platforms that implement this idea. Additionally, th"
+    },
+    {
+      "candidate_id": "web:13d451e2e5cd4f78c1",
+      "decision": "pass",
+      "reason": "The request for a multi-tenant headless CRM with workflows and automations indicates a specific need, but there is no evidence of existing sales or pricing. While the problem is clearly defined, the absence of verified sales or pricing data makes it difficult to assess the market viability without further exploration. Additionally, the market for C"
+    },
+    {
+      "candidate_id": "web:0da052c5d38c8dfb73",
+      "decision": "pass",
+      "reason": "The discussion around sales stack tools and lead generation automation indicates a need for better tools in B2B sales, but there is no clear evidence of a specific product or demand for a new solution. The existing tools and resources (e.g., lead nurturing emails, CRM tools) already address many of these needs. Without a clear, specific problem or "
+    },
+    {
+      "candidate_id": "web:5a7604a729144cec6c",
+      "decision": "pass",
+      "reason": "While the topic of lead nurturing emails is relevant and there is demand for templates and best practices, the evidence does not indicate a clear gap or a specific problem that a new product can solve. The existing content on the topic is already well-covered by multiple sources, and there is no indication of a unique value proposition or a specifi"
+    },
+    {
+      "candidate_id": "web:a8246cdfd806c3704c",
+      "decision": "pass",
+      "reason": "The content around lead nurturing emails is highly competitive and saturated with existing platforms like Salesmate and Sendspark offering similar solutions. There is no clear differentiation or unique value proposition presented in the public market observations to justify building a new product in this space. The demand is evident, but the market"
+    },
+    {
+      "candidate_id": "web:af83eaec119f695c48",
+      "decision": "pass",
+      "reason": "The content about lead nurturing emails is informative and addresses a specific need in B2B sales, but there is no evidence of a product or sales, making it speculative. Without a clear product offering or demonstrated demand, it is not a viable candidate for pursuit."
+    },
+    {
+      "candidate_id": "web:d9eeca200be2784cd4",
+      "decision": "pass",
+      "reason": "The Python Invoice Generator project is a technical tutorial that demonstrates how to build an invoice generator using Python. However, there is no evidence of a completed product, sales, or pricing. While the concept is feasible, the absence of a clear product offering, market demand, or competitive positioning makes it difficult to justify pursui"
+    },
+    {
+      "candidate_id": "web:9aa3df0a9fe17338c6",
+      "decision": "pass",
+      "reason": "The lead nurture email sequence template from Sender is a well-structured, pre-built automation flow that addresses a specific need in email marketing. However, the absence of pricing and sales data makes it difficult to assess its commercial viability. While the template is useful, there is no evidence of its adoption or success in the market, whi"
+    },
+    {
+      "candidate_id": "web:0b415262b32efd8855",
+      "decision": "pass",
+      "reason": "The observed public market data for email automation in Python does not provide concrete evidence of demand or buyer utility. The GitHub topics and repositories are primarily code repositories, not commercial products, and lack pricing, sales data, or direct customer engagement metrics. There is no clear indication of a specific customer problem th"
+    },
+    {
+      "candidate_id": "web:fd5abd2951631d0d08",
+      "decision": "pass",
+      "reason": "The topic 'automated-email-communication' has a repository with 42 stars, indicating some level of interest among developers. However, there is no clear evidence of actual buyer demand or utility beyond the GitHub repository. The absence of pricing, sales data, or direct customer engagement metrics makes it difficult to justify pursuing a product w"
+    },
+    {
+      "candidate_id": "web:cbd1ece2854f1cd7e1",
+      "decision": "pass",
+      "reason": "The GitHub topic 'python-email-automation' indicates a niche interest in automating email tasks using Python, but there is no clear evidence of a specific, actionable problem or demand for a new product. The absence of pricing, sales data, or direct customer feedback makes it difficult to assess the viability of a new product in this space. Additio"
+    },
+    {
+      "candidate_id": "web:718cbbe19cabbdd939",
+      "decision": "pass",
+      "reason": "The candidate lacks a clear, specific problem statement and a feasible, differentiated product idea. The evidence excerpt is not actionable or specific enough to justify building a new product. The existing catalog includes more concrete and actionable ideas that align better with real customer needs."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 2,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 12,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
