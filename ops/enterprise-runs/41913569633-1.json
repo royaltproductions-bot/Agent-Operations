@@ -1,0 +1,139 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-04T21:14:16.195407+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "github_paid_issues": 5,
+      "duckduckgo": 2,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=49714867",
+        "title": "Ask HN: Why aren't LLM token CDN cache's a thing?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=49486567",
+        "title": "Ask HN: LinkedIn, but only for people you've physically met?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=48573190",
+        "title": "Ask HN: Successful entrepreneurs and indie hackers, enlighten me",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=48499909",
+        "title": "DevRel is becoming a freelance job now? (India specific)",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47912500",
+        "title": "Ask HN: How do I learn software engineering and transition to building products?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47814662",
+        "title": "Why your company will never scale (or maybe why it will)",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a Tor network web server",
+      "need paid help with scraping dark web bins using AI",
+      "is:issue is:open bounty created:>=2026-09-05 build tor network",
+      "is:issue is:open bounty created:>=2026-09-05 setup dark web",
+      "is:issue is:open bounty created:>=2026-09-05 scraping dark web",
+      "is:issue is:open bounty created:>=2026-09-05 "
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a Tor network web server",
+      "hiring a freelancer to setup a dark web scraper dashboard",
+      "need paid help with scraping dark web bins using AI",
+      "can anyone create a Tor hidden service for data monitoring"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 32,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a Tor network web server",
+        "hiring a freelancer to setup a dark web scraper dashboard",
+        "need paid help with scraping dark web bins using AI",
+        "can anyone create a Tor hidden service for data monitoring"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": {
+    "source_url": "https://github.com/useagenthq/useagent/issues/113",
+    "title": "Agent Coding Tasks: Website, Bug Fix, and Tests",
+    "scope": "Execute three coding tasks using an agent: build a one-page website for a caf\u00e9/portfolio/event, fix a real bug in a chosen repo, and add meaningful tests to a project. Provide final files, test results, and a report with links to the completed work.",
+    "price_usd": "49.95",
+    "price_cents": 4995,
+    "offer_id": "c3e727959601bd0c9d78aa91",
+    "payment_link_id": "plink_1UYBsIBto3o776uy0qaf7gLV"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://github.com/useagenthq/useagent/issues/113"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "none"
+  }
+}
