@@ -276,10 +276,10 @@
     },
     "mx7dartnjzsphksgveek0qxs2h8hkcfn": {
       "action": "retry_evaluation",
-      "at": "2026-11-04T11:05:27.510649+00:00",
+      "at": "2026-11-04T11:07:37.666145+00:00",
       "last_error": "ValueError",
-      "retry_at": "2026-11-04T11:06:27.510632+00:00",
-      "retry_count": 1,
+      "retry_at": "2026-11-04T11:09:37.666127+00:00",
+      "retry_count": 2,
       "version": 1
     },
     "mx7drkexqn2tyzjnswfdebhrmn8gna9x": {
@@ -1914,16 +1914,10 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjozMSwiY2hlY2twb2ludEF0IjoxNzkzNzkwMzAzNDc1fQ",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjozMSwiY2hlY2twb2ludEF0IjoxNzkzNzkwNDM2NTQxfQ",
   "last_bid_reconciliation": "2026-11-04T11:05:05.723958+00:00",
-  "last_check": "2026-11-04T11:05:27.513313+00:00",
+  "last_check": "2026-11-04T11:07:37.668554+00:00",
   "recent_outcomes": [
-    {
-      "action": "asked",
-      "at": "2026-10-30T16:16:51.281818+00:00",
-      "bounty_id": "mx76v3pva0rj63cc8kg4ewcxan8gpcmj",
-      "version": 1
-    },
     {
       "action": "pass_unsupported",
       "at": "2026-10-30T16:16:51.555430+00:00",
@@ -2309,6 +2303,13 @@
       "bounty_id": "mx7dartnjzsphksgveek0qxs2h8hkcfn",
       "reason": "ValueError",
       "retry_count": 1
+    },
+    {
+      "action": "evaluation_retry_scheduled",
+      "at": "2026-11-04T11:07:37.666152+00:00",
+      "bounty_id": "mx7dartnjzsphksgveek0qxs2h8hkcfn",
+      "reason": "ValueError",
+      "retry_count": 2
     }
   ],
   "schema": 1,
