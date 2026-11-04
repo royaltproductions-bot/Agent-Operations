@@ -1,0 +1,124 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-03T23:57:11.912863+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "github_paid_issues": 4,
+      "duckduckgo": 2
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 11,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=628672",
+        "title": "Ideas I would like to see funded. What about you HN?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45145641",
+        "title": "Ask HN: What if teachers invested in students instead of charging tuition?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=25702569",
+        "title": "America\u2019s Grand Bargain on Agriculture Is in Danger (Bloomberg Law)",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=22188824",
+        "title": "Homeless Developer in Los Angeles Needs Work, Can You Please Help?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=10094971",
+        "title": "User for Great Neural Network Library?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=4158975",
+        "title": "Seabiscuit and \"The money problem\"",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create a no-code restaurant app",
+      "need paid help with a food ordering app prototype",
+      "is:issue is:open bounty created:>=2026-09-04 build food ordering",
+      "is:issue is:open bounty created:>=2026-09-04 create food delivery",
+      "looking for someone to build a food ordering app without coding",
+      "hiring a freelancer to create a food delivery platform"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a food ordering app without coding",
+      "hiring a freelancer to create a food delivery platform",
+      "can anyone create a no-code restaurant app",
+      "need paid help with a food ordering app prototype",
+      "looking for someone to develop a no-code food app"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 17,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a food ordering app without coding",
+        "hiring a freelancer to create a food delivery platform",
+        "can anyone create a no-code restaurant app",
+        "need paid help with a food ordering app prototype",
+        "looking for someone to develop a no-code food app"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
