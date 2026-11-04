@@ -1,0 +1,140 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-04T01:29:30.870828+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "github_paid_issues": 4,
+      "duckduckgo": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 11,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=2978024",
+        "title": "Ask HN: Why seek seed funding/Investors?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44788795",
+        "title": "Ask HN: How to build a 2D wave-like line graph that responds to keyboard events?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=27388092",
+        "title": "How to hire freelance developers for small jobs?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=27144783",
+        "title": "Help, my POC got funded, need serious Dev advice to build and scale my Flask app",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=19963435",
+        "title": "Siempo is hiring Android and web devs to build humane technology",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=48527480",
+        "title": "I built a bookkeeping app for UK sole traders as a new developer using AI",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to develop a food delivery platform",
+      "hiring a freelancer to build a web-based food delivery system",
+      "can anyone create a mobile app for food delivery service",
+      "is:issue is:open bounty created:>=2026-09-05 build web based",
+      "is:issue is:open bounty created:>=2026-09-05 anyone create mobile",
+      "is:issue is:open bounty created:>=2026-09-05 "
+    ],
+    "attempted_search_queries": [
+      "looking for someone to develop a food delivery platform",
+      "hiring a freelancer to build a web-based food delivery system",
+      "can anyone create a mobile app for food delivery service",
+      "need paid help with designing a food delivery platform UI",
+      "looking for someone to design a food delivery platform flow"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 39,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to develop a food delivery platform",
+        "hiring a freelancer to build a web-based food delivery system",
+        "can anyone create a mobile app for food delivery service",
+        "need paid help with designing a food delivery platform UI",
+        "looking for someone to design a food delivery platform flow"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 119,
+      "known_pages": 1800
+    }
+  },
+  "offer": {
+    "source_url": "https://news.ycombinator.com/item?id=19963435",
+    "title": "Tech-Lead Hiring Support for Siempo",
+    "scope": "Research and compile a strategic hiring pitch for Siempo's tech-lead role, emphasizing their mission in humane technology and open-source collaboration. Include a tailored job description, candidate profile, and outreach strategy for attracting mission-driven developers.",
+    "price_usd": "199.95",
+    "price_cents": 19995,
+    "offer_id": "fb73003fb0c9f50c3c13146a",
+    "payment_link_id": "plink_1UXtEEBto3o776uyLdyqaa7S"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://news.ycombinator.com/item?id=19963435"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "none"
+  }
+}
