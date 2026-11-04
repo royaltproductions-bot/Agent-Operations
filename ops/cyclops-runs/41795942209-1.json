@@ -1,0 +1,160 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-04T08:00:19.998346+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 2,
+      "duckduckgo": 11,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "InvalidURL"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "InvalidURL"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "verified_firsthand_problem_pages": 3,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 12,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=14128510",
+        "title": "Ask HN: How to you manage (food) recipes?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=5103956",
+        "title": "Why the startup world needs a \"Vendor API\"",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.geeksforgeeks.org/python/email-templates-with-jinja-in-python/",
+        "title": "Email Templates with Jinja in Python - GeeksforGeeks",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://github.com/stefagnone/Dynamic-Email-Generator-in-Python",
+        "title": "stefagnone/Dynamic-Email-Generator-in-Python - GitHub",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://github.com/msboufanzi/Auto-Emailer",
+        "title": "GitHub - msboufanzi/Auto-Emailer: The script is designed to send ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.pythoncentral.io/how-to-automate-email-marketing-campaigns-with-python-a-step-by-step-guide/",
+        "title": "How to Automate Email Marketing Campaigns with Python ... - Python Central",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 15,
+    "search_queries": [
+      "automate email template creation python script for sale",
+      "bulk email sender script with smtp authentication downloadable",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 29,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "automate email template creation python script for sale",
+        "bulk email sender script with smtp authentication downloadable",
+        "python script to organize inbox by priority and category",
+        "downloadable script for smart email classification using hugging face"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 117,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "production_error",
+    "reason": "concept_generation_failed:Unterminated string starting at: line 12 column 4874 (char 6455)"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 2,
+    "product_pages": 2,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "production_or_publication_failed",
+      "detail": "concept_generation_failed:Unterminated string starting at: line 12 column 4874 (char 6455)"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "public_page_fetch",
+          "reason": "HTTPError"
+        }
+      ]
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 2,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 12,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
