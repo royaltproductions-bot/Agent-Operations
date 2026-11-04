@@ -1,0 +1,128 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-04T23:04:24.037423+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 5,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 14,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/WeningerII/CodexMusica/issues/677",
+        "title": "Future: exhaustive English meter coverage and reliable scansion",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/pedropzz103-tech/visione/issues/25",
+        "title": "VISIONE Bounties: discover and qualify paid Opire + Algora tasks for Codex Cloud",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Monkestation/Monkestation2.0/issues/12914",
+        "title": "obsessed not showing in roundend",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/freedom-winds/BountyScout/issues/1379",
+        "title": "\ud83c\udfaf Bounty Alert: 5 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ConcatenaLabs/arca/issues/629",
+        "title": "A wallet learns of a channel payment only by polling, and each poll runs the witness",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://duckduckgo.com/y.js?ad_domain=wix.com&ad_provider=bingv7aa&ad_type=txad&click_metadata=7CGH8q4Grkdmb2GjMqIVXuvc4Kxgyg0ux6ldc3ZpVroU_KurllFj1YM4Z6yGQCPSrD7nOZz7NwcSMr_EoB2Ls6Sc_jNydpbZ_cXconAOC",
+        "title": "Build A Professional Website - Build a Website with Wix",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-05 deploy website tor",
+      "is:issue is:open bounty created:>=2026-09-05 ",
+      "looking for someone to build a static website with onion service setup",
+      "hiring a freelancer to deploy a website on the Tor network"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a static website with onion service setup",
+      "hiring a freelancer to deploy a website on the Tor network",
+      "need paid help with setting up an onion service for a private site",
+      "can anyone create a Tor hidden service for my static HTML site"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 51,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a static website with onion service setup",
+        "hiring a freelancer to deploy a website on the Tor network",
+        "need paid help with setting up an onion service for a private site",
+        "can anyone create a Tor hidden service for my static HTML site"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
