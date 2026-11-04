@@ -1,0 +1,128 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-04T17:16:02.239258+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 1,
+      "github_paid_issues": 5,
+      "duckduckgo": 8,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=1995354",
+        "title": "Ask HN: How do you effectively manage remote/telecommuting programmers?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/dev-kp-eloper/BountyScout/issues/1725",
+        "title": "\ud83c\udfaf Bounty Alert: 11 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/anthropics/claude-code/issues/107258",
+        "title": "[Bug] Approved CVP Account Blocked on Authorized Cyber Research Requests",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/prideh/SummonerSearcher-Backend/issues/18",
+        "title": "Improvement stats: phase farming, lead retention, death cost, gold holding and team objectives",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/freedom-winds/BountyScout/issues/1378",
+        "title": "\ud83c\udfaf Bounty Alert: 7 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/jjgroenendijk/opensky/issues/1766",
+        "title": "Crime and guards follow the game: witnesses walk to guards, NPC arrests, stolen horses, ownership rules",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "hiring a freelancer to setup tor onion service for static website",
+      "is:issue is:open bounty created:>=2026-09-05 ",
+      "looking for someone to deploy a tor onion service with docker"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to deploy a tor onion service with docker",
+      "hiring a freelancer to setup tor onion service for static website",
+      "need paid help with tor hidden service configuration for existing site",
+      "can anyone create a tor onion address for my static html site"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 46,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to deploy a tor onion service with docker",
+        "hiring a freelancer to setup tor onion service for static website",
+        "need paid help with tor hidden service configuration for existing site",
+        "can anyone create a tor onion address for my static html site"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
