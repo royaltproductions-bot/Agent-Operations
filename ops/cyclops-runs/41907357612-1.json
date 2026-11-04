@@ -1,0 +1,150 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-04T20:35:41.491178+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 11,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 11
+    },
+    "search_provider_counts": {
+      "hn_ask": 1,
+      "duckduckgo": 5,
+      "bing": 1,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 9,
+    "verified_firsthand_problem_pages": 2,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 9,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=6956139",
+        "title": "Wanted: A Backend/Full-stack hacker to work on movie trailers",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://blog.megandriscoll.com/lead-nurturing-email-sequence-examples",
+        "title": "Lead Nurturing Email Sequence Examples: 7 Templates",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.sequenzy.com/blog/email-nurture-sequence-examples",
+        "title": "Email Nurture Sequence Examples: 17 Real Sequences That Convert",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.mailmodo.com/guides/python-email-automation/",
+        "title": "How to Easily Setup Python Email Automation - Mailmodo",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://fluentcrm.com/blog/lead-nurturing-email-templates/",
+        "title": "7 Lead Nurturing Emails Template to Copy from Top Brands",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.saleshandy.com/blog/",
+        "title": "Blog Tips, guides & cold email strategies",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 10,
+    "search_queries": [
+      "paid python script for lead generation automation",
+      "downloadable lead nurturing email sequences",
+      "self-contained cold email follow-up automation tool",
+      "python script for automated email campaign templates",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 33,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "python script for automated email campaign templates",
+        "downloadable lead nurturing email sequences",
+        "self-contained cold email follow-up automation tool",
+        "paid python script for lead generation automation"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 118,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "production_error",
+    "reason": "concept_generation_failed:Unterminated string starting at: line 12 column 5963 (char 7327)"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 2,
+    "product_pages": 2,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "production_or_publication_failed",
+      "detail": "concept_generation_failed:Unterminated string starting at: line 12 column 5963 (char 7327)"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 2,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 9,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
