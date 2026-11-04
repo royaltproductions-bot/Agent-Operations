@@ -1,0 +1,125 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-04T10:27:29.646093+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "github_paid_issues": 4,
+      "duckduckgo": 2
+    },
+    "source_errors": [],
+    "fetched_public_pages": 12,
+    "candidates_without_email": 11,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=28598576",
+        "title": "Startup Idea: Shared remote hiring umbrella",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=24356457",
+        "title": "Need Feedback: Instant Hiring Platform for Long Term, on Demand Freelancers",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=11400463",
+        "title": "Ask HN: Responding to a \u201cblank canvas\u201d job offer?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=6497749",
+        "title": "Ask HN: Two Sided Marketplace Buildout",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=4874025",
+        "title": "Ask HN: Why won't your company hire remote workers? Why not work in an office?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=49804994",
+        "title": "In the beginning, it was good \u2013part 1",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "hiring a freelancer to set up a Tor hidden service v3 endpoint",
+      "need paid help with Tor onion service configuration and deployment",
+      "is:issue is:open bounty created:>=2026-09-05 deploy tor onion",
+      "looking for someone to deploy a Tor onion service for a private app"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to deploy a Tor onion service for a private app",
+      "hiring a freelancer to set up a Tor hidden service v3 endpoint",
+      "need paid help with Tor onion service configuration and deployment",
+      "can anyone create a Tor v3 hidden service for a private project",
+      "looking for someone to build a Tor onion service for a decentralized app"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 12,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to deploy a Tor onion service for a private app",
+        "hiring a freelancer to set up a Tor hidden service v3 endpoint",
+        "need paid help with Tor onion service configuration and deployment",
+        "can anyone create a Tor v3 hidden service for a private project",
+        "looking for someone to build a Tor onion service for a decentralized app"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": {
+    "source_url": "https://techearl.com/host-v3-onion-hidden-service",
+    "title": "Host a v3 .onion Hidden Service: Tor Configuration Setup",
+    "scope": "Provide a complete torrc configuration file for hosting a v3 .onion hidden service, including HiddenServiceDir, HiddenServicePort, and permissions setup. The file will be formatted for direct use in a Tor configuration.",
+    "price_usd": "9.99",
+    "price_cents": 999,
+    "offer_id": "579cf8602bf0b5ffb968f538",
+    "payment_link_id": "plink_1UY1YOBto3o776uylatikwVJ"
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "channel": "email",
+    "source_url": "https://techearl.com/host-v3-onion-hidden-service"
+  },
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": true,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "none"
+  }
+}
