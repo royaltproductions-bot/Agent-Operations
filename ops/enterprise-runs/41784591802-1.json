@@ -1,0 +1,122 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-04T06:19:51.699483+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "github_paid_issues": 4,
+      "duckduckgo": 2
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 11,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=50161537",
+        "title": "I put my cell number on my startup's homepage",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=7025889",
+        "title": "Ask HN: Sick of your bank? Want to build a open source, non-profit, online bank?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=49929822",
+        "title": "GitHub can f..k you and you are forced to love it. or live with it...",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47944083",
+        "title": "Ask HN: Google Account Is Being Deleted",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45168447",
+        "title": "Entropy \u2013 Favourite at Mind Sports Olympiad",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=40377762",
+        "title": "Ask HN: Are you willing to teach free classes",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a Tor v3 onion endpoint integration",
+      "can anyone create a Tor SOCKS client for MyZubster Onion Pilot",
+      "is:issue is:open bounty created:>=2026-09-05 build tor onion",
+      "hiring a freelancer to qualify an Ascend RMSNorm task"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a Tor v3 onion endpoint integration",
+      "hiring a freelancer to qualify an Ascend RMSNorm task",
+      "can anyone create a Tor SOCKS client for MyZubster Onion Pilot",
+      "need paid help with NPU baseline testing and manifest delivery",
+      "looking for someone to fix database session stream visibility"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 5,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a Tor v3 onion endpoint integration",
+        "hiring a freelancer to qualify an Ascend RMSNorm task",
+        "can anyone create a Tor SOCKS client for MyZubster Onion Pilot",
+        "need paid help with NPU baseline testing and manifest delivery",
+        "looking for someone to fix database session stream visibility"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
