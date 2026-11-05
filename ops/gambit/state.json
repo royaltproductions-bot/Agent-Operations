@@ -141,9 +141,9 @@
     },
     "mx78018d956x4cdx7cecyvhvex8hn3kw": {
       "action": "retry_evaluation",
-      "at": "2026-11-05T22:14:57.252960+00:00",
+      "at": "2026-11-05T23:48:56.535578+00:00",
       "last_error": "ValueError",
-      "retry_at": "2026-11-05T23:14:57.252943+00:00",
+      "retry_at": "2026-11-06T00:48:56.535572+00:00",
       "retry_count": 10,
       "version": 1
     },
@@ -2159,22 +2159,10 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo0MSwiY2hlY2twb2ludEF0IjoxNzkzOTE5OTIzNTAxfQ",
-  "last_bid_reconciliation": "2026-11-05T23:03:35.358837+00:00",
-  "last_check": "2026-11-05T23:05:24.689251+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo0MSwiY2hlY2twb2ludEF0IjoxNzkzOTIyNDkyNDM0fQ",
+  "last_bid_reconciliation": "2026-11-05T23:48:14.984700+00:00",
+  "last_check": "2026-11-05T23:48:56.537388+00:00",
   "recent_outcomes": [
-    {
-      "action": "asked",
-      "at": "2026-11-05T03:04:16.949910+00:00",
-      "bounty_id": "mx7f8tqb7r75rmrp9hacmt52tn8hm0sn",
-      "version": 1
-    },
-    {
-      "action": "decision_disagreement_resolved",
-      "at": "2026-11-05T04:00:44.952514+00:00",
-      "bounty_id": "mx77fgfqf2y5fkyhd60vpzw6xd8hjkm1",
-      "version": 1
-    },
     {
       "action": "evaluation_retry_scheduled",
       "at": "2026-11-05T04:00:44.954830+00:00",
@@ -2552,6 +2540,19 @@
       "at": "2026-11-05T23:04:19.467307+00:00",
       "bounty_id": null,
       "count": 2
+    },
+    {
+      "action": "decision_disagreement_resolved",
+      "at": "2026-11-05T23:48:56.534416+00:00",
+      "bounty_id": "mx78018d956x4cdx7cecyvhvex8hn3kw",
+      "version": 1
+    },
+    {
+      "action": "evaluation_retry_scheduled",
+      "at": "2026-11-05T23:48:56.535584+00:00",
+      "bounty_id": "mx78018d956x4cdx7cecyvhvex8hn3kw",
+      "reason": "ValueError",
+      "retry_count": 10
     }
   ],
   "schema": 1,
