@@ -1,0 +1,123 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-05T16:28:11.053705+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 15,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 6,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 14,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/briiirussell/cybersecurity-skills/issues/254",
+        "title": "agent-supply-chain-audit + personal-opsec: web-to-agent bridges (a browser extension can drive a desktop coding agent vi",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/beesyst/beeagent/issues/362",
+        "title": "Feature: BS-16 \u2014 Governed BeeScan Web Chat and Investigation Workspace MVP",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/MrDecryptDecipher/2026-04-monetrix-submissions/issues/7",
+        "title": "AEGIS-OMEGA: sub_2a36310c6c9b4d52aaba - Monetrix",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/MrDecryptDecipher/2026-04-monetrix-submissions/issues/6",
+        "title": "AEGIS-OMEGA: sub_07a67fdbb13a405abe6c - Monetrix",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/vllm-project/vllm-omni/issues/9936",
+        "title": "[RFC]: MiniCPM-o 4.5 Architecture Simplification \u2014 Phased MRv1 Retirement, Preset-Based Config Consolidation, HiFT Opera",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://shop.globalsign.com/en/secure-email",
+        "title": "Digitally Sign & Encrypt Emails - GlobalSign",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-06 ",
+      "looking for someone to configure email encryption with S/MIME for a remote team",
+      "hiring a freelancer to set up DKIM and DMARC for email security"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to configure email encryption with S/MIME for a remote team",
+      "hiring a freelancer to set up DKIM and DMARC for email security",
+      "can anyone create a secure email setup with SPF and encryption for a nonprofit",
+      "need paid help with implementing email security protocols for a small business"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 43,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to configure email encryption with S/MIME for a remote team",
+        "hiring a freelancer to set up DKIM and DMARC for email security",
+        "can anyone create a secure email setup with SPF and encryption for a nonprofit",
+        "need paid help with implementing email security protocols for a small business"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
