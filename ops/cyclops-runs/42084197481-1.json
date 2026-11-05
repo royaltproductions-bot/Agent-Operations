@@ -1,0 +1,160 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-05T18:42:06.777093+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 2,
+      "followup": 3,
+      "duckduckgo": 11
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "verified_firsthand_problem_pages": 2,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 14,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=42248692",
+        "title": "Ask HN: How do you handle repetitive research tasks in your workflow?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://learnforge.dev/blog/python-vs-excel-vs-nocode/",
+        "title": "Python vs Excel vs No-Code comparison",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47048265",
+        "title": "PgDog: Connection pooler, load balancer and sharder for PostgreSQL",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://kb.aspose.com/cells/python/how-to-add-comments-in-excel-using-python/",
+        "title": "How to Add Comments in Excel using Python - Aspose Knowledge Base",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.extendoffice.com/documents/excel/7881-excel-batch-change-specific-number-format.html",
+        "title": "How to Batch Change a Specific Number Format in Excel",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.extendoffice.com/download/kutools-for-excel.html",
+        "title": "Download Kutools for Excel: 300+ Tools for Smarter Spreadsheets",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 14,
+    "search_queries": [
+      "browser automation script for repetitive form filling",
+      "",
+      "python code to set column widths and row heights in Excel",
+      "python script to automate comment insertion in Excel cells",
+      "downloadable tool to batch format numbers in Excel"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 19,
+      "skipped_revisits": 24,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "python script to automate comment insertion in Excel cells",
+        "downloadable tool to batch format numbers in Excel",
+        "python code to set column widths and row heights in Excel",
+        "browser automation script for repetitive form filling"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 117,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:8311573714ad4220ec6b:ModuleNotFoundError: No module named 'yaml'",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 2,
+    "product_pages": 2,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:8311573714ad4220ec6b:ModuleNotFoundError: No module named 'yaml'"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "public_page_fetch",
+          "reason": "HTTPError"
+        }
+      ]
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "public_page_fetch",
+          "reason": "HTTPError"
+        }
+      ]
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 2,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 14,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
