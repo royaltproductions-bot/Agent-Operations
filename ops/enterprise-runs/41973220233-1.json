@@ -1,0 +1,136 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-05T05:20:17.153540+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 10,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 16,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/dev-kp-eloper/BountyScout/issues/1712",
+        "title": "\ud83c\udfaf Bounty Alert: 9 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/InferMatrixLab/InferRSI/issues/286",
+        "title": "[Status 03] InferRSI evolution: 48e0d589 \u2192 68108700 (2026-10-31 catch-up)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/realbtr/firstagi/issues/20",
+        "title": "C-15 \u00b7 Teach a skill. Interrupt it. Let a fresh mind inherit it. [500 pts]",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/telegraphprotocol/bounties/issues/168",
+        "title": "WEATHER_CHECK: evaluation material and a comparator module",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/telegraphprotocol/bounties/issues/167",
+        "title": "STOCK_PRICE: evaluation material and a comparator module",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.upwork.com/hire/email-security-freelancers/",
+        "title": "Best Email Security Freelancers for Hire (Nov 2026) - Upwork",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-06 build evaluator adapter",
+      "looking for someone to build an evaluator adapter for email security",
+      "hiring a freelancer to improve onion service usability with script",
+      "need paid help with setting up evaluation material for email security"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build an evaluator adapter for email security",
+      "need paid help with setting up evaluation material for email security",
+      "hiring a freelancer to improve onion service usability with script",
+      "can anyone create a GUI for onion service authentication"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 11,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build an evaluator adapter for email security",
+        "need paid help with setting up evaluation material for email security",
+        "hiring a freelancer to improve onion service usability with script",
+        "can anyone create a GUI for onion service authentication"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
