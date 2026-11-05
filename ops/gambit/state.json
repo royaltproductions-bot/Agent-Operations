@@ -106,9 +106,9 @@
     },
     "mx77fgfqf2y5fkyhd60vpzw6xd8hjkm1": {
       "action": "retry_evaluation",
-      "at": "2026-11-05T08:32:27.519456+00:00",
+      "at": "2026-11-05T09:34:22.664718+00:00",
       "last_error": "ValueError",
-      "retry_at": "2026-11-05T09:32:27.519446+00:00",
+      "retry_at": "2026-11-05T10:34:22.664709+00:00",
       "retry_count": 10,
       "version": 1
     },
@@ -140,10 +140,10 @@
     },
     "mx78018d956x4cdx7cecyvhvex8hn3kw": {
       "action": "retry_evaluation",
-      "at": "2026-11-05T08:35:33.530997+00:00",
+      "at": "2026-11-05T09:33:42.636054+00:00",
       "last_error": "ValueError",
-      "retry_at": "2026-11-05T08:36:33.530988+00:00",
-      "retry_count": 1,
+      "retry_at": "2026-11-05T09:35:42.636043+00:00",
+      "retry_count": 2,
       "version": 1
     },
     "mx7802nm08nqrb6rhb2kdaygr18gszcr": {
@@ -359,6 +359,7 @@
     "mx7f8tqb7r75rmrp9hacmt52tn8hm0sn": {
       "action": "asked",
       "at": "2026-11-05T03:04:16.949887+00:00",
+      "last_asked_review_at": "2026-11-05T09:33:42.968515+00:00",
       "last_declined_bid": null,
       "last_question_version": 1,
       "version": 1
@@ -2103,7 +2104,7 @@
       "budget_cents": 1100,
       "first_detected_at": "2026-11-05T03:04:06.247474+00:00",
       "observed_at": "2026-11-05T03:04:06.247474+00:00",
-      "owner_activity_status": null,
+      "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
       "posted_at": "2026-11-05T02:20:53.274000+00:00",
       "posted_time_field": "created_at",
@@ -2118,36 +2119,10 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjozOCwiY2hlY2twb2ludEF0IjoxNzkzODY3NjkwMTA1fQ",
-  "last_bid_reconciliation": "2026-11-05T08:30:41.641966+00:00",
-  "last_check": "2026-11-05T08:35:33.533634+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjozOSwiY2hlY2twb2ludEF0IjoxNzkzODcxMTc2MTkwfQ",
+  "last_bid_reconciliation": "2026-11-05T09:32:58.379665+00:00",
+  "last_check": "2026-11-05T09:34:22.667324+00:00",
   "recent_outcomes": [
-    {
-      "action": "pass",
-      "at": "2026-11-03T04:27:39.665379+00:00",
-      "bounty_id": "mx7c8v3cj6tvrshqmrd77fpbbx8hhd4h",
-      "pages_read": 14,
-      "research_status": "available",
-      "version": 1
-    },
-    {
-      "action": "work_batch_deferred",
-      "at": "2026-11-03T07:47:05.065933+00:00",
-      "bounty_id": null,
-      "count": 2
-    },
-    {
-      "action": "event_target_unavailable",
-      "at": "2026-11-03T21:01:32.981246+00:00",
-      "bounty_id": "mx74hs2ancg3t3s9vqqk5gdcn18hg9vd",
-      "reason": "bounty_api_BOUNTY_NOT_FOUND"
-    },
-    {
-      "action": "event_target_unavailable",
-      "at": "2026-11-03T21:01:39.322329+00:00",
-      "bounty_id": "mx74hs2ancg3t3s9vqqk5gdcn18hg9vd",
-      "reason": "bounty_api_BOUNTY_NOT_FOUND"
-    },
     {
       "action": "pass",
       "at": "2026-11-03T21:02:11.681430+00:00",
@@ -2513,6 +2488,32 @@
       "bounty_id": "mx78018d956x4cdx7cecyvhvex8hn3kw",
       "reason": "ValueError",
       "retry_count": 1
+    },
+    {
+      "action": "decision_disagreement_resolved",
+      "at": "2026-11-05T09:33:42.633989+00:00",
+      "bounty_id": "mx78018d956x4cdx7cecyvhvex8hn3kw",
+      "version": 1
+    },
+    {
+      "action": "evaluation_retry_scheduled",
+      "at": "2026-11-05T09:33:42.636062+00:00",
+      "bounty_id": "mx78018d956x4cdx7cecyvhvex8hn3kw",
+      "reason": "ValueError",
+      "retry_count": 2
+    },
+    {
+      "action": "decision_disagreement_resolved",
+      "at": "2026-11-05T09:34:22.664012+00:00",
+      "bounty_id": "mx77fgfqf2y5fkyhd60vpzw6xd8hjkm1",
+      "version": 1
+    },
+    {
+      "action": "evaluation_retry_scheduled",
+      "at": "2026-11-05T09:34:22.664723+00:00",
+      "bounty_id": "mx77fgfqf2y5fkyhd60vpzw6xd8hjkm1",
+      "reason": "ValueError",
+      "retry_count": 10
     }
   ],
   "schema": 1,
