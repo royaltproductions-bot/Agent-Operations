@@ -1,0 +1,153 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-05T15:40:28.868093+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "bing": 3,
+      "duckduckgo": 12,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "verified_firsthand_problem_pages": 1,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 15,
+    "public_market_sample": [
+      {
+        "url": "https://squareup.com/us/en/payroll",
+        "title": "Payroll Services | Online Payroll Software | Square",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://purelyprintables.com/free-meal-planner-printables-grocery-lists/",
+        "title": "Free Printable Weekly Meal Planner with Grocery List (PDF Templates)",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.adp.com/",
+        "title": "Payroll, HR and Tax Services | ADP Official Site",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://python-excel-automation.com/automating-reporting-workflows/generating-excel-reports-from-templates/generate-invoices-from-an-excel-template/",
+        "title": "Generate Invoices from an Excel Template with Python",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://theincrementalmama.com/free-printable-weekly-meal-planner-grocery-list/",
+        "title": "Free Printable Weekly Meal Planner & Grocery List",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.adp.com/logins.aspx",
+        "title": "Logins | ADP",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 16,
+    "search_queries": [
+      "payroll spreadsheet templates with tax calculation formulas",
+      "how to create automated invoice templates with Python and Excel",
+      "free downloadable meal plan templates for weekly grocery shopping",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 29,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "how to create automated invoice templates with Python and Excel",
+        "free downloadable meal plan templates for weekly grocery shopping",
+        "editable roofing contract templates with customizable clauses",
+        "payroll spreadsheet templates with tax calculation formulas"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 119,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:cc9b48752a1440bedf44:reportlab.pdfbase.ttfonts.TTFError: Can't open file \"Helvetica.ttf\"",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 2,
+    "product_pages": 2,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:cc9b48752a1440bedf44:reportlab.pdfbase.ttfonts.TTFError: Can't open file \"Helvetica.ttf\""
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 2,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 15,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
