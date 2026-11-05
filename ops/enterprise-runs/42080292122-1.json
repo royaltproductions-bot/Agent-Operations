@@ -1,0 +1,133 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-05T18:06:29.026737+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 15,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "hn_ask": 1,
+      "github_paid_issues": 5,
+      "duckduckgo": 5,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 14,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=5838366",
+        "title": "Good time for someone to build a GOOD secure email replacement?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/shariqh/github-enterprise-settings-configurator/issues/183",
+        "title": "[product-watch] Enterprise Server 3.22.2",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/shariqh/github-enterprise-settings-configurator/issues/182",
+        "title": "[product-watch] Enterprise Server 3.21.7",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/SecOpsNews/news/issues/76167",
+        "title": "[RegisterSec] Anthropic won't fix a Claude Dispatch flaw that could let attackers execute remote commands across corpora",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/SecOpsNews/news/issues/76161",
+        "title": "[RegisterSec] OpenAI releases GPT-6 Cyber, and promises this one stays within 'rules of engagement'",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/velocity-exchange/velocity-v1/issues/577",
+        "title": "Please let me know about the acknowledgement or updated of security report",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a secure email setup with S/MIME for a nonprofit",
+      "is:issue is:open bounty created:>=2026-09-06 configuring email security",
+      "is:issue is:open bounty created:>=2026-09-06 ",
+      "hiring a freelancer to set up email encryption with DKIM and DMARC for a remote team"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a secure email setup with S/MIME for a nonprofit",
+      "hiring a freelancer to set up email encryption with DKIM and DMARC for a remote team",
+      "need paid help with configuring email security protocols for a small business",
+      "can anyone create a secure email configuration with SPF and encryption for a remote team"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 49,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a secure email setup with S/MIME for a nonprofit",
+        "hiring a freelancer to set up email encryption with DKIM and DMARC for a remote team",
+        "need paid help with configuring email security protocols for a small business",
+        "can anyone create a secure email configuration with SPF and encryption for a remote team"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:No explicit request for a deliverable or service was made."
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
