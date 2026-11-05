@@ -1,0 +1,154 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-05T19:41:22.207893+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 12,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "hn_ask": 1,
+      "duckduckgo": 6,
+      "bing": 1,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "verified_firsthand_problem_pages": 1,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 11,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=36112490",
+        "title": "Ask HN: What should I put in my \u201ccomputer person\u201d handbag?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://apps.microsoft.com/detail/9ph81xkfz77d?hl=en-US&gl=US",
+        "title": "Kramata - CSV & Excel Data Cleaner - Free download and install on ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://make.powerautomate.com/oauth",
+        "title": "Microsoft Power Automate",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://github.com/MPGK-Kodex/Data-Cleaner-Tool",
+        "title": "100% Offline Data Cleaner Tool - GitHub",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://cleanmyexcel.io/",
+        "title": "CleanMyExcel.io: Free AI Excel & CSV Data Cleaner",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.exceltool.io/excel-data-cleaner",
+        "title": "Excel Data Cleaner - Remove Duplicates, Trim Spaces & Fix Rows ...",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 10,
+    "search_queries": [
+      "excel data cleaner tool download",
+      "how to automate excel data validation with python",
+      "python script for automating excel data formatting",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 39,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "excel data cleaner tool download",
+        "python script for automating excel data formatting",
+        "excel data splitter tool free download",
+        "how to automate excel data validation with python"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 119,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:c39b3ae19416eb312cb4:AttributeError: 'str' object has no attribute 'canv'",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 2,
+    "product_pages": 2,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:c39b3ae19416eb312cb4:AttributeError: 'str' object has no attribute 'canv'"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 2,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 11,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
