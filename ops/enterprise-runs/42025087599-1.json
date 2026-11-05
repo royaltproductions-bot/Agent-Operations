@@ -1,0 +1,149 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-05T12:14:25.549789+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 8,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "query_planner",
+        "reason": "recovered_fresh_public_research_directions"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 13,
+    "contactable_sources": 3,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/fatalbananas7/bot-chatroom/issues/1",
+        "title": "AlphaBot x Caleb's bot - the chat room",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tari-project/special_contributions/issues/461",
+        "title": "Contribution: fix(rpc_framework): format deadline bounds in BadRequest details and guard RpcResponse::is_fin (tari-proje",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tari-project/special_contributions/issues/460",
+        "title": "Report: tari-ootle no voter-side no-state-changes-after-EOE check lets crash recovery stamp divergent genesis root (EMAI",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/freedom-winds/BountyScout/issues/1381",
+        "title": "\ud83c\udfaf Bounty Alert: 20 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tari-project/special_contributions/issues/459",
+        "title": "Contribution: fix(transaction): include stealth script-path refs and merge builder inputs (tari-project/tari-ootle#3308)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://tech-insider.org/how-to-set-up-dmarc-spf-dkim-2026/",
+        "title": "How to Set Up DMARC, SPF & DKIM: 13 Steps [2026]",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-06 set email encryption",
+      "is:issue is:open bounty created:>=2026-09-06 ",
+      "need paid help setting DKIM DMARC email security",
+      "looking someone configure email encryption MIME nonprofit"
+    ],
+    "attempted_search_queries": [
+      "need paid help setting DKIM DMARC email security",
+      "looking someone configure email encryption MIME nonprofit",
+      "looking someone set email encryption MIME nonprofit",
+      "looking someone set DKIM DMARC email security"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 36,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "need paid help setting DKIM DMARC email security",
+        "looking someone configure email encryption MIME nonprofit",
+        "looking someone set email encryption MIME nonprofit",
+        "looking someone set DKIM DMARC email security"
+      ],
+      "next_query_queue": 8,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [
+    {
+      "reason": "offer_selection_execution_failed",
+      "detail": "model_price_invalid"
+    }
+  ],
+  "commercial_outcomes": [
+    {
+      "reason": "offer_selection_failed",
+      "detail": "model_price_invalid"
+    },
+    {
+      "reason": "no_feasible_contained_offer"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 3,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
