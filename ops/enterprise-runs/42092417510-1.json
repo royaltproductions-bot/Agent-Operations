@@ -1,0 +1,115 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-05T19:20:06.337235+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 7,
+      "github_paid_issues": 5,
+      "duckduckgo": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=48690591",
+        "title": "Roblox parental controls are a dystopian security disaster",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47659603",
+        "title": "Upwork Inc. violates its own DMARC and SPF policy",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45241001",
+        "title": "Lost $300 due to an API key leak from \"vibe coding\" \u2013 Learn from my mistake",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=36888910",
+        "title": "Stay Away from Gemini",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=36188323",
+        "title": "Alternaive to Fastmail (using a custom email domain)",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=34815014",
+        "title": "Ask HN: Any possible legal issues from disclosing security vulnerabilities?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to set up email security with DMARC and SPF for a nonprofit",
+      "is:issue is:open bounty created:>=2026-09-06 set email security",
+      "is:issue is:open bounty created:>=2026-09-06 implementing secure email",
+      "is:issue is:open bounty created:>=2026-09-06 "
+    ],
+    "attempted_search_queries": [
+      "looking for someone to set up email security with DMARC and SPF for a nonprofit",
+      "hiring a freelancer to configure email encryption with S/MIME for a remote team",
+      "need paid help with implementing secure email setup for a small business",
+      "can anyone create a DMARC and DKIM configuration for a nonprofit email system"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 40,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to set up email security with DMARC and SPF for a nonprofit",
+        "hiring a freelancer to configure email encryption with S/MIME for a remote team",
+        "need paid help with implementing secure email setup for a small business",
+        "can anyone create a DMARC and DKIM configuration for a nonprofit email system"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
