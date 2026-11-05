@@ -1,0 +1,136 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-05T15:20:57.498766+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 7,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 16,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/SecureBananaLabs/bug-bounty/issues/13455",
+        "title": "PAYMENT: USDC on Base/Arbitrum wallet (whyst0ne + kingmakeruix 90 deliveries #13403 - #13598 \u2014 $69,890 USD)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/glunk-works/claude-workbench/issues/1350",
+        "title": "Name uv as the Python project manager in the conventions",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/hellonearportal-dotcom/nearportal-demo-tasks/issues/2",
+        "title": "[NP-D1F72BC472] Implement Factorial in tasks/factorial/factorial.go",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://github.com/openai/codex/issues/59673",
+        "title": "Failed to install Finance Plugin",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Invoice-Liquidity-Network/ILN-Smart-Contract/issues/1155",
+        "title": "Security report \u2014 please advise on a private channel",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://missionsecure.org/",
+        "title": "Mission Secure - Empowering Nonprofits with Secure IT Solutions",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-06 configure secure email",
+      "is:issue is:open bounty created:>=2026-09-06 ",
+      "looking for someone to configure secure email protocols for a nonprofit",
+      "hiring a freelancer to implement S/MIME encryption for secure messaging"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to configure secure email protocols for a nonprofit",
+      "hiring a freelancer to implement S/MIME encryption for secure messaging",
+      "can anyone create a secure email setup with DKIM and DMARC for a small team",
+      "need paid help with setting up email encryption for a remote team"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 39,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to configure secure email protocols for a nonprofit",
+        "hiring a freelancer to implement S/MIME encryption for secure messaging",
+        "can anyone create a secure email setup with DKIM and DMARC for a small team",
+        "need paid help with setting up email encryption for a remote team"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
