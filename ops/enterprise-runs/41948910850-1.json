@@ -1,0 +1,131 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-05T01:31:53.001455+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 8,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 4,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/johnchampaign/star-wars-rebellion/issues/830",
+        "title": "[player hnejdu] Princess Leia has both the Bounty ring and the Yoda ring. The rules state a lead",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/hellonearportal-dotcom/test/issues/2",
+        "title": "[NP-53074A116E] USDC rehearsal two: add the second verified text fixture",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://github.com/hellonearportal-dotcom/test/issues/1",
+        "title": "[NP-B54F2FB2A6] USDC rehearsal one: add the first verified text fixture",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://github.com/dseelinger/d47/issues/2144",
+        "title": "Count on-foot kills, remark every 25th",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/jasonbrelsford/agent-bounty-jobs/issues/34",
+        "title": "Rolled back bounty.brelsfordsoftware.com: Test the after-deploy rollback: break robots.txt on purpose",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://community.torproject.org/onion-services/advanced/https/",
+        "title": "Tor Project | HTTPS for your Onion Service",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-06 ",
+      "looking for someone to create a secure onion service with HTTPS support",
+      "hiring a freelancer to set up onion service with DDOS protection"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create a secure onion service with HTTPS support",
+      "hiring a freelancer to set up onion service with DDOS protection",
+      "need paid help with configuring onion service authentication",
+      "can anyone create a Tor hidden service with advanced security features"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 17,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create a secure onion service with HTTPS support",
+        "hiring a freelancer to set up onion service with DDOS protection",
+        "need paid help with configuring onion service authentication",
+        "can anyone create a Tor hidden service with advanced security features"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:The source discusses a technical proposal but does not explicitly invite a paid service provider or request a deliver"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
