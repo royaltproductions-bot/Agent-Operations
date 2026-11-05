@@ -1,0 +1,132 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-05T03:11:28.539013+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 13,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 4,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "URLError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 13,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/SepehrGhanbari/Ario/issues/94",
+        "title": "Incentive-first Ario adoption: offline utility \u2192 rewarded participation \u2192 opt-in P2P",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ChaiWithJai/liquidity-studio/issues/281",
+        "title": "Defiant: recover Thursday defiant-os Nipsey sourcing, catalog matching and clipping workflow",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraspell/xcm-tools/issues/2404",
+        "title": "[Bug bounty] Assets: 7 squatted foreign \"DOT\" entries on AssetHubPolkadot break plain-symbol resolution \u2014 and the error ",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraspell/xcm-tools/issues/2403",
+        "title": "[Bug bounty] EVM: Darwinia precompile addresses are Moonbeam's (0x0804/0x0802/0xffffffff scheme) \u2014 all empty on Darwinia",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraspell/xcm-tools/issues/2402",
+        "title": "[Bug bounty] EVM/Snowbridge: viem drops tx.chainId for JSON-RPC wallets + no wallet-network check \u2192 ETH can be burned on",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://securityonionsolutions.com/support/",
+        "title": "Security Onion Solutions",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-06 creating hidden service",
+      "is:issue is:open bounty created:>=2026-09-06 ",
+      "looking for someone to set up a secure onion service with email integration",
+      "hiring a freelancer to configure onion service with custom domain"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to set up a secure onion service with email integration",
+      "hiring a freelancer to configure onion service with custom domain",
+      "need paid help with creating a hidden service for a private API endpoint",
+      "can anyone create a Tor hidden service with reverse proxy setup"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 37,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to set up a secure onion service with email integration",
+        "hiring a freelancer to configure onion service with custom domain",
+        "need paid help with creating a hidden service for a private API endpoint",
+        "can anyone create a Tor hidden service with reverse proxy setup"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
