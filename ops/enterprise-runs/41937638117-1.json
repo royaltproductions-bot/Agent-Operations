@@ -1,0 +1,122 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-04T23:58:35.073674+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 15,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 5,
+      "bing": 1,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 14,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/dailydollar-bot/agent-bounty-feed/issues/3",
+        "title": "5 USDC bounty: best public agent-facing guide or demo for Agent Bounty Feed (deadline 2026-11-12)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/librepods-org/librepods/issues/878",
+        "title": "android: privileged (shell) service for protected permissions",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/abdulsalam-create/bounty-watch/issues/217",
+        "title": "bounty-watch 2026-11-04: 0 new, 1 resumed, 6 watchlist changes",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Emmanuel-Evenzur/Owasp-AI/issues/115",
+        "title": "llama_index-0.12.38-py3-none-any.whl: 71 vulnerabilities (highest severity is: 7.5) [main] (reachable)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/jamessoubry/clawband/issues/333",
+        "title": "Syntax-check commands (bash -n, node --check) are scanned/denied as if they executed the script",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.hostdel.com/tor-hosting.php",
+        "title": "Tor Hosting \u2014 Anonymous .onion Hidden Service Hosting | HostDel",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-06 setting hidden service",
+      "is:issue is:open bounty created:>=2026-09-06 ",
+      "looking for someone to build a secure onion service with DDOS protection",
+      "need paid help with setting up a hidden service on Tor for a personal site",
+      "hiring a freelancer to configure onion services for a private network"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a secure onion service with DDOS protection",
+      "hiring a freelancer to configure onion services for a private network",
+      "need paid help with setting up a hidden service on Tor for a personal site",
+      "can anyone create a Tor hidden service with anti-DDoS measures"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 37,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a secure onion service with DDOS protection",
+        "hiring a freelancer to configure onion services for a private network",
+        "need paid help with setting up a hidden service on Tor for a personal site",
+        "can anyone create a Tor hidden service with anti-DDoS measures"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 115,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:The source discusses a technical proposal but does not explicitly invite a paid service provider or request a deliver"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
