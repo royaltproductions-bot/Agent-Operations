@@ -1,0 +1,121 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-05T06:22:29.090309+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "github_paid_issues": 5,
+      "duckduckgo": 3
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=47179989",
+        "title": "How do you catch schema drift and security gaps in Firestore?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=25829375",
+        "title": "Ask HN: Any open source tools for searching across services?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=18951659",
+        "title": "Ask HN: How to Help Inexperienced Operations Staff to Grow?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=12499507",
+        "title": "Ask HN: Guidance on dealing with a bug bounty claim",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=2401996",
+        "title": "Tell HN: Always have a way to reach you in your profile",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=33592520",
+        "title": "Ask HN: A headless task and project management platform for developers/apps",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to audit email security protocols for a small business",
+      "hiring a freelancer to set up email encryption with S/MIME for a nonprofit",
+      "can anyone create a report on email security vulnerabilities for a client",
+      "is:issue is:open bounty created:>=2026-09-06 audit email security",
+      "is:issue is:open bounty created:>=2026-09-06 set email encryption"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to audit email security protocols for a small business",
+      "hiring a freelancer to set up email encryption with S/MIME for a nonprofit",
+      "need paid help with configuring DKIM and DMARC for email security",
+      "can anyone create a report on email security vulnerabilities for a client"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 17,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to audit email security protocols for a small business",
+        "hiring a freelancer to set up email encryption with S/MIME for a nonprofit",
+        "need paid help with configuring DKIM and DMARC for email security",
+        "can anyone create a report on email security vulnerabilities for a client"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:The project does not explicitly invite a relevant outside provider, lacks a public appropriate business contact route"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
