@@ -1,0 +1,121 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-05T23:05:12.311777+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 15,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "github_paid_issues": 5,
+      "duckduckgo": 2,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 14,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=37341620",
+        "title": "Stripe Shutdown Our Nonprofit's Account, Holding $12k in Donations Hostage",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=14146723",
+        "title": "Is there a service that can aggregate email from many accounts?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=5756681",
+        "title": "Ask HN - where to learn about securing data, both cloud and personal computers?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=4935610",
+        "title": "How to get rid of emails",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/peterle95/shellfolio/issues/46",
+        "title": "Security Checklist",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Kerkov-Security/kerkov/issues/255",
+        "title": "Coordinated vulnerability disclosure: find the owner's contact, draft the report, operator-only submission",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to configure email security with SPF and DKIM for a nonprofit",
+      "is:issue is:open bounty created:>=2026-09-06 implement email encryption",
+      "is:issue is:open bounty created:>=2026-09-06 ",
+      "hiring a freelancer to implement email encryption and authentication for a remote team"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to configure email security with SPF and DKIM for a nonprofit",
+      "hiring a freelancer to implement email encryption and authentication for a remote team",
+      "can anyone create a secure email setup with DMARC and DKIM for a small business",
+      "hiring a freelancer to configure email security with SPF, DKIM, and DMARC for a nonprofit"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 49,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to configure email security with SPF and DKIM for a nonprofit",
+        "hiring a freelancer to implement email encryption and authentication for a remote team",
+        "can anyone create a secure email setup with DMARC and DKIM for a small business",
+        "hiring a freelancer to configure email security with SPF, DKIM, and DMARC for a nonprofit"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
