@@ -1,0 +1,139 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-05T16:50:08.281474+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 9,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "duckduckgo": 4,
+      "hn_ask": 1,
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 9,
+    "verified_firsthand_problem_pages": 1,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 9,
+    "public_market_sample": [
+      {
+        "url": "https://thebigmansworld.com/category/meal-plans/",
+        "title": "Free Weekly Meal Plans {With Printable Grocery List}",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=1624813",
+        "title": "Kindle Collections for pdf files",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://github.com/sesughter/Invoice_generation_from_xlsx_to_pdf",
+        "title": "GitHub - sesughter/Invoice_generation_from_xlsx_to_pdf: A Python script ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://github.com/jalfr3d/excel-invoices-to-pdf",
+        "title": "GitHub - jalfr3d/excel-invoices-to-pdf: A python script to create ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://github.com/Charanvir/Invoice-PDF",
+        "title": "GitHub - Charanvir/Invoice-PDF: A Python script to generate an invoice ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://pytutorial.com/excel-borders-fills-alignment-python-openpyxl-guide/",
+        "title": "Excel Borders Fills Alignment Python openpyxl Guide",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 8,
+    "search_queries": [
+      "downloadable weekly meal plan with grocery list template",
+      "python script to generate pdf invoices from excel templates",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 41,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "python script to generate pdf invoices from excel templates",
+        "downloadable weekly meal plan with grocery list template",
+        "free travel budget spreadsheet with expense tracking",
+        "excel to pdf invoice generator with dynamic data"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:8e44a6e6048dc8625c8f:TypeError: Flowable.getKeepWithNext() missing 1 required positional argument: 'self'",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 2,
+    "product_pages": 2,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:8e44a6e6048dc8625c8f:TypeError: Flowable.getKeepWithNext() missing 1 required positional argument: 'self'"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 2,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 9,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
