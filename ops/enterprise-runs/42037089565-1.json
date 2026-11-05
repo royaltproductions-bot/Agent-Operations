@@ -1,0 +1,129 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-05T13:36:27.773127+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "github_paid_issues": 5,
+      "duckduckgo": 7
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=32352699",
+        "title": "Slack Serious Vulnerability: Invite Link Function",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=32349512",
+        "title": "Tell HN: Security notice from Slack regarding Shared Invitation links",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=30807784",
+        "title": "Email from Twilio sounds like a compromised credentials email",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=23915484",
+        "title": "Ask HN: Cloudflare incorrectly banned me \u2013 can anyone help?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ahmedfuzayl-gif/commit-monitor/issues/112",
+        "title": "commit-monitor: new leads 2026-10-04_0616Z",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/scottonchain/microcredit-contract/issues/7",
+        "title": "Hermes: attack and test the live pool on Base Sepolia (Circle USDC, 0x7387\u20264973, contracts 1812e7d). Do not redeploy",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create a secure email setup with S/MIME and encryption",
+      "is:issue is:open bounty created:>=2026-09-06 configuring email encryption",
+      "is:issue is:open bounty created:>=2026-09-06 anyone create secure",
+      "need paid help with configuring email encryption for secure messaging",
+      "hiring a freelancer to implement DKIM and DMARC for email security"
+    ],
+    "attempted_search_queries": [
+      "need paid help with configuring email encryption for secure messaging",
+      "hiring a freelancer to implement DKIM and DMARC for email security",
+      "can anyone create a secure email setup with S/MIME and encryption",
+      "looking for someone to configure secure email protocols for a small team"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 10,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "need paid help with configuring email encryption for secure messaging",
+        "hiring a freelancer to implement DKIM and DMARC for email security",
+        "can anyone create a secure email setup with S/MIME and encryption",
+        "looking for someone to configure secure email protocols for a small team"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:The source does not explicitly invite a relevant outside provider for a paid service, nor does it provide a clear bus"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
