@@ -1,0 +1,153 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-05T06:44:30.566083+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 9,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "duckduckgo": 4,
+      "hn_ask": 1,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 6,
+    "verified_firsthand_problem_pages": 2,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 6,
+    "public_market_sample": [
+      {
+        "url": "https://templatehub.co.in/templates/gst-invoice-template",
+        "title": "Free GST Invoice Template for Excel (Auto CGST & SGST)",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.findwordtemplates.com/payment-receipt-templates.html",
+        "title": "15 Free Payment Receipt Templates (Word, Excel & PDF)",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=43265639",
+        "title": "A New Business Model",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://invoicefly.com/free-resources/free-templates/free-invoice-templates/invoice-template-microsoft-word/",
+        "title": "Invoice Templates Word\n .docx \n Invoice Templates Excel\n .xlsx \n Invoice Templates PDF\n .pdf \n Invoice Templates G. Sheets\n sheets \n Invoice Templates G. Docs\n ",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://invoicefly.com/free-resources/free-generators/free-invoice-generator/",
+        "title": "Invoice generator \n Estimate generator \n Quote generator \n Receipt generator \n Work order generator \n Business Templates",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://template.wps.com/detail/Material-Receipt-Record.xlsx-96471d3c/",
+        "title": "Material Receipt Record\n Excel Template",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 9,
+    "search_queries": [
+      "free excel invoice template with gst calculation",
+      "downloadable receipt template for word and excel",
+      "editable purchase order form with gst fields",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 43,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "free excel invoice template with gst calculation",
+        "downloadable receipt template for word and excel",
+        "editable purchase order form with gst fields",
+        "excel delivery challan template with 3 copies"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:621e1b5c7e5943594cd4:tions or invoice generation. It lacks the promised automation, customization, and tax calculation features. The template does not perform any actual computation and is no",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 2,
+    "product_pages": 2,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:621e1b5c7e5943594cd4:tions or invoice generation. It lacks the promised automation, customization, and tax calculation features. The template does not perform any actual computation and is no"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 2,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 6,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
