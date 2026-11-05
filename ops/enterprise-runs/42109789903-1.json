@@ -1,0 +1,120 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-05T21:12:06.607843+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 15,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 6,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 14,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/meta/meta-wearables-dat-ios/issues/371",
+        "title": "Blayzer Optics Gen 2 (00FQ) \u2014 Live Camera Preview Breakthrough | Streamwears",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Vasqq/BounTEE/issues/44",
+        "title": "Mainnet: create and fund the accounts",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Vasqq/BounTEE/issues/43",
+        "title": "Mainnet support in the judge and command-line tool",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/millw14/sakura-web/issues/3",
+        "title": "Assign security intake coverage and document release incident ownership",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Sakura-11488/sakura-perps/issues/9",
+        "title": "Establish private reporting ownership and protected main before wider testing",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.g2.com/products/virtru-email-encryption/pricing",
+        "title": "Virtru Email Encryption Pricing 2026",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-06 implement email authentication",
+      "is:issue is:open bounty created:>=2026-09-06 ",
+      "need paid help with configuring email encryption for a remote team",
+      "can anyone create a secure email setup with DMARC and DKIM for a nonprofit"
+    ],
+    "attempted_search_queries": [
+      "need paid help with configuring email encryption for a remote team",
+      "can anyone create a secure email setup with DMARC and DKIM for a nonprofit",
+      "hiring a freelancer to implement email authentication for a small business",
+      "need paid help with setting up encrypted email with S/MIME for a remote nonprofit"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 49,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "need paid help with configuring email encryption for a remote team",
+        "can anyone create a secure email setup with DMARC and DKIM for a nonprofit",
+        "hiring a freelancer to implement email authentication for a small business",
+        "need paid help with setting up encrypted email with S/MIME for a remote nonprofit"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_invitation:No explicit request for a paid service or deliverable was identified in the source content."
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 1,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "commercial_offer_execution"
+  }
+}
