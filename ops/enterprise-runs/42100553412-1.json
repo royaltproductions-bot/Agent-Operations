@@ -1,0 +1,126 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-05T20:09:48.182280+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 3,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 12,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/openteams-ai/kudos/issues/18",
+        "title": "E1 \u00b7 Repo hygiene after the org transfer (GHCR paths, Pages, branch protection, stale docs)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/abdulsalam-create/bounty-watch/issues/221",
+        "title": "bounty-watch 2026-11-05: 0 new, 1 resumed, 7 watchlist changes",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Monkestation/Monkestation2.0/issues/12920",
+        "title": "items smithet with the special ores in asteroids change value every time you scan with an universal scanner",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/freedom-winds/BountyScout/issues/1382",
+        "title": "\ud83c\udfaf Bounty Alert: 13 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Monkestation/Monkestation2.0/issues/12919",
+        "title": "the smithed rapiers doesnt appear in your character sprite when wielded",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://smartsmssolutions.com/resources/blog/business/email-authentication-spf-dkim-dmarc-bimi-hub",
+        "title": "Email Authentication for Small Teams: SPF, DKIM, DMARC & BIMI ...",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-06 ",
+      "looking for someone to set up email security with SPF and DKIM for a small nonprofit"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to set up email security with SPF and DKIM for a small nonprofit",
+      "need paid help with implementing secure email setup for a remote nonprofit",
+      "can anyone create a DMARC configuration for a nonprofit email system",
+      "looking for someone to build an encrypted email setup with DKIM and DMARC for a small business"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 43,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to set up email security with SPF and DKIM for a small nonprofit",
+        "need paid help with implementing secure email setup for a remote nonprofit",
+        "can anyone create a DMARC configuration for a nonprofit email system",
+        "looking for someone to build an encrypted email setup with DKIM and DMARC for a small business"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
