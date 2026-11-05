@@ -1,0 +1,109 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-05T10:26:46.658420+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 9,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 9,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/ahmedfuzayl-gif/commit-monitor/issues/117",
+        "title": "commit-monitor: new leads 2026-10-05_1513Z",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ahmedfuzayl-gif/commit-monitor/issues/116",
+        "title": "commit-monitor: new leads 2026-10-05_0609Z",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/LowcountryDigitalWorks/lowcountrydigitalworks.com/issues/81",
+        "title": "WEB-HARDEN-001 \u2014 Bounded website security/cutover hardening from 2026-10-15 audit",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/relayhop/ClaudeEarnSelf-runtime/issues/1197",
+        "title": "[tz-radar] FRESH_LOW_COMP 2026-11-05T10:25",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/researchstation/python-lint/issues/2",
+        "title": "v2010-probe-authorized-bb",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://abnormal.ai/platform/inbound-email-security",
+        "title": "Inbound Email Security",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-06 configure email encryption",
+      "is:issue is:open bounty created:>=2026-09-06 setting dkim dmarc",
+      "is:issue is:open bounty created:>=2026-09-06 "
+    ],
+    "attempted_search_queries": [
+      "looking for someone to configure email encryption with S/MIME for a nonprofit",
+      "need paid help with setting up DKIM and DMARC for email security"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 18,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to configure email encryption with S/MIME for a nonprofit",
+        "need paid help with setting up DKIM and DMARC for email security"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
