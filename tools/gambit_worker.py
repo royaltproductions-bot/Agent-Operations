@@ -499,7 +499,7 @@ def capture_new_details(state, waiting):
 
 def schedule_evaluation_retry(state, bounty_id, exc):
     previous = state["bounties"].get(bounty_id) or {}
-    attempt = min(int(previous.get("retry_count") or 0) + 1, 10)
+    attempt = min(int(previous.get("retry_count") or 0) + 1, 4)
     minutes = min(60, 2 ** min(attempt - 1, 6))
     state["bounties"][bounty_id] = {
         **previous, "action": "retry_evaluation", "version": previous.get("version"),
@@ -2526,6 +2526,8 @@ def safe_failure_reason(exc):
     if isinstance(exc, urllib.error.URLError):
         return "network_error"
     message = str(exc)
+    if isinstance(exc, ValueError) and re.fullmatch(r"(?:proposal|bid_format)_[a-z_]+", message):
+        return message[:96]
     if isinstance(exc, RuntimeError) and re.fullmatch(
             r"(?:bounty_api_[A-Za-z0-9_]+|missing pagination cursor|"
             r"pagination_limit_reached|event_page_limit_reached)", message):
