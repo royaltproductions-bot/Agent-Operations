@@ -1,0 +1,132 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-05T22:07:13.592659+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 6,
+      "bing": 4,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/dseelinger/d47/issues/2172",
+        "title": "Squadron faction first on BGS work",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraspell/xcm-tools/issues/2438",
+        "title": "[Bug bounty] Wrong custom-chain decimals silently mis-scale the full transfer amount",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraspell/xcm-tools/issues/2437",
+        "title": "[Bug bounty] Execute builders return a signable transaction after their own dry run reports a hop or destination failure",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraspell/xcm-tools/issues/2436",
+        "title": "[Bug bounty] Playground keeps a stale currency selection after a chain change and builds a transfer of a different asset",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/anthropics/claude-code/issues/107724",
+        "title": "Safety classifier stops benign replies mid-response after a security topic comes up earlier in the session",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.upwork.com/freelance-jobs/apply/Setup-SKM-and-DKIM-Records-for-Nonprofit-Organization_~021955605231964509172/",
+        "title": "Setup SKM and DKIM Records for Nonprofit Organization",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-06 ",
+      "hiring a freelancer to configure email security with SPF and DKIM for a nonprofit",
+      "need paid help with setting up DMARC for a remote nonprofit email system"
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to configure email security with SPF and DKIM for a nonprofit",
+      "need paid help with setting up DMARC for a remote nonprofit email system",
+      "can anyone create a secure email setup with SPF, DKIM, and DMARC for a small business",
+      "looking for someone to implement email encryption and authentication for a remote team"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 44,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to configure email security with SPF and DKIM for a nonprofit",
+        "need paid help with setting up DMARC for a remote nonprofit email system",
+        "can anyone create a secure email setup with SPF, DKIM, and DMARC for a small business",
+        "looking for someone to implement email encryption and authentication for a remote team"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 119,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
