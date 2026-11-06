@@ -56,6 +56,7 @@ class WebEfficiencyTests(unittest.TestCase):
         saved=[]
         with patch.object(cyclops,"read_private",side_effect=lambda path: saved), \
              patch.object(cyclops,"save_private",side_effect=lambda path,rows:saved.extend(rows)):
+            request["created_at"]=brain.datetime.now(brain.timezone.utc).isoformat()
             self.assertEqual(len(cyclops.durable_distribution_leads([request])),1)
             self.assertEqual(len(cyclops.durable_distribution_leads([])),1)
 
@@ -236,9 +237,10 @@ class WebEfficiencyTests(unittest.TestCase):
                  "title":"About us","snippet":"","text":"General information."}
         invited={"id":"web:b","source_url":"https://example.org/brief",
                  "page_fetched":True,"contact":"bids@example.org",
-                 "page_text":"Seeking a contractor. Submit your proposal.",
+                 "page_text":"We are seeking a contractor. Submit your proposal.",
                  "title":"Contract request","snippet":"",
-                 "text":"Seeking a contractor. Submit your proposal."}
+                 "text":"We are seeking a contractor. Submit your proposal."}
+        invited["created_at"]=brain.datetime.now(brain.timezone.utc).isoformat()
         seen={}
         def mock_plan(schema,system,observation,**kwargs):
             seen["candidates"]=observation["candidates"]
@@ -271,6 +273,7 @@ class WebEfficiencyTests(unittest.TestCase):
         row={"source_url":"https://example.org/open-request","page_fetched":True,
              "contact":"bids@example.org","page_text":"We are accepting bids from outside contractors. Send your proposal by November 30.",
              "title":"Open vendor request","snippet":"","text":"Open vendor request"}
+        row["created_at"]=brain.datetime.now(brain.timezone.utc).isoformat()
         self.assertTrue(brain.public_buyer_invitation(row))
 
     def test_research_searches_are_not_recycled_into_model_context(self):
@@ -418,6 +421,7 @@ class CyclopsEfficiencyTests(unittest.TestCase):
                 "Send your proposal by November 30; payment is available."),
         }
         self.assertFalse(brain.seller_marketing_page(buyer))
+        buyer["created_at"]=brain.datetime.now(brain.timezone.utc).isoformat()
         self.assertTrue(brain.public_buyer_invitation(buyer))
 
     def test_wolverine_product_homepage_is_not_buyer_demand(self):
@@ -451,6 +455,7 @@ class CyclopsEfficiencyTests(unittest.TestCase):
                      "We are seeking a contractor to create an integration. "
                      "Send your proposal to bids@buyer.example.test.")}
         self.assertFalse(brain.seller_marketing_page(buyer))
+        buyer["created_at"]=brain.datetime.now(brain.timezone.utc).isoformat()
         self.assertTrue(brain.public_buyer_invitation(buyer))
 
     def test_wolverine_does_not_treat_hiring_article_as_direct_buyer(self):
@@ -459,7 +464,8 @@ class CyclopsEfficiencyTests(unittest.TestCase):
                   "contact":"info@site.example",
                   "page_text":"Looking for a designer? Learn how to hire a freelancer here."}
         self.assertFalse(brain.public_buyer_invitation(tutorial))
-        invitation={**tutorial,"title":"Open paid request for designer"}
+        invitation={**tutorial,"title":"Open paid request for designer", "page_text":"We are looking for a freelancer to design our report. Send your proposal."}
+        invitation["created_at"]=brain.datetime.now(brain.timezone.utc).isoformat()
         self.assertTrue(brain.public_buyer_invitation(invitation))
         with self.assertRaisesRegex(ValueError,"model_price_invalid"):
             brain.normalize_price_usd("0.00")

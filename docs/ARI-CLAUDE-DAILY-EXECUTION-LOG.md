@@ -122,3 +122,32 @@ Date and phase / Gmail message ID handled / GitHub head before+after / PRs+commi
 - Draft PR #30 branch now at `c38bdbdaeba77ea709740e9fafd57dc4064bd884`. Added `tests/test_gambit_worker.py` regressions for terminal fourth evaluation retry, earlier retry scheduling and safe error allowlist; added `tests/test_gambit_openai.py` regression for daily pacing rejection with no ledger mutation. Prior worker implementation commit `298c3622d5c0b410c972962b591871bd5b5ad925`.
 - GitHub workflow-run lookup at commit `427bf70525be68123ce99903e04086434ba8527a` returned zero pull-request workflow runs. No green test receipt or merge confirmed. Do not assert deployment. Budget pace formula may block paid inference once existing reserved amounts exceed the day allowance; preserve the existing monthly cap and verify intended commercial effect before merging.
 - Remaining pending F1 truthful fallback, F2 bid conversion, F3 Wolverine, Cyclops, analytics A–E and authenticated dashboard F, plus historical R1–R7 reconciliation, unchanged. No marketplace messages, bids, paid tests, credentials, financial changes or watchdog modifications.
+
+
+## 2026-11-06 UTC — November 4–5 correction implementation
+
+Implemented proportional monthly pacing plus a $0.70/day reservation ceiling;
+$20/month cap unchanged. Evidence failure proposals are cached encrypted and
+reused without another assessment after two failures. Other evaluations stop
+after two retries unless the brief version or buyer event changes. Safe failure
+codes are allowlisted. Legacy unanswered asks get one feasibility review;
+feasible ambiguity becomes a bid with assumptions and one question.
+
+Wolverine outreach is dry-run (`offer_would_send`), with first-person buyer
+request, verified freshness <=60 days, and seller/editorial URL exclusions.
+Cyclops concept JSON has bounded fields/arrays, one concise retry at the same
+token limit, and AST import preflight retires missing-module builds immediately.
+API event shapes, complete bid snapshots/outcomes, conversation time metrics,
+settlement metadata and funnel.json are recorded without private message text.
+
+Validation before merge: 232 focused regression tests passed. Full discovery:
+420 tests, 2 failures, 42 errors, 1 skipped; the exact same 44 failing tests occur
+on untouched base 33687512 (403 tests). No new full-suite failures. No paid model
+calls or buyer messages were made by these tests.
+
+Still pending live verification: CI/merge and state receipts. Browser-only
+acquisition cannot be completed until the dashboard sign-in is restored and the
+actual missing-field DOM is verified. No scraper completion is claimed. Latest
+read ledger was $9.271680 reserved, not an invoice; actual billed spend remains
+unverified. R6 remains off. Wolverine dry-run remains until validated live filter
+receipts. Do not describe these pending verification items as complete.

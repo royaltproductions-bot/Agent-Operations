@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 """Focused regression gates for Wolverine/Cyclops firsthand sources.
 
 No messages, bids, payments, production jobs, or public service requests are sent.
@@ -31,7 +32,7 @@ class SourceRecoveryTests(unittest.TestCase):
         lead={"id":"source-a","title":"Seeking help for a report",
               "page_fetched":True,"page_text":quote+" "+"Monthly reconciliation keeps failing. "*4,
               "source_url":"https://example.org/request-a",
-              "contact":"requester@example.org"}
+              "contact":"requester@example.org", "created_at":datetime.now(timezone.utc).isoformat()}
         unrelated={"id":"source-b","title":"An operational update",
                    "page_fetched":True,
                    "page_text":"Our office has revised its documentation for customers. "*4,

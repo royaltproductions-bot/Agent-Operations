@@ -147,3 +147,184 @@ grounded in the supplied facts and label it preliminary. Keep note under 800
 characters to leave room for samples in the 2000-character platform limit.
 Samples are preliminary excerpts, not claims that the full job is done. Price
 experiments are on hold: do not introduce an under-budget experiment.'''
+
+
+def record_event(state, event):
+    """Record shapes and outcome timestamps without payload values or text."""
+    analytics = state.setdefault('analytics', {})
+    seen = analytics.setdefault('event_ids', [])
+    ident = event.get('id')
+    if ident and ident in seen:
+        return
+    kind = str(event.get('type') or 'unknown')
+    now = datetime.now(timezone.utc).isoformat()
+    row = analytics.setdefault('event_types', {}).setdefault(kind,
+        {'count': 0, 'first_seen': now, 'last_seen': now, 'data_keys': []})
+    row.update(count=row['count'] + 1, last_seen=now,
+               data_keys=sorted(set(row['data_keys']) | set((event.get('data') or {}).keys())))
+    if ident:
+        seen.append(ident)
+    data = event.get('data') or {}
+    bounty_id = data.get('bounty_id')
+    if bounty_id:
+        item = state.setdefault('commercial', {}).setdefault(str(bounty_id), {})
+        when = utc_time(event.get('created_at'))
+        at = when.isoformat() if when else now
+        field = {'submission.accepted': 'accepted_at', 'submission.review_opened': 'delivered_at',
+                 'bid.hired': 'hired_at', 'bid.declined': 'declined_at',
+                 'bid.withdrawn': 'withdrawn_at'}.get(kind)
+        if field:
+            item.setdefault(field, at)
+        if kind == 'submission.accepted' and str(bounty_id) in state.get('settlements', {}):
+            state['settlements'][str(bounty_id)].setdefault('accepted_at', at)
+            if state['settlements'][str(bounty_id)].get('accepted_at') is None:
+                state['settlements'][str(bounty_id)]['accepted_at'] = at
+        if kind in {'bid.declined', 'bid.withdrawn', 'bid.hired'}:
+            item['bid_status'] = kind.split('.')[1]
+            item['bid_status_changed_at'] = at
+
+
+def record_bid_shape(state, bid):
+    analytics = state.setdefault('analytics', {})
+    status = bid.get('status')
+    analytics['bid_statuses_seen'] = sorted(set(analytics.get('bid_statuses_seen', [])) |
+                                           ({str(status)} if status is not None else set()))
+    analytics['bid_keys_seen'] = sorted(set(analytics.get('bid_keys_seen', [])) | set(bid.keys()))
+    nested = bid.get('bounty') or {}
+    ident = bid.get('bounty_id') or bid.get('bountyId') or (nested.get('_id') if isinstance(nested, dict) else None)
+    if not ident:
+        return None
+    row = state.setdefault('commercial', {}).setdefault(str(ident), {})
+    now = datetime.now(timezone.utc).isoformat()
+    if row.get('bid_status') != status:
+        row['bid_status_changed_at'] = now
+    row['bid_status'] = status
+    for source, target in [('payout_cents', 'bid_amount_cents'), ('created_at', 'bid_created_at'),
+                            ('updated_at', 'bid_updated_at')]:
+        row[target] = bid.get(source)
+    row['bid_at'] = bid.get('created_at') or row.get('bid_at')
+    if status in {'hired', 'declined', 'withdrawn', 'closed_no_hire'}:
+        row['outcome'] = status
+        row.setdefault(status + '_at', row['bid_status_changed_at'])
+    return str(ident)
+
+
+def record_bid_snapshot(state, bids):
+    """A complete paginated snapshot only; a missing bid is not a rejection."""
+    found = {ident for bid in sorted((b for b in bids if isinstance(b, dict)),
+                 key=lambda b: utc_time(b.get("created_at")) or datetime.min.replace(tzinfo=timezone.utc))
+             for ident in [record_bid_shape(state, bid)] if ident}
+    analytics = state.setdefault('analytics', {})
+    for ident in set(analytics.get('bid_bounty_ids', [])) - found:
+        row = state['commercial'][ident]
+        if row.get('bid_status') not in {'hired', 'declined', 'withdrawn', 'closed_no_hire'}:
+            row.update(bid_status='missing_unconfirmed',
+                       bid_status_changed_at=datetime.now(timezone.utc).isoformat())
+    analytics['bid_bounty_ids'] = sorted(found)
+
+
+def record_conversation(state, bounty_id, messages):
+    times = sorted((utc_time(m.get('created_at')), m.get('author_type')) for m in messages
+                   if utc_time(m.get('created_at')) and m.get('author_type') in {'user', 'agent'})
+    incoming = [at for at, role in times if role == 'user']
+    outgoing = [at for at, role in times if role == 'agent']
+    last_in, last_out = (max(incoming) if incoming else None), (max(outgoing) if outgoing else None)
+    row = state.setdefault('commercial', {}).setdefault(bounty_id, {})
+    row['conversation'] = {'message_count': len(messages),
+        'unknown_timestamp_count': sum(utc_time(m.get('created_at')) is None for m in messages),
+        'last_incoming_at': last_in.isoformat() if last_in else None,
+        'last_outgoing_at': last_out.isoformat() if last_out else None,
+        'unanswered': bool(last_in and (not last_out or last_in > last_out)),
+        'response_lag_minutes': [(min(later) - at).total_seconds()/60 for at in incoming
+                                 for later in [[out for out in outgoing if out >= at]] if later]}
+
+
+def record_action(state, action, bounty_id, at, reason=None):
+    """Durable unique bounty/action/day counters survive recent_outcomes rotation."""
+    if not bounty_id:
+        return
+    item = state.setdefault('commercial', {}).setdefault(str(bounty_id), {})
+    field = {'claimed':'hired_at', 'submitted':'delivered_at', 'bid_sent':'bid_at'}.get(action)
+    if field:
+        item.setdefault(field, at)
+        if item.get(field) is None:
+            item[field] = at
+    counters = state.setdefault('analytics', {}).setdefault('actions', {})
+    row = counters.setdefault(str(bounty_id), {}).setdefault(action, {'first_at': at, 'days': []})
+    day = at[:10]
+    if day not in row['days']:
+        row['days'].append(day)
+    if isinstance(reason, str) and re.fullmatch(r"[a-z_]+", reason):
+        row['reason'] = reason
+
+
+def summarize(state, now=None):
+    from statistics import median
+    now = now or datetime.now(timezone.utc)
+    today = now.date().isoformat()
+    records = {k: v for k, v in state.get('commercial', {}).items() if not v.get('sample_listing')}
+    actions = state.get('analytics', {}).get('actions', {})
+    counts = {}
+    names = ('seen sample_excluded retry_pending asked bids_sent bids_active declined withdrawn '
+             'missing_unconfirmed hired delivered accepted settled settled_cents').split()
+    for scope in ('today', 'cumulative'):
+        values = dict.fromkeys(names, 0)
+        values['passed_by_reason'] = {}
+        for ident, row in state.get('commercial', {}).items():
+            entry = state.get('bounties', {}).get(ident, {})
+            def on_date(value):
+                parsed = utc_time(value)
+                return bool(parsed and (scope == 'cumulative' or parsed.date().isoformat() == today))
+            if row.get('sample_listing'):
+                values['sample_excluded'] += int(on_date(row.get('first_detected_at')))
+                continue
+            values['seen'] += int(on_date(row.get('first_detected_at')))
+            action = entry.get('action', '')
+            values['retry_pending'] += int(action in {'retry_evaluation', 'retry_search', 'proposal_fallback_pending'} and on_date(entry.get('at')))
+            values['asked'] += int(on_date(actions.get(ident, {}).get('asked', {}).get('first_at') or
+                                          (entry.get('at') if action == 'asked' else None)))
+            bid_at = row.get('bid_at') or row.get('bid_created_at')
+            values['bids_sent'] += int(on_date(bid_at))
+            values['bids_active'] += int(row.get('bid_status') == 'active' and on_date(bid_at))
+            for status in ('declined', 'withdrawn', 'missing_unconfirmed'):
+                values[status] += int(row.get('bid_status') == status and on_date(row.get('bid_status_changed_at')))
+            for status in ('hired', 'delivered', 'accepted'):
+                fallback = entry.get('at') if action == {'hired':'claimed','delivered':'submitted','accepted':'accepted'}[status] else None
+                values[status] += int(on_date(row.get(status + '_at') or fallback))
+            if action.startswith('pass') and on_date(entry.get('at')):
+                reason = entry.get('reason') or 'unknown'
+                values['passed_by_reason'][reason] = values['passed_by_reason'].get(reason, 0) + 1
+        for ident, settlement in state.get('settlements', {}).items():
+            if state.get('commercial', {}).get(ident, {}).get('sample_listing'):
+                continue
+            at = utc_time(settlement.get('settled_at'))
+            if at and (scope == 'cumulative' or at.date().isoformat() == today):
+                values['settled'] += 1
+                if isinstance(settlement.get('payout_cents'), int):
+                    values['settled_cents'] += settlement['payout_cents']
+        counts[scope] = values
+    totals = counts['cumulative']
+    reply_count = sum(bool(row.get('conversation', {}).get('last_incoming_at')) and bool(row.get('bid_at')) for row in records.values())
+    def ratio(n, d):
+        return n/d if d else None
+    def latency(field):
+        pairs = [(utc_time(r.get('posted_at')), utc_time(r.get(field))) for r in records.values()]
+        values = [(end-start).total_seconds()/60 for start, end in pairs if start and end and end >= start]
+        return median(values) if values else None
+    unanswered = [r['conversation']['last_incoming_at'] for r in records.values()
+                  if r.get('conversation', {}).get('unanswered')]
+    fields = ('posted_at', 'first_detected_at', 'budget_cents', 'bid_at', 'bid_amount_cents',
+              'bid_status', 'owner_activity_status', 'accepted_at', 'hired_at', 'delivered_at', 'conversation')
+    return {'generated_at': now.isoformat(), **counts,
+        'conversion_rates': {'bid_per_seen':ratio(totals['bids_sent'], totals['seen']),
+            'hire_per_bid':ratio(totals['hired'], totals['bids_sent']), 'buyer_reply_per_bid':ratio(reply_count, totals['bids_sent'])},
+        'median_posting_to_detection_minutes':latency('first_detected_at'),
+        'median_posting_to_bid_minutes':latency('bid_at'),
+        'aging_active_bids_days': {k:(now - utc_time(r['bid_at'])).total_seconds()/86400
+             if utc_time(r.get('bid_at')) else None for k,r in records.items() if r.get('bid_status') == 'active'},
+        'unanswered_threads': {'count':len(unanswered), 'oldest_last_incoming_at':min(unanswered) if unanswered else None},
+        'model_budget':state.get('analytics', {}).get('model_budget', {'call_count':None,'reserved_micro_usd':None}),
+        'unknown_fields':{f:sum(f not in r for r in records.values()) for f in fields},
+        'null_fields':{f:sum(f in r and r[f] is None for r in records.values()) for f in fields},
+        'browser':state.get('analytics', {}).get('browser', {}),
+        'coverage':'Observed unique bounties; historical events before instrumentation may be incomplete.'}

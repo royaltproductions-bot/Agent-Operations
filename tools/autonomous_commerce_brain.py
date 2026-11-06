@@ -309,15 +309,10 @@ def seller_marketing_page(row):
             r"\b(?:product|platform|software|form builder|crm|features|templates|api)\b",
             title + " " + body[:3500]))
     )
-    buyer_owned_request = bool(re.search(
-        r"\b(?:we (?:are|'re) (?:seeking|hiring|looking for) (?:an? |outside |external )?"
-        r"(?:contractor|freelancer|developer|designer|writer|consultant|provider)"
-        r"|we need (?:someone to|an? (?:contractor|freelancer|developer|designer|writer|consultant|provider))"
-        r"|we (?:are|'re) accepting (?:bids|proposals)|request for proposals? (?:for|to))\b",
-        body))
+    buyer_request = buyer_owned_request(row)
     return (provider_landing or
             (seller_copy and (service_path or seller_title or home_provider)) or
-            (product_home and not buyer_owned_request))
+            (product_home and not buyer_request))
 
 
 def is_requester_page(row):
@@ -436,13 +431,32 @@ def enrich_public_response_route(rows):
     return enriched
 
 
+def buyer_owned_request(row):
+    return bool(re.search(
+        r"\b(?:we(?: are|'re) (?:seeking|hiring|looking for) (?:an? |outside |external )?"
+        r"(?:contractor|freelancer|developer|designer|writer|consultant|provider)"
+        r"|we need (?:someone to|an? (?:contractor|freelancer|developer|designer|writer|consultant|provider))"
+        r"|we would like outside help|our (?:small )?team could use outside assistance"
+        r"|we(?: are|'re) accepting (?:bids|proposals)|request for proposals? (?:for|to))\b",
+        str(row.get("page_text") or "").lower()))
+
+
 def public_buyer_invitation(row):
     """Only a fetched source's own solicitation can unlock paid outreach.
 
     Search snippets, generic business contact pages, and model assertions are
     insufficient. The model still evaluates whether the actual ask fits.
     """
-    return bool(row.get("contact") and requester_evidence(row))
+    path = urllib.parse.urlsplit(str(row.get("source_url") or "")).path.lower()
+    if any(part in path for part in ("/blog/", "/features/", "/hire/", "/freelancers/", "/tutorial", "/guide", "/docs/")):
+        return False
+    try:
+        posted = datetime.fromisoformat(str(row.get("created_at") or "").replace("Z", "+00:00"))
+        age = datetime.now(timezone.utc) - posted
+        fresh = timedelta(0) <= age <= timedelta(days=60)
+    except (ValueError, TypeError):
+        fresh = False
+    return bool(fresh and buyer_owned_request(row) and row.get("contact") and requester_evidence(row))
 
 
 def read_source(candidate):
@@ -564,6 +578,14 @@ def choose_offer(rows):
     return chosen,plan
 
 def send_offer(candidate,plan,checkout):
+    if not public_buyer_invitation(candidate):
+        return {"result":"unverified_buyer_invitation", "channel":"none"}
+    # Restricted rollout: no external offers until reviewed filters are deployed.
+    return {"result":"offer_would_send", "channel":"none",
+            "reason":"outreach_filter_validation_hold"}
+
+
+def _send_verified_offer(candidate,plan,checkout):
     # Final transaction boundary: even a malformed/model-bypassed plan cannot
     # cause an unsolicited message to an informational site.
     if not public_buyer_invitation(candidate):
