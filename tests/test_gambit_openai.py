@@ -63,6 +63,12 @@ class GambitOpenAITests(unittest.TestCase):
         self.assertEqual(updated["call_count"], 1)
         self.assertEqual(updated["reserved_micro_usd"], 5000)
 
+    def test_daily_pace_guard_rejects_large_reservation_without_mutating_ledger(self):
+        with patch.dict(os.environ, {"GAMBIT_OPENAI_MONTHLY_LIMIT_USD": "20"}):
+            with self.assertRaisesRegex(RuntimeError, "openai_daily_pace_exceeded"):
+                gambit_openai.reserve_monthly_budget(19.0)
+            self.assertFalse(gambit_openai.BUDGET_PATH.exists())
+
     def test_free_market_checks_cannot_reserve_openai_budget(self):
         with patch.dict(os.environ, {"OPENAI_API_KEY": "",
                                      "GAMBIT_INFERENCE_PROVIDER": "auto"}):
