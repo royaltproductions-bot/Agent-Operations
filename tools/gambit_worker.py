@@ -318,6 +318,10 @@ def load_state():
 
 def save_state(state):
     STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    for ident, settlement in state.get("settlements", {}).items():
+        settlement.setdefault("accepted_at", state.get("commercial", {}).get(ident, {}).get("accepted_at"))
+        settlement.setdefault("disbursed_at", None)
+        settlement.setdefault("disbursement_source", "not_available_via_agent_api")
     budget_file = STATE_PATH.with_name("openai_budget.json")
     try:
         budget = json.loads(budget_file.read_text())
@@ -452,6 +456,8 @@ def send_proposal_preview(bounty_id, version, png, state):
 
 def record_bid_measurement(state, bounty_id, bid, *, proposal=None, payout=None, submitted_at=None):
     record = state.setdefault("commercial", {}).setdefault(bounty_id, {})
+    if "status" in bid and record.get("bid_status") != bid["status"]:
+        record["bid_status_changed_at"] = timestamp()
     for source, target in (("_id", "bid_id"), ("id", "bid_id"),
                            ("created_at", "bid_at"), ("payout_cents", "bid_amount_cents"),
                            ("status", "bid_status")):
