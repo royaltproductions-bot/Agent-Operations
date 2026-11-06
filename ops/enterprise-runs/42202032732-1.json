@@ -1,0 +1,124 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-06T10:23:30.103675+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 7,
+      "github_paid_issues": 5,
+      "bing": 3,
+      "duckduckgo": 1
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 13,
+    "contactable_sources": 3,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=38238674",
+        "title": "Someone is presumably harvesting email addresses from the SMTP traffic to my VPS",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=43798299",
+        "title": "Looking for Feedback for Hardware Server Security",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=42278349",
+        "title": "Should I worry about being targeted in China as a small hardware startup owner?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=24827031",
+        "title": "Password policies, logins, security completely broken",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=16688156",
+        "title": "Tell HN: Failing to log in to deactivated Facebook account has reactivated it",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=31099426",
+        "title": "Looking for a tech co founder for fintech startup",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to configure email authentication for nonprofit 2026",
+      "can anyone setup email security for nonprofit organization",
+      "hiring someone to setup email security for nonprofit team",
+      "is:issue is:open bounty created:>=2026-09-07 email security setup",
+      "is:issue is:open bounty created:>=2026-09-07 anyone setup email",
+      "is:issue is:open bounty created:>=2026-09-07 ",
+      "need paid help with email security setup for nonprofit organization"
+    ],
+    "attempted_search_queries": [
+      "need paid help with email security setup for nonprofit organization",
+      "looking for someone to configure email authentication for nonprofit 2026",
+      "can anyone setup email security for nonprofit organization",
+      "hiring someone to setup email security for nonprofit team"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 43,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "need paid help with email security setup for nonprofit organization",
+        "looking for someone to configure email authentication for nonprofit 2026",
+        "can anyone setup email security for nonprofit organization",
+        "hiring someone to setup email security for nonprofit team"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
