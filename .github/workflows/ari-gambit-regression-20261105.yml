@@ -1,0 +1,19 @@
+name: ARI Gambit bounded-retry regression
+on:
+  push:
+    branches:
+      - ari-claude-20261105-budget-guard
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compile and run offline tests
+        run: |
+          python -m compileall -q tools/gambit_worker.py tools/gambit_openai.py tests/test_gambit_worker.py tests/test_gambit_openai.py
+          python -m unittest tests.test_gambit_worker tests.test_gambit_openai -q
