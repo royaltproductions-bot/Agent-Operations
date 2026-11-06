@@ -1,0 +1,105 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-05T23:59:14.521412+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 9,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 9,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/higharc91/ArcBox/issues/191",
+        "title": "Wardenflame [P3]: remove stand-in monster sprites and duplicate art (monsters/ legacy map, short_f layers identical to s",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/higharc91/ArcBox/issues/185",
+        "title": "Wardenflame [P2]: set a texture-memory budget and measure it (Ashmaw's sheet alone is 54 MiB decoded; 132 hero atlases a",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Rohank143/BountyScout/issues/69",
+        "title": "\ud83c\udfaf Bounty Alert: 12 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/higharc91/ArcBox/issues/179",
+        "title": "Wardenflame [P1]: settle one pixel-art style contract (procedural heroes vs PixelLab NPCs and beasts read as different g",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/higharc91/ArcBox/issues/144",
+        "title": "Wardenflame [P1]: the XP curve can't reach the levels later chapters are built for (parties arrive 1\u20134 levels under)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.adaptivesecurity.com/blog/email-incident-response-checklist",
+        "title": "Blog NOV 5, 2026 \n Email Incident Response Checklist: Steps to Investigate, Contain, Recover, and Improve Security Safel",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-07 "
+    ],
+    "attempted_search_queries": [
+      "looking for someone to configure email security with SPF, DKIM, and DMARC for a nonprofit"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 20,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to configure email security with SPF, DKIM, and DMARC for a nonprofit"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
