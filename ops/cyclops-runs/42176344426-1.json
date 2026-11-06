@@ -1,0 +1,138 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-06T06:46:34.037758+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 5,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "bing": 1,
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 5,
+    "verified_firsthand_problem_pages": 3,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 5,
+    "public_market_sample": [
+      {
+        "url": "https://smallpdf.com/pdf-converter",
+        "title": "PDF Converter: Create & Convert PDF Files for Free - Smallpdf",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.docuclipper.com/blog/invoice-accuracy/",
+        "title": "improve invoice data accuracy",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://help.parseur.com/en/articles/8294111-extract-data-using-the-ai-parsing-engine",
+        "title": "Extract data from documents with AI",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.spguides.com/export-sharepoint-list-items-to-excel-using-power-automate/",
+        "title": "create an Excel file, and add the data to it",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.docuclipper.com/blog/manual-invoice-processing/",
+        "title": "manual invoice data entry",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 4,
+    "search_queries": [
+      "convert invoice pdf to excel with data fields",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 8,
+      "skipped_revisits": 46,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "automate invoice data extraction from pdf templates",
+        "email attachment parser for financial documents",
+        "convert invoice pdf to excel with data fields",
+        "extract invoice lines from pdf using python script"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 117,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:ca7506d8d56bd7ebd225:missing_module:PIL",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 3,
+    "product_pages": 3,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:ca7506d8d56bd7ebd225:missing_module:PIL"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "e46509dbb213a33c25fd",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 3,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 5,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
