@@ -1,0 +1,147 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-06T19:20:11.295749+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 10,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "query_planner",
+        "reason": "recovered_fresh_public_research_directions"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "ValueError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/paraloom-labs/paraloom-core/issues/1406",
+        "title": "[BUG BOUNTY] Medium: slash_validator fails to deactivate validator when token_stake_amount falls below min_token_stake",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tsc862-prog/eldmoor/issues/1016",
+        "title": "Opening stalls: session zero offers a level 4 job to a level 1 company, which grinds 16 game hours before the story star",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tsc862-prog/eldmoor/issues/1013",
+        "title": "Epic: linked maps: the Vale as the starter map, roads out to other maps, a reference world map (owner request)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/conduit-ucpi/contracts/issues/2",
+        "title": "Security Report Question",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraspell/xcm-tools/issues/2443",
+        "title": "[Bug bounty] SDK: getTransferInfo ignores the amount in xcmFee.balanceAfter on native transfers and reports sufficient: ",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://revalign.io/best/best-email-validation-software-for-small-business",
+        "title": "Best Email Validation Software for Small Business",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-07 ",
+      "anyone create email validation system small business website",
+      "need paid help dkim setup remote nonprofit team"
+    ],
+    "attempted_search_queries": [
+      "anyone create email validation system small business website",
+      "need paid help dkim setup remote nonprofit team",
+      "hiring freelancer create email verification tool educational institution",
+      "looking someone setup email authentication nonprofit organization"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 46,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "anyone create email validation system small business website",
+        "need paid help dkim setup remote nonprofit team",
+        "hiring freelancer create email verification tool educational institution",
+        "looking someone setup email authentication nonprofit organization"
+      ],
+      "next_query_queue": 8,
+      "frontier_size": 119,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
