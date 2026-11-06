@@ -1,0 +1,115 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-06T04:17:18.536656+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 13,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 4,
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 10,
+    "contactable_sources": 3,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/malachi-hq/malachi/issues/303",
+        "title": "Malachi has no funding and uses none of the free programs open source projects qualify for",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tari-project/special_contributions/issues/469",
+        "title": "Contribution: fix(state_tree): populate null root in ShardGroupRootTree::build when all shards are empty (tari-project/t",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/zhangjiayang6835-cyber/bounty-plaza/issues/4225",
+        "title": "[Bounty] [Bounty $750] Fix sharded softmax on offset core grids",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/zhangjiayang6835-cyber/bounty-plaza/issues/4224",
+        "title": "[Bounty] \ud83d\udc8e [Bounty $450 USDC] Streaming MCP SSE Chunk Boundary Reassembly with Backpressu",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/zhangjiayang6835-cyber/bounty-plaza/issues/4223",
+        "title": "[Bounty] \ud83d\udc8e [Bounty $600 USDC] PagedAttention KV-Cache Block Desync on Prefix-Aware Chunke",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://crns.info/smb-email-dmarc",
+        "title": "DMARC, DKIM, and SPF for Small Non-Profit - CRNS, LLC",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-07 setup email security",
+      "is:issue is:open bounty created:>=2026-09-07 ",
+      "looking for someone to setup email security with SPF DKIM and DMARC for a small nonprofit",
+      "hiring a freelancer to implement email authentication for a remote nonprofit team"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to setup email security with SPF DKIM and DMARC for a small nonprofit",
+      "hiring a freelancer to implement email authentication for a remote nonprofit team",
+      "need paid help with configuring SPF DKIM and DMARC for a nonprofit email system",
+      "looking for someone to configure email security with SPF DKIM and DMARC for a remote team"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 43,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to setup email security with SPF DKIM and DMARC for a small nonprofit",
+        "hiring a freelancer to implement email authentication for a remote nonprofit team",
+        "need paid help with configuring SPF DKIM and DMARC for a nonprofit email system",
+        "looking for someone to configure email security with SPF DKIM and DMARC for a remote team"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
