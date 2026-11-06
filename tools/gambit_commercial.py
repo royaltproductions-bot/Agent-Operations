@@ -331,4 +331,5 @@ def summarize(state, now=None):
         'unknown_fields':{f:sum(f not in r for r in records.values()) for f in fields},
         'null_fields':{f:sum(f in r and r[f] is None for r in records.values()) for f in fields},
         'browser':state.get('analytics', {}).get('browser', {}),
+        'browser_manual_snapshot':state.get('analytics', {}).get('browser_manual_snapshot'),
         'coverage':'Observed unique bounties; historical events before instrumentation may be incomplete.'}
