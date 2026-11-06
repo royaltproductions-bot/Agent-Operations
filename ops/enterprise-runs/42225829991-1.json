@@ -1,0 +1,130 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-06T13:31:24.357892+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 3,
+      "github_paid_issues": 5,
+      "duckduckgo": 7,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 12,
+    "contactable_sources": 4,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=35537067",
+        "title": "Coinbase support is terrible, even for long time users.",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=35210782",
+        "title": "Ask HN: Anyone here working at Meta on bot detection?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=1628254",
+        "title": "Ask HN: Review my Webapp- HN/Reddit-style news with Real Names - Lonava.com",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/youxuanxue/sub2api/issues/3013",
+        "title": "[upstream] \u4e0a\u6e38\u7f51\u5173\u8c03\u5ea6\u3001\u8ba1\u8d39\u4e0e\u8d26\u53f7\u95ee\u9898\u8ddf\u8e2a \u2014 \u7ebf\u7d22 2026-W45",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/wondermoney/wondermoney/issues/14",
+        "title": "Epic: Community and contribution process",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/openminion/openminion/issues/676",
+        "title": "session turn lease rejects concurrent turns correctly, but the busy error is mapped to nothing and retry_after is discar",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create email verification process for nonprofit 2026",
+      "is:issue is:open bounty created:>=2026-09-07 email authentication setup",
+      "is:issue is:open bounty created:>=2026-09-07 ",
+      "need paid help with email authentication setup for small business",
+      "looking for someone to configure dkim for email domain 2026"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to configure dkim for email domain 2026",
+      "need paid help with email authentication setup for small business",
+      "can anyone create email verification process for nonprofit 2026",
+      "hiring a freelancer to setup email security for remote team"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 41,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to configure dkim for email domain 2026",
+        "need paid help with email authentication setup for small business",
+        "can anyone create email verification process for nonprofit 2026",
+        "hiring a freelancer to setup email security for remote team"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 119,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
