@@ -1,0 +1,126 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-06T01:35:21.595170+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 15,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "github_paid_issues": 5,
+      "duckduckgo": 2,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 13,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=39544731",
+        "title": "Tell HN: Coinbase Added a Fake Signatory to My Vault",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=32496909",
+        "title": "Ask HN: 91-year-old's Hotmail account hacked, only automated support responses",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=19586378",
+        "title": "Is there any potential risks to using an Airbnb host's \u201cfree home WiFi\u201d",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=15782343",
+        "title": "Ask HN: Rails resources similar to Django's \u201cTwo Scoops\u201d and cookiecutter-django?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Neurowealth/NeuroWealth-Smartcontract/issues/1082",
+        "title": "Bug: Private Vulnerability Reporting is still not enabled: the only reporting channel in SECURITY.md does not work (foll",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/undone0603/authichain-unified/issues/2357",
+        "title": "AuthiChain anti-counterfeit evidence network \u2014 SealLock, signed issuers, A2A/MCP review pilot",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to setup email security with SPF, DKIM, and DMARC for a small nonprofit",
+      "is:issue is:open bounty created:>=2026-09-07 implement email security",
+      "is:issue is:open bounty created:>=2026-09-07 ",
+      "looking for someone to configure SPF, DKIM, and DMARC for a nonprofit email system",
+      "hiring a freelancer to implement email security with SPF, DKIM, and DMARC for a remote team"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to configure SPF, DKIM, and DMARC for a nonprofit email system",
+      "hiring a freelancer to implement email security with SPF, DKIM, and DMARC for a remote team",
+      "need paid help with setting up email encryption and authentication for a remote nonprofit",
+      "looking for someone to setup email security with SPF, DKIM, and DMARC for a small nonprofit"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 43,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to configure SPF, DKIM, and DMARC for a nonprofit email system",
+        "hiring a freelancer to implement email security with SPF, DKIM, and DMARC for a remote team",
+        "need paid help with setting up email encryption and authentication for a remote nonprofit",
+        "looking for someone to setup email security with SPF, DKIM, and DMARC for a small nonprofit"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
