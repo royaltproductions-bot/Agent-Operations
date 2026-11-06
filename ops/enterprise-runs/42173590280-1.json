@@ -1,0 +1,128 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-06T06:19:42.308368+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 13,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 7,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "query_planner",
+        "reason": "recovered_fresh_public_research_directions"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 13,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/datnguyenquy94/news-radar/issues/1008",
+        "title": "\ud83d\udcca AI CLI Tools Digest 2026-11-06",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/methakon/homeguardian-ai/issues/14",
+        "title": "HG-NET-02A \u2014 Hermes 1: Oracle WireGuard control-plane pilot, mail-safe",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tari-project/special_contributions/issues/477",
+        "title": "Contribution: fix(template_lib): reject duplicate NFT initial_supply IDs and add ConfidentialResourceBuilder::update_met",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tari-project/special_contributions/issues/476",
+        "title": "Contribution: fix(template_builtin): deposit into resolved pool vaults in contribute and allow 10 NFTs in NftFaucet::min",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/odiseo159-beep/mergit/issues/17",
+        "title": "Test the rules that decide which bounty a pull request claims",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://topbusinesssoftware.com/categories/email-hosting/nonprofit-orgs/",
+        "title": "List of the Top Email Hosting for Nonprofit in 2026",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-07 anyone create secure",
+      "is:issue is:open bounty created:>=2026-09-07 ",
+      "anyone create secure email setup nonprofit organization",
+      "hiring freelancer implement email authentication remote team"
+    ],
+    "attempted_search_queries": [
+      "anyone create secure email setup nonprofit organization",
+      "hiring freelancer implement email authentication remote team",
+      "need paid help configuring email security small nonprofit",
+      "looking someone setup SPF DKIM DMARC nonprofit email system"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 41,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "anyone create secure email setup nonprofit organization",
+        "hiring freelancer implement email authentication remote team",
+        "need paid help configuring email security small nonprofit",
+        "looking someone setup SPF DKIM DMARC nonprofit email system"
+      ],
+      "next_query_queue": 8,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
