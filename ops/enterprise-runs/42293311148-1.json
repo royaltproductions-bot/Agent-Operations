@@ -1,0 +1,131 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-06T21:03:32.327783+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 15,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 6,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 13,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/mowster/m.test/issues/1",
+        "title": "[SECURITY]:",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraloom-labs/paraloom-core/issues/1430",
+        "title": "[BUG BOUNTY] Medium: /metrics reports paraloom_ready=1 when /ready returns 503, ResourceMonitor::get_contribution return",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraloom-labs/paraloom-core/issues/1428",
+        "title": "[BUG BOUNTY] Medium: PrivateSwapRelayer burns nullifier before fee/overhead bounds check, JupiterSwapProvider accepts ze",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Rohank143/BountyScout/issues/72",
+        "title": "\ud83c\udfaf Bounty Alert: 6 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Uuriko/project-room/issues/6056",
+        "title": "Restore dispute state when the outer idempotency transaction rolls back",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://bizmailnet.com/blog/dmarc-dkim-spf-setup-guide-small-business/",
+        "title": "DMARC, DKIM, and SPF Setup for Small Business: Step-by-Step Checklist",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-07 ",
+      "looking for someone to setup dkim for small business email",
+      "hiring freelancer for email authentication setup nonprofit"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to setup dkim for small business email",
+      "hiring freelancer for email authentication setup nonprofit",
+      "need paid help with email verification tool for educational platform",
+      "can anyone create email validation system for remote team"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 41,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to setup dkim for small business email",
+        "hiring freelancer for email authentication setup nonprofit",
+        "need paid help with email verification tool for educational platform",
+        "can anyone create email validation system for remote team"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
