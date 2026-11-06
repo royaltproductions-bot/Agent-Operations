@@ -1,0 +1,133 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-06T18:04:46.088587+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 2,
+      "github_paid_issues": 5,
+      "duckduckgo": 8,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=36227470",
+        "title": "Painful Lesson: Always 'Show and Tell' Your Product Before You Develop It",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=5063392",
+        "title": "Ask HN: Want to create software with me?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraloom-labs/paraloom-core/issues/1399",
+        "title": "[BUG BOUNTY] Medium: OnChainSubmitter::new accepts trailing bytes in proving key, submit_deposit_from_fresh omits zero-a",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/3906",
+        "title": "[wildcard] Delete the .hy/.go split: run the checker inside go vet over ordinary Go",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/dev-kp-eloper/BountyScout/issues/1733",
+        "title": "\ud83c\udfaf Bounty Alert: 18 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraloom-labs/paraloom-core/issues/1397",
+        "title": "[BUG BOUNTY] Medium: paraloom-ceremony-finalize omits final_srs_hash verification against ceremony_pk, try_hash_from_hex",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create email validation system for small business website",
+      "is:issue is:open bounty created:>=2026-09-07 ",
+      "looking for someone to setup email authentication for nonprofit organization",
+      "hiring a freelancer to create email verification tool for educational institution"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to setup email authentication for nonprofit organization",
+      "hiring a freelancer to create email verification tool for educational institution",
+      "need paid help with dkim setup for remote nonprofit team",
+      "can anyone create email validation system for small business website"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 42,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to setup email authentication for nonprofit organization",
+        "hiring a freelancer to create email verification tool for educational institution",
+        "need paid help with dkim setup for remote nonprofit team",
+        "can anyone create email validation system for small business website"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
