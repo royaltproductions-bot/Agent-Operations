@@ -151,3 +151,22 @@ class Corrections(unittest.TestCase):
         self.assertIsNone(cyclops.missing_import('import json\nfrom pathlib import Path'))
         self.assertEqual(cyclops.CONCEPT_SCHEMA['properties']['production_goal']['maxLength'],800)
         self.assertEqual(cyclops.CONCEPT_SCHEMA['properties']['output_files']['maxItems'],6)
+
+    def test_past_pass_remains_in_funnel_after_bid(self):
+        state={'bounties':{'b':{'action':'bid_active'}},'commercial':{'b':{}}}
+        c.record_action(state,'pass','b',NOW.isoformat(),'unsupported')
+        self.assertEqual(c.summarize(state,NOW)['cumulative']['passed_by_reason'],{'unsupported':1})
+
+    def test_detail_status_transition_records_time(self):
+        state={'commercial':{'b':{'bid_status':'active'}}}
+        with patch.object(w,'timestamp',return_value=NOW.isoformat()):
+            w.record_bid_measurement(state,'b',{'status':'declined'})
+        self.assertEqual(state['commercial']['b']['bid_status_changed_at'],NOW.isoformat())
+
+    def test_load_abandons_legacy_retry_ten_before_due_time(self):
+        with tempfile.TemporaryDirectory() as folder,patch.object(w,'STATE_PATH',Path(folder)/'state.json'):
+            w.STATE_PATH.write_text(json.dumps({'schema':1,'bounties':{'b':{'action':'retry_evaluation','retry_count':10,'retry_at':'2099-01-01T00:00:00+00:00'}}}))
+            entry=w.load_state()['bounties']['b']
+        self.assertEqual(entry['action'],'evaluation_abandoned')
+        self.assertEqual(entry['retry_count'],4)
+        self.assertIsNone(entry['retry_at'])

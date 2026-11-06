@@ -291,8 +291,12 @@ def summarize(state, now=None):
             for status in ('hired', 'delivered', 'accepted'):
                 fallback = entry.get('at') if action == {'hired':'claimed','delivered':'submitted','accepted':'accepted'}[status] else None
                 values[status] += int(on_date(row.get(status + '_at') or fallback))
+            passed = {r.get('reason') or 'unknown' for name, r in actions.get(ident, {}).items()
+                      if name.startswith('pass') and
+                      (scope == 'cumulative' or today in r.get('days', []))}
             if action.startswith('pass') and on_date(entry.get('at')):
-                reason = entry.get('reason') or 'unknown'
+                passed.add(entry.get('reason') or 'unknown')
+            for reason in passed:
                 values['passed_by_reason'][reason] = values['passed_by_reason'].get(reason, 0) + 1
         for ident, settlement in state.get('settlements', {}).items():
             if state.get('commercial', {}).get(ident, {}).get('sample_listing'):
