@@ -232,6 +232,21 @@
       "transfer_count": null,
       "unread_count": 0
     },
+    "event_ids": [
+      "ph783hbaeqx6mqaxkz6c1n1xcx8hpn3h"
+    ],
+    "event_types": {
+      "work.message.created": {
+        "count": 1,
+        "data_keys": [
+          "bounty_id",
+          "message",
+          "message_id"
+        ],
+        "first_seen": "2026-11-06T15:41:33.227224+00:00",
+        "last_seen": "2026-11-06T15:41:33.227224+00:00"
+      }
+    },
     "model_budget": {
       "call_count": 231,
       "month": "2026-11",
