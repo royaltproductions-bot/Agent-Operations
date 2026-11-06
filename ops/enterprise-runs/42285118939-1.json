@@ -1,0 +1,122 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-06T20:06:34.846915+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 5,
+      "github_paid_issues": 5,
+      "duckduckgo": 4,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=50037004",
+        "title": "Ask HN: Locked out of Google despite knowing password and having email access",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=42024748",
+        "title": "Ask HN: Panicking about new AWS MFA reqs",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=41139703",
+        "title": "Ask HN: AdMob Match Rate 0% for New App, Support Unresponsive. Any Advice?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=41012699",
+        "title": "Has anyone built their own authentication system?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=34998100",
+        "title": "Ask HN: Recovering AWS root account without phone number \u2013 advice needed",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/allegro/allegro-api/issues/14289",
+        "title": "Sandbox: registration/account writes fail generically & developer app registration disabled (activation request)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone setup email verification system for educational platform",
+      "is:issue is:open bounty created:>=2026-09-07 email validation tool",
+      "is:issue is:open bounty created:>=2026-09-07 ",
+      "looking for someone to setup dkim for nonprofit email system",
+      "hiring a freelancer to configure email authentication for remote team"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to setup dkim for nonprofit email system",
+      "hiring a freelancer to configure email authentication for remote team",
+      "need paid help with email validation tool for small business site",
+      "can anyone setup email verification system for educational platform"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 41,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to setup dkim for nonprofit email system",
+        "hiring a freelancer to configure email authentication for remote team",
+        "need paid help with email validation tool for small business site",
+        "can anyone setup email verification system for educational platform"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
