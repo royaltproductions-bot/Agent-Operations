@@ -1,0 +1,177 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-06T00:25:14.805929+00:00",
+  "model": "qwen3:8b",
+  "asset": {
+    "asset_id": "e46509dbb213a33c25fd",
+    "title": "AI-Assisted Development Learning Pathway Generator",
+    "price_usd": "49.99",
+    "price_cents": 4999,
+    "payment_link_id": "plink_1UYbgQBto3o776uyUQ0kJ7qb"
+  },
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 5,
+      "bing": 1,
+      "duckduckgo": 6,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "verified_firsthand_problem_pages": 4,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 13,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=49098829",
+        "title": "Ask HN: How would you learn AI-assisted development from the ground up?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=31076937",
+        "title": "Ask HN: How to Desktop Automate for Locked Down PC-HDMI Capture and Extra PC?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=9967061",
+        "title": "Ask HN: Can you recommend a translation service for website trans?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=34513230",
+        "title": "Ask HN: For a privacy-preserving license check, is CRC-16 binning good enough?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=19166269",
+        "title": "Ask HN: Recommendations for point and click web scraper",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://elysiatools.com/en/docs/xlsx-print-setup-pack",
+        "title": "XLSX Print Setup Pack \u2014 API & MCP | Elysia Tools",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 15,
+    "search_queries": [
+      "python automate excel print settings",
+      "merge excel files by column python script",
+      "print settings automation for excel",
+      "xlsx print setup pack download",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 24,
+      "skipped_revisits": 29,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "xlsx print setup pack download",
+        "python automate excel print settings",
+        "merge excel files by column python script",
+        "print settings automation for excel"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 118,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "approved_and_published",
+    "asset_id": "e46509dbb213a33c25fd",
+    "production_tool": "isolated_tool_workshop",
+    "artifact_count": 1,
+    "created_artifacts": [
+      {
+        "filename": "ai-assisted-development-learning-pathway.pdf",
+        "bytes": 3320,
+        "sha256": "df2ca23f2678087a2fd2f69f726160deb37f77a44ffa822cb38d44956a2ac3b8",
+        "content_type": "application/pdf"
+      }
+    ]
+  },
+  "catalog": {
+    "result": "catalog_published",
+    "listed_products": 3,
+    "product_pages": 3,
+    "files_updated": 3
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": {
+    "result": "no_relevant_opt_in_buyer",
+    "asset_id": "e46509dbb213a33c25fd"
+  },
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 1,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "e46509dbb213a33c25fd",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "brave",
+          "reason": "HTTPError",
+          "http_code": 429
+        }
+      ]
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 3,
+    "new_distribution_outlets": 0,
+    "production_progress": true,
+    "public_sources_reviewable": 13,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
