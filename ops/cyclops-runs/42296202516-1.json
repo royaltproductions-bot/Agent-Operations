@@ -1,0 +1,219 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-06T21:23:55.916822+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 13,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "duckduckgo": 8,
+      "hn_ask": 1,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "UnicodeEncodeError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "verified_firsthand_problem_pages": 1,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 10,
+    "public_market_sample": [
+      {
+        "url": "https://ilovepdf.org/blog/pdf-to-excel-methods-and-accuracy/",
+        "title": "Convert a PDF to Excel: Free and Easy Methods - ilovepdf.org",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=7953553",
+        "title": "Ask HN: are we ready for business finance in the cloud?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://wukihow.com/en/article/spreadsheet-data-cleaning-automation-using-python-and-pandas-en",
+        "title": "Spreadsheet Data Cleaning Automation Using Python and Pandas",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://github.com/Yourtech-01/Data-Cleaning-Automation-Script",
+        "title": "GitHub - Yourtech-01/Data-Cleaning-Automation-Script: A Python-based ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://spreadsheetpoint.com/automate-data-cleaning-in-google-sheets-a-beginners-guide-to-python-and-pandas/",
+        "title": "Automate Data Cleaning in Google Sheets: A Beginner's Guide to Python ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://github.com/YashwanthKumaran/Automated-Data-Cleaning-System-using-python",
+        "title": "Automated Data Cleaning System using python - GitHub",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 13,
+    "search_queries": [
+      "how to convert PDF to Excel with a free downloadable tool",
+      "automate spreadsheet data cleaning with a self-contained Python script",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 49,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "how to convert PDF to Excel with a free downloadable tool",
+        "automate spreadsheet data cleaning with a self-contained Python script",
+        "downloadable script to extract text from web pages using CSS selectors",
+        "how to create a standalone app that generates CSV reports from Google Sheets"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 114,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:10 candidates reviewed; sess ; The candidate lacks pricing and sales data, making it difficult to assess viability. While the integration with Airtable suggests potential demand, there is no e"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 3,
+    "product_pages": 3,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "e46509dbb213a33c25fd",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "duckduckgo",
+          "reason": "HTTPError",
+          "http_code": 403
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:89782d3c410314a232",
+      "decision": "pass",
+      "reason": "The article discusses converting PDF to Excel, which is a common task, but there is no clear evidence of a specific customer problem that a differentiated product could solve. The existing tools and methods are well-documented, and there is no indication of a unique value proposition or unmet need that a new product could address. Additionally, the"
+    },
+    {
+      "candidate_id": "web:c5fe5cb8b92323184e",
+      "decision": "pass",
+      "reason": "While there is a clear pain point in the current finance consolidation and reporting systems, the evidence does not provide sufficient indication of a ready market or demand for a cloud-based finance SAAS solution. The discussion is speculative and lacks concrete evidence of buyer demand, pricing, or existing competition. Additionally, the absence "
+    },
+    {
+      "candidate_id": "web:f0c5bd5a039abfa36b",
+      "decision": "pass",
+      "reason": "The content discusses data cleaning automation using Python and Pandas, which is a technical solution for a specific problem. However, there is no evidence of a commercial product, sales, or pricing. The content appears to be educational or informational rather than a viable product offering. Without a clear product, pricing, or sales data, it is n"
+    },
+    {
+      "candidate_id": "web:fe7009af7c505a0483",
+      "decision": "pass",
+      "reason": "The project appears to be a GitHub repository for a data cleaning automation script, but there is no evidence of a completed product, pricing, or sales. The lack of a clear business model, target audience, or demonstrated demand makes it difficult to justify pursuing this idea without further validation."
+    },
+    {
+      "candidate_id": "web:5be386d34d6511e0bf",
+      "decision": "pass",
+      "reason": "The candidate lacks a clear value proposition or evidence of demand. While the integration with Google Workspace is promising, there is no indication of a specific problem being solved or a unique value proposition that differentiates it from existing solutions. The absence of pricing, sales data, or direct customer testimonials makes it difficult "
+    },
+    {
+      "candidate_id": "web:40bdea52ab7ac7e3ba",
+      "decision": "pass",
+      "reason": "The candidate_id 'web:40bdea52ab7ac7e3ba' refers to a Google Docs integration platform that automates document workflows. While the integration with Google Docs is relevant, there is no clear evidence of a specific product or service being offered. The page describes features and integrations but lacks a concrete product or pricing model. Additiona"
+    },
+    {
+      "candidate_id": "web:b56ececb992c3a433c",
+      "decision": "pass",
+      "reason": "The candidate lacks a clear business model, pricing, and sales data. While there is potential in automating data cleaning, the evidence does not demonstrate a viable product or market demand. The content is more of a tutorial than a commercial offering."
+    },
+    {
+      "candidate_id": "web:ca2258b615cdeacfb8",
+      "decision": "pass",
+      "reason": "The project is a GitHub repository for an automated data cleaning system, which lacks evidence of a viable market demand or sales. While data cleaning is a common need, there is no indication of a specific customer problem that this tool solves uniquely or effectively. Additionally, the absence of pricing or sales data makes it difficult to assess "
+    },
+    {
+      "candidate_id": "web:ad5c1c310bd22470bb",
+      "decision": "pass",
+      "reason": "The candidate lacks pricing and sales data, making it difficult to assess viability. While the integration with Airtable suggests potential demand, there is no evidence of actual buyer utility or competitive positioning without further data."
+    },
+    {
+      "candidate_id": "web:dfe76f5901ce2cdb1f",
+      "decision": "pass",
+      "reason": "The candidate lacks pricing and sales data, making it difficult to assess market viability. Additionally, the product appears to be a niche automation tool with limited differentiation from existing competitors like Zapier and Make. Without clear evidence of demand or a unique value proposition, the risk of building this product is high relative to"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 3,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 10,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
