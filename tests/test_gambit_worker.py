@@ -2134,5 +2134,34 @@ class GambitTests(unittest.TestCase):
         self.assertEqual(counts["unchanged_history_ignored"], 0)
 
 
+    def test_evaluation_retry_exhaustion_is_terminal_and_preserves_reason(self):
+        state = {"bounties": {"b1": {"action": "retry_evaluation", "version": 3,
+                                      "retry_count": 3}}, "recent_outcomes": []}
+        gambit.schedule_evaluation_retry(state, "b1", ValueError("proposal_samples_missing"))
+        record = state["bounties"]["b1"]
+        self.assertEqual(record["action"], "evaluation_retry_exhausted")
+        self.assertEqual(record["retry_count"], 4)
+        self.assertIsNone(record["retry_at"])
+        self.assertEqual(record["last_error"], "proposal_samples_missing")
+        self.assertFalse(gambit.retry_due(record))
+        self.assertEqual(state["recent_outcomes"][-1]["action"], "evaluation_retry_exhausted")
+
+    def test_evaluation_retry_below_limit_remains_scheduled(self):
+        state = {"bounties": {"b1": {"action": "retry_evaluation", "version": 3,
+                                      "retry_count": 2}}, "recent_outcomes": []}
+        gambit.schedule_evaluation_retry(state, "b1", RuntimeError("transient"))
+        record = state["bounties"]["b1"]
+        self.assertEqual(record["action"], "retry_evaluation")
+        self.assertEqual(record["retry_count"], 3)
+        self.assertTrue(record["retry_at"])
+
+    def test_safe_failure_reason_never_persists_unrecognized_buyer_text(self):
+        self.assertEqual(gambit.safe_failure_reason(ValueError("proposal_samples_missing")),
+                         "proposal_samples_missing")
+        self.assertEqual(gambit.safe_failure_reason(ValueError("buyer private content")),
+                         "ValueError")
+
+
+
 if __name__ == '__main__':
     unittest.main()
