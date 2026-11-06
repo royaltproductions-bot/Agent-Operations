@@ -1,0 +1,146 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-06T09:16:39.433460+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 3,
+      "github_paid_issues": 5,
+      "duckduckgo": 1,
+      "bing": 5,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=45309992",
+        "title": "Saving Microsoft Movies and TV Titles as Videos on Windows 10 PC",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=42802532",
+        "title": "I Use Free AI Tools to Close More Sales Deals (No Paid Tools Needed)",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=40003844",
+        "title": "Ask HN: Is this the norm nowadays for big tech customer service?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/mautic/mautic/issues/18017",
+        "title": "Saving Configuration writes the monitored inbox password to local.php unescaped, so a password with `%` takes the whole ",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tari-project/special_contributions/issues/485",
+        "title": "Contribution: fix(ootle_sdk_core): preserve fee-phase template blobs and merge input declarations (tari-project/tari-oot",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/t8y2/dbx/issues/14497",
+        "title": "[Bug] mongo\u5e93\u6267\u884c\u63d2\u5165\u65f6\u4f1a\u5931\u8d25\uff0c\u4e0d\u652f\u6301\u5199\u5165\u6570\u636e",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "need paid help with email authentication configuration for small nonprofit",
+      "is:issue is:open bounty created:>=2026-09-07 email authentication configuration",
+      "is:issue is:open bounty created:>=2026-09-07 ",
+      "hiring freelancer to configure email security for remote nonprofit team"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to setup SPF DKIM DMARC for nonprofit email system",
+      "need paid help with email authentication configuration for small nonprofit",
+      "can anyone create secure email setup for nonprofit organization 2026",
+      "hiring freelancer to configure email security for remote nonprofit team"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 47,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to setup SPF DKIM DMARC for nonprofit email system",
+        "need paid help with email authentication configuration for small nonprofit",
+        "can anyone create secure email setup for nonprofit organization 2026",
+        "hiring freelancer to configure email security for remote nonprofit team"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
