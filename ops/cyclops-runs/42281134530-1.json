@@ -1,0 +1,226 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-06T19:38:10.943289+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 12,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "duckduckgo": 7,
+      "bing": 1,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 10,
+    "public_market_sample": [
+      {
+        "url": "https://www.autonoly.com/blog/automate-pdf-data-extraction",
+        "title": "Automate PDF Data Extraction to Excel | Guide - autonoly.com",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://play.google.com/store/apps/details?id=pdfreader.pdfviewer.officetool.pdfscanner&hl=en-US",
+        "title": "PDF Reader App: Read All PDF - Apps on Google Play",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.myocr.app/best-pdf-to-excel-converters-2026",
+        "title": "Best PDF to Excel Converters 2026 \u2014 Compared | myocr.app",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.kimi.ai/resources/best-pdf-to-excel-converters",
+        "title": "10 Fast PDF to Excel Converters in 2026 - kimi.ai",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://pdf.wondershare.com/top-pdf-software/best-pdf-to-excel-converter.html",
+        "title": "Best PDF to Excel Converters: 11 Tools for 2026",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://workspace.google.com/marketplace/app/convert_pdf_to_csv_sheets_pdf_to_excel_x/286135378508",
+        "title": "Convert PDF to CSV & Sheets\u2122. PDF to Excel & XLS - Google Workspace",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 8,
+    "search_queries": [
+      "convert pdf tables to spreadsheet tool for sale",
+      "automate pdf data extraction to excel download",
+      "pdf to excel converter script for windows",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 50,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "automate pdf data extraction to excel download",
+        "convert pdf tables to spreadsheet tool for sale",
+        "excel template for invoice processing from scanned pdf",
+        "pdf to excel converter script for windows"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:10 candidates reviewed; ing the page is not providing meaningful public market observation data. There is no clear indication of customer activity, demand strength, or competitive positioning."
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 3,
+    "product_pages": 3,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "public_page_fetch",
+          "reason": "HTTPError"
+        }
+      ]
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "public_page_fetch",
+          "reason": "HTTPError"
+        }
+      ]
+    },
+    {
+      "asset_id": "e46509dbb213a33c25fd",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "duckduckgo",
+          "reason": "HTTPError",
+          "http_code": 403
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:e455f0ef06e93986f3",
+      "decision": "pass",
+      "reason": "The article discusses automating PDF data extraction to Excel, but it does not provide clear evidence of a specific customer problem or demand for a new product. The content is more of a guide or tutorial rather than a direct indication of a viable product opportunity. Additionally, there is no mention of a unique value proposition or differentiati"
+    },
+    {
+      "candidate_id": "web:6a3b283f7f99673b75",
+      "decision": "pass",
+      "reason": "The market for PDF to Excel converters is highly competitive with established players like myocr.app, Adobe Acrobat, and Smallpdf. While there is demand for OCR-based tools, the existing competition and lack of unique differentiation in the observed candidates make it unlikely to justify a new product without a clear, specific value proposition."
+    },
+    {
+      "candidate_id": "web:9eef42e0d36143019d",
+      "decision": "pass",
+      "reason": "The article lists multiple PDF to Excel converters, but none of them are explicitly positioned as a unique, differentiated product. The market is saturated with existing tools, and there is no clear indication of a specific, unmet customer need that a new product could address. Additionally, there is no evidence of actual sales or pricing, making i"
+    },
+    {
+      "candidate_id": "web:5877f1d6ba21a6b3b5",
+      "decision": "pass",
+      "reason": "The candidate_id 'web:5877f1d6ba21a6b3b5' refers to a page discussing PDF to Excel converters, which is a highly competitive market with numerous existing tools. While there is potential for a differentiated product, the lack of specific customer problems or unique features in the excerpt suggests that the market is saturated and there is no clear "
+    },
+    {
+      "candidate_id": "web:19f770a3f3f23dad18",
+      "decision": "pass",
+      "reason": "The candidate lacks clear evidence of customer demand or sales, and the content appears to be promotional without concrete buyer utility or competitive differentiation."
+    },
+    {
+      "candidate_id": "web:4cf5e542d15ef0b676",
+      "decision": "pass",
+      "reason": "The candidate lacks clear evidence of demand or sales, and the content appears to be promotional material rather than a verified product. There is no indication of a specific customer problem with a feasible, differentiated solution that can be tested with a low-cost prototype."
+    },
+    {
+      "candidate_id": "web:38bab0f52a62bd5019",
+      "decision": "pass",
+      "reason": "The candidate_id 'web:38bab0f52a62bd5019' refers to a PDF to Excel converter service, which is a well-saturated market with numerous existing solutions. While there is potential for a differentiated product, the lack of clear evidence of unique value proposition, pricing, or sales makes it difficult to justify pursuing this market without further s"
+    },
+    {
+      "candidate_id": "web:03ad9f60e19867f05d",
+      "decision": "pass",
+      "reason": "The candidate lacks clear evidence of demand or sales, and the evidence excerpt does not indicate a specific customer problem or utility. The page appears to be a marketing page for a PDF to Word converter, but there is no indication of actual buyer activity or demand strength. The absence of pricing or sales data makes it difficult to assess the v"
+    },
+    {
+      "candidate_id": "web:118dabf08d3254bc67",
+      "decision": "pass",
+      "reason": "The evidence excerpt is primarily CSS and HTML code, indicating the page is not providing meaningful public market observation data. There is no clear indication of customer activity, demand strength, or competitive positioning. Additionally, the absence of listed price or sales count makes it difficult to assess the viability of the product."
+    },
+    {
+      "candidate_id": "web:1f9d20ec0a4af296e9",
+      "decision": "pass",
+      "reason": "The candidate lacks clear evidence of demand, pricing, or sales, making it difficult to assess its viability. The provided excerpt is mostly CSS and does not indicate a specific user problem or utility. Without concrete evidence of buyer activity or utility, the product cannot be justified as a viable experiment."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 3,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 10,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
