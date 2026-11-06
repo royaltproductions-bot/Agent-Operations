@@ -1,0 +1,121 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-06T15:07:52.382874+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 8,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "duckduckgo": 4,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 6,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://www.mailwarm.com/",
+        "title": "Email Warmup Tool & Service to Avoid Spam | Mailwarm",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://emailanalytics.com/email-warmup/",
+        "title": "12 Best Email Warmup Tools + Pricing (2026)",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://higgensmedia.com/nonprofits/email-setup",
+        "title": "Nonprofit Email Setup & Management - Higgens Media",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://ipwarmup.com/domain-warmup-service",
+        "title": "Domain Warmup Service - Increase Sending Domain Reputation | IPwarmup.com",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://namesnag.com/blog/domain-name-reputation",
+        "title": "domain reputation for SEO and email",
+        "provider": "followup",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://reachinbox.ai/blog/how-to-warm-up-email-domain/",
+        "title": "process to warm up an email domain",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "need paid help with email domain warmup for small business",
+      "looking for someone to setup email authentication for nonprofit 2026"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to setup email authentication for nonprofit 2026",
+      "need paid help with email domain warmup for small business",
+      "can anyone create email verification workflow for remote team",
+      "hiring a freelancer to configure dkim for email domain"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 21,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to setup email authentication for nonprofit 2026",
+        "need paid help with email domain warmup for small business",
+        "can anyone create email verification workflow for remote team",
+        "hiring a freelancer to configure dkim for email domain"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
