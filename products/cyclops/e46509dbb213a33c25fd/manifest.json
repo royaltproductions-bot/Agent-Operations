@@ -1,0 +1,56 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops",
+  "status": "active",
+  "asset_id": "e46509dbb213a33c25fd",
+  "title": "AI-Assisted Development Learning Pathway Generator",
+  "description": "A structured learning pathway tailored for non-software engineers transitioning into AI-assisted development, focusing on prompt engineering, programming fundamentals, and real-world application.",
+  "audience": "Non-software engineers with data analytics, SQL, and Excel backgrounds seeking to learn AI-assisted development.",
+  "pitch": "This product provides a structured, up-to-date learning pathway for non-software engineers to learn AI-assisted development, from prompt engineering to real-world app building and automation.",
+  "price_usd": "49.99",
+  "price_cents": 4999,
+  "target_terms": [
+    "AI-assisted development learning",
+    "non-software engineer AI training",
+    "prompt engineering pathway",
+    "AI development fundamentals",
+    "AI-assisted app building",
+    "automation with AI"
+  ],
+  "evidence_source_url": "https://news.ycombinator.com/item?id=49098829",
+  "files": [
+    "ai-assisted-development-learning-pathway.pdf"
+  ],
+  "artifact_manifest": [
+    {
+      "filename": "ai-assisted-development-learning-pathway.pdf",
+      "bytes": 3320,
+      "sha256": "df2ca23f2678087a2fd2f69f726160deb37f77a44ffa822cb38d44956a2ac3b8",
+      "content_type": "application/pdf"
+    }
+  ],
+  "production_tool": "isolated_tool_workshop",
+  "quality_gate": "content_and_evidence_verified",
+  "market_validation": {
+    "status": "agent_assessed_public_market",
+    "decision": "pursue",
+    "reason": "Low-cost original pilot answering a real first-person user problem, with market validation still to be measured. No verified demand or revenue is claimed.",
+    "observation": {
+      "candidate_id": "web:bbc55abefd4e8d0c42",
+      "url": "https://news.ycombinator.com/item?id=49098829",
+      "title": "Ask HN: How would you learn AI-assisted development from the ground up?",
+      "signal_type": "unclassified_public_page",
+      "source_fetched": true,
+      "evidence_excerpt": "Ask HN: How would you learn AI-assisted development from the ground up? I'm a director/exec, not a software engineer. Background's mostly data analytics, SQL and Excel day to day,  [...] y well built, or what's going to break down the road once it gets more complex. Feels like it's time to go back to fundamentals. Michael Jordan still worked on his footwork, that kind of thing. What I'm hoping to get to eventually: * build small useful apps, windows/mac/android/ios/web * automate chunks of my own and my team's work * maybe build a simple SaaS at some point * generally not get left behind, open to this reshaping my career or spinning into a side thing Was hoping for something structured, starting from prompt/context engineering and working into real programming fundamentals, APIs, databases, architecture, security, testing, deployment. Problem is anything I find is stale within months given how fast this moves. Not looking for free necessarily, and definitely not looking for \"learn to code in a weekend.\" Willing to put in real time. For people who've gone down this road already: what'",
+      "listed_price_usd": null,
+      "displayed_sales_count": null
+    }
+  },
+  "verified_market_problem_quote": "Ask HN: How would you learn AI-assisted development from the ground up? I'm a director/exec, not a software engineer. Background's mostly data analytics, SQL and Excel day to day,  [...] y well built, or what's going to break down the road once it gets more complex. Feels like it's time to go back to fundamentals. Michael Jordan still worked on his footwork, that kind of thing. What I'm hoping to get to eventually: * build small useful apps, windows/mac/android/ios/web * automate chunks of my own and my team's work * maybe build a simple SaaS at some point * generally not get left behind, open to this reshaping my career or spinning into a side thing Was hoping for something structured, starting from prompt/context engineering and working into real programming fundamentals, APIs, databases, architecture, security, testing, deployment. Problem is anything I find is stale within months given how fast this moves. Not looking for free necessarily, and definitely not looking for \"learn to code in a weekend.\" Willing to put in real time. For people who've gone down this road already: what'",
+  "commercial_review_reason": "The delivered PDF provides a structured learning pathway as promised, covering prompt engineering, programming fundamentals, and real-world application. It includes step-by-step guides, recommended resources, and project ideas, addressing the observed need for",
+  "delivery": "private_encrypted_vault",
+  "vault_path": "ops/cyclops-vault/assets/e46509dbb213a33c25fd.json",
+  "payment_link_id": "plink_1UYbgQBto3o776uyUQ0kJ7qb",
+  "checkout_url": "https://buy.stripe.com/8x200iak0fDpfUec7l7Re0S",
+  "created_at": "2026-11-06T01:11:11.053291+00:00"
+}
