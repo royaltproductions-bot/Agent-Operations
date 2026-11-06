@@ -1,0 +1,131 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-06T17:18:05.827330+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 8,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "query_planner",
+        "reason": "recovered_fresh_public_research_directions"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 13,
+    "contactable_sources": 3,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/letsbecool9792/sereno-demo/issues/14",
+        "title": "Docs: troubleshooting",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/letsbecool9792/sereno-demo/issues/13",
+        "title": "Docs: <user>.sereno.eth names",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/letsbecool9792/sereno-demo/issues/12",
+        "title": "Docs: how issue bounties work",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/letsbecool9792/sereno-demo/issues/11",
+        "title": "Docs: chains and addresses",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/letsbecool9792/sereno-demo/issues/10",
+        "title": "Docs: the 72-hour new-key rule",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.reddit.com/r/DMARC/comments/193sx03/help_i_need_to_hire_someone_to_set_up_spfdkimdmarc/",
+        "title": "Help! I need to hire someone to set up SPF/DKIM/DMARC. : r/DMARC - Reddit",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-07 ",
+      "need paid help dkim configuration remote team",
+      "anyone create email authentication setup startup business"
+    ],
+    "attempted_search_queries": [
+      "anyone create email authentication setup startup business",
+      "need paid help dkim configuration remote team",
+      "hiring freelancer create email verification workflow nonprofit",
+      "looking someone setup email domain warmup small business"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 51,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "anyone create email authentication setup startup business",
+        "need paid help dkim configuration remote team",
+        "hiring freelancer create email verification workflow nonprofit",
+        "looking someone setup email domain warmup small business"
+      ],
+      "next_query_queue": 8,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
