@@ -1,9 +1,9 @@
 {
   "aging_active_bids_days": {
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 2.4702363993865744,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 2.440396237349537,
-    "mx78wzkqdghteet6beyw1567mx8hewfj": 3.719341735034722,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 2.4710870706828705
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 2.470593356724537,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 2.4407531946875,
+    "mx78wzkqdghteet6beyw1567mx8hewfj": 3.719698692372685,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 2.4714440280208336
   },
   "browser": {
     "completed_job_count": {
@@ -79,7 +79,7 @@
   "coverage": "Observed unique bounties; historical events before instrumentation may be incomplete.",
   "cumulative": {
     "accepted": 0,
-    "asked": 4,
+    "asked": 2,
     "bids_active": 4,
     "bids_sent": 4,
     "declined": 0,
@@ -101,7 +101,7 @@
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-06T06:43:49.567907+00:00",
+  "generated_at": "2026-11-06T06:44:20.409021+00:00",
   "median_posting_to_bid_minutes": 9648.218966666665,
   "median_posting_to_detection_minutes": 55.7233103,
   "model_budget": {
@@ -149,7 +149,7 @@
     "bid_at": 0,
     "bid_status": 47,
     "budget_cents": 0,
-    "conversation": 40,
+    "conversation": 38,
     "delivered_at": 51,
     "first_detected_at": 0,
     "hired_at": 51,
