@@ -1,0 +1,131 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-06T05:19:50.327870+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 15,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 7,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "query_planner",
+        "reason": "recovered_fresh_public_research_directions"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 11,
+    "contactable_sources": 4,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/tangency-labs/solidcraft/issues/12483",
+        "title": "COIL: the 'coil' function is in urgent need of a fix.",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tari-project/special_contributions/issues/472",
+        "title": "Contribution: fix(engine): release vault and resource locks across auth hooks and guard workspace and lock state (tari-p",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/dakkaboy/lego-network-coop/issues/19",
+        "title": "Map the episode archives and build a mission checklist",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/leighton-tidwell/tidwellwelding.com/issues/37",
+        "title": "Quote form: a visitor whose photo uploads failed still sees an unqualified success screen",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/t8y2/dbx/issues/14453",
+        "title": "[Bug] doris\u8fde\u63a5\u62a5\u9519",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/defender-office-365/email-authentication-dkim-configure",
+        "title": "How to use DKIM for email in your custom domain - Microsoft Defender ...",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-07 ",
+      "need paid help configuring SPF DKIM DMARC nonprofit email system",
+      "looking someone configure email security SPF DKIM DMARC remote team"
+    ],
+    "attempted_search_queries": [
+      "looking someone configure email security SPF DKIM DMARC remote team",
+      "need paid help configuring SPF DKIM DMARC nonprofit email system",
+      "hiring freelancer implement email authentication remote nonprofit team",
+      "looking someone setup email security SPF DKIM DMARC small nonprofit"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 40,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking someone configure email security SPF DKIM DMARC remote team",
+        "need paid help configuring SPF DKIM DMARC nonprofit email system",
+        "hiring freelancer implement email authentication remote nonprofit team",
+        "looking someone setup email security SPF DKIM DMARC small nonprofit"
+      ],
+      "next_query_queue": 8,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
