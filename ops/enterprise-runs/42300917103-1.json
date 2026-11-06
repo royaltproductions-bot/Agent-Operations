@@ -1,0 +1,118 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-06T21:59:53.920666+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 5,
+      "github_paid_issues": 5,
+      "duckduckgo": 5,
+      "followup": 1
+    },
+    "source_errors": [],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=32096656",
+        "title": "Tell HN: Upwork has an impersonation problem",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=28411483",
+        "title": "Tech Lead Task List",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=12230628",
+        "title": "Ask HN: How to easily check if two words are too close",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=41956896",
+        "title": "Tell HN: Don't Use Apple's Hide My Email to Create Anonymous Accounts",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=32429505",
+        "title": "Ask HN: Why do you consider the web a thing?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tenstorrent/tt-metal/issues/64575",
+        "title": "[Bounty $750] Fix sharded softmax on offset core grids",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to setup email validation system for nonprofit organization",
+      "looking for someone to setup email verification for nonprofit email system",
+      "is:issue is:open bounty created:>=2026-09-07 setup email validation",
+      "is:issue is:open bounty created:>=2026-09-07 build email verification",
+      "is:issue is:open bounty created:>=2026-09-07 ",
+      "hiring a freelancer to build email verification tool for educational platform"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to setup email validation system for nonprofit organization",
+      "hiring a freelancer to build email verification tool for educational platform",
+      "need paid help with email authentication setup for remote team",
+      "looking for someone to setup email verification for nonprofit email system"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 53,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to setup email validation system for nonprofit organization",
+        "hiring a freelancer to build email verification tool for educational platform",
+        "need paid help with email authentication setup for remote team",
+        "looking for someone to setup email verification for nonprofit email system"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 119,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
