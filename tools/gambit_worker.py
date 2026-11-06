@@ -499,7 +499,16 @@ def capture_new_details(state, waiting):
 
 def schedule_evaluation_retry(state, bounty_id, exc):
     previous = state["bounties"].get(bounty_id) or {}
-    attempt = min(int(previous.get("retry_count") or 0) + 1, 4)
+    attempt = int(previous.get("retry_count") or 0) + 1
+    if attempt >= 4:
+        state["bounties"][bounty_id] = {
+            **previous, "action": "evaluation_retry_exhausted",
+            "version": previous.get("version"), "retry_count": attempt,
+            "last_error": safe_failure_reason(exc), "retry_at": None,
+            "at": timestamp()}
+        note(state, "evaluation_retry_exhausted", bounty_id,
+             retry_count=attempt, reason=safe_failure_reason(exc))
+        return
     minutes = min(60, 2 ** min(attempt - 1, 6))
     state["bounties"][bounty_id] = {
         **previous, "action": "retry_evaluation", "version": previous.get("version"),
