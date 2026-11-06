@@ -162,3 +162,11 @@ class Corrections(unittest.TestCase):
         with patch.object(w,'timestamp',return_value=NOW.isoformat()):
             w.record_bid_measurement(state,'b',{'status':'declined'})
         self.assertEqual(state['commercial']['b']['bid_status_changed_at'],NOW.isoformat())
+
+    def test_load_abandons_legacy_retry_ten_before_due_time(self):
+        with tempfile.TemporaryDirectory() as folder,patch.object(w,'STATE_PATH',Path(folder)/'state.json'):
+            w.STATE_PATH.write_text(json.dumps({'schema':1,'bounties':{'b':{'action':'retry_evaluation','retry_count':10,'retry_at':'2099-01-01T00:00:00+00:00'}}}))
+            entry=w.load_state()['bounties']['b']
+        self.assertEqual(entry['action'],'evaluation_abandoned')
+        self.assertEqual(entry['retry_count'],4)
+        self.assertIsNone(entry['retry_at'])

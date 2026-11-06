@@ -313,6 +313,10 @@ def load_state():
         raise RuntimeError("incompatible_state")
     data.setdefault("recent_outcomes", [])
     data.setdefault("settlements", {})
+    for ident, entry in data["bounties"].items():
+        if entry.get("action") in {"retry_evaluation", "retry_search", "evaluation_retry_exhausted"} and int(entry.get("retry_count") or 0) >= 2:
+            entry.update(action="evaluation_abandoned", retry_count=min(4, int(entry["retry_count"])), retry_at=None)
+            note(data, "evaluation_abandoned", ident, reason="legacy_retry_limit")
     return data
 
 
