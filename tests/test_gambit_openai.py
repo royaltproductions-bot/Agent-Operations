@@ -1,5 +1,6 @@
 """Offline tests for Gambit's optional OpenAI inference provider."""
 import io
+from datetime import datetime, timezone
 import json
 import os
 from pathlib import Path
@@ -11,6 +12,18 @@ from unittest.mock import patch
 from tools import gambit_openai
 from tools import gambit_watch
 from tools import gambit_worker as gambit
+
+
+class FixedNovember30(datetime):
+    @classmethod
+    def now(cls, tz=None):
+        return cls(2026, 11, 30, tzinfo=timezone.utc)
+
+
+class FixedNovember6(datetime):
+    @classmethod
+    def now(cls, tz=None):
+        return cls(2026, 11, 6, tzinfo=timezone.utc)
 
 
 class GambitOpenAITests(unittest.TestCase):
@@ -40,7 +53,8 @@ class GambitOpenAITests(unittest.TestCase):
                                      "gpt-6.1-sol")
 
     def test_budget_reserves_before_calls_and_blocks_monthly_overage(self):
-        with patch.dict(os.environ, {"GAMBIT_OPENAI_MONTHLY_LIMIT_USD": "0.002"}):
+        with patch.dict(os.environ, {"GAMBIT_OPENAI_MONTHLY_LIMIT_USD": "0.002"}), \
+             patch.object(gambit_openai, "datetime", FixedNovember30):
             first = gambit_openai.reserve_monthly_budget(0.0012)
             self.assertEqual(first["call_count"], 1)
             self.assertEqual(first["reserved_micro_usd"], 1200)
@@ -58,7 +72,8 @@ class GambitOpenAITests(unittest.TestCase):
         gambit_openai.BUDGET_PATH.write_text(
             json.dumps({"month":"2020-02", "reserved_micro_usd":19000000,
                         "call_count":500}))
-        with patch.dict(os.environ, {"GAMBIT_OPENAI_MONTHLY_LIMIT_USD": "20.00"}):
+        with patch.dict(os.environ, {"GAMBIT_OPENAI_MONTHLY_LIMIT_USD": "20.00"}), \
+             patch.object(gambit_openai, "datetime", FixedNovember30):
             updated = gambit_openai.reserve_monthly_budget(0.005)
         self.assertEqual(updated["call_count"], 1)
         self.assertEqual(updated["reserved_micro_usd"], 5000)
@@ -69,6 +84,32 @@ class GambitOpenAITests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "openai_daily_pace_exceeded"):
                 gambit_openai.reserve_monthly_budget(19.0)
             self.assertFalse(gambit_openai.BUDGET_PATH.exists())
+
+    def test_g1_existing_reservations_do_not_freeze_november_6(self):
+        self._seed_november_ledger(9_271_680)
+        with patch.object(gambit_openai, "datetime", FixedNovember6):
+            updated = gambit_openai.reserve_monthly_budget(0.05)
+        self.assertEqual(updated["reserved_micro_usd"], 9_321_680)
+        self.assertEqual(updated["day_start_micro_usd"], 9_271_680)
+        self.assertEqual(updated["pace_day"], "2026-11-06")
+
+    def test_g1_refuses_spend_after_daily_remaining_budget_share(self):
+        self._seed_november_ledger(9_701_680, day_start=9_271_680)
+        with patch.object(gambit_openai, "datetime", FixedNovember6):
+            with self.assertRaisesRegex(RuntimeError, "openai_daily_pace_exceeded"):
+                gambit_openai.reserve_monthly_budget(0.05)
+
+    def test_g1_hard_monthly_limit_wins_on_november_30(self):
+        self._seed_november_ledger(19_900_000)
+        with patch.object(gambit_openai, "datetime", FixedNovember30):
+            with self.assertRaisesRegex(RuntimeError, "openai_monthly_budget_exhausted"):
+                gambit_openai.reserve_monthly_budget(0.20)
+
+    def _seed_november_ledger(self, reserved, day_start=None):
+        ledger = {"month": "2026-11", "reserved_micro_usd": reserved, "call_count": 231}
+        if day_start is not None:
+            ledger.update(pace_day="2026-11-06", day_start_micro_usd=day_start)
+        gambit_openai.BUDGET_PATH.write_text(json.dumps(ledger))
 
     def test_free_market_checks_cannot_reserve_openai_budget(self):
         with patch.dict(os.environ, {"OPENAI_API_KEY": "",
