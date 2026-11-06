@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 import fcntl
 import json
 import math
+import calendar
 import os
 from pathlib import Path
 import urllib.error
@@ -131,7 +132,8 @@ def reserve_monthly_budget(estimated_usd):
         raise ValueError("openai_call_estimate_invalid")
     requested = math.ceil(estimated_usd * 1_000_000)
     maximum = int(limit * 1_000_000)
-    month = datetime.now(timezone.utc).strftime("%Y-%m")
+    today = datetime.now(timezone.utc)
+    month = today.strftime("%Y-%m")
     BUDGET_PATH.parent.mkdir(parents=True, exist_ok=True)
     # No buyer text, API credentials, or per-bounty details are stored here.
     with open(str(BUDGET_PATH) + ".lock", "a+", encoding="utf-8") as lock:
@@ -144,6 +146,15 @@ def reserve_monthly_budget(estimated_usd):
             raise RuntimeError("openai_monthly_budget_invalid_ledger")
         if requested > maximum - committed:
             raise RuntimeError("openai_monthly_budget_exhausted")
+        days = calendar.monthrange(today.year, today.month)[1]
+        pace_ceiling = min(maximum, int((limit * today.day / days + 1.50) * 1_000_000))
+        if committed + requested > pace_ceiling:
+            raise RuntimeError("openai_daily_pace_exceeded")
+        day = today.date().isoformat()
+        day_start = int(ledger.get("day_start_micro_usd", committed)) if ledger.get("pace_day") == day else committed
+        if committed + requested - day_start > 700_000:
+            raise RuntimeError("openai_daily_pace_exceeded")
+        ledger.update(pace_day=day, day_start_micro_usd=day_start)
         ledger["reserved_micro_usd"] = committed + requested
         ledger["call_count"] = int(ledger.get("call_count") or 0) + 1
         temporary = BUDGET_PATH.with_suffix(".tmp")

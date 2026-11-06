@@ -81,17 +81,17 @@ MARKET_JUDGMENT_SCHEMA={
 CONCEPT_SCHEMA={
     "type":"object",
     "properties":{
-        "title":{"type":"string"},
-        "description":{"type":"string"},
-        "audience":{"type":"string"},
-        "pitch":{"type":"string"},
-        "price_usd":{"type":"string"},
-        "evidence_candidate_id":{"type":"string"},
-        "evidence_quote":{"type":"string"},
-        "target_terms":{"type":"array","items":{"type":"string"}},
-        "core_points":{"type":"array","items":{"type":"string"}},
-        "production_goal":{"type":"string"},
-        "output_files":{"type":"array","minItems":1,"items":{"type":"string"}},
+        "title":{"type":"string","maxLength":120},
+        "description":{"type":"string","maxLength":600},
+        "audience":{"type":"string","maxLength":200},
+        "pitch":{"type":"string","maxLength":600},
+        "price_usd":{"type":"string","maxLength":12},
+        "evidence_candidate_id":{"type":"string","maxLength":80},
+        "evidence_quote":{"type":"string","maxLength":400},
+        "target_terms":{"type":"array","maxItems":8,"items":{"type":"string","maxLength":200}},
+        "core_points":{"type":"array","maxItems":8,"items":{"type":"string","maxLength":200}},
+        "production_goal":{"type":"string","maxLength":800},
+        "output_files":{"type":"array","maxItems":6,"minItems":1,"items":{"type":"string","maxLength":200}},
     },
     "required":["title","description","audience","pitch","price_usd",
                 "evidence_candidate_id","evidence_quote","target_terms","core_points",
@@ -130,6 +130,17 @@ FILE_SCHEMA={
 
 def model_json(schema,system,observation,num_ctx=6144,num_predict=1800,
                temperature=0.18):
+    for attempt in range(2):
+        try:
+            return _model_json_once(schema, system + ("\nBe concise; every field must be short." if attempt else ""),
+                                    observation, num_ctx, num_predict, temperature)
+        except json.JSONDecodeError:
+            if attempt:
+                raise
+
+
+def _model_json_once(schema,system,observation,num_ctx=6144,num_predict=1800,
+                     temperature=0.18):
     req=urllib.request.Request(
         OLLAMA,method="POST",
         data=json.dumps({
@@ -619,6 +630,25 @@ def _make_build_script(plan,tools,evidence,target_file,finished_files,previous="
     return script
 
 
+def missing_import(script):
+    import ast
+    import importlib.util
+    tree = ast.parse(script)
+    names = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            names.update(alias.name.split(".")[0] for alias in node.names)
+        elif isinstance(node, ast.ImportFrom) and node.module and not node.level:
+            names.add(node.module.split(".")[0])
+    for name in sorted(names):
+        try:
+            if importlib.util.find_spec(name) is None:
+                return name
+        except (ImportError, ValueError, ModuleNotFoundError):
+            return name
+    return None
+
+
 def objective_quality_floor(plan,files):
     """Prove that REAL bytes were created with the promised names and structure.
 
@@ -878,6 +908,9 @@ def create_asset(rows,existing_assets=None):
                 checkpoint.get("feedback") or "")
             checkpoint.update({"stage":"building","script":script,"feedback":""})
             save_pending(checkpoint)
+            missing = missing_import(script)
+            if missing:
+                _retire_draft(checkpoint, "missing_module:" + missing)
             produced=manufacture(script,[target])
             # Verify THIS output immediately; the full manifest is checked
             # after every deliverable is actually generated and saved.
@@ -887,6 +920,8 @@ def create_asset(rows,existing_assets=None):
                                "feedback":"","attempts":0,"building_file":""})
             save_pending(checkpoint)
             break
+        except ProductRetired:
+            raise
         except (RuntimeError,ValueError,OSError) as exc:
             attempts+=1
             error=(type(exc).__name__+":"+str(exc))[-850:]
@@ -1410,6 +1445,7 @@ def durable_distribution_leads(new_rows):
             "text":str(row.get("text") or "")[:6000],
             "page_text":str(row.get("page_text") or "")[:6000],
             "contact":row["contact"],"page_fetched":True,
+            "created_at":row.get("created_at"),
             "contact_source_url":str(row.get("contact_source_url") or "")[:400],
             "search_query":str(row.get("search_query") or "")[:220],
         }

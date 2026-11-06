@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 """Regression checks for autonomous selection, continuation and durable outcomes."""
 import base64
 import io
@@ -120,7 +121,7 @@ class OptimizationTests(unittest.TestCase):
     def test_natural_language_request_is_verified_against_fetched_source(self):
         body='Our small team could use outside assistance fixing these reports. Please email your estimate to work@example.org.'
         row={'id':'request','title':'Reporting assistance','source_url':'https://example.org/request',
-             'page_fetched':True,'page_text':body,'contact':'work@example.org'}
+             'page_fetched':True,'page_text':body,'contact':'work@example.org', "created_at":datetime.now(timezone.utc).isoformat()}
         with patch.object(brain,'model_json',return_value={'requests':[{
                 'candidate_id':'request','invited':True,'quote':body}]}):
             brain.review_requester_pages([row])

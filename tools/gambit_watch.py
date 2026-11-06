@@ -21,11 +21,14 @@ def checkpoint():
     Do not allow a new inference call when state persistence fails.
     """
     files = ['ops/gambit/state.json', 'ops/gambit/openai_budget.json']
+    if Path('ops/gambit/funnel.json').exists():
+        files.append('ops/gambit/funnel.json')
     for attempt in range(4):
         command(['git', 'fetch', '--no-tags', 'origin', 'gambit-state'])
         originals = [
             subprocess.run(['git', 'show', 'origin/gambit-state:' + p],
-                           check=True, stdout=subprocess.PIPE).stdout
+                           check=not p.endswith("/funnel.json"), stdout=subprocess.PIPE,
+                           stderr=subprocess.DEVNULL).stdout
             for p in files
         ]
         if all(Path(p).read_bytes() == original

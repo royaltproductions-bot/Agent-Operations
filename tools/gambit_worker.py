@@ -56,7 +56,7 @@ def timestamp():
 
 
 def retry_due(entry, now=None):
-    if entry.get("action") not in {"retry_search", "retry_evaluation"} or not entry.get("retry_at"):
+    if entry.get("action") not in {"retry_search", "retry_evaluation", "proposal_fallback_pending", "budget_wait"} or not entry.get("retry_at"):
         return False
     try:
         due = datetime.fromisoformat(entry["retry_at"])
@@ -318,9 +318,20 @@ def load_state():
 
 def save_state(state):
     STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    budget_file = STATE_PATH.with_name("openai_budget.json")
+    try:
+        budget = json.loads(budget_file.read_text())
+        state.setdefault("analytics", {})["model_budget"] = {k: budget.get(k) for k in
+            ("month", "call_count", "reserved_micro_usd")}
+    except (OSError, ValueError):
+        pass
     temporary = STATE_PATH.with_suffix(".tmp")
     temporary.write_text(json.dumps(state, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     temporary.replace(STATE_PATH)
+    funnel = STATE_PATH.with_name("funnel.json")
+    temp_funnel = funnel.with_suffix(".tmp")
+    temp_funnel.write_text(json.dumps(commercial.summarize(state), indent=2, sort_keys=True) + "\n")
+    temp_funnel.replace(funnel)
 
 
 def encrypted_brief(details):
@@ -395,6 +406,7 @@ def remember_open_bounties(state, opened):
 
 
 def record_owner_activity(state, bounty_id, messages):
+    commercial.record_conversation(state, bounty_id, messages)
     incoming = [m for m in messages if m.get("author_type") == "user"]
     row = state.setdefault("commercial", {}).setdefault(bounty_id, {})
     row["owner_activity_status"] = "reply_observed" if incoming else "no_reply_in_fetched_thread"
@@ -497,17 +509,50 @@ def capture_new_details(state, waiting):
             continue
 
 
+EVIDENCE_ERRORS = {"proposal_samples_missing", "proposal_preview_not_ready",
+                   "proposal_excerpt_missing", "proposal_samples_over_length"}
+
+
+def cached_proposal(entry, value=None):
+    credential = os.getenv("BOUNTY_AGENT_API_KEY")
+    if not credential:
+        return None
+    secret = hashlib.sha256(("gambit-proposal-cache-v1:" + credential).encode()).digest()
+    cipher = Fernet(base64.urlsafe_b64encode(secret))
+    if value is not None:
+        entry["proposal_cache"] = cipher.encrypt(json.dumps(value).encode()).decode()
+        return value
+    try:
+        return json.loads(cipher.decrypt(entry["proposal_cache"].encode()))
+    except (KeyError, InvalidToken, ValueError):
+        return None
+
+
 def schedule_evaluation_retry(state, bounty_id, exc):
     previous = state["bounties"].get(bounty_id) or {}
-    attempt = min(int(previous.get("retry_count") or 0) + 1, 10)
-    minutes = min(60, 2 ** min(attempt - 1, 6))
+    attempt = min(4, int(previous.get("retry_count") or 0) + 1)
+    reason = safe_failure_reason(exc)
+    if reason in {"openai_daily_pace_exceeded", "openai_monthly_budget_exhausted"}:
+        previous.update(action="budget_wait", last_error=reason, retry_at=(
+            datetime.now(timezone.utc) + timedelta(days=1)).isoformat())
+        state["bounties"][bounty_id] = previous
+        note(state, "evaluation_budget_wait", bounty_id, reason=reason)
+        return
+    evidence = int(previous.get("evidence_failures") or 0) + (reason in EVIDENCE_ERRORS)
+    fallback = evidence >= 2 and bool(previous.get("proposal_cache")) and reason in EVIDENCE_ERRORS
+    action = "proposal_fallback_pending" if fallback else (
+        "evaluation_abandoned" if attempt >= 2 else "retry_evaluation")
     state["bounties"][bounty_id] = {
-        **previous, "action": "retry_evaluation", "version": previous.get("version"),
-        "retry_count": attempt, "last_error": safe_failure_reason(exc),
-        "retry_at": (datetime.now(timezone.utc) + timedelta(minutes=minutes)).isoformat(),
-        "at": timestamp()}
-    note(state, "evaluation_retry_scheduled", bounty_id,
-         retry_count=attempt, reason=safe_failure_reason(exc))
+        **previous, "action": action, "retry_count": attempt,
+        "evidence_failures": evidence, "last_error": reason,
+        "retry_at": timestamp() if fallback else (
+            (datetime.now(timezone.utc) + timedelta(minutes=1)).isoformat()
+            if action == "retry_evaluation" else None), "at": timestamp()}
+    if reason in EVIDENCE_ERRORS:
+        note(state, "proposal_blocked_missing_evidence", bounty_id, reason=reason,
+             evidence_failures=evidence)
+    note(state, "evaluation_retry_scheduled" if action == "retry_evaluation" else action,
+         bounty_id, retry_count=attempt, reason=reason)
 
 
 def schedule_fulfillment_retry(state, bounty_id, exc):
@@ -562,6 +607,7 @@ def recover_unlisted_evaluations(state, opened, waiting):
 
 
 def note(state, action, bounty_id=None, **details):
+    commercial.record_action(state, action, bounty_id, timestamp(), details.get("reason"))
     # Only operational receipts, never task content or personal buyer data.
     state["recent_outcomes"].append({"at": timestamp(), "action": action,
                                      "bounty_id": bounty_id, **details})
@@ -585,6 +631,8 @@ def record_settlement(state, bounty_id, event_id, *, payout_cents=None, currency
         payout = None
     ledger[bounty_id] = {"event_id": event_id, "payout_cents": payout,
                          "settled_at": timestamp(),
+                         "accepted_at": state.get("commercial", {}).get(bounty_id, {}).get("accepted_at"),
+                         "disbursed_at": None, "disbursement_source": "not_available_via_agent_api",
                          "currency": currency if isinstance(currency, str) and
                          re.fullmatch(r"[A-Z]{3}", currency) else None}
     note(state, "work.completed", bounty_id, event_id=event_id,
@@ -620,6 +668,8 @@ def scan(state):
     opened = pages("/v1/agent/bounties?status=open&limit=100", "bounties")
     held = pages("/v1/agent/bounties?status=claimed,submitted,reviewing,settling,disputed&limit=100", "bounties")
     events, cursor = relevant_events(state)
+    for event in events:
+        commercial.record_event(state, event)
     relevant = {"work.message.created", "discussion.user_replied",
                 "submission.verification_failed", "bounty.updated",
                 "bounty.available", "bounty.claimed"}
@@ -784,6 +834,8 @@ DECIDE_SCHEMA = {"type": "object", "properties": {
     "decision": {"type": "string", "enum": ["bid", "claim", "ask", "pass"]},
     "reason": {"type": "string"}, "payout_cents": {"type": "integer"},
     "note": {"type": "string"}, "question": {"type": "string"},
+    "feasible": {"type": "boolean"},
+    "assumptions": {"type": "string"},
     "sample_source_url": {"type": "string"},
     "sample_excerpt": {"type": "string"},
     "sample_rows": {"type": "array", "maxItems": 3, "items": {
@@ -1386,8 +1438,10 @@ def assess(details, messages=None, sources=None, unreadable_count=0):
         "claim tools you do not have, promise a hard deadline the runtime cannot meet, "
         "or use stock phrases such as 'I am the best agent.' Price based on the actual "
         "scope, complexity, buyer's budget, and achievable quality rather than "
-        "automatically underbidding. If the task is ambiguous but feasible, ask one "
-        "high-value clarification question instead of submitting a vague bid. "
+        "automatically underbidding. If the task is ambiguous but feasible, submit a bid "
+        "that states your assumptions in one line and ends with one short question; "
+        "do not ask without bidding. Set feasible=true only when the complete job "
+        "can be delivered with those assumptions; include note, payout and samples even for ask. "
         "If a prior bid was declined, read the owner's latest message, adapt the "
         "price or scope only when the feedback justifies it, and never repeat "
         "the same unsupported offer. If there is no honest improvement, pass. "
@@ -1535,7 +1589,9 @@ def handle_open(item, state):
         state["bounties"][bounty_id] = {**state["bounties"].get(bounty_id, {}),
             "action": "sample_excluded", "version": current.get("version")}
         return
-    if bounty_id in commercial.APPROVAL_HOLD_IDS:
+    if bounty_id in commercial.APPROVAL_HOLD_IDS and not any(
+            e.get("type") in {"work.message.created", "discussion.user_replied"} and
+            (e.get("data") or {}).get("bounty_id") == bounty_id for e in CURRENT_EVENTS):
         note(state, "buyer_changes_awaiting_owner_approval", bounty_id)
         return
     if current.get("status") != "open":
@@ -1547,6 +1603,24 @@ def handle_open(item, state):
         return
     previous = state["bounties"].get(bounty_id) or {}
     version = current.get("version")
+    new_events = sorted(str(e.get("id")) for e in CURRENT_EVENTS if e.get("id") and
+        e.get("type") in {"work.message.created", "discussion.user_replied"} and
+        (e.get("data") or {}).get("bounty_id") == bounty_id)
+    new_event = bool(set(new_events) - set(previous.get("evaluation_buyer_events") or []))
+    if previous.get("version") != version or new_event:
+        for field in ("retry_count", "evidence_failures", "proposal_cache", "retry_at"):
+            previous.pop(field, None)
+        if new_event:
+            previous["evaluation_buyer_events"] = new_events
+    previous["version"] = version
+    state["bounties"][bounty_id] = previous
+    fallback = (int(previous.get("evidence_failures") or 0) >= 2 and
+                previous.get("action") == "proposal_fallback_pending")
+    if (not new_event and int(previous.get("retry_count") or 0) >= 2 and
+            previous.get("action") in {"retry_evaluation", "retry_search", "evaluation_abandoned",
+                                       "evaluation_retry_exhausted"}):
+        previous.update(action="evaluation_abandoned", retry_count=min(4, previous["retry_count"]), retry_at=None)
+        return
     bid = details.get("bid") or {}
     gap = unsupported_deliverable(details)
     if gap and bid.get("status") != "active":
@@ -1571,7 +1645,7 @@ def handle_open(item, state):
         # buyer messages instead of returning before the conversation check.
         # Never re-bid, withdraw or claim as part of this follow-up path.
         last_reply_id = previous.get("last_owner_reply_id")
-        owner_trigger = state.get("_cursor_reset") or any(e.get("type") == "work.message.created" and
+        owner_trigger = state.get("_cursor_reset") or any(e.get("type") in {"work.message.created", "discussion.user_replied"} and
                             e.get("data", {}).get("bounty_id") == bounty_id
                             for e in CURRENT_EVENTS)
         if owner_trigger:
@@ -1622,14 +1696,15 @@ def handle_open(item, state):
         # The public state contains only a digest, never private message IDs.
         last_id = (key("prebid-owner-message", bounty_id, buyer_message_id(latest))
                    if latest else None)
-        if not latest or last_id == previous.get("last_owner_reply_id"):
+        migrate_ask = previous.get("feasible_ask_review_version") != version
+        if (not latest or last_id == previous.get("last_owner_reply_id")) and not migrate_ask:
             previous["action"] = "asked"
             previous.pop("retry_at", None)
             # Keep the original question pending. A periodic reconciliation
             # must never re-ask it or spend a model call on an empty thread.
             state["bounties"][bounty_id] = previous
             return
-        if buyer_is_asking(latest) or gambit_agent_card.public_answer(latest) is not None:
+        if latest and (buyer_is_asking(latest) or gambit_agent_card.public_answer(latest) is not None):
             reply = prebid_buyer_reply(details, messages, latest)
             if not reply:
                 raise RuntimeError("buyer_question_reply_empty")
@@ -1637,6 +1712,7 @@ def handle_open(item, state):
                 "POST", {"content": {"type": "text", "text": reply[:3000]},
                          "idempotency_key": key("prebid-buyer-reply", bounty_id, last_id)})
             previous["last_owner_reply_id"] = last_id
+            previous["feasible_ask_review_version"] = version
             previous["action"] = "asked"
             previous.pop("retry_at", None)
             state["bounties"][bounty_id] = previous
@@ -1665,13 +1741,29 @@ def handle_open(item, state):
                     if previous.get("action") in {"asked", "bid_sent", "bid_active", "retry_evaluation"}
                     or previous.get("last_question_version") == version
                     or bid.get("status") == "declined" else [])
+    if messages:
+        commercial.record_conversation(state, bounty_id, messages)
     sources, unreadable = text_sources(details, messages)
-    if unreadable and not messages:
+    if fallback:
+        decision = cached_proposal(previous)
+        if not decision:
+            previous.update(action="evaluation_abandoned", retry_at=None)
+            return
+        decision["_plain_fallback"] = True
+    elif unreadable and not messages:
         decision = {"decision": "ask" if current.get("flow") == "bid" else "pass",
                     "question": "I can read text-based PDFs, Word, Excel, CSV, JSON, and text files. One supplied attachment could not be read. Could you provide its essential contents in a supported file or message?"}
     else:
         decision = assess(details, messages, sources, len(unreadable))
+    if prebid_asked:
+        previous["feasible_ask_review_version"] = version
     action = decision["decision"]
+    if action == "ask" and decision.get("feasible") is True and current.get("flow") == "bid" and not unreadable:
+        if decision.get("note") and decision.get("payout_cents"):
+            decision["note"] = (str(decision["note"]).strip() + "\nAssumptions: " +
+                str(decision.get("assumptions") or "the scope is as described in your brief") +
+                "\n" + str(decision.get("question") or "").strip())
+            action = "bid"
     if decision.get("_retry_decision"):
         schedule_evaluation_retry(state, bounty_id,
                                   RuntimeError("decision_conflict"))
@@ -1727,11 +1819,15 @@ def handle_open(item, state):
             if re.search(r"figma[ -]equivalent", bid_note, re.I):
                 schedule_evaluation_retry(state, bounty_id, ValueError("bid_format_misrepresented"))
                 return
-            sample_rows = decision.get("_sample_rows") or []
-            if decision.get("_requires_web") and len(sample_rows) < 2:
+            if not decision.get("_plain_fallback"):
+                cached_proposal(previous, {"decision": "bid", "note": bid_note,
+                    "payout_cents": payout, "_requires_web": decision.get("_requires_web", False)})
+            plain = bool(decision.get("_plain_fallback"))
+            sample_rows = [] if plain else decision.get("_sample_rows") or []
+            if not plain and decision.get("_requires_web") and len(sample_rows) < 2:
                 schedule_evaluation_retry(state, bounty_id, ValueError("proposal_samples_missing"))
                 return
-            if static_site_eligible(details) and website_capable():
+            if not plain and static_site_eligible(details) and website_capable():
                 preview = produce_website(details, messages, sources=sources)
                 if preview.get("status") != "ready":
                     schedule_evaluation_retry(state, bounty_id, ValueError("proposal_preview_not_ready"))
@@ -1741,7 +1837,7 @@ def handle_open(item, state):
                 png = rendered["desktop"]["screenshot"]
                 send_proposal_preview(bounty_id, version, png, state)
                 bid_note += "\nA preliminary desktop design screenshot is in this thread."
-            elif not sample_rows and not decision.get("_requires_web"):
+            elif not plain and not sample_rows and not decision.get("_requires_web"):
                 # Supplied-data and writing commissions need a labeled excerpt,
                 # not fabricated externally researched rows.
                 excerpt = str(decision.get("sample_excerpt") or "").strip()
@@ -1756,6 +1852,8 @@ def handle_open(item, state):
                     schedule_evaluation_retry(state, bounty_id, ValueError("proposal_samples_over_length"))
                     return
                 bid_note += sample_text
+            if plain:
+                bid_note += "\nI can prepare a preliminary sample on request."
             proof = str(decision.get("sample_source_url") or "").strip()
             proof_line = "\nPublic source reviewed: " + proof
             if proof and proof not in bid_note and len(bid_note) + len(proof_line) <= 2000:
@@ -1771,6 +1869,8 @@ def handle_open(item, state):
             record_bid_measurement(state, bounty_id, result.get("bid") or {},
                                    proposal=bid_note, payout=payout, submitted_at=timestamp())
             action = "bid_active"
+            if plain:
+                note(state, "proposal_sent_without_sample", bounty_id)
             note(state, "bid_sent", bounty_id, payout_cents=payout, version=version)
     elif action == "claim" and current.get("flow") == "claim":
         result = api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/claims", "POST",
@@ -1781,6 +1881,8 @@ def handle_open(item, state):
         action = "pass"
     next_entry = {"version": version, "action": action,
                   "at": timestamp(), "last_declined_bid": declined_token}
+    if previous.get("feasible_ask_review_version") == version:
+        next_entry["feasible_ask_review_version"] = version
     if action == "asked" and current.get("flow") == "bid":
         next_entry["last_question_version"] = version
     if new_owner_statement_id or previous.get("last_owner_reply_id"):
@@ -2120,10 +2222,13 @@ def upload_csv(bounty_id, data, state, claim_id, digest):
                        filename="gambit-research.csv", content_type="text/csv")
 
 
-def platform_active_bid_ids():
+def platform_active_bid_ids(state=None):
     """Read account-wide offers; repository state is only a cache, not authority."""
     found = set()
-    for bid in pages("/v1/agent/bids?limit=100", "bids"):
+    bids = pages("/v1/agent/bids?limit=100", "bids")
+    if state is not None:
+        commercial.record_bid_snapshot(state, bids)
+    for bid in bids:
         if not isinstance(bid, dict) or bid.get("status") not in {None, "active"}:
             continue
         bounty = bid.get("bounty") or {}
@@ -2147,7 +2252,7 @@ def reconcile_active_bids(opened, state, *, skip_ids=()):
                  if entry.get("action") in {"bid_sent", "bid_active"}}
     # Bounty's GET /bids catches active offers missing from a lost or stale
     # checkout state, including an accepted POST followed by a runner crash.
-    for bounty_id in sorted(platform_active_bid_ids() | local_ids):
+    for bounty_id in sorted(platform_active_bid_ids(state) | local_ids):
         if bounty_id in excluded:
             continue
         previous = state["bounties"].get(bounty_id) or {}
@@ -2526,8 +2631,10 @@ def safe_failure_reason(exc):
     if isinstance(exc, urllib.error.URLError):
         return "network_error"
     message = str(exc)
+    if isinstance(exc, ValueError) and re.fullmatch(r"(?:proposal|bid_format)_[a-z_]+", message):
+        return message[:96]
     if isinstance(exc, RuntimeError) and re.fullmatch(
-            r"(?:bounty_api_[A-Za-z0-9_]+|missing pagination cursor|"
+            r"(?:openai_[a-z_]+|bounty_api_[A-Za-z0-9_]+|missing pagination cursor|"
             r"pagination_limit_reached|event_page_limit_reached)", message):
         return message[:96]
     return type(exc).__name__
@@ -2607,6 +2714,7 @@ def run(mode="run"):
                   file=sys.stderr)
         save_state(state)
     for event in events:
+        commercial.record_event(state, event)
         action = event.get("type")
         bid = event.get("data", {}).get("bounty_id")
         if action in {"work.completed", "work.ended", "submission.review_opened",

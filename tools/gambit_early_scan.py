@@ -143,7 +143,7 @@ def minutes_since(state, field, now):
 
 
 def retry_ready(entry, now):
-    if entry.get("action") not in {"retry_evaluation", "retry_search", "retry_fulfillment", "quality_rejected"}:
+    if entry.get("action") not in {"retry_evaluation", "retry_search", "proposal_fallback_pending", "budget_wait", "retry_fulfillment", "quality_rejected"}:
         return False
     return bool(entry.get("retry_at")) and minutes_since(
         {"at": entry["retry_at"]}, "at", now) >= 0
