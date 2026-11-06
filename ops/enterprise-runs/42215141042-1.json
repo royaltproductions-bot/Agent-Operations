@@ -1,0 +1,115 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-06T12:08:04.509606+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "github_paid_issues": 5,
+      "duckduckgo": 3
+    },
+    "source_errors": [],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=35004020",
+        "title": "Tell HN: Be careful enabling Cloudflare features",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=30617884",
+        "title": "Can Minecraft be played without giving MS a Phone#?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=12954037",
+        "title": "Ask HN: Why does Apple make you wait 4 days to set up 2FA?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46373950",
+        "title": "Is This Normal? My new projector's picture is dull even though I paid for 4K",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=33181463",
+        "title": "Side job at VC backed startup? CEO does not like it and wants my revenue",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=27856060",
+        "title": "Simple Ways to Save for Your First Home Down Payment",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to setup email authentication for small nonprofit 2026",
+      "need paid help with dkim configuration for email domain 2026",
+      "is:issue is:open bounty created:>=2026-09-07 setup email authentication",
+      "is:issue is:open bounty created:>=2026-09-07 "
+    ],
+    "attempted_search_queries": [
+      "looking for someone to setup email authentication for small nonprofit 2026",
+      "need paid help with dkim configuration for email domain 2026",
+      "can anyone create email verification process for nonprofit organization",
+      "hiring a freelancer to warm up email domain for small team 2026"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 32,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to setup email authentication for small nonprofit 2026",
+        "need paid help with dkim configuration for email domain 2026",
+        "can anyone create email verification process for nonprofit organization",
+        "hiring a freelancer to warm up email domain for small team 2026"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
