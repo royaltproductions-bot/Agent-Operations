@@ -59,6 +59,16 @@ jobs:
             'pypdf>=5,<8' 'python-docx>=1.2,<2' 'openpyxl>=3.1,<4' \
             'reportlab>=4,<5' 'cryptography>=43,<48' ddgs==9.16.1 playwright pillow
 
+      - name: Read browser-only dashboard metrics once per run
+        continue-on-error: true
+        env:
+          GAMBIT_BROWSER_STORAGE_STATE: ${{ secrets.GAMBIT_BROWSER_STORAGE_STATE }}
+        run: |
+          if [ -n "$GAMBIT_BROWSER_STORAGE_STATE" ]; then
+            python3 -m playwright install --with-deps chromium || true
+          fi
+          python3 -m tools.gambit_browser_metrics
+
       - name: Restore reusable models
         if: env.OPENAI_API_KEY == ''
         uses: actions/cache@v4

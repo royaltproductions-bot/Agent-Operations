@@ -151,3 +151,24 @@ actual missing-field DOM is verified. No scraper completion is claimed. Latest
 read ledger was $9.271680 reserved, not an invoice; actual billed spend remains
 unverified. R6 remains off. Wolverine dry-run remains until validated live filter
 receipts. Do not describe these pending verification items as complete.
+
+
+## 2026-11-06 UTC — verified merge and browser follow-up
+
+PR31 merged ac20939cb2c1c41947ce3c16fd1cee31dbbd62ed. CI run42150994095
+passed 232 tests. Live Gambit rerun 42146042648/job127674505861 succeeded.
+Checkpoint0316a27ffeae566dc00c93c0f3ab3d98188de16b contains funnel and API
+analytics. Reservations stayed $9.271680/231 calls; event_types {}, observed
+bid_statuses [active]. These are observed shapes, not exhaustive API claims.
+
+PR32 merged e9d99ee90b8ebdd94ac71abbed99aae12feedf9a. CI42151579250
+passed 235 tests. This migrates legacy retry10 entries immediately, retains
+historical passes, records detail-response status change timestamps and
+normalizes old settlement unknowns.
+
+Owner signed in to the interactive dashboard. Verified no unread updates,
+no lost bids, no earnings and operator balance $0.00 after refresh. Implemented
+once-per-existing-run browser collector with sanitized HTML fixture tests;
+242 focused tests pass locally. Runner authentication is separate and remains
+unconfigured; never describe manual sign-in as scheduled acquisition. See
+GAMBIT-BROWSER-MEASUREMENTS.md for exact supported layouts and unknown fields.
