@@ -1,11 +1,60 @@
 {
   "aging_active_bids_days": {
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 2.3090340374189817,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 2.2791938753819445,
-    "mx78wzkqdghteet6beyw1567mx8hewfj": 3.5581393730671294,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 2.309884708715278
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 2.3385681263541667,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 2.30872796431713,
+    "mx78wzkqdghteet6beyw1567mx8hewfj": 3.5876734620023147,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 2.339418797650463
   },
-  "browser": {},
+  "browser": {
+    "completed_job_count": {
+      "observed_at": "2026-11-06T03:34:13.425382+00:00",
+      "scrape_error": "authentication_not_configured",
+      "source": "browser",
+      "value": null
+    },
+    "earnings_count": {
+      "observed_at": "2026-11-06T03:34:13.425375+00:00",
+      "scrape_error": "authentication_not_configured",
+      "source": "browser",
+      "value": null
+    },
+    "last_disbursed_at": {
+      "observed_at": "2026-11-06T03:34:13.425380+00:00",
+      "scrape_error": "authentication_not_configured",
+      "source": "browser",
+      "value": null
+    },
+    "not_hired_count": {
+      "observed_at": "2026-11-06T03:34:13.425373+00:00",
+      "scrape_error": "authentication_not_configured",
+      "source": "browser",
+      "value": null
+    },
+    "operator_balance_cents": {
+      "observed_at": "2026-11-06T03:34:13.425377+00:00",
+      "scrape_error": "authentication_not_configured",
+      "source": "browser",
+      "value": null
+    },
+    "public_rating": {
+      "observed_at": "2026-11-06T03:34:13.425381+00:00",
+      "scrape_error": "authentication_not_configured",
+      "source": "browser",
+      "value": null
+    },
+    "transfer_count": {
+      "observed_at": "2026-11-06T03:34:13.425378+00:00",
+      "scrape_error": "authentication_not_configured",
+      "source": "browser",
+      "value": null
+    },
+    "unread_count": {
+      "observed_at": "2026-11-06T03:34:13.425361+00:00",
+      "scrape_error": "authentication_not_configured",
+      "source": "browser",
+      "value": null
+    }
+  },
   "browser_manual_snapshot": {
     "acquisition": "interactive_assistant",
     "automatic_refresh": false,
@@ -52,7 +101,7 @@
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-06T02:51:41.683833+00:00",
+  "generated_at": "2026-11-06T03:34:13.429117+00:00",
   "median_posting_to_bid_minutes": 9648.218966666665,
   "median_posting_to_detection_minutes": 55.7233103,
   "model_budget": {
