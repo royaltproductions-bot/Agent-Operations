@@ -1,0 +1,129 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-07T03:09:24.224815+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 13,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 4,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 12,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/Monkestation/Monkestation2.0/issues/12929",
+        "title": "1 sprite for random gen ores is invisible",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/barryrwilson/Rimward/issues/285",
+        "title": "[Missions][Hunter] makeHuntJob persisted detail lacks the lawful-kill line the card renders",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraloom-labs/paraloom-core/issues/1447",
+        "title": "[BUG BOUNTY] High/Medium: deactivate_validator fails to route token_stake_amount into unbonding, permanently freezing va",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/kouweizhu/agents-radar/issues/850",
+        "title": "\ud83d\udcf0 Hacker News AI Digest 2026-11-07",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tenstorrent/tt-metal/issues/64740",
+        "title": "[Bug Report] layernorm_post_all_gather enables two-stage reduce on 2D grids, interleaved layernorm ignores output dtype,",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://mailtester.com/blog/email-verification-platform-for-nonprofit-crm-integration/",
+        "title": "Email Verification for Nonprofit CRM | MailTester",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-08 ",
+      "looking for someone to build email verification tool for small nonprofit",
+      "hiring a freelancer to setup email validation system for remote team"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build email verification tool for small nonprofit",
+      "hiring a freelancer to setup email validation system for remote team",
+      "looking for someone to build email validation system for nonprofit organization"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 11,
+      "skipped_revisits": 54,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build email verification tool for small nonprofit",
+        "hiring a freelancer to setup email validation system for remote team",
+        "looking for someone to build email validation system for nonprofit organization"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
