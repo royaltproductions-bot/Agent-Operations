@@ -1,0 +1,125 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-07T13:16:47.304761+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "github_paid_issues": 5,
+      "duckduckgo": 5
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=37675989",
+        "title": "Ask HN: I spent months building an app and now I don't know how to get users",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37088792",
+        "title": "Ask HN: Stuck at $500 MRR and Seeking Distribution/Marketing Advice",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=35138517",
+        "title": "My co-founder isn't scaling our business",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=34267132",
+        "title": "Sex offender can't get a job. Completely out of ideas. Help?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=20348139",
+        "title": "How to Guarantee Traction for Your Product?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=17411190",
+        "title": "Ask HN: How to get money for remote work done for a US based startup?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "need paid help with creating email verification system for event registration",
+      "is:issue is:open bounty created:>=2026-09-08 creating email verification",
+      "is:issue is:open bounty created:>=2026-09-08 ",
+      "looking for someone to build email verification tool for nonprofit outreach",
+      "hiring a freelancer to setup email validation for educational institution signups"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build email verification tool for nonprofit outreach",
+      "hiring a freelancer to setup email validation for educational institution signups",
+      "need paid help with creating email verification system for event registration",
+      "can anyone create email validation API for B2B lead generation"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 48,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build email verification tool for nonprofit outreach",
+        "hiring a freelancer to setup email validation for educational institution signups",
+        "need paid help with creating email verification system for event registration",
+        "can anyone create email validation API for B2B lead generation"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
