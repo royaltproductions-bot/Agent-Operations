@@ -1,0 +1,191 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-07T04:33:15.415932+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 10,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 10
+    },
+    "search_provider_counts": {
+      "duckduckgo": 6,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 7,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 7,
+    "public_market_sample": [
+      {
+        "url": "https://explore.wps.com/pdf/pdf-to-excel-converter/en",
+        "title": "PDF to Excel Converter | WPS Office",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.pdffiller.com/en/functionality/convert-pdf-to-excel-and-keep-formating.htm",
+        "title": "Convert PDF to Excel and Keep Formating | pdfFiller",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://wordstreetjournal.com/the-6-best-pdf-to-excel-conversion-tools-for-preserving-layout-in-2026/",
+        "title": "The 6 Best PDF to Excel Conversion Tools for Preserving Layout in 2026",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://github.com/invoice-x/invoice2data",
+        "title": "GitHub - invoice-x/invoice2data: Extract structured data from PDF ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://monomousumi.com/the-6-best-pdf-to-excel-converters-for-preserving-layout-and-formatting-in-2026/",
+        "title": "The 6 Best PDF to Excel Converters for Preserving Layout and Formatting ...",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://helpx.adobe.com/acrobat/desktop/create-documents/create-pdfs/web-pages-to-pdfs.html",
+        "title": "Learn more about converting HTML pages to PDF files \u203a",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 10,
+    "search_queries": [
+      "convert pdf to excel with layout preservation",
+      "automate invoice data extraction from PDF",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 10,
+      "skipped_revisits": 58,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "convert pdf to excel with layout preservation",
+        "automate invoice data extraction from PDF",
+        "generate printable calendar templates with recurring events",
+        "create self-contained HTML email templates with embedded images"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 118,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:7 candidates reviewed; ature of an existing product (Adobe Acrobat) rather than a unique product idea. There is no indication of a specific customer problem that a new product could solve, nor"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 3,
+    "product_pages": 3,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "e46509dbb213a33c25fd",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "duckduckgo",
+          "reason": "HTTPError",
+          "http_code": 403
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:74564628e793e47d02",
+      "decision": "pass",
+      "reason": "While there is demand for PDF to Excel conversion tools, the market is highly saturated with established players like WPS Office, pdfFiller, and ABBYY FineReader. These tools already offer advanced OCR and layout preservation features, making it difficult to differentiate a new product without a clear, unique value proposition. Additionally, the ab"
+    },
+    {
+      "candidate_id": "web:a64b694833f933f8c7",
+      "decision": "pass",
+      "reason": "The candidate lacks a clear value proposition and pricing information, and there is no evidence of sales or customer engagement. The tool's functionality is described, but without a demonstrated market need or competitive differentiation, it is not a viable product to pursue."
+    },
+    {
+      "candidate_id": "web:88ce07271a480e9e3d",
+      "decision": "pass",
+      "reason": "While there is demand for PDF-to-Excel conversion tools, especially for preserving layout and formatting, the market is already well-served by established solutions like ABBYY FineReader PDF and Adobe Acrobat. The evidence does not indicate a clear gap or unmet need that a new product could address. Additionally, there is no indication of a specifi"
+    },
+    {
+      "candidate_id": "web:50400577b19702a2ef",
+      "decision": "pass",
+      "reason": "The candidate presents a tool for extracting structured data from PDF invoices, which is a specific and well-defined problem. However, the evidence does not indicate any sales or pricing, and there is no indication of customer activity or demand beyond the tool's existence. Without evidence of actual buyer utility, demand strength, or competitive p"
+    },
+    {
+      "candidate_id": "web:8ca6e36ed843956eb2",
+      "decision": "pass",
+      "reason": "The article lists PDF to Excel converters, but it does not provide evidence of a specific customer problem or demand for a new product. There is no indication of a unique value proposition or a clear need for a differentiated solution. The existing competition and lack of specific sales or pricing data make it difficult to justify pursuing this mar"
+    },
+    {
+      "candidate_id": "web:e1fbd74be9b0fbdeb8",
+      "decision": "pass",
+      "reason": "The candidate lacks clear evidence of demand or sales, and the content is focused on a feature of an existing product (Adobe Acrobat) rather than a unique product idea. There is no indication of a specific customer problem that a new product could solve, nor is there a clear value proposition or differentiation from existing solutions."
+    },
+    {
+      "candidate_id": "web:3d8b135a7bb7116f2d",
+      "decision": "pass",
+      "reason": "The observed content is a general guide on converting PDF files, which lacks a specific, identifiable user need or a unique problem that a differentiated product could solve. There is no evidence of a specific customer problem that a small digital product could address, nor is there a clear indication of demand or buyer utility. The absence of pric"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 3,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 7,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
