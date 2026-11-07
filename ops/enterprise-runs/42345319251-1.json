@@ -1,0 +1,128 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-07T06:05:35.154367+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 7,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 13,
+    "contactable_sources": 3,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/Scottcjn/rustchain-bounties/issues/17180",
+        "title": "[BOUNTY: 25 RTC] Node liveness checks must validate the /health BODY, not just HTTP 200 \u2014 one shared probe for all five ",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/SecureBananaLabs/bug-bounty/issues/13676",
+        "title": "[Bounty #743] Validate /api/users payload before persistence",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/benelabs/crucible/issues/1368",
+        "title": "Question: Bounty program clarification \u2014 84 merged PRs from Dimank92",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/abdulsalam-create/bounty-watch/issues/226",
+        "title": "bounty-watch 2026-11-07: 0 new, 1 resumed, 3 watchlist changes",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/PhanKhoa95/oss-bot-trap-benchmark/issues/6",
+        "title": "[Canary-Trap-06] Implement batch checkpoint verifier (Self-Labeled Decoy Bounty)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://emaillistvalidation.com/blog/email-verification-tool-crypto-exchange-user-onboarding/",
+        "title": "Email Verification for Crypto Onboarding | Email List Valida",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-08 email validation crypto",
+      "is:issue is:open bounty created:>=2026-09-08 ",
+      "looking for someone to setup email verification system for crypto platform launch",
+      "hiring a freelancer to build email deliverability tool for crypto marketing"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to setup email verification system for crypto platform launch",
+      "hiring a freelancer to build email deliverability tool for crypto marketing",
+      "need paid help with email validation for crypto fundraising outreach",
+      "can anyone create email verification API for crypto cold email campaigns"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 50,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to setup email verification system for crypto platform launch",
+        "hiring a freelancer to build email deliverability tool for crypto marketing",
+        "need paid help with email validation for crypto fundraising outreach",
+        "can anyone create email verification API for crypto cold email campaigns"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
