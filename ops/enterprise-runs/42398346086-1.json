@@ -1,0 +1,120 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-07T17:53:28.205018+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 5,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 13,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/Iniwura/before-protocol/issues/14",
+        "title": "Submission captain: record real BEFORE demo, verify live portal rules, and submit with proof",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/HCTDIP/corps-jobs/issues/171",
+        "title": "Railway \u8d4f\u91d1\uff1a\u6709 3 \u6761\u503c\u5f97\u62a2",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/4072",
+        "title": "[wildcard] Flip GUARANTEES Row 10 (and Row 3 Pool Laundry): Zero-Annotation Move-Scrubbing & Compiler-Synthesized Epoch ",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/4071",
+        "title": "[wildcard] @[sync_guarded(mu)] \u2014 make \"externally synchronized\" a checked obligation instead of a rejection (discharges ",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/NSPG13/agent-bounties/issues/1756",
+        "title": "Maintainer notice: bound blockchain log batches and check recovery capacity",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.legalgps.com/legal-triggers/hire-freelancer",
+        "title": "How to Hire a Freelancer: Legal Steps and Contracts",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-08 build real time",
+      "is:issue is:open bounty created:>=2026-09-08 ",
+      "hiring a freelancer to setup email verification for legal document distribution",
+      "looking for someone to build real-time email validation for nonprofit donor outreach"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build real-time email validation for nonprofit donor outreach",
+      "hiring a freelancer to setup email verification for legal document distribution",
+      "need paid help with creating email validation tool for real estate listing inquiries",
+      "can anyone create email verification system for online course enrollment"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 64,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build real-time email validation for nonprofit donor outreach",
+        "hiring a freelancer to setup email verification for legal document distribution",
+        "need paid help with creating email validation tool for real estate listing inquiries",
+        "can anyone create email verification system for online course enrollment"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
