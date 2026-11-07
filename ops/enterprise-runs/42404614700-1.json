@@ -1,0 +1,125 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-07T19:08:08.292227+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "github_paid_issues": 5,
+      "duckduckgo": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=48735500",
+        "title": "Ask HN: How would you launch an open-source app with a small budget?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37550657",
+        "title": "Tell HN: Google Nest Wifi locks existing features under telemetry opt-in",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37348750",
+        "title": "eBay stole $1328 from me. What should I do?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=35006081",
+        "title": "Need advice/guidance on direction to go, affordable bootcamps",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=27161391",
+        "title": "From Zero to Prod with NixOS",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=22603343",
+        "title": "Ask HN: Setting up training systems, solutions for new platform?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "need paid help with setting up email validation for gaming company beta invites",
+      "is:issue is:open bounty created:>=2026-09-08 setting email validation",
+      "is:issue is:open bounty created:>=2026-09-08 ",
+      "looking for someone to build real-time email validation for legal document distribution",
+      "hiring a freelancer to create email verification system for telecom bulk messaging"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build real-time email validation for legal document distribution",
+      "hiring a freelancer to create email verification system for telecom bulk messaging",
+      "need paid help with setting up email validation for gaming company beta invites",
+      "can anyone create automated email verification for cold campaign replies"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 47,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build real-time email validation for legal document distribution",
+        "hiring a freelancer to create email verification system for telecom bulk messaging",
+        "need paid help with setting up email validation for gaming company beta invites",
+        "can anyone create automated email verification for cold campaign replies"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
