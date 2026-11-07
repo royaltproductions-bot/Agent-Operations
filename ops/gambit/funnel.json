@@ -1,9 +1,9 @@
 {
   "aging_active_bids_days": {
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 4.069428925416667,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 4.03958876337963,
-    "mx78wzkqdghteet6beyw1567mx8hewfj": 5.318534261064815,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 4.070279596712963
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 4.069992249872685,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 4.040152087835648,
+    "mx78wzkqdghteet6beyw1567mx8hewfj": 5.319097585520834,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 4.070842921168981
   },
   "browser": {
     "completed_job_count": {
@@ -101,13 +101,13 @@
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-07T21:06:39.802156+00:00",
+  "generated_at": "2026-11-07T21:07:28.473389+00:00",
   "median_posting_to_bid_minutes": 9648.218966666665,
   "median_posting_to_detection_minutes": 55.7233103,
   "model_budget": {
-    "call_count": 233,
+    "call_count": 235,
     "month": "2026-11",
-    "reserved_micro_usd": 9357050
+    "reserved_micro_usd": 9432772
   },
   "null_fields": {
     "accepted_at": 0,
