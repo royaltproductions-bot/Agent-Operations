@@ -1,0 +1,177 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-07T13:37:16.119367+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 6,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "hn_ask": 2,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 5,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=5858538",
+        "title": "The NSA, CALEA, and the hardware backdoors built into routers (required by law)",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=1433340",
+        "title": "Ask HN / Review my startup: DocuHarvest",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.pdffiller.com/en/categories/pdf-converter.htm",
+        "title": "PDF Converter: Convert PDF to Editable Features",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://parseur.com/processing/invoice/excel",
+        "title": "Invoice Processing to Excel\n Automated invoice processing to Excel. Parseur reads PDF invoices with AI and returns a clean .xlsx file with every field and line ",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://parseur.com/use-case/invoice-processing",
+        "title": "Automate Invoice Processing with Parseur\n Automate invoice processing end to end. Parseur captures invoices from email, extracts the fields with AI, and posts t",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 6,
+    "search_queries": [
+      "extract data from pdf invoice to spreadsheet",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 54,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "pdf invoice to csv converter for mac",
+        "automate excel to pdf conversion tool",
+        "convert scanned invoice to editable text",
+        "extract data from pdf invoice to spreadsheet"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:5 candidates reviewed; 2, indicating strong user satisfaction. However, the lack of listed price and sales count makes it difficult to assess the market viability of a new product in this spac"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 3,
+    "product_pages": 3,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "e46509dbb213a33c25fd",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "public_page_fetch",
+          "reason": "HTTPError"
+        }
+      ]
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:6377a6d59c7d09bae4",
+      "decision": "pass",
+      "reason": "The candidate presents a specific problem (extracting data from documents for non-technical users) with a clear value proposition. However, there is no evidence of actual sales or pricing, and the market is highly competitive with existing tools like pdfFiller and Parseur. Without a clear differentiation or demonstrated demand, the viability of the"
+    },
+    {
+      "candidate_id": "web:baa9ff277d09f0e058",
+      "decision": "pass",
+      "reason": "The candidate is a news article discussing legal and technical issues related to hardware backdoors in routers. It does not represent a product or service that can be built or tested. The content is informational and does not indicate a viable market opportunity for a commercial product."
+    },
+    {
+      "candidate_id": "web:69ab55d840a06cc060",
+      "decision": "pass",
+      "reason": "While the invoice processing to Excel feature is promising, there is no clear evidence of sales or pricing, and the market is already served by established competitors like pdfFiller and Parseur. Without a clear differentiation or a specific, unmet customer need, the opportunity lacks sufficient evidence to justify pursuing this product."
+    },
+    {
+      "candidate_id": "web:864d6c5b4abd68412e",
+      "decision": "pass",
+      "reason": "The PDF Converter feature on pdfFiller is a well-established service with a 4.6/5 rating on G2, indicating strong user satisfaction. However, the lack of listed price and sales count makes it difficult to assess the market viability of a new product in this space. Additionally, there are already established competitors offering similar functionalit"
+    },
+    {
+      "candidate_id": "web:4529137b0a3dbdf4bf",
+      "decision": "pass",
+      "reason": "The candidate lacks a clear value proposition and pricing information, making it difficult to assess viability. The evidence excerpt does not provide enough detail about the product's unique features, target audience, or competitive advantage. Additionally, the absence of listed price or sales count makes it hard to evaluate market demand."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 3,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 5,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
