@@ -1,0 +1,114 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-07T14:04:44.367836+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 5,
+      "github_paid_issues": 5,
+      "duckduckgo": 6
+    },
+    "source_errors": [],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=45669985",
+        "title": "Steps to take in advance in case your phone gets stolen",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37871045",
+        "title": "Ask HN: Compliance for EIDAS Defined Advanced Electronic Signatures",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=35089698",
+        "title": "Phone verification is ransomware to your privacy",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=32016172",
+        "title": "Ask HN: A scammer just tricked me out of my Selfie ID",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=2878904",
+        "title": "How to steal from Heroku",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://github.com/ZecHub/zec-bounties/issues/569",
+        "title": "bug(bounties): team OWNER/ADMIN receive 403 on GET /:id/submissions, /:bountyId/applications, and /:id/activity for team",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to create email verification tool for nonprofit outreach",
+      "is:issue is:open bounty created:>=2026-09-08 ",
+      "need paid help with building real-time email validation system for educational platform"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create email verification tool for nonprofit outreach",
+      "need paid help with building real-time email validation system for educational platform",
+      "hiring a freelancer to setup email verification for healthcare lead generation",
+      "looking for someone to build email verification system for event registration"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 60,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create email verification tool for nonprofit outreach",
+        "need paid help with building real-time email validation system for educational platform",
+        "hiring a freelancer to setup email verification for healthcare lead generation",
+        "looking for someone to build email verification system for event registration"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
