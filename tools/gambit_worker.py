@@ -543,6 +543,13 @@ def schedule_evaluation_retry(state, bounty_id, exc):
     attempt = min(4, int(previous.get("retry_count") or 0) + 1)
     reason = safe_failure_reason(exc)
     if reason in {"openai_daily_pace_exceeded", "openai_monthly_budget_exhausted"}:
+        if previous.get("action") == "budget_wait" and previous.get("last_error") == reason:
+            try:
+                retry_at = datetime.fromisoformat(previous["retry_at"])
+                if retry_at.tzinfo is not None and datetime.now(timezone.utc) < retry_at:
+                    return
+            except (KeyError, TypeError, ValueError):
+                pass
         previous.update(action="budget_wait", last_error=reason, retry_at=(
             datetime.now(timezone.utc) + timedelta(days=1)).isoformat())
         state["bounties"][bounty_id] = previous
@@ -676,6 +683,11 @@ def relevant_events(state):
 
 def scan(state):
     opened = pages("/v1/agent/bounties?status=open&limit=100", "bounties")
+    # Observation is independent of inference budget or evaluation eligibility.
+    for item in opened:
+        commercial.observe(state, item)
+    state.setdefault("market_observation", {})["last_open_count"] = len(opened)
+    state["market_observation"]["last_checked_at"] = timestamp()
     held = pages("/v1/agent/bounties?status=claimed,submitted,reviewing,settling,disputed&limit=100", "bounties")
     events, cursor = relevant_events(state)
     for event in events:
