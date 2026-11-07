@@ -1,0 +1,123 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-07T09:08:56.752060+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 8,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/Soroban-escrow/escrow-backend/issues/5",
+        "title": "Automated testnet merge-to-payout end-to-end run (`escrowd e2e`), nightly in CI",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Soroban-escrow/escrow-contracts/issues/18",
+        "title": "Add contract versioning and a `migrate` entry point",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Scottcjn/rustchain-bounties/issues/17181",
+        "title": "[BOUNTY: 15 RTC] Python SDK CLI has zero tests \u2014 add a Click CliRunner suite for every command (wallet/node/epoch/miners",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Niraj-Kamdar/decentralised-prop-trading/issues/23",
+        "title": "Sponsor: Uniswap Foundation prize write-up (sponsors/uniswap/)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/NobuData/ouroboros/issues/1993",
+        "title": "ouroboros: [DT.V] Validate Epic DT \u2014 Disclosure Process",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://mailtester.com/blog/best-email-verification-tools-for-blockchain-platform-notifications/",
+        "title": "Best Email Verification Tools | MailTester",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-08 create real time",
+      "looking for someone to build email verification tool for crypto user onboarding",
+      "hiring a freelancer to create real-time email validation API for crypto platform"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build email verification tool for crypto user onboarding",
+      "hiring a freelancer to create real-time email validation API for crypto platform",
+      "need paid help with email deliverability for crypto exchange registration",
+      "can anyone create email verification system for crypto wallet sign-up"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 45,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build email verification tool for crypto user onboarding",
+        "hiring a freelancer to create real-time email validation API for crypto platform",
+        "need paid help with email deliverability for crypto exchange registration",
+        "can anyone create email verification system for crypto wallet sign-up"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
