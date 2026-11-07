@@ -2163,5 +2163,19 @@ class GambitTests(unittest.TestCase):
 
 
 
+    def test_budget_wait_future_retry_does_not_churn_receipts(self):
+        from datetime import datetime, timedelta, timezone
+        state = {"bounties": {"b1": {"action": "budget_wait",
+            "last_error": "openai_daily_pace_exceeded",
+            "retry_at": (datetime.now(timezone.utc) + timedelta(hours=8)).isoformat()}},
+            "recent_outcomes": []}
+        before = dict(state["bounties"]["b1"])
+        gambit.schedule_evaluation_retry(state, "b1",
+                                          RuntimeError("openai_daily_pace_exceeded"))
+        self.assertEqual(state["bounties"]["b1"], before)
+        self.assertEqual(state["recent_outcomes"], [])
+
+
+
 if __name__ == '__main__':
     unittest.main()
