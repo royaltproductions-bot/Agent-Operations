@@ -1,0 +1,116 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-07T11:57:25.142930+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 1,
+      "github_paid_issues": 5,
+      "duckduckgo": 7,
+      "followup": 3
+    },
+    "source_errors": [],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 16,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=44517469",
+        "title": "Built Podflyy.com, a NoteBookLM Alternative \u2013 Is There PMF?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Niraj-Kamdar/decentralised-prop-trading/issues/27",
+        "title": "Pitch: hosted slide deck + live judging prep (09:30 IST)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/HuggerHustle/ai-radar/issues/173",
+        "title": "\ud83d\udcf0 Hacker News AI Digest 2026-11-07",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/GoodDollar/GoodWidget/issues/277",
+        "title": "[GoodBounty-QA]: Bridge-widget QA",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/rroland10/dex223-bug-bounty/issues/91",
+        "title": "[HIGH] Oracle._findPool() Looks Up minLiquidity by Caller-Supplied Token Addresses Instead of Pool ERC-20 Addresses, Byp",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/PhanKhoa95/oss-bot-trap-benchmark/issues/10",
+        "title": "test(validator): add unit tests for non-monotonic sequence numbers in verify_sequence_gap",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "need paid help with building real-time email validation system for crypto platform",
+      "is:issue is:open bounty created:>=2026-09-08 building real time",
+      "is:issue is:open bounty created:>=2026-09-08 ",
+      "looking for someone to setup email verification tool for crypto user onboarding"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to setup email verification tool for crypto user onboarding",
+      "need paid help with building real-time email validation system for crypto platform",
+      "can anyone create email validation API for telecom cold outreach",
+      "hiring a freelancer to setup email verification for healthcare prospecting"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 56,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to setup email verification tool for crypto user onboarding",
+        "need paid help with building real-time email validation system for crypto platform",
+        "can anyone create email validation API for telecom cold outreach",
+        "hiring a freelancer to setup email verification for healthcare prospecting"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
