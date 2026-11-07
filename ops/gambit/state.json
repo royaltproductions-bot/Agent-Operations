@@ -188,6 +188,7 @@
       }
     },
     "bid_bounty_ids": [
+      "mx77kbrqz5859r74m1w2rd4mx98hkxf1",
       "mx7802nm08nqrb6rhb2kdaygr18gszcr",
       "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8",
       "mx78wzkqdghteet6beyw1567mx8hewfj",
@@ -1754,9 +1755,11 @@
     "mx77kbrqz5859r74m1w2rd4mx98hkxf1": {
       "bid_amount_cents": 500,
       "bid_at": 1794085713869,
+      "bid_created_at": 1794085713869,
       "bid_id": "p173tcsrtk9kp64nfjn0g1s4mh8hs7yw",
       "bid_status": "active",
       "bid_status_changed_at": "2026-11-07T21:08:34.131863+00:00",
+      "bid_updated_at": null,
       "budget_cents": 500,
       "conversation": {
         "last_incoming_at": "2026-11-06T15:37:49.596000+00:00",
@@ -2609,9 +2612,9 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo0MiwiY2hlY2twb2ludEF0IjoxNzk0MDg1NzEzMDg1fQ",
-  "last_bid_reconciliation": "2026-11-07T21:04:19.067891+00:00",
-  "last_check": "2026-11-07T21:08:34.136291+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo0MiwiY2hlY2twb2ludEF0IjoxNzk0MDg3NzUyNzY2fQ",
+  "last_bid_reconciliation": "2026-11-07T21:42:35.583157+00:00",
+  "last_check": "2026-11-07T21:42:35.588083+00:00",
   "recent_outcomes": [
     {
       "action": "evaluation_budget_wait",
