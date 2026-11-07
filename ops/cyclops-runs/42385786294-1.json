@@ -1,0 +1,168 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-07T15:21:33.039867+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 5,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "bing": 1,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 5,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 5,
+    "public_market_sample": [
+      {
+        "url": "https://make.preview.powerautomate.com/",
+        "title": "Power Automate - Sign in to your account",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.myocr.app/scanned-pdf-to-excel",
+        "title": "Scanned PDF to Excel \u2192",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://invoicedataextraction.com/blog/invoice-data-entry-services-cost-guide",
+        "title": "true cost of manual invoice data entry",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://invoicedataextraction.com/blog/invoice-data-entry-sample",
+        "title": "complete invoice data entry sample with all key fields",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://parseur.com/blog/data-entry-automation",
+        "title": "Data entry automation in 2026\n Automate data entry from documents, forms, browsers and APIs. How the process works, plus Parseur, Nanonets, Zapier and UiPath co",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 4,
+    "search_queries": [
+      "automate invoice data extraction to spreadsheet",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 8,
+      "skipped_revisits": 63,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "pdf to excel converter with formula support",
+        "automate invoice data extraction to spreadsheet",
+        "convert multiple pdfs to excel with formatting",
+        "bulk extract data from pdf invoices to excel"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 118,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:5 candidates reviewed; and Nanonets, but there is no clear evidence of a specific, unmet customer need or a feasible, original product idea. The content is more of a general overview rather th"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 3,
+    "product_pages": 3,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "e46509dbb213a33c25fd",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:519ca810a2724cee53",
+      "decision": "pass",
+      "reason": "The article discusses the cost of manual invoice data entry and highlights the potential for AI automation in this space. However, there is no direct evidence of a product or service already offering this solution, and the article itself does not indicate a specific customer problem with a feasible, differentiated small digital product. Without a c"
+    },
+    {
+      "candidate_id": "web:2ac928b2eb72b23796",
+      "decision": "pass",
+      "reason": "The candidate lacks clear evidence of demand or pricing, and the page appears to be a marketing tool for an OCR service rather than a specific product. There is no indication of a unique value proposition or a defined customer problem that the product solves."
+    },
+    {
+      "candidate_id": "web:d07e9b7936f2fd056c",
+      "decision": "pass",
+      "reason": "The content discusses invoice data entry and automation, which is a well-established area with existing solutions. While there is potential for a differentiated product, the lack of pricing, sales data, and clear customer demand signals makes it difficult to justify pursuing this market without further evidence of a unique value proposition."
+    },
+    {
+      "candidate_id": "web:2c88336a2f1f76a47f",
+      "decision": "pass",
+      "reason": "The article discusses data entry automation and mentions specific tools like Parseur and Nanonets, but there is no clear evidence of a specific, unmet customer need or a feasible, original product idea. The content is more of a general overview rather than a concrete problem with a viable solution. Additionally, there is no indication of a unique v"
+    },
+    {
+      "candidate_id": "web:b49efb99b9d04177e8",
+      "decision": "pass",
+      "reason": "The observed page is a login interface for Power Automate, which is a Microsoft product. There is no evidence of a specific customer problem or a unique value proposition that differentiates this from existing offerings. The absence of pricing, sales data, or a clear product description makes it unsuitable for a new product launch."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 3,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 5,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
