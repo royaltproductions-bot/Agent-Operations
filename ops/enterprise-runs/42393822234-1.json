@@ -1,0 +1,127 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-07T16:58:47.553162+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 13,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 4,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "candidates_without_email": 11,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/ak10082247-max/rugshield-402/issues/2",
+        "title": "[BOUNTY .00 USDC] EVM DEX Honeypot Simulation Evasion Challenge (Base Mainnet 8453)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ak10082247-max/canaryguard-402/issues/12",
+        "title": "[BOUNTY .00 USDC] Round 2: Adversarial Prompt Injection & Few-Shot Jailbreak Challenge (Base 8453 & Solana)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/FuRongJun-1999/dsh-bounty/issues/2525",
+        "title": "[bug \u62a5\u544a] bounty_site check_plan_snapshot\uff1a\u5feb\u7167\u672a\u8fc7\u6ee4 PR\u2014\u2014\u8d26\u672c 10 \u7b14\u4ee5 PR \u53f7\u5165\u8d26\u7684 settle \u4e0e\u5feb\u7167 PR \u6761\u76ee\u649e\u53f7\uff0c\u88ab\u5bf9\u8d26\u5668\u5224\u6210\u6700\u9ad8\u4f18\u5148\u7ea7\u300c\u6001\u51b2\u7a81\u300d\uff08\u6697\u793a\u6807\u7b7e/\u6807\u8bb0\u88ab\u7be1\u6539\uff09",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/aalwasmi-ui/PlayGround/issues/1",
+        "title": "CREATE A COMPLETE 3D OPEN-WORLD WESTERN ACTION ADVENTURE GAME INSPIRED BY THE GAMEPLAY, ATMOSPHERE, WORLD DESI",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraspell/xcm-tools/issues/2454",
+        "title": "[Bug bounty] xcmFormatCheck option is ignored for batch transfers (buildBatch / x-transfer-batch)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://yougotserve.com/",
+        "title": "YouGotServe - Legal Document Delivery by Email and SMS",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-08 ",
+      "looking for someone to setup email verification for legal document distribution",
+      "hiring a freelancer to create email validation tool for nonprofit donor outreach"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to setup email verification for legal document distribution",
+      "hiring a freelancer to create email validation tool for nonprofit donor outreach",
+      "need paid help with building real-time email validation for online course enrollment",
+      "can anyone create email verification system for real estate listing inquiries"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 62,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to setup email verification for legal document distribution",
+        "hiring a freelancer to create email validation tool for nonprofit donor outreach",
+        "need paid help with building real-time email validation for online course enrollment",
+        "can anyone create email verification system for real estate listing inquiries"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
