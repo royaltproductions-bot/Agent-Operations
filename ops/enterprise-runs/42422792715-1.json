@@ -1,0 +1,135 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-07T22:56:18.930457+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "github_paid_issues": 5,
+      "duckduckgo": 7
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=50392710",
+        "title": "Ask HN: How are companies hiring developers nowadays?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47328448",
+        "title": "I Got Fired Because of AI \u2013 But I Still Think I'm the Engineer of the Future",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47222844",
+        "title": "Ask HN: Using OpenClaw for marketing: worth it or overhyped?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37349924",
+        "title": "Ask HN: Is \u201csign in with Facebook\u201d dead for indie developers?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/P00NSMASHER/github-value-hunt-ledger/issues/901",
+        "title": "RETALLY: reconcile initial 205 open PRs, preserve evidence and protected merges",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Neoexm/Shittim-Server/issues/49",
+        "title": "Guide: Steam client \u2192 lobby on macOS (CrossOver/Wine) \u2014 TLS gateway, Steam launch, metadata :5000\u2192:5100 patch",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to create real-time email validation for cold outreach campaigns",
+      "can anyone develop email verification for DTC brand cold outreach campaigns",
+      "is:issue is:open bounty created:>=2026-09-08 build email verification",
+      "is:issue is:open bounty created:>=2026-09-08 create real time",
+      "is:issue is:open bounty created:>=2026-09-08 setting email validation",
+      "is:issue is:open bounty created:>=2026-09-08 ",
+      "hiring a freelancer to build email verification system for legal document distribution"
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to build email verification system for legal document distribution",
+      "looking for someone to create real-time email validation for cold outreach campaigns",
+      "need paid help with setting up email validation tool for telecom bulk messaging",
+      "can anyone develop email verification for DTC brand cold outreach campaigns"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 50,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to build email verification system for legal document distribution",
+        "looking for someone to create real-time email validation for cold outreach campaigns",
+        "need paid help with setting up email validation tool for telecom bulk messaging",
+        "can anyone develop email verification for DTC brand cold outreach campaigns"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
