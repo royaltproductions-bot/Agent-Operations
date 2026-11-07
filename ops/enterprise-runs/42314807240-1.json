@@ -1,0 +1,124 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-06T23:55:39.912693+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 3,
+      "github_paid_issues": 5,
+      "duckduckgo": 6,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=16507151",
+        "title": "Ask HN: How do you validate an idea that it will work?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=7837174",
+        "title": "Ask HN: How much user validation is enough? When to build?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=5437756",
+        "title": "Ask HN: How do you find a technical cofounder with little experience?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/3930",
+        "title": "[wildcard] Emit Go IR with Tier-0 proof witnesses attached: make the compiled binary carry the checker proof (solicitati",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Niraj-Kamdar/decentralised-prop-trading/issues/12",
+        "title": "Update backtest sim to the PR #10 contracts (trader levels, Chainlink oracle) and test anti-scalping and revenue mechani",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ecarlste/x4-swi-bounty-hunter/issues/74",
+        "title": "Our own hunts: how kill-count pay works",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build email validation tool for small nonprofit",
+      "is:issue is:open bounty created:>=2026-09-07 ",
+      "hiring a freelancer to setup email verification system for remote team"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build email validation tool for small nonprofit",
+      "hiring a freelancer to setup email verification system for remote team",
+      "need paid help with email authentication setup for educational platform",
+      "can anyone create email validation system for remote business"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 56,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build email validation tool for small nonprofit",
+        "hiring a freelancer to setup email verification system for remote team",
+        "need paid help with email authentication setup for educational platform",
+        "can anyone create email validation system for remote business"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
