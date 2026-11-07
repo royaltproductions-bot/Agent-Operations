@@ -1,0 +1,127 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-07T05:12:20.575490+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 9,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 2,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/paraloom-labs/paraloom-wallet/issues/233",
+        "title": "[BOUNTY] Medium: Unlock and handleCreateAccount collide on Account 0 index when stored.accounts is empty, walletStore.un",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraloom-labs/paraloom-wallet/issues/232",
+        "title": "[BOUNTY] Medium: tryDecryptNote executes redundant 2x X25519 scalar mult on every v1 note and accepts oversized cipherte",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraloom-labs/paraloom-prover-wasm/issues/32",
+        "title": "[BOUNTY] Medium: hex32 silently trims whitespace causing cross-layer parser differentials, witness JSON structs accept u",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraloom-labs/paraloom-prover-wasm/issues/31",
+        "title": "[BOUNTY] High: prove_withdrawal_v2, prove_transfer_v2, and prove_transact omit proving-key R1CS/CircomReduction compatib",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/LiamBMX/joshymc-plugin/issues/1402",
+        "title": "Implement Lifesteal Combat Logging Protection With Persistent Combat NPCs",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://mailtester.com/blog/email-validation-service-for-crypto-exchange-cold-outreach/",
+        "title": "Email Validation for Crypto Cold Outreach | MailTester",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-08 ",
+      "looking for someone to build email validation system for crypto marketing",
+      "hiring a freelancer to setup email verification tool for blockchain outreach"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build email validation system for crypto marketing",
+      "hiring a freelancer to setup email verification tool for blockchain outreach",
+      "need paid help with email deliverability for crypto platform launch",
+      "can anyone create email validation tool for crypto fundraising campaigns"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 45,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build email validation system for crypto marketing",
+        "hiring a freelancer to setup email verification tool for blockchain outreach",
+        "need paid help with email deliverability for crypto platform launch",
+        "can anyone create email validation tool for crypto fundraising campaigns"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
