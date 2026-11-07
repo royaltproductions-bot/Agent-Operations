@@ -1,0 +1,123 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-07T14:58:50.310821+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 11,
+    "source_counts": {
+      "open_web": 11
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 4,
+      "duckduckgo": 3,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 11,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/paraloom-labs/paraloom-core/issues/1502",
+        "title": "[Medium] Zero-value transact (no-op) can settle: drains settling validator rent and pollutes the Merkle tree",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/4044",
+        "title": "[buildable] hy-check(foreign): `foreign_method_surface` omits curated `http.serve_mux`, `http.header`, and `http.transpo",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/4043",
+        "title": "[buildable] hy-check(foreign): `foreign_method_surface` omits curated `url.values` method surface (HYB-E1002, Row 13)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/4042",
+        "title": "[buildable] hy-check(foreign): `foreign_method_surface` omits curated `time.duration` method surface (HYB-E1002, Row 13)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.freelancer.com/projects/content-writing/email-based-membership-verification",
+        "title": "Email-Based Membership Verification Setup | Freelancer",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.reachstream.com/email-verifier/api/",
+        "title": "Email Verifier API: Real-Time and Batch Email Validation | ReachStream",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-08 build real time",
+      "hiring a freelancer to setup email verification for educational platform signups",
+      "looking for someone to build real-time email validation system for nonprofit outreach"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build real-time email validation system for nonprofit outreach",
+      "hiring a freelancer to setup email verification for educational platform signups",
+      "need paid help with creating email validation API for B2B lead generation",
+      "can anyone create email verification tool for event registration"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 11,
+      "skipped_revisits": 64,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build real-time email validation system for nonprofit outreach",
+        "hiring a freelancer to setup email verification for educational platform signups",
+        "need paid help with creating email validation API for B2B lead generation",
+        "can anyone create email verification tool for event registration"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
