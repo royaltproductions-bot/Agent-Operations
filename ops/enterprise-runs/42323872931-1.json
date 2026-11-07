@@ -1,0 +1,137 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-07T01:26:47.950457+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 2,
+      "github_paid_issues": 5,
+      "duckduckgo": 7,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 16,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=39410364",
+        "title": "I Ended Up with Just 0.15% of My Own Startup",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=2355187",
+        "title": "Well-funded music startup seeks a lead developer",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/elanthia-online/analytics/issues/36",
+        "title": "Small things (nits)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/elanthia-online/analytics/issues/34",
+        "title": "Test gaps: assertions that can't fail",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/3937",
+        "title": "[soundness] hy-check(addressable): infer &arr[i:j]/*&arr pointer-to-array types, recurse into PlaceKind::AddrOf, and see",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraspell/xcm-tools/issues/2445",
+        "title": "[Bug bounty] String amounts in scientific notation (\"1e21\", \"1e-7\") crash with an untyped SyntaxError or are rejected, w",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build email validation system for remote team",
+      "is:issue is:open bounty created:>=2026-09-08 ",
+      "need paid help with email validation setup for small business",
+      "hiring a freelancer to setup email verification system for nonprofit organization"
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to setup email verification system for nonprofit organization",
+      "need paid help with email validation setup for small business",
+      "can anyone create email verification tool for educational platform",
+      "looking for someone to build email validation system for remote team"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 57,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to setup email verification system for nonprofit organization",
+        "need paid help with email validation setup for small business",
+        "can anyone create email verification tool for educational platform",
+        "looking for someone to build email validation system for remote team"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
