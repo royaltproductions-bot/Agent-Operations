@@ -81,13 +81,13 @@ class Corrections(unittest.TestCase):
         self.assertIn('Is CSV suitable?',posts[0].args[2]['note'])
         self.assertEqual(state['bounties']['ask']['action'],'bid_active')
 
-    def test_pace_november_fifth_refuses_6600000(self):
+    def test_pace_november_fifth_prior_spend_does_not_freeze_new_day(self):
         with tempfile.TemporaryDirectory() as folder,patch.object(o,'BUDGET_PATH',Path(folder)/'budget.json'),patch.object(o,'datetime') as dt:
             dt.now.return_value=NOW
             o.BUDGET_PATH.write_text(json.dumps({'month':'2026-11','reserved_micro_usd':6600000,'call_count':100}))
-            before=o.BUDGET_PATH.read_text()
-            with self.assertRaisesRegex(RuntimeError,'openai_daily_pace_exceeded'):o.reserve_monthly_budget(.01)
-            self.assertEqual(before,o.BUDGET_PATH.read_text())
+            result=o.reserve_monthly_budget(.01)
+            self.assertEqual(result['reserved_micro_usd'],6610000)
+            self.assertEqual(result['day_start_micro_usd'],6600000)
 
     def test_daily_growth_limited_to_seventy_cents(self):
         with tempfile.TemporaryDirectory() as folder,patch.object(o,'BUDGET_PATH',Path(folder)/'b.json'),patch.object(o,'datetime') as dt:

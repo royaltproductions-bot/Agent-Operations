@@ -44,8 +44,8 @@ jobs:
       - name: Check live Cyclops execution before loading Qwen
         id: preflight
         run: |
-          python3 -m pip install --quiet --disable-pip-version-check cryptography pypdf beautifulsoup4 jinja2
-          python3 -c 'import bs4, jinja2, cryptography, pypdf; print("Cyclops runtime imports OK")'
+          python3 -m pip install --quiet --disable-pip-version-check cryptography pypdf beautifulsoup4 jinja2 'reportlab>=4,<5' 'python-docx>=1.2,<2' 'openpyxl>=3.1,<4' pillow
+          python3 -c 'import bs4, jinja2, cryptography, pypdf, reportlab, docx, openpyxl, PIL; print("Cyclops runtime imports OK")'
           python3 -m unittest discover -s tests -p 'test_x_variant_execution.py' -q
           python3 -m unittest discover -s tests -p 'test_variant_optimization.py' -q
 

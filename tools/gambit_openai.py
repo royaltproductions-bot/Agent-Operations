@@ -147,12 +147,15 @@ def reserve_monthly_budget(estimated_usd):
         if requested > maximum - committed:
             raise RuntimeError("openai_monthly_budget_exhausted")
         days = calendar.monthrange(today.year, today.month)[1]
-        pace_ceiling = min(maximum, int((limit * today.day / days + 1.50) * 1_000_000))
-        if committed + requested > pace_ceiling:
-            raise RuntimeError("openai_daily_pace_exceeded")
+        days_remaining = days - today.day + 1
         day = today.date().isoformat()
         day_start = int(ledger.get("day_start_micro_usd", committed)) if ledger.get("pace_day") == day else committed
-        if committed + requested - day_start > 700_000:
+        if not 0 <= day_start <= committed:
+            raise RuntimeError("openai_daily_pace_invalid_ledger")
+        # Pace only the remaining monthly allowance. Prior-month-to-date
+        # reservations must not freeze all future bids for several days.
+        daily_allowance = min((maximum - day_start) // days_remaining, 700_000)
+        if committed - day_start + requested > daily_allowance:
             raise RuntimeError("openai_daily_pace_exceeded")
         ledger.update(pace_day=day, day_start_micro_usd=day_start)
         ledger["reserved_micro_usd"] = committed + requested
