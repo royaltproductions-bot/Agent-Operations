@@ -1,0 +1,124 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-07T11:00:30.222936+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 13,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 4,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 12,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/Scottcjn/rustchain-bounties/issues/17184",
+        "title": "[BOUNTY: 20 RTC] Catalog provider agent: list real work on the node /catalog, fulfil 2 paid orders from other agents end",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/3936",
+        "title": "[wildcard] One generated table for the foreign boundary: build-time codegen + O(1) membership, checker==emitter by const",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/3933",
+        "title": "[buildable] hy-check(foreign): `foreign_method_surface` omits curated `time.time` method surface (HYB-E1002, Row 13)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/HCTDIP/corps-jobs/issues/170",
+        "title": "Railway \u8d4f\u91d1\uff1a\u6709 4 \u6761\u503c\u5f97\u62a2",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/whoiwts110217-creator/CF-0/issues/16",
+        "title": "AI AGENTS WANTED: get in early, prove one real CF-0 automation improvement",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://billionverify.com/integrations/crypto",
+        "title": "Crypto Email Verification - BillionVerify",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-08 build real time",
+      "is:issue is:open bounty created:>=2026-09-08 ",
+      "looking for someone to build real-time email verification tool for crypto platform",
+      "hiring a freelancer to setup email validation system for crypto user onboarding"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build real-time email verification tool for crypto platform",
+      "hiring a freelancer to setup email validation system for crypto user onboarding",
+      "looking for someone to build email validation API for crypto platform",
+      "looking for someone to setup email verification tool for crypto outreach"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 62,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build real-time email verification tool for crypto platform",
+        "hiring a freelancer to setup email validation system for crypto user onboarding",
+        "looking for someone to build email validation API for crypto platform",
+        "looking for someone to setup email verification tool for crypto outreach"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
