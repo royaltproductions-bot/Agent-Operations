@@ -1,0 +1,244 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-07T23:16:58.647041+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 6,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "hn_ask": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "duckduckgo",
+        "reason": "URLError",
+        "http_code": null
+      },
+      {
+        "source": "open_web_search",
+        "provider": "duckduckgo",
+        "reason": "URLError",
+        "http_code": null
+      },
+      {
+        "source": "open_web_search",
+        "provider": "duckduckgo",
+        "reason": "URLError",
+        "http_code": null
+      }
+    ],
+    "fetched_public_pages": 6,
+    "verified_firsthand_problem_pages": 4,
+    "observed_public_paid_offers": 1,
+    "market_candidates_considered": 1,
+    "public_sources_available_for_judgment": 6,
+    "public_market_sample": [
+      {
+        "url": "https://extraly.ai/pdf-purchase-order-to-excel-csv",
+        "title": "purchase order data extracted from PDFs",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=36440515",
+        "title": "Ask HN: Why is the American business environment so scummy?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=35150877",
+        "title": "Time zones: engineering headaches I ran into",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.lido.app/blog/ai-data-extraction",
+        "title": "AI data extraction",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://flowparse.io/register",
+        "title": "Extract Data",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://flowparse.io/receipt-scanner",
+        "title": "Receipt Scanner\n Scan receipts and extract data",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://extraly.ai/pdf-purchase-order-to-excel-csv",
+        "title": "purchase order data extracted from PDFs",
+        "displayed_sales_count": null,
+        "listed_price_usd": "20.00"
+      }
+    ],
+    "candidates_without_email": 6,
+    "search_queries": [
+      "",
+      "extract invoice data to excel tool for pdf files"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 11,
+      "skipped_revisits": 40,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "extract invoice data to excel tool for pdf files",
+        "convert pdf payroll data to structured excel format",
+        "automate data extraction from multiple invoice documents",
+        "payroll data extraction tool for italian pdf files"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:10846da0c44fd37b0002:RuntimeError:output_file_not_created:purchase_order_data.xlsx",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 3,
+    "product_pages": 3,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:10846da0c44fd37b0002:RuntimeError:output_file_not_created:purchase_order_data.xlsx"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "duckduckgo",
+          "reason": "URLError",
+          "http_code": null
+        },
+        {
+          "source": "open_web_search",
+          "provider": "duckduckgo",
+          "reason": "URLError",
+          "http_code": null
+        },
+        {
+          "source": "open_web_search",
+          "provider": "duckduckgo",
+          "reason": "URLError",
+          "http_code": null
+        },
+        {
+          "source": "open_web_search",
+          "provider": "duckduckgo",
+          "reason": "URLError",
+          "http_code": null
+        }
+      ]
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "duckduckgo",
+          "reason": "URLError",
+          "http_code": null
+        },
+        {
+          "source": "open_web_search",
+          "provider": "duckduckgo",
+          "reason": "URLError",
+          "http_code": null
+        },
+        {
+          "source": "open_web_search",
+          "provider": "duckduckgo",
+          "reason": "URLError",
+          "http_code": null
+        },
+        {
+          "source": "open_web_search",
+          "provider": "duckduckgo",
+          "reason": "URLError",
+          "http_code": null
+        }
+      ]
+    },
+    {
+      "asset_id": "e46509dbb213a33c25fd",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "duckduckgo",
+          "reason": "URLError",
+          "http_code": null
+        },
+        {
+          "source": "open_web_search",
+          "provider": "duckduckgo",
+          "reason": "URLError",
+          "http_code": null
+        },
+        {
+          "source": "open_web_search",
+          "provider": "duckduckgo",
+          "reason": "URLError",
+          "http_code": null
+        },
+        {
+          "source": "open_web_search",
+          "provider": "duckduckgo",
+          "reason": "URLError",
+          "http_code": null
+        }
+      ]
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 3,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 6,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
