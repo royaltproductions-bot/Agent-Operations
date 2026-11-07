@@ -1,0 +1,125 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-07T20:57:45.210959+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "github_paid_issues": 5,
+      "duckduckgo": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 13,
+    "contactable_sources": 3,
+    "linked_requester_contacts": 2,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=44171881",
+        "title": "I couldn't find a co-founder, so I built one",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=40971200",
+        "title": "Flying Solo Is an Unfair Advantage",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=38626180",
+        "title": "Cerebral.af is hiring a founding software engineer (London/remote)",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=25768091",
+        "title": "Ask HN: Looking for a co-founder who can code [Details Inside]",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=18125735",
+        "title": "I built a web app that help events organizers build mobile apps",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=12514801",
+        "title": "Ask HN: Feedback for Interview Survey?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build automated email verification system for gaming company beta invites",
+      "can anyone create real-time email verification for legal document distribution",
+      "is:issue is:open bounty created:>=2026-09-08 anyone create real",
+      "is:issue is:open bounty created:>=2026-09-08 ",
+      "need paid help with setting up email validation for cold campaign replies"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build automated email verification system for gaming company beta invites",
+      "need paid help with setting up email validation for cold campaign replies",
+      "can anyone create real-time email verification for legal document distribution",
+      "hiring a freelancer to develop email validation tool for telecom bulk messaging"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 44,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build automated email verification system for gaming company beta invites",
+        "need paid help with setting up email validation for cold campaign replies",
+        "can anyone create real-time email verification for legal document distribution",
+        "hiring a freelancer to develop email validation tool for telecom bulk messaging"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
