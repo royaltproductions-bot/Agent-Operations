@@ -1,0 +1,179 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-08T21:19:18.550932+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 2,
+      "duckduckgo": 10,
+      "followup": 3,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "verified_firsthand_problem_pages": 5,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 12,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=4195835",
+        "title": "Please help me find a reliable apex/visualforce developer to extend SalesForce.",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://updf.com/merge-and-split/merge-pdf-and-word/",
+        "title": "Merge PDF and Word: How to Combine Them into One File?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://exactpdf.com/tools/multiple-images-to-pdf",
+        "title": "Multiple Images to PDF - Merge Photos, No Upload | ExactPDF",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://pdfq.com/tools/merge-pdf/pdf-docx/",
+        "title": "Merge PDF and DOCX - Combine PDF and Word Files - PDFQ",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://pdf4.dev/blog/how-to-convert-csv-to-pdf",
+        "title": "PDF Conversion \n How to convert CSV to PDF (Python, Node.js, or API)\n Convert CSV to PDF by mapping rows to an HTML table, then rendering with a browser engine.",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=16733564",
+        "title": "Repair edb file",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 15,
+    "search_queries": [
+      "merge word and pdf into one document without software",
+      "convert multiple image files to single pdf online free",
+      "",
+      "downloadable script to batch rename image files by date"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 37,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "convert multiple image files to single pdf online free",
+        "merge word and pdf into one document without software",
+        "downloadable script to batch rename image files by date",
+        "auto generate invoice template with qr code integration"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 117,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:4ac30afce47034a178e7:ValueError:production_script_syntax_invalid:invalid syntax",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 3,
+    "product_pages": 3,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:4ac30afce47034a178e7:ValueError:production_script_syntax_invalid:invalid syntax"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "e46509dbb213a33c25fd",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "duckduckgo",
+          "reason": "HTTPError",
+          "http_code": 403
+        }
+      ]
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 3,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 12,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
