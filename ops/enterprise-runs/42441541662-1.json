@@ -1,0 +1,112 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-08T03:11:43.919193+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 3,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 11,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/tenstorrent/tt-metal/issues/64840",
+        "title": "[Bounty proposal] scale_causal_mask_hw_dims_softmax_in_place: mask geometry is not validated against the shard block, an",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Monkestation/Monkestation2.0/issues/12946",
+        "title": "if a shadekin gets his eyes replaced, they will no longer be visible",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/danbri/factoidal/issues/1292",
+        "title": "Perf design: avoid local minima under cost theorems; community perf bounties (proof of useful work)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/SirPepperPot/EnhancedOverhaulRemixVersion/issues/929",
+        "title": "[Diagnostic] EOR 0.7.0.74 - Recovered report from interrupted or frozen game session",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/kouweizhu/agents-radar/issues/864",
+        "title": "\ud83d\udcf0 Hacker News AI Digest 2026-11-08",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://blog.signalhire.com/best-email-verification-tools-in-2026-signalhire-vs-9-top-alternatives-tested-and-compared/",
+        "title": "Email Verification Tools in 2026: SignalHire's View",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-09 ",
+      "looking for someone to build email verification tool for legal document distribution"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build email verification tool for legal document distribution"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 19,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build email verification tool for legal document distribution"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
