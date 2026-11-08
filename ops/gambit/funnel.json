@@ -1,10 +1,10 @@
 {
   "aging_active_bids_days": {
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 0.9809821219444443,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 5.051731265462963,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 5.021891103425926,
-    "mx78wzkqdghteet6beyw1567mx8hewfj": 6.300836601111111,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 5.0525819367592595
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 0.9810381024305556,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 5.051787245949074,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 5.021947083912036,
+    "mx78wzkqdghteet6beyw1567mx8hewfj": 6.300892581597222,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 5.05263791724537
   },
   "browser": {
     "completed_job_count": {
@@ -73,7 +73,7 @@
     "unread_count": 0
   },
   "conversion_rates": {
-    "bid_per_seen": 0.09803921568627451,
+    "bid_per_seen": 0.09615384615384616,
     "buyer_reply_per_bid": 0.2,
     "hire_per_bid": 0.0
   },
@@ -97,14 +97,14 @@
     },
     "retry_pending": 0,
     "sample_excluded": 2,
-    "seen": 51,
+    "seen": 52,
     "settled": 0,
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-08T20:41:10.724336+00:00",
+  "generated_at": "2026-11-08T20:41:15.561050+00:00",
   "median_posting_to_bid_minutes": 4705.295666666667,
-  "median_posting_to_detection_minutes": 55.7233103,
+  "median_posting_to_detection_minutes": 53.857361499999996,
   "model_budget": {
     "call_count": 249,
     "month": "2026-11",
@@ -112,15 +112,15 @@
   },
   "null_fields": {
     "accepted_at": 0,
-    "bid_amount_cents": 46,
-    "bid_at": 46,
+    "bid_amount_cents": 47,
+    "bid_at": 47,
     "bid_status": 0,
     "budget_cents": 0,
     "conversation": 0,
     "delivered_at": 0,
     "first_detected_at": 0,
     "hired_at": 0,
-    "owner_activity_status": 36,
+    "owner_activity_status": 37,
     "posted_at": 0
   },
   "today": {
@@ -135,7 +135,7 @@
     "passed_by_reason": {},
     "retry_pending": 0,
     "sample_excluded": 0,
-    "seen": 0,
+    "seen": 1,
     "settled": 0,
     "settled_cents": 0,
     "withdrawn": 0
@@ -145,15 +145,15 @@
     "oldest_last_incoming_at": "2026-11-06T15:37:49.596000+00:00"
   },
   "unknown_fields": {
-    "accepted_at": 51,
+    "accepted_at": 52,
     "bid_amount_cents": 0,
     "bid_at": 0,
-    "bid_status": 46,
+    "bid_status": 47,
     "budget_cents": 0,
-    "conversation": 38,
-    "delivered_at": 51,
+    "conversation": 39,
+    "delivered_at": 52,
     "first_detected_at": 0,
-    "hired_at": 51,
+    "hired_at": 52,
     "owner_activity_status": 0,
     "posted_at": 0
   }
