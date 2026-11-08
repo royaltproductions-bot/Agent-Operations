@@ -1,0 +1,124 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-08T15:56:27.153370+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "github_paid_issues": 5,
+      "duckduckgo": 7
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=23758474",
+        "title": "Ask HN: Change Professional Direction or Not?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=3296869",
+        "title": "Wanted: a Mentor",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=1641979",
+        "title": "Help, what should I do when 2 founders have had a falling out?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=975988",
+        "title": "Ask HN: What is my website?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/QingyaFan/blog/issues/252",
+        "title": "\u6a21\u578b\u670d\u52a1\u7f51\u5173\u7684\u804c\u8d23\u8fb9\u754c\uff1aLiteLLM \u8986\u76d6\u4e86\u4ec0\u4e48\uff0c\u6f0f\u4e86\u4ec0\u4e48",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ceoncoyb/plataforma-analisis-cultural-web/issues/14",
+        "title": "Design authenticated remote MCP installation without sharing private thesis data",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build custom JWT claims validation system",
+      "need paid help with implementing JWT custom claims in backend",
+      "is:issue is:open bounty created:>=2026-09-09 build custom jwt",
+      "hiring a freelancer to develop secure API with JWT authentication"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build custom JWT claims validation system",
+      "hiring a freelancer to develop secure API with JWT authentication",
+      "need paid help with implementing JWT custom claims in backend",
+      "can anyone create secure API endpoint with JWT and custom claims"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 14,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build custom JWT claims validation system",
+        "hiring a freelancer to develop secure API with JWT authentication",
+        "need paid help with implementing JWT custom claims in backend",
+        "can anyone create secure API endpoint with JWT and custom claims"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
