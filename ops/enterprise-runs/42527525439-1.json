@@ -1,0 +1,117 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-08T21:56:06.037678+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 1,
+      "github_paid_issues": 5,
+      "duckduckgo": 9,
+      "followup": 1
+    },
+    "source_errors": [],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 13,
+    "contactable_sources": 3,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=37791381",
+        "title": "Ask HN: Getting traction from companies but no actual product help?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/neatlogs/neatroots/issues/254",
+        "title": "secret-in-output catches only 5 key families: 13 of 21 standard formats pass clean (Stripe live, github_pat_, GCP, db-ur",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/freedom-winds/BountyScout/issues/1257",
+        "title": "\ud83c\udfaf Bounty Alert: 15 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Expensify/App/issues/101738",
+        "title": "[$250] Improve how subscription settings are displayed in New Expensify",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/SecureBananaLabs/bug-bounty/issues/12667",
+        "title": "[Bounty 80] POST /api/auth/login signs a valid token for any credentials \u2014 authentication bypass",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/x402-foundation/x402/issues/3500",
+        "title": "[Feature]: Dispute evidence for agent-initiated payments",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "need paid help with designing a secure JWT-based authentication flow for a mobile app",
+      "is:issue is:open bounty created:>=2026-09-09 implement jwt token",
+      "is:issue is:open bounty created:>=2026-09-09 anyone create jwt",
+      "looking for someone to build a custom JWT validation middleware for a Node.js API",
+      "hiring a freelancer to implement JWT token refresh logic in a real-time web app"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a custom JWT validation middleware for a Node.js API",
+      "hiring a freelancer to implement JWT token refresh logic in a real-time web app",
+      "can anyone create a JWT-based API gateway for a microservices architecture",
+      "need paid help with designing a secure JWT-based authentication flow for a mobile app"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 37,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a custom JWT validation middleware for a Node.js API",
+        "hiring a freelancer to implement JWT token refresh logic in a real-time web app",
+        "can anyone create a JWT-based API gateway for a microservices architecture",
+        "need paid help with designing a secure JWT-based authentication flow for a mobile app"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 119,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
