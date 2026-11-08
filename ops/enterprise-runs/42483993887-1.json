@@ -1,0 +1,135 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-08T13:16:18.382934+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 2,
+      "github_paid_issues": 5,
+      "duckduckgo": 7,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=46133753",
+        "title": "Tell HN: Compliance is not equal to Security",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=8209693",
+        "title": "API for secure data storage?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/diclogic/ai-daily-digest/issues/206",
+        "title": "AI Daily Digest \u2014 2026-11-08",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/DOTA2aibot/DotaMidbot/issues/7",
+        "title": "[T007] \u041b\u0430\u0439\u043d\u0438\u043d\u0433 SF: \u043a\u043e\u043c\u0431\u043e, \u0442\u0438\u043f\u044b \u043a\u0440\u0438\u043f\u043e\u0432, XP \u0438 \u0432\u044b\u0448\u043a\u0438",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/HCTDIP/corps-jobs/issues/158",
+        "title": "Railway \u8d4f\u91d1\uff1a\u6709 9 \u6761\u503c\u5f97\u62a2",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/zhangjiayang6835-cyber/bounty-plaza/issues/4114",
+        "title": "[Bounty] [STEAM VAULT] \ud83c\udfae Exchange 100,000 DOOM ($wDOOM) for a $10 Steam Digital Gift Card",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create secure API endpoint for payment processing with JWT",
+      "is:issue is:open bounty created:>=2026-09-09 build secure api",
+      "is:issue is:open bounty created:>=2026-09-09 develop secure message",
+      "is:issue is:open bounty created:>=2026-09-09 ",
+      "looking for someone to build secure API endpoint with authentication middleware",
+      "hiring a freelancer to develop secure message routes with authMiddleware for API"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build secure API endpoint with authentication middleware",
+      "hiring a freelancer to develop secure message routes with authMiddleware for API",
+      "can anyone create secure API endpoint for payment processing with JWT",
+      "looking for someone to fix unauthenticated payment creation endpoint"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 36,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build secure API endpoint with authentication middleware",
+        "hiring a freelancer to develop secure message routes with authMiddleware for API",
+        "can anyone create secure API endpoint for payment processing with JWT",
+        "looking for someone to fix unauthenticated payment creation endpoint"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
