@@ -1,0 +1,117 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-08T14:04:43.870509+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 1,
+      "github_paid_issues": 5,
+      "duckduckgo": 10
+    },
+    "source_errors": [],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=25761845",
+        "title": "Why Signal don't add option to create an account without phone number?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/I-am-Esmart/HumanLayer/issues/3",
+        "title": "Mainnet release gate: persistence smoke tests, contract verification, and Arc Mainnet configuration",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/logos-co/rfp/issues/239",
+        "title": "[PROPOSAL] RFP-021 \u2014 le-sync: Logos-Ethereum Synchronizer",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/HCTDIP/corps-jobs/issues/174",
+        "title": "Railway \u8d4f\u91d1\uff1a\u6709 1 \u6761\u503c\u5f97\u62a2",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraspell/xcm-tools/issues/2465",
+        "title": "[Bug bounty] Type-and-then transfers add the recipient existential deposit twice when paying fees in a custom asset",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/SWE-agent/SWE-agent/issues/1633",
+        "title": "Security: an optional tools/ bundle starts an unauthenticated control server on all interfaces (private details availabl",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create secure messaging API with authentication middleware",
+      "is:issue is:open bounty created:>=2026-09-09 secure api endpoint",
+      "is:issue is:open bounty created:>=2026-09-09 implement secure payment",
+      "is:issue is:open bounty created:>=2026-09-09 ",
+      "looking for someone to secure API endpoint with JWT authentication",
+      "hiring a freelancer to implement secure payment processing API"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to secure API endpoint with JWT authentication",
+      "hiring a freelancer to implement secure payment processing API",
+      "can anyone create secure messaging API with authentication middleware",
+      "need paid help with setting up secure API routes for payment gateway"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 39,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to secure API endpoint with JWT authentication",
+        "hiring a freelancer to implement secure payment processing API",
+        "can anyone create secure messaging API with authentication middleware",
+        "need paid help with setting up secure API routes for payment gateway"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
