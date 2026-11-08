@@ -1,10 +1,10 @@
 {
   "aging_active_bids_days": {
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 0.38067854019675923,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 4.451427683715277,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 4.421587521678241,
-    "mx78wzkqdghteet6beyw1567mx8hewfj": 5.700533019363426,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 4.452278355011574
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 0.380954499525463,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 4.451703643043981,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 4.421863481006944,
+    "mx78wzkqdghteet6beyw1567mx8hewfj": 5.700808978692129,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 4.4525543143402775
   },
   "browser": {
     "completed_job_count": {
@@ -80,7 +80,7 @@
   "coverage": "Observed unique bounties; historical events before instrumentation may be incomplete.",
   "cumulative": {
     "accepted": 0,
-    "asked": 5,
+    "asked": 7,
     "bids_active": 5,
     "bids_sent": 5,
     "declined": 0,
@@ -95,14 +95,14 @@
       "unsupported_multi_or_file_format": 6,
       "video_production": 9
     },
-    "retry_pending": 2,
+    "retry_pending": 0,
     "sample_excluded": 2,
     "seen": 51,
     "settled": 0,
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-08T06:16:44.494873+00:00",
+  "generated_at": "2026-11-08T06:17:08.337759+00:00",
   "median_posting_to_bid_minutes": 4705.295666666667,
   "median_posting_to_detection_minutes": 55.7233103,
   "model_budget": {
@@ -125,7 +125,7 @@
   },
   "today": {
     "accepted": 0,
-    "asked": 0,
+    "asked": 2,
     "bids_active": 0,
     "bids_sent": 0,
     "declined": 0,
@@ -133,7 +133,7 @@
     "hired": 0,
     "missing_unconfirmed": 0,
     "passed_by_reason": {},
-    "retry_pending": 2,
+    "retry_pending": 0,
     "sample_excluded": 0,
     "seen": 0,
     "settled": 0,

@@ -512,16 +512,15 @@
       "version": 1
     },
     "mx781v2nmz4asd8663ke7qbnvs8hc740": {
-      "action": "retry_evaluation",
+      "action": "asked",
       "at": "2026-11-08T06:14:43.026587+00:00",
       "evidence_failures": 1,
       "feasible_ask_review_version": 1,
-      "last_asked_review_at": "2026-11-08T06:14:13.657000+00:00",
+      "last_asked_review_at": "2026-11-08T06:17:08.090968+00:00",
       "last_declined_bid": null,
       "last_error": "proposal_samples_missing",
       "last_question_version": 1,
       "proposal_cache": "gAAAAABq8BNTHXtJSTb4GsNwaPyz-3wG0cx-IAlNxYn4xVHuc_KkSIEYf4ZFA7-kxS8VvDtCp5REwEhYIE1xQsBjP_koED0eIAaWoF9eV-wiuByezSPo0TJojcuBbY_s-gkmdk5DshZ9grC7Owp0dVY4-7jPxDTNkyGZyyPeT0XWkTFt0ZapkZUUPeMbb9bfglQ4Y_7DCg9W_kz12qsdlIDXFgmY1O7lOxyK6tuv1gYl3gMP27BmQA63cbKPO-EN47dfJJBuLrE5yBKMuKyl5q32MXC6DQERpmEHupdI0rdyBfavkVK2er__n-UYgqe_fbbx4y7MajQGX8GwDGcq0psZ5lMTLY-2OAE5-Ht8yEv1I_Tq9vCrZ_9sY3gm2tLLRNx6D4SMqjl0JcW_FwIGpYvj6KW8F86nTAnun6P0iebq5thQAbnRH84mRGdr2CzSEHt_mnvoePWpbnlZ1iY0eTWYhUrbjEoadVxrOskozki1xfG28KDMLNtdjjAbhCi_aA8yOb401pAzVNhPgzH38Fp0MdX_s3dp6ynyxyEJ6Xcivn7QNM0gJwdQ-qqkth6Dfa326E_cAKaGAJGA-txjmjSp044x6KqnrdsznzqOkni26z9ApejCZgSRWVw1FVTTEt-MXxoRciKJPFEPVwj7DT58-3ra6qo5QcrnZq6JtstTM4MfkaGLko-AKN8-OITqfa2TFz0zQqwdfueRqmWu-KNwA-uY0p7_E8UQzOQV7wpMcIizbkPepLtlAo8TnSxXFm1JBtbitFm8yxEHD9M9AZ71hmpTb7lpLuC7dWdtNr4zOcohedr7l9bhAxTQyZNO3RQQzG0FToOgrucnUuk40SvmmUpZOYMleQ06pUWJ9nr3kD-u1I-rQT9crYr0to2JkKUwqnDNkbspz7m9RDUXw97ACTBuwExnDQgnybgW91LaJhP2ok1jZIQraVKGI5jSG6rZ6jA3RW31",
-      "retry_at": "2026-11-08T06:15:43.026572+00:00",
       "retry_count": 1,
       "version": 1
     },
@@ -680,12 +679,12 @@
       "version": 1
     },
     "mx7dartnjzsphksgveek0qxs2h8hkcfn": {
-      "action": "retry_search",
+      "action": "asked",
       "at": "2026-11-08T06:14:13.361709+00:00",
       "feasible_ask_review_version": 1,
+      "last_asked_review_at": "2026-11-08T06:17:07.637208+00:00",
       "last_declined_bid": null,
       "last_question_version": 1,
-      "retry_at": "2026-11-08T06:15:13.361730+00:00",
       "retry_count": 1,
       "version": 1
     },
@@ -2667,10 +2666,9 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo0MiwiY2hlY2twb2ludEF0IjoxNzk0MTE1MzE5NjM3fQ",
-  "handled_event_ids": [],
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo0MiwiY2hlY2twb2ludEF0IjoxNzk0MTE4NjI3MzAzfQ",
   "last_bid_reconciliation": "2026-11-08T06:13:54.601479+00:00",
-  "last_check": "2026-11-08T06:16:00.346866+00:00",
+  "last_check": "2026-11-08T06:17:08.334810+00:00",
   "recent_outcomes": [
     {
       "action": "evaluation_budget_wait",
