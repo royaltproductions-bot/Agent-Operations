@@ -1,0 +1,165 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-08T15:18:20.978837+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 10,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 10
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "bing": 2,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 9,
+    "verified_firsthand_problem_pages": 1,
+    "observed_public_paid_offers": 1,
+    "market_candidates_considered": 1,
+    "public_sources_available_for_judgment": 9,
+    "public_market_sample": [
+      {
+        "url": "https://stockanalysis.com/",
+        "title": "StockAnalysis.com - Free Online Stock Information for Investors",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47195785",
+        "title": "Seeking Advice on Improving OCR for Watermarked PDFs in My RAG Pipeline",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=50185265",
+        "title": "macOS 27 has a built-in, offline LLM you can call from Terminal",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=48605896",
+        "title": "Forked CozoDB to give agents cognitive primitives",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47885689",
+        "title": "Tremendous Iranian Invasion: A Text Misadventure",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://pdf4.dev/blog/complete-guide-pdf-conversion",
+        "title": "complete guide to PDF conversion",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://stockanalysis.com/",
+        "title": "StockAnalysis.com - Free Online Stock Information for Investors",
+        "displayed_sales_count": null,
+        "listed_price_usd": "182.70"
+      }
+    ],
+    "candidates_without_email": 9,
+    "search_queries": [
+      "ocr document text extraction with table recognition tool",
+      "stock price chart generator for top 100 stocks",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 10,
+      "skipped_revisits": 50,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "convert excel to pdf automatically without manual steps",
+        "ocr document text extraction with table recognition tool",
+        "stock price chart generator for top 100 stocks",
+        "automate financial report formatting from csv to pdf"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:9de42502d3adc174db21:missing_module:fitz",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 3,
+    "product_pages": 3,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:9de42502d3adc174db21:missing_module:fitz"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "e46509dbb213a33c25fd",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 3,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 9,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
