@@ -1,0 +1,181 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-08T22:18:24.519367+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 7,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 7
+    },
+    "search_provider_counts": {
+      "hn_ask": 2,
+      "bing": 1,
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 7,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 7,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=45556057",
+        "title": "Docx-Handlebars: Process Docx Files with Handlebars Templates in Rust/WASM",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47495510",
+        "title": "Ask HN: Is using AI tooling for a PhD literature review dishonest?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.sejda.com/merge-pdf",
+        "title": "Merge PDF Files Online - Sejda",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.pdffiller.com/en/functionality/add-watermark-to-pdf-and-convert-pdf-to-word-for-mac.htm",
+        "title": "Add Watermark to PDF and Convert PDF to Word for Mac",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://tinypdf.org/pdf-to-txt-per-page-zip",
+        "title": "PDF pages to text files",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://pdf4.dev/blog/how-to-convert-pdf-to-csv",
+        "title": "how to convert PDF to CSV",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 7,
+    "search_queries": [
+      "merge multiple word documents into one online free",
+      "combine pdf files without software",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 65,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "merge multiple word documents into one online free",
+        "convert csv to pdf without uploading files",
+        "pdf to jpg converter online no registration",
+        "combine pdf files without software"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:7 candidates reviewed; th a specific audience. However, there is no clear evidence of demand or buyer activity beyond the blog post. The existing competition and lack of sales data make it dif"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 3,
+    "product_pages": 3,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "public_page_fetch",
+          "reason": "HTTPError"
+        }
+      ]
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "e46509dbb213a33c25fd",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:cc8a69c821da737393",
+      "decision": "pass",
+      "reason": "The candidate presents a technical innovation in processing DOCX files with Handlebars templates in Rust/WASM, but there is no evidence of demand or sales. The use case is niche and requires specific technical expertise. Without clear buyer utility or market validation, the product lacks a strong commercial foundation."
+    },
+    {
+      "candidate_id": "web:ceefd7e1d3498ad56c",
+      "decision": "pass",
+      "reason": "The candidate presents a specific use case for an AI tool in a PhD literature review, but there is no clear evidence of demand or buyer utility beyond the individual's need. The described product is highly specialized and may not have a broad market. Additionally, there is no indication of a viable business model or existing sales, making it diffic"
+    },
+    {
+      "candidate_id": "web:8033965021b7b87589",
+      "decision": "pass",
+      "reason": "The candidate lacks clear evidence of demand or sales, and the service appears to be in a highly competitive space with limited differentiation. The free tier has strict limitations, and the service is not clearly positioned as a unique or superior alternative to existing tools."
+    },
+    {
+      "candidate_id": "web:f9240b16885efcc73c",
+      "decision": "pass",
+      "reason": "The candidate lacks clear evidence of demand or sales, and the page appears to be a marketing page for a service rather than a product. There is no indication of a specific customer problem being solved or a unique value proposition. The absence of pricing and sales data makes it difficult to assess viability."
+    },
+    {
+      "candidate_id": "web:fe452bd85ff209c8f3",
+      "decision": "pass",
+      "reason": "The candidate offers a specific, useful tool for converting PDF pages to text files, but there is no evidence of demand or sales to justify building a similar product. The market for PDF conversion tools is already well-served by existing solutions, and without clear evidence of a unique need or unmet demand, the opportunity is not compelling."
+    },
+    {
+      "candidate_id": "web:cf722355d547519f65",
+      "decision": "pass",
+      "reason": "The content discusses converting PDF to CSV, which is a technical task with a specific audience. However, there is no clear evidence of demand or buyer activity beyond the blog post. The existing competition and lack of sales data make it difficult to justify pursuing this as a viable product without further validation."
+    },
+    {
+      "candidate_id": "web:043b3bfbf03f053921",
+      "decision": "pass",
+      "reason": "The candidate lacks a clear, specific customer problem or demand. While the technical capability to convert PDF to Word in Python is discussed, there is no evidence of a real-world use case or buyer utility. Additionally, the absence of pricing, sales data, or competitive positioning makes it difficult to justify building a differentiated product i"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 3,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 7,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
