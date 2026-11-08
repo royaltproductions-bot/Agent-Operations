@@ -1,0 +1,113 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-08T05:14:03.036074+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 7,
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 14,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/kylebrooks86/first-in-response-website/issues/189",
+        "title": "FIRE App \u2014 full visual consistency & icon/color priority audit (all screens/devices)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/4135",
+        "title": "[soundness] hy-check(buildable): curated strconv package functions bypass call arity validation and package constants/er",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/freedom-winds/BountyScout/issues/1392",
+        "title": "\ud83c\udfaf Bounty Alert: 7 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Emaren/app-prodn/issues/1237",
+        "title": "P1 HOLD: private pending WOLO gifts and notes must not appear in public player/staking views",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tari-project/special_contributions/issues/507",
+        "title": "Contribution: fix(storage): require Input pledge in SubstatePledge::satisfies_requirement (tari-project/tari-ootle#3466)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://emaillistvalidation.com/blog/how-to-validate-email-lists-cheaply-for-event-marketing/",
+        "title": "Validate Email Lists Cheaply for Event Marketing | Email Lis",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-09 build email verification",
+      "is:issue is:open bounty created:>=2026-09-09 ",
+      "need paid help with setting up email validation for event registration campaigns",
+      "looking for someone to build email verification system for legal document distribution"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build email verification system for legal document distribution",
+      "need paid help with setting up email validation for event registration campaigns",
+      "looking for someone to build email verification tool for legal document distribution to clients"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 44,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build email verification system for legal document distribution",
+        "need paid help with setting up email validation for event registration campaigns",
+        "looking for someone to build email verification tool for legal document distribution to clients"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
