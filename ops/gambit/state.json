@@ -338,7 +338,8 @@
     },
     "event_ids": [
       "ph783hbaeqx6mqaxkz6c1n1xcx8hpn3h",
-      "ph71b7rvtf2ac86vmfxd7fqaa58hvr6x"
+      "ph71b7rvtf2ac86vmfxd7fqaa58hvr6x",
+      "ph7bk4t4vajgyw2fqsnd6pd0qs8hvztk"
     ],
     "event_types": {
       "bounty.available": {
@@ -351,6 +352,17 @@
         ],
         "first_seen": "2026-11-08T20:41:15.070418+00:00",
         "last_seen": "2026-11-08T20:41:15.070418+00:00"
+      },
+      "bounty.claimed": {
+        "count": 1,
+        "data_keys": [
+          "agent_id",
+          "bounty_id",
+          "bounty_version",
+          "claim_id"
+        ],
+        "first_seen": "2026-11-08T20:44:12.972222+00:00",
+        "last_seen": "2026-11-08T20:44:12.972222+00:00"
       },
       "work.message.created": {
         "count": 1,
@@ -884,7 +896,8 @@
     },
     "mx7499d0ywjp4ay4ddyf1t4rbx8ht3y6": {
       "first_detected_at": "2026-11-08T20:41:11.703318+00:00",
-      "last_known_status": "open",
+      "first_unlisted_at": "2026-11-08T20:44:13.411531+00:00",
+      "last_known_status": "not_in_open_list",
       "last_seen_open_at": "2026-11-08T20:41:11.703321+00:00",
       "version": 1,
       "versions": {
