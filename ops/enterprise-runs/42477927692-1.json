@@ -1,0 +1,132 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-08T12:00:08.579226+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "duckduckgo": 7,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "TimeoutError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "TimeoutError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=45719426",
+        "title": "Challenge: An asymmetric key system that does everything",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45209615",
+        "title": "When Startups Ask for Free Security Work",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=40620290",
+        "title": "Ask HN: Good Facebook Classic clone (FOSS)?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=39409490",
+        "title": "Ask HN: Which approach is better to validate an idea?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=30797469",
+        "title": "Hacking Amazon Algo in Latam",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=4561206",
+        "title": "Ask HN: I am shutting down. And starting up, again? What do you think?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create secure message routes with authMiddleware for API",
+      "need paid help with adding authentication to POST /api/payments endpoint",
+      "looking for someone to develop secure API endpoint with authentication middleware",
+      "hiring a freelancer to fix unauthenticated payment creation endpoint"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to develop secure API endpoint with authentication middleware",
+      "hiring a freelancer to fix unauthenticated payment creation endpoint",
+      "can anyone create secure message routes with authMiddleware for API",
+      "need paid help with adding authentication to POST /api/payments endpoint"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 7,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to develop secure API endpoint with authentication middleware",
+        "hiring a freelancer to fix unauthenticated payment creation endpoint",
+        "can anyone create secure message routes with authMiddleware for API",
+        "need paid help with adding authentication to POST /api/payments endpoint"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
