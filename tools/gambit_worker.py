@@ -1729,7 +1729,18 @@ def handle_open(item, state):
         last_id = (key("prebid-owner-message", bounty_id, buyer_message_id(latest))
                    if latest else None)
         migrate_ask = previous.get("feasible_ask_review_version") != version
-        if (not latest or last_id == previous.get("last_owner_reply_id")) and not migrate_ask:
+        # A stale unanswered question must receive one genuine feasibility
+        # reassessment, not an endless periodic re-mark as "asked".
+        stale_ask = False
+        if not latest or last_id == previous.get("last_owner_reply_id"):
+            try:
+                asked_at = datetime.fromisoformat(previous.get("at") or "")
+                stale_ask = (asked_at.tzinfo is not None and
+                             datetime.now(timezone.utc) - asked_at >= timedelta(hours=24) and
+                             previous.get("stale_ask_review_version") != version)
+            except (TypeError, ValueError):
+                pass
+        if (not latest or last_id == previous.get("last_owner_reply_id")) and not (migrate_ask or stale_ask):
             previous["action"] = "asked"
             previous.pop("retry_at", None)
             # Keep the original question pending. A periodic reconciliation
@@ -1790,6 +1801,8 @@ def handle_open(item, state):
         decision = assess(details, messages, sources, len(unreadable))
     if prebid_asked:
         previous["feasible_ask_review_version"] = version
+        if stale_ask:
+            previous["stale_ask_review_version"] = version
     action = decision["decision"]
     if action == "ask" and decision.get("feasible") is True and current.get("flow") == "bid" and not unreadable:
         if decision.get("note") and decision.get("payout_cents"):
@@ -1811,9 +1824,16 @@ def handle_open(item, state):
             previous["last_owner_reply_id"] = new_owner_statement_id
         # The buyer already received a question for this exact brief version.
         # Never repeat, paraphrase, or silently replace it with another ask.
-        previous["action"] = "asked"
+        if stale_ask:
+            # A second qualification question is not an offer. Record a
+            # truthful non-bid outcome rather than faking a commercial bid.
+            previous["action"] = "pass_scope_unconfirmed"
+            previous["reason"] = "scope_unconfirmed_after_clarification"
+            note(state, "stale_ask_passed", bounty_id, reason=previous["reason"])
+        else:
+            previous["action"] = "asked"
+            note(state, "duplicate_clarification_suppressed", bounty_id)
         state["bounties"][bounty_id] = previous
-        note(state, "duplicate_clarification_suppressed", bounty_id)
         return
     if action == "ask" and current.get("flow") in {"bid", "claim"}:
         question = str(decision.get("question") or "").strip()[:3000]
