@@ -1,0 +1,121 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-08T17:54:01.745459+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "github_paid_issues": 5,
+      "duckduckgo": 4,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=50333045",
+        "title": "Pepperwind, a fictional company dataset with 223 tables and 79M rows",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=29867230",
+        "title": "Tell HN: The disparity between employees and international contractors",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=26515330",
+        "title": "How can I get the career direction I need?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=6560188",
+        "title": "[ask HN] Partnership with Designer/Front End Engineer on Paid Projects",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=4168658",
+        "title": "How to Upgrade Your Early Adopters (and make them happy to pay)",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=2696745",
+        "title": "Ask HN: Should I sell my side project?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "need paid help with developing JWT authentication for mobile app backend",
+      "is:issue is:open bounty created:>=2026-09-09 setting jwt claims",
+      "need paid help with setting up JWT claims validation system for backend",
+      "looking for someone to build secure API with JWT and custom claims"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build secure API with JWT and custom claims",
+      "need paid help with setting up JWT claims validation system for backend",
+      "hiring a freelancer to implement JWT custom claims in backend system",
+      "need paid help with developing JWT authentication for mobile app backend"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 32,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build secure API with JWT and custom claims",
+        "need paid help with setting up JWT claims validation system for backend",
+        "hiring a freelancer to implement JWT custom claims in backend system",
+        "need paid help with developing JWT authentication for mobile app backend"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 119,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
