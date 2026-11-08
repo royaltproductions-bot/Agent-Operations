@@ -2177,5 +2177,23 @@ class GambitTests(unittest.TestCase):
 
 
 
+    def test_buyer_reply_budget_guard_uses_safe_acknowledgment_without_model_spend(self):
+        from unittest.mock import patch
+        message = {"author_type": "user", "_id": "buyer1",
+                   "content": {"type": "text", "text": "Can you confirm the timing?"}}
+        with patch.object(gambit, "infer", side_effect=RuntimeError("openai_daily_pace_exceeded")):
+            result = gambit.respond_to_buyer({"bounty": {"title": "Research"}}, [message])
+        self.assertIn("received", result["reply_text"])
+        self.assertNotIn("shortly", result["reply_text"])
+
+    def test_buyer_reply_nonbudget_failure_is_not_masked(self):
+        from unittest.mock import patch
+        message = {"author_type": "user", "_id": "buyer1",
+                   "content": {"type": "text", "text": "What is the timeline?"}}
+        with patch.object(gambit, "infer", side_effect=RuntimeError("openai_http_500")):
+            with self.assertRaisesRegex(RuntimeError, "openai_http_500"):
+                gambit.respond_to_buyer({"bounty": {"title": "Research"}}, [message])
+
+
 if __name__ == '__main__':
     unittest.main()
