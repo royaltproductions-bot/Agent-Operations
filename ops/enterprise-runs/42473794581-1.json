@@ -1,0 +1,120 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-08T11:12:11.091670+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 5,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "duckduckgo",
+        "reason": "URLError",
+        "http_code": null
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "open_web_search",
+        "provider": "duckduckgo",
+        "reason": "URLError",
+        "http_code": null
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 5,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/tari-project/special_contributions/issues/515",
+        "title": "Contribution: fix(walletd): refuse granting signing_requests:approve to API keys (tari-project/tari-ootle#3545)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tari-project/special_contributions/issues/514",
+        "title": "Security report: tari-ootle tari_walletd allows minting API keys with SigningRequests(Approve) and omits account-scope a",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/SecureBananaLabs/bug-bounty/issues/13921",
+        "title": "fix(api): require authMiddleware on message routes (reissue via #743)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tari-project/special_contributions/issues/513",
+        "title": "Contribution: feat(validator_node)!: derive node identity from seed phrase (#601) (tari-project/tari-ootle#3386)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/SecureBananaLabs/bug-bounty/issues/13919",
+        "title": "POST /api/payments endpoint missing authentication middleware (reissue via #743)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-09 "
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build email validation tool for nonprofit donor outreach campaigns",
+      "hiring a freelancer to develop email validation for legal document distribution to clients"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 31,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build email validation tool for nonprofit donor outreach campaigns",
+        "hiring a freelancer to develop email validation for legal document distribution to clients"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
