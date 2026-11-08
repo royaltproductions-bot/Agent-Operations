@@ -1,0 +1,107 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-08T06:08:21.929728+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 3,
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 12,
+    "candidates_without_email": 8,
+    "contactable_sources": 4,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/LiamBMX/joshymc-plugin/issues/1429",
+        "title": "Implement Lifesteal Player Profiles, Statistics, Achievements, and Leaderboards",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Alex-Sebastian-Ene/mind-over-chicken/issues/261",
+        "title": "[Input] Remove all hand-gesture spell casts and god-power spells; keep pinch grab/move and two-hand zoom",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/LiamBMX/joshymc-plugin/issues/1427",
+        "title": "Implement Lifesteal Protected Banking, PvP Coin Stealing, and Secure Bank Management",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/LiamBMX/joshymc-plugin/issues/1426",
+        "title": "Implement Lifesteal Team Upgrades, Shared Progression, and Team Rewards",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/4145",
+        "title": "[soundness] hy-check(buildable): curated os package functions bypass call arity validation and package types/variables/c",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://hivebrite.io/alumni-management-software/",
+        "title": "Alumni Network Management & Community Engagement Software - Hivebrite",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-09 ",
+      "looking for someone to build email verification system for educational institution alumni engagement"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build email verification system for educational institution alumni engagement"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 20,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build email verification system for educational institution alumni engagement"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
