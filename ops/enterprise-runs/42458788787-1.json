@@ -1,0 +1,129 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-08T07:28:04.079300+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 7,
+      "bing": 1,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/paraspell/xcm-tools/issues/2459",
+        "title": "[Bug bounty] Pool eviction destroys in-use client cache entries (refs > 0) on overflow",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/relayhop/sn-monetization-runtime/issues/1358",
+        "title": "[radar] SN open bounty 2026-11-08T07:12",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://github.com/dmavs412/twilights-eve-wow/issues/625",
+        "title": "The Unsent Letter: page four and Morganth's letter reach Toren (#595)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/dmavs412/twilights-eve-wow/issues/624",
+        "title": "Stonewatch Keep's quests: Gath'Ilzogg's war chest and page three (#595)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/dmavs412/twilights-eve-wow/issues/623",
+        "title": "Raven Hill Deeps' quests: the deacon, the crowned orders and page two (#595)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://gracker.ai/blog/email-validation-tools-b2b-leads",
+        "title": "Top 7 Email Validation Tools for B2B Lead Generation",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-09 ",
+      "can anyone create email verification system for B2B lead generation with real-time checks",
+      "can anyone create email verification tool for B2B lead generation with real-time checks",
+      "hiring a freelancer to develop email validation for nonprofit donor outreach campaigns"
+    ],
+    "attempted_search_queries": [
+      "can anyone create email verification system for B2B lead generation with real-time checks",
+      "hiring a freelancer to develop email validation for nonprofit donor outreach campaigns",
+      "need paid help with setting up email validation for legal document distribution to clients",
+      "can anyone create email verification tool for B2B lead generation with real-time checks"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 53,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "can anyone create email verification system for B2B lead generation with real-time checks",
+        "hiring a freelancer to develop email validation for nonprofit donor outreach campaigns",
+        "need paid help with setting up email validation for legal document distribution to clients",
+        "can anyone create email verification tool for B2B lead generation with real-time checks"
+      ],
+      "next_query_queue": 1,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
