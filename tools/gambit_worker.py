@@ -1596,7 +1596,16 @@ def respond_to_buyer(details, messages):
                                 "integrity_answer", "restricted_answer",
                                 "out_of_scope")}
     context["unreadable_attachment_count"] = len(unreadable)
-    result = infer(REPLY_SCHEMA, system, context, num_predict=500, fast=True)
+    try:
+        result = infer(REPLY_SCHEMA, system, context, num_predict=500, fast=True)
+    except RuntimeError as exc:
+        if str(exc) not in {"openai_daily_pace_exceeded", "openai_monthly_budget_exhausted"}:
+            raise
+        # Acknowledgment only: do not invent a deliverable, timeline, or answer.
+        result = {"reply_text": (
+            "Thanks for your message. I've received it and am reviewing the "
+            "details. I'll follow up when I can verify the answer."
+        )}
     gambit_agent_card.check_outbound_text(str(result.get("reply_text") or ""))
     return result
 
@@ -1685,6 +1694,7 @@ def handle_open(item, state):
                             "content": {"type": "text", "text": reply[:3000]},
                             "idempotency_key": key("buyer-reply", bounty_id, current_reply_id)})
                         note(state, "agent_replied_to_buyer", bounty_id)
+                        state.setdefault("commercial", {}).setdefault(bounty_id, {})["last_outgoing_at"] = timestamp()
                     last_reply_id = current_reply_id
         entry = {**previous, "version": version, "action": "bid_active",
                  "last_declined_bid": declined_token,
@@ -1734,6 +1744,7 @@ def handle_open(item, state):
                 "POST", {"content": {"type": "text", "text": reply[:3000]},
                          "idempotency_key": key("prebid-buyer-reply", bounty_id, last_id)})
             previous["last_owner_reply_id"] = last_id
+            state.setdefault("commercial", {}).setdefault(bounty_id, {})["last_outgoing_at"] = timestamp()
             previous["feasible_ask_review_version"] = version
             previous["action"] = "asked"
             previous.pop("retry_at", None)
