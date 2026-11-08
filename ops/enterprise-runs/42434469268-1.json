@@ -1,0 +1,127 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-08T01:31:17.791546+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 8,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "TimeoutError"
+      }
+    ],
+    "fetched_public_pages": 15,
+    "candidates_without_email": 13,
+    "contactable_sources": 3,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/tenstorrent/tt-metal/issues/64834",
+        "title": "[Bug Report] ttnn.pad: silent data corruption and 2-byte stack over-read in PadRmShardedWidthOnlyProgramFactory",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/xeprotocol/xe/issues/299",
+        "title": "DAO member resolution with list or dict matter crashes propose with unhandled 500",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/xeprotocol/xe/issues/298",
+        "title": "A keyset rotation permanently bricks any signing session whose approvers it removes",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ZcashCommunityGrants/zcashcommunitygrants/issues/544",
+        "title": "Grant Application - Mock lightwalletd for Zcash wallet testing",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/xeprotocol/xe/issues/297",
+        "title": "Lying node advertises chat_pow_difficulty \"0\" and silently disables the DAO's inbound PoW gates",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.mailercloud.com/blog/best-email-verification-services",
+        "title": "9 Best Email Verification Services in 2026 (Compared)",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-09 ",
+      "need paid help with setting up email verification for event registration campaigns",
+      "looking for someone to build email validation tool for nonprofit donor outreach"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build email validation tool for nonprofit donor outreach",
+      "need paid help with setting up email verification for event registration campaigns",
+      "can anyone create email verification system for academic institution alumni engagement",
+      "hiring a freelancer to develop email validation for B2B lead generation campaigns"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 58,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build email validation tool for nonprofit donor outreach",
+        "need paid help with setting up email verification for event registration campaigns",
+        "can anyone create email verification system for academic institution alumni engagement",
+        "hiring a freelancer to develop email validation for B2B lead generation campaigns"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
