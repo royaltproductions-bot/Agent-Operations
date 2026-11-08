@@ -1,0 +1,138 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-08T20:58:15.148308+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 13,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "bing": 1,
+      "duckduckgo": 3,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "candidates_without_email": 13,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/ahmedfuzayl-gif/commit-monitor/issues/136",
+        "title": "commit-monitor: new leads 2026-10-13_0109Z",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/BasedHardware/omi/issues/20939",
+        "title": "Sign every outbound webhook (`X-Omi-Signature`) so developers can verify it came from Omi, instead of trusting `uid`",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/MyZubster-Ecosystem/myzubster/issues/1474",
+        "title": "Contributor update: independent Docker nodes + comics/NFT provenance path",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Rohank143/BountyScout/issues/82",
+        "title": "\ud83c\udfaf Bounty Alert: 13 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/VlcekM/MeitouClient/issues/423",
+        "title": "Feedback: RE: Prison Hunger",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.merriam-webster.com/thesaurus/need",
+        "title": "NEED Synonyms: 184 Similar and Opposite Words - Merriam-Webster",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-09 setup jwt token",
+      "is:issue is:open bounty created:>=2026-09-09 ",
+      "need paid help with configuring JWT claims validation in a REST API endpoint",
+      "looking for someone to setup JWT token validation for a custom backend service",
+      "hiring a freelancer to implement secure JWT authentication in a mobile app backend"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to setup JWT token validation for a custom backend service",
+      "hiring a freelancer to implement secure JWT authentication in a mobile app backend",
+      "need paid help with configuring JWT claims validation in a REST API endpoint",
+      "can anyone create a JWT-based authentication flow for a new SaaS backend"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 27,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to setup JWT token validation for a custom backend service",
+        "hiring a freelancer to implement secure JWT authentication in a mobile app backend",
+        "need paid help with configuring JWT claims validation in a REST API endpoint",
+        "can anyone create a JWT-based authentication flow for a new SaaS backend"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
