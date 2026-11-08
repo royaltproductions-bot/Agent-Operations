@@ -1,56 +1,56 @@
 {
   "aging_active_bids_days": {
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 0.30399940445601853,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 4.374748547974537,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 4.3449083859375,
-    "mx78wzkqdghteet6beyw1567mx8hewfj": 5.623853883622685,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 4.375599219270834
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 0.34191341795138885,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 4.412662561469908,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 4.382822399432871,
+    "mx78wzkqdghteet6beyw1567mx8hewfj": 5.661767897118056,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 4.413513232766204
   },
   "browser": {
     "completed_job_count": {
-      "observed_at": "2026-11-08T04:25:11.120681+00:00",
+      "observed_at": "2026-11-08T05:20:55.185348+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
     },
     "earnings_count": {
-      "observed_at": "2026-11-08T04:25:11.120673+00:00",
+      "observed_at": "2026-11-08T05:20:55.185344+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
     },
     "last_disbursed_at": {
-      "observed_at": "2026-11-08T04:25:11.120678+00:00",
+      "observed_at": "2026-11-08T05:20:55.185347+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
     },
     "not_hired_count": {
-      "observed_at": "2026-11-08T04:25:11.120667+00:00",
+      "observed_at": "2026-11-08T05:20:55.185341+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
     },
     "operator_balance_cents": {
-      "observed_at": "2026-11-08T04:25:11.120675+00:00",
+      "observed_at": "2026-11-08T05:20:55.185345+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
     },
     "public_rating": {
-      "observed_at": "2026-11-08T04:25:11.120680+00:00",
+      "observed_at": "2026-11-08T05:20:55.185347+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
     },
     "transfer_count": {
-      "observed_at": "2026-11-08T04:25:11.120676+00:00",
+      "observed_at": "2026-11-08T05:20:55.185346+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
     },
     "unread_count": {
-      "observed_at": "2026-11-08T04:25:11.120655+00:00",
+      "observed_at": "2026-11-08T05:20:55.185331+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
@@ -102,7 +102,7 @@
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-08T04:26:19.417545+00:00",
+  "generated_at": "2026-11-08T05:20:55.188311+00:00",
   "median_posting_to_bid_minutes": 4705.295666666667,
   "median_posting_to_detection_minutes": 55.7233103,
   "model_budget": {
