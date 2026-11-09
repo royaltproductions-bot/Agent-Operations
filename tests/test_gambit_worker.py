@@ -156,7 +156,7 @@ class GambitTests(unittest.TestCase):
     def test_pass_decision_keeps_recheck_for_missed_opportunities(self):
         details = {"bounty": {"_id": "b-new", "version": 1, "status": "open",
                               "title": "Write short report", "description": "Plain report",
-                              "flow": "bid"}}
+                              "budget_cents": 2500, "flow": "bid"}}
         plan = {"requires_web": False, "queries": []}
         negative = {"decision": "pass", "reason": "Hard"}
         reconsidered = {"decision": "bid", "payout_cents": 2000, "note": "Report"}
