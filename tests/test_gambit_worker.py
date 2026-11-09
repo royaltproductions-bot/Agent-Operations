@@ -168,6 +168,30 @@ class GambitTests(unittest.TestCase):
         repeated.assert_called_once()
 
 
+    def test_small_pass_uses_one_decision_without_second_opinion(self):
+        details = {"bounty": {"_id": "small", "version": 1, "status": "open",
+                              "budget_cents": 500, "title": "Short report",
+                              "description": "Summarize public data", "flow": "bid"}}
+        plan = {"requires_web": False, "queries": []}
+        negative = {"decision": "pass", "reason": "No verified source"}
+        with patch.object(gambit, "infer", side_effect=[plan, negative]) as inference, \
+             patch.object(gambit, "cross_check_decision") as repeated:
+            result = gambit.assess(details)
+        self.assertEqual(result["decision"], "pass")
+        self.assertEqual(inference.call_count, 2)  # free research plan + one decision
+        repeated.assert_not_called()
+
+    def test_25_dollar_pass_retains_second_opinion(self):
+        details = {"bounty": {"_id": "medium", "version": 1, "status": "open",
+                              "budget_cents": 2500, "title": "Short report",
+                              "description": "Summarize public data", "flow": "bid"}}
+        plan = {"requires_web": False, "queries": []}
+        negative = {"decision": "pass", "reason": "No verified source"}
+        with patch.object(gambit, "infer", side_effect=[plan, negative]), \
+             patch.object(gambit, "cross_check_decision", return_value=negative) as repeated:
+            gambit.assess(details)
+        repeated.assert_called_once()
+
     def test_three_way_conflict_queues_a_new_evaluation(self):
         proposal = {'decision': 'bid', 'payout_cents': 1500}
         challenger = {'decision': 'pass'}
