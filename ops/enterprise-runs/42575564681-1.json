@@ -1,0 +1,124 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-09T06:52:07.419124+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 1,
+      "github_paid_issues": 5,
+      "duckduckgo": 7,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=46244742",
+        "title": "Ask HN: Anyone else doing login-free trials with localStorage tokens?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/SecureBananaLabs/bug-bounty/issues/12405",
+        "title": "[Bounty $780] POST /api/auth/login signs a valid token for any credentials \u2014 authentication bypass",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/telegraphprotocol/bounties/issues/182",
+        "title": "[Miner] PURCHASE_ORDER_VERIFY, INVOICE_LEDGER_RECONCILE, VENDOR_VERIFY, DOCUMENT_AUTHENTICITY: rejected schema fields, f",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/farzinfarahi30-star/Leadpilot-ai/issues/16",
+        "title": "NOVA paid-task candidate | TaskMarket | TSK-836Z6Q65",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/biafra23/punicus/issues/282",
+        "title": "WalletBeat: submit Punicus's wallet data file, every feature filled and referenced",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tari-project/special_contributions/issues/540",
+        "title": "Contribution: fix(wallet_sdk): remove stale destination SQLite sidecars and fix API error handling (tari-project/tari-oo",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create a JWT token refresh system for a .NET 8 API",
+      "is:issue is:open bounty created:>=2026-09-10 anyone create jwt",
+      "is:issue is:open bounty created:>=2026-09-10 ",
+      "looking for someone to develop a secure JWT-based authentication flow for a mobile app",
+      "looking for someone to implement JWT token refresh in a real-time web app"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to implement JWT token refresh in a real-time web app",
+      "looking for someone to develop a secure JWT-based authentication flow for a mobile app",
+      "can anyone create a JWT token refresh system for a .NET 8 API"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 31,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to implement JWT token refresh in a real-time web app",
+        "looking for someone to develop a secure JWT-based authentication flow for a mobile app",
+        "can anyone create a JWT token refresh system for a .NET 8 API"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
