@@ -872,7 +872,7 @@
       "action": "budget_wait",
       "at": "2026-11-09T17:43:31.718848+00:00",
       "last_error": "openai_daily_pace_exceeded",
-      "retry_at": "2026-11-10T17:44:05.157688+00:00",
+      "retry_at": "2026-11-10T17:44:35.384849+00:00",
       "version": 1
     },
     "mx7f8tqb7r75rmrp9hacmt52tn8hm0sn": {
@@ -2903,14 +2903,8 @@
     "ph7f0p8zfxk1m3j37gr1s5t4x18hwx2j"
   ],
   "last_bid_reconciliation": "2026-11-09T17:43:39.461199+00:00",
-  "last_check": "2026-11-09T17:44:06.716019+00:00",
+  "last_check": "2026-11-09T17:44:35.390488+00:00",
   "recent_outcomes": [
-    {
-      "action": "evaluation_budget_wait",
-      "at": "2026-11-07T19:08:27.573444+00:00",
-      "bounty_id": "mx77kbrqz5859r74m1w2rd4mx98hkxf1",
-      "reason": "openai_daily_pace_exceeded"
-    },
     {
       "action": "evaluation_budget_wait",
       "at": "2026-11-07T19:08:57.571243+00:00",
@@ -3268,6 +3262,12 @@
       "action": "evaluation_budget_wait",
       "at": "2026-11-09T17:44:06.710742+00:00",
       "bounty_id": "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd",
+      "reason": "openai_daily_pace_exceeded"
+    },
+    {
+      "action": "evaluation_budget_wait",
+      "at": "2026-11-09T17:44:35.384919+00:00",
+      "bounty_id": "mx7f3d5mtppbym4yn59zmgzzw58hw11v",
       "reason": "openai_daily_pace_exceeded"
     }
   ],
