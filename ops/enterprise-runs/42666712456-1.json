@@ -1,0 +1,116 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-09T17:41:57.785841+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 11,
+    "source_counts": {
+      "open_web": 11
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 2,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 11,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/andrewsiah/agentswarm-examples/issues/9",
+        "title": "Add a Korean README for agentswarm-examples",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/andrewsiah/agentswarm-work-skill/issues/6",
+        "title": "[$1 bounty via Gitpay] Add a Korean README for agentswarm-work-skill",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/andrewsiah/agentswarm-remote/issues/6",
+        "title": "Add a Korean README for agentswarm-remote",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/andrewsiah/agentswarm-remote/issues/5",
+        "title": "[$2 bounty via Gitpay] Add a Japanese README for agentswarm-remote",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ecarlste/x4-swi-bounty-hunter/issues/82",
+        "title": "Contact introductions: every way to meet a contact",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.c-sharpcorner.com/article/refresh-token-implementation-in-asp-net-core",
+        "title": "Refresh Token Implementation in ASP.NET Core - C# Corner",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-10 ",
+      "looking for someone to implement JWT refresh token logic in a real-time web app"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to implement JWT refresh token logic in a real-time web app"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 11,
+      "skipped_revisits": 16,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to implement JWT refresh token logic in a real-time web app"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 113,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
