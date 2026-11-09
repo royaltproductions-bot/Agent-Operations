@@ -1,0 +1,175 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-09T10:24:31.910715+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 15,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "duckduckgo": 12,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "verified_firsthand_problem_pages": 8,
+    "observed_public_paid_offers": 1,
+    "market_candidates_considered": 1,
+    "public_sources_available_for_judgment": 13,
+    "public_market_sample": [
+      {
+        "url": "https://zenocr.com/",
+        "title": "ZenOCR: OCR app for Mac. Screenshot & PDF to text",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://smallpdf.com/word-to-pdf",
+        "title": "Free Word to PDF Converter: Convert DOC or DOCX to PDF",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://pdf.wondershare.com/pdf-editor-mac/how-to-convert-pdf-to-text-on-mac.html",
+        "title": "How to Convert PDF to Text on Mac (macOS 11 Included)",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://tinypdfs.com/tools/wordtopdf",
+        "title": "Word to PDF \u2014 Free Online Converter | TinyPDFs",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://tools.pdf24.org/en/word-to-pdf",
+        "title": "Word to PDF converter - 100% free & online - PDF24",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://tools.pdf24.org/en/pdf-converter",
+        "title": "PDF Converter - 100% free & online - PDF24",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://zenocr.com/",
+        "title": "ZenOCR: OCR app for Mac. Screenshot & PDF to text",
+        "displayed_sales_count": null,
+        "listed_price_usd": "9.99"
+      }
+    ],
+    "candidates_without_email": 14,
+    "search_queries": [
+      "pdf to text converter for mac download",
+      "convert word to pdf online free no registration",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 15,
+      "skipped_revisits": 45,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "pdf to text converter for mac download",
+        "convert word to pdf online free no registration",
+        "image to pdf converter with watermark removal",
+        "batch convert pdf to jpg online tool"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:4b4d4a10a72bd2b5d5b2:missing_module:cairosvg",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 3,
+    "product_pages": 3,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:4b4d4a10a72bd2b5d5b2:missing_module:cairosvg"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "e46509dbb213a33c25fd",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "duckduckgo",
+          "reason": "HTTPError",
+          "http_code": 403
+        }
+      ]
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 3,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 13,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
