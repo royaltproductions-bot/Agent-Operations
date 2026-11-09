@@ -1481,7 +1481,8 @@ def assess(details, messages=None, sources=None, unreadable_count=0):
     # A feasible bid or a clarifying question uses the first grounded decision,
     # with deterministic capability and payout checks still enforced by
     # handle_open(). Re-review only a PASS to catch missed viable work.
-    if (decision.get("decision") == "pass" and
+    posted_budget = int((details.get("bounty") or details).get("budget_cents") or 0)
+    if (decision.get("decision") == "pass" and posted_budget >= 2500 and
             context["web_evidence"].get("status") not in {"unavailable", "partial"}):
         decision = cross_check_decision(
             context, decision, num_ctx=14000 if context["web_evidence"].get("results")
@@ -1804,12 +1805,27 @@ def handle_open(item, state):
         if stale_ask:
             previous["stale_ask_review_version"] = version
     action = decision["decision"]
-    if action == "ask" and decision.get("feasible") is True and current.get("flow") == "bid" and not unreadable:
-        if decision.get("note") and decision.get("payout_cents"):
-            decision["note"] = (str(decision["note"]).strip() + "\nAssumptions: " +
-                str(decision.get("assumptions") or "the scope is as described in your brief") +
-                "\n" + str(decision.get("question") or "").strip())
+    if action == "ask" and current.get("flow") == "bid" and not unreadable:
+        if decision.get("feasible") is True:
+            # An explicit feasibility assessment is required; never infer ability
+            # solely from an unanswered question or the posted budget.
+            posted_budget = int(current.get("budget_cents") or 0)
+            payout = int(decision.get("payout_cents") or posted_budget)
+            brief = str(current.get("description") or current.get("title") or "").strip()
+            summary = " ".join(brief.split())[:400]
+            note_text = str(decision.get("note") or "").strip()
+            if not note_text:
+                note_text = "I propose to deliver " + (summary or "the requested deliverable")
+            assumptions = str(decision.get("assumptions") or "scope as described").strip()
+            question = str(decision.get("question") or "").strip()
+            decision["note"] = (note_text + "\nTurnaround: 24h." +
+                "\nAssumptions: " + assumptions + ("\n" + question if question else ""))
+            decision["payout_cents"] = payout
             action = "bid"
+        elif stale_ask and prebid_asked:
+            # No second duplicate clarification; preserve truthful inability to
+            # commit when the model explicitly says the job is not feasible.
+            decision["reason"] = "scope_unconfirmed_after_clarification"
     if decision.get("_retry_decision"):
         schedule_evaluation_retry(state, bounty_id,
                                   RuntimeError("decision_conflict"))
