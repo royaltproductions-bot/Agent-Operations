@@ -339,11 +339,12 @@
     "event_ids": [
       "ph783hbaeqx6mqaxkz6c1n1xcx8hpn3h",
       "ph71b7rvtf2ac86vmfxd7fqaa58hvr6x",
-      "ph7bk4t4vajgyw2fqsnd6pd0qs8hvztk"
+      "ph7bk4t4vajgyw2fqsnd6pd0qs8hvztk",
+      "ph7ddvc2k1tmzy60heyrrqkg558hx5et"
     ],
     "event_types": {
       "bounty.available": {
-        "count": 1,
+        "count": 2,
         "data_keys": [
           "bounty_id",
           "bounty_version",
@@ -351,7 +352,7 @@
           "title"
         ],
         "first_seen": "2026-11-08T20:41:15.070418+00:00",
-        "last_seen": "2026-11-08T20:41:15.070418+00:00"
+        "last_seen": "2026-11-09T07:20:59.996044+00:00"
       },
       "bounty.claimed": {
         "count": 1,
@@ -868,7 +869,12 @@
       "last_known_status": "open",
       "last_seen_open_at": "2026-11-09T07:20:57.279940+00:00",
       "version": 1,
-      "versions": {}
+      "versions": {
+        "1": {
+          "captured_at": "2026-11-09T07:21:00.251743+00:00",
+          "encrypted_brief": "gAAAAABq8XRcDFRYI4Dc4jNpIXGaGK-ibU2qnvtks2OeCuTYfciGn7zvNb3ReKHXAIqrielGtCDx2Z9UhpyPXxEhD8AUG33uQFFM6aO2XUL2x9-B7cfOzSImaNhf2raxN0_RVj_aZnRZyQsCd1XmFTWsJsMRY3tJ39n9YBuK_VU0EZ-uzvpBbiPs0JQtmsP3qVADmnN2wYejWn1jUz6br1z4OTVUvAzfxIflwKrhX6pOF-jV19hw_lRavJ03OAe8fP1pfwZuSoubmMG7lhUQ0bi4BgtM5vXsU2-hZWJTmUGAjaVmj_livX_1qIFgjLuYDIcArgJLBTrzts0qVM_6yZOVZhtOCl23WcrffuMND7sVjdTdu7GfLaoTjNl-z-HUy-F1iNRdbKSc4GcIFCO-Qf1ipB8dHln24V82gsyqyz64FHCYtFYk4lJ_3nQKD1licD7KONtu3-ZnDpFEAAJjTI9gqai_D4mjumui2OOvLYgDLvTCgTOBiKP_iYE7r2fQp5fUBvWtFI_Vk-Et3PtJQ1xUPPp8PIggv6D8ccrg73vH9NBm9-veI4E5foK--SzP8KZIbknflxqJ_JD3LuIGn-zVZaxbHVX1AS3Y7-SMwWHhuLWl-BiKtyMNGPB7WnlhoO-NT2jdIUShdhQcRydAFUmGZUNcx6jkCsAbBAIfxNzHjDxS20iqc8-0qxNBYzLFJPykpUZaXsovRCxv7zG-UM6mDdPKQy7d5Fr570BGT7EsjGvZkBjhJR66u5t6K2pMHeR0kPWdaxXJpbn2BM6STpXo6nuL4YL-LaGRooUUVur2-azswOEMTX-aj9FahiiU0WqDfj_ILwCrXzXDVQ3Gs2zFJK25YzmsbBW1NpogsSE1-wZWJC358x92qzFoT0-rUxOUtGGAUKbllGtH4TWKYVrv8m_FLoDOaYm1x1nKJLbn3FUuN859pOuLYkyFVu_73CWj2v-OZuqw_wG3BCCJwDiweuCrgda__JxSISGME8rYPVL4SmNCKgGcPbfmWnfDOKQoszil1DEdM9wjFeATiTDRwIrfNVTc1ExeOZgrB5w_57JiTbhZ8cXXzkSnwAqjjsI5PBIudJ5MEw-_K7FasP7mlHufzVNtl2ycy3oOz8YqQrwoNoVQ8K8R-0Kbg6My4sSe--5OkUHpTpjDnE55Sxm5Tkmb_LA4vhuaeu9s4pwPDm58dG2gjWahHFFAWSFP53-GyEqnvpY92HQeVSOcAIl5Vna3_vA5nmDV79ONSbvJYExIEwJQGNP4bSdEas1h9uDi_AjI8SrW7w9Xf7j9fQwnzB8gnAtdwQ=="
+        }
+      }
     },
     "mx72vg2dw6paysrp4wq9qth5kn8gdpy1": {
       "first_detected_at": "2026-10-30T16:10:18.044192+00:00",
