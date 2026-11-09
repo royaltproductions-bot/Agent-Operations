@@ -54,6 +54,14 @@
           "first_at": "2026-11-08T20:41:21.453507+00:00"
         }
       },
+      "mx766edhs6qkcdp51ab85854s98hx2h9": {
+        "event_target_unavailable": {
+          "days": [
+            "2026-11-09"
+          ],
+          "first_at": "2026-11-09T17:43:34.598891+00:00"
+        }
+      },
       "mx76cjf7d9qqscbw9an1ct84dn8h2mzp": {
         "evaluation_abandoned": {
           "days": [
@@ -395,11 +403,13 @@
       "ph783hbaeqx6mqaxkz6c1n1xcx8hpn3h",
       "ph71b7rvtf2ac86vmfxd7fqaa58hvr6x",
       "ph7bk4t4vajgyw2fqsnd6pd0qs8hvztk",
-      "ph7ddvc2k1tmzy60heyrrqkg558hx5et"
+      "ph7ddvc2k1tmzy60heyrrqkg558hx5et",
+      "ph76z64qw65yagnw5nvwnrg8d58hw7yj",
+      "ph7f0p8zfxk1m3j37gr1s5t4x18hwx2j"
     ],
     "event_types": {
       "bounty.available": {
-        "count": 2,
+        "count": 4,
         "data_keys": [
           "bounty_id",
           "bounty_version",
@@ -407,7 +417,7 @@
           "title"
         ],
         "first_seen": "2026-11-08T20:41:15.070418+00:00",
-        "last_seen": "2026-11-09T07:20:59.996044+00:00"
+        "last_seen": "2026-11-09T17:43:34.344855+00:00"
       },
       "bounty.claimed": {
         "count": 1,
@@ -1243,7 +1253,8 @@
     },
     "mx78wzkqdghteet6beyw1567mx8hewfj": {
       "first_detected_at": "2026-11-02T13:27:37.355762+00:00",
-      "last_known_status": "open",
+      "first_unlisted_at": "2026-11-09T17:43:34.603640+00:00",
+      "last_known_status": "not_in_open_list",
       "last_seen_open_at": "2026-11-02T13:27:37.355779+00:00",
       "version": 1,
       "versions": {
@@ -1572,7 +1583,12 @@
       "last_known_status": "open",
       "last_seen_open_at": "2026-11-09T17:43:31.718845+00:00",
       "version": 1,
-      "versions": {}
+      "versions": {
+        "1": {
+          "captured_at": "2026-11-09T17:43:34.849106+00:00",
+          "encrypted_brief": "gAAAAABq8gZGglO0FYXuABjbhMIoUhnUW5ZCITYp4kbVQUJeeBMByN8hUvaskUFS3qEB9VVYhFCB3Ht0hXDy99WfzvgyNqUtLnCr1HCPK2qeUuPP0vg1V3biBVUzNofmy4gHxKg-YyIYODg1WZWyxgA64BFMf9Ol-3RlbFONVXVdTnQmdRPt6ZS0fXTXS2XhjJNBPvJ7hyZQxH12A_F7Ecy900QSByxgbNxVYAyPJ8SY0uHt31wpQx-9XGUnEEheNRA4dVNbFniYkmuzfcH7cUcNgYPJy07yxWRjmmumwLCfPw4njWu8x1DH982-Mi77wBNVwnA7qJCpvJp1-h8eAmiis9DNEZ1xe-WwHqSAa4Ua8l1ZHpscpFoDgNARCr8e0apfbdN4UxNngYBqb4mtdHEgYypytwVJlqyQe3zt42JWv7lL0ru97KuJ9iHss2p2th-hr6SVUFmRU30QC2dlPfGkvNXwAy3-d2pv1Ih4SevXRs62bSlsTI8o47vnhL9Orbn653K9iZhbFiRfKoxrfopp51w39HvhNqDln6IjWfHG0ONj50xNikJkhEJyMXyv64S4Mjf7JdVC9DD6a6DmJXbvxL0pJWE6tlyxr4i0NvkLvW4fL6X2kmeKY_d6XpirVkZ7ngguFFoBxUAgwrpKjW60I8jYVwz6g8cXysBlbRqmgKBpcE308hERpx5FIrIbWAxmgIjlpOTJMGhB2oz7IIOyQ7hIK64epbRruZ2MJe_XcpDg-EGQJdbHqAwVzuiqU-gYobppxCD2yd7R3884tYnvqHWfi7wDY-Rp_EGtzlV5rnPB1oFXxC4XXiilDmhGyaEAdigOLBzJ_t_bPRm2glesAWlsuVfDBn_eOzeOERwd_khnzlMWo8Q_KKM--Zobdd6zUDaspjf8zYiw9E4h0HHpl61olSvKnTeBKXUFpNW38DMQZCc3JSYulDpV2ZOGADtQN2_DE-n6LgCfG1efScGS-nE-BRJidZ8SfBriajFQnxHfMadEsSXnbheUJGV1y_7LeL8J9bmY545TRqAWGH7lhXtFXNzRvr7c85uvkVp5M30N2Y-EGGE="
+        }
+      }
     },
     "mx7f8tqb7r75rmrp9hacmt52tn8hm0sn": {
       "first_detected_at": "2026-11-05T03:04:06.247674+00:00",
@@ -1830,6 +1846,7 @@
         "updated_at": 1793481103400
       }
     },
+    "mx766edhs6qkcdp51ab85854s98hx2h9": {},
     "mx76cjf7d9qqscbw9an1ct84dn8h2mzp": {
       "bid_amount_cents": null,
       "bid_at": null,
@@ -2878,12 +2895,6 @@
   "recent_outcomes": [
     {
       "action": "evaluation_budget_wait",
-      "at": "2026-11-07T18:15:28.005580+00:00",
-      "bounty_id": "mx77kbrqz5859r74m1w2rd4mx98hkxf1",
-      "reason": "openai_daily_pace_exceeded"
-    },
-    {
-      "action": "evaluation_budget_wait",
       "at": "2026-11-07T18:15:57.969932+00:00",
       "bounty_id": "mx77kbrqz5859r74m1w2rd4mx98hkxf1",
       "reason": "openai_daily_pace_exceeded"
@@ -3240,6 +3251,12 @@
       "at": "2026-11-09T07:23:12.833769+00:00",
       "bounty_id": "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97",
       "reason": "openai_daily_pace_exceeded"
+    },
+    {
+      "action": "event_target_unavailable",
+      "at": "2026-11-09T17:43:34.598998+00:00",
+      "bounty_id": "mx766edhs6qkcdp51ab85854s98hx2h9",
+      "reason": "bounty_api_BOUNTY_NOT_FOUND"
     }
   ],
   "schema": 1,
