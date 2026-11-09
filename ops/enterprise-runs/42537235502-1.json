@@ -1,0 +1,123 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-08T23:54:13.793090+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 7,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 13,
+    "contactable_sources": 3,
+    "linked_requester_contacts": 1,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/d85rcrcy27-creator/ArbiVault/issues/84",
+        "title": "[Coordinator] ArbiVault agentic task inventory and blockers",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/SecureBananaLabs/bug-bounty/issues/12838",
+        "title": "Bug: auth refresh must verify the requester before minting a token",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/trained-assist/trained-agent-architecture/issues/30",
+        "title": "Credential Broker \u043d\u0430 Cloudflare: \u0446\u0435\u043d\u0442\u0440\u0430\u043b\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u043e\u0435 \u0445\u0440\u0430\u043d\u0435\u043d\u0438\u0435 \u0438 multi-VM \u043f\u0438\u043b\u043e\u0442",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/SecureBananaLabs/bug-bounty/issues/12741",
+        "title": "Bug: registration token subject can differ from returned user id",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/SecureBananaLabs/bug-bounty/issues/12727",
+        "title": "Bug: registration token subject can differ from returned user id",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.c-sharpcorner.com/article/implementing-jwt-refresh-tokens-in-net-8-0",
+        "title": "Implementing JWT Refresh Tokens in .NET 8.0 - C# Corner",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-09 implement jwt refresh",
+      "looking for someone to implement JWT refresh token logic in a .NET 8 API",
+      "hiring a freelancer to design a secure JWT authentication flow for a mobile backend"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to implement JWT refresh token logic in a .NET 8 API",
+      "hiring a freelancer to design a secure JWT authentication flow for a mobile backend",
+      "need paid help with setting up JWT token refresh in a FastAPI project",
+      "can anyone create a JWT-based API gateway with refresh token support"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 21,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to implement JWT refresh token logic in a .NET 8 API",
+        "hiring a freelancer to design a secure JWT authentication flow for a mobile backend",
+        "need paid help with setting up JWT token refresh in a FastAPI project",
+        "can anyone create a JWT-based API gateway with refresh token support"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
