@@ -1,0 +1,130 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-10T23:33:20.857101+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "github_paid_issues": 5,
+      "duckduckgo": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=47295866",
+        "title": "Ask HN: How are you handling persistent memory across local Ollama sessions",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=38014505",
+        "title": "My thoughts on starting an online business as someone who's never done it before",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=227811",
+        "title": "Advice on partnership issues.....",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47672566",
+        "title": "From Idea to App Store Was Predictable. From Launch to Traction Was Not",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47115221",
+        "title": "AWS won't discuss my bill, suspended my account, took $1,600, still no human",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=49329291",
+        "title": "Ask HN: \u20ac300/mo to capture work you're doing. Tips how to reach right people?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a persistent RPG game engine with AI narrative",
+      "can anyone create a real-time trading dashboard with frontend integration",
+      "need paid help with building a secure token refresh workflow for a mobile backend",
+      "is:issue is:open bounty created:>=2026-09-11 build persistent rpg"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a persistent RPG game engine with AI narrative",
+      "can anyone create a real-time trading dashboard with frontend integration",
+      "need paid help with building a secure token refresh workflow for a mobile backend"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 8,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a persistent RPG game engine with AI narrative",
+        "can anyone create a real-time trading dashboard with frontend integration",
+        "need paid help with building a secure token refresh workflow for a mobile backend"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 114,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
