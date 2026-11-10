@@ -1758,6 +1758,10 @@ def handle_open(item, state):
             previous["last_owner_reply_id"] = last_id
             state.setdefault("commercial", {}).setdefault(bounty_id, {})["last_outgoing_at"] = timestamp()
             previous["feasible_ask_review_version"] = version
+            # Answering the buyer is activity, not an unanswered stale ask.
+            # Do not immediately requalify the same historical question.
+            previous["stale_ask_review_version"] = version
+            previous["at"] = timestamp()
             previous["action"] = "asked"
             previous.pop("retry_at", None)
             state["bounties"][bounty_id] = previous
