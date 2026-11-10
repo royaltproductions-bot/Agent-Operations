@@ -685,7 +685,7 @@
       "action": "budget_wait",
       "at": "2026-11-10T16:23:20.737108+00:00",
       "last_error": "openai_daily_pace_exceeded",
-      "retry_at": "2026-11-11T16:25:55.534207+00:00",
+      "retry_at": "2026-11-11T16:26:25.345605+00:00",
       "version": 1
     },
     "mx77wj5q918c5enmznx592gyzx8gp236": {
@@ -3068,16 +3068,8 @@
   "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo0OCwiY2hlY2twb2ludEF0IjoxNzk0MjcyMjQ4Nzg4fQ",
   "handled_event_ids": [],
   "last_bid_reconciliation": "2026-11-10T16:23:30.754861+00:00",
-  "last_check": "2026-11-10T16:25:55.538943+00:00",
+  "last_check": "2026-11-10T16:26:25.350226+00:00",
   "recent_outcomes": [
-    {
-      "action": "retry_search",
-      "at": "2026-11-08T06:14:13.361756+00:00",
-      "bounty_id": "mx7dartnjzsphksgveek0qxs2h8hkcfn",
-      "pages_read": 0,
-      "research_status": "partial",
-      "version": 1
-    },
     {
       "action": "proposal_blocked_missing_evidence",
       "at": "2026-11-08T06:14:43.026644+00:00",
@@ -3437,6 +3429,12 @@
     {
       "action": "evaluation_budget_wait",
       "at": "2026-11-10T16:25:55.534259+00:00",
+      "bounty_id": "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4",
+      "reason": "openai_daily_pace_exceeded"
+    },
+    {
+      "action": "evaluation_budget_wait",
+      "at": "2026-11-10T16:26:25.345657+00:00",
       "bounty_id": "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4",
       "reason": "openai_daily_pace_exceeded"
     }
