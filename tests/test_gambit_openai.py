@@ -133,7 +133,8 @@ class GambitOpenAITests(unittest.TestCase):
 
     def test_g1_hard_monthly_limit_wins_on_november_30(self):
         self._seed_november_ledger(19_900_000)
-        with patch.object(gambit_openai, "datetime", FixedNovember30):
+        with patch.dict(os.environ, {"GAMBIT_OPENAI_MONTHLY_LIMIT_USD": "20"}), \
+             patch.object(gambit_openai, "datetime", FixedNovember30):
             with self.assertRaisesRegex(RuntimeError, "openai_monthly_budget_exhausted"):
                 gambit_openai.reserve_monthly_budget(0.20)
 
