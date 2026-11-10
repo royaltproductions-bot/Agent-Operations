@@ -40,7 +40,7 @@ jobs:
           for item in ("GAMBIT_WEBSITE_BUILDER: '1'",
                        "GAMBIT_APP_BUILDER: '1'",
                        "GAMBIT_INCREMENTAL_RESEARCH: '1'",
-                       "GAMBIT_OPENAI_MONTHLY_LIMIT_USD: '20.00'",
+                       "GAMBIT_OPENAI_MONTHLY_LIMIT_USD: '38.00'",
                        "GAMBIT_WATCH_SECONDS: '240'"):
               assert item in flow, item
           assert 'gambit-state' in flow and 'gambit-state' in watch
