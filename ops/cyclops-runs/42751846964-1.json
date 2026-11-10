@@ -1,0 +1,170 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-10T03:50:20.769201+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 16,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "duckduckgo": 12,
+      "hn_ask": 2,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "verified_firsthand_problem_pages": 5,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 14,
+    "public_market_sample": [
+      {
+        "url": "https://email-templates.app/en/docs/autofillable-fields/index.html",
+        "title": "Auto-fillable fields (placeholders) in Outlook email templates",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.ablebits.com/office-addins-blog/outlook-email-templates-fillable-fields-dropdown/",
+        "title": "Create Outlook email template with fillable fields ... - Ablebits",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://flowparse.io/batch",
+        "title": "Batch PDF to Excel \u2014 Convert up to 100 Files at Once",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://dataconvertpro.com/blog/bulk-pdf-to-excel-batch-processing",
+        "title": "Batch Processing: How to Convert 1,000+ PDFs to Excel Instantly",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://email-templates.app/en/docs/macros/index.html",
+        "title": "Personalize shared Outlook email templates with built-in macros",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44077731",
+        "title": "Unbundling ChatGPT in Waves",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 15,
+    "search_queries": [
+      "Automate email template creation with placeholders",
+      "PDF to Excel converter with batch processing",
+      "Convert multiple PDFs to Word without OCR",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 14,
+      "skipped_revisits": 57,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "PDF to Excel converter with batch processing",
+        "Automate email template creation with placeholders",
+        "Convert multiple PDFs to Word without OCR",
+        "Merge multiple CSV files into a single spreadsheet"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 118,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:8b5c8418a47010d7df22:ceholders. It contains only static text and standard document structure. The product does not fulfill the promised function of creating an Outlook-compatible auto-fillabl",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 3,
+    "product_pages": 3,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:8b5c8418a47010d7df22:ceholders. It contains only static text and standard document structure. The product does not fulfill the promised function of creating an Outlook-compatible auto-fillabl"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "e46509dbb213a33c25fd",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "duckduckgo",
+          "reason": "HTTPError",
+          "http_code": 403
+        }
+      ]
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 3,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 14,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
