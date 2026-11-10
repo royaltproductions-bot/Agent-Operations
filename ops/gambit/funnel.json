@@ -1,10 +1,11 @@
 {
   "aging_active_bids_days": {
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 2.1587129555787037,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 6.229462099097222,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 6.1996219370601855,
-    "mx78wzkqdghteet6beyw1567mx8hewfj": 7.47856743474537,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 6.230312770393518
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 2.158976154074074,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 6.2297252975925925,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 6.199885135555556,
+    "mx78wzkqdghteet6beyw1567mx8hewfj": 7.47883063324074,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 6.230575968888889,
+    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 2.4387962962962963e-06
   },
   "browser": {
     "completed_job_count": {
@@ -73,16 +74,16 @@
     "unread_count": 0
   },
   "conversion_rates": {
-    "bid_per_seen": 0.09090909090909091,
-    "buyer_reply_per_bid": 0.2,
+    "bid_per_seen": 0.10909090909090909,
+    "buyer_reply_per_bid": 0.16666666666666666,
     "hire_per_bid": 0.0
   },
   "coverage": "Observed unique bounties; historical events before instrumentation may be incomplete.",
   "cumulative": {
     "accepted": 0,
     "asked": 11,
-    "bids_active": 5,
-    "bids_sent": 5,
+    "bids_active": 6,
+    "bids_sent": 6,
     "declined": 0,
     "delivered": 0,
     "hired": 0,
@@ -95,15 +96,15 @@
       "unsupported_multi_or_file_format": 6,
       "video_production": 9
     },
-    "retry_pending": 1,
+    "retry_pending": 0,
     "sample_excluded": 2,
     "seen": 55,
     "settled": 0,
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-10T00:57:06.668362+00:00",
-  "median_posting_to_bid_minutes": 4705.295666666667,
+  "generated_at": "2026-11-10T00:57:29.408712+00:00",
+  "median_posting_to_bid_minutes": 2926.147766666667,
   "median_posting_to_detection_minutes": 55.7233103,
   "model_budget": {
     "call_count": 270,
@@ -112,8 +113,8 @@
   },
   "null_fields": {
     "accepted_at": 0,
-    "bid_amount_cents": 50,
-    "bid_at": 50,
+    "bid_amount_cents": 49,
+    "bid_at": 49,
     "bid_status": 0,
     "budget_cents": 0,
     "conversation": 0,
@@ -126,14 +127,14 @@
   "today": {
     "accepted": 0,
     "asked": 1,
-    "bids_active": 0,
-    "bids_sent": 0,
+    "bids_active": 1,
+    "bids_sent": 1,
     "declined": 0,
     "delivered": 0,
     "hired": 0,
     "missing_unconfirmed": 0,
     "passed_by_reason": {},
-    "retry_pending": 1,
+    "retry_pending": 0,
     "sample_excluded": 0,
     "seen": 1,
     "settled": 0,
@@ -148,7 +149,7 @@
     "accepted_at": 56,
     "bid_amount_cents": 1,
     "bid_at": 1,
-    "bid_status": 51,
+    "bid_status": 50,
     "budget_cents": 1,
     "conversation": 43,
     "delivered_at": 56,
