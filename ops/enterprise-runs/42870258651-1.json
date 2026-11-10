@@ -1,0 +1,137 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-10T17:59:35.753131+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "github_paid_issues": 5,
+      "duckduckgo": 5,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 16,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=50414450",
+        "title": "Why Agile Often Fails",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=49557020",
+        "title": "One-person startup: a Cornell postdoc wants to put AI in everyone's hands",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=48226881",
+        "title": "Peak unemployment for a software engineer. What did I do wrong?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44558065",
+        "title": "Memory in Stateless Memory",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Vasqq/BounTEE/issues/71",
+        "title": "Spec: a testnet site to try BounTEE (ADR-0021)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://github.com/Financial-Privacy-Foundation/ZcashCoinholderGrantsProgram/issues/104",
+        "title": "Retroactive Grant Application - Can I Shield?",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a real-time dashboard with chart.js and backend integration",
+      "can anyone create a token refresh workflow for a backend microservice",
+      "is:issue is:open bounty created:>=2026-09-11 build real time",
+      "hiring a freelancer to create a secure API with JWT and refresh token support"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a real-time dashboard with chart.js and backend integration",
+      "hiring a freelancer to create a secure API with JWT and refresh token support",
+      "need paid help with setting up a secure token refresh system for a REST API",
+      "can anyone create a token refresh workflow for a backend microservice"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 19,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a real-time dashboard with chart.js and backend integration",
+        "hiring a freelancer to create a secure API with JWT and refresh token support",
+        "need paid help with setting up a secure token refresh system for a REST API",
+        "can anyone create a token refresh workflow for a backend microservice"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 114,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
