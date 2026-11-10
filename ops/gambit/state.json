@@ -345,49 +345,49 @@
     ],
     "browser": {
       "completed_job_count": {
-        "observed_at": "2026-11-09T17:43:31.172345+00:00",
+        "observed_at": "2026-11-10T00:52:50.595711+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "earnings_count": {
-        "observed_at": "2026-11-09T17:43:31.172337+00:00",
+        "observed_at": "2026-11-10T00:52:50.595702+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "last_disbursed_at": {
-        "observed_at": "2026-11-09T17:43:31.172342+00:00",
+        "observed_at": "2026-11-10T00:52:50.595708+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "not_hired_count": {
-        "observed_at": "2026-11-09T17:43:31.172334+00:00",
+        "observed_at": "2026-11-10T00:52:50.595699+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "operator_balance_cents": {
-        "observed_at": "2026-11-09T17:43:31.172339+00:00",
+        "observed_at": "2026-11-10T00:52:50.595704+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "public_rating": {
-        "observed_at": "2026-11-09T17:43:31.172343+00:00",
+        "observed_at": "2026-11-10T00:52:50.595709+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "transfer_count": {
-        "observed_at": "2026-11-09T17:43:31.172340+00:00",
+        "observed_at": "2026-11-10T00:52:50.595706+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "unread_count": {
-        "observed_at": "2026-11-09T17:43:31.172322+00:00",
+        "observed_at": "2026-11-10T00:52:50.595686+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
@@ -654,6 +654,11 @@
       "action": "pass_unsupported",
       "at": "2026-10-31T07:40:06.867978+00:00",
       "reason": "video_production",
+      "version": 1
+    },
+    "mx78eanbrs75gfsdvaat9nmmbx8hwx6b": {
+      "action": "evaluation_pending",
+      "at": "2026-11-10T00:52:51.541669+00:00",
       "version": 1
     },
     "mx78kk7yaefsdwz1vgp7djcjz58hdqc8": {
@@ -1224,6 +1229,13 @@
           "encrypted_brief": "gAAAAABq5ZtUQFdlsq8SsK3aU6Yj8oAdQgL6J5LuwJUgLxHPN3WrtsEtzHt42qXRNrcq3yOwFPjIsnla6cDU4_cOPTYmJANe3lekS98FF1iAHFiQAKgPYJQNWg-jiGIUyUrqId7Yv6lr6OQWH9ZBNm72AXb2jZdawz7yPrwirm-traxatKVAM1scy5WIPan4nU0Dc_6kg60NOvseR_shEeMu8D0ZQp0XuTJkmAztm3es_MRZ0dOWu4CZenrlUV2Rzo7EGKzlGp2wUQMoZuT6KyzDw0IBL4bhKP8fPivLI6oMa7bepmHay0sPNaTu58xPNaHu1_D3iq6LUGIdvo9l_ekWetfnhiQIblqH4fJoGjZsqjVHHt9xNMDv-xu7t-kZtQhCRQ28aCaXMo2Uhsp8F7yrFia2FSk3L32glviuXqUHDeaXTxF2EN3I9f-gUKgzDA28SqdS6Vv7mI5B7Ml7VSqA30gWVo4IkI9p9LJC-CmUibpIgeBx3MBwfQD3oQK34j-NC4wkkNmFfZhcNHahOSAI_RnZV7AJtQngI3vaP1888Yf-OW-WbT4sH3TBiIsLjOM8w78w0eznqU30iyY3XCNdybJEklk1eNcgRx1e_HbTczxo95z-zXGRBOrZDkFPMYafWV_AoGUlULrBGegaF7MSCzLr-6fTDUplmST4A9c8GBmYqFP2DiZhl8m_j61HlGkIVf_xz4MdJFaDcAx9Tk28JFyafU_GnL9Ex6lz9oJ2hkeOOOtuKTnn1sgm9yIFnTpcda_5DVTPSJvXBibQS2FoZfIg33u3Z51XmNQwSiTtA6DGGWIhMU7XUWCa0aeQXnnpG222sb7y6a9usGxgJjVWrRsrDL9A1gQ9PqQ6OeeSCCYsUQMgHTq3-9WnSlCxW0M0F744bP2ID3UBJHjLAiQhsgfT_FJ44d43X4FecHTHKjM0cuGP30E-V5UgFb3MXdsZ8WELPC0P_047aFoG4D8XJcXD0ktqpiN13nb4q46cmYCSgobsSRzhz1ExT7CMQAZdPuWivFrWD4HpFucywyWTxvLjMQfylQQA6K5HjD_zUt5WaVNYEH868lUj6choe1ta916kS4zS"
         }
       }
+    },
+    "mx78eanbrs75gfsdvaat9nmmbx8hwx6b": {
+      "first_detected_at": "2026-11-10T00:52:51.541661+00:00",
+      "last_known_status": "open",
+      "last_seen_open_at": "2026-11-10T00:52:51.541665+00:00",
+      "version": 1,
+      "versions": {}
     },
     "mx78kk7yaefsdwz1vgp7djcjz58hdqc8": {
       "first_detected_at": "2026-11-01T09:19:43.665553+00:00",
@@ -2203,6 +2215,26 @@
         "currency": "usd",
         "status": "open",
         "updated_at": 1793432389952
+      }
+    },
+    "mx78eanbrs75gfsdvaat9nmmbx8hwx6b": {
+      "bid_amount_cents": null,
+      "bid_at": null,
+      "bid_id": null,
+      "budget_cents": 2500,
+      "first_detected_at": "2026-11-10T00:52:51.541450+00:00",
+      "observed_at": "2026-11-10T00:52:51.541450+00:00",
+      "owner_activity_status": null,
+      "platform_status": "open",
+      "posted_at": "2026-11-09T21:22:27.828000+00:00",
+      "posted_time_field": "created_at",
+      "sample_listing": false,
+      "source_fields": {
+        "budget_cents": 2500,
+        "created_at": 1794259347828,
+        "currency": "usd",
+        "status": "open",
+        "updated_at": 1794259349553
       }
     },
     "mx78kk7yaefsdwz1vgp7djcjz58hdqc8": {
