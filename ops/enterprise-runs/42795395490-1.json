@@ -1,0 +1,130 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-10T10:02:38.651341+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 13,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 4,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 13,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/paraloom-labs/paraloom-core/issues/1449",
+        "title": "[BUG BOUNTY] Medium: BatchVerifier & AdaptiveBatchVerifier accept mismatched/empty inputs, bgm17 accepts identity delta ",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Emaren/app-prodn/issues/1212",
+        "title": "C03 funded Wolo release: isolate HD/DE financial table DML without breaking 3030/Steam",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Emaren/app-prodn/issues/934",
+        "title": "CENTRAL COMMAND: One release train \u2014 website, Wolo recovery/custody, real estate health, context autopilot (Oct 26)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/rsoreq-mend/AutoGPT/issues/436",
+        "title": "autogpt_forge-0.2.0: 99 vulnerabilities (highest severity is: 10.0) [master]",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/deepakA18/gitpay-demo-http/issues/17",
+        "title": "[Local crypto sandbox] Verify $1 crypto funding and USD capture",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://medium.com/@wmukhtar/jwt-refresh-token-authentication-in-react-18-asp-net-749de08a1981",
+        "title": "JWT + Refresh Token Authentication in React 18 + ASP.NET",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-11 implement jwt token",
+      "is:issue is:open bounty created:>=2026-09-11 ",
+      "looking for someone to implement JWT token refresh in a real-time web app",
+      "can anyone create a JWT token refresh system for a .NET 8 API"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to implement JWT token refresh in a real-time web app",
+      "can anyone create a JWT token refresh system for a .NET 8 API",
+      "need paid help with implementing JWT refresh tokens in a real-time web app"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 10,
+      "skipped_revisits": 38,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to implement JWT token refresh in a real-time web app",
+        "can anyone create a JWT token refresh system for a .NET 8 API",
+        "need paid help with implementing JWT refresh tokens in a real-time web app"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 112,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
