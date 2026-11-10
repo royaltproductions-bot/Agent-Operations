@@ -65,8 +65,8 @@ class GambitOpenAITests(unittest.TestCase):
             self.assertEqual(persisted["reserved_micro_usd"], 1200)
             self.assertNotIn("OPENAI_API_KEY", str(persisted))
 
-    def test_budget_rejects_limit_above_twenty_and_resets_each_utc_month(self):
-        with patch.dict(os.environ, {"GAMBIT_OPENAI_MONTHLY_LIMIT_USD": "21"}):
+    def test_budget_rejects_limit_above_forty_and_resets_each_utc_month(self):
+        with patch.dict(os.environ, {"GAMBIT_OPENAI_MONTHLY_LIMIT_USD": "41"}):
             with self.assertRaisesRegex(ValueError, "openai_monthly_budget_invalid"):
                 gambit_openai.reserve_monthly_budget(0.01)
         gambit_openai.BUDGET_PATH.write_text(
