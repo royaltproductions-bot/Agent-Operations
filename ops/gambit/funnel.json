@@ -1,11 +1,11 @@
 {
   "aging_active_bids_days": {
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 2.4528731055092594,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 6.523622249027778,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 6.49378208699074,
-    "mx78wzkqdghteet6beyw1567mx8hewfj": 7.772727584675926,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 6.524472920324074,
-    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 0.2938993902314815
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 2.4537861813888893,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 6.524535324907408,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 6.49469516287037,
+    "mx78wzkqdghteet6beyw1567mx8hewfj": 7.773640660555556,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 6.525385996203703,
+    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 0.2948124661111111
   },
   "browser": {
     "completed_job_count": {
@@ -96,20 +96,20 @@
       "unsupported_multi_or_file_format": 6,
       "video_production": 9
     },
-    "retry_pending": 0,
+    "retry_pending": 1,
     "sample_excluded": 2,
     "seen": 55,
     "settled": 0,
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-10T08:00:42.105316+00:00",
+  "generated_at": "2026-11-10T08:02:00.995072+00:00",
   "median_posting_to_bid_minutes": 2926.147766666667,
   "median_posting_to_detection_minutes": 55.7233103,
   "model_budget": {
-    "call_count": 270,
+    "call_count": 273,
     "month": "2026-11",
-    "reserved_micro_usd": 10663880
+    "reserved_micro_usd": 10763130
   },
   "null_fields": {
     "accepted_at": 0,
@@ -121,7 +121,7 @@
     "delivered_at": 0,
     "first_detected_at": 0,
     "hired_at": 0,
-    "owner_activity_status": 40,
+    "owner_activity_status": 39,
     "posted_at": 0
   },
   "today": {
@@ -134,7 +134,7 @@
     "hired": 0,
     "missing_unconfirmed": 0,
     "passed_by_reason": {},
-    "retry_pending": 0,
+    "retry_pending": 1,
     "sample_excluded": 0,
     "seen": 1,
     "settled": 0,
@@ -151,7 +151,7 @@
     "bid_at": 1,
     "bid_status": 50,
     "budget_cents": 1,
-    "conversation": 43,
+    "conversation": 42,
     "delivered_at": 56,
     "first_detected_at": 1,
     "hired_at": 56,
