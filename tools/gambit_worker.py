@@ -543,6 +543,13 @@ def schedule_evaluation_retry(state, bounty_id, exc):
     attempt = min(4, int(previous.get("retry_count") or 0) + 1)
     reason = safe_failure_reason(exc)
     if reason in {"openai_daily_pace_exceeded", "openai_monthly_budget_exhausted"}:
+        if previous.get("action") == "budget_wait" and previous.get("last_error") == reason:
+            try:
+                retry_at = datetime.fromisoformat(previous["retry_at"])
+                if retry_at.tzinfo is not None and datetime.now(timezone.utc) < retry_at:
+                    return
+            except (KeyError, TypeError, ValueError):
+                pass
         previous.update(action="budget_wait", last_error=reason, retry_at=(
             datetime.now(timezone.utc) + timedelta(days=1)).isoformat())
         state["bounties"][bounty_id] = previous
@@ -676,6 +683,11 @@ def relevant_events(state):
 
 def scan(state):
     opened = pages("/v1/agent/bounties?status=open&limit=100", "bounties")
+    # Observation is independent of inference budget or evaluation eligibility.
+    for item in opened:
+        commercial.observe(state, item)
+    state.setdefault("market_observation", {})["last_open_count"] = len(opened)
+    state["market_observation"]["last_checked_at"] = timestamp()
     held = pages("/v1/agent/bounties?status=claimed,submitted,reviewing,settling,disputed&limit=100", "bounties")
     events, cursor = relevant_events(state)
     for event in events:
@@ -1469,7 +1481,8 @@ def assess(details, messages=None, sources=None, unreadable_count=0):
     # A feasible bid or a clarifying question uses the first grounded decision,
     # with deterministic capability and payout checks still enforced by
     # handle_open(). Re-review only a PASS to catch missed viable work.
-    if (decision.get("decision") == "pass" and
+    posted_budget = int((details.get("bounty") or details).get("budget_cents") or 0)
+    if (decision.get("decision") == "pass" and posted_budget >= 2500 and
             context["web_evidence"].get("status") not in {"unavailable", "partial"}):
         decision = cross_check_decision(
             context, decision, num_ctx=14000 if context["web_evidence"].get("results")
@@ -1584,7 +1597,16 @@ def respond_to_buyer(details, messages):
                                 "integrity_answer", "restricted_answer",
                                 "out_of_scope")}
     context["unreadable_attachment_count"] = len(unreadable)
-    result = infer(REPLY_SCHEMA, system, context, num_predict=500, fast=True)
+    try:
+        result = infer(REPLY_SCHEMA, system, context, num_predict=500, fast=True)
+    except RuntimeError as exc:
+        if str(exc) not in {"openai_daily_pace_exceeded", "openai_monthly_budget_exhausted"}:
+            raise
+        # Acknowledgment only: do not invent a deliverable, timeline, or answer.
+        result = {"reply_text": (
+            "Thanks for your message. I've received it and am reviewing the "
+            "details. I'll follow up when I can verify the answer."
+        )}
     gambit_agent_card.check_outbound_text(str(result.get("reply_text") or ""))
     return result
 
@@ -1673,6 +1695,7 @@ def handle_open(item, state):
                             "content": {"type": "text", "text": reply[:3000]},
                             "idempotency_key": key("buyer-reply", bounty_id, current_reply_id)})
                         note(state, "agent_replied_to_buyer", bounty_id)
+                        state.setdefault("commercial", {}).setdefault(bounty_id, {})["last_outgoing_at"] = timestamp()
                     last_reply_id = current_reply_id
         entry = {**previous, "version": version, "action": "bid_active",
                  "last_declined_bid": declined_token,
@@ -1707,7 +1730,18 @@ def handle_open(item, state):
         last_id = (key("prebid-owner-message", bounty_id, buyer_message_id(latest))
                    if latest else None)
         migrate_ask = previous.get("feasible_ask_review_version") != version
-        if (not latest or last_id == previous.get("last_owner_reply_id")) and not migrate_ask:
+        # A stale unanswered question must receive one genuine feasibility
+        # reassessment, not an endless periodic re-mark as "asked".
+        stale_ask = False
+        if not latest or last_id == previous.get("last_owner_reply_id"):
+            try:
+                asked_at = datetime.fromisoformat(previous.get("at") or "")
+                stale_ask = (asked_at.tzinfo is not None and
+                             datetime.now(timezone.utc) - asked_at >= timedelta(hours=24) and
+                             previous.get("stale_ask_review_version") != version)
+            except (TypeError, ValueError):
+                pass
+        if (not latest or last_id == previous.get("last_owner_reply_id")) and not (migrate_ask or stale_ask):
             previous["action"] = "asked"
             previous.pop("retry_at", None)
             # Keep the original question pending. A periodic reconciliation
@@ -1722,7 +1756,12 @@ def handle_open(item, state):
                 "POST", {"content": {"type": "text", "text": reply[:3000]},
                          "idempotency_key": key("prebid-buyer-reply", bounty_id, last_id)})
             previous["last_owner_reply_id"] = last_id
+            state.setdefault("commercial", {}).setdefault(bounty_id, {})["last_outgoing_at"] = timestamp()
             previous["feasible_ask_review_version"] = version
+            # Answering the buyer is activity, not an unanswered stale ask.
+            # Do not immediately requalify the same historical question.
+            previous["stale_ask_review_version"] = version
+            previous["at"] = timestamp()
             previous["action"] = "asked"
             previous.pop("retry_at", None)
             state["bounties"][bounty_id] = previous
@@ -1767,13 +1806,30 @@ def handle_open(item, state):
         decision = assess(details, messages, sources, len(unreadable))
     if prebid_asked:
         previous["feasible_ask_review_version"] = version
+        if stale_ask:
+            previous["stale_ask_review_version"] = version
     action = decision["decision"]
-    if action == "ask" and decision.get("feasible") is True and current.get("flow") == "bid" and not unreadable:
-        if decision.get("note") and decision.get("payout_cents"):
-            decision["note"] = (str(decision["note"]).strip() + "\nAssumptions: " +
-                str(decision.get("assumptions") or "the scope is as described in your brief") +
-                "\n" + str(decision.get("question") or "").strip())
+    if action == "ask" and current.get("flow") == "bid" and not unreadable:
+        if decision.get("feasible") is True:
+            # An explicit feasibility assessment is required; never infer ability
+            # solely from an unanswered question or the posted budget.
+            posted_budget = int(current.get("budget_cents") or 0)
+            payout = int(decision.get("payout_cents") or posted_budget)
+            brief = str(current.get("description") or current.get("title") or "").strip()
+            summary = " ".join(brief.split())[:400]
+            note_text = str(decision.get("note") or "").strip()
+            if not note_text:
+                note_text = "I propose to deliver " + (summary or "the requested deliverable")
+            assumptions = str(decision.get("assumptions") or "scope as described").strip()
+            question = str(decision.get("question") or "").strip()
+            decision["note"] = (note_text + "\nTurnaround: 24h." +
+                "\nAssumptions: " + assumptions + ("\n" + question if question else ""))
+            decision["payout_cents"] = payout
             action = "bid"
+        elif stale_ask and prebid_asked:
+            # No second duplicate clarification; preserve truthful inability to
+            # commit when the model explicitly says the job is not feasible.
+            decision["reason"] = "scope_unconfirmed_after_clarification"
     if decision.get("_retry_decision"):
         schedule_evaluation_retry(state, bounty_id,
                                   RuntimeError("decision_conflict"))
@@ -1788,9 +1844,16 @@ def handle_open(item, state):
             previous["last_owner_reply_id"] = new_owner_statement_id
         # The buyer already received a question for this exact brief version.
         # Never repeat, paraphrase, or silently replace it with another ask.
-        previous["action"] = "asked"
+        if stale_ask:
+            # A second qualification question is not an offer. Record a
+            # truthful non-bid outcome rather than faking a commercial bid.
+            previous["action"] = "pass_scope_unconfirmed"
+            previous["reason"] = "scope_unconfirmed_after_clarification"
+            note(state, "stale_ask_passed", bounty_id, reason=previous["reason"])
+        else:
+            previous["action"] = "asked"
+            note(state, "duplicate_clarification_suppressed", bounty_id)
         state["bounties"][bounty_id] = previous
-        note(state, "duplicate_clarification_suppressed", bounty_id)
         return
     if action == "ask" and current.get("flow") in {"bid", "claim"}:
         question = str(decision.get("question") or "").strip()[:3000]

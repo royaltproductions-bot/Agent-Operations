@@ -156,7 +156,7 @@ class GambitTests(unittest.TestCase):
     def test_pass_decision_keeps_recheck_for_missed_opportunities(self):
         details = {"bounty": {"_id": "b-new", "version": 1, "status": "open",
                               "title": "Write short report", "description": "Plain report",
-                              "flow": "bid"}}
+                              "budget_cents": 2500, "flow": "bid"}}
         plan = {"requires_web": False, "queries": []}
         negative = {"decision": "pass", "reason": "Hard"}
         reconsidered = {"decision": "bid", "payout_cents": 2000, "note": "Report"}
@@ -167,6 +167,30 @@ class GambitTests(unittest.TestCase):
         self.assertEqual(result["decision"], "bid")
         repeated.assert_called_once()
 
+
+    def test_small_pass_uses_one_decision_without_second_opinion(self):
+        details = {"bounty": {"_id": "small", "version": 1, "status": "open",
+                              "budget_cents": 500, "title": "Short report",
+                              "description": "Summarize public data", "flow": "bid"}}
+        plan = {"requires_web": False, "queries": []}
+        negative = {"decision": "pass", "reason": "No verified source"}
+        with patch.object(gambit, "infer", side_effect=[plan, negative]) as inference, \
+             patch.object(gambit, "cross_check_decision") as repeated:
+            result = gambit.assess(details)
+        self.assertEqual(result["decision"], "pass")
+        self.assertEqual(inference.call_count, 2)  # free research plan + one decision
+        repeated.assert_not_called()
+
+    def test_25_dollar_pass_retains_second_opinion(self):
+        details = {"bounty": {"_id": "medium", "version": 1, "status": "open",
+                              "budget_cents": 2500, "title": "Short report",
+                              "description": "Summarize public data", "flow": "bid"}}
+        plan = {"requires_web": False, "queries": []}
+        negative = {"decision": "pass", "reason": "No verified source"}
+        with patch.object(gambit, "infer", side_effect=[plan, negative]), \
+             patch.object(gambit, "cross_check_decision", return_value=negative) as repeated:
+            gambit.assess(details)
+        repeated.assert_called_once()
 
     def test_three_way_conflict_queues_a_new_evaluation(self):
         proposal = {'decision': 'bid', 'payout_cents': 1500}
@@ -2161,6 +2185,38 @@ class GambitTests(unittest.TestCase):
         self.assertEqual(gambit.safe_failure_reason(ValueError("buyer private content")),
                          "ValueError")
 
+
+
+    def test_budget_wait_future_retry_does_not_churn_receipts(self):
+        from datetime import datetime, timedelta, timezone
+        state = {"bounties": {"b1": {"action": "budget_wait",
+            "last_error": "openai_daily_pace_exceeded",
+            "retry_at": (datetime.now(timezone.utc) + timedelta(hours=8)).isoformat()}},
+            "recent_outcomes": []}
+        before = dict(state["bounties"]["b1"])
+        gambit.schedule_evaluation_retry(state, "b1",
+                                          RuntimeError("openai_daily_pace_exceeded"))
+        self.assertEqual(state["bounties"]["b1"], before)
+        self.assertEqual(state["recent_outcomes"], [])
+
+
+
+    def test_buyer_reply_budget_guard_uses_safe_acknowledgment_without_model_spend(self):
+        from unittest.mock import patch
+        message = {"author_type": "user", "_id": "buyer1",
+                   "content": {"type": "text", "text": "Can you confirm the timing?"}}
+        with patch.object(gambit, "infer", side_effect=RuntimeError("openai_daily_pace_exceeded")):
+            result = gambit.respond_to_buyer({"bounty": {"title": "Research"}}, [message])
+        self.assertIn("received", result["reply_text"])
+        self.assertNotIn("shortly", result["reply_text"])
+
+    def test_buyer_reply_nonbudget_failure_is_not_masked(self):
+        from unittest.mock import patch
+        message = {"author_type": "user", "_id": "buyer1",
+                   "content": {"type": "text", "text": "What is the timeline?"}}
+        with patch.object(gambit, "infer", side_effect=RuntimeError("openai_http_500")):
+            with self.assertRaisesRegex(RuntimeError, "openai_http_500"):
+                gambit.respond_to_buyer({"bounty": {"title": "Research"}}, [message])
 
 
 if __name__ == '__main__':

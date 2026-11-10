@@ -170,3 +170,13 @@ class Corrections(unittest.TestCase):
         self.assertEqual(entry['action'],'evaluation_abandoned')
         self.assertEqual(entry['retry_count'],4)
         self.assertIsNone(entry['retry_at'])
+
+
+    def test_cyclops_preflight_rejects_unavailable_cairo(self):
+        with patch('importlib.util.find_spec', side_effect=lambda name: None if name == 'cairo' else object()):
+            self.assertEqual(cyclops.missing_import('import cairo'), 'cairo')
+
+    def test_cyclops_preflight_accepts_installed_reportlab(self):
+        with patch('importlib.util.find_spec', side_effect=lambda name: object() if name == 'reportlab' else None):
+            self.assertIsNone(cyclops.missing_import('from reportlab.platypus import Paragraph'))
+
