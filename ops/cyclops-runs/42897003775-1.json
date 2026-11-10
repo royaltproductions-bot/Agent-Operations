@@ -1,0 +1,193 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-10T20:39:51.757923+00:00",
+  "model": "qwen3:8b",
+  "asset": {
+    "asset_id": "003c3c67f50b396938ad",
+    "title": "Outlook Dropdown Email Template Builder",
+    "price_usd": "19.99",
+    "price_cents": 1999,
+    "payment_link_id": "plink_1UaMSFBto3o776uygerXpmQb"
+  },
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 15,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 15
+    },
+    "search_provider_counts": {
+      "duckduckgo": 7,
+      "followup": 2,
+      "hn_ask": 6
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "ValueError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "verified_firsthand_problem_pages": 3,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 12,
+    "public_market_sample": [
+      {
+        "url": "https://www.ablebits.com/office-addins-blog/add-dropdown-list-outlook-email-template/",
+        "title": "Add a dropdown list to Outlook email template - Ablebits",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://email-templates.app/en/docs/custom-input-fields/dropdown/index.html",
+        "title": "Outlook email templates with dropdown list",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://email-templates.app/en/docs/welcome/index.html",
+        "title": "email-templates.app",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44234787",
+        "title": "Ask HN: What Are Your Most Useful Everyday AI Use-Cases? Here Are My Top",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=43928374",
+        "title": "We built an AI-powered voice tool to boost sales",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=41820264",
+        "title": "Time to First Intelligence",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 15,
+    "search_queries": [
+      "downloadable Outlook email template with fillable fields and dropdown options",
+      "",
+      "AI-powered text summarizer tool for long articles and documents",
+      "Python script to automate invoice generation from CSV data"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 18,
+      "skipped_revisits": 56,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "downloadable Outlook email template with fillable fields and dropdown options",
+        "Python script to automate invoice generation from CSV data",
+        "free downloadable Excel template for tracking project timelines and deadlines",
+        "AI-powered text summarizer tool for long articles and documents"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 118,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "approved_and_published",
+    "asset_id": "003c3c67f50b396938ad",
+    "production_tool": "isolated_tool_workshop",
+    "artifact_count": 1,
+    "created_artifacts": [
+      {
+        "filename": "outlook_dropdown_email_template.oft",
+        "bytes": 36928,
+        "sha256": "3ffeb4c4f39a52298e4762ca373922dee78a23f49ee77379dc8b65fad8016602",
+        "content_type": "application/octet-stream"
+      }
+    ]
+  },
+  "catalog": {
+    "result": "catalog_published",
+    "listed_products": 4,
+    "product_pages": 4,
+    "files_updated": 3
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 12,
+    "disabled_payment_links": 0
+  },
+  "external_action": {
+    "result": "no_relevant_opt_in_buyer",
+    "asset_id": "003c3c67f50b396938ad"
+  },
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 1,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "e46509dbb213a33c25fd",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "duckduckgo",
+          "reason": "HTTPError",
+          "http_code": 403
+        }
+      ]
+    },
+    {
+      "asset_id": "003c3c67f50b396938ad",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 4,
+    "new_distribution_outlets": 0,
+    "production_progress": true,
+    "public_sources_reviewable": 12,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
