@@ -1,0 +1,55 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops",
+  "status": "active",
+  "asset_id": "003c3c67f50b396938ad",
+  "title": "Outlook Dropdown Email Template Builder",
+  "description": "A reusable digital product that allows users to create customizable email templates with dropdown lists for efficient communication.",
+  "audience": "Outlook users who need to send out standardized emails with predefined options for faster and more accurate data entry.",
+  "pitch": "This product enables users to create email templates with dropdown lists, allowing them to select from predefined options and streamline their communication process.",
+  "price_usd": "19.99",
+  "price_cents": 1999,
+  "target_terms": [
+    "dropdown email template",
+    "email template customization",
+    "Outlook email automation",
+    "dropdown list in email",
+    "email template with options"
+  ],
+  "evidence_source_url": "https://www.ablebits.com/office-addins-blog/add-dropdown-list-outlook-email-template/",
+  "files": [
+    "outlook_dropdown_email_template.oft"
+  ],
+  "artifact_manifest": [
+    {
+      "filename": "outlook_dropdown_email_template.oft",
+      "bytes": 36928,
+      "sha256": "3ffeb4c4f39a52298e4762ca373922dee78a23f49ee77379dc8b65fad8016602",
+      "content_type": "application/octet-stream"
+    }
+  ],
+  "production_tool": "isolated_tool_workshop",
+  "quality_gate": "content_and_evidence_verified",
+  "market_validation": {
+    "status": "agent_assessed_public_market",
+    "decision": "pursue",
+    "reason": "Low-cost original pilot answering a real first-person user problem, with market validation still to be measured. No verified demand or revenue is claimed.",
+    "observation": {
+      "candidate_id": "web:56236a896f3fa392b1",
+      "url": "https://www.ablebits.com/office-addins-blog/add-dropdown-list-outlook-email-template/",
+      "title": "Add a dropdown list to Outlook email template - Ablebits",
+      "signal_type": "unclassified_public_page",
+      "source_fetched": true,
+      "evidence_excerpt": "Add a dropdown list to Outlook email template Ablebits blog Outlook Drop down How to add a dropdown list to Outlook email template by Svetlana Cheusheva , updated on September 27,  [...] 2023 Looking for a way to create a drop down list in your email template? What about selecting multiple items? And is it possible to populate a dropdown from a database? You will find all the answers in this tutorial. Email templates are a great way to save time on routine correspondence. But very often, you still have to manually input some variables when preparing an email to send out. In case you are entering unique data in every message, the optimal solution would be an email template with fillable text fields . When choosing from a predefined set of values, nothing beats a dropdown menu. Regrettably, there is no easy way to make a dropdown in an Outlook template. Perhaps, you could approach the task by creating a custom form, placing a ComboBox control onto it, and somehow plugging a selected value into a message. But even for an experienced VBA programmer, that isn't a trivial task. Wait\u2026 did I",
+      "listed_price_usd": null,
+      "displayed_sales_count": null
+    }
+  },
+  "verified_market_problem_quote": "Add a dropdown list to Outlook email template Ablebits blog Outlook Drop down How to add a dropdown list to Outlook email template by Svetlana Cheusheva , updated on September 27,  [...] 2023 Looking for a way to create a drop down list in your email template? What about selecting multiple items? And is it possible to populate a dropdown from a database? You will find all the answers in this tutorial. Email templates are a great way to save time on routine correspondence. But very often, you still have to manually input some variables when preparing an email to send out. In case you are entering unique data in every message, the optimal solution would be an email template with fillable text fields . When choosing from a predefined set of values, nothing beats a dropdown menu. Regrettably, there is no easy way to make a dropdown in an Outlook template. Perhaps, you could approach the task by creating a custom form, placing a ComboBox control onto it, and somehow plugging a selected value into a message. But even for an experienced VBA programmer, that isn't a trivial task. Wait\u2026 did I",
+  "commercial_review_reason": "The delivered `.oft` file is a valid Outlook template file with the expected functionality of containing dropdown lists, as evidenced by the market observation and blog content. It meets the promised function and serves the need for customizable email template",
+  "delivery": "private_encrypted_vault",
+  "vault_path": "ops/cyclops-vault/assets/003c3c67f50b396938ad.json",
+  "payment_link_id": "plink_1UaMSFBto3o776uygerXpmQb",
+  "checkout_url": "https://buy.stripe.com/8x2dR89fW4YL0Zk1sH7Re0T",
+  "created_at": "2026-11-10T21:19:47.652373+00:00"
+}
