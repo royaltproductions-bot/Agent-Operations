@@ -65,8 +65,8 @@ class GambitOpenAITests(unittest.TestCase):
             self.assertEqual(persisted["reserved_micro_usd"], 1200)
             self.assertNotIn("OPENAI_API_KEY", str(persisted))
 
-    def test_budget_rejects_limit_above_twenty_and_resets_each_utc_month(self):
-        with patch.dict(os.environ, {"GAMBIT_OPENAI_MONTHLY_LIMIT_USD": "21"}):
+    def test_budget_rejects_limit_above_forty_and_resets_each_utc_month(self):
+        with patch.dict(os.environ, {"GAMBIT_OPENAI_MONTHLY_LIMIT_USD": "41"}):
             with self.assertRaisesRegex(ValueError, "openai_monthly_budget_invalid"):
                 gambit_openai.reserve_monthly_budget(0.01)
         gambit_openai.BUDGET_PATH.write_text(
@@ -95,13 +95,46 @@ class GambitOpenAITests(unittest.TestCase):
 
     def test_g1_refuses_spend_after_daily_remaining_budget_share(self):
         self._seed_november_ledger(9_701_680, day_start=9_271_680)
-        with patch.object(gambit_openai, "datetime", FixedNovember6):
+        with patch.dict(os.environ, {"GAMBIT_OPENAI_MONTHLY_LIMIT_USD": "20"}), \
+             patch.object(gambit_openai, "datetime", FixedNovember6):
             with self.assertRaisesRegex(RuntimeError, "openai_daily_pace_exceeded"):
                 gambit_openai.reserve_monthly_budget(0.05)
 
+    def test_b1_november_tenth_new_guard_allows_small_reservation(self):
+        class November10(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                return cls(2026, 11, 10, tzinfo=timezone.utc)
+        self._seed_november_ledger(10_789_942)
+        with patch.dict(os.environ, {"GAMBIT_OPENAI_MONTHLY_LIMIT_USD": "38"}), \
+             patch.object(gambit_openai, "datetime", November10):
+            updated = gambit_openai.reserve_monthly_budget(0.05)
+        self.assertEqual(updated["reserved_micro_usd"], 10_839_942)
+
+    def test_b1_daily_ceiling_stops_after_one_dollar_thirty(self):
+        class November10(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                return cls(2026, 11, 10, tzinfo=timezone.utc)
+        self._seed_november_ledger(12_089_942)
+        ledger = json.loads(gambit_openai.BUDGET_PATH.read_text())
+        ledger.update(pace_day="2026-11-10", day_start_micro_usd=10_789_942)
+        gambit_openai.BUDGET_PATH.write_text(json.dumps(ledger))
+        with patch.dict(os.environ, {"GAMBIT_OPENAI_MONTHLY_LIMIT_USD": "38"}), \
+             patch.object(gambit_openai, "datetime", November10):
+            with self.assertRaisesRegex(RuntimeError, "openai_daily_pace_exceeded"):
+                gambit_openai.reserve_monthly_budget(0.15)
+
+    def test_b1_monthly_guard_refuses_reservation_above_38(self):
+        self._seed_november_ledger(37_950_000)
+        with patch.dict(os.environ, {"GAMBIT_OPENAI_MONTHLY_LIMIT_USD": "38"}):
+            with self.assertRaisesRegex(RuntimeError, "openai_monthly_budget_exhausted"):
+                gambit_openai.reserve_monthly_budget(0.1)
+
     def test_g1_hard_monthly_limit_wins_on_november_30(self):
         self._seed_november_ledger(19_900_000)
-        with patch.object(gambit_openai, "datetime", FixedNovember30):
+        with patch.dict(os.environ, {"GAMBIT_OPENAI_MONTHLY_LIMIT_USD": "20"}), \
+             patch.object(gambit_openai, "datetime", FixedNovember30):
             with self.assertRaisesRegex(RuntimeError, "openai_monthly_budget_exhausted"):
                 gambit_openai.reserve_monthly_budget(0.20)
 

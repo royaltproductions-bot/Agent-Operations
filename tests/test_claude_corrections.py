@@ -90,10 +90,10 @@ class Corrections(unittest.TestCase):
             self.assertEqual(result['day_start_micro_usd'],6600000)
 
     def test_daily_growth_limited_to_seventy_cents(self):
-        with tempfile.TemporaryDirectory() as folder,patch.object(o,'BUDGET_PATH',Path(folder)/'b.json'),patch.object(o,'datetime') as dt:
+        with tempfile.TemporaryDirectory() as folder,patch.dict(os.environ, {'GAMBIT_OPENAI_MONTHLY_LIMIT_USD':'20'}),patch.object(o,'BUDGET_PATH',Path(folder)/'b.json'),patch.object(o,'datetime') as dt:
             dt.now.return_value=NOW
             o.reserve_monthly_budget(.60)
-            with self.assertRaisesRegex(RuntimeError,'openai_daily_pace_exceeded'):o.reserve_monthly_budget(.11)
+            with self.assertRaisesRegex(RuntimeError,'openai_daily_pace_exceeded'):o.reserve_monthly_budget(.20)
 
     def test_shapes_outcomes_and_missing_not_rejection(self):
         state={}

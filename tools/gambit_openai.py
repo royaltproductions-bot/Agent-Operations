@@ -125,8 +125,8 @@ def reserve_monthly_budget(estimated_usd):
     A fresh runner checkpoints its reservations to GitHub after each cycle.
     Account-level hard limits remain necessary for billing enforcement.
     """
-    limit = float(os.getenv("GAMBIT_OPENAI_MONTHLY_LIMIT_USD", "20"))
-    if not math.isfinite(limit) or not 0 < limit <= 20:
+    limit = float(os.getenv("GAMBIT_OPENAI_MONTHLY_LIMIT_USD", "38"))
+    if not math.isfinite(limit) or not 0 < limit <= 40:
         raise ValueError("openai_monthly_budget_invalid")
     if not math.isfinite(estimated_usd) or estimated_usd <= 0:
         raise ValueError("openai_call_estimate_invalid")
@@ -154,7 +154,7 @@ def reserve_monthly_budget(estimated_usd):
             raise RuntimeError("openai_daily_pace_invalid_ledger")
         # Pace only the remaining monthly allowance. Prior-month-to-date
         # reservations must not freeze all future bids for several days.
-        daily_allowance = min((maximum - day_start) // days_remaining, 700_000)
+        daily_allowance = min((maximum - day_start) // days_remaining, 1_400_000)
         if committed - day_start + requested > daily_allowance:
             raise RuntimeError("openai_daily_pace_exceeded")
         ledger.update(pace_day=day, day_start_micro_usd=day_start)
