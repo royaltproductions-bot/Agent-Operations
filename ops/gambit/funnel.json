@@ -1,11 +1,11 @@
 {
   "aging_active_bids_days": {
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 3.0308833138194444,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 7.1016324573379634,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 7.071792295300926,
-    "mx78wzkqdghteet6beyw1567mx8hewfj": 8.350737792986111,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 7.102483128634259,
-    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 0.8719095985416667
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 3.0326131188773147,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 7.103362262395834,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 7.0735221003587965,
+    "mx78wzkqdghteet6beyw1567mx8hewfj": 8.352467598043981,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 7.104212933692129,
+    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 0.873639403599537
   },
   "browser": {
     "completed_job_count": {
@@ -91,25 +91,26 @@
     "passed_by_reason": {
       "authenticated_account_operation": 1,
       "outbound_messaging": 1,
+      "scope_unconfirmed_after_clarification": 1,
       "software_deployment": 3,
-      "unknown": 6,
+      "unknown": 8,
       "unsupported_multi_or_file_format": 6,
-      "video_production": 9
+      "video_production": 10
     },
-    "retry_pending": 0,
+    "retry_pending": 1,
     "sample_excluded": 2,
     "seen": 58,
     "settled": 0,
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-10T21:53:02.187314+00:00",
+  "generated_at": "2026-11-10T21:55:31.642471+00:00",
   "median_posting_to_bid_minutes": 2926.147766666667,
   "median_posting_to_detection_minutes": 56.643551458333334,
   "model_budget": {
-    "call_count": 275,
+    "call_count": 286,
     "month": "2026-11",
-    "reserved_micro_usd": 10789942
+    "reserved_micro_usd": 11247406
   },
   "null_fields": {
     "accepted_at": 0,
@@ -133,8 +134,11 @@
     "delivered": 0,
     "hired": 0,
     "missing_unconfirmed": 0,
-    "passed_by_reason": {},
-    "retry_pending": 0,
+    "passed_by_reason": {
+      "unknown": 2,
+      "video_production": 1
+    },
+    "retry_pending": 1,
     "sample_excluded": 0,
     "seen": 4,
     "settled": 0,
