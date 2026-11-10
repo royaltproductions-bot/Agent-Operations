@@ -415,11 +415,12 @@
       "ph7bk4t4vajgyw2fqsnd6pd0qs8hvztk",
       "ph7ddvc2k1tmzy60heyrrqkg558hx5et",
       "ph76z64qw65yagnw5nvwnrg8d58hw7yj",
-      "ph7f0p8zfxk1m3j37gr1s5t4x18hwx2j"
+      "ph7f0p8zfxk1m3j37gr1s5t4x18hwx2j",
+      "ph734ga055jkdt4e5xpt2p61ah8hw217"
     ],
     "event_types": {
       "bounty.available": {
-        "count": 4,
+        "count": 5,
         "data_keys": [
           "bounty_id",
           "bounty_version",
@@ -427,7 +428,7 @@
           "title"
         ],
         "first_seen": "2026-11-08T20:41:15.070418+00:00",
-        "last_seen": "2026-11-09T17:43:34.344855+00:00"
+        "last_seen": "2026-11-10T00:52:54.256967+00:00"
       },
       "bounty.claimed": {
         "count": 1,
@@ -1235,7 +1236,12 @@
       "last_known_status": "open",
       "last_seen_open_at": "2026-11-10T00:52:51.541665+00:00",
       "version": 1,
-      "versions": {}
+      "versions": {
+        "1": {
+          "captured_at": "2026-11-10T00:52:54.520688+00:00",
+          "encrypted_brief": "gAAAAABq8mrmlesXtJbbSRYs7iYp--3b1SAvqtyQmNz3mvavXpovfHBQbqti_FWw_FZ1A87a1MF3TUbFVb5labA15SdmZ4lET59BaocagWTsH3tgAHzpNsmlbBnoKdSUxAdF_iSMiAx_jmI59QpYb_4HPeecOZyytrPDpZKg8Z9pIOcAxaFgzRTKp0TcNbm70eb-LeWXcjGiHBlXBdIitQkPFpOMQzMlw92lYMVldgu1tmUK5hGTHc2CCINDcNz7XMi5DkYtWmJXaA-NRZUfy3XzmIA0ywZU7922T4kmyHJFw-2p3f1tDjFpeKlPuO2WELeUj4fb3qk8cvZSoDJhdDj02oqELbsofh1DR0zktdcGWT-MbxlX1Nvu10F5gw889X52yV_Ri-Z80r4-OBgSne3pjNg15Nxr_o_-2fk0EiC0yIqwPnhNj-srAZwW0-qMh_JMV1nUWuXZ2MU8wWffuNdh8pw39QeFlSFQTXzHgOf1jWKOv-Yh_Tb5YmPNVj02Q1estKEeAy4quELFHeXLY7tURKF_htKfklkvjX3p2w-1yuesH8_V6iP82vdZxCT6sxwKvL0ilyCF63cikhQ8j0qUI8lGyfmJcF5ZGd9G4_Kl83mVxsM4uyBsBrR-XrEouX1Dn1Z6YFBRCTYbV6JIAVLxJyQ8-86L1-l-tQD1LPacXtQWt6kDdXrIdsCdi-mjEZ7-CDRK3FfK76sleJ3WkPL6BvN0DCuOsNOcV0VdquQOxj9L4wlUpbfWny69_DZfXzBXewFKVpdDyIxy81DYB6hALjEqP6-qpzlEyc0ZQBzmaFG1xSp4VnUXsj7vHlJvL-Fs8-8Sprrg3RPTHLlyg3kmbTkiOPZYVRiL_YNLJmBOQlU6sW4YM6Z2P0rJrJXUK1MXQaS3Tvx3JxU_DMWlafHhz7wGmtAvn7wuMoqkuXm_W70rwl3Ep-mE77WCFVc4UeMNaQJoT0qjFfEAMqYlYJrstZ4XSlBbxElxTarauyFr9lHO7ZZv8iMqZD4WHDt4Z-vluRHKAHXX4B5GP8C2qOzqGSS3zydZOdDlbW-nvYU4YW1qc0xEX2FxgvT6fRFKs74hT1GLwkVyLw7OOnPKEfz9Vt98RUZ3NShmh6BjA35DESvrEi0mjEc3_hZMbd5Il0L0_WMOJsNt58Zr7eFXk_cfkfwuVqH8N-qA3W9W9edOlZkLnW02yQWT83zywdTS_hpKs95ghm2uhkKdt_EH8jSNmNSydNUB5w8ARcvrECfq04JWAFQl2aaobKkgGmFQ0_iM0yjrhZBtewnnnzLUEuZjtR7W9whmEv1aqbOr_VyQ98eJyl5wvrVRKe1SPhZBTgpJRlTTWRJ0jkdb-AHrR5kWDQgSPRBX60yryZhwM7-1xagFyfuOO-aBB662JIh8lxmNVhzzoXi6z7oSiVPcGRM-snQik-nRA6AitYAe5AQIR-w0hRaKRZ5nLfTv4yUKOwHC68hbLXNbJ1COm5vXxXssbw5eUIkPps1ALNuakdBtI3nVoUulM6KGv_YqyzWmxsFCOu6yIhqOCkz3AfLlmm0OgD4VI1buChBc22VLyQ8vz9aBkixglGRONoLKej2EI-EkrmBdRanUk5L8s5bPeLSX-zG3_hm8KCrE_dqWRpbmGrWZZWUbEwA4bWPOYWNHVrtMo32TJEPzmiJu1NzqGPDlXqsWhBwMPEfSS4GziY9THZgO7mJxaCE="
+        }
+      }
     },
     "mx78kk7yaefsdwz1vgp7djcjz58hdqc8": {
       "first_detected_at": "2026-11-01T09:19:43.665553+00:00",
