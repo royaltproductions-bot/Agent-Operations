@@ -1278,6 +1278,56 @@ class GambitTests(unittest.TestCase):
         self.assertFalse(any(len(c.args) > 1 and c.args[1] == 'POST'
                              for c in api.call_args_list))
 
+    def test_stale_ask_without_gap_becomes_discounted_bid(self):
+        old = (datetime.now(timezone.utc) - timedelta(days=2)).isoformat()
+        details = {'bounty': {'_id': 'buyer-job', 'status': 'open',
+                              'version': 1, 'flow': 'bid',
+                              'budget_cents': 3500,
+                              'title': 'Compile a market report'}}
+        state = {'bounties': {'buyer-job': {'action': 'asked', 'version': 1,
+                                            'at': old,
+                                            'feasible_ask_review_version': 1}},
+                 'commercial': {'buyer-job': {}},
+                 'settlements': {}, 'recent_outcomes': []}
+        def request(path, method='GET', payload=None):
+            if method == 'POST':
+                return {'bid': {'status': 'active',
+                                'payout_cents': payload['payout_cents']}}
+            return details
+        with patch.object(gambit, 'api', side_effect=request) as api, \
+             patch.object(gambit, 'messages_for', return_value=[]), \
+             patch.object(gambit, 'assess', return_value={
+                 'decision': 'ask', 'reason': 'needs detail',
+                 'pass_reason': 'none', 'question': 'Q?',
+                 'feasible': False, 'payout_cents': 0,
+                 'note': '', 'assumptions': 'scope as described'}):
+            gambit.handle_open({'_id': 'buyer-job'}, state)
+        posts = [c for c in api.call_args_list
+                 if len(c.args) > 1 and c.args[1] == 'POST'
+                 and c.args[0].endswith('/bid')]
+        self.assertEqual(len(posts), 1)
+        self.assertEqual(posts[0].args[2]['payout_cents'], 2800)
+        self.assertIn('Assumptions:', posts[0].args[2]['note'])
+        self.assertIn('introductory rate', posts[0].args[2]['note'])
+
+    def test_fresh_budget_wait_is_requeued(self):
+        now = datetime.now(timezone.utc)
+        item = {'_id': 'fresh-job', 'status': 'open', 'version': 1,
+                'created_at': now.isoformat()}
+        state = {'bounties': {'fresh-job': {'action': 'budget_wait',
+                                            'version': 1,
+                                            'retry_at': (now + timedelta(days=1)).isoformat()}},
+                 'commercial': {}, 'recent_outcomes': []}
+        with patch.object(gambit, 'pages', side_effect=[[item], []]), \
+             patch.object(gambit, 'relevant_events', return_value=([], None)):
+            _, _, _, _, waiting, _ = gambit.scan(state)
+        self.assertEqual([x['_id'] for x in waiting], ['fresh-job'])
+
+    def test_decision_schema_requires_accountable_pass_reason(self):
+        self.assertIn('pass_reason', gambit.DECIDE_SCHEMA['required'])
+        self.assertIn('capability_gap',
+                      gambit.DECIDE_SCHEMA['properties']['pass_reason']['enum'])
+
     def test_unsupported_hired_video_stops_before_fabricated_submission(self):
         details = {'bounty': {'_id': 'video1', 'status': 'claimed',
                               'title': 'Make a video', 'verification': 'Upload MP4.'},
