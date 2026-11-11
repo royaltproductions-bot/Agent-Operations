@@ -1279,6 +1279,70 @@ class GambitTests(unittest.TestCase):
         self.assertFalse(any(len(c.args) > 1 and c.args[1] == 'POST'
                              for c in api.call_args_list))
 
+    def test_research_pass_recovery_bids_supported_open_work_without_model(self):
+        state = {
+            'bounties': {'research-job': {'action': 'pass', 'version': 1}},
+            'commercial': {'research-job': {'budget_cents': 5000}},
+            'settlements': {},
+            'recent_outcomes': [{
+                'action': 'pass', 'bounty_id': 'research-job',
+                'research_status': 'available'}],
+        }
+        details = {'bounty': {
+            '_id': 'research-job', 'status': 'open', 'version': 1,
+            'flow': 'bid', 'budget_cents': 5000,
+            'title': 'Research regional suppliers',
+            'description': 'Deliver a sourced list of regional suppliers.'}}
+        def request(path, method='GET', payload=None):
+            if method == 'POST':
+                return {'bid': {'status': 'active',
+                                'payout_cents': payload['payout_cents']}}
+            return details
+        with patch.object(gambit, 'load_state', return_value=state), \
+             patch.object(gambit, 'save_state'), \
+             patch.object(gambit, 'api', side_effect=request) as api, \
+             patch.object(gambit, 'assess') as assess, \
+             patch.object(gambit, 'infer') as infer:
+            outcomes = gambit.recover_research_passes()
+        assess.assert_not_called()
+        infer.assert_not_called()
+        posts = [c for c in api.call_args_list
+                 if len(c.args) > 1 and c.args[1] == 'POST'
+                 and c.args[0].endswith('/bid')]
+        self.assertEqual(len(posts), 1)
+        self.assertEqual(posts[0].args[2]['payout_cents'], 4000)
+        self.assertIn('Assumptions:', posts[0].args[2]['note'])
+        self.assertIn('introductory rate', posts[0].args[2]['note'])
+        self.assertEqual(outcomes[0]['action'], 'bid_active')
+        self.assertTrue(state['commercial']['research-job']['research_pass_recovered'])
+
+    def test_research_pass_recovery_preserves_real_capability_gap(self):
+        state = {
+            'bounties': {'video-job': {'action': 'pass', 'version': 1}},
+            'commercial': {'video-job': {'budget_cents': 4000}},
+            'settlements': {},
+            'recent_outcomes': [{
+                'action': 'pass', 'bounty_id': 'video-job',
+                'research_status': 'verified'}],
+        }
+        details = {'bounty': {
+            '_id': 'video-job', 'status': 'open', 'version': 1,
+            'flow': 'bid', 'budget_cents': 4000,
+            'title': 'Film a live-action product reel',
+            'description': 'Actors and camera footage required.',
+            'verification': 'Deliver final MP4 live-action reel.'}}
+        with patch.object(gambit, 'load_state', return_value=state), \
+             patch.object(gambit, 'save_state'), \
+             patch.object(gambit, 'api', return_value=details) as api, \
+             patch.object(gambit, 'assess') as assess:
+            outcomes = gambit.recover_research_passes()
+        assess.assert_not_called()
+        self.assertFalse(any(len(c.args) > 1 and c.args[1] == 'POST'
+                             for c in api.call_args_list))
+        self.assertEqual(outcomes[0]['action'], 'pass_unsupported')
+        self.assertEqual(state['bounties']['video-job']['pass_reason'],
+                         'capability_gap')
+
     def test_stale_ask_without_gap_becomes_discounted_bid(self):
         old = (datetime.now(timezone.utc) - timedelta(days=2)).isoformat()
         details = {'bounty': {'_id': 'buyer-job', 'status': 'open',
