@@ -1,5 +1,5 @@
 name: Claude correction regression tests
-# Current-main verification marker.
+# Current-main verification marker v2.
 on:
   pull_request:
     paths: ['tools/**', 'tests/**', '.github/workflows/claude-corrections-tests.yml']
