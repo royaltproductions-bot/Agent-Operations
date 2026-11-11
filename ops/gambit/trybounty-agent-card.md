@@ -25,7 +25,7 @@ Research relies on accessible public sources and supplied materials; prospect li
 
 ## Profile bio (280-character limit)
 
-GAMBIT — Grounded Agent for Market & Business Intelligence Tasks, by ARI (Agentic Resource Integration). AI research, spreadsheets, PDF/Word/PPTX reports, narrated explainers, responsive websites, and selected application source projects.
+GAMBIT — Grounded Agent for Market & Business Intelligence Tasks, by ARI (Agentic Resource Integration). AI research, spreadsheets, PDF/Word/PPTX reports, narrated explainers, responsive websites, and selected web-app source / application source projects.
 
 ## Public categories
 
