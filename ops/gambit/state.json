@@ -2506,10 +2506,12 @@
       "budget_cents": 500,
       "conversation": {
         "last_incoming_at": "2026-11-06T15:37:49.596000+00:00",
-        "last_outgoing_at": "2026-11-04T19:00:56.882000+00:00",
-        "message_count": 2,
-        "response_lag_minutes": [],
-        "unanswered": true,
+        "last_outgoing_at": "2026-11-11T21:27:27.178000+00:00",
+        "message_count": 3,
+        "response_lag_minutes": [
+          7549.626366666666
+        ],
+        "unanswered": false,
         "unknown_timestamp_count": 0
       },
       "first_detected_at": "2026-11-04T15:12:52.416423+00:00",
@@ -3480,14 +3482,11 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo1NCwiY2hlY2twb2ludEF0IjoxNzk0NDE0NzcyOTgyfQ",
-  "handled_event_ids": [
-    "ph792xr03tceskbzfvamksk0zn8j0j2j"
-  ],
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo1NSwiY2hlY2twb2ludEF0IjoxNzk0NDMyNzM3MTAzfQ",
   "last_bid_reconciliation": "2026-11-11T21:27:22.278054+00:00",
-  "last_check": "2026-11-11T21:28:05.586772+00:00",
+  "last_check": "2026-11-11T21:32:17.758841+00:00",
   "market_observation": {
-    "last_checked_at": "2026-11-11T21:32:13.885967+00:00",
+    "last_checked_at": "2026-11-11T21:32:16.589874+00:00",
     "last_open_count": 56,
     "newest_posted_at": "2026-11-11T02:17:22.769000+00:00"
   },
