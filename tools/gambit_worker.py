@@ -688,6 +688,12 @@ def scan(state):
         commercial.observe(state, item)
     state.setdefault("market_observation", {})["last_open_count"] = len(opened)
     state["market_observation"]["last_checked_at"] = timestamp()
+    observed_posted = [commercial.utc_time(
+        state.get("commercial", {}).get(str(item.get("_id")), {}).get("posted_at"))
+        for item in opened]
+    observed_posted = [value for value in observed_posted if value]
+    state["market_observation"]["newest_posted_at"] = (
+        max(observed_posted).isoformat() if observed_posted else None)
     held = pages("/v1/agent/bounties?status=claimed,submitted,reviewing,settling,disputed&limit=100", "bounties")
     events, cursor = relevant_events(state)
     for event in events:
@@ -859,6 +865,8 @@ DECIDE_SCHEMA = {"type": "object", "properties": {
     "decision": {"type": "string", "enum": ["bid", "claim", "ask", "pass"]},
     "reason": {"type": "string"}, "payout_cents": {"type": "integer"},
     "note": {"type": "string"}, "question": {"type": "string"},
+    "pass_reason": {"type": "string", "enum": ["none", "capability_gap",
+        "out_of_scope_legal", "budget_too_low_for_effort", "duplicate", "other"]},
     "feasible": {"type": "boolean"},
     "assumptions": {"type": "string"},
     "sample_source_url": {"type": "string"},
@@ -867,7 +875,7 @@ DECIDE_SCHEMA = {"type": "object", "properties": {
         "type": "object", "properties": {k: {"type": "string"}
         for k in ("name", "fact", "source_url")},
         "required": ["name", "fact", "source_url"], "additionalProperties": False}},
-}, "required": ["decision", "reason", "payout_cents", "note", "question"],
+}, "required": ["decision", "reason", "payout_cents", "note", "question", "pass_reason"],
     "additionalProperties": False}
 
 WORK_SCHEMA = {"type": "object", "properties": {
@@ -1398,10 +1406,12 @@ def assess(details, messages=None, sources=None, unreadable_count=0):
     # into an endlessly retried "temporary builder" problem.
     if gap:
         return {"decision": "pass", "reason": "unsupported_" + gap,
+                "pass_reason": "capability_gap",
                 "payout_cents": 0, "note": "", "question": ""}
     if gambit_app_builder.requested(details) and not app_capable():
         return {"decision": "pass", "reason": "app_build_resource_temporarily_unavailable",
-                "_retry_decision": True, "payout_cents": 0, "note": "", "question": ""}
+                "pass_reason": "other", "_retry_decision": True,
+                "payout_cents": 0, "note": "", "question": ""}
     system = (
         "You are Gambit, an independent paid digital-work operator. Assess this REAL posted "
         "bounty. Choose bid or claim only if you can actually complete and verify every "
@@ -1470,7 +1480,10 @@ def assess(details, messages=None, sources=None, unreadable_count=0):
         "If a prior bid was declined, read the owner's latest message, adapt the "
         "price or scope only when the feedback justifies it, and never repeat "
         "the same unsupported offer. If there is no honest improvement, pass. "
-        "If flow is claim use claim, if bid use bid. Return strict JSON."
+        "For every decision return pass_reason. Use none for bid/claim/ask. "
+        "For pass use exactly one of capability_gap, out_of_scope_legal, "
+        "budget_too_low_for_effort, duplicate, or other. A missing sample is "
+        "never a capability gap. If flow is claim use claim, if bid use bid. Return strict JSON."
     )
     context = clean_context(details, messages, sources)
     context["available_resources"] = resources.manifest()
@@ -1722,6 +1735,7 @@ def handle_open(item, state):
                     (previous.get("action") == "asked" or
                      previous.get("last_question_version") == version))
     new_owner_statement_id = None
+    stale_ask = False
     if prebid_asked:
         previous["last_question_version"] = version
         previous["last_asked_review_at"] = timestamp()
@@ -1737,7 +1751,6 @@ def handle_open(item, state):
         migrate_ask = previous.get("feasible_ask_review_version") != version
         # A stale unanswered question must receive one genuine feasibility
         # reassessment, not an endless periodic re-mark as "asked".
-        stale_ask = False
         if not latest or last_id == previous.get("last_owner_reply_id"):
             try:
                 asked_at = datetime.fromisoformat(previous.get("at") or "")
@@ -1814,8 +1827,27 @@ def handle_open(item, state):
         if stale_ask:
             previous["stale_ask_review_version"] = version
     action = decision["decision"]
-    if action == "ask" and current.get("flow") == "bid" and not unreadable:
-        if decision.get("feasible") is True:
+    gap_reason = unsupported_deliverable(details)
+    pass_reason = str(decision.get("pass_reason") or "").strip()
+    if action == "pass":
+        if not pass_reason:
+            pass_reason = "capability_gap" if gap_reason else "other"
+            decision["pass_reason"] = pass_reason
+        if (not gap_reason and pass_reason == "other" and
+                decision.get("_research_status") in {"available", "verified"}):
+            posted_budget = int(current.get("budget_cents") or 0)
+            brief = str(current.get("description") or current.get("title") or "").strip()
+            summary = " ".join(brief.split())[:400]
+            decision["note"] = ("I propose to deliver " +
+                (summary or "the requested deliverable") +
+                "\nTurnaround: 24h.\nAssumptions: scope as described")
+            decision["payout_cents"] = posted_budget
+            action = "bid"
+        else:
+            previous["pass_reason"] = pass_reason
+    if action == "ask" and current.get("flow") == "bid" and (
+            not unreadable or (prebid_asked and stale_ask)):
+        if decision.get("feasible") is True or (prebid_asked and stale_ask and not gap_reason):
             # An explicit feasibility assessment is required; never infer ability
             # solely from an unanswered question or the posted budget.
             posted_budget = int(current.get("budget_cents") or 0)
@@ -1831,10 +1863,9 @@ def handle_open(item, state):
                 "\nAssumptions: " + assumptions + ("\n" + question if question else ""))
             decision["payout_cents"] = payout
             action = "bid"
-        elif stale_ask and prebid_asked:
-            # No second duplicate clarification; preserve truthful inability to
-            # commit when the model explicitly says the job is not feasible.
-            decision["reason"] = "scope_unconfirmed_after_clarification"
+        elif prebid_asked and stale_ask:
+            decision["reason"] = "unsupported_" + str(gap_reason or "scope")
+            decision["pass_reason"] = "capability_gap"
     if decision.get("_retry_decision"):
         schedule_evaluation_retry(state, bounty_id,
                                   RuntimeError("decision_conflict"))
@@ -1849,11 +1880,10 @@ def handle_open(item, state):
             previous["last_owner_reply_id"] = new_owner_statement_id
         # The buyer already received a question for this exact brief version.
         # Never repeat, paraphrase, or silently replace it with another ask.
-        if stale_ask:
-            # A second qualification question is not an offer. Record a
-            # truthful non-bid outcome rather than faking a commercial bid.
+        if stale_ask and gap_reason:
             previous["action"] = "pass_scope_unconfirmed"
-            previous["reason"] = "scope_unconfirmed_after_clarification"
+            previous["reason"] = "unsupported_" + str(gap_reason)
+            previous["pass_reason"] = "capability_gap"
             note(state, "stale_ask_passed", bounty_id, reason=previous["reason"])
         else:
             previous["action"] = "asked"
@@ -1877,10 +1907,18 @@ def handle_open(item, state):
             action = "asked"
     elif action == "bid" and current.get("flow") == "bid":
         payout = int(decision.get("payout_cents") or 0)
+        payout, pricing = commercial.introductory_price(state, current, payout)
         if not 500 <= payout <= 10_000_000:
             action = "pass"
         else:
+            record = state.setdefault("commercial", {}).setdefault(bounty_id, {})
+            if pricing:
+                record.update(pricing)
             bid_note = str(decision.get("note") or "").strip()
+            if pricing:
+                intro = "New on TryBounty; introductory rate while I build my track record."
+                if intro not in bid_note:
+                    bid_note = (bid_note + "\n" + intro).strip()
             issue = bid_note_issue(bid_note)
             if issue:
                 # Repair prose once, never silently post an unsupported promise.
@@ -1903,8 +1941,16 @@ def handle_open(item, state):
             plain = bool(decision.get("_plain_fallback"))
             sample_rows = [] if plain else decision.get("_sample_rows") or []
             if not plain and decision.get("_requires_web") and len(sample_rows) < 2:
-                schedule_evaluation_retry(state, bounty_id, ValueError("proposal_samples_missing"))
-                return
+                if payout < 2500 or int(previous.get("evidence_failures") or 0) >= 1:
+                    plain = True
+                    decision["_plain_fallback"] = True
+                    sample_rows = []
+                    note(state, "proposal_sample_fallback", bounty_id,
+                         reason="proposal_samples_missing")
+                else:
+                    schedule_evaluation_retry(state, bounty_id,
+                                              ValueError("proposal_samples_missing"))
+                    return
             if not plain and static_site_eligible(details) and website_capable():
                 preview = produce_website(details, messages, sources=sources)
                 if preview.get("status") != "ready":
@@ -1920,8 +1966,15 @@ def handle_open(item, state):
                 # not fabricated externally researched rows.
                 excerpt = str(decision.get("sample_excerpt") or "").strip()
                 if not excerpt and "_research_status" in decision:
-                    schedule_evaluation_retry(state, bounty_id, ValueError("proposal_excerpt_missing"))
-                    return
+                    if payout < 2500 or int(previous.get("evidence_failures") or 0) >= 1:
+                        plain = True
+                        decision["_plain_fallback"] = True
+                        note(state, "proposal_sample_fallback", bounty_id,
+                             reason="proposal_excerpt_missing")
+                    else:
+                        schedule_evaluation_retry(state, bounty_id,
+                                                  ValueError("proposal_excerpt_missing"))
+                        return
                 if excerpt:
                     bid_note += "\nPreliminary sample: " + excerpt
             if sample_rows:
