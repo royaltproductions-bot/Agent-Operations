@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "lane": "cyclops",
-  "status": "active",
+  "status": "inactive",
   "asset_id": "634d7bb92cf56c81e2c7",
   "title": "Phrase Meaning Generator",
   "description": "A digital product that generates and explains the meanings of English idiomatic phrases and expressions, helping users understand their usage and context.",
@@ -33,5 +33,6 @@
   "vault_path": "ops/cyclops-vault/assets/634d7bb92cf56c81e2c7.json",
   "payment_link_id": "plink_1UUvOKBto3o776uyXBOHiWQ7",
   "checkout_url": "https://buy.stripe.com/3cI4gybo4aj5gYi2wL7Re0b",
-  "created_at": "2026-10-26T21:25:16.191717+00:00"
+  "created_at": "2026-10-26T21:25:16.191717+00:00",
+  "inactive_reason": "Invalidated by Cyclops quality review; live Stripe payment link independently verified inactive on 2026-11-11."
 }
