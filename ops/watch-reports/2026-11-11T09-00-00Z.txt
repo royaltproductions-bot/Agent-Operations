@@ -1,0 +1,14 @@
+X-VARIANT 8-HOUR REVENUE WATCH
+Window UTC: 2026-11-11T01:00:00Z to 2026-11-11T09:00:00Z (report cutoff; latest observed Gambit state 08:31Z)
+Created: 2026-11-11 UTC
+Evidence: main branch ops/enterprise-runs, ops/cyclops-runs; gambit-state branch ops/gambit/state.json and openai_budget.json; main workflow and provider router. Confidence: high for standalone receipts and settlement ledger, limited for external marketplace verification and Actions conclusions.
+Wolverine: 1 receipt (06:45:54Z). 11 candidates, 11 pages; 0 offers, 0 external commercial actions, 0 assets, 0 fulfillments, $0 verified receipt revenue. No structural failures. Bottleneck: no verified contactable buyer invitation.
+Cyclops: 2 receipts (01:55:18Z and 08:26:10Z). First cyclops_process_failure. Second invalid Python banner_designer_app.py draft retired; 0 new assets, 0 new offers, 0 fulfillments, $0 verified receipt revenue. Existing catalog: four products, unchanged. Search errors Brave 429 and DuckDuckGo 403; no opt-in distribution.
+Gambit: 0 standalone receipts. Latest check 08:29:14Z, reconciliation 08:27:32Z; market observation 58 open listings at 08:27Z, not 58 qualified jobs. At least 4 pass records in retained 01:00-09:00 outcomes, one pass_unsupported, multiple stale clarification passes; no newly recorded bids, hires, claims, deliverables, acceptances, settlements, or refunds in this interval. Historical $20 bid at 01:44Z is within this window: 1 bid_sent payout ask $20, not earnings. Settlements ledger empty, $0 platform-completed. Recent outcomes include proposal evidence blocks and fallback; current watch health 6 successful cycles, 0 failed. Budget 324 calls, $12.628452 reserved of workflow $38 monthly cap; internal estimate, not Stripe billing. Conversion and submission success not measurable yet. Public profile and Actions conclusions not independently verified.
+Other X-variant lanes: no additional clearly identifiable active revenue X-variant receipt directory found.
+Open improvements:
+G-01 pending: regression-test proposal_samples_missing fallback and ensure verified sample evidence before proposal; avoid unsupported bids.
+G-02 unknown: validate live provider execution and browser QA via tests; router code exists but runtime tests unverified.
+C-01 pending: validate generated Python artifacts before publication; fix invalid banner_designer_app.py draft path.
+W-01 pending: improve discovery precision for actual paid buyer invitations with usable contact channels.
+Economics: no verified completed settlements or paid fulfillments; proposed $20 bid is not revenue. No Stripe deposits inspected.
