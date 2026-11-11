@@ -697,7 +697,8 @@ def relevant_events(state):
 def scan(state):
     # C3/O1: observe the approved secondary market without creating credentials.
     # Public discovery is free; bidding stays disabled until an agent key exists.
-    gambit_secondary_marketplace.observe(state)
+    if os.getenv("GAMBIT_SECONDARY_MARKETPLACE") == "bountyboard":
+        gambit_secondary_marketplace.observe(state)
     opened = pages("/v1/agent/bounties?status=open&limit=100", "bounties")
     # Observation is independent of inference budget or evaluation eligibility.
     for item in opened:
