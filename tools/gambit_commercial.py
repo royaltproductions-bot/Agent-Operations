@@ -109,7 +109,9 @@ def priority(item, state, now=None):
     activity = next((utc_time(item.get(k) or record.get('source_fields', {}).get(k))
                      for k in ('owner_last_active_at', 'last_activity_at')
                      if utc_time(item.get(k) or record.get('source_fields', {}).get(k))), None)
-    if posted and now - posted <= timedelta(hours=24):
+    if posted and now - posted <= timedelta(hours=2):
+        group = -1
+    elif posted and now - posted <= timedelta(hours=24):
         group = 0
     elif posted and now - posted > timedelta(days=5) and not (
             activity and now - activity <= timedelta(days=5)):
