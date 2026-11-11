@@ -2255,7 +2255,7 @@ class GambitTests(unittest.TestCase):
         self.assertEqual(record["action"], "evaluation_abandoned")
         self.assertEqual(record["retry_count"], 4)
         self.assertIsNone(record["retry_at"])
-        self.assertEqual(record["last_error"], "transient_failure")
+        self.assertEqual(record["last_error"], "ValueError")
         self.assertFalse(gambit.retry_due(record))
         self.assertEqual(state["recent_outcomes"][-1]["action"], "evaluation_abandoned")
 

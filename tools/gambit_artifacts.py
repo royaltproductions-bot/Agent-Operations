@@ -14,7 +14,7 @@ import shutil
 import subprocess
 import tempfile
 import textwrap
-import wave
+from functools import lru_cache
 
 
 OUTPUT_FILES = {
@@ -181,10 +181,23 @@ def render_pptx(text):
 
 
 
+@lru_cache(maxsize=1)
+def video_capable():
+    if not shutil.which("ffmpeg") or not shutil.which("ffprobe"):
+        return False
+    try:
+        result = subprocess.run(
+            ["ffmpeg", "-hide_banner", "-filters"], check=True,
+            capture_output=True, text=True, timeout=10)
+        return bool(re.search(r"(?m)^\s*\.\.\.\s+flite\s+", result.stdout))
+    except (OSError, subprocess.SubprocessError):
+        return False
+
+
 def render_mp4(text):
-    """Create a bounded captioned slideshow with local synthesized narration."""
+    """Create a bounded captioned slideshow with FFmpeg's local Flite narration."""
     from PIL import Image, ImageDraw, ImageFont
-    if not shutil.which("ffmpeg") or not shutil.which("ffprobe") or not shutil.which("espeak-ng"):
+    if not video_capable():
         raise ValueError("mp4_runtime_unavailable")
     clean = " ".join(line for _, line in _paragraph_lines(text))
     clean = re.sub(r"\s+", " ", clean).strip()[:1600]
@@ -217,12 +230,24 @@ def render_mp4(text):
             slide_path = f"{folder}/slide-{idx:03d}.png"
             image.save(slide_path, format="PNG")
             slide_paths.append(slide_path)
+        narration_path = f"{folder}/narration.txt"
+        with open(narration_path, "w", encoding="utf-8") as handle:
+            handle.write(clean)
         wav_path = f"{folder}/narration.wav"
-        subprocess.run(["espeak-ng", "-s", "160", "-w", wav_path, clean],
-                       check=True, stdout=subprocess.DEVNULL,
-                       stderr=subprocess.DEVNULL, timeout=60)
-        with wave.open(wav_path, "rb") as audio:
-            audio_seconds = audio.getnframes() / float(audio.getframerate())
+        subprocess.run([
+            "ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
+            "-f", "lavfi", "-i",
+            f"flite=textfile={narration_path}:voice=slt",
+            "-ar", "44100", "-ac", "1", wav_path
+        ], check=True, stdout=subprocess.DEVNULL,
+           stderr=subprocess.DEVNULL, timeout=60)
+        audio_probe = subprocess.run([
+            "ffprobe", "-v", "error", "-show_entries", "format=duration",
+            "-of", "default=noprint_wrappers=1:nokey=1", wav_path
+        ], check=True, capture_output=True, text=True, timeout=20)
+        audio_seconds = float(audio_probe.stdout.strip() or 0)
+        if audio_seconds <= 0:
+            raise ValueError("mp4_audio_unreadable")
         per_slide = max(2.0, (audio_seconds + 0.75) / len(slide_paths))
         concat_path = f"{folder}/slides.txt"
         with open(concat_path, "w", encoding="utf-8") as handle:
