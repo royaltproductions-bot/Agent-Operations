@@ -759,6 +759,9 @@ def scan(state):
                    state["bounties"].get(str(item.get("_id")), {}))
                or (state.get("commercial", {}).get(str(item.get("_id")), {})
                    .get("conversation", {}).get("unanswered") is True)
+               or (state["bounties"].get(str(item.get("_id")), {}).get("action")
+                   in {"bid_sent", "bid_active"} and commercial.followup_due(
+                       state.get("commercial", {}).get(str(item.get("_id")), {})))
                or retry_due(state["bounties"].get(str(item.get("_id")), {}))
                or (state["bounties"].get(str(item.get("_id")), {}).get("action") == "budget_wait"
                    and commercial.is_fresh(item, state, hours=2))
