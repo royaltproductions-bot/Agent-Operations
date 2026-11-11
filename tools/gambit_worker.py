@@ -3035,5 +3035,47 @@ def run(mode="run"):
         raise RuntimeError("failed_bounty_jobs: " + ",".join(b for b, _ in failures))
 
 
+def recover_stale_scope_bids():
+    """Model-free one-shot recovery for legacy clarification records.
+
+    Uses the marketplace as source of truth and the same idempotent bid path as
+    normal work. No OpenAI call is required for records explicitly stranded by
+    the historical scope-unconfirmed behavior.
+    """
+    global CURRENT_EVENTS
+    CURRENT_EVENTS = []
+    state = load_state()
+    targets = [
+        ident for ident, entry in state.get("bounties", {}).items()
+        if entry.get("action") in {"pass_scope_unconfirmed", "budget_wait"}
+        and entry.get("reason") == "scope_unconfirmed_after_clarification"
+    ]
+    outcomes, failures = [], []
+    for bounty_id in targets:
+        try:
+            handle_open({"_id": bounty_id}, state)
+            outcomes.append({
+                "bounty_id": bounty_id,
+                "action": state.get("bounties", {}).get(bounty_id, {}).get("action")})
+        except Exception as exc:
+            reason = safe_failure_reason(exc)
+            failures.append({"bounty_id": bounty_id, "reason": reason})
+            note(state, "stale_scope_recovery_failed", bounty_id, reason=reason)
+        save_state(state)
+    print(json.dumps({
+        "source": "trybounty_live_api",
+        "model_calls": 0,
+        "targets": len(targets),
+        "outcomes": outcomes,
+        "failures": failures,
+    }))
+    if failures:
+        raise RuntimeError("stale_scope_recovery_failed")
+    return outcomes
+
+
 if __name__ == "__main__":
-    run("probe" if "--probe" in sys.argv else "run")
+    if "--recover-stale" in sys.argv:
+        recover_stale_scope_bids()
+    else:
+        run("probe" if "--probe" in sys.argv else "run")
