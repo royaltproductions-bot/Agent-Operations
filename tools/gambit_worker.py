@@ -1208,12 +1208,13 @@ def authenticated_account_operation(requested, verification):
     return False
 
 
-def limited_explainer_video_eligible(details):
-    """Only text-led narrated slideshow explainers are supported as MP4."""
+def limited_explainer_video_requested(details):
+    """Recognize the bounded text-led MP4 scope without assuming runtime support."""
     bounty = details.get("bounty") or {}
-    text = " ".join(str(bounty.get(k) or "") for k in ("title", "description", "verification")).lower()
+    text = " ".join(str(bounty.get(k) or "") for k in
+                    ("title", "description", "verification")).lower()
     requested = requested_output_format(details)
-    if "mp4" not in requested or not video_capable():
+    if "mp4" not in requested:
         return False
     if not re.search(r"\b(?:explainer|slideshow|slide show|captioned|text-led|narrated presentation)\b", text):
         return False
@@ -1222,6 +1223,11 @@ def limited_explainer_video_eligible(details):
                  r"lip sync|b-roll|stock footage|cinematic|reel)\b", text):
         return False
     return True
+
+
+def limited_explainer_video_eligible(details):
+    """Only bid a supported explainer when its local runtime is actually ready."""
+    return limited_explainer_video_requested(details) and video_capable()
 
 
 def unsupported_deliverable(details):
@@ -2865,6 +2871,14 @@ def run(mode="run"):
     CURRENT_EVENTS = events
     if mode == "probe":
         needs_model = bool(waiting or active)
+        video_candidates = []
+        for item in [*active[:5], *waiting[:8]]:
+            bounty_id = str(item.get("_id") or "")
+            version = item.get("version")
+            brief = saved_brief(state, bounty_id, version)
+            if brief and limited_explainer_video_requested({"bounty": brief}):
+                video_candidates.append(bounty_id)
+        needs_video_runtime = bool(video_candidates)
         needs_run = (needs_model or bool(events) or state.get("_cursor_reset") or
                      cursor_refresh_due(state, cursor) or
                       bid_reconciliation_due(state, opened) or
@@ -2874,12 +2888,15 @@ def run(mode="run"):
             with open(output, "a", encoding="utf-8") as f:
                 f.write("needs_model=" + ("true" if needs_model else "false") + "\n")
                 f.write("needs_production_model=" + ("true" if active else "false") + "\n")
+                f.write("needs_video_runtime=" + ("true" if needs_video_runtime else "false") + "\n")
                 f.write("needs_run=" + ("true" if needs_run else "false") + "\n")
         print(json.dumps({"ready": True, "checked_at": timestamp(),
                           "source": "trybounty_live_api", "open": len(opened),
                           "active": len(active), "new_or_changed": len(waiting),
                           **market_workload(state, opened, waiting),
-                          "needs_model": needs_model, "needs_run": needs_run}))
+                          "needs_model": needs_model,
+                          "needs_video_runtime": needs_video_runtime,
+                          "needs_run": needs_run}))
         return
     failures = []
     if bid_reconciliation_due(state, opened):
