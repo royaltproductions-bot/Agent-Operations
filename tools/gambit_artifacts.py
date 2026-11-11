@@ -18,6 +18,8 @@ OUTPUT_FILES = {
     "docx": ("gambit-report.docx",
              "application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
     "pdf": ("gambit-report.pdf", "application/pdf"),
+    "pptx": ("gambit-presentation.pptx",
+             "application/vnd.openxmlformats-officedocument.presentationml.presentation"),
     "site_zip": ("gambit-static-site.zip", "application/zip"),
     "app_zip": ("gambit-tested-application.zip", "application/zip"),
 }
@@ -138,10 +140,45 @@ def render_pdf(text):
     return data
 
 
+
+def render_pptx(text):
+    from pptx import Presentation
+    from pptx.util import Pt
+    lines = _paragraph_lines(text)
+    prs = Presentation()
+    first = lines[0][1][:120]
+    slide = prs.slides.add_slide(prs.slide_layouts[0])
+    slide.shapes.title.text = first
+    if len(slide.placeholders) > 1:
+        slide.placeholders[1].text = "Gambit deliverable"
+    body_lines = [line for _, line in lines[1:]] or [first]
+    for start in range(0, len(body_lines), 6):
+        chunk = body_lines[start:start + 6]
+        slide = prs.slides.add_slide(prs.slide_layouts[1])
+        slide.shapes.title.text = chunk[0][:100]
+        frame = slide.placeholders[1].text_frame
+        frame.clear()
+        for idx, line in enumerate(chunk[1:] or chunk):
+            p = frame.paragraphs[0] if idx == 0 else frame.add_paragraph()
+            p.text = line[:700]
+            p.font.size = Pt(20)
+    out = io.BytesIO()
+    prs.save(out)
+    data = out.getvalue()
+    if not 1000 < len(data) <= MAX_DOCUMENT_BYTES:
+        raise ValueError("pptx_output_invalid")
+    verify = Presentation(io.BytesIO(data))
+    if not verify.slides:
+        raise ValueError("pptx_output_unreadable")
+    return data
+
+
 def make_document(format_name, text):
     """Use an actual generation adapter, never a model's file claim."""
     if format_name == "pdf":
         return render_pdf(text)
     if format_name == "docx":
         return render_docx(text)
+    if format_name == "pptx":
+        return render_pptx(text)
     raise ValueError("unsupported_document_format")
