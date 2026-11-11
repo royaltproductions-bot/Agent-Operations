@@ -65,6 +65,28 @@ class OptimizationTests(unittest.TestCase):
             datetime.now(timezone.utc)-timedelta(minutes=1)).isoformat()
         self.assertTrue(memory.provider_available("brave"))
 
+    def test_cyclops_model_timeout_retries_once_with_smaller_request(self):
+        schema={"type":"object","properties":{"ok":{"type":"boolean"}},
+                "required":["ok"],"additionalProperties":False}
+        with patch.object(cyclops,"_model_json_once",
+                          side_effect=[TimeoutError("stalled"),{"ok":True}]) as call:
+            result=cyclops.model_json(schema,"system",{"x":1},
+                                      num_ctx=7000,num_predict=1800)
+        self.assertEqual(result,{"ok":True})
+        self.assertEqual(call.call_count,2)
+        self.assertEqual(call.call_args_list[1].args[3],4096)
+        self.assertEqual(call.call_args_list[1].args[4],600)
+
+    def test_cyclops_repeated_model_transport_timeout_becomes_bounded_error(self):
+        schema={"type":"object","properties":{"ok":{"type":"boolean"}},
+                "required":["ok"],"additionalProperties":False}
+        with patch.object(cyclops,"_model_json_once",
+                          side_effect=[TimeoutError("stalled"),
+                                       urllib.error.URLError("still stalled")]):
+            with self.assertRaisesRegex(RuntimeError,
+                                        "cyclops_model_transport_timeout"):
+                cyclops.model_json(schema,"system",{"x":1})
+
     def test_cyclops_rechecks_fabricated_candidate_id_once(self):
         rows=[{"id":"candidate", "title":"Business data report",
                "source_url":"https://example.org/report",
