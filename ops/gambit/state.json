@@ -470,49 +470,49 @@
     ],
     "browser": {
       "completed_job_count": {
-        "observed_at": "2026-11-10T21:52:57.151835+00:00",
+        "observed_at": "2026-11-11T01:42:52.663753+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "earnings_count": {
-        "observed_at": "2026-11-10T21:52:57.151829+00:00",
+        "observed_at": "2026-11-11T01:42:52.663745+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "last_disbursed_at": {
-        "observed_at": "2026-11-10T21:52:57.151832+00:00",
+        "observed_at": "2026-11-11T01:42:52.663750+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "not_hired_count": {
-        "observed_at": "2026-11-10T21:52:57.151826+00:00",
+        "observed_at": "2026-11-11T01:42:52.663739+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "operator_balance_cents": {
-        "observed_at": "2026-11-10T21:52:57.151830+00:00",
+        "observed_at": "2026-11-11T01:42:52.663747+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "public_rating": {
-        "observed_at": "2026-11-10T21:52:57.151834+00:00",
+        "observed_at": "2026-11-11T01:42:52.663752+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "transfer_count": {
-        "observed_at": "2026-11-10T21:52:57.151831+00:00",
+        "observed_at": "2026-11-11T01:42:52.663749+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "unread_count": {
-        "observed_at": "2026-11-10T21:52:57.151812+00:00",
+        "observed_at": "2026-11-11T01:42:52.663726+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
@@ -667,6 +667,11 @@
       "action": "pass_unsupported",
       "at": "2026-10-31T21:15:19.445987+00:00",
       "reason": "video_production",
+      "version": 1
+    },
+    "mx761srg8yxekn86k1nd72q1558j1tsy": {
+      "action": "evaluation_pending",
+      "at": "2026-11-11T01:42:53.224931+00:00",
       "version": 1
     },
     "mx76cjf7d9qqscbw9an1ct84dn8h2mzp": {
@@ -1200,6 +1205,13 @@
           "encrypted_brief": "gAAAAABq5lpldtczMBXgo3siDcDx4zyTyemdDqrMST-MaNSBAAAEKESxzJeC4sgxIndX5aJfw3FT-NrSe4BJEcF29VfufV2Ldi_oRK1RkO9_ki-34KY3E2fI_Qfvbj22uDex62yh7A09f74HO1pO5got_ySr2KWMiClsFrxhWUWGZerZFVg9kFqwOgg97DTno6GBDe03RZu6tCJhH6_1Y8qsZ8VvkQ13Aa_hz7gyMNwnAnkFPNaL_XUkqUidipfnc4rtF09FW_PbNb65PxH-a7CdXHBCRwPcpXHjKLIUdqBGfLsZykZa0iIWCRxmX-1osM0GhvSDqLlqoz-InIXF_SDMvA_QPHX-0vxXlg5pVP-9I8BrKqQbxBBOJBCwfgdsdksmHVQJAiS5ZoaNt0cvZd8oHG_2p6rzXWAd2vFbVdLxVp5xjq5oD-FPdN3hUC3-wiWt4-_t372PkccV06BVW6zBMQ0LPxOkiWEXe7-OV5_hvHHosiA2ypBB6wyBk-Txxm3u8fWUCsQfmxYWkEFinRol4qN8YVu9L0qw2yyDd5-879QHKyUsOYQxtByiwtJfNyehv0v1ti7P1ruhJWhUrkC-8TOBc3pd03OHK_qJOcgdc14vpQDc99sbxNZM1ltGXPsB2I1wkT-deT-L9cP25KXO-j5jup0yM4yB02eCqQGOZBUCxa-RHiUrp8b91FJrBC3z_rsXPssNeeWBhfF18fW79D583WcP2r1J_AMRO-YWIhDp1PuH9kJHVMLoNpnINgu9yOPMuU5r005wG9KmiJmZF6VBLtdyxCqoxsZUvrZsZNsmAnOFHdlyuk0FuVNEhElncG-sXN1s6gIdagQxzsZsO3sveJbUCXbjTlV8V95kO7O1vzmd4mSo3S8vpt--MHpUbl5WJCT1zD-Cc-fIGF-e01BDyuY73KNqvT5_h85Lb0G29gdZwX9QEW8WYCr1NX4PWHXZzTk3mL4whwPey9-HJyuRxjWAnFKuOYIKNTbMGQ6Ogui7KnqMmHCgmCYxhTOUskKKFjZcgT6SWh2wr_qEqQ7PM4u2OSjN69DLK8zRfj7oqNJeFRdE9SjSdg-9QnuoyJCYbvfLV66gCDkq1iZ6Pos7dR4brM4iPt0MACTkFL0rMsy7GUzCAK3mZtEcPzV-qRg-0B7JisSVbm9eq2AYSyzxTXj0-7lOE8ATJqrX4GSe2FZKpa94g8v820djyDRdZ8dLMi6oBaF9GK0IFX0RSyQG6kIlfzVD6gdk4Mezu5CZSzEqL9aQcrtHDOKA9gJX9yfyOX57OD0fO6OSpYBezHEOEiIWRHwtGJ147_oB27-6KyX_McGI637REeO9Im1pcpFzgB7iNHqmatLxOdJJ9Lv6_Jb0fvr6g5tr7LKHg4KVq2rC4IuAnnH13u4amSOllZtom-_J-cqi3li9VinXhLA2SMa1xW-rhlcD2QNt_L9m0q1DXz_hyVLa5ttnfSlFw46IP2Vf2puowjtCwTAEu2XthhDWz9F3ImZjnzteOGT-APrFPnHzA0tY_iA1CxEqCZFLoyUbzUDctB6VjQCJb0pGBICNch56tVfbvQMCMI-oyKarvDRHlhuHRhbYZvMXRKobO-ZiZlIEDOaI5Kebk_HCHIy-fCPtoSv_o32rCrfmrAvQl7xpFDnEdLWPr1t6Hl5zvU-GvC8rQ4Ox8U-GdInBlf0lhO5NtVo3daQjZqYlmMct0q_gSVXgGvnSzD8PEKHf9c0r"
         }
       }
+    },
+    "mx761srg8yxekn86k1nd72q1558j1tsy": {
+      "first_detected_at": "2026-11-11T01:42:53.224925+00:00",
+      "last_known_status": "open",
+      "last_seen_open_at": "2026-11-11T01:42:53.224928+00:00",
+      "version": 1,
+      "versions": {}
     },
     "mx76cjf7d9qqscbw9an1ct84dn8h2mzp": {
       "first_detected_at": "2026-10-30T16:10:18.044103+00:00",
@@ -2034,7 +2046,7 @@
       "bid_id": null,
       "budget_cents": 900,
       "first_detected_at": "2026-11-08T20:41:11.703148+00:00",
-      "observed_at": "2026-11-08T20:41:11.703148+00:00",
+      "observed_at": "2026-11-11T01:42:53.225045+00:00",
       "owner_activity_status": null,
       "platform_status": "open",
       "posted_at": "2026-11-08T20:34:53.539000+00:00",
@@ -2045,7 +2057,7 @@
         "created_at": 1794170093539,
         "currency": "usd",
         "status": "open",
-        "updated_at": 1794170095010
+        "updated_at": 1794358140304
       }
     },
     "mx75t9qmtd1nxxbjtpq0hawn398hb4gh": {
@@ -2066,6 +2078,26 @@
         "currency": "usd",
         "status": "open",
         "updated_at": 1793481103400
+      }
+    },
+    "mx761srg8yxekn86k1nd72q1558j1tsy": {
+      "bid_amount_cents": null,
+      "bid_at": null,
+      "bid_id": null,
+      "budget_cents": 4000,
+      "first_detected_at": "2026-11-11T01:42:53.224753+00:00",
+      "observed_at": "2026-11-11T01:42:53.224753+00:00",
+      "owner_activity_status": null,
+      "platform_status": "open",
+      "posted_at": "2026-11-11T00:10:40.922000+00:00",
+      "posted_time_field": "created_at",
+      "sample_listing": false,
+      "source_fields": {
+        "budget_cents": 4000,
+        "created_at": 1794355840922,
+        "currency": "usd",
+        "status": "open",
+        "updated_at": 1794355842719
       }
     },
     "mx766edhs6qkcdp51ab85854s98hx2h9": {},
