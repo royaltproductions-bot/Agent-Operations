@@ -376,6 +376,14 @@
           "first_at": "2026-11-11T01:44:15.814170+00:00"
         }
       },
+      "mx7bfvenazj33zght2qk2vgeb98j1r1x": {
+        "event_target_unavailable": {
+          "days": [
+            "2026-11-11"
+          ],
+          "first_at": "2026-11-11T21:27:16.014610+00:00"
+        }
+      },
       "mx7c2qbzmr82sprzjackynhesd8hz5ys": {
         "pass_unsupported": {
           "days": [
@@ -693,11 +701,12 @@
       "ph7ck6cnkwa18nf4cf05byecfs8hy92p",
       "ph7b13mp3yzvxav1k3y1swmg218j0caw",
       "ph79m30gsdq14rxtxa1v9mc4jx8j17kr",
-      "ph77kmkxptzmdbxqap022ezxfh8j01j2"
+      "ph77kmkxptzmdbxqap022ezxfh8j01j2",
+      "ph792xr03tceskbzfvamksk0zn8j0j2j"
     ],
     "event_types": {
       "bounty.available": {
-        "count": 11,
+        "count": 12,
         "data_keys": [
           "bounty_id",
           "bounty_version",
@@ -705,7 +714,7 @@
           "title"
         ],
         "first_seen": "2026-11-08T20:41:15.070418+00:00",
-        "last_seen": "2026-11-11T08:27:27.841153+00:00"
+        "last_seen": "2026-11-11T21:27:15.699713+00:00"
       },
       "bounty.claimed": {
         "count": 1,
@@ -1599,7 +1608,8 @@
     },
     "mx78eanbrs75gfsdvaat9nmmbx8hwx6b": {
       "first_detected_at": "2026-11-10T00:52:51.541661+00:00",
-      "last_known_status": "open",
+      "first_unlisted_at": "2026-11-11T21:27:16.017629+00:00",
+      "last_known_status": "not_in_open_list",
       "last_seen_open_at": "2026-11-10T00:52:51.541665+00:00",
       "version": 1,
       "versions": {
@@ -3053,6 +3063,7 @@
         "updated_at": 1793553501928
       }
     },
+    "mx7bfvenazj33zght2qk2vgeb98j1r1x": {},
     "mx7bzw2y0xe66kb9j4b4wjv9398h99p4": {
       "bid_amount_cents": null,
       "bid_at": null,
@@ -3459,16 +3470,63 @@
   "last_bid_reconciliation": "2026-11-11T16:32:56.648828+00:00",
   "last_check": "2026-11-11T16:32:57.863416+00:00",
   "market_observation": {
-    "last_checked_at": "2026-11-11T16:32:32.538051+00:00",
-    "last_open_count": 57
+    "last_checked_at": "2026-11-11T21:27:15.154028+00:00",
+    "last_open_count": 56,
+    "newest_posted_at": "2026-11-11T02:17:22.769000+00:00"
+  },
+  "marketplaces": {
+    "bountyboard": {
+      "bidding_status": "credential_not_connected",
+      "checked_at": "2026-11-11T21:27:14.541789+00:00",
+      "listings": [
+        {
+          "budget_cents": null,
+          "id": "cmw6cnldw04ki11s1h0ty4x3q",
+          "marketplace": "bountyboard",
+          "status": "OPEN",
+          "title": "Kristoomingas"
+        },
+        {
+          "budget_cents": null,
+          "id": "cmmcal8ap001b7owte0uzb3e4",
+          "marketplace": "bountyboard",
+          "status": "OPEN",
+          "title": "Excelente App \u2014 Budapest \u2014 Add 20 Local Places with Photos (38000 HUF)"
+        },
+        {
+          "budget_cents": null,
+          "id": "cmmcal81t00117owt3uv7edq7",
+          "marketplace": "bountyboard",
+          "status": "OPEN",
+          "title": "Excelente App \u2014 Warsaw \u2014 Add 20 Local Places with Photos (400 PLN)"
+        },
+        {
+          "budget_cents": null,
+          "id": "cmmcal7xf000w7owtqamw994s",
+          "marketplace": "bountyboard",
+          "status": "OPEN",
+          "title": "Excelente App \u2014 Prague \u2014 Add 20 Local Places with Photos (2400 CZK)"
+        },
+        {
+          "budget_cents": null,
+          "id": "cmmcal7ob000m7owt74vwz15p",
+          "marketplace": "bountyboard",
+          "status": "OPEN",
+          "title": "Excelente App \u2014 Lisbon \u2014 Add 20 Local Places with Photos (95 EUR)"
+        },
+        {
+          "budget_cents": null,
+          "id": "cmmcal7ez000c7owt35bl520d",
+          "marketplace": "bountyboard",
+          "status": "OPEN",
+          "title": "Excelente App \u2014 Madrid \u2014 Add 20 Local Places with Photos (95 EUR)"
+        }
+      ],
+      "open_count": 6,
+      "status": "observed_public"
+    }
   },
   "recent_outcomes": [
-    {
-      "action": "evaluation_budget_wait",
-      "at": "2026-11-09T17:47:05.143876+00:00",
-      "bounty_id": "mx7f3d5mtppbym4yn59zmgzzw58hw11v",
-      "reason": "openai_daily_pace_exceeded"
-    },
     {
       "action": "proposal_blocked_missing_evidence",
       "at": "2026-11-10T00:53:32.189078+00:00",
@@ -3857,6 +3915,12 @@
       "at": "2026-11-11T21:27:11.143680+00:00",
       "bounty_id": "mx7dartnjzsphksgveek0qxs2h8hkcfn",
       "reason": "proposal_samples_missing"
+    },
+    {
+      "action": "event_target_unavailable",
+      "at": "2026-11-11T21:27:16.014684+00:00",
+      "bounty_id": "mx7bfvenazj33zght2qk2vgeb98j1r1x",
+      "reason": "bounty_api_BOUNTY_NOT_FOUND"
     }
   ],
   "schema": 1,

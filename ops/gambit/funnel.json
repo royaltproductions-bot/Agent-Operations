@@ -1,12 +1,12 @@
 {
   "aging_active_bids_days": {
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 4.012931482060186,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 8.083680625578703,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 8.053840463541666,
-    "mx78wzkqdghteet6beyw1567mx8hewfj": 9.332785961226852,
-    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 0.8214761579861111,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 8.084531296875,
-    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 1.8539577667824074
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 4.012987897858796,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 8.083737041377315,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 8.053896879340277,
+    "mx78wzkqdghteet6beyw1567mx8hewfj": 9.332842377025463,
+    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 0.8215325737847221,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 8.084587712673612,
+    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 1.8540141825810184
   },
   "browser": {
     "completed_job_count": {
@@ -106,7 +106,7 @@
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-11T21:27:11.149050+00:00",
+  "generated_at": "2026-11-11T21:27:16.023375+00:00",
   "median_posting_to_bid_minutes": 1146.9998666666665,
   "median_posting_to_detection_minutes": 74.88441925,
   "model_budget": {
@@ -152,16 +152,16 @@
     "oldest_last_incoming_at": "2026-11-06T15:37:49.596000+00:00"
   },
   "unknown_fields": {
-    "accepted_at": 61,
-    "bid_amount_cents": 1,
-    "bid_at": 1,
-    "bid_status": 54,
-    "budget_cents": 1,
-    "conversation": 46,
-    "delivered_at": 61,
-    "first_detected_at": 1,
-    "hired_at": 61,
-    "owner_activity_status": 1,
-    "posted_at": 1
+    "accepted_at": 62,
+    "bid_amount_cents": 2,
+    "bid_at": 2,
+    "bid_status": 55,
+    "budget_cents": 2,
+    "conversation": 47,
+    "delivered_at": 62,
+    "first_detected_at": 2,
+    "hired_at": 62,
+    "owner_activity_status": 2,
+    "posted_at": 2
   }
 }
