@@ -125,6 +125,20 @@ class GambitOpenAITests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "openai_daily_pace_exceeded"):
                 gambit_openai.reserve_monthly_budget(0.15)
 
+    def test_fresh_priority_can_use_absolute_daily_ceiling(self):
+        class November10(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                return cls(2026, 11, 10, tzinfo=timezone.utc)
+        self._seed_november_ledger(12_089_942)
+        ledger = json.loads(gambit_openai.BUDGET_PATH.read_text())
+        ledger.update(pace_day="2026-11-10", day_start_micro_usd=10_789_942)
+        gambit_openai.BUDGET_PATH.write_text(json.dumps(ledger))
+        with patch.dict(os.environ, {"GAMBIT_OPENAI_MONTHLY_LIMIT_USD": "38"}), \
+             patch.object(gambit_openai, "datetime", November10):
+            updated = gambit_openai.reserve_monthly_budget(0.05, priority=True)
+        self.assertEqual(updated["reserved_micro_usd"], 12_139_942)
+
     def test_b1_monthly_guard_refuses_reservation_above_38(self):
         self._seed_november_ledger(37_950_000)
         with patch.dict(os.environ, {"GAMBIT_OPENAI_MONTHLY_LIMIT_USD": "38"}):
