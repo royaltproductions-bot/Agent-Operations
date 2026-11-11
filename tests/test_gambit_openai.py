@@ -105,7 +105,10 @@ class GambitOpenAITests(unittest.TestCase):
             @classmethod
             def now(cls, tz=None):
                 return cls(2026, 11, 10, tzinfo=timezone.utc)
-        self._seed_november_ledger(11_989_942, day_start=10_789_942)
+        self._seed_november_ledger(11_989_942)
+        ledger = json.loads(gambit_openai.BUDGET_PATH.read_text())
+        ledger.update(pace_day="2026-11-10", day_start_micro_usd=10_789_942)
+        gambit_openai.BUDGET_PATH.write_text(json.dumps(ledger))
         with patch.dict(os.environ, {"GAMBIT_OPENAI_MONTHLY_LIMIT_USD": "38"}), \
              patch.object(gambit_openai, "datetime", November10):
             updated = gambit_openai.reserve_monthly_budget(0.10, priority=True)
