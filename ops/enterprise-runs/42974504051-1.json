@@ -1,0 +1,107 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-11T06:45:54.659802+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 11,
+    "source_counts": {
+      "open_web": 11
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 6
+    },
+    "source_errors": [],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 10,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/diclogic/ai-daily-digest/issues/185",
+        "title": "AI Daily Digest \u2014 2026-10-17",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Emaren/wolochain/issues/5",
+        "title": "Mainnet two-settlement release HOLD: rebaseline bdbce253 vs live 78c25985 (no node restart)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/axelmanosalvasmd/ww2-rts-native/issues/5",
+        "title": "Agent coordination: Unreal \u2194 Rust contracts, requests and acknowledgments",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/scottonchain/microcredit-agent-testbed/issues/15",
+        "title": "Central message board \u2014 Hermes, Claude, Codex and operator coordination",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tari-project/special_contributions/issues/606",
+        "title": "Contribution: fix(template_lib): fix VaultFreezeFlags iterator, ProofAccess drop safety, and address allocations (tari-p",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://neuralinitiative.ai/",
+        "title": "Neural Initiative \u2014 A persistent AI Dungeon Master",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-12 develop ai powered",
+      "is:issue is:open bounty created:>=2026-09-12 ",
+      "looking for someone to develop an AI-powered dungeon master for a persistent RPG"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to develop an AI-powered dungeon master for a persistent RPG"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 2,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to develop an AI-powered dungeon master for a persistent RPG"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
