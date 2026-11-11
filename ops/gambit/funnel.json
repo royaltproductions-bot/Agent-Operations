@@ -1,12 +1,12 @@
 {
   "aging_active_bids_days": {
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 3.47146088244213,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 7.542210025960648,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 7.512369863923611,
-    "mx78wzkqdghteet6beyw1567mx8hewfj": 8.791315361608795,
-    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 0.2800055583680556,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 7.543060697256944,
-    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 1.3124871671643519
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 3.472697048761574,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 7.543446192280093,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 7.513606030243055,
+    "mx78wzkqdghteet6beyw1567mx8hewfj": 8.792551527928241,
+    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 0.2812417246875,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 7.544296863576389,
+    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 1.3137233334837963
   },
   "browser": {
     "completed_job_count": {
@@ -92,9 +92,10 @@
     "passed_by_reason": {
       "authenticated_account_operation": 1,
       "outbound_messaging": 1,
-      "scope_unconfirmed_after_clarification": 4,
+      "scope_unconfirmed_after_clarification": 6,
       "software_deployment": 3,
-      "unknown": 11,
+      "software_project_not_supported": 1,
+      "unknown": 13,
       "unsupported_multi_or_file_format": 6,
       "video_production": 10
     },
@@ -105,13 +106,13 @@
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-11T08:27:28.089243+00:00",
+  "generated_at": "2026-11-11T08:29:14.894013+00:00",
   "median_posting_to_bid_minutes": 1146.9998666666665,
   "median_posting_to_detection_minutes": 74.88441925,
   "model_budget": {
-    "call_count": 316,
+    "call_count": 324,
     "month": "2026-11",
-    "reserved_micro_usd": 12340984
+    "reserved_micro_usd": 12628452
   },
   "null_fields": {
     "accepted_at": 0,
@@ -136,7 +137,8 @@
     "hired": 0,
     "missing_unconfirmed": 0,
     "passed_by_reason": {
-      "unknown": 3
+      "software_project_not_supported": 1,
+      "unknown": 5
     },
     "retry_pending": 0,
     "sample_excluded": 0,
