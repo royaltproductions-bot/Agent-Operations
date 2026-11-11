@@ -17,7 +17,7 @@ class Corrections(unittest.TestCase):
         return {'bounty':{'_id':ident,'title':'Research suppliers', 'description':'Research three suppliers in CSV.',
             'status':'open','flow':'bid','version':1,'budget_cents':500},'bid':{}}
 
-    def test_evidence_fallback_third_pass_no_more_inference(self):
+    def test_low_value_missing_samples_falls_back_on_first_pass(self):
         details=self.details(); ident=details['bounty']['_id']
         state={'bounties':{ident:{'version':1}},'recent_outcomes':[]}
         decision={'decision':'bid','payout_cents':500,
@@ -30,17 +30,12 @@ class Corrections(unittest.TestCase):
              patch.object(w,'text_sources',return_value=([],[])),patch.object(w,'messages_for',return_value=[]), \
              patch.object(w,'unsupported_deliverable',return_value=None),patch.object(w,'bid_note_issue',return_value=None):
             w.handle_open({'_id':ident},state)
-            self.assertEqual(state['bounties'][ident]['last_error'],'proposal_samples_missing')
-            w.handle_open({'_id':ident},state)
-            self.assertEqual(state['bounties'][ident]['evidence_failures'],2)
-            self.assertNotIn(decision['note'],json.dumps(state))
-            w.handle_open({'_id':ident},state)
-            self.assertEqual(assess.call_count,2)
+            self.assertEqual(assess.call_count,1)
             posts=[x for x in calls.call_args_list if len(x.args)>1 and x.args[1]=='POST']
             self.assertEqual(len(posts),1)
             self.assertNotIn('only one',posts[0].args[2]['note'])
             self.assertEqual(state['bounties'][ident]['action'],'bid_active')
-            self.assertTrue(any(x['action']=='proposal_sent_without_sample' for x in state['recent_outcomes']))
+            self.assertTrue(any(x['action']=='proposal_sample_fallback' for x in state['recent_outcomes']))
 
     def test_retry_abandoned_without_model_at_two(self):
         details=self.details('retry');state={'bounties':{'retry':{'version':1,'retry_count':2,'action':'retry_evaluation'}},'recent_outcomes':[]}
@@ -131,10 +126,14 @@ class Corrections(unittest.TestCase):
         for url in urls:
             self.assertFalse(brain.public_buyer_invitation({'source_url':url,'page_fetched':True,'page_text':'Vendor product or bug report; contact support@example.org','contact':'support@example.org'}))
         row={'source_url':'https://example.org/request','page_fetched':True,'page_text':'We are looking for a freelancer to build our CSV report. Submit your proposal.',
-             'contact':'buyer@example.org','created_at':datetime.now(timezone.utc).isoformat()}
+             'platform_reply_url':'https://example.org/request/apply',
+             'created_at':datetime.now(timezone.utc).isoformat()}
         self.assertTrue(brain.public_buyer_invitation(row))
+        plan={'price_usd':'20.00','pitch':'I can complete the requested CSV research.',
+              'deliverable':'A source-linked CSV report'}
         with patch.object(brain,'agent_send') as send:
-            self.assertEqual(brain.send_offer(row,{},{} )['result'],'offer_would_send');send.assert_not_called()
+            self.assertEqual(brain.send_offer(row,plan,{'checkout_url':'https://pay.example/offer'})['result'],
+                             'platform_proposal_ready');send.assert_not_called()
         row['created_at']=(datetime.now(timezone.utc)-timedelta(days=61)).isoformat()
         self.assertFalse(brain.public_buyer_invitation(row))
 
