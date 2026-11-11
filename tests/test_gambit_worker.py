@@ -1332,13 +1332,15 @@ class GambitTests(unittest.TestCase):
         eligible = {'bounty': {'title': 'Create a captioned explainer slideshow',
                                'description': 'Text-led narrated presentation',
                                'verification': 'Deliver final MP4 explainer.'}}
-        self.assertTrue(gambit.limited_explainer_video_eligible(eligible))
-        self.assertIsNone(gambit.unsupported_deliverable(eligible))
+        with patch.object(gambit, 'video_capable', return_value=True):
+            self.assertTrue(gambit.limited_explainer_video_eligible(eligible))
+            self.assertIsNone(gambit.unsupported_deliverable(eligible))
         live = {'bounty': {'title': 'Create a live-action explainer video',
                            'description': 'Actors and camera footage',
                            'verification': 'Deliver final MP4.'}}
-        self.assertFalse(gambit.limited_explainer_video_eligible(live))
-        self.assertEqual(gambit.unsupported_deliverable(live), 'video_production')
+        with patch.object(gambit, 'video_capable', return_value=True):
+            self.assertFalse(gambit.limited_explainer_video_eligible(live))
+            self.assertEqual(gambit.unsupported_deliverable(live), 'video_production')
 
     def test_unsupported_hired_video_stops_before_fabricated_submission(self):
         details = {'bounty': {'_id': 'video1', 'status': 'claimed',

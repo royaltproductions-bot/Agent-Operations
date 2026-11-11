@@ -22,9 +22,11 @@ class WatchTests(TestCase):
              {'needs_run':'true', 'needs_model':'false'}]), \
              patch.object(watch, 'checkpoint') as checkpoint, \
              patch.object(watch, 'prepare_models') as models, \
+             patch.object(watch, 'prepare_video_runtime') as video, \
              patch.object(watch, 'command') as command:
             watch.cycle()
         models.assert_not_called()
+        video.assert_not_called()
         self.assertEqual(checkpoint.call_count, 3)
         self.assertIn('tools.gambit_worker', command.call_args.args[0])
 
@@ -42,6 +44,28 @@ class WatchTests(TestCase):
         self.assertEqual(checkpoint.call_count, 2)
         local_model.assert_not_called()
         command.assert_not_called()
+
+    def test_cycle_prepares_video_runtime_only_for_mp4_work(self):
+        with patch.object(watch, 'probe', side_effect=[
+                 {'needs_run':'true'},
+                 {'needs_run':'true', 'needs_model':'false',
+                  'needs_video_runtime':'true'}]), \
+             patch.object(watch, 'checkpoint'), \
+             patch.object(watch, 'prepare_video_runtime') as video, \
+             patch.object(watch, 'command'):
+            watch.cycle()
+        video.assert_called_once_with()
+
+    def test_video_runtime_install_is_lazy_and_capability_checked(self):
+        from tools import gambit_artifacts
+        with patch.object(gambit_artifacts, 'video_capable',
+                          side_effect=[False, True]) as capable, \
+             patch.object(watch, 'command') as command:
+            watch.prepare_video_runtime()
+        self.assertEqual(capable.call_count, 2)
+        commands=[call.args[0] for call in command.call_args_list]
+        self.assertIn(['sudo','apt-get','update','-qq'], commands)
+        self.assertIn(['sudo','apt-get','install','-y','--no-install-recommends','ffmpeg'], commands)
 
     def test_probe_outputs_do_not_leak_between_cycles(self):
         def command(args, env):
