@@ -1253,6 +1253,7 @@ class GambitTests(unittest.TestCase):
         self.assertEqual(len(posts), 1)
         self.assertTrue(posts[0].args[2].get('idempotency_key'))
         self.assertTrue(state['commercial']['buyer-job'].get('last_outgoing_at'))
+        self.assertFalse(state['commercial']['buyer-job']['conversation']['unanswered'])
 
     def test_scan_requeues_old_asked_thread_without_customer_event(self):
         old = (datetime.now(timezone.utc) - timedelta(hours=7)).isoformat()
@@ -1309,6 +1310,44 @@ class GambitTests(unittest.TestCase):
         self.assertEqual(posts[0].args[2]['payout_cents'], 2800)
         self.assertIn('Assumptions:', posts[0].args[2]['note'])
         self.assertIn('introductory rate', posts[0].args[2]['note'])
+
+    def test_legacy_scope_budget_wait_becomes_bid_without_model_call(self):
+        details = {'bounty': {'_id': 'legacy-job', 'status': 'open',
+                              'version': 1, 'flow': 'bid',
+                              'budget_cents': 6500,
+                              'title': 'Research recruiting agencies',
+                              'description': 'Deliver a sourced list of qualified agencies.'}}
+        state = {'bounties': {'legacy-job': {
+                     'action': 'budget_wait', 'version': 1,
+                     'reason': 'scope_unconfirmed_after_clarification',
+                     'last_error': 'openai_daily_pace_exceeded',
+                     'feasible_ask_review_version': 1}},
+                 'commercial': {'legacy-job': {'budget_cents': 6500}},
+                 'settlements': {}, 'recent_outcomes': []}
+        messages = [{'author_type': 'agent',
+                     'content': {'type': 'text',
+                                 'text': 'Should the list focus on technical recruiting?'},
+                     'created_at': '2026-11-01T10:00:00+00:00'}]
+        def request(path, method='GET', payload=None):
+            if method == 'POST':
+                return {'bid': {'status': 'active',
+                                'payout_cents': payload['payout_cents']}}
+            return details
+        with patch.object(gambit, 'api', side_effect=request) as api, \
+             patch.object(gambit, 'messages_for', return_value=messages), \
+             patch.object(gambit, 'assess') as assess:
+            gambit.handle_open({'_id': 'legacy-job'}, state)
+        assess.assert_not_called()
+        posts = [c for c in api.call_args_list
+                 if len(c.args) > 1 and c.args[1] == 'POST'
+                 and c.args[0].endswith('/bid')]
+        self.assertEqual(len(posts), 1)
+        self.assertEqual(posts[0].args[2]['payout_cents'], 5200)
+        self.assertIn('Assumptions:', posts[0].args[2]['note'])
+        self.assertIn('Should the list focus on technical recruiting?',
+                      posts[0].args[2]['note'])
+        self.assertIn('stale_ask_model_free_bid_recovery',
+                      [x['action'] for x in state['recent_outcomes']])
 
     def test_fresh_budget_wait_is_requeued(self):
         now = datetime.now(timezone.utc)
