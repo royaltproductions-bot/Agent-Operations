@@ -100,8 +100,38 @@ FULFILL_SCHEMA={
     "additionalProperties":False,
 }
 
+def _model_timeout_seconds():
+    try:
+        value=int(os.getenv("COMMERCE_MODEL_TIMEOUT_SECONDS","180"))
+    except ValueError:
+        value=180
+    return max(30,min(300,value))
+
+
 def model_json(schema,system,observation,num_ctx=4096,num_predict=700,
                temperature=0.15):
+    last=None
+    for attempt in range(2):
+        try:
+            return _model_json_once(
+                schema,system + ("\nBe concise; every field must be short." if attempt else ""),
+                observation,
+                min(num_ctx,3072) if attempt else num_ctx,
+                min(num_predict,420) if attempt else num_predict,
+                temperature)
+        except json.JSONDecodeError as exc:
+            last=exc
+        except (TimeoutError, urllib.error.URLError, OSError) as exc:
+            last=exc
+        if attempt:
+            if isinstance(last,json.JSONDecodeError):
+                raise last
+            raise RuntimeError("commerce_model_transport_timeout") from None
+    raise RuntimeError("commerce_model_unavailable") from last
+
+
+def _model_json_once(schema,system,observation,num_ctx=4096,num_predict=700,
+                     temperature=0.15):
     req=urllib.request.Request(
         OLLAMA,method="POST",
         data=json.dumps({
@@ -117,9 +147,7 @@ def model_json(schema,system,observation,num_ctx=4096,num_predict=700,
             ],
         }).encode(),
         headers={"Content-Type":"application/json"})
-    # Local model inference is governed by the full workflow run, not an
-    # artificial per-inference cutoff.
-    with urllib.request.urlopen(req) as response:
+    with urllib.request.urlopen(req,timeout=_model_timeout_seconds()) as response:
         raw=json.load(response).get("message",{}).get("content","")
     if not isinstance(raw,str):
         raise ValueError("model_no_content")
