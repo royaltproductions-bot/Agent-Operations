@@ -70,6 +70,18 @@ def probe(module):
                     if '=' in line)
 
 
+def prepare_video_runtime():
+    """Install FFmpeg only for an actual bounded MP4 job, never on empty polls."""
+    from tools import gambit_artifacts
+    if gambit_artifacts.video_capable():
+        return
+    command(["sudo", "apt-get", "update", "-qq"])
+    command(["sudo", "apt-get", "install", "-y", "--no-install-recommends", "ffmpeg"])
+    gambit_artifacts.video_capable.cache_clear()
+    if not gambit_artifacts.video_capable():
+        raise RuntimeError("mp4_runtime_unavailable")
+
+
 def prepare_models(production=False):
     from tools import gambit_openai
     if gambit_openai.provider() == "openai":
@@ -87,6 +99,8 @@ def cycle():
     checkpoint()  # encrypted terms before inference
     if status.get('needs_run') != 'true':
         return
+    if status.get('needs_video_runtime') == 'true':
+        prepare_video_runtime()
     if status.get('needs_model') == 'true':
         # Keep marketplace discovery free and running, but do not allow Qwen
         # to make commercial decisions once OpenAI-only mode is selected.
