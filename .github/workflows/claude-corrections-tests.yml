@@ -1,4 +1,5 @@
 name: Claude correction regression tests
+# Final current-main verification.
 on:
   pull_request:
     paths: ['tools/**', 'tests/**', '.github/workflows/claude-corrections-tests.yml']
