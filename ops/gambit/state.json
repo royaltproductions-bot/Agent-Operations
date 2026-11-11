@@ -62,6 +62,13 @@
           "first_at": "2026-11-06T05:39:07.071241+00:00",
           "reason": "openai_daily_pace_exceeded"
         },
+        "pass_unsupported": {
+          "days": [
+            "2026-11-11"
+          ],
+          "first_at": "2026-11-11T21:33:10.124902+00:00",
+          "reason": "website_visual_quality_unverified"
+        },
         "stale_ask_passed": {
           "days": [
             "2026-11-11"
@@ -127,6 +134,12 @@
         }
       },
       "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": {
+        "bid_sent": {
+          "days": [
+            "2026-11-11"
+          ],
+          "first_at": "2026-11-11T21:33:11.414836+00:00"
+        },
         "evaluation_budget_wait": {
           "days": [
             "2026-11-06",
@@ -138,6 +151,18 @@
           ],
           "first_at": "2026-11-06T05:39:11.422395+00:00",
           "reason": "openai_daily_pace_exceeded"
+        },
+        "proposal_sent_without_sample": {
+          "days": [
+            "2026-11-11"
+          ],
+          "first_at": "2026-11-11T21:33:11.414823+00:00"
+        },
+        "stale_ask_model_free_bid_recovery": {
+          "days": [
+            "2026-11-11"
+          ],
+          "first_at": "2026-11-11T21:33:10.978786+00:00"
         },
         "stale_ask_passed": {
           "days": [
@@ -267,6 +292,12 @@
             "2026-11-10"
           ],
           "first_at": "2026-11-10T00:56:03.007659+00:00"
+        },
+        "closed_before_evaluation": {
+          "days": [
+            "2026-11-11"
+          ],
+          "first_at": "2026-11-11T21:33:11.737130+00:00"
         },
         "evaluation_retry_scheduled": {
           "days": [
@@ -402,6 +433,12 @@
         }
       },
       "mx7ccb9n61fk12phncd2qsa13n8gxj8t": {
+        "bid_sent": {
+          "days": [
+            "2026-11-11"
+          ],
+          "first_at": "2026-11-11T21:33:13.196264+00:00"
+        },
         "decision_disagreement_resolved": {
           "days": [
             "2026-11-09",
@@ -425,6 +462,18 @@
           "first_at": "2026-11-06T05:39:09.282470+00:00",
           "reason": "openai_daily_pace_exceeded"
         },
+        "proposal_sent_without_sample": {
+          "days": [
+            "2026-11-11"
+          ],
+          "first_at": "2026-11-11T21:33:13.196253+00:00"
+        },
+        "stale_ask_model_free_bid_recovery": {
+          "days": [
+            "2026-11-11"
+          ],
+          "first_at": "2026-11-11T21:33:12.762116+00:00"
+        },
         "stale_ask_passed": {
           "days": [
             "2026-11-11"
@@ -434,6 +483,12 @@
         }
       },
       "mx7ctr3ev01yjxyyznhmcey2jd8hahek": {
+        "bid_sent": {
+          "days": [
+            "2026-11-11"
+          ],
+          "first_at": "2026-11-11T21:33:14.491490+00:00"
+        },
         "decision_disagreement_resolved": {
           "days": [
             "2026-11-08",
@@ -455,6 +510,18 @@
           ],
           "first_at": "2026-11-06T05:39:06.009830+00:00",
           "reason": "openai_daily_pace_exceeded"
+        },
+        "proposal_sent_without_sample": {
+          "days": [
+            "2026-11-11"
+          ],
+          "first_at": "2026-11-11T21:33:14.491478+00:00"
+        },
+        "stale_ask_model_free_bid_recovery": {
+          "days": [
+            "2026-11-11"
+          ],
+          "first_at": "2026-11-11T21:33:14.072910+00:00"
         },
         "stale_ask_passed": {
           "days": [
@@ -539,6 +606,12 @@
         }
       },
       "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": {
+        "bid_sent": {
+          "days": [
+            "2026-11-11"
+          ],
+          "first_at": "2026-11-11T21:33:15.709662+00:00"
+        },
         "decision_disagreement_resolved": {
           "days": [
             "2026-11-10"
@@ -555,6 +628,18 @@
           ],
           "first_at": "2026-11-06T06:44:20.401210+00:00",
           "reason": "openai_daily_pace_exceeded"
+        },
+        "proposal_sent_without_sample": {
+          "days": [
+            "2026-11-11"
+          ],
+          "first_at": "2026-11-11T21:33:15.709650+00:00"
+        },
+        "stale_ask_model_free_bid_recovery": {
+          "days": [
+            "2026-11-11"
+          ],
+          "first_at": "2026-11-11T21:33:15.310102+00:00"
         },
         "stale_ask_passed": {
           "days": [
@@ -806,16 +891,9 @@
       "version": 1
     },
     "mx73e9bd3s6pkqt636wwvh4r158h27fn": {
-      "action": "budget_wait",
-      "at": "2026-10-30T16:12:04.350664+00:00",
-      "feasible_ask_review_version": 1,
-      "last_asked_review_at": "2026-11-11T21:28:01.668242+00:00",
-      "last_declined_bid": null,
-      "last_error": "openai_daily_pace_exceeded",
-      "last_question_version": 1,
-      "reason": "scope_unconfirmed_after_clarification",
-      "retry_at": "2026-11-12T21:28:02.340633+00:00",
-      "stale_ask_review_version": 1,
+      "action": "pass_unsupported",
+      "at": "2026-11-11T21:33:10.124897+00:00",
+      "reason": "website_visual_quality_unverified",
       "version": 1
     },
     "mx73zscefhmzdjgse7716e2chx8hgcz5": {
@@ -888,16 +966,11 @@
       "version": 1
     },
     "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": {
-      "action": "budget_wait",
-      "at": "2026-10-30T16:16:51.281799+00:00",
+      "action": "bid_active",
+      "at": "2026-11-11T21:33:11.414841+00:00",
       "feasible_ask_review_version": 1,
-      "last_asked_review_at": "2026-11-11T21:28:03.989886+00:00",
       "last_declined_bid": null,
-      "last_error": "openai_daily_pace_exceeded",
       "last_question_version": 1,
-      "reason": "scope_unconfirmed_after_clarification",
-      "retry_at": "2026-11-12T21:28:04.649157+00:00",
-      "stale_ask_review_version": 1,
       "version": 1
     },
     "mx77fgfqf2y5fkyhd60vpzw6xd8hjkm1": {
@@ -977,18 +1050,9 @@
       "version": 1
     },
     "mx78eanbrs75gfsdvaat9nmmbx8hwx6b": {
-      "action": "pass_scope_unconfirmed",
-      "at": "2026-11-10T08:01:38.588371+00:00",
-      "evidence_failures": 1,
-      "feasible_ask_review_version": 1,
-      "last_asked_review_at": "2026-11-11T08:27:32.967391+00:00",
-      "last_declined_bid": null,
-      "last_error": "proposal_samples_missing",
-      "last_question_version": 1,
-      "proposal_cache": "gAAAAABq8s9itsb_17VpmJONT2RVacBfCVGfyH0cmtbCXq57lK8G_xmKFNZrFg83x661FOpe58GNwYPJndrHM1oVJ4nwkLMqx2WTKk3tlAsZ5MdrQwNF00kcPP3VtGNr30I_MB2TWZAH-NUlCwNZrm-AdBXYMQOY1WzlxxtH9rtYnOqjJgBlol-L8Ku2WB_hnXXRbrcg9x8HiIwI4VBlpV4b5G8JlEdTXWPumUfA8QdwiV0mlriwaMEcqqgKbyosOo3YRjtBm_8u_DmAS16zBlIqHLh-m0Uh8UOxzaPLwcV2Gq_cUFEsuRe4FThDSNPHsR5n1mTuNomQBLfwy9oUuTYmQVcD9RBJR0piILFFM0W-puQLMGfAQuAnSlXc77RIOKhYpvUiRM-Qo9k8WLXEKkw3G6gaNrpqfIGUe9YsdUF788WxSCXXacVsx4Bla0itL_K7PsIa20RQfDb1tYTg16owGUwwtaON9GiV655c0Wr2UFlLgfzoYFb1GFlwPCuMGDlancumePYBk8RehsZ1mJv4jkriSTIXeQP4OqmuzCmBCYpgar2rj00KQWAXZ6bn1Eoj7v8jhnWeBDUk9pf-Bkvf5w8Fsj6YPu4ipcQY37LyqI3u_isPVwsiif0iOEXu_BrDzuSZxPvLvNTYNz59jVPbh9fbw1hcAwS6fT2M4YinDDYegfPi5CjuknnGmbOrXYxuymkBQNYH-bXwYA7WIEsnPiTedNijcuRcfyr6rPFBSAALGqISkX3rEDZroLiHvflNakfFmDa2tkElKo_5J6O6sRmDTwtn8zFbMn41TBJd2xVIyYP703-512eD6NnCigvH7Rjw-31Vfdh_ASTC12_1Kc0hv67vFqrKuADNjFEMSYCrhg9oL0YM5V7b865wEupj48MahQAABGaBlMCoaZRLpO9l-Vzte0KD_XsWdbxyE2aA8lt-kIVKVIcv1xgdhqAYw6mmamlnKcVYyjv1NOu7SDd05izrxGyrrRXfLuobupK4TThQmQQ=",
-      "reason": "scope_unconfirmed_after_clarification",
-      "retry_count": 1,
-      "stale_ask_review_version": 1,
+      "action": "closed_before_evaluation",
+      "at": "2026-11-11T21:33:11.737125+00:00",
+      "platform_status": "canceled",
       "version": 1
     },
     "mx78kk7yaefsdwz1vgp7djcjz58hdqc8": {
@@ -1114,16 +1178,11 @@
       "version": 1
     },
     "mx7ccb9n61fk12phncd2qsa13n8gxj8t": {
-      "action": "budget_wait",
-      "at": "2026-10-30T16:12:55.717418+00:00",
+      "action": "bid_active",
+      "at": "2026-11-11T21:33:13.196269+00:00",
       "feasible_ask_review_version": 1,
-      "last_asked_review_at": "2026-11-11T21:28:02.949592+00:00",
       "last_declined_bid": null,
-      "last_error": "openai_daily_pace_exceeded",
       "last_question_version": 1,
-      "reason": "scope_unconfirmed_after_clarification",
-      "retry_at": "2026-11-12T21:28:03.666511+00:00",
-      "stale_ask_review_version": 1,
       "version": 1
     },
     "mx7cdd2dcm83vn86rd9jbc2qwn8gvkkv": {
@@ -1139,16 +1198,11 @@
       "version": 1
     },
     "mx7ctr3ev01yjxyyznhmcey2jd8hahek": {
-      "action": "budget_wait",
-      "at": "2026-10-31T05:46:55.596031+00:00",
+      "action": "bid_active",
+      "at": "2026-11-11T21:33:14.491494+00:00",
       "feasible_ask_review_version": 1,
-      "last_asked_review_at": "2026-11-11T21:27:28.764872+00:00",
       "last_declined_bid": null,
-      "last_error": "openai_daily_pace_exceeded",
       "last_question_version": 1,
-      "reason": "scope_unconfirmed_after_clarification",
-      "retry_at": "2026-11-12T21:28:01.356542+00:00",
-      "stale_ask_review_version": 1,
       "version": 1
     },
     "mx7dam93m4q8spz893n4zfsyzn8hgg6r": {
@@ -1214,16 +1268,11 @@
       "version": 1
     },
     "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": {
-      "action": "budget_wait",
-      "at": "2026-10-30T16:22:09.531528+00:00",
+      "action": "bid_active",
+      "at": "2026-11-11T21:33:15.709666+00:00",
       "feasible_ask_review_version": 1,
-      "last_asked_review_at": "2026-11-11T21:28:04.961570+00:00",
       "last_declined_bid": null,
-      "last_error": "openai_daily_pace_exceeded",
       "last_question_version": 1,
-      "reason": "scope_unconfirmed_after_clarification",
-      "retry_at": "2026-11-12T21:28:05.581252+00:00",
-      "stale_ask_review_version": 1,
       "version": 1
     },
     "mx7f3d5mtppbym4yn59zmgzzw58hw11v": {
@@ -1622,7 +1671,7 @@
     "mx78eanbrs75gfsdvaat9nmmbx8hwx6b": {
       "first_detected_at": "2026-11-10T00:52:51.541661+00:00",
       "first_unlisted_at": "2026-11-11T21:27:16.017629+00:00",
-      "last_known_status": "not_in_open_list",
+      "last_known_status": "canceled",
       "last_seen_open_at": "2026-11-10T00:52:51.541665+00:00",
       "version": 1,
       "versions": {
@@ -2448,9 +2497,11 @@
       }
     },
     "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": {
-      "bid_amount_cents": null,
-      "bid_at": null,
-      "bid_id": null,
+      "bid_amount_cents": 799900,
+      "bid_at": 1794432791172,
+      "bid_id": "p170yaa8zyt75r6dc7rnw1y2g98j1f2s",
+      "bid_status": "active",
+      "bid_status_changed_at": "2026-11-11T21:33:11.413893+00:00",
       "budget_cents": 999900,
       "conversation": {
         "last_incoming_at": null,
@@ -2460,12 +2511,17 @@
         "unanswered": false,
         "unknown_timestamp_count": 0
       },
+      "discount_percent": 20,
       "first_detected_at": "2026-10-30T16:10:18.044157+00:00",
       "observed_at": "2026-11-03T19:17:53.684757+00:00",
       "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
       "posted_at": "2026-10-21T06:38:17.150000+00:00",
+      "posted_budget_cents": 999900,
       "posted_time_field": "created_at",
+      "pricing_mode": "introductory_first_five",
+      "proposal_encrypted": "gAAAAABq9N8XU8wmVj_usOe8khhZ3SwGNfmQbyN9SfkmImENoJu-INa5zwPdWlbpxloe3G0r9QB7TDBH_StcTk-HC8Wh3Mg1KP8RqrsfW4m-ZOqvujwGZRoduH41D8-JrSf7xHyJ2-QgSzCLelNQ3mziOyvivAERacVwRrDs-69CJU4Us8CQK4mA77tX448c3NK8cZHMlQoO-wV01KSF6rvr43ypIfzArKwpHrg9K9pugixH9AQ4ChAhqcbnipU67rVkjr4lHU0V3Ls10As5kdiKHPyJP1MbcZhfV4pe4TN4Ia6V8oYsYvCFYc_HCZzq4cvzasYF_nitKsD2YCs7wAJp9aBjDk4eantSFH8EKEouheaKRpFq-FbOnpMjHYqZij6amwC2f-iP_txoMAz5jwczIYQWim0eeeg5Ge_-lW5CbwwGMJ33PHsLNIVVkD2msax1LKSS0nqwiMeAVTHSS1VO32VoS-Ut78vLr0E7s56FgQFgOkz44eG0mMIBp5Q5qzzsp8C3Qh2c1XAA0gVOMJL2lGKP5yyVhhlRJ1KUpVsMhGOwt1PHE8w=",
+      "proposal_sha256": "209e84b0179a0caf49d95c9c2ce40f2cc12494d4621c1b96abe816a094e6d46b",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 999900,
@@ -2473,7 +2529,8 @@
         "currency": "usd",
         "status": "open",
         "updated_at": 1792564701180
-      }
+      },
+      "submitted_at": "2026-11-11T21:33:11.413874+00:00"
     },
     "mx77fgfqf2y5fkyhd60vpzw6xd8hjkm1": {
       "bid_amount_cents": null,
@@ -2721,9 +2778,9 @@
         "unknown_timestamp_count": 0
       },
       "first_detected_at": "2026-11-10T00:52:51.541450+00:00",
-      "observed_at": "2026-11-10T00:52:51.541450+00:00",
+      "observed_at": "2026-11-11T21:33:11.737051+00:00",
       "owner_activity_status": "no_reply_in_fetched_thread",
-      "platform_status": "open",
+      "platform_status": "canceled",
       "posted_at": "2026-11-09T21:22:27.828000+00:00",
       "posted_time_field": "created_at",
       "sample_listing": false,
@@ -2731,8 +2788,8 @@
         "budget_cents": 2500,
         "created_at": 1794259347828,
         "currency": "usd",
-        "status": "open",
-        "updated_at": 1794259349553
+        "status": "canceled",
+        "updated_at": 1794426928517
       }
     },
     "mx78kk7yaefsdwz1vgp7djcjz58hdqc8": {
@@ -3141,9 +3198,11 @@
       }
     },
     "mx7ccb9n61fk12phncd2qsa13n8gxj8t": {
-      "bid_amount_cents": null,
-      "bid_at": null,
-      "bid_id": null,
+      "bid_amount_cents": 32000,
+      "bid_at": 1794432792947,
+      "bid_id": "p17estarqejy8y4jp7hkq57g7n8j0ypt",
+      "bid_status": "active",
+      "bid_status_changed_at": "2026-11-11T21:33:13.196085+00:00",
       "budget_cents": 40000,
       "conversation": {
         "last_incoming_at": null,
@@ -3153,12 +3212,17 @@
         "unanswered": false,
         "unknown_timestamp_count": 0
       },
+      "discount_percent": 20,
       "first_detected_at": "2026-10-30T16:10:18.044114+00:00",
       "observed_at": "2026-11-03T19:17:53.684558+00:00",
       "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
       "posted_at": "2026-10-24T18:11:07.133000+00:00",
+      "posted_budget_cents": 40000,
       "posted_time_field": "created_at",
+      "pricing_mode": "introductory_first_five",
+      "proposal_encrypted": "gAAAAABq9N8Z9tgST2F3oHP-kUHNoT30LFXo1hAa_U1_W3wl67LATNFbGenFqh2Tnx25fKZVd7EBDiHux5mVYqiX4BGwVU2tN3z69MDOSx41XAISG65D7u2wDlz7U7uyxmXaG2_d2Hg8hdupmm1Rh-d_DFUSOTqUN95YjoL3MbOKF1I3w1EagvOIbuYVDoYhJNoTcjZh2Yx8u0hUKWxZcibY-GdaHDFM5rdFnnboNC81GWQA3n_hbzYUvbcAyfFx-5sqnC6HythjM3SYYnhfyGcVuQ5kr7yDx1ukGfwan54euF1GawQUHg8MPAssLeLDtE7TE98TD7ITU0wxQtWa4aIyfqR8cy-nVixOYZ7sJWMRYeV1rnwlVt1xu5ZwKuVDJbHvsLeu5AMELbGJRgFkZIQpogPd9WdzNIwextmZLSrRoaaf_OcKFPDbYolSbbiOryKAfh0q_OGS5W96J47nVZ6F9n6MmNNg6usfMPWHGoH_BnDaekDPwVMA-EAfAUoJl4yB5CkzLeGZQ4NOGvZxvFcrgY6vLUohWxmqRxBK3y7UI3vHIxWxBV_3zWJUljNuBfMw5qeIpwyx9PM_XuVqUX88rvKrIcWYLdAcoqCJN6jlzsh8eobg-eE1b4vWsX3cw5ooNkWnar928oyPkOfv-hnoHsZhUYokhDqeP8saaVSXPxeIUWeFb7Yqv0tlq0f4S2XQ27s-xhAgsAaUahqedKjBQlWPZkYbwZxIq2H1js54YHfV1RMm1GP-t3f7pNC43p972MIUgX0g7DxXxu_jZ8uU2d9cTDMkyE0eR_33Q8PYsYWc6UOP4hEXa_XAOPAprc_hqJfbn0Ug482gKnSDDBFZZu6XJ284Puqmxh1gkQou2y_ZTBeUgu6W-RbvDfeBpbspJt4HSikFJ8-kYg_6VniEGc4DpdzvlE9HmykijsI8Q0sjqvYKtJelPSvGlfW9ic1dvZb2o8QMnw1C9AO7WE8gSCCVjbgU6a32vySlffoRGjJkrr6nI9FlcLsJvSetLUCzTKz-NQze4XtSBrDRf1rz-FJ1Uh_FphkbE2yOiaKGPVQYoTlMddnUolseVV4rYaYmAGEi5chXVYs3Q42MDyImar0ohFUVYA==",
+      "proposal_sha256": "c6b56502232a380683684e954cd2b51d01e23c509154fc490111cd436ab38704",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 40000,
@@ -3166,7 +3230,8 @@
         "currency": "usd",
         "status": "open",
         "updated_at": 1792865468680
-      }
+      },
+      "submitted_at": "2026-11-11T21:33:13.196068+00:00"
     },
     "mx7cdd2dcm83vn86rd9jbc2qwn8gvkkv": {
       "bid_amount_cents": null,
@@ -3209,9 +3274,11 @@
       }
     },
     "mx7ctr3ev01yjxyyznhmcey2jd8hahek": {
-      "bid_amount_cents": null,
-      "bid_at": null,
-      "bid_id": null,
+      "bid_amount_cents": 3600,
+      "bid_at": 1794432794280,
+      "bid_id": "p17drxaazggxazg1ce9dw7wefx8j0yg5",
+      "bid_status": "active",
+      "bid_status_changed_at": "2026-11-11T21:33:14.491294+00:00",
       "budget_cents": 4500,
       "conversation": {
         "last_incoming_at": null,
@@ -3221,12 +3288,17 @@
         "unanswered": false,
         "unknown_timestamp_count": 0
       },
+      "discount_percent": 20,
       "first_detected_at": "2026-10-31T05:46:14.810249+00:00",
       "observed_at": "2026-11-03T19:17:53.684363+00:00",
       "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
       "posted_at": "2026-10-31T05:45:58.999000+00:00",
+      "posted_budget_cents": 4500,
       "posted_time_field": "created_at",
+      "pricing_mode": "introductory_first_five",
+      "proposal_encrypted": "gAAAAABq9N8aMDezv-lnv_dFkCRFxc8H4hIm0zFr2WZWe_XPmn0_r20m3wgZn1AWvK8n_iIlWjOek-uVj3lIlEgK_EcdVpcvaG5xdTglI52wJfNNcUxpg8nni5SMbG1FiJnilIBQWFOIKGtNrCxCEBx5Y6Cn---ktk3XObOqhPFDPqBlQ94f1BTWP48FUKPhF7_fyIRnKc-9DtbU85aexFGRmprs7mZiSnUVcCnpcJFolLy817-Dk8bkDtHyQ6aFC5NhiRCWzQa7H8LY-acnXE8iqM9KJiIysgFkw4LWaJUx5xIGm1e98ZD1qrmVs3BUeKxi64nOtalk7f-DfihuN0nGvkTqBnb7jy_nV8dDPJEZJrgmJOTMZ-r_FAqfvWHtgg6R1Hn7wMrwEXAmfHNhms-wEnDXb2Br5XW8mykv-lPgLHLYrau_QmDJQ4CoXsc6XVx2TfPLYe9UZiPF2rGmO6lvShOO0ZelTSGGL7SlCzmd9oCFUZPoq979we0NI2mFIbsDFsPuRS8BPCeKdFPqn5Dp0noEcvLtSawDh8KMEEC6nz6l09naNC0XLCNB1H2-J-0X1HH_GDRkgrEkgp_htbk95VvwkqttnDgSMcP_Y2RuhofUck2cGy1QesS31QDgOFZwipYERiKnUaTcdB4vGe_YDn_ySDLoyunuSiA1uhQgleOZnEaWAIs7jHh4ic46coSvRxWmmf71d0KMOHAm3oQSTzhi7U6qiP0xNRE95iXX735679d7l0r7yoE0A2EyE2yh4BaAZuFHxa35jf3_3RIjcjXmcxBSH5yNy4RaTQiFLWa2SCLKyGtFyb-revSP1EdKOINX1Plr3BR8y6TyC4Uc6J73DCiXL5UTMijuVKxUj6Ypk-g_I39SYkQzT4y-cj-C4JrOVvu-TtA-1-AQ42Tgff-9dk9t6-aLzCnctcVFktDIBm88lZTffzf5Ai15qNksUiHWscSR5oThr2_VfTiMijcPJnMFNsiLjzo7VPyavbR6A6tNKe5YhIqgRCP0adL3fuAFRCjaGFcii9acBNjYOiT9TS9tY5goJAPEE08wxeZhqvnke9kh8gyF-pMktoi0pBlGPyvHzoXFQWmE3L3_O3WDPdPZ_74VbRr10oS8sMiRnOT10k4=",
+      "proposal_sha256": "c3f31a0e86d8e2309176a809b5904a17df92ff6d429091e11f51b43d7bf56c6f",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 4500,
@@ -3234,7 +3306,8 @@
         "currency": "usd",
         "status": "open",
         "updated_at": 1793425560557
-      }
+      },
+      "submitted_at": "2026-11-11T21:33:14.491277+00:00"
     },
     "mx7dam93m4q8spz893n4zfsyzn8hgg6r": {
       "bid_amount_cents": 850,
@@ -3406,9 +3479,11 @@
       }
     },
     "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": {
-      "bid_amount_cents": null,
-      "bid_at": null,
-      "bid_id": null,
+      "bid_amount_cents": 2000,
+      "bid_at": 1794432795510,
+      "bid_id": "p17abbjcxr3nxjbhjm9gzbzhqx8j1c9m",
+      "bid_status": "active",
+      "bid_status_changed_at": "2026-11-11T21:33:15.709496+00:00",
       "budget_cents": 2500,
       "conversation": {
         "last_incoming_at": null,
@@ -3418,12 +3493,17 @@
         "unanswered": false,
         "unknown_timestamp_count": 0
       },
+      "discount_percent": 20,
       "first_detected_at": "2026-10-30T16:10:18.044212+00:00",
       "observed_at": "2026-11-03T19:17:53.685123+00:00",
       "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
       "posted_at": "2026-10-14T04:57:46.259000+00:00",
+      "posted_budget_cents": 2500,
       "posted_time_field": "created_at",
+      "pricing_mode": "introductory_first_five",
+      "proposal_encrypted": "gAAAAABq9N8bi1jdYLZapJlU6iLFbvndwisSoA6ndYAvN6FetZHzRM6R0CmMvRNBYs2rtKJrGthyBDoXlpeXWx1uI8GBdH2PKYppcXc3ro5bVN5uEbC0kn76nKaVuZRqM0wm_bRNxZvXlVbfe4qbuIKse1yTljLNOAVsb4TvoL4rscKOD3JscsVbYJSydKcr7NhFpVRQTktJhIdUz2LUfKr8dXsrVmf5Iq8GTT-w_j_0-AntCJNTZcaSHfhoSQ_Bk6ayBPkooelDqxVPsQDXvxc3RYvocRQUm0tp5NWNZxL6mzhrl7qZR9kstRNzFEdc2kpZeYjzUD1BwAzqOjkc675jwrnLlA4_qqgdnVenv5IUZPAMraSMcYHdiv7LNgVRpce5uSPTLT0B1NPuluu5cT_unu3bsivVCQtBTupZagX-vUKyRbbUDldGrAJkaiMTjVRTPOBiR5zT6dtSgyV_IvbHN4Q9u82DdQ_qzB7cZsvHq0oH2TMcjR6MbCMJZv6TultG_gXk11xflswJjLKlVNMPGicW9N6T5O9FWde8om9be6kfnAVuLLl22__voKp0xf6J7SRHmxN1HdfvCfTU9cXT2wQVFAPpIjQ8x3FwNM3IKBoTc6gGu4uPh6XtpgYuPwuDL7MUoaEthVepMaJiQsEXuk7jn2qArW5wVJ7zwMYTIblBUrZaI4xJzbJ7FXLVzQo0JGQNd-yMIql6vPX10EEn-mf2kHlO2piEEx7WGDZNIYSTUs0-JAHLNJhNjAiCi48sDVfaJ4Ln-MhRmwRk-h5g0atEuNP9Y8xAWk8vkTKLoQmLb10cdJ8PSSCKQJZUWzsdYfeK7duEWwzza_xvF9zruzfFU-gIDA_0C4zqngIqn87XMx1TjiLcF57wbof-vDmCHuuG0XogcC3uwsa0dDn2aTjvmYtE6qCAVVokSSyuMsq-4kr4ACG6lYvif15fVGbkU39awwCIB1hegWZh3raEo0ENS-zw3Q_Ox-BlPQcG6k8VonzdCgfrrHy8DwieBrnzBwwNCpIsxq0sODbTJ44p3_LaDVz5aB7gWBfUAtIHCCtXlZG3igooS0zfxyr0P9dg_U0DBMYthEulapXm4VUkgt7NvBGR1O6Cxj2fvwsyeboMOrydQp0=",
+      "proposal_sha256": "9af6419588722c63f678173a63520f0421554f380340419cf13e0c8300be9319",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 2500,
@@ -3431,7 +3511,8 @@
         "currency": "usd",
         "status": "open",
         "updated_at": 1791953867589
-      }
+      },
+      "submitted_at": "2026-11-11T21:33:15.709479+00:00"
     },
     "mx7f3d5mtppbym4yn59zmgzzw58hw11v": {
       "bid_amount_cents": 2200,
@@ -3543,93 +3624,6 @@
     }
   },
   "recent_outcomes": [
-    {
-      "action": "proposal_fallback_pending",
-      "at": "2026-11-10T00:56:23.533847+00:00",
-      "bounty_id": "mx7f3d5mtppbym4yn59zmgzzw58hw11v",
-      "reason": "proposal_samples_missing",
-      "retry_count": 2
-    },
-    {
-      "action": "proposal_sent_without_sample",
-      "at": "2026-11-10T00:57:29.399678+00:00",
-      "bounty_id": "mx7f3d5mtppbym4yn59zmgzzw58hw11v"
-    },
-    {
-      "action": "bid_sent",
-      "at": "2026-11-10T00:57:29.399690+00:00",
-      "bounty_id": "mx7f3d5mtppbym4yn59zmgzzw58hw11v",
-      "payout_cents": 2200,
-      "version": 1
-    },
-    {
-      "action": "proposal_blocked_missing_evidence",
-      "at": "2026-11-10T08:01:38.588453+00:00",
-      "bounty_id": "mx78eanbrs75gfsdvaat9nmmbx8hwx6b",
-      "evidence_failures": 1,
-      "reason": "proposal_samples_missing"
-    },
-    {
-      "action": "evaluation_retry_scheduled",
-      "at": "2026-11-10T08:01:38.588470+00:00",
-      "bounty_id": "mx78eanbrs75gfsdvaat9nmmbx8hwx6b",
-      "reason": "proposal_samples_missing",
-      "retry_count": 1
-    },
-    {
-      "action": "evaluation_budget_wait",
-      "at": "2026-11-10T08:01:58.055644+00:00",
-      "bounty_id": "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97",
-      "reason": "openai_daily_pace_exceeded"
-    },
-    {
-      "action": "work_batch_deferred",
-      "at": "2026-11-10T08:02:00.992218+00:00",
-      "bounty_id": null,
-      "count": 3
-    },
-    {
-      "action": "evaluation_budget_wait",
-      "at": "2026-11-10T08:03:12.794398+00:00",
-      "bounty_id": "mx76v3pva0rj63cc8kg4ewcxan8gpcmj",
-      "reason": "openai_daily_pace_exceeded"
-    },
-    {
-      "action": "evaluation_budget_wait",
-      "at": "2026-11-10T08:03:30.908900+00:00",
-      "bounty_id": "mx7e6d9ystrzd144ztqgcg0hf18gn7sg",
-      "reason": "openai_daily_pace_exceeded"
-    },
-    {
-      "action": "evaluation_budget_wait",
-      "at": "2026-11-10T16:23:31.332872+00:00",
-      "bounty_id": "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4",
-      "reason": "openai_daily_pace_exceeded"
-    },
-    {
-      "action": "work_batch_deferred",
-      "at": "2026-11-10T16:23:36.190800+00:00",
-      "bounty_id": null,
-      "count": 1
-    },
-    {
-      "action": "evaluation_budget_wait",
-      "at": "2026-11-10T16:23:55.314762+00:00",
-      "bounty_id": "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4",
-      "reason": "openai_daily_pace_exceeded"
-    },
-    {
-      "action": "evaluation_budget_wait",
-      "at": "2026-11-10T16:24:25.432984+00:00",
-      "bounty_id": "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4",
-      "reason": "openai_daily_pace_exceeded"
-    },
-    {
-      "action": "evaluation_budget_wait",
-      "at": "2026-11-10T16:25:00.162469+00:00",
-      "bounty_id": "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4",
-      "reason": "openai_daily_pace_exceeded"
-    },
     {
       "action": "evaluation_budget_wait",
       "at": "2026-11-10T16:25:25.420924+00:00",
@@ -3931,6 +3925,87 @@
       "at": "2026-11-11T21:28:05.581276+00:00",
       "bounty_id": "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd",
       "reason": "openai_daily_pace_exceeded"
+    },
+    {
+      "action": "pass_unsupported",
+      "at": "2026-11-11T21:33:10.124932+00:00",
+      "bounty_id": "mx73e9bd3s6pkqt636wwvh4r158h27fn",
+      "reason": "website_visual_quality_unverified",
+      "version": 1
+    },
+    {
+      "action": "stale_ask_model_free_bid_recovery",
+      "at": "2026-11-11T21:33:10.978794+00:00",
+      "bounty_id": "mx76v3pva0rj63cc8kg4ewcxan8gpcmj"
+    },
+    {
+      "action": "proposal_sent_without_sample",
+      "at": "2026-11-11T21:33:11.414831+00:00",
+      "bounty_id": "mx76v3pva0rj63cc8kg4ewcxan8gpcmj"
+    },
+    {
+      "action": "bid_sent",
+      "at": "2026-11-11T21:33:11.414839+00:00",
+      "bounty_id": "mx76v3pva0rj63cc8kg4ewcxan8gpcmj",
+      "payout_cents": 799900,
+      "version": 1
+    },
+    {
+      "action": "closed_before_evaluation",
+      "at": "2026-11-11T21:33:11.737136+00:00",
+      "bounty_id": "mx78eanbrs75gfsdvaat9nmmbx8hwx6b",
+      "platform_status": "canceled"
+    },
+    {
+      "action": "stale_ask_model_free_bid_recovery",
+      "at": "2026-11-11T21:33:12.762123+00:00",
+      "bounty_id": "mx7ccb9n61fk12phncd2qsa13n8gxj8t"
+    },
+    {
+      "action": "proposal_sent_without_sample",
+      "at": "2026-11-11T21:33:13.196260+00:00",
+      "bounty_id": "mx7ccb9n61fk12phncd2qsa13n8gxj8t"
+    },
+    {
+      "action": "bid_sent",
+      "at": "2026-11-11T21:33:13.196267+00:00",
+      "bounty_id": "mx7ccb9n61fk12phncd2qsa13n8gxj8t",
+      "payout_cents": 32000,
+      "version": 1
+    },
+    {
+      "action": "stale_ask_model_free_bid_recovery",
+      "at": "2026-11-11T21:33:14.072917+00:00",
+      "bounty_id": "mx7ctr3ev01yjxyyznhmcey2jd8hahek"
+    },
+    {
+      "action": "proposal_sent_without_sample",
+      "at": "2026-11-11T21:33:14.491486+00:00",
+      "bounty_id": "mx7ctr3ev01yjxyyznhmcey2jd8hahek"
+    },
+    {
+      "action": "bid_sent",
+      "at": "2026-11-11T21:33:14.491492+00:00",
+      "bounty_id": "mx7ctr3ev01yjxyyznhmcey2jd8hahek",
+      "payout_cents": 3600,
+      "version": 1
+    },
+    {
+      "action": "stale_ask_model_free_bid_recovery",
+      "at": "2026-11-11T21:33:15.310109+00:00",
+      "bounty_id": "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd"
+    },
+    {
+      "action": "proposal_sent_without_sample",
+      "at": "2026-11-11T21:33:15.709658+00:00",
+      "bounty_id": "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd"
+    },
+    {
+      "action": "bid_sent",
+      "at": "2026-11-11T21:33:15.709664+00:00",
+      "bounty_id": "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd",
+      "payout_cents": 2000,
+      "version": 1
     }
   ],
   "schema": 1,
