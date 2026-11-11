@@ -118,7 +118,7 @@ def estimate_max_cost_usd(system, context, schema, max_output_tokens, model):
             max_output_tokens * output_price) / 1_000_000
 
 
-def reserve_monthly_budget(estimated_usd):
+def reserve_monthly_budget(estimated_usd, *, priority=False):
     """Reserve a conservative call estimate BEFORE network access.
 
     This is a fail-closed per-repository guard, not the OpenAI billing ledger.
@@ -155,7 +155,12 @@ def reserve_monthly_budget(estimated_usd):
         # Pace only the remaining monthly allowance. Prior-month-to-date
         # reservations must not freeze all future bids for several days.
         daily_allowance = min((maximum - day_start) // days_remaining, 1_400_000)
-        if committed - day_start + requested > daily_allowance:
+        # Fresh (<2h) commercial opportunities may use the owner-approved
+        # absolute $1.40/day ceiling so a routine pace hold cannot make the
+        # first bid arrive hours late. The monthly $38 guard still applies.
+        effective_daily_allowance = (
+            min(1_400_000, maximum - day_start) if priority else daily_allowance)
+        if committed - day_start + requested > effective_daily_allowance:
             raise RuntimeError("openai_daily_pace_exceeded")
         ledger.update(pace_day=day, day_start_micro_usd=day_start)
         ledger["reserved_micro_usd"] = committed + requested
@@ -167,7 +172,7 @@ def reserve_monthly_budget(estimated_usd):
     return ledger
 
 
-def infer(schema, system, context, *, num_predict=900, num_ctx=5500, fast=False):
+def infer(schema, system, context, *, num_predict=900, num_ctx=5500, fast=False, priority=False):
     key = os.getenv("OPENAI_API_KEY", "").strip()
     if not key:
         raise RuntimeError("openai_key_not_configured")
@@ -199,7 +204,7 @@ def infer(schema, system, context, *, num_predict=900, num_ctx=5500, fast=False)
     }
     # Budget is reserved before a request: timeouts may still have been billed.
     # This deliberately overestimates rather than silently overspending.
-    reserve_monthly_budget(bound)
+    reserve_monthly_budget(bound, priority=priority)
     request = urllib.request.Request(
         ENDPOINT, method="POST",
         data=json.dumps(payload, ensure_ascii=False).encode(),
