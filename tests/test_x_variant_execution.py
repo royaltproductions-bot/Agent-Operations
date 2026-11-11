@@ -269,6 +269,22 @@ class WebEfficiencyTests(unittest.TestCase):
         self.assertEqual(result["result"],"unverified_buyer_invitation")
         send.assert_not_called()
 
+    def test_wolverine_prepares_platform_proposal_and_never_cold_emails(self):
+        row={"id":"buyer","source_url":"https://example.org/open-request",
+             "page_fetched":True,"contact":"bids@example.org",
+             "platform_reply_url":"https://example.org/open-request/apply",
+             "page_text":"We are seeking a contractor. Submit your proposal.",
+             "title":"Open request"}
+        row["created_at"]=brain.datetime.now(brain.timezone.utc).isoformat()
+        plan={"price_usd":"40.00","pitch":"I can complete the requested analysis.",
+              "deliverable":"A verified analysis report"}
+        with patch.object(brain,"agent_send") as send:
+            result=brain.send_offer(row,plan,{"checkout_url":"https://pay.example/offer"})
+        self.assertEqual(result["result"],"platform_proposal_ready")
+        self.assertEqual(result["channel"],"platform")
+        self.assertEqual(result["platform_reply_url"],row["platform_reply_url"])
+        send.assert_not_called()
+
     def test_live_source_must_have_its_own_visible_request(self):
         row={"source_url":"https://example.org/open-request","page_fetched":True,
              "contact":"bids@example.org","page_text":"We are accepting bids from outside contractors. Send your proposal by November 30.",
