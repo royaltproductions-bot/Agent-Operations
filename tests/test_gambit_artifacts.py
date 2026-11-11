@@ -57,7 +57,7 @@ class ArtifactTests(unittest.TestCase):
     def test_unknown_formats_are_never_claimed(self):
         self.assertEqual({'pdf', 'docx', 'pptx', 'mp4', 'xlsx', 'csv', 'site_zip', 'app_zip'}, set(OUTPUT_FILES))
         with self.assertRaises(ValueError):
-            make_document('mp4', 'A video')
+            make_document('apk', 'An application')
 
     def test_read_only_pdf_input_does_not_force_pdf_output(self):
         details = {'bounty': {'title': 'Summarize the attached report',
