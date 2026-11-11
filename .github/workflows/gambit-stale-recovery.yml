@@ -1,0 +1,49 @@
+name: Gambit Stale Bid Recovery
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/gambit-stale-recovery.yml'
+      - 'tools/gambit_worker.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gambit-stale-bid-recovery
+  cancel-in-progress: false
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      BOUNTY_AGENT_API_KEY: ${{ secrets.BOUNTY_AGENT_API_KEY }}
+      GAMBIT_INFERENCE_PROVIDER: openai
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 3
+          persist-credentials: true
+
+      - name: Restore authoritative Gambit state
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin gambit-state
+          git show origin/gambit-state:ops/gambit/state.json > ops/gambit/state.json
+          git show origin/gambit-state:ops/gambit/openai_budget.json > ops/gambit/openai_budget.json
+
+      - name: Install model-free recovery dependencies
+        run: |
+          python3 -m pip install --disable-pip-version-check --quiet \
+            'pypdf>=5,<8' 'python-docx>=1.2,<2' 'python-pptx>=1.0,<2' 'openpyxl>=3.1,<4' \
+            'reportlab>=4,<5' 'cryptography>=43,<48' ddgs==9.16.1 pillow
+
+      - name: Recover stale clarification opportunities without inference
+        run: python3 -u -m tools.gambit_worker --recover-stale
+
+      - name: Persist authoritative recovery receipts
+        run: python3 -c 'from tools.gambit_watch import checkpoint; checkpoint()'
