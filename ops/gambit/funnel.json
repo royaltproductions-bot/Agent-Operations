@@ -1,12 +1,12 @@
 {
   "aging_active_bids_days": {
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 4.012987897858796,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 8.083737041377315,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 8.053896879340277,
-    "mx78wzkqdghteet6beyw1567mx8hewfj": 9.332842377025463,
-    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 0.8215325737847221,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 8.084587712673612,
-    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 1.8540141825810184
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 4.013561584305556,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 8.084310727824073,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 8.054470565787037,
+    "mx78wzkqdghteet6beyw1567mx8hewfj": 9.333416063472223,
+    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 0.8221062602314815,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 8.08516139912037,
+    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 1.854587869027778
   },
   "browser": {
     "completed_job_count": {
@@ -82,7 +82,7 @@
   "coverage": "Observed unique bounties; historical events before instrumentation may be incomplete.",
   "cumulative": {
     "accepted": 0,
-    "asked": 6,
+    "asked": 7,
     "bids_active": 7,
     "bids_sent": 7,
     "declined": 0,
@@ -92,27 +92,27 @@
     "passed_by_reason": {
       "authenticated_account_operation": 1,
       "outbound_messaging": 1,
-      "scope_unconfirmed_after_clarification": 6,
+      "scope_unconfirmed_after_clarification": 1,
       "software_deployment": 3,
       "software_project_not_supported": 1,
       "unknown": 13,
       "unsupported_multi_or_file_format": 6,
       "video_production": 10
     },
-    "retry_pending": 1,
+    "retry_pending": 0,
     "sample_excluded": 2,
     "seen": 60,
     "settled": 0,
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-11T21:27:16.023375+00:00",
+  "generated_at": "2026-11-11T21:28:05.589884+00:00",
   "median_posting_to_bid_minutes": 1146.9998666666665,
   "median_posting_to_detection_minutes": 74.88441925,
   "model_budget": {
-    "call_count": 324,
+    "call_count": 326,
     "month": "2026-11",
-    "reserved_micro_usd": 12628452
+    "reserved_micro_usd": 12659968
   },
   "null_fields": {
     "accepted_at": 0,
@@ -129,7 +129,7 @@
   },
   "today": {
     "accepted": 0,
-    "asked": 2,
+    "asked": 3,
     "bids_active": 1,
     "bids_sent": 1,
     "declined": 0,
@@ -140,7 +140,7 @@
       "software_project_not_supported": 1,
       "unknown": 5
     },
-    "retry_pending": 1,
+    "retry_pending": 0,
     "sample_excluded": 0,
     "seen": 2,
     "settled": 0,
