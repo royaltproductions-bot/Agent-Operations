@@ -3074,8 +3074,152 @@ def recover_stale_scope_bids():
     return outcomes
 
 
+def recover_research_passes():
+    """One-shot H3 recovery for research-backed passes, without paid inference.
+
+    A prior research-available outcome is not itself a capability gap. Re-read
+    the live marketplace record, preserve real capability/closed-state passes,
+    and bid open supported work with explicit assumptions and idempotency.
+    """
+    global CURRENT_EVENTS
+    CURRENT_EVENTS = []
+    state = load_state()
+
+    candidates = []
+    seen = set()
+    for outcome in reversed(state.get("recent_outcomes") or []):
+        bounty_id = str(outcome.get("bounty_id") or "")
+        if (not bounty_id or bounty_id in seen or
+                outcome.get("research_status") not in {"available", "verified"}):
+            continue
+        seen.add(bounty_id)
+        entry = state.get("bounties", {}).get(bounty_id) or {}
+        if entry.get("action") == "pass":
+            candidates.append(bounty_id)
+    candidates.reverse()
+
+    outcomes, failures = [], []
+    for bounty_id in candidates:
+        try:
+            details = api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}")
+            remember_details(state, bounty_id, details)
+            current = details.get("bounty") or {}
+            version = current.get("version")
+            existing_bid = details.get("bid") or {}
+
+            if current.get("status") != "open":
+                state["bounties"][bounty_id] = {
+                    "version": version, "action": "closed_before_evaluation",
+                    "platform_status": current.get("status"), "at": timestamp()}
+                note(state, "closed_before_evaluation", bounty_id,
+                     platform_status=current.get("status"))
+            elif existing_bid.get("status") == "active":
+                record_bid_measurement(state, bounty_id, existing_bid)
+                state["bounties"][bounty_id] = {
+                    "version": version, "action": "bid_active", "at": timestamp()}
+                note(state, "research_pass_recovery_existing_bid", bounty_id)
+            elif current.get("flow") != "bid":
+                state["bounties"][bounty_id] = {
+                    "version": version, "action": "pass",
+                    "reason": "non_bid_flow", "pass_reason": "other",
+                    "at": timestamp()}
+                note(state, "research_pass_recovery_non_bid_flow", bounty_id)
+            else:
+                gap = unsupported_deliverable(details)
+                if gap:
+                    state["bounties"][bounty_id] = {
+                        "version": version, "action": "pass_unsupported",
+                        "reason": gap, "pass_reason": "capability_gap",
+                        "at": timestamp()}
+                    note(state, "pass_unsupported", bounty_id,
+                         reason=gap, version=version)
+                else:
+                    posted = int(current.get("budget_cents") or 0)
+                    payout, pricing = commercial.introductory_price(
+                        state, {**current, "_id": bounty_id}, posted)
+                    if not 500 <= payout <= 10_000_000:
+                        state["bounties"][bounty_id] = {
+                            "version": version, "action": "pass",
+                            "reason": "budget_too_low_for_effort",
+                            "pass_reason": "budget_too_low_for_effort",
+                            "at": timestamp()}
+                        note(state, "research_pass_recovery_budget_invalid",
+                             bounty_id, payout_cents=payout)
+                    else:
+                        title = " ".join(str(current.get("title") or "").split())[:180]
+                        description = " ".join(
+                            str(current.get("description") or "").split())[:520]
+                        deliverable = description or title or "the requested deliverable"
+                        bid_note = (
+                            "I propose to deliver " + deliverable +
+                            "\nTurnaround: 24h."
+                            "\nAssumptions: scope and acceptance criteria as posted."
+                            "\nI can prepare a preliminary sample on request.")
+                        if pricing:
+                            intro = (
+                                "New on TryBounty; introductory rate while I build "
+                                "my track record.")
+                            bid_note += "\n" + intro
+                        gambit_agent_card.check_outbound_text(bid_note)
+                        issue = bid_note_issue(bid_note)
+                        if issue:
+                            raise ValueError(issue)
+                        result = api(
+                            f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/bid",
+                            "POST", {
+                                "payout_cents": payout,
+                                "expected_version": version,
+                                "note": bid_note[:2000],
+                                "idempotency_key": key(
+                                    "research-pass-recovery-bid",
+                                    bounty_id, version, payout)})
+                        record = state.setdefault("commercial", {}).setdefault(
+                            bounty_id, {})
+                        if pricing:
+                            record.update(pricing)
+                        record["research_pass_recovered"] = True
+                        record_bid_measurement(
+                            state, bounty_id, result.get("bid") or {},
+                            proposal=bid_note, payout=payout,
+                            submitted_at=timestamp())
+                        state["bounties"][bounty_id] = {
+                            "version": version, "action": "bid_active",
+                            "at": timestamp()}
+                        note(state, "research_pass_model_free_bid_recovery",
+                             bounty_id, payout_cents=payout, version=version)
+                        note(state, "bid_sent", bounty_id,
+                             payout_cents=payout, version=version)
+
+            outcomes.append({
+                "bounty_id": bounty_id,
+                "action": state.get("bounties", {}).get(
+                    bounty_id, {}).get("action")})
+        except Exception as exc:
+            reason = safe_failure_reason(exc)
+            failures.append({"bounty_id": bounty_id, "reason": reason})
+            note(state, "research_pass_recovery_failed",
+                 bounty_id, reason=reason)
+        save_state(state)
+
+    recovered = sum(
+        1 for row in outcomes if row.get("action") in {"bid_active", "bid_sent"})
+    print(json.dumps({
+        "source": "trybounty_live_api",
+        "model_calls": 0,
+        "targets": len(candidates),
+        "recovered_bids": recovered,
+        "outcomes": outcomes,
+        "failures": failures,
+    }))
+    if failures:
+        raise RuntimeError("research_pass_recovery_failed")
+    return outcomes
+
+
 if __name__ == "__main__":
     if "--recover-stale" in sys.argv:
         recover_stale_scope_bids()
+    elif "--recover-research-passes" in sys.argv:
+        recover_research_passes()
     else:
         run("probe" if "--probe" in sys.argv else "run")
