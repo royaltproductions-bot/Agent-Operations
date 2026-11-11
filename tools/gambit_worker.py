@@ -35,6 +35,7 @@ from tools import gambit_resources as resources
 from tools import gambit_agent_card
 from tools import gambit_app_builder
 from tools import gambit_research_workflow
+from tools import gambit_secondary_marketplace
 from tools.gambit_early_scan import (fulfillment_cooling, account_policy_recheck_due,
                                      asked_recheck_due, ACCOUNT_POLICY_RECHECK_VERSION)
 
@@ -694,6 +695,9 @@ def relevant_events(state):
 
 
 def scan(state):
+    # C3/O1: observe the approved secondary market without creating credentials.
+    # Public discovery is free; bidding stays disabled until an agent key exists.
+    gambit_secondary_marketplace.observe(state)
     opened = pages("/v1/agent/bounties?status=open&limit=100", "bounties")
     # Observation is independent of inference budget or evaluation eligibility.
     for item in opened:
