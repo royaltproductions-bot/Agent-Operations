@@ -1214,7 +1214,10 @@ def limited_explainer_video_requested(details):
     text = " ".join(str(bounty.get(k) or "") for k in
                     ("title", "description", "verification")).lower()
     requested = requested_output_format(details)
-    if "mp4" not in requested:
+    # Treat an explicit final MP4 in the acceptance text as authoritative even
+    # when surrounding wording falls outside the generic file-format parser.
+    explicit_mp4 = bool(re.search(r"\bmp4\b", str(bounty.get("verification") or ""), re.I))
+    if "mp4" not in requested and not explicit_mp4:
         return False
     if not re.search(r"\b(?:explainer|slideshow|slide show|captioned|text-led|narrated presentation)\b", text):
         return False
