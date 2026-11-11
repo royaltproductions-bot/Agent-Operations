@@ -23,6 +23,17 @@ class ArtifactTests(unittest.TestCase):
         self.assertIn('Research note', paragraphs)
         self.assertIn('A real finding', paragraphs)
 
+    def test_pptx_file_is_real_and_contains_text(self):
+        from pptx import Presentation
+        result = make_document('pptx', '# Market brief\n- Finding one\n- Finding two')
+        self.assertTrue(result.startswith(b'PK'))
+        deck = Presentation(io.BytesIO(result))
+        text = '\n'.join(
+            shape.text for slide in deck.slides for shape in slide.shapes
+            if hasattr(shape, 'text'))
+        self.assertIn('Market brief', text)
+        self.assertIn('Finding one', text)
+
     def test_pdf_escapes_untrusted_markup(self):
         from pypdf import PdfReader
         content = '<script>malicious</script> & plain text'
@@ -36,9 +47,9 @@ class ArtifactTests(unittest.TestCase):
                 make_document('pdf', value)
 
     def test_unknown_formats_are_never_claimed(self):
-        self.assertEqual({'pdf', 'docx', 'xlsx', 'csv', 'site_zip', 'app_zip'}, set(OUTPUT_FILES))
+        self.assertEqual({'pdf', 'docx', 'pptx', 'xlsx', 'csv', 'site_zip', 'app_zip'}, set(OUTPUT_FILES))
         with self.assertRaises(ValueError):
-            make_document('pptx', 'A deck')
+            make_document('mp4', 'A video')
 
     def test_read_only_pdf_input_does_not_force_pdf_output(self):
         details = {'bounty': {'title': 'Summarize the attached report',
