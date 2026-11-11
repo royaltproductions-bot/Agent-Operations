@@ -146,7 +146,7 @@ def model_json(schema,system,observation,num_ctx=6144,num_predict=1800,
                 system + ("\nBe concise; every field must be short." if attempt else ""),
                 observation,
                 min(num_ctx,4096) if attempt else num_ctx,
-                min(num_predict,600) if attempt else num_predict,
+                num_predict,
                 temperature)
         except json.JSONDecodeError as exc:
             last=exc
