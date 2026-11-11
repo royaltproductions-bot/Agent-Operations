@@ -1,0 +1,147 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-11T23:06:40.573881+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 4,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 4,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 4,
+    "public_market_sample": [
+      {
+        "url": "https://www.emailvendorselection.com/how-to-create-email-template-in-outlook/",
+        "title": "how to create an email template in Outlook",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://stripo.email/templates/?fpr=emailtools",
+        "title": "1600+ Outlook templates",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.emailvendorselection.com/free-email-templates/",
+        "title": "the best free responsive email templates",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.cirrusinsight.com/features/email-blast",
+        "title": "Email Blast \n Use high-performing templates and Salesforce merge fields to send personalized emails at scale.",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 4,
+    "search_queries": [
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 33,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "how to create email templates for Outlook with free downloadable files",
+        "downloadable Python scripts for automating email template generation",
+        "free downloadable Excel templates for tracking recurring tasks",
+        "how to create a printable calendar template for 2024"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 118,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:4 candidates reviewed;  free email templates, there is no evidence of a unique, differentiated product or actual buyer utility. The content appears to be a directory or guide rather than a spe"
+  },
+  "catalog": {
+    "result": "catalog_published",
+    "listed_products": 3,
+    "product_pages": 3,
+    "files_updated": 2
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 13,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "003c3c67f50b396938ad",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:6b2ad9ae51f363149b",
+      "decision": "pass",
+      "reason": "The candidate offers 1650+ free HTML email templates, which suggests a saturated market with existing solutions. While there is demand for email templates, the presence of free alternatives and the lack of pricing or sales data makes it difficult to justify building a differentiated product. Additionally, the focus on free templates may not align w"
+    },
+    {
+      "candidate_id": "web:385179702f23e7b4e7",
+      "decision": "pass",
+      "reason": "The content is a guide on creating email templates in Outlook, which is a common task for email users. There is no clear indication of a specific, unmet need or a unique product opportunity. The existing tools and guides suggest that the market is already well-served, and there is no evidence of a gap that a new product could fill."
+    },
+    {
+      "candidate_id": "web:a5026fe56dbd85b619",
+      "decision": "pass",
+      "reason": "The candidate lacks a clear, specific customer problem or demonstrated demand. While the page mentions free email templates, there is no evidence of a unique, differentiated product or actual buyer utility. The content appears to be a directory or guide rather than a specific product offering. Additionally, there is no listed price or sales count t"
+    },
+    {
+      "candidate_id": "web:7ff869d74ad96b9021",
+      "decision": "pass",
+      "reason": "The candidate lacks a clear, specific customer problem and does not demonstrate a unique value proposition beyond existing tools like Outlook Dropdown Email Template Builder and Salesforce integration. The evidence excerpt does not provide enough detail about the product's differentiation, target audience, or actual buyer demand. Without a concrete"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 3,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 4,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
