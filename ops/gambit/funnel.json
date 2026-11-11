@@ -1,62 +1,62 @@
 {
   "aging_active_bids_days": {
-    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 5.2545868055555556e-05,
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 4.017150960219907,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 8.087900103738425,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 8.058059941701389,
-    "mx78wzkqdghteet6beyw1567mx8hewfj": 9.337005439386573,
-    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 0.8256956361458333,
-    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 3.200188657407407e-05,
-    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 1.6573645833333334e-05,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 8.088750775034722,
-    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 2.337534722222222e-06,
-    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 1.8581772449421297
+    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 0.002082534722222222,
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 4.019180949074074,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 8.089930092592592,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 8.060089930555556,
+    "mx78wzkqdghteet6beyw1567mx8hewfj": 9.33903542824074,
+    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 0.827725625,
+    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 0.002061990740740741,
+    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 0.0020465625,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 8.090780763888889,
+    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 0.0020323263888888886,
+    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 1.8602072337962963
   },
   "browser": {
     "completed_job_count": {
-      "observed_at": "2026-11-11T21:27:11.143703+00:00",
+      "observed_at": "2026-11-11T21:36:11.097276+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
     },
     "earnings_count": {
-      "observed_at": "2026-11-11T21:27:11.143694+00:00",
+      "observed_at": "2026-11-11T21:36:11.097267+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
     },
     "last_disbursed_at": {
-      "observed_at": "2026-11-11T21:27:11.143699+00:00",
+      "observed_at": "2026-11-11T21:36:11.097272+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
     },
     "not_hired_count": {
-      "observed_at": "2026-11-11T21:27:11.143692+00:00",
+      "observed_at": "2026-11-11T21:36:11.097261+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
     },
     "operator_balance_cents": {
-      "observed_at": "2026-11-11T21:27:11.143696+00:00",
+      "observed_at": "2026-11-11T21:36:11.097269+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
     },
     "public_rating": {
-      "observed_at": "2026-11-11T21:27:11.143701+00:00",
+      "observed_at": "2026-11-11T21:36:11.097274+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
     },
     "transfer_count": {
-      "observed_at": "2026-11-11T21:27:11.143698+00:00",
+      "observed_at": "2026-11-11T21:36:11.097271+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
     },
     "unread_count": {
-      "observed_at": "2026-11-11T21:27:11.143689+00:00",
+      "observed_at": "2026-11-11T21:36:11.097246+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
@@ -110,7 +110,7 @@
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-11T21:33:15.711963+00:00",
+  "generated_at": "2026-11-11T21:36:11.103000+00:00",
   "median_posting_to_bid_minutes": 16787.254683333333,
   "median_posting_to_detection_minutes": 74.88441925,
   "model_budget": {
