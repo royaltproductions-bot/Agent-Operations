@@ -1227,6 +1227,33 @@ class GambitTests(unittest.TestCase):
                          gambit.key("prebid-owner-message", "buyer-job", "inbound-4"))
         infer.assert_not_called()
 
+    def test_historical_unanswered_bid_requeued_and_replied_once(self):
+        item = {'_id': 'buyer-job', 'status': 'open', 'version': 1}
+        state = {'bounties': {'buyer-job': {'action': 'bid_active', 'version': 1}},
+                 'commercial': {'buyer-job': {'conversation': {'unanswered': True}}},
+                 'recent_outcomes': []}
+        with patch.object(gambit, 'pages', side_effect=[[item], []]), \
+             patch.object(gambit, 'relevant_events', return_value=([], None)):
+            _, _, _, _, waiting, _ = gambit.scan(state)
+        self.assertEqual([x['_id'] for x in waiting], ['buyer-job'])
+        details = {'bounty': {'_id': 'buyer-job', 'status': 'open',
+                              'version': 1, 'flow': 'bid'},
+                   'bid': {'status': 'active', 'bounty_version': 1}}
+        incoming = {'_id': 'old-inbound', 'author_type': 'user',
+                    'content': {'type': 'text', 'text': 'Who is ARI?'},
+                    'created_at': '2026-11-06T15:37:00+00:00'}
+        def request(path, method='GET', payload=None):
+            return details if method == 'GET' else {'message_id': 'sent-once'}
+        with patch.object(gambit, 'api', side_effect=request) as api, \
+             patch.object(gambit, 'messages_for', return_value=[incoming]):
+            gambit.handle_open(item, state)
+            gambit.handle_open(item, state)
+        posts = [c for c in api.call_args_list
+                 if len(c.args) > 1 and c.args[1] == 'POST']
+        self.assertEqual(len(posts), 1)
+        self.assertTrue(posts[0].args[2].get('idempotency_key'))
+        self.assertTrue(state['commercial']['buyer-job'].get('last_outgoing_at'))
+
     def test_scan_requeues_old_asked_thread_without_customer_event(self):
         old = (datetime.now(timezone.utc) - timedelta(hours=7)).isoformat()
         state = {'bounties': {'buyer-job': {'action': 'asked', 'version': 1,
