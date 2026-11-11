@@ -2,7 +2,14 @@ name: Gambit Paid Bounties
 
 on:
   schedule:
-    - cron: '3-58/5 * * * *'
+    # Keep one resident watcher alive for most of each four-hour block.
+    # GitHub was dropping the prior every-five-minute schedule for hours at a time.
+    - cron: '17 0,4,8,12,16,20 * * *'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/gambit-bounty.yml'
+      - 'tools/gambit_watch.py'
   workflow_dispatch:
 permissions:
   contents: write
@@ -15,7 +22,7 @@ concurrency:
 jobs:
   find-and-fulfill:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 235
     env:
       BOUNTY_AGENT_API_KEY: ${{ secrets.BOUNTY_AGENT_API_KEY }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -82,5 +89,6 @@ jobs:
 
       - name: Check marketplace, process work, and checkpoint
         env:
-          GAMBIT_WATCH_SECONDS: '240'
+          GAMBIT_WATCH_SECONDS: '13200'
+          GAMBIT_WATCH_INTERVAL_SECONDS: '300'
         run: python3 -u -m tools.gambit_watch
