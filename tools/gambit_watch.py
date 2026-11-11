@@ -144,5 +144,7 @@ def watch(seconds=240, interval=30, clock=time.monotonic, sleep=time.sleep):
 
 
 if __name__ == '__main__':
-    successes, failures = watch(seconds=int(os.getenv('GAMBIT_WATCH_SECONDS', '240')))
+    successes, failures = watch(
+        seconds=int(os.getenv('GAMBIT_WATCH_SECONDS', '13200')),
+        interval=int(os.getenv('GAMBIT_WATCH_INTERVAL_SECONDS', '300')))
     record_health(successes, failures)
