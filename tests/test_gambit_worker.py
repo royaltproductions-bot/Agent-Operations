@@ -1255,6 +1255,32 @@ class GambitTests(unittest.TestCase):
         self.assertTrue(state['commercial']['buyer-job'].get('last_outgoing_at'))
         self.assertFalse(state['commercial']['buyer-job']['conversation']['unanswered'])
 
+    def test_due_unchanged_bid_requeued_and_followed_up_once(self):
+        old = (datetime.now(timezone.utc) - timedelta(hours=25)).isoformat()
+        item = {'_id': 'follow-job', 'status': 'open', 'version': 1}
+        state = {'bounties': {'follow-job': {'action': 'bid_active', 'version': 1}},
+                 'commercial': {'follow-job': {'bid_id': 'bid-1', 'bid_at': old}},
+                 'recent_outcomes': []}
+        def scan():
+            with patch.object(gambit, 'pages', side_effect=[[item], []]), \
+                 patch.object(gambit, 'relevant_events', return_value=([], None)):
+                return gambit.scan(state)[4]
+        self.assertEqual([x['_id'] for x in scan()], ['follow-job'])
+        details = {'bounty': {**item, 'flow': 'bid'},
+                   'bid': {'_id': 'bid-1', 'status': 'active', 'bounty_version': 1,
+                           'created_at': old}}
+        with patch.object(gambit, 'api', return_value=details) as api, \
+             patch.object(gambit, 'messages_for', return_value=[]), \
+             patch.object(gambit, 'infer') as infer:
+            gambit.handle_open(item, state)
+            gambit.handle_open(item, state)
+        posts = [c for c in api.call_args_list
+                 if len(c.args) > 1 and c.args[1] == 'POST']
+        self.assertEqual(len(posts), 1)
+        self.assertTrue(state['commercial']['follow-job']['followup_sent_at'])
+        self.assertEqual(scan(), [])
+        infer.assert_not_called()
+
     def test_scan_requeues_old_asked_thread_without_customer_event(self):
         old = (datetime.now(timezone.utc) - timedelta(hours=7)).isoformat()
         state = {'bounties': {'buyer-job': {'action': 'asked', 'version': 1,
