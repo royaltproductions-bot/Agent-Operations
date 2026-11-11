@@ -751,8 +751,8 @@ def scan(state):
                or state["bounties"].get(str(item.get("_id")), {}).get("action") == "evaluation_pending"
                or account_policy_recheck_due(
                    state["bounties"].get(str(item.get("_id")), {}))
-               or (state["bounties"].get(str(item.get("_id")), {}).get("action") ==
-                   "pass_scope_unconfirmed" and
+               or (state["bounties"].get(str(item.get("_id")), {}).get("action") in
+                   {"pass_scope_unconfirmed", "budget_wait"} and
                    state["bounties"].get(str(item.get("_id")), {}).get("reason") ==
                    "scope_unconfirmed_after_clarification")
                or asked_recheck_due(
@@ -1773,8 +1773,14 @@ def handle_open(item, state):
                         api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/messages", "POST", {
                             "content": {"type": "text", "text": reply[:3000]},
                             "idempotency_key": key("buyer-reply", bounty_id, current_reply_id)})
+                        sent_at = timestamp()
                         note(state, "agent_replied_to_buyer", bounty_id)
-                        state.setdefault("commercial", {}).setdefault(bounty_id, {})["last_outgoing_at"] = timestamp()
+                        commercial_row = state.setdefault("commercial", {}).setdefault(bounty_id, {})
+                        commercial_row["last_outgoing_at"] = sent_at
+                        conversation = commercial_row.setdefault("conversation", {})
+                        conversation["last_outgoing_at"] = sent_at
+                        conversation["unanswered"] = False
+                        conversation["message_count"] = int(conversation.get("message_count") or 0) + 1
                     last_reply_id = current_reply_id
         commercial_record = state.setdefault("commercial", {}).setdefault(bounty_id, {})
         if not owner_trigger and commercial.followup_due(commercial_record):
@@ -1805,7 +1811,7 @@ def handle_open(item, state):
     # Handle the customer's question before re-assessing a proposal. The old
     # path repeatedly asked for the same terms while ignoring "who this ari?".
     legacy_scope_recheck = (
-        previous.get("action") == "pass_scope_unconfirmed" and
+        previous.get("action") in {"pass_scope_unconfirmed", "budget_wait"} and
         previous.get("reason") == "scope_unconfirmed_after_clarification")
     prebid_asked = (current.get("flow") == "bid" and
                     previous.get("version") == version and
@@ -1891,7 +1897,28 @@ def handle_open(item, state):
     if messages:
         commercial.record_conversation(state, bounty_id, messages)
     sources, unreadable = text_sources(details, messages)
-    if fallback:
+    model_free_scope_recovery = (
+        prebid_asked and stale_ask and legacy_scope_recheck and not gap)
+    if model_free_scope_recovery:
+        outgoing_questions = [
+            str((m.get("content") or {}).get("text") or "").strip()
+            for m in messages if m.get("author_type") == "agent"
+            and str((m.get("content") or {}).get("text") or "").strip()]
+        open_question = outgoing_questions[-1][:500] if outgoing_questions else ""
+        brief = str(current.get("description") or current.get("title") or "").strip()
+        summary = " ".join(brief.split())[:400]
+        note_text = ("I propose to deliver " +
+                     (summary or "the requested deliverable") +
+                     "\nTurnaround: 24h.\nAssumptions: scope as described")
+        if open_question:
+            note_text += "\n" + open_question
+        decision = {
+            "decision": "bid", "reason": "stale_clarification_recovered",
+            "pass_reason": "none", "payout_cents": int(current.get("budget_cents") or 0),
+            "note": note_text, "question": open_question, "feasible": True,
+            "assumptions": "scope as described", "_plain_fallback": True}
+        note(state, "stale_ask_model_free_bid_recovery", bounty_id)
+    elif fallback:
         decision = cached_proposal(previous)
         if not decision:
             previous.update(action="evaluation_abandoned", retry_at=None)
