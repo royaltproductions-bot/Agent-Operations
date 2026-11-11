@@ -1328,6 +1328,18 @@ class GambitTests(unittest.TestCase):
         self.assertIn('capability_gap',
                       gambit.DECIDE_SCHEMA['properties']['pass_reason']['enum'])
 
+    def test_captioned_explainer_mp4_is_supported_but_live_action_is_not(self):
+        eligible = {'bounty': {'title': 'Create a captioned explainer slideshow',
+                               'description': 'Text-led narrated presentation',
+                               'verification': 'Deliver final MP4 explainer.'}}
+        self.assertTrue(gambit.limited_explainer_video_eligible(eligible))
+        self.assertIsNone(gambit.unsupported_deliverable(eligible))
+        live = {'bounty': {'title': 'Create a live-action explainer video',
+                           'description': 'Actors and camera footage',
+                           'verification': 'Deliver final MP4.'}}
+        self.assertFalse(gambit.limited_explainer_video_eligible(live))
+        self.assertEqual(gambit.unsupported_deliverable(live), 'video_production')
+
     def test_unsupported_hired_video_stops_before_fabricated_submission(self):
         details = {'bounty': {'_id': 'video1', 'status': 'claimed',
                               'title': 'Make a video', 'verification': 'Upload MP4.'},
