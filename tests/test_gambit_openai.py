@@ -100,6 +100,19 @@ class GambitOpenAITests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "openai_daily_pace_exceeded"):
                 gambit_openai.reserve_monthly_budget(0.05)
 
+    def test_fresh_priority_can_use_daily_headroom_without_breaking_absolute_cap(self):
+        class November10(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                return cls(2026, 11, 10, tzinfo=timezone.utc)
+        self._seed_november_ledger(11_989_942, day_start=10_789_942)
+        with patch.dict(os.environ, {"GAMBIT_OPENAI_MONTHLY_LIMIT_USD": "38"}), \
+             patch.object(gambit_openai, "datetime", November10):
+            updated = gambit_openai.reserve_monthly_budget(0.10, priority=True)
+            self.assertEqual(updated["reserved_micro_usd"], 12_089_942)
+            with self.assertRaisesRegex(RuntimeError, "openai_daily_pace_exceeded"):
+                gambit_openai.reserve_monthly_budget(0.31, priority=True)
+
     def test_b1_november_tenth_new_guard_allows_small_reservation(self):
         class November10(datetime):
             @classmethod
