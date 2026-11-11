@@ -197,14 +197,24 @@ class WebEfficiencyTests(unittest.TestCase):
         self.assertIn("text/plain",kind)
         self.assertGreater(opener.call_args.kwargs["timeout"],0)
 
-    def test_local_model_keeps_full_workflow_inference_budget(self):
+    def test_local_model_call_is_bounded(self):
         import io
         with patch.object(brain.urllib.request,"urlopen",
                           return_value=io.BytesIO(b'{"message":{"content":"{}"}}')) as opener:
             self.assertEqual(brain.model_json({"type":"object"},"system",{}),{})
-        self.assertNotIn("timeout",opener.call_args.kwargs)
+        self.assertGreater(opener.call_args.kwargs["timeout"],0)
         import json
         self.assertEqual(json.loads(opener.call_args.args[0].data)["keep_alive"],"60m")
+
+    def test_local_model_timeout_retries_once_with_smaller_request(self):
+        with patch.object(brain,"_model_json_once",
+                          side_effect=[TimeoutError("stalled"),{"ok":True}]) as call:
+            result=brain.model_json({"type":"object"},"system",{},
+                                    num_ctx=5000,num_predict=900)
+        self.assertEqual(result,{"ok":True})
+        self.assertEqual(call.call_count,2)
+        self.assertEqual(call.call_args_list[1].args[3],3072)
+        self.assertEqual(call.call_args_list[1].args[4],420)
 
     def test_soft_interest_ranking_is_industry_and_site_neutral(self):
         contact={"title":"Seeking a contractor for an original workflow",
