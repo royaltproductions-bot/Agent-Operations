@@ -128,15 +128,35 @@ FILE_SCHEMA={
     "additionalProperties":False,
 }
 
+def _model_timeout_seconds():
+    try:
+        value=int(os.getenv("CYCLOPS_MODEL_TIMEOUT_SECONDS","180"))
+    except ValueError:
+        value=180
+    return max(30,min(300,value))
+
+
 def model_json(schema,system,observation,num_ctx=6144,num_predict=1800,
                temperature=0.18):
+    last=None
     for attempt in range(2):
         try:
-            return _model_json_once(schema, system + ("\nBe concise; every field must be short." if attempt else ""),
-                                    observation, num_ctx, num_predict, temperature)
-        except json.JSONDecodeError:
-            if attempt:
-                raise
+            return _model_json_once(
+                schema,
+                system + ("\nBe concise; every field must be short." if attempt else ""),
+                observation,
+                min(num_ctx,4096) if attempt else num_ctx,
+                min(num_predict,600) if attempt else num_predict,
+                temperature)
+        except json.JSONDecodeError as exc:
+            last=exc
+        except (TimeoutError, urllib.error.URLError, OSError) as exc:
+            last=exc
+        if attempt:
+            if isinstance(last,json.JSONDecodeError):
+                raise last
+            raise RuntimeError("cyclops_model_transport_timeout") from None
+    raise RuntimeError("cyclops_model_unavailable") from last
 
 
 def _model_json_once(schema,system,observation,num_ctx=6144,num_predict=1800,
@@ -156,7 +176,7 @@ def _model_json_once(schema,system,observation,num_ctx=6144,num_predict=1800,
             ],
         }).encode(),
         headers={"Content-Type":"application/json"})
-    with urllib.request.urlopen(req) as response:
+    with urllib.request.urlopen(req,timeout=_model_timeout_seconds()) as response:
         raw=json.load(response).get("message",{}).get("content","")
     obj=json.loads(raw)
     if not isinstance(obj,dict):
