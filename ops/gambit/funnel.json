@@ -1,12 +1,12 @@
 {
   "aging_active_bids_days": {
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 3.1930568386458336,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 7.263805982164352,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 7.233965820127314,
-    "mx78wzkqdghteet6beyw1567mx8hewfj": 8.5129113178125,
-    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 0.0016015145717592591,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 7.264656653460649,
-    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 1.0340831233680554
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 3.1944743330439813,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 7.2652234765625,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 7.235383314525462,
+    "mx78wzkqdghteet6beyw1567mx8hewfj": 8.514328812210648,
+    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 0.0030190089699074075,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 7.266074147858797,
+    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 1.0355006177662036
   },
   "browser": {
     "completed_job_count": {
@@ -82,7 +82,7 @@
   "coverage": "Observed unique bounties; historical events before instrumentation may be incomplete.",
   "cumulative": {
     "accepted": 0,
-    "asked": 7,
+    "asked": 6,
     "bids_active": 7,
     "bids_sent": 7,
     "declined": 0,
@@ -92,26 +92,26 @@
     "passed_by_reason": {
       "authenticated_account_operation": 1,
       "outbound_messaging": 1,
-      "scope_unconfirmed_after_clarification": 2,
+      "scope_unconfirmed_after_clarification": 4,
       "software_deployment": 3,
-      "unknown": 9,
+      "unknown": 11,
       "unsupported_multi_or_file_format": 6,
       "video_production": 10
     },
-    "retry_pending": 3,
+    "retry_pending": 0,
     "sample_excluded": 2,
     "seen": 59,
     "settled": 0,
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-11T01:46:33.979859+00:00",
+  "generated_at": "2026-11-11T01:48:36.451375+00:00",
   "median_posting_to_bid_minutes": 1146.9998666666665,
   "median_posting_to_detection_minutes": 57.56379261666667,
   "model_budget": {
-    "call_count": 304,
+    "call_count": 316,
     "month": "2026-11",
-    "reserved_micro_usd": 11937042
+    "reserved_micro_usd": 12340984
   },
   "null_fields": {
     "accepted_at": 0,
@@ -128,7 +128,7 @@
   },
   "today": {
     "accepted": 0,
-    "asked": 0,
+    "asked": 2,
     "bids_active": 1,
     "bids_sent": 1,
     "declined": 0,
@@ -136,9 +136,9 @@
     "hired": 0,
     "missing_unconfirmed": 0,
     "passed_by_reason": {
-      "unknown": 1
+      "unknown": 3
     },
-    "retry_pending": 3,
+    "retry_pending": 0,
     "sample_excluded": 0,
     "seen": 1,
     "settled": 0,
