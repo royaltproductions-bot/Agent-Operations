@@ -900,7 +900,7 @@ MULTI_WORK_SCHEMA = {"type": "object", "properties": {
     "status": {"type": "string", "enum": ["ready", "need_information", "cannot_deliver"]},
     "reason": {"type": "string"}, "question": {"type": "string"},
     "deliverables": {"type": "array", "items": {"type": "object", "properties": {
-        "format": {"type": "string", "enum": ["csv", "xlsx", "pdf", "docx"]},
+        "format": {"type": "string", "enum": ["csv", "xlsx", "pdf", "docx", "pptx"]},
         "title": {"type": "string"}, "text": {"type": "string"},
     }, "required": ["format", "title", "text"], "additionalProperties": False}},
 }, "required": ["status", "reason", "question", "deliverables"],
