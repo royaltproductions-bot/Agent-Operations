@@ -556,9 +556,13 @@ def schedule_evaluation_retry(state, bounty_id, exc):
         note(state, "evaluation_budget_wait", bounty_id, reason=reason)
         return
     evidence = int(previous.get("evidence_failures") or 0) + (reason in EVIDENCE_ERRORS)
-    fallback = evidence >= 2 and bool(previous.get("proposal_cache")) and reason in EVIDENCE_ERRORS
+    cached = cached_proposal(previous) if reason in EVIDENCE_ERRORS else None
+    cached_payout = int((cached or {}).get("payout_cents") or 0)
+    fallback_after = 1 if 0 < cached_payout < 2500 else 2
+    fallback = bool(cached) and reason in EVIDENCE_ERRORS and evidence >= fallback_after
     action = "proposal_fallback_pending" if fallback else (
-        "evaluation_abandoned" if attempt >= 2 else "retry_evaluation")
+        "retry_evaluation" if reason in EVIDENCE_ERRORS else
+        ("evaluation_abandoned" if attempt >= 2 else "retry_evaluation"))
     state["bounties"][bounty_id] = {
         **previous, "action": action, "retry_count": attempt,
         "evidence_failures": evidence, "last_error": reason,
@@ -738,6 +742,8 @@ def scan(state):
                or (state.get("commercial", {}).get(str(item.get("_id")), {})
                    .get("conversation", {}).get("unanswered") is True)
                or retry_due(state["bounties"].get(str(item.get("_id")), {}))
+               or (state["bounties"].get(str(item.get("_id")), {}).get("action") == "budget_wait"
+                   and commercial.is_fresh(item, state, hours=2))
                or (str(item.get("_id")) in triggers and not (
                    state["bounties"].get(str(item.get("_id")), {}).get("action") ==
                    "retry_evaluation" and not
