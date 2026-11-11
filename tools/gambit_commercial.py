@@ -100,6 +100,22 @@ def introductory_price(state, item, proposed_cents):
     }
 
 
+def followup_due(record, now=None):
+    """Exactly one commercial follow-up after 24h with no buyer activity."""
+    if not isinstance(record, dict) or record.get('followup_sent_at'):
+        return False
+    now = now or datetime.now(timezone.utc)
+    bid_at = utc_time(record.get('bid_at'))
+    if not bid_at or now - bid_at < timedelta(hours=24):
+        return False
+    incoming = utc_time((record.get('conversation') or {}).get('last_incoming_at'))
+    outgoing = utc_time((record.get('conversation') or {}).get('last_outgoing_at'))
+    if incoming and incoming > bid_at:
+        return False
+    return not outgoing or outgoing <= bid_at
+
+
+
 def priority(item, state, now=None):
     now = now or datetime.now(timezone.utc)
     record = state.get('commercial', {}).get(str(item.get('_id')), {})
