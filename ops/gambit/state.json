@@ -766,13 +766,22 @@
       }
     },
     "bid_bounty_ids": [
+      "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97",
+      "mx76v3pva0rj63cc8kg4ewcxan8gpcmj",
       "mx77kbrqz5859r74m1w2rd4mx98hkxf1",
+      "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4",
       "mx7802nm08nqrb6rhb2kdaygr18gszcr",
       "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8",
+      "mx79h55fz6nnjtxcfzkewhkwvn8grcy9",
       "mx7a4tvzg7v95yjn9mxrjd0nb98gqtdd",
       "mx7a75kn8jtcwkw0yxp53n23e98hzsbs",
       "mx7aw00zmf8ksqwqw2w284hx3d8gptjp",
+      "mx7ccb9n61fk12phncd2qsa13n8gxj8t",
+      "mx7ctr3ev01yjxyyznhmcey2jd8hahek",
       "mx7dam93m4q8spz893n4zfsyzn8hgg6r",
+      "mx7e6d9ystrzd144ztqgcg0hf18gn7sg",
+      "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3",
+      "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd",
       "mx7f3d5mtppbym4yn59zmgzzw58hw11v"
     ],
     "bid_keys_seen": [
@@ -2292,9 +2301,11 @@
     "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": {
       "bid_amount_cents": 700,
       "bid_at": 1794433110523,
+      "bid_created_at": 1794433110523,
       "bid_id": "p173pjk5a4pag3ycks2hpahj598j1qcg",
       "bid_status": "active",
       "bid_status_changed_at": "2026-11-11T21:38:30.719284+00:00",
+      "bid_updated_at": null,
       "budget_cents": 850,
       "discount_percent": 20,
       "first_detected_at": "2026-11-09T07:20:57.279760+00:00",
@@ -2569,9 +2580,11 @@
     "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": {
       "bid_amount_cents": 799900,
       "bid_at": 1794432791172,
+      "bid_created_at": 1794432791172,
       "bid_id": "p170yaa8zyt75r6dc7rnw1y2g98j1f2s",
       "bid_status": "active",
       "bid_status_changed_at": "2026-11-11T21:33:11.413893+00:00",
+      "bid_updated_at": null,
       "budget_cents": 999900,
       "conversation": {
         "last_incoming_at": null,
@@ -2684,9 +2697,11 @@
     "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": {
       "bid_amount_cents": 24000,
       "bid_at": 1794433108039,
+      "bid_created_at": 1794433108039,
       "bid_id": "p17bjzn713d7bphe52qcs8p2x58j16z4",
       "bid_status": "active",
       "bid_status_changed_at": "2026-11-11T21:38:28.281517+00:00",
+      "bid_updated_at": null,
       "budget_cents": 30000,
       "discount_percent": 20,
       "first_detected_at": "2026-11-10T16:23:20.736938+00:00",
@@ -2973,9 +2988,11 @@
     "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": {
       "bid_amount_cents": 1600,
       "bid_at": 1794433109924,
+      "bid_created_at": 1794433109924,
       "bid_id": "p179kc9gf74jnbx1cye38d1xhd8j1p0a",
       "bid_status": "active",
       "bid_status_changed_at": "2026-11-11T21:38:30.105829+00:00",
+      "bid_updated_at": null,
       "budget_cents": 2000,
       "conversation": {
         "last_incoming_at": null,
@@ -3288,9 +3305,11 @@
     "mx7ccb9n61fk12phncd2qsa13n8gxj8t": {
       "bid_amount_cents": 32000,
       "bid_at": 1794432792947,
+      "bid_created_at": 1794432792947,
       "bid_id": "p17estarqejy8y4jp7hkq57g7n8j0ypt",
       "bid_status": "active",
       "bid_status_changed_at": "2026-11-11T21:33:13.196085+00:00",
+      "bid_updated_at": null,
       "budget_cents": 40000,
       "conversation": {
         "last_incoming_at": null,
@@ -3364,9 +3383,11 @@
     "mx7ctr3ev01yjxyyznhmcey2jd8hahek": {
       "bid_amount_cents": 3600,
       "bid_at": 1794432794280,
+      "bid_created_at": 1794432794280,
       "bid_id": "p17drxaazggxazg1ce9dw7wefx8j0yg5",
       "bid_status": "active",
       "bid_status_changed_at": "2026-11-11T21:33:14.491294+00:00",
+      "bid_updated_at": null,
       "budget_cents": 4500,
       "conversation": {
         "last_incoming_at": null,
@@ -3473,9 +3494,11 @@
     "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": {
       "bid_amount_cents": 500,
       "bid_at": 1794433111176,
+      "bid_created_at": 1794433111176,
       "bid_id": "p179s7qxmwfyz00fnyybkbyvc58j1yef",
       "bid_status": "active",
       "bid_status_changed_at": "2026-11-11T21:38:31.344210+00:00",
+      "bid_updated_at": null,
       "budget_cents": 500,
       "conversation": {
         "last_incoming_at": null,
@@ -3510,9 +3533,11 @@
     "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": {
       "bid_amount_cents": 800,
       "bid_at": 1794433108734,
+      "bid_created_at": 1794433108734,
       "bid_id": "p173mfw4cskjhm6hq4xm4h7nx18j0pex",
       "bid_status": "active",
       "bid_status_changed_at": "2026-11-11T21:38:28.915902+00:00",
+      "bid_updated_at": null,
       "budget_cents": 1000,
       "conversation": {
         "last_incoming_at": null,
@@ -3587,9 +3612,11 @@
     "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": {
       "bid_amount_cents": 2000,
       "bid_at": 1794432795510,
+      "bid_created_at": 1794432795510,
       "bid_id": "p17abbjcxr3nxjbhjm9gzbzhqx8j1c9m",
       "bid_status": "active",
       "bid_status_changed_at": "2026-11-11T21:33:15.709496+00:00",
+      "bid_updated_at": null,
       "budget_cents": 2500,
       "conversation": {
         "last_incoming_at": null,
@@ -3669,11 +3696,11 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo1NSwiY2hlY2twb2ludEF0IjoxNzk0NDMyNzM3MTAzfQ",
-  "last_bid_reconciliation": "2026-11-11T21:27:22.278054+00:00",
-  "last_check": "2026-11-11T21:32:17.758841+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo1NSwiY2hlY2twb2ludEF0IjoxNzk0NDMzNTE3MzI0fQ",
+  "last_bid_reconciliation": "2026-11-11T21:45:23.526675+00:00",
+  "last_check": "2026-11-11T21:45:23.532548+00:00",
   "market_observation": {
-    "last_checked_at": "2026-11-11T21:32:16.589874+00:00",
+    "last_checked_at": "2026-11-11T21:44:56.913074+00:00",
     "last_open_count": 56,
     "newest_posted_at": "2026-11-11T02:17:22.769000+00:00"
   },
