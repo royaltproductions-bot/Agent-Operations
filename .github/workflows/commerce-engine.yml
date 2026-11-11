@@ -1,9 +1,5 @@
 name: Commerce Engine
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/commerce-engine.yml'
   schedule:
     - cron: '23 * * * *'
   workflow_dispatch:

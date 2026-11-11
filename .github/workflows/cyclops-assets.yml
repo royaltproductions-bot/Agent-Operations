@@ -1,10 +1,5 @@
 name: Cyclops Reusable Assets
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/cyclops-assets.yml'
-      - 'tools/cyclops_asset_engine.py'
   schedule:
     - cron: '47 * * * *'
   workflow_dispatch:
