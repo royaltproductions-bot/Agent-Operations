@@ -1,0 +1,15 @@
+X-VARIANT EIGHT-HOUR REVENUE WATCH
+Window UTC: 2026-11-10T17:59:18Z to 2026-11-11T01:59:18Z
+Report created UTC: 2026-11-11T01:59:18Z
+Evidence: GitHub main receipt files and Actions metadata; gambit-state authoritative state and budget. Public TryBounty profile not independently verified.
+Wolverine: 2 receipts (42870258651-1,42923993429-1); 32 candidates, 27 fetched pages, 0 offers, 0 assets, 0 fulfillments, $0 verified receipt revenue. Brave HTTP 429 and page fetch errors; no fatal structural failures. No verified contactable buyer invitation.
+Cyclops: 2 receipts (42897003775-1,42935062136-1). One published Outlook Dropdown Email Template Builder .oft at $19.99; four total catalog products; 0 buyer offers, 0 fulfillments, $0 verified receipt revenue. One cyclops_process_failure; later workflow cancelled. Product publication does not establish sale.
+Gambit: 0 standalone receipts. Authoritative state last_check 2026-11-11T01:48:36Z; last_bid_reconciliation 2026-11-11T01:43:00Z. Window outcomes: 5 passes (52 pages read), 1 pass_unsupported, 0 new questions, 1 bid_sent with $20 payout ask, 5 proposal_blocked_missing_evidence, 3 evaluation_retry_scheduled, 2 proposal_fallback_pending, 1 evaluation_abandoned, 4 stale_ask_passed, 1 work_batch_deferred (3). Marketplace-wide available jobs not established. No verified hires, deliverables, acceptances, claim refunds, unsupported bid withdrawals, or settlements. Durable settlements empty, $0 platform-completed earnings. Bid-to-hire and submission success not measurable yet. November budget 316 calls, $12.340984 reserved; workflow monthly cap $38. Provider router registered but no independently verified paid fulfillment or passing tests.
+GitHub Actions: Commerce Engine success twice, Cyclops success then cancelled, Gambit success twice in window. Green workflows are not revenue. No bank deposits checked.
+Economic outcome: $0 verified earned from inspected receipts and settlement ledger; no fulfillments. Confidence high for recorded receipts/state; incomplete for marketplace-wide visibility and external payment verification.
+Open improvements:
+GAMBIT-EVIDENCE-01 pending: test proposal sample discovery and evidence-backed fallback; prevent unsupported proposals and repeated evidence retries.
+GAMBIT-POLL-02 pending: verify actual schedule latency and run continuity versus five-minute cron.
+WOLVERINE-DISCOVERY-01 pending: improve contactable buyer invitation precision and rate-limit fallback.
+CYCLOPS-RELIABILITY-01 pending: investigate cyclops_process_failure after published asset; validate generated .oft usability.
+No operational mutations authorized or performed.
