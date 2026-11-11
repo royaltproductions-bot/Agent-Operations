@@ -24,6 +24,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -49,6 +50,11 @@ MODEL=os.getenv("COMMERCE_MODEL","qwen3:8b")
 OLLAMA="http://127.0.0.1:11434/api/chat"
 ROOT=Path("ops/enterprise-runs")
 NOW=lambda: datetime.now(timezone.utc)
+RUN_DEADLINE=None
+
+def remaining_run_seconds():
+    """Leave headroom for research persistence and provider-grounded receipts."""
+    return float("inf") if RUN_DEADLINE is None else max(0.0,RUN_DEADLINE-time.monotonic())
 
 SEARCH_SCHEMA={
     "type":"object",
@@ -105,13 +111,18 @@ def _model_timeout_seconds():
         value=int(os.getenv("COMMERCE_MODEL_TIMEOUT_SECONDS","180"))
     except ValueError:
         value=180
-    return max(30,min(300,value))
+    remaining=remaining_run_seconds()
+    if remaining==float("inf"):
+        return max(30,min(300,value))
+    return max(1,min(300,value,int(max(1,remaining-45))))
 
 
 def model_json(schema,system,observation,num_ctx=4096,num_predict=700,
                temperature=0.15):
     last=None
     for attempt in range(2):
+        if remaining_run_seconds()<210:
+            raise TimeoutError("commerce_execution_budget_deferred")
         try:
             return _model_json_once(
                 schema,system + ("\nBe concise; every field must be short." if attempt else ""),
@@ -264,6 +275,7 @@ def candidates(memory):
         max_candidates=max(8,budget["max_candidates"]),
         queries=queries,memory=memory,
         max_pages=budget["max_pages"],strict_relevance=True,
+        deadline_monotonic=RUN_DEADLINE-240 if RUN_DEADLINE is not None else None,
         include_discussions=True,include_paid_issues=True)
     if not rows:
         issues.append({"source":"research_coverage",
@@ -376,6 +388,8 @@ def review_requester_pages(rows):
         "required":["candidate_id","invited","quote"],"additionalProperties":False}}},
         "required":["requests"],"additionalProperties":False}
     for start in range(0,len(candidates),4):
+        if remaining_run_seconds()<210:
+            break
         batch=candidates[start:start+4]
         def judge(group):
             return model_json(schema,
@@ -572,6 +586,8 @@ def choose_offer(rows):
     assessments=[]
     remaining=list(visible)
     while remaining:
+        if remaining_run_seconds()<210:
+            return None,{"reason":"execution_budget_offer_deferred"}
         plan=model_json(PLAN_SCHEMA,system+" A reject applies to the selected candidate only; "
                         "choose the strongest remaining opportunity. State its candidate_id.",
                         {"candidates":remaining[:4],
@@ -653,6 +669,8 @@ def create_deliverable(order):
 def fulfill_orders():
     results=[]
     for order in autonomous_paid_orders()[:3]:
+        if remaining_run_seconds()<210:
+            break
         session=order.get("session_id")
         if not session or not order.get("source_url") or not order.get("scope"):
             continue
@@ -677,6 +695,8 @@ def fulfill_orders():
     return results
 
 def run():
+    global RUN_DEADLINE
+    RUN_DEADLINE=time.monotonic()+16*60
     receipt={
         "schema_version":2,
         "engine":"autonomous_revenue_engine",
