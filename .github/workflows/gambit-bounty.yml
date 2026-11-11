@@ -56,8 +56,6 @@ jobs:
 
       - name: Install runtime dependencies
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends ffmpeg espeak-ng
           python3 -m pip install --disable-pip-version-check --quiet \
             'pypdf>=5,<8' 'python-docx>=1.2,<2' 'python-pptx>=1.0,<2' 'openpyxl>=3.1,<4' \
             'reportlab>=4,<5' 'cryptography>=43,<48' ddgs==9.16.1 playwright pillow
