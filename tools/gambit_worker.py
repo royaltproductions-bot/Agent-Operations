@@ -729,6 +729,8 @@ def scan(state):
                    state["bounties"].get(str(item.get("_id")), {}))
                or asked_recheck_due(
                    state["bounties"].get(str(item.get("_id")), {}))
+               or (state.get("commercial", {}).get(str(item.get("_id")), {})
+                   .get("conversation", {}).get("unanswered") is True)
                or retry_due(state["bounties"].get(str(item.get("_id")), {}))
                or (str(item.get("_id")) in triggers and not (
                    state["bounties"].get(str(item.get("_id")), {}).get("action") ==
@@ -760,6 +762,7 @@ def scan(state):
     waiting = [item for item in waiting if not commercial.is_sample(
         item, state.get("commercial", {}).get(str(item.get("_id"))))]
     waiting.sort(key=lambda item: (
+        state.get("commercial", {}).get(str(item.get("_id")), {}).get("conversation", {}).get("unanswered") is not True,
         str(item.get("_id")) not in triggers,
         *commercial.priority(item, state)))
     return opened, held, events, cursor, waiting, active
@@ -1677,9 +1680,11 @@ def handle_open(item, state):
         # buyer messages instead of returning before the conversation check.
         # Never re-bid, withdraw or claim as part of this follow-up path.
         last_reply_id = previous.get("last_owner_reply_id")
-        owner_trigger = state.get("_cursor_reset") or any(e.get("type") in {"work.message.created", "discussion.user_replied"} and
+        owner_trigger = (state.get("_cursor_reset") or
+                         state.get("commercial", {}).get(bounty_id, {}).get("conversation", {}).get("unanswered") is True or
+                         any(e.get("type") in {"work.message.created", "discussion.user_replied"} and
                             e.get("data", {}).get("bounty_id") == bounty_id
-                            for e in CURRENT_EVENTS)
+                            for e in CURRENT_EVENTS))
         if owner_trigger:
             messages = sorted(messages_for(bounty_id), key=lambda m: m.get("created_at") or 0)
             record_owner_activity(state, bounty_id, messages)
