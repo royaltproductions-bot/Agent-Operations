@@ -1,6 +1,11 @@
 name: Gambit Stale Bid Recovery
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/gambit-stale-recovery.yml'
+      - 'tools/gambit_worker.py'
   workflow_dispatch:
 
 permissions:
@@ -39,6 +44,9 @@ jobs:
 
       - name: Recover stale clarification opportunities without inference
         run: python3 -u -m tools.gambit_worker --recover-stale
+
+      - name: Recover research-backed passes without inference
+        run: python3 -u -m tools.gambit_worker --recover-research-passes
 
       - name: Persist authoritative recovery receipts
         run: python3 -c 'from tools.gambit_watch import checkpoint; checkpoint()'
