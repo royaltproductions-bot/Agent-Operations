@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "lane": "cyclops",
-  "status": "active",
+  "status": "quarantined",
   "asset_id": "e46509dbb213a33c25fd",
   "title": "AI-Assisted Development Learning Pathway Generator",
   "description": "A structured learning pathway tailored for non-software engineers transitioning into AI-assisted development, focusing on prompt engineering, programming fundamentals, and real-world application.",
@@ -30,7 +30,7 @@
     }
   ],
   "production_tool": "isolated_tool_workshop",
-  "quality_gate": "content_and_evidence_verified",
+  "quality_gate": "failed_manual_content_review",
   "market_validation": {
     "status": "agent_assessed_public_market",
     "decision": "pursue",
@@ -52,5 +52,7 @@
   "vault_path": "ops/cyclops-vault/assets/e46509dbb213a33c25fd.json",
   "payment_link_id": "plink_1UYbgQBto3o776uyUQ0kJ7qb",
   "checkout_url": "https://buy.stripe.com/8x200iak0fDpfUec7l7Re0S",
-  "created_at": "2026-11-06T01:11:11.053291+00:00"
+  "created_at": "2026-11-06T01:11:11.053291+00:00",
+  "quarantine_reason": "Original two-page PDF includes unsupported resource references and lacks promised practical depth. Stripe link deactivated 2026-11-11. Revised six-page Gumroad edition prepared separately; original vault not replaced.",
+  "payment_link_active": false
 }
