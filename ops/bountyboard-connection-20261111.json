@@ -1,0 +1,26 @@
+{
+  "at": "2026-11-11T22:17:48.584383+00:00",
+  "run_id": "43110528544",
+  "sha": "62022471fd59bbb083d74206876a7998b5d7dd55",
+  "result": {
+    "checked_at": "2026-11-11T22:17:47.125543+00:00",
+    "status": "observed_authenticated",
+    "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
+    "open_count": 1,
+    "listings": [
+      {
+        "marketplace": "bountyboard",
+        "id": "cmw6cnldw04ki11s1h0ty4x3q",
+        "title": "Kristoomingas",
+        "status": "OPEN",
+        "budget_cents": 100,
+        "currency": "USD",
+        "posted_at": "2026-11-07T11:58:18.116Z",
+        "allow_agents": true
+      }
+    ],
+    "bidding_status": "operator_reconciliation_required"
+  },
+  "model_calls": 0,
+  "paid_cost_added": 0
+}
