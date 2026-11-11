@@ -814,12 +814,13 @@ def market_workload(state, opened, waiting):
 
 
 
-def infer(schema, system, context, *, num_predict=900, num_ctx=5500, fast=False):
+def infer(schema, system, context, *, num_predict=900, num_ctx=5500, fast=False,
+          priority=False):
     from tools import gambit_openai
     if gambit_openai.provider() == "openai":
         return gambit_openai.infer(
             schema, system, context, num_predict=num_predict,
-            num_ctx=num_ctx, fast=fast)
+            num_ctx=num_ctx, fast=fast, priority=priority)
     model_name = TRIAGE_MODEL if fast else MODEL
     request = urllib.request.Request(
         OLLAMA, method="POST", data=json.dumps({
@@ -1405,7 +1406,7 @@ def cross_check_decision(context, proposal, num_ctx):
             "_retry_decision": True, "_audit_disagreement": True}
 
 
-def assess(details, messages=None, sources=None, unreadable_count=0):
+def assess(details, messages=None, sources=None, unreadable_count=0, priority=False):
     gap = unsupported_deliverable(details)
     # A required live deployment stays unsupported even when the isolated
     # app resource is offline. Don't turn an impossible hosted deliverable
@@ -1494,17 +1495,28 @@ def assess(details, messages=None, sources=None, unreadable_count=0):
     context = clean_context(details, messages, sources)
     context["available_resources"] = resources.manifest()
     context["unreadable_attachment_count"] = unreadable_count
-    context["web_evidence"] = research_for(details, messages, sources)
+    context["fresh_first_bid"] = bool(priority)
+    if priority:
+        context["web_evidence"] = {
+            "status": "deferred", "results": [],
+            "reason": "fresh_first_bid_enrich_after_proposal"}
+        system += (
+            "\nThis listing is under two hours old. Make the first supported bid "
+            "from the buyer's brief now; do not claim external research is already "
+            "complete and do not require proposal samples. State assumptions when "
+            "needed. Research or previews can follow after the bid.")
+    else:
+        context["web_evidence"] = research_for(details, messages, sources)
     system += "\n" + commercial.PROPOSAL_RULES
     decision = infer(DECIDE_SCHEMA, system, context, fast=True, num_predict=1500,
                  num_ctx=14000 if context["web_evidence"].get("results") else
-                         (7500 if sources else 5500))
+                         (7500 if sources else 5500), priority=priority)
     # TryBounty does not require multiple model votes before bidding.
     # A feasible bid or a clarifying question uses the first grounded decision,
     # with deterministic capability and payout checks still enforced by
     # handle_open(). Re-review only a PASS to catch missed viable work.
     posted_budget = int((details.get("bounty") or details).get("budget_cents") or 0)
-    if (decision.get("decision") == "pass" and posted_budget >= 2500 and
+    if (not priority and decision.get("decision") == "pass" and posted_budget >= 2500 and
             context["web_evidence"].get("status") not in {"unavailable", "partial"}):
         decision = cross_check_decision(
             context, decision, num_ctx=14000 if context["web_evidence"].get("results")
@@ -1721,6 +1733,19 @@ def handle_open(item, state):
                         note(state, "agent_replied_to_buyer", bounty_id)
                         state.setdefault("commercial", {}).setdefault(bounty_id, {})["last_outgoing_at"] = timestamp()
                     last_reply_id = current_reply_id
+        commercial_record = state.setdefault("commercial", {}).setdefault(bounty_id, {})
+        if not owner_trigger and commercial.followup_due(commercial_record):
+            follow_text = (
+                "Following up on my proposal. I can answer questions about the "
+                "scope or provide a preliminary sample or preview where the brief supports one.")
+            gambit_agent_card.check_outbound_text(follow_text)
+            api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/messages", "POST", {
+                "content": {"type": "text", "text": follow_text},
+                "idempotency_key": key("bid-followup", bounty_id,
+                                       commercial_record.get("bid_id") or version)})
+            commercial_record["followup_sent_at"] = timestamp()
+            commercial_record["last_outgoing_at"] = timestamp()
+            note(state, "bid_followup_sent", bounty_id)
         entry = {**previous, "version": version, "action": "bid_active",
                  "last_declined_bid": declined_token,
                  "last_owner_reply_id": last_reply_id,
@@ -1827,7 +1852,12 @@ def handle_open(item, state):
         decision = {"decision": "ask" if current.get("flow") == "bid" else "pass",
                     "question": "I can read text-based PDFs, Word, Excel, CSV, JSON, and text files. One supplied attachment could not be read. Could you provide its essential contents in a supported file or message?"}
     else:
-        decision = assess(details, messages, sources, len(unreadable))
+        priority_first_bid = (
+            commercial.is_fresh(current, state, hours=2)
+            and not prebid_asked
+            and not (details.get("bid") or {}).get("status"))
+        decision = assess(details, messages, sources, len(unreadable),
+                          priority=priority_first_bid)
     if prebid_asked:
         previous["feasible_ask_review_version"] = version
         if stale_ask:
