@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from html import escape
 import io
+import os
 import re
 import shutil
 import subprocess
@@ -201,7 +202,7 @@ def render_mp4(text):
     chunks = chunks[:4]
     with tempfile.TemporaryDirectory(prefix="gambit-video-") as folder:
         font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
-        font = ImageFont.truetype(font_path, 42) if shutil.os.path.exists(font_path) else ImageFont.load_default()
+        font = ImageFont.truetype(font_path, 42) if os.path.exists(font_path) else ImageFont.load_default()
         slide_paths = []
         for idx, chunk in enumerate(chunks):
             image = Image.new("RGB", (1280, 720), "white")
