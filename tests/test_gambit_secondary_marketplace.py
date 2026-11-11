@@ -15,7 +15,7 @@ class SecondaryMarketplaceTests(unittest.TestCase):
         response=io.BytesIO(json.dumps(payload).encode())
         response.__enter__=lambda self: self
         response.__exit__=lambda *args: None
-        with patch.object(secondary.urllib.request,"urlopen",return_value=response) as open_:
+        with patch.object(secondary.gambit_credentials,"load",return_value=None), patch.object(secondary.urllib.request,"urlopen",return_value=response) as open_:
             result=secondary.observe(
                 state, now=datetime(2026,11,11,20,0,tzinfo=timezone.utc))
         self.assertEqual(result["status"],"observed_public")
