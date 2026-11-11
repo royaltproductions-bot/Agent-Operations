@@ -1,11 +1,6 @@
 name: Gambit Stale Bid Recovery
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/gambit-stale-recovery.yml'
-      - 'tools/gambit_worker.py'
   workflow_dispatch:
 
 permissions:
