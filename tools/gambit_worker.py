@@ -314,8 +314,16 @@ def load_state():
     data.setdefault("recent_outcomes", [])
     data.setdefault("settlements", {})
     for ident, entry in data["bounties"].items():
-        if entry.get("action") in {"retry_evaluation", "retry_search", "evaluation_retry_exhausted"} and int(entry.get("retry_count") or 0) >= 2:
-            entry.update(action="evaluation_abandoned", retry_count=min(4, int(entry["retry_count"])), retry_at=None)
+        if (entry.get("action") == "evaluation_abandoned" and
+                entry.get("last_error") in EVIDENCE_ERRORS and entry.get("proposal_cache")):
+            entry.update(action="proposal_fallback_pending", retry_at=timestamp())
+            note(data, "legacy_evidence_fallback_requeued", ident,
+                 reason=entry.get("last_error"))
+        elif (entry.get("action") in {"retry_evaluation", "retry_search",
+                                     "evaluation_retry_exhausted"} and
+              int(entry.get("retry_count") or 0) >= 2):
+            entry.update(action="evaluation_abandoned",
+                         retry_count=min(4, int(entry["retry_count"])), retry_at=None)
             note(data, "evaluation_abandoned", ident, reason="legacy_retry_limit")
     return data
 
@@ -737,6 +745,10 @@ def scan(state):
                or state["bounties"].get(str(item.get("_id")), {}).get("action") == "evaluation_pending"
                or account_policy_recheck_due(
                    state["bounties"].get(str(item.get("_id")), {}))
+               or (state["bounties"].get(str(item.get("_id")), {}).get("action") ==
+                   "pass_scope_unconfirmed" and
+                   state["bounties"].get(str(item.get("_id")), {}).get("reason") ==
+                   "scope_unconfirmed_after_clarification")
                or asked_recheck_due(
                    state["bounties"].get(str(item.get("_id")), {}))
                or (state.get("commercial", {}).get(str(item.get("_id")), {})
@@ -1700,8 +1712,7 @@ def handle_open(item, state):
             previous["evaluation_buyer_events"] = new_events
     previous["version"] = version
     state["bounties"][bounty_id] = previous
-    fallback = (int(previous.get("evidence_failures") or 0) >= 2 and
-                previous.get("action") == "proposal_fallback_pending")
+    fallback = previous.get("action") == "proposal_fallback_pending"
     if (not new_event and int(previous.get("retry_count") or 0) >= 2 and
             previous.get("action") in {"retry_evaluation", "retry_search", "evaluation_abandoned",
                                        "evaluation_retry_exhausted"}):
@@ -1781,10 +1792,14 @@ def handle_open(item, state):
     # An 'asked' listing is a buyer conversation, not a brand-new prospect.
     # Handle the customer's question before re-assessing a proposal. The old
     # path repeatedly asked for the same terms while ignoring "who this ari?".
+    legacy_scope_recheck = (
+        previous.get("action") == "pass_scope_unconfirmed" and
+        previous.get("reason") == "scope_unconfirmed_after_clarification")
     prebid_asked = (current.get("flow") == "bid" and
                     previous.get("version") == version and
                     (previous.get("action") == "asked" or
-                     previous.get("last_question_version") == version))
+                     previous.get("last_question_version") == version or
+                     legacy_scope_recheck))
     new_owner_statement_id = None
     stale_ask = False
     if prebid_asked:
@@ -1802,7 +1817,9 @@ def handle_open(item, state):
         migrate_ask = previous.get("feasible_ask_review_version") != version
         # A stale unanswered question must receive one genuine feasibility
         # reassessment, not an endless periodic re-mark as "asked".
-        if not latest or last_id == previous.get("last_owner_reply_id"):
+        if legacy_scope_recheck:
+            stale_ask = True
+        elif not latest or last_id == previous.get("last_owner_reply_id"):
             try:
                 asked_at = datetime.fromisoformat(previous.get("at") or "")
                 stale_ask = (asked_at.tzinfo is not None and
