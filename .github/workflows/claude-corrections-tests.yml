@@ -14,4 +14,4 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m pip install cryptography pypdf python-docx python-pptx openpyxl reportlab pillow
-      - run: python -m unittest tests.test_gambit_browser_metrics tests.test_claude_corrections tests.test_gambit_worker tests.test_gambit_openai tests.test_gambit_commercial tests.test_gambit_secondary_marketplace tests.test_gambit_artifacts tests.test_gambit_agent_card tests.test_x_variant_execution tests.test_firsthand_source_recovery tests.test_variant_optimization
+      - run: python -m unittest tests.test_gambit_browser_metrics tests.test_claude_corrections tests.test_gambit_worker tests.test_gambit_watch tests.test_gambit_openai tests.test_gambit_commercial tests.test_gambit_secondary_marketplace tests.test_gambit_artifacts tests.test_gambit_agent_card tests.test_x_variant_execution tests.test_firsthand_source_recovery tests.test_variant_optimization
