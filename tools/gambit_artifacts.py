@@ -9,6 +9,11 @@ from __future__ import annotations
 from html import escape
 import io
 import re
+import shutil
+import subprocess
+import tempfile
+import textwrap
+import wave
 
 
 OUTPUT_FILES = {
@@ -20,6 +25,7 @@ OUTPUT_FILES = {
     "pdf": ("gambit-report.pdf", "application/pdf"),
     "pptx": ("gambit-presentation.pptx",
              "application/vnd.openxmlformats-officedocument.presentationml.presentation"),
+    "mp4": ("gambit-explainer.mp4", "video/mp4"),
     "site_zip": ("gambit-static-site.zip", "application/zip"),
     "app_zip": ("gambit-tested-application.zip", "application/zip"),
 }
@@ -173,6 +179,76 @@ def render_pptx(text):
     return data
 
 
+
+def render_mp4(text):
+    """Create a bounded captioned slideshow with local synthesized narration."""
+    from PIL import Image, ImageDraw, ImageFont
+    if not shutil.which("ffmpeg") or not shutil.which("ffprobe") or not shutil.which("espeak-ng"):
+        raise ValueError("mp4_runtime_unavailable")
+    clean = " ".join(line for _, line in _paragraph_lines(text))
+    clean = re.sub(r"\s+", " ", clean).strip()[:1600]
+    if len(clean) < 20:
+        raise ValueError("mp4_source_invalid")
+    words = clean.split()
+    chunks, current = [], []
+    for word in words:
+        current.append(word)
+        if len(" ".join(current)) >= 360 and len(chunks) < 3:
+            chunks.append(" ".join(current))
+            current = []
+    if current:
+        chunks.append(" ".join(current))
+    chunks = chunks[:4]
+    with tempfile.TemporaryDirectory(prefix="gambit-video-") as folder:
+        font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+        font = ImageFont.truetype(font_path, 42) if shutil.os.path.exists(font_path) else ImageFont.load_default()
+        slide_paths = []
+        for idx, chunk in enumerate(chunks):
+            image = Image.new("RGB", (1280, 720), "white")
+            draw = ImageDraw.Draw(image)
+            title = f"Explainer {idx + 1}/{len(chunks)}"
+            draw.text((70, 55), title, fill="black", font=font)
+            wrapped = textwrap.wrap(chunk, width=48)
+            y = 150
+            for line in wrapped[:10]:
+                draw.text((70, y), line, fill="black", font=font)
+                y += 55
+            slide_path = f"{folder}/slide-{idx:03d}.png"
+            image.save(slide_path, format="PNG")
+            slide_paths.append(slide_path)
+        wav_path = f"{folder}/narration.wav"
+        subprocess.run(["espeak-ng", "-s", "160", "-w", wav_path, clean],
+                       check=True, stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, timeout=60)
+        with wave.open(wav_path, "rb") as audio:
+            audio_seconds = audio.getnframes() / float(audio.getframerate())
+        per_slide = max(2.0, (audio_seconds + 0.75) / len(slide_paths))
+        concat_path = f"{folder}/slides.txt"
+        with open(concat_path, "w", encoding="utf-8") as handle:
+            for slide_path in slide_paths:
+                handle.write("file '" + slide_path.replace("'", "'\\''") + "'\n")
+                handle.write(f"duration {per_slide:.3f}\n")
+            handle.write("file '" + slide_paths[-1].replace("'", "'\\''") + "'\n")
+        output_path = f"{folder}/explainer.mp4"
+        subprocess.run([
+            "ffmpeg", "-hide_banner", "-loglevel", "error", "-y",
+            "-f", "concat", "-safe", "0", "-i", concat_path,
+            "-i", wav_path, "-c:v", "libx264", "-pix_fmt", "yuv420p",
+            "-c:a", "aac", "-movflags", "+faststart", "-shortest", output_path
+        ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+           timeout=120)
+        data = open(output_path, "rb").read()
+        if not 10_000 < len(data) <= 25_000_000 or b"ftyp" not in data[:32]:
+            raise ValueError("mp4_output_invalid")
+        probe = subprocess.run([
+            "ffprobe", "-v", "error", "-show_entries", "format=duration",
+            "-of", "default=noprint_wrappers=1:nokey=1", output_path
+        ], check=True, capture_output=True, text=True, timeout=20)
+        if float(probe.stdout.strip() or 0) <= 0:
+            raise ValueError("mp4_output_unreadable")
+        return data
+
+
 def make_document(format_name, text):
     """Use an actual generation adapter, never a model's file claim."""
     if format_name == "pdf":
@@ -181,4 +257,6 @@ def make_document(format_name, text):
         return render_docx(text)
     if format_name == "pptx":
         return render_pptx(text)
+    if format_name == "mp4":
+        return render_mp4(text)
     raise ValueError("unsupported_document_format")
