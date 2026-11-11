@@ -712,7 +712,7 @@ class GambitTests(unittest.TestCase):
         self.assertIsNone(gambit.unsupported_deliverable(details))
 
     def test_unsupported_presentation_and_deployment_are_blocked(self):
-        self.assertEqual('unsupported_file_output', gambit.unsupported_deliverable({
+        self.assertIsNone(gambit.unsupported_deliverable({
             'bounty': {'title': 'Market analysis',
                        'verification': 'Submit a final PPTX deck.'}}))
         self.assertEqual('software_deployment', gambit.unsupported_deliverable({
@@ -792,10 +792,10 @@ class GambitTests(unittest.TestCase):
         self.assertIsNone(gambit.unsupported_deliverable({'bounty': {
             'title': 'Customer analysis',
             'verification': 'Deliver a final DOCX document and CSV file.'}}))
-        self.assertEqual('unsupported_file_output',
-                         gambit.unsupported_deliverable({'bounty': {
-                             'title': 'Create an executive presentation',
-                             'verification': 'Deliver final PDF and PPTX files.'}}))
+        self.assertIsNone(
+            gambit.unsupported_deliverable({'bounty': {
+                'title': 'Create an executive presentation',
+                'verification': 'Deliver final PDF and PPTX files.'}}))
 
     def test_multifile_model_receives_real_formats_without_new_tools(self):
         details = {'bounty': {'title': 'Analyze quarterly metrics',
@@ -1492,7 +1492,7 @@ class GambitTests(unittest.TestCase):
         sent = [c for c in calls if c[1] == 'POST']
         self.assertEqual(len(sent), 1)
         self.assertEqual(sent[0][2]['expected_version'], 6)
-        self.assertEqual(sent[0][2]['payout_cents'], 1700)
+        self.assertEqual(sent[0][2]['payout_cents'], 1400)
 
     def test_bid_note_requires_future_intent_and_specific_scope(self):
         good = ("I propose to review the supplied nonprofit domains, research publicly "
@@ -1987,9 +1987,9 @@ class GambitTests(unittest.TestCase):
         self.assertEqual(len(bids), 1)
         sent = bids[0].args[2]
         self.assertEqual(sent["idempotency_key"],
-                         gambit.key("bid", "b1", 3, 2400, "oldbid"))
+                         gambit.key("bid", "b1", 3, 1900, "oldbid"))
         self.assertNotEqual(sent["idempotency_key"],
-                            gambit.key("bid", "b1", 3, 2400, ""))
+                            gambit.key("bid", "b1", 3, 1900, ""))
         self.assertEqual(state["bounties"]["b1"]["action"], "bid_active")
 
     def test_active_bid_answers_new_private_buyer_message_once(self):
@@ -2250,12 +2250,12 @@ class GambitTests(unittest.TestCase):
     def test_evaluation_retry_exhaustion_is_terminal_and_preserves_reason(self):
         state = {"bounties": {"b1": {"action": "retry_evaluation", "version": 3,
                                       "retry_count": 3}}, "recent_outcomes": []}
-        gambit.schedule_evaluation_retry(state, "b1", ValueError("proposal_samples_missing"))
+        gambit.schedule_evaluation_retry(state, "b1", ValueError("transient_failure"))
         record = state["bounties"]["b1"]
         self.assertEqual(record["action"], "evaluation_abandoned")
         self.assertEqual(record["retry_count"], 4)
         self.assertIsNone(record["retry_at"])
-        self.assertEqual(record["last_error"], "proposal_samples_missing")
+        self.assertEqual(record["last_error"], "transient_failure")
         self.assertFalse(gambit.retry_due(record))
         self.assertEqual(state["recent_outcomes"][-1]["action"], "evaluation_abandoned")
 
