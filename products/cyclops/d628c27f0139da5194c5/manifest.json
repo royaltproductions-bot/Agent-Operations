@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "lane": "cyclops",
-  "status": "active",
+  "status": "inactive",
   "asset_id": "d628c27f0139da5194c5",
   "title": "Credit Score Optimization Assistant",
   "description": "A tool that helps users improve their credit score by analyzing their credit report, suggesting actionable steps, and tracking progress over time.",
@@ -33,5 +33,6 @@
   "vault_path": "ops/cyclops-vault/assets/d628c27f0139da5194c5.json",
   "payment_link_id": "plink_1UVH6gBto3o776uyg9LwxXoW",
   "checkout_url": "https://buy.stripe.com/5kQcN48bSdvhgYi6N17Re0j",
-  "created_at": "2026-10-27T20:36:30.810114+00:00"
+  "created_at": "2026-10-27T20:36:30.810114+00:00",
+  "inactive_reason": "Invalidated by Cyclops quality review; live Stripe payment link independently verified inactive on 2026-11-11."
 }
