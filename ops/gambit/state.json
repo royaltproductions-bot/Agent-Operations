@@ -462,6 +462,13 @@
           "first_at": "2026-11-06T05:39:03.905419+00:00",
           "reason": "openai_daily_pace_exceeded"
         },
+        "legacy_evidence_fallback_requeued": {
+          "days": [
+            "2026-11-11"
+          ],
+          "first_at": "2026-11-11T21:27:11.143607+00:00",
+          "reason": "proposal_samples_missing"
+        },
         "proposal_blocked_missing_evidence": {
           "days": [
             "2026-11-11"
@@ -609,49 +616,49 @@
     ],
     "browser": {
       "completed_job_count": {
-        "observed_at": "2026-11-11T16:31:45.242869+00:00",
+        "observed_at": "2026-11-11T21:27:11.143703+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "earnings_count": {
-        "observed_at": "2026-11-11T16:31:45.242862+00:00",
+        "observed_at": "2026-11-11T21:27:11.143694+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "last_disbursed_at": {
-        "observed_at": "2026-11-11T16:31:45.242866+00:00",
+        "observed_at": "2026-11-11T21:27:11.143699+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "not_hired_count": {
-        "observed_at": "2026-11-11T16:31:45.242857+00:00",
+        "observed_at": "2026-11-11T21:27:11.143692+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "operator_balance_cents": {
-        "observed_at": "2026-11-11T16:31:45.242864+00:00",
+        "observed_at": "2026-11-11T21:27:11.143696+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "public_rating": {
-        "observed_at": "2026-11-11T16:31:45.242868+00:00",
+        "observed_at": "2026-11-11T21:27:11.143701+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "transfer_count": {
-        "observed_at": "2026-11-11T16:31:45.242865+00:00",
+        "observed_at": "2026-11-11T21:27:11.143698+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "unread_count": {
-        "observed_at": "2026-11-11T16:31:45.242844+00:00",
+        "observed_at": "2026-11-11T21:27:11.143689+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
@@ -1128,7 +1135,7 @@
       "version": 1
     },
     "mx7dartnjzsphksgveek0qxs2h8hkcfn": {
-      "action": "evaluation_abandoned",
+      "action": "proposal_fallback_pending",
       "at": "2026-11-11T01:44:38.145199+00:00",
       "evidence_failures": 1,
       "feasible_ask_review_version": 1,
@@ -1137,7 +1144,7 @@
       "last_error": "proposal_samples_missing",
       "last_question_version": 1,
       "proposal_cache": "gAAAAABq88iGvtDZ92eULzJLYm40Y481bScB6UDcaRu_eYPorQITk8X8RzHkOspIVu87-X-vfY4ZOVXeaD8prL0D5LMAjhvEhTwyuZu5ERMnHP3QtjHbVeuMeWmretMewZ1ZWffA3aM_veKNFRf2YT1_dXe5B9_asfhPeRmOkbie_OnkWBD2mbrgs6ydvib9Nqe8nWkXpC23qJFobJtlNKFVI6VZLB7dGOZaIIou-twaBSJ7NC4ddpmrO0ZJjnyCfELM9D3grjN0ze3ERadp_3i2gKD_bD6R5a2HYCfu4t2IzN5CA8RFw6uKv9pmqN1qPWFQ-FNRM3RB176BL2wqitLLg_1wGYjUcMje6oR_gD1cgq8VDTZrc6k-mb0bts-BYHUhjT7KtcjBJp_Qetk6ATQUup_YTGOMxD6kLUTBZPLr72NDJpo9IKdLmFmxIbirTkm3AUsMhvDRFXCiJpp0izXQdtuD543M3B2OKL6lyZyteoYglN-Dn6uDi6Z_Gd83H-APlsg5VuPclh8_gHHoXf29Q6HTeGjSVOQoNR9601O3ZZf4BxAvziUgbXSAk4QfYJPdway8zEXc_6YER9D6SPcBfPZQdl8He0t5l42hnrIfAy8s5d5CmBrksHbeYF9gTrSQs-JYs9_f31_u_KNr0pjFNo3fm8uYUf7faj0jcaj3BWvtxXzrkgnX61whylnqxfR48muaZ1nkgVUXh3lWDdOGGovd6Ym-1DUsTzNyDlBloLCyDViRWfm-TsO9HinqgcGIImlWH_dsLs0iAhKS2FrZclK1ph5zlEKnNX-EE_yWB2r79lOi-gCn-Mx841poYXuYkFOM3lY8b2FWahfTkezshmJOQPqOsx-gCRuCYRTTSsq-T_uivqg=",
-      "retry_at": null,
+      "retry_at": "2026-11-11T21:27:11.143589+00:00",
       "retry_count": 2,
       "stale_ask_review_version": 1,
       "version": 1
@@ -3458,12 +3465,6 @@
   "recent_outcomes": [
     {
       "action": "evaluation_budget_wait",
-      "at": "2026-11-09T17:46:35.036891+00:00",
-      "bounty_id": "mx7f3d5mtppbym4yn59zmgzzw58hw11v",
-      "reason": "openai_daily_pace_exceeded"
-    },
-    {
-      "action": "evaluation_budget_wait",
       "at": "2026-11-09T17:47:05.143876+00:00",
       "bounty_id": "mx7f3d5mtppbym4yn59zmgzzw58hw11v",
       "reason": "openai_daily_pace_exceeded"
@@ -3850,6 +3851,12 @@
       "pages_read": 14,
       "research_status": "available",
       "version": 1
+    },
+    {
+      "action": "legacy_evidence_fallback_requeued",
+      "at": "2026-11-11T21:27:11.143680+00:00",
+      "bounty_id": "mx7dartnjzsphksgveek0qxs2h8hkcfn",
+      "reason": "proposal_samples_missing"
     }
   ],
   "schema": 1,
