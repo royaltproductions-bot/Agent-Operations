@@ -1895,7 +1895,7 @@ def handle_open(item, state):
                     "question": "I can read text-based PDFs, Word, Excel, CSV, JSON, and text files. One supplied attachment could not be read. Could you provide its essential contents in a supported file or message?"}
     else:
         priority_first_bid = (
-            commercial.is_fresh(current, state, hours=2)
+            commercial.is_fresh({**current, "_id": bounty_id}, state, hours=2)
             and not prebid_asked
             and not (details.get("bid") or {}).get("status"))
         decision = assess(details, messages, sources, len(unreadable),
