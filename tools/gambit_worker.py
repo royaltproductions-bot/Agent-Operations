@@ -1190,6 +1190,22 @@ def authenticated_account_operation(requested, verification):
     return False
 
 
+def limited_explainer_video_eligible(details):
+    """Only text-led narrated slideshow explainers are supported as MP4."""
+    bounty = details.get("bounty") or {}
+    text = " ".join(str(bounty.get(k) or "") for k in ("title", "description", "verification")).lower()
+    requested = requested_output_format(details)
+    if "mp4" not in requested:
+        return False
+    if not re.search(r"\b(?:explainer|slideshow|slide show|captioned|text-led|narrated presentation)\b", text):
+        return False
+    if re.search(r"\b(?:live[- ]action|actor|actors|camera footage|screen recording|"
+                 r"motion graphics|character animation|3d animation|custom animation|"
+                 r"lip sync|b-roll|stock footage|cinematic|reel)\b", text):
+        return False
+    return True
+
+
 def unsupported_deliverable(details):
     """Reject output types this worker cannot actually create or verify.
 
@@ -1228,7 +1244,8 @@ def unsupported_deliverable(details):
 
     # File formats in acceptance criteria are stronger evidence than an LLM's
     # unsupported promise. Text scripts ABOUT videos remain eligible.
-    if (re.search(r"\b(?:mp4|mov|webm|avi)\b", verification) or
+    if not limited_explainer_video_eligible(details) and (
+            re.search(r"\b(?:mp4|mov|webm|avi)\b", verification) or
             re.search(r"\b(?:create|produce|edit|render|shoot|film|animate)\b"
                       r".{0,90}\b(?:videos?|films?|reels?|clips?)\b", title) or
             re.search(r"\b(?:final|finished|completed|submit|deliver|provide)\b"
@@ -1253,7 +1270,7 @@ def unsupported_deliverable(details):
 
     # Real local document adapters can author PDFs and Word reports. Graphic,
     # presentation, mobile-app and audiovisual formats are still unsupported.
-    unsupported_files = r"\b(?:png|jpe?g|webp|svg|psd|mp3|wav|pptx|apk|ipa)\b"
+    unsupported_files = r"\b(?:png|jpe?g|webp|svg|psd|mp3|wav|apk|ipa)\b"
     if (re.search(r"\b(?:submit|deliver|upload|export|provide|produce|create)\b"
                   r".{0,100}" + unsupported_files, verification) or
             re.search(unsupported_files + r".{0,50}\b(?:final|deliverable|file)\b",
@@ -1280,7 +1297,7 @@ def unsupported_deliverable(details):
     # bundled. App/source ZIP and media requirements retain their own gates.
     if (requested_formats - SUPPORTED_FORMATS or
             len(requested_formats) > 1 and
-            not requested_formats <= {"csv", "xlsx", "pdf", "docx"}):
+            not requested_formats <= {"csv", "xlsx", "pdf", "docx", "pptx"}):
         return "unsupported_multi_or_file_format"
 
     if (re.search(r"\b(?:deploy|host|publish)\b"
@@ -1433,8 +1450,9 @@ def assess(details, messages=None, sources=None, unreadable_count=0, priority=Fa
         "Bid on external research only if the gathered results show a realistic path "
         "to the exact requested list, fields, sourcing, and requested quantity. "
         "Never fabricate names, decision makers, emails, sites, or claimed verification. "
-        "It can produce PDF and DOCX reports from completed original text using "
-        "real local document-generation tools, CSV or XLSX tables. "
+        "It can produce PDF, DOCX and PPTX files from completed original text using "
+        "real local generation tools, CSV or XLSX tables, and basic captioned narrated "
+        "MP4 explainer/slideshow files. "
         "For web-application SOURCE commissions, when the app_build resource "
         "is available, Gambit can generate a source project across multiple "
         "checkpointed cycles, run independent tests in an unprivileged "
@@ -1451,8 +1469,10 @@ def assess(details, messages=None, sources=None, unreadable_count=0, priority=Fa
         "edit the buyer's website or browse authenticated "
         "systems or operate buyer accounts. App code only runs in the "
         "isolated production sandbox; it cannot use buyer secrets. "
-        "It cannot make images/videos, "
-        "or inspect other private file formats. Do not bid on tasks needing those abilities. "
+        "It cannot make custom images or live-action/animated video. It can create "
+        "a basic text-led captioned MP4 explainer/slideshow with local synthesized narration, "
+        "and real PPTX presentations, when that limited format fully satisfies the brief. "
+        "It cannot inspect other private file formats. Do not bid beyond those abilities. "
         "If an unreadable attachment is reported, bid only if the owner's messages "
         "already contain sufficient replacement input to do the work faithfully. "
         "Reject high-stakes regulated professional advice and unclear/unsupported work. "
