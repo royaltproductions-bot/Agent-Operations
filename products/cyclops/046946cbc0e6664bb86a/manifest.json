@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "lane": "cyclops",
-  "status": "active",
+  "status": "inactive",
   "asset_id": "046946cbc0e6664bb86a",
   "title": "Sustain Tracker - Personal Sustainability Dashboard",
   "description": "A personal dashboard that helps users track and maintain sustainable habits, such as energy usage, water consumption, and waste reduction.",
@@ -47,5 +47,6 @@
   "vault_path": "ops/cyclops-vault/assets/046946cbc0e6664bb86a.json",
   "payment_link_id": "plink_1UU1EtBto3o776uybVSwHaB5",
   "checkout_url": "https://buy.stripe.com/14A4gydwc4YL5fAeft7Re09",
-  "created_at": "2026-10-24T09:27:47.350064+00:00"
+  "created_at": "2026-10-24T09:27:47.350064+00:00",
+  "inactive_reason": "Invalidated by Cyclops quality review; live Stripe payment link independently verified inactive on 2026-11-11."
 }
