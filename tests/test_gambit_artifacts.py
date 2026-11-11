@@ -1,5 +1,6 @@
 """Every advertised document output must be an actual, readable file."""
 import io
+import shutil
 import unittest
 
 from tools.gambit_artifacts import (OUTPUT_FILES, make_document,
@@ -23,6 +24,24 @@ class ArtifactTests(unittest.TestCase):
         self.assertIn('Research note', paragraphs)
         self.assertIn('A real finding', paragraphs)
 
+    def test_pptx_file_is_real_and_contains_text(self):
+        from pptx import Presentation
+        result = make_document('pptx', '# Market brief\n- Finding one\n- Finding two')
+        self.assertTrue(result.startswith(b'PK'))
+        deck = Presentation(io.BytesIO(result))
+        text = '\n'.join(
+            shape.text for slide in deck.slides for shape in slide.shapes
+            if hasattr(shape, 'text'))
+        self.assertIn('Market brief', text)
+        self.assertIn('Finding one', text)
+
+    @unittest.skipUnless(shutil.which("ffmpeg") and shutil.which("ffprobe") and shutil.which("espeak-ng"),
+                         "local video runtime unavailable")
+    def test_mp4_explainer_is_real_video(self):
+        result = make_document('mp4', '# Invoice explainer\n- Review totals\n- Verify fees')
+        self.assertIn(b'ftyp', result[:32])
+        self.assertGreater(len(result), 10000)
+
     def test_pdf_escapes_untrusted_markup(self):
         from pypdf import PdfReader
         content = '<script>malicious</script> & plain text'
@@ -36,9 +55,9 @@ class ArtifactTests(unittest.TestCase):
                 make_document('pdf', value)
 
     def test_unknown_formats_are_never_claimed(self):
-        self.assertEqual({'pdf', 'docx', 'xlsx', 'csv', 'site_zip', 'app_zip'}, set(OUTPUT_FILES))
+        self.assertEqual({'pdf', 'docx', 'pptx', 'mp4', 'xlsx', 'csv', 'site_zip', 'app_zip'}, set(OUTPUT_FILES))
         with self.assertRaises(ValueError):
-            make_document('pptx', 'A deck')
+            make_document('apk', 'An application')
 
     def test_read_only_pdf_input_does_not_force_pdf_output(self):
         details = {'bounty': {'title': 'Summarize the attached report',

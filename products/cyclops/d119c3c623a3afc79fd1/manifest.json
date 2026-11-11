@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "lane": "cyclops",
-  "status": "active",
+  "status": "inactive",
   "asset_id": "d119c3c623a3afc79fd1",
   "title": "AI Workflow Debugger",
   "description": "A tool that helps developers identify and resolve silent failures in AI workflows, especially when integrating models like Qwen with tools like Ollama.",
@@ -33,5 +33,6 @@
   "vault_path": "ops/cyclops-vault/assets/d119c3c623a3afc79fd1.json",
   "payment_link_id": "plink_1UV9ZKBto3o776uy6Ttf5sw4",
   "checkout_url": "https://buy.stripe.com/fZu28q63Kaj5gYi0oD7Re0g",
-  "created_at": "2026-10-27T12:33:34.203040+00:00"
+  "created_at": "2026-10-27T12:33:34.203040+00:00",
+  "inactive_reason": "Invalidated by Cyclops quality review; live Stripe payment link independently verified inactive on 2026-11-11."
 }

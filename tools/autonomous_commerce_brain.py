@@ -390,7 +390,7 @@ def review_requester_pages(rows):
 
 
 def enrich_public_response_route(rows):
-    """Look only at contact links on actual public requester invitations."""
+    """Recover requester-owned platform reply/proposal routes; never cold-email."""
     enriched=[]
     followed=0
     for source_row in rows:
@@ -405,26 +405,24 @@ def enrich_public_response_route(rows):
             # The discovery pass already downloaded this exact page. Reuse
             # those links instead of paying another network round-trip.
             links=row.get("public_links") or []
-            hostname=urllib.parse.urlsplit(row["source_url"]).hostname
+            source_parts=urllib.parse.urlsplit(row["source_url"])
+            hostname=source_parts.hostname
+            if hostname in {"github.com", "news.ycombinator.com", "www.reddit.com", "reddit.com"}:
+                row["platform_reply_url"]=row["source_url"]
+                row["platform_reply_kind"]="public_thread"
             possible=[
                 item for item in links
                 if urllib.parse.urlsplit(item["url"]).hostname==hostname
-                and re.search(r"(?i)(contact|inquir|apply|submit|proposal|bid|request|reach)",
+                and re.search(r"(?i)(apply|submit|proposal|bid|reply|comment)",
                               str(item.get("title") or "")+" "+item["url"])
             ]
             for item in possible[:2]:
                 if followed>=8:
                     break
                 followed+=1
-                try:
-                    _,contact_page=fetch_public_text(item["url"])
-                    address=safe_email(contact_page)
-                    if address:
-                        row["contact"]=address
-                        row["contact_source_url"]=item["url"]
-                        break
-                except (ValueError,urllib.error.HTTPError,urllib.error.URLError):
-                    continue
+                row["platform_reply_url"]=item["url"]
+                row["platform_reply_kind"]="platform_submission"
+                break
         except (ValueError,urllib.error.HTTPError,urllib.error.URLError):
             pass
         enriched.append(row)
@@ -456,7 +454,7 @@ def public_buyer_invitation(row):
         fresh = timedelta(0) <= age <= timedelta(days=60)
     except (ValueError, TypeError):
         fresh = False
-    return bool(fresh and buyer_owned_request(row) and row.get("contact") and requester_evidence(row))
+    return bool(fresh and buyer_owned_request(row) and requester_evidence(row))
 
 
 def read_source(candidate):
@@ -510,7 +508,8 @@ def choose_offer(rows):
     researched=[row for row in rows if not already_contacted(row,sent_subjects)]
     # Keep all findings in research memory, but never spend slow CPU inference
     # trying to send a paid offer to a page with no genuine response channel.
-    actionable=[row for row in researched if public_buyer_invitation(row)]
+    actionable=[row for row in researched
+                if public_buyer_invitation(row) and row.get("platform_reply_url")]
     if not actionable:
         return None,{"reason":"no_verified_contactable_buyer_invitation"}
     ranked=sorted(actionable,key=lambda row:(
@@ -564,10 +563,8 @@ def choose_offer(rows):
     chosen=next((r for r in ranked if r["id"]==plan.get("candidate_id")),None)
     if not chosen:
         raise ValueError("model_selected_unknown_candidate")
-    if not chosen.get("contact"):
-        # Research without a public contact is still useful; it is never an
-        # authorization to manufacture a customer address.
-        return None,{"reason":"no_public_contact_for_selected_action"}
+    if not chosen.get("platform_reply_url"):
+        return None,{"reason":"no_platform_reply_route_for_selected_action"}
     if not public_buyer_invitation(chosen):
         return None,{"reason":"selected_source_lacks_direct_public_invitation"}
     price=normalize_price_usd(plan.get("price_usd"))
@@ -578,33 +575,20 @@ def choose_offer(rows):
     return chosen,plan
 
 def send_offer(candidate,plan,checkout):
+    """Prepare only an invited in-platform proposal; email outreach is retired."""
     if not public_buyer_invitation(candidate):
         return {"result":"unverified_buyer_invitation", "channel":"none"}
-    # Restricted rollout: no external offers until reviewed filters are deployed.
-    return {"result":"offer_would_send", "channel":"none",
-            "reason":"outreach_filter_validation_hold"}
-
-
-def _send_verified_offer(candidate,plan,checkout):
-    # Final transaction boundary: even a malformed/model-bypassed plan cannot
-    # cause an unsolicited message to an informational site.
-    if not public_buyer_invitation(candidate):
-        return {"result":"unverified_buyer_invitation","channel":"none"}
-    marker=offer_marker(candidate["source_url"])
-    price=Decimal(plan["price_usd"])
-    body=(
+    route=str(candidate.get("platform_reply_url") or "")
+    if not route.startswith("https://"):
+        return {"result":"platform_reply_route_missing", "channel":"none"}
+    proposal=(
         str(plan["pitch"]).strip()+"\n\n"
         "I can deliver: "+str(plan["deliverable"]).strip()+"\n"
-        "Fixed price: $"+format(price,".2f")+"\n"
-        "If useful, you can order it here: "+checkout["checkout_url"]+"\n\n"
-        "I’ll send the completed deliverable to the email used at checkout."
-    )
-    subject="Contained paid offer ["+marker+"]"
-    if sent_subject_exists(subject):
-        return {"result":"already_contacted","channel":"email"}
-    agent_send(candidate["contact"],subject,body,[],
-               order_id="autonomous-offer-"+marker)
-    return {"result":"offer_sent","channel":"email"}
+        "Fixed price: $"+format(Decimal(plan["price_usd"]),".2f")+"\n"
+        "Checkout: "+checkout["checkout_url"])
+    return {"result":"platform_proposal_ready", "channel":"platform",
+            "platform_reply_url":route, "proposal":proposal[:1800]}
+
 
 def fulfillment_subject(session_id):
     marker=hashlib.sha256(str(session_id).encode()).hexdigest()[:18]
@@ -757,8 +741,9 @@ def run():
                     "result":action["result"],
                     "channel":action["channel"],
                     "source_url":candidate["source_url"],
+                    "platform_reply_url":action.get("platform_reply_url"),
                 }
-                if action["result"]!="offer_sent":
+                if action["result"]!="platform_proposal_sent":
                     receipt["commercial_outcomes"].append({"reason":action["result"]})
             except Exception as exc:
                 receipt["structural_failures"].append({
@@ -775,7 +760,7 @@ def run():
                 for x in receipt["fulfillment"]
                 if x.get("result") in {"fulfilled","already_fulfilled"})
     receipt["economic_result"]={
-        "new_offers_sent":1 if (receipt.get("external_action") or {}).get("result")=="offer_sent" else 0,
+        "new_offers_sent":1 if (receipt.get("external_action") or {}).get("result")=="platform_proposal_sent" else 0,
         "fulfilled_orders_seen":fulfilled,
         "verified_autonomous_revenue_cents_seen":revenue,
     }

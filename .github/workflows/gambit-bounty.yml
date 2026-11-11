@@ -32,6 +32,7 @@ jobs:
       GAMBIT_WEBSITE_BUILDER: '1'
       GAMBIT_APP_BUILDER: '1'
       GAMBIT_INCREMENTAL_RESEARCH: '1'
+      GAMBIT_SECONDARY_MARKETPLACE: 'bountyboard'
       GAMBIT_MODEL: qwen3:8b
       GAMBIT_TRIAGE_MODEL: qwen3:1.7b
       OLLAMA_MODELS: ${{ github.workspace }}/.ollama-cache/models
@@ -55,8 +56,10 @@ jobs:
 
       - name: Install runtime dependencies
         run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends ffmpeg espeak-ng
           python3 -m pip install --disable-pip-version-check --quiet \
-            'pypdf>=5,<8' 'python-docx>=1.2,<2' 'openpyxl>=3.1,<4' \
+            'pypdf>=5,<8' 'python-docx>=1.2,<2' 'python-pptx>=1.0,<2' 'openpyxl>=3.1,<4' \
             'reportlab>=4,<5' 'cryptography>=43,<48' ddgs==9.16.1 playwright pillow
 
       - name: Read browser-only dashboard metrics once per run

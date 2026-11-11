@@ -34,6 +34,26 @@ class CommercialTests(unittest.TestCase):
         rows[0]['owner_last_active_at']=NOW.isoformat()
         self.assertEqual(c.priority(rows[0],{},NOW)[0],1)
 
+    def test_introductory_price_first_five_completed_jobs(self):
+        state={'settlements':{}}
+        price,meta=c.introductory_price(state,{'budget_cents':3500},3500)
+        self.assertEqual(price,2800)
+        self.assertEqual(meta['discount_percent'],20)
+        state['settlements']={str(i):{} for i in range(5)}
+        price,meta=c.introductory_price(state,{'budget_cents':3500},3500)
+        self.assertEqual(price,3500)
+        self.assertIsNone(meta)
+
+    def test_one_followup_after_24h_only_without_buyer_activity(self):
+        record={'bid_at':(NOW-timedelta(hours=25)).isoformat(),
+                'conversation':{}}
+        self.assertTrue(c.followup_due(record,NOW))
+        record['followup_sent_at']=NOW.isoformat()
+        self.assertFalse(c.followup_due(record,NOW))
+        record={'bid_at':(NOW-timedelta(hours=25)).isoformat(),
+                'conversation':{'last_incoming_at':NOW.isoformat()}}
+        self.assertFalse(c.followup_due(record,NOW))
+
     def test_sample_and_closed_excluded_from_daily_volume(self):
         state={}
         for id,status,description in [('a','open','real'),('b','open','Sample Bounty for review'),('c','completed','real')]:

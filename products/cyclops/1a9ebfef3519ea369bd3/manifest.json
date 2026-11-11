@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "lane": "cyclops",
-  "status": "active",
+  "status": "inactive",
   "asset_id": "1a9ebfef3519ea369bd3",
   "title": "Virtual Card Generator for Secure Transactions",
   "description": "A tool that generates virtual credit cards for secure online transactions, allowing users to avoid exposing their real credit card details.",
@@ -40,5 +40,6 @@
   "vault_path": "ops/cyclops-vault/assets/1a9ebfef3519ea369bd3.json",
   "payment_link_id": "plink_1UVBaGBto3o776uyn0O30N78",
   "checkout_url": "https://buy.stripe.com/bJe5kC9fWcrdeQagnB7Re0h",
-  "created_at": "2026-10-27T14:42:40.748030+00:00"
+  "created_at": "2026-10-27T14:42:40.748030+00:00",
+  "inactive_reason": "Invalidated by Cyclops quality review; live Stripe payment link independently verified inactive on 2026-11-11."
 }

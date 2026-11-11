@@ -76,6 +76,46 @@ def observe(state, item, now=None):
     return changed
 
 
+def is_fresh(item, state, hours=2, now=None):
+    now = now or datetime.now(timezone.utc)
+    record = state.get('commercial', {}).get(str(item.get('_id')), {})
+    posted = utc_time(record.get('posted_at'))
+    if not posted:
+        posted = next((utc_time(item[k]) for k in TIME_FIELDS if utc_time(item.get(k))), None)
+    return bool(posted and now - posted <= timedelta(hours=hours))
+
+
+def introductory_price(state, item, proposed_cents):
+    """Apply the owner-approved cold-start rate for Gambit's first five completed jobs."""
+    posted = int(item.get('budget_cents') or proposed_cents or 0)
+    proposed = int(proposed_cents or posted or 0)
+    completed = len(state.get('settlements', {}))
+    if completed >= 5 or posted < 500:
+        return proposed, None
+    discounted = max(500, int(round((posted * 0.80) / 100.0)) * 100)
+    return min(posted, discounted), {
+        'pricing_mode': 'introductory_first_five',
+        'discount_percent': 20,
+        'posted_budget_cents': posted,
+    }
+
+
+def followup_due(record, now=None):
+    """Exactly one commercial follow-up after 24h with no buyer activity."""
+    if not isinstance(record, dict) or record.get('followup_sent_at'):
+        return False
+    now = now or datetime.now(timezone.utc)
+    bid_at = utc_time(record.get('bid_at'))
+    if not bid_at or now - bid_at < timedelta(hours=24):
+        return False
+    incoming = utc_time((record.get('conversation') or {}).get('last_incoming_at'))
+    outgoing = utc_time((record.get('conversation') or {}).get('last_outgoing_at'))
+    if incoming and incoming > bid_at:
+        return False
+    return not outgoing or outgoing <= bid_at
+
+
+
 def priority(item, state, now=None):
     now = now or datetime.now(timezone.utc)
     record = state.get('commercial', {}).get(str(item.get('_id')), {})
@@ -85,7 +125,9 @@ def priority(item, state, now=None):
     activity = next((utc_time(item.get(k) or record.get('source_fields', {}).get(k))
                      for k in ('owner_last_active_at', 'last_activity_at')
                      if utc_time(item.get(k) or record.get('source_fields', {}).get(k))), None)
-    if posted and now - posted <= timedelta(hours=24):
+    if posted and now - posted <= timedelta(hours=2):
+        group = -1
+    elif posted and now - posted <= timedelta(hours=24):
         group = 0
     elif posted and now - posted > timedelta(days=5) and not (
             activity and now - activity <= timedelta(days=5)):
@@ -145,8 +187,10 @@ include 2-3 real sample_rows using exact short facts from actually read pages.
 For non-web writing or supplied-data work, provide a brief sample_excerpt
 grounded in the supplied facts and label it preliminary. Keep note under 800
 characters to leave room for samples in the 2000-character platform limit.
-Samples are preliminary excerpts, not claims that the full job is done. Price
-experiments are on hold: do not introduce an under-budget experiment.'''
+Samples are preliminary excerpts, not claims that the full job is done. Pricing
+is applied deterministically by the worker: for Gambit's first five completed
+jobs the owner-approved introductory rate is 20% below the posted budget,
+rounded to the nearest dollar and never below $5. Do not invent other discounts.'''
 
 
 def record_event(state, event):

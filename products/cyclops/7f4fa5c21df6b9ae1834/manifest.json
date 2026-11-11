@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "lane": "cyclops",
-  "status": "active",
+  "status": "inactive",
   "asset_id": "7f4fa5c21df6b9ae1834",
   "title": "Avoidance Strategy Planner",
   "description": "A digital tool that helps users create personalized avoidance strategies for harmful relationships, environments, or behaviors. It provides actionable steps, risk assessments, and progress tracking.",
@@ -33,5 +33,6 @@
   "vault_path": "ops/cyclops-vault/assets/7f4fa5c21df6b9ae1834.json",
   "payment_link_id": "plink_1UV3rhBto3o776uyUnYT4ZaR",
   "checkout_url": "https://buy.stripe.com/28E7sKfEkaj5fUegnB7Re0e",
-  "created_at": "2026-10-27T06:28:09.881465+00:00"
+  "created_at": "2026-10-27T06:28:09.881465+00:00",
+  "inactive_reason": "Invalidated by Cyclops quality review; live Stripe payment link independently verified inactive on 2026-11-11."
 }
