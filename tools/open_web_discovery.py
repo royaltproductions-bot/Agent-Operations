@@ -13,6 +13,7 @@ import ipaddress
 import json
 import os
 import re
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -484,7 +485,8 @@ def github_paid_issue_candidates(queries,memory=None,max_candidates=6):
 
 def open_web_candidates(max_candidates=24, queries=None, memory=None,
                         max_pages=32, strict_relevance=True, allowed_hosts=None,
-                        include_discussions=True,include_paid_issues=False):
+                        include_discussions=True,include_paid_issues=False,
+                        deadline_monotonic=None):
     """Search model-generated topics and progress along prior link discoveries.
 
     Budgets constrain this execution's page count; researched URLs
@@ -532,8 +534,14 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
     # or unrelated pages for whole human-problem queries. It remains a
     # relevance-checked fallback, never a way to fill the queue with noise.
     for query in queries:
+        if deadline_monotonic is not None and time.monotonic() >= deadline_monotonic:
+            errors.append({"source":"execution_budget","reason":"discovery_deadline_reached"})
+            break
         strong_primary=0
         for provider,search in providers:
+            if deadline_monotonic is not None and time.monotonic() >= deadline_monotonic:
+                errors.append({"source":"execution_budget","reason":"discovery_deadline_reached"})
+                break
             if provider in blocked_providers:
                 continue
             if memory and hasattr(memory, "provider_available") and not memory.provider_available(provider):
@@ -624,6 +632,9 @@ def open_web_candidates(max_candidates=24, queries=None, memory=None,
     visited=set()
     page_budget=max(4,int(max_pages))
     for query,provider,hit in queue:
+        if deadline_monotonic is not None and time.monotonic() >= deadline_monotonic:
+            errors.append({"source":"execution_budget","reason":"discovery_deadline_reached"})
+            break
         if len(results)>=max_candidates or len(visited)>=page_budget:
             break
         url=str(hit.get("source_url") or "")
