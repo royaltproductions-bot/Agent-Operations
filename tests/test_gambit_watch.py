@@ -72,9 +72,12 @@ class WatchTests(TestCase):
             self.assertFalse(worker.recover_unlisted_evaluations(state, [], []))
         api.assert_not_called()
 
-    def test_scheduled_watch_is_bounded_without_self_dispatch(self):
+    def test_scheduled_watch_is_resident_without_self_dispatch(self):
         workflow=Path('.github/workflows/gambit-bounty.yml').read_text()
-        self.assertIn("GAMBIT_WATCH_SECONDS: '240'", workflow)
+        self.assertIn("GAMBIT_WATCH_SECONDS: '13200'", workflow)
+        self.assertIn("GAMBIT_WATCH_INTERVAL_SECONDS: '300'", workflow)
+        self.assertIn("cron: '17 0,4,8,12,16,20 * * *'", workflow)
         self.assertNotIn('gh workflow run gambit-bounty.yml', workflow)
         self.assertNotIn('actions: write', workflow)
         self.assertEqual(watch.watch.__defaults__[0], 240)
+        self.assertEqual(watch.watch.__defaults__[1], 30)
