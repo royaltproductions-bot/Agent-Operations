@@ -1,0 +1,15 @@
+X-Variant 8-hour Revenue Watch
+UTC window: 2026-11-11T09:40:00Z to 2026-11-11T17:40:00Z (approximate inspection window)
+Created: 2026-11-11, after latest Cyclops receipt at 17:37 UTC
+Source: royaltproductions-bot/Agent-Operations; Wolverine/Cyclops main, Gambit gambit-state.
+Wolverine: 1 receipt (43048079767-1.json, 15:26 UTC); 16 candidates, 14 fetched pages, one contactable source but zero verified requester invitations; no external offer, asset, fulfillment, or verified revenue ($0). Brave 429 and two page fetch errors; no fatal structural failure.
+Cyclops: 1 receipt (43060168037-1.json, 17:37 UTC); cyclops_process_failure; associated run cancelled; zero assets/offers/fulfillments/revenue ($0).
+Gambit: 0 standalone receipts. Last marketplace check 16:32:57 UTC, reconciliation 16:32:56 UTC. Market observation 57 open listings (not qualified leads). No new actions in retained recent_outcomes during this window; new assessments, passes, buyer questions, bids, changes, withdrawals, claims, deliverables, verification failures, acceptances, refunds, and settlements not evidenced. Settlements ledger empty; verified platform earnings $0. Conversion and submission success not measurable yet. Last Actions run 16:31 UTC successful; previous observed run 08:27 UTC, suggesting a long scheduling gap. Watch health 7 successful cycles, 0 failed cycles. Public profile and current provider tests not independently verified.
+Spending estimate: Gambit November budget ledger reserved $12.628452 (324 calls); $38 workflow monthly limit. This is internal reservation, not verified bank spending.
+Evidence confidence: high for inspected receipts, durable settlement ledger, and workflow metadata; limited for marketplace-wide outcomes and independent bank deposits. No additional identifiable lane-specific revenue receipt directory found.
+Open improvements:
+XW-01 pending: investigate Gambit scheduled-run gap via GitHub Actions history/concurrency; preserve polling and reconciliation.
+XW-02 pending: regression-test proposal_samples_missing evidence fallback against unsupported claims.
+XW-03 pending: address Cyclops process failure and add build/runtime dependency validation.
+XW-04 pending: improve Wolverine verified buyer-invitation discovery; avoid low-fit research sources and handle Brave rate limits.
+No operational files modified; this archive is the sole permitted write.
