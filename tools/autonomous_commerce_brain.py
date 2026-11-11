@@ -111,7 +111,10 @@ def _model_timeout_seconds():
         value=int(os.getenv("COMMERCE_MODEL_TIMEOUT_SECONDS","180"))
     except ValueError:
         value=180
-    return max(1,min(300,value,int(max(1,remaining_run_seconds()-45))))
+    remaining=remaining_run_seconds()
+    if remaining==float("inf"):
+        return max(30,min(300,value))
+    return max(1,min(300,value,int(max(1,remaining-45))))
 
 
 def model_json(schema,system,observation,num_ctx=4096,num_predict=700,
