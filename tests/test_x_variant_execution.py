@@ -220,15 +220,14 @@ class WebEfficiencyTests(unittest.TestCase):
              "text":"Request for proposals: seeking a contractor for useful work.",
              "page_text":"Request for proposals: seeking a contractor for useful work.",
              "contact":None,"page_fetched":True,
-             "public_links":[{"url":"https://example.com/contact",
-                              "title":"Contact us for proposals"}]}
-        with patch.object(brain,"fetch_public_text",
-                          return_value=("https://example.com/contact",
-                                        "Submit proposal to work@example.com")) as fetch:
+             "public_links":[{"url":"https://example.com/request/apply",
+                              "title":"Submit proposal"}]}
+        with patch.object(brain,"fetch_public_text") as fetch:
             enriched=brain.enrich_public_response_route([row])
-        self.assertEqual(enriched[0]["contact"],"work@example.com")
-        self.assertEqual(fetch.call_count,1)
-        self.assertEqual(fetch.call_args.args[0],"https://example.com/contact")
+        self.assertEqual(enriched[0]["platform_reply_url"],
+                         "https://example.com/request/apply")
+        self.assertEqual(enriched[0]["platform_reply_kind"],"platform_submission")
+        fetch.assert_not_called()
 
     def test_invited_request_ranks_above_generic_contact(self):
         generic={"id":"web:a","source_url":"https://example.com/about",
@@ -236,7 +235,8 @@ class WebEfficiencyTests(unittest.TestCase):
                  "page_text":"General information.",
                  "title":"About us","snippet":"","text":"General information."}
         invited={"id":"web:b","source_url":"https://example.org/brief",
-                 "page_fetched":True,"contact":"bids@example.org",
+                 "page_fetched":True,
+                 "platform_reply_url":"https://example.org/brief/apply",
                  "page_text":"We are seeking a contractor. Submit your proposal.",
                  "title":"Contract request","snippet":"",
                  "text":"We are seeking a contractor. Submit your proposal."}
