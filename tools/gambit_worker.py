@@ -28,7 +28,8 @@ from tools.gambit_documents import (MAX_BINARY_BYTES, convert_document,
                                     csv_to_xlsx, kind_for)
 from tools.gambit_analytics import summarize_csv_sources
 from tools.gambit_artifacts import (OUTPUT_FILES, SUPPORTED_FORMATS,
-                                    make_document, requested_output_format)
+                                    make_document, requested_output_format,
+                                    video_capable)
 from tools.gambit_site_resources import static_site_eligible, multipage_requested
 from tools import gambit_commercial as commercial
 from tools import gambit_resources as resources
@@ -1212,7 +1213,7 @@ def limited_explainer_video_eligible(details):
     bounty = details.get("bounty") or {}
     text = " ".join(str(bounty.get(k) or "") for k in ("title", "description", "verification")).lower()
     requested = requested_output_format(details)
-    if "mp4" not in requested:
+    if "mp4" not in requested or not video_capable():
         return False
     if not re.search(r"\b(?:explainer|slideshow|slide show|captioned|text-led|narrated presentation)\b", text):
         return False
