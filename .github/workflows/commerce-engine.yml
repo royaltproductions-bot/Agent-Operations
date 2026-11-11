@@ -1,10 +1,5 @@
 name: Commerce Engine
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/commerce-engine.yml'
-      - 'tools/autonomous_commerce_brain.py'
   schedule:
     - cron: '23 * * * *'
   workflow_dispatch:
@@ -14,7 +9,7 @@ permissions:
 
 concurrency:
   group: autonomous-revenue-production
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   run:
