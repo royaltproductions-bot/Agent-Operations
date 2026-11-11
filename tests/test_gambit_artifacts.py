@@ -4,7 +4,7 @@ import shutil
 import unittest
 
 from tools.gambit_artifacts import (OUTPUT_FILES, make_document,
-                                    requested_output_format)
+                                    requested_output_format, video_capable)
 
 
 class ArtifactTests(unittest.TestCase):
@@ -35,9 +35,10 @@ class ArtifactTests(unittest.TestCase):
         self.assertIn('Market brief', text)
         self.assertIn('Finding one', text)
 
-    @unittest.skipUnless(shutil.which("ffmpeg") and shutil.which("ffprobe") and shutil.which("espeak-ng"),
-                         "local video runtime unavailable")
+    @unittest.skipUnless(shutil.which("ffmpeg") and shutil.which("ffprobe"),
+                         "FFmpeg runtime unavailable")
     def test_mp4_explainer_is_real_video(self):
+        self.assertTrue(video_capable())
         result = make_document('mp4', '# Invoice explainer\n- Review totals\n- Verify fees')
         self.assertIn(b'ftyp', result[:32])
         self.assertGreater(len(result), 10000)
