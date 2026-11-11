@@ -22,7 +22,7 @@ class PublicAgentCardTests(unittest.TestCase):
         self.assertIn("Agentic Resource Integration", card["bio"])
         self.assertIn("not live hosting or deployment", card["description"])
         self.assertIn("Agentic Resource Integration", card["identity"])
-        self.assertIn("application source", card["bio"])
+        self.assertIn("web-app source", card["bio"])
         self.assertIn("source", card["capability_answer"])
         self.assertNotIn("royaltproductions", policy.markdown().lower())
         self.assertEqual(
