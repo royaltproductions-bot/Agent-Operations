@@ -1,21 +1,21 @@
 {
   "aging_active_bids_days": {
-    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 0.08812525856481482,
-    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 0.09182145069444445,
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 4.108919865046296,
-    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 0.08815400856481481,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 8.179669008564815,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 8.149828846527777,
-    "mx78wzkqdghteet6beyw1567mx8hewfj": 9.428774344212963,
-    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 0.08813219143518518,
-    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 0.9174645409722222,
-    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 0.09180090671296295,
-    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 0.09178547847222222,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 8.180519679861112,
-    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 0.08811770069444445,
-    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 0.08814596458333333,
-    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 0.09177124236111112,
-    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 1.9499461497685187
+    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 0.10200511119212963,
+    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 0.10570130332175927,
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 4.122799717673611,
+    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 0.10203386119212964,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 8.193548861192129,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 8.163708699155093,
+    "mx78wzkqdghteet6beyw1567mx8hewfj": 9.442654196840278,
+    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 0.1020120440625,
+    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 0.9313443935995369,
+    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 0.10568075934027779,
+    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 0.10566533109953705,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 8.194399532488426,
+    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 0.10199755332175925,
+    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 0.10202581721064816,
+    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 0.10565109498842594,
+    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 1.9638260023958332
   },
   "browser": {
     "completed_job_count": {
@@ -115,7 +115,7 @@
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-11T23:45:24.545340+00:00",
+  "generated_at": "2026-11-12T00:05:23.764607+00:00",
   "median_posting_to_bid_minutes": 17468.346375,
   "median_posting_to_detection_minutes": 74.88441925,
   "model_budget": {
@@ -138,21 +138,17 @@
   },
   "today": {
     "accepted": 0,
-    "asked": 3,
-    "bids_active": 10,
-    "bids_sent": 10,
+    "asked": 0,
+    "bids_active": 0,
+    "bids_sent": 0,
     "declined": 0,
     "delivered": 0,
     "hired": 0,
     "missing_unconfirmed": 0,
-    "passed_by_reason": {
-      "software_project_not_supported": 1,
-      "unknown": 5,
-      "website_visual_quality_unverified": 2
-    },
+    "passed_by_reason": {},
     "retry_pending": 0,
     "sample_excluded": 0,
-    "seen": 2,
+    "seen": 0,
     "settled": 0,
     "settled_cents": 0,
     "withdrawn": 0
