@@ -1,0 +1,142 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-12T03:55:55.324297+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 3,
+      "github_paid_issues": 5,
+      "duckduckgo": 6,
+      "bing": 1,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "query_planner",
+        "reason": "recovered_fresh_public_research_directions"
+      },
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=50076558",
+        "title": "Ask HN: Are signed URL previews feasible?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=43603324",
+        "title": "Alternative of MCP with AI RAG Agentic Framework",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=484514",
+        "title": "Gizmox's Visual WebGui platform remains unhackable after 3-month security challenge",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/toromoor/-widen-open-connection/issues/6",
+        "title": "Muse \u2194 GPT-6 coordination desk \u2014 first invitation research (NO OUTREACH)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Emaren/app-prodn/issues/1108",
+        "title": "PRODUCTION BLOCKER REGISTER \u00b7 Baseline 001 \u00b7 19 gates (10 app / 9 chain) \u00b7 2026-11-01",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/markgoodbody-bit/COM/issues/877",
+        "title": "YAC autonomous public dialogue v0.1 \u2014 bounded AI-to-AI posting",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "anyone create responsive landing page email capture form submission",
+      "is:issue is:open bounty created:>=2026-09-13 anyone create responsive",
+      "hiring freelancer develop custom chatbot customer support",
+      "need paid help creating real-time analytics dashboard SaaS product"
+    ],
+    "attempted_search_queries": [
+      "anyone create responsive landing page email capture form submission",
+      "hiring freelancer develop custom chatbot customer support",
+      "need paid help creating real-time analytics dashboard SaaS product",
+      "looking someone build secure token refresh workflow mobile backend"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 13,
+      "skipped_revisits": 18,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "anyone create responsive landing page email capture form submission",
+        "hiring freelancer develop custom chatbot customer support",
+        "need paid help creating real-time analytics dashboard SaaS product",
+        "looking someone build secure token refresh workflow mobile backend"
+      ],
+      "next_query_queue": 8,
+      "frontier_size": 119,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
