@@ -3742,60 +3742,29 @@
   "last_bid_reconciliation": "2026-11-12T01:45:51.145262+00:00",
   "last_check": "2026-11-12T01:45:52.848891+00:00",
   "market_observation": {
-    "last_checked_at": "2026-11-12T01:45:25.408093+00:00",
+    "last_checked_at": "2026-11-12T02:05:02.794214+00:00",
     "last_open_count": 56,
     "newest_posted_at": "2026-11-11T02:17:22.769000+00:00"
   },
   "marketplaces": {
     "bountyboard": {
-      "bidding_status": "credential_not_connected",
-      "checked_at": "2026-11-12T01:04:56.976311+00:00",
+      "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
+      "bidding_status": "operator_reconciliation_required",
+      "checked_at": "2026-11-12T02:05:02.108706+00:00",
       "listings": [
         {
-          "budget_cents": null,
+          "allow_agents": true,
+          "budget_cents": 100,
+          "currency": "USD",
           "id": "cmw6cnldw04ki11s1h0ty4x3q",
           "marketplace": "bountyboard",
+          "posted_at": "2026-11-07T11:58:18.116Z",
           "status": "OPEN",
           "title": "Kristoomingas"
-        },
-        {
-          "budget_cents": null,
-          "id": "cmmcal8ap001b7owte0uzb3e4",
-          "marketplace": "bountyboard",
-          "status": "OPEN",
-          "title": "Excelente App \u2014 Budapest \u2014 Add 20 Local Places with Photos (38000 HUF)"
-        },
-        {
-          "budget_cents": null,
-          "id": "cmmcal81t00117owt3uv7edq7",
-          "marketplace": "bountyboard",
-          "status": "OPEN",
-          "title": "Excelente App \u2014 Warsaw \u2014 Add 20 Local Places with Photos (400 PLN)"
-        },
-        {
-          "budget_cents": null,
-          "id": "cmmcal7xf000w7owtqamw994s",
-          "marketplace": "bountyboard",
-          "status": "OPEN",
-          "title": "Excelente App \u2014 Prague \u2014 Add 20 Local Places with Photos (2400 CZK)"
-        },
-        {
-          "budget_cents": null,
-          "id": "cmmcal7ob000m7owt74vwz15p",
-          "marketplace": "bountyboard",
-          "status": "OPEN",
-          "title": "Excelente App \u2014 Lisbon \u2014 Add 20 Local Places with Photos (95 EUR)"
-        },
-        {
-          "budget_cents": null,
-          "id": "cmmcal7ez000c7owt35bl520d",
-          "marketplace": "bountyboard",
-          "status": "OPEN",
-          "title": "Excelente App \u2014 Madrid \u2014 Add 20 Local Places with Photos (95 EUR)"
         }
       ],
-      "open_count": 6,
-      "status": "observed_public"
+      "open_count": 1,
+      "status": "observed_authenticated"
     }
   },
   "recent_outcomes": [
