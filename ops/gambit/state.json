@@ -291,6 +291,14 @@
           "reason": "legacy_retry_limit"
         }
       },
+      "mx7802nm08nqrb6rhb2kdaygr18gszcr": {
+        "buyer_changes_awaiting_owner_approval": {
+          "days": [
+            "2026-11-12"
+          ],
+          "first_at": "2026-11-12T01:25:52.558535+00:00"
+        }
+      },
       "mx781v2nmz4asd8663ke7qbnvs8hc740": {
         "evaluation_budget_wait": {
           "days": [
@@ -386,6 +394,14 @@
           ],
           "first_at": "2026-11-11T01:45:03.774119+00:00",
           "reason": "proposal_samples_missing"
+        }
+      },
+      "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": {
+        "buyer_changes_awaiting_owner_approval": {
+          "days": [
+            "2026-11-12"
+          ],
+          "first_at": "2026-11-12T01:25:52.867283+00:00"
         }
       },
       "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": {
@@ -580,6 +596,14 @@
           "reason": "scope_unconfirmed_after_clarification"
         }
       },
+      "mx7dam93m4q8spz893n4zfsyzn8hgg6r": {
+        "buyer_changes_awaiting_owner_approval": {
+          "days": [
+            "2026-11-12"
+          ],
+          "first_at": "2026-11-12T01:25:52.211523+00:00"
+        }
+      },
       "mx7dartnjzsphksgveek0qxs2h8hkcfn": {
         "evaluation_abandoned": {
           "days": [
@@ -723,6 +747,12 @@
         }
       },
       "mx7f3d5mtppbym4yn59zmgzzw58hw11v": {
+        "bid_followup_sent": {
+          "days": [
+            "2026-11-12"
+          ],
+          "first_at": "2026-11-12T01:25:51.906110+00:00"
+        },
         "bid_sent": {
           "days": [
             "2026-11-10"
@@ -1349,6 +1379,7 @@
       "action": "bid_active",
       "at": "2026-11-10T00:57:29.399694+00:00",
       "last_declined_bid": null,
+      "last_owner_reply_id": null,
       "version": 1
     },
     "mx7f8tqb7r75rmrp9hacmt52tn8hm0sn": {
@@ -3657,6 +3688,8 @@
       "bid_updated_at": null,
       "budget_cents": 2200,
       "first_detected_at": "2026-11-09T17:43:31.718687+00:00",
+      "followup_sent_at": "2026-11-12T01:25:51.906089+00:00",
+      "last_outgoing_at": "2026-11-12T01:25:51.906104+00:00",
       "observed_at": "2026-11-09T17:43:31.718687+00:00",
       "owner_activity_status": null,
       "platform_status": "open",
@@ -3696,11 +3729,11 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo1NSwiY2hlY2twb2ludEF0IjoxNzk0NDQ1NTE3OTU2fQ",
-  "last_bid_reconciliation": "2026-11-12T01:05:23.675872+00:00",
-  "last_check": "2026-11-12T01:05:23.681015+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo1NSwiY2hlY2twb2ludEF0IjoxNzk0NDQ2NzQ1ODAyfQ",
+  "last_bid_reconciliation": "2026-11-12T01:25:51.136998+00:00",
+  "last_check": "2026-11-12T01:25:52.873697+00:00",
   "market_observation": {
-    "last_checked_at": "2026-11-12T01:25:02.688477+00:00",
+    "last_checked_at": "2026-11-12T01:25:25.353009+00:00",
     "last_open_count": 56,
     "newest_posted_at": "2026-11-11T02:17:22.769000+00:00"
   },
@@ -3757,33 +3790,6 @@
     }
   },
   "recent_outcomes": [
-    {
-      "action": "proposal_fallback_pending",
-      "at": "2026-11-10T21:57:03.450555+00:00",
-      "bounty_id": "mx7a75kn8jtcwkw0yxp53n23e98hzsbs",
-      "reason": "proposal_samples_missing",
-      "retry_count": 2
-    },
-    {
-      "action": "evaluation_retry_scheduled",
-      "at": "2026-11-11T01:43:59.060082+00:00",
-      "bounty_id": "mx761srg8yxekn86k1nd72q1558j1tsy",
-      "reason": "UnboundLocalError",
-      "retry_count": 1
-    },
-    {
-      "action": "pass",
-      "at": "2026-11-11T01:44:15.205575+00:00",
-      "bounty_id": "mx7499d0ywjp4ay4ddyf1t4rbx8ht3y6",
-      "pages_read": 9,
-      "research_status": "available",
-      "version": 1
-    },
-    {
-      "action": "proposal_sent_without_sample",
-      "at": "2026-11-11T01:44:15.814178+00:00",
-      "bounty_id": "mx7a75kn8jtcwkw0yxp53n23e98hzsbs"
-    },
     {
       "action": "bid_sent",
       "at": "2026-11-11T01:44:15.814188+00:00",
@@ -4142,6 +4148,26 @@
       "bounty_id": "mx7e6d9ystrzd144ztqgcg0hf18gn7sg",
       "payout_cents": 500,
       "version": 1
+    },
+    {
+      "action": "bid_followup_sent",
+      "at": "2026-11-12T01:25:51.906122+00:00",
+      "bounty_id": "mx7f3d5mtppbym4yn59zmgzzw58hw11v"
+    },
+    {
+      "action": "buyer_changes_awaiting_owner_approval",
+      "at": "2026-11-12T01:25:52.211532+00:00",
+      "bounty_id": "mx7dam93m4q8spz893n4zfsyzn8hgg6r"
+    },
+    {
+      "action": "buyer_changes_awaiting_owner_approval",
+      "at": "2026-11-12T01:25:52.558542+00:00",
+      "bounty_id": "mx7802nm08nqrb6rhb2kdaygr18gszcr"
+    },
+    {
+      "action": "buyer_changes_awaiting_owner_approval",
+      "at": "2026-11-12T01:25:52.867289+00:00",
+      "bounty_id": "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8"
     }
   ],
   "schema": 1,
