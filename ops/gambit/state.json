@@ -3738,11 +3738,11 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo1NSwiY2hlY2twb2ludEF0IjoxNzk0NDcwNDAxNTU4fQ",
-  "last_bid_reconciliation": "2026-11-12T08:00:07.061819+00:00",
-  "last_check": "2026-11-12T08:00:07.959976+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo1NSwiY2hlY2twb2ludEF0IjoxNzk0NDcxNjAyMDI0fQ",
+  "last_bid_reconciliation": "2026-11-12T08:20:07.169728+00:00",
+  "last_check": "2026-11-12T08:20:08.058558+00:00",
   "market_observation": {
-    "last_checked_at": "2026-11-12T08:19:18.494512+00:00",
+    "last_checked_at": "2026-11-12T08:19:41.465937+00:00",
     "last_open_count": 56,
     "newest_posted_at": "2026-11-11T02:17:22.769000+00:00"
   },
@@ -3750,7 +3750,7 @@
     "bountyboard": {
       "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
       "bidding_status": "operator_reconciliation_required",
-      "checked_at": "2026-11-12T07:19:19.806408+00:00",
+      "checked_at": "2026-11-12T08:19:40.888504+00:00",
       "listings": [
         {
           "allow_agents": true,
@@ -3768,26 +3768,6 @@
     }
   },
   "recent_outcomes": [
-    {
-      "action": "research_pass_model_free_bid_recovery",
-      "at": "2026-11-11T21:38:28.916089+00:00",
-      "bounty_id": "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3",
-      "payout_cents": 800,
-      "version": 1
-    },
-    {
-      "action": "bid_sent",
-      "at": "2026-11-11T21:38:28.916098+00:00",
-      "bounty_id": "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3",
-      "payout_cents": 800,
-      "version": 1
-    },
-    {
-      "action": "closed_before_evaluation",
-      "at": "2026-11-11T21:38:29.250758+00:00",
-      "bounty_id": "mx7499d0ywjp4ay4ddyf1t4rbx8ht3y6",
-      "platform_status": "canceled"
-    },
     {
       "action": "pass_unsupported",
       "at": "2026-11-11T21:38:29.514022+00:00",
@@ -4085,6 +4065,21 @@
     {
       "action": "buyer_changes_awaiting_owner_approval",
       "at": "2026-11-12T08:00:07.955742+00:00",
+      "bounty_id": "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8"
+    },
+    {
+      "action": "buyer_changes_awaiting_owner_approval",
+      "at": "2026-11-12T08:20:07.469576+00:00",
+      "bounty_id": "mx7dam93m4q8spz893n4zfsyzn8hgg6r"
+    },
+    {
+      "action": "buyer_changes_awaiting_owner_approval",
+      "at": "2026-11-12T08:20:07.763771+00:00",
+      "bounty_id": "mx7802nm08nqrb6rhb2kdaygr18gszcr"
+    },
+    {
+      "action": "buyer_changes_awaiting_owner_approval",
+      "at": "2026-11-12T08:20:08.054570+00:00",
       "bounty_id": "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8"
     }
   ],
