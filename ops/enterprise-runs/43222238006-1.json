@@ -1,0 +1,131 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-12T12:55:51.060402+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "github_paid_issues": 5,
+      "bing": 1,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 16,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=3119017",
+        "title": "Ask HN: How do I leave a startup on philosophical grounds?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44788795",
+        "title": "Ask HN: How to build a 2D wave-like line graph that responds to keyboard events?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=27388092",
+        "title": "How to hire freelance developers for small jobs?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=25720224",
+        "title": "Ask HN: How do you hire freelancers for single components?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=22411375",
+        "title": "Ask HN: Devs who were let go, how did you spend your notice period?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=7716678",
+        "title": "Seth Godin on How To Stop Being a Freelancer and Start Being an Entrepreneur",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to design a secure token refresh workflow for a mobile backend",
+      "hiring a freelancer to build a real-time analytics dashboard for a SaaS product",
+      "need paid help with developing a custom AI chatbot for customer support",
+      "is:issue is:open bounty created:>=2026-09-13 design secure token",
+      "is:issue is:open bounty created:>=2026-09-13 build real time",
+      "looking for someone to create a mobile-friendly form submission system"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to design a secure token refresh workflow for a mobile backend",
+      "hiring a freelancer to build a real-time analytics dashboard for a SaaS product",
+      "need paid help with developing a custom AI chatbot for customer support",
+      "looking for someone to create a mobile-friendly form submission system"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 14,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to design a secure token refresh workflow for a mobile backend",
+        "hiring a freelancer to build a real-time analytics dashboard for a SaaS product",
+        "need paid help with developing a custom AI chatbot for customer support",
+        "looking for someone to create a mobile-friendly form submission system"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
