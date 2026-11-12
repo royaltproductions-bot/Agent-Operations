@@ -1,0 +1,130 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-12T20:58:14.453613+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "duckduckgo": 5,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 13,
+    "candidates_without_email": 14,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/P00NSMASHER/github-value-hunt-ledger/issues/863",
+        "title": "Golden Goose candidate 001: B2B settlement eligibility preflight (WATCH)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/MJohnsonWellabe/Tetherbound/issues/572",
+        "title": "Codex lanes A\u2013E: close the remaining criteria (from 10-07 consolidated main)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/scottonchain/microcredit-contract/issues/7",
+        "title": "Hermes: attack and test the live pool on Base Sepolia (Circle USDC, 0x7387\u20264973, contracts 1812e7d). Do not redeploy",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Mantitup-Org/vista/issues/61",
+        "title": "Bounty: hunt bugs across the entire Vista framework",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ducminhgd/gossip-bot/issues/446",
+        "title": "Daily News Digest - 2026-09-17",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://duckduckgo.com/y.js?ad_domain=capterra.com&ad_provider=bingv7aa&ad_type=txad&click_metadata=w8EKMimIOhuIHM1cRdqKHYxsLnNGxJtvgZjvDke8D1ToxuTjzEpJHx_yAhncu--ceivnl5lndfBP8BXVjKOrb6CnRhnV1bbp1H87",
+        "title": "Top Forms Submission Software - Free Streamlined Systems List",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-13 developing custom ai",
+      "hiring freelancer create mobile-friendly form submission system"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build secure token refresh workflow mobile backend",
+      "need paid help with developing custom AI chatbot for customer support",
+      "hiring freelancer create mobile-friendly form submission system",
+      "looking for someone to design secure token refresh workflow for mobile backend"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 11,
+      "skipped_revisits": 32,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build secure token refresh workflow mobile backend",
+        "need paid help with developing custom AI chatbot for customer support",
+        "hiring freelancer create mobile-friendly form submission system",
+        "looking for someone to design secure token refresh workflow for mobile backend"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
