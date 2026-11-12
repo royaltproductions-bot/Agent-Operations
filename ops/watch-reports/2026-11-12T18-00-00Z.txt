@@ -1,0 +1,19 @@
+X-VARIANT 8-HOUR RECEIPT WATCH
+Window UTC: 2026-11-12T10:00:00Z through 2026-11-12T18:00:00Z
+Report created: 2026-11-12 ~18:02 UTC
+Source: GitHub Agent-Operations (main for Wolverine/Cyclops, gambit-state for Gambit). Read-only operational inspection.
+
+WOLVERINE: 1 receipt (ops/enterprise-runs/43222238006-1.json, 12:55:51 UTC). 16 candidates and 16 fetched pages, 0 contactable sources, 0 buyer invitations, 0 external offers, 0 assets, 0 fulfillments, $0 receipt-reported verified revenue. No structural_failures; requester review timeout and Brave 429 search error. Commerce Engine Actions run success is not economic success.
+
+CYCLOPS: 1 receipt (ops/cyclops-runs/43225937728-1.json, 14:00:39 UTC). cyclops_engine_deadline structural failure; 0 new assets, offers, fulfillments, $0 receipt-reported verified revenue. Actions run failure. Historical Outlook Dropdown Email Template Builder $19.99 is not a new asset or sale.
+
+GAMBIT: 0 standalone receipt files; authoritative ops/gambit/state.json on gambit-state shows last_check 17:47:35 UTC and last_bid_reconciliation 17:47:34 UTC. 58 open listings observed (not 58 qualified jobs); one research pass with pages_read=14 and research_status=available. One bid_sent at 17:02:31 UTC asking $28, following one openai_incomplete_output retry, proposal_preview_not_ready evidence block/retry, abandoned evaluation, and proposal_sent_without_sample fallback. 30 repeated buyer_changes_awaiting_owner_approval outcomes on 3 distinct bounties. No new buyer question, bid withdrawal, hire, claim, deliverable, verification acceptance, claim refund, work.completed or settlement evidenced in window. Durable settlements ledger empty: $0 platform-completed payout. Stripe deposits not checked. Bid-to-hire and submission success not measurable yet. Latest watcher health 13 successful and 1 failed cycles; GitHub Actions run 43263140840 was still in progress. Provider-router source exists; no independently verified successful hired-job capability execution or test result.
+Budget: 332 calls; $12.909936 estimated reserved in November against $38 workflow monthly limit. This is not external billing confirmation.
+Other lane check: ops/external-intelligence-runs and ops/scout-runs contain historical files, no new identifiable revenue X-variant receipts in this window. Public TryBounty profile not independently verified.
+Evidence confidence: high for inspected receipt and state fields; limited for independent marketplace/bank outcomes and unfinished workflow.
+Open improvements:
+GAMBIT-01 pending: deduplicate buyer-change approval events by bounty/version; 30 redundant events across 3 bounties.
+GAMBIT-02 pending: regression-test proposal preview/evidence fallback so missing preview cannot produce unsupported claims.
+CYCLOPS-01 pending: diagnose cyclops_engine_deadline and enforce bounded product-build steps.
+WOLVERINE-01 pending: improve discovery of verifiable contactable buyer invitations; search rate limit and timeout recovery.
+No operational mutations authorized or performed.
