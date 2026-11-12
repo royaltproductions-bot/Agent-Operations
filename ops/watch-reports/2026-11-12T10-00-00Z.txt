@@ -1,0 +1,17 @@
+X-Variant Receipt Watch — 2026-11-12T10:00:00Z
+Window UTC: 2026-11-12T02:00:00Z to 2026-11-12T10:00:00Z (end exclusive).
+Report created: 2026-11-12T10:04:40Z (approximate automation execution time).
+Evidence: GitHub main receipt directories and gambit-state authoritative state/budget; confidence high for retained receipts/settlements, limited for external marketplace/payment reality.
+
+Wolverine: 1 receipt, ops/enterprise-runs/43151220442-1.json at 03:55:55Z. 16 candidates, 14 fetched pages; zero outbound offers, zero fulfillments, zero receipt-verified revenue; no structural failure recorded.
+Cyclops: 1 receipt, ops/cyclops-runs/43153924731-1.json at 04:20:04Z. 15 candidates, 13 pages; production_error concept_generation_failed:cyclops_model_transport_timeout. No new asset, offer, order, fulfillment or verified revenue. Earlier Outlook Dropdown Email Template Builder ($19.99) is historical, not new this window.
+Gambit: 0 standalone receipts; state on gambit-state last_check 10:00:07Z and last_bid_reconciliation 10:00:06Z (just after cutoff); 56 open listings observed at 09:59:40Z, not qualified opportunities. Retained recent_outcomes in window: 57 buyer_changes_awaiting_owner_approval events across 3 distinct bounties; these are repeated checks, not 57 independent approvals or hires. No new bid, buyer question, confirmed claim, delivery, acceptance, bid_missing, unsupported_bid_withdrawn, unclaimed_unfulfillable, claim refund, or work.completed receipt in retained outcomes. Settlements ledger empty: $0 platform completed, Stripe bank deposits not verified. Bid-to-hire and submission success: not measurable yet. Watch health: 33 successful cycles, 0 failed, run 43174311197 in progress at inspection. Model budget reserved $12.659968 of configured $38 November cap, 326 calls; internal estimates, not bank charges.
+Provider router tools/gambit_resources.py and tests/test_gambit_resources.py present; tests not executed by this report, no independently confirmed real hired-job capability execution. Gambit workflow uses four-hour scheduled resident watcher (cron 17 at hours 0,4,8,12,16,20), 300-second internal polling and 13200-second watch duration; not five-minute GitHub cron.
+Other ops directories inspected; no additional clearly identifiable X-variant receipt lane established.
+Economic outcome: $0 receipt-reported verified new earnings; 0 confirmed new paid fulfillments. Green runs or successful polls are not sales.
+Open improvements:
+GAM-01 pending: prevent repeated buyer_changes_awaiting_owner_approval for same three bounties from consuming cycles; deduplicate by bounty/version/change identifier and test repeated polls. Highest-impact recommendation.
+CYC-01 pending: investigate model transport timeout, enforce bounded retries and deterministic product validation.
+WOL-01 pending: improve verified opt-in buyer opportunity discovery; avoid interpreting general research as sales.
+GAM-02 unknown: provider-router integration tests and actual capability execution on hired jobs not independently verified.
+No operational files, workflows, budgets, payments, bids or automation schedules modified.
