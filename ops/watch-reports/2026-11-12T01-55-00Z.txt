@@ -1,0 +1,18 @@
+X-VARIANT RECEIPT WATCH
+UTC window: 2026-11-11T17:55:00Z to 2026-11-12T01:55:00Z
+Report creation: 2026-11-12 approximately 01:55 UTC (based on latest state checkpoint; actual wall-clock time not independently verified)
+Evidence: main receipt directories; gambit-state branch state and budget; main workflow/provider; GitHub Actions run 43110528577.
+Wolverine: 3 receipts; 2 structural failures (engine_process_failure, commerce_engine_deadline), 1 research run with 15 candidates/15 pages, zero outbound offers, assets, fulfillments, verified revenue $0. Brave HTTP 429.
+Cyclops: 2 receipts; one invalid AI code modularizer draft retired (output_file_not_created), one concept declined (no differentiated Outlook template demand). No new assets/offers/fulfillments/revenue. Catalog counts differ across receipts (4 then 3), requires investigation. Existing checkout safety reports invalid legacy products.
+Gambit: zero standalone receipts; 56 open marketplace listings at latest check 2026-11-12T01:45:25Z, not qualified jobs. 9 bid_sent events totaling $8,651 in proposed asks ($7,999, $320, $240, $36, $20, $16, $8, $7, $5); 4 proposals without sample, 5 research-pass bid recoveries, 4 stale-ask recoveries, 5 budget deferrals, 2 unsupported passes, 2 closed-before-evaluation, 2 event-target unavailable, 1 buyer reply, 2 bid follow-ups, 6 buyer-change-awaiting-approval events (may repeat same bounties). No observed hires, deliverables, acceptances, paid completions, refunds or unsupported withdrawals. Durable settlements {} = $0 verified platform paid. Bid-to-hire and submission-success not measurable yet. Last reconciliation 2026-11-12T01:45:51Z; last check 01:45:52Z. Watch health: 8 successful, 0 failed cycles. Workflow run 43110528577 in_progress when inspected; not a paid outcome.
+Budget: 326 calls, $12.659968 reserved of $38 configured; internal estimate only. Stripe deposits unverified.
+Evidence confidence: high for receipt contents and recorded bids/settlements, medium for marketplace coverage, low for independently verifying TryBounty profile, buyer responses and provider test execution. No additional variant receipt directory identified.
+Open improvements:
+WOL-SEARCH: pending — improve buyer invitation/contact matching and handle Brave 429.
+WOL-STABILITY: pending — investigate engine process failure/deadline.
+CYC-PRODUCTION: pending — require output-file existence and functional validation before catalog publication.
+CYC-CATALOG: unknown — reconcile four vs three listed products and legacy checkout safety.
+GAM-PROPOSAL: pending — regression-test proposal evidence and no-sample fallbacks; verify actual provider execution.
+GAM-POLL: pending — inspect four-hour resident watcher schedule vs observed health and run continuity.
+Highest-impact recommendation: audit Gambit's $7,999 proposal against actual executable capabilities and evidence, and enforce capability/price verification before high-value bids. Do not interpret bid asks as earned revenue.
+No secrets or buyer personal data included.
