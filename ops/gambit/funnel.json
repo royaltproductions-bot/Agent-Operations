@@ -1,22 +1,22 @@
 {
   "aging_active_bids_days": {
-    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 2.015186465474537,
-    "mx738gap2ya9kbgbtfzc518mwx8j2gg3": 1.2068496599189815,
-    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 2.0188826576041667,
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 6.0359810719560185,
-    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 2.015215215474537,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 10.106730215474537,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 10.0768900534375,
-    "mx78wzkqdghteet6beyw1567mx8hewfj": 11.355835551122686,
-    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 2.0151933983449073,
-    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 2.8445257478819443,
-    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 2.018862113622685,
-    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 2.0188466853819445,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 10.107580886770833,
-    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 2.0151789076041666,
-    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 2.0152071714930555,
-    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 2.0188324492708336,
-    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 3.8770073566782406
+    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 2.015336297175926,
+    "mx738gap2ya9kbgbtfzc518mwx8j2gg3": 1.2069994916203703,
+    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 2.019032489305556,
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 6.036130903657408,
+    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 2.015365047175926,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 10.106880047175926,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 10.07703988513889,
+    "mx78wzkqdghteet6beyw1567mx8hewfj": 11.355985382824073,
+    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 2.0153432300462963,
+    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 2.8446755795833334,
+    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 2.019011945324074,
+    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 2.0189965170833335,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 10.107730718472222,
+    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 2.0153287393055552,
+    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 2.0153570031944446,
+    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 2.018982280972222,
+    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 3.8771571883796296
   },
   "browser": {
     "completed_job_count": {
@@ -104,7 +104,7 @@
       "outbound_messaging": 1,
       "software_deployment": 3,
       "software_project_not_supported": 1,
-      "unknown": 14,
+      "unknown": 15,
       "unsupported_multi_or_file_format": 6,
       "video_production": 11,
       "website_visual_quality_unverified": 2
@@ -116,13 +116,13 @@
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-13T22:00:22.633617+00:00",
+  "generated_at": "2026-11-13T22:00:35.579076+00:00",
   "median_posting_to_bid_minutes": 16787.254683333333,
   "median_posting_to_detection_minutes": 92.20504588333333,
   "model_budget": {
-    "call_count": 336,
+    "call_count": 337,
     "month": "2026-11",
-    "reserved_micro_usd": 13008958
+    "reserved_micro_usd": 13050484
   },
   "null_fields": {
     "accepted_at": 0,
@@ -147,6 +147,7 @@
     "hired": 0,
     "missing_unconfirmed": 0,
     "passed_by_reason": {
+      "unknown": 1,
       "video_production": 1
     },
     "retry_pending": 0,
