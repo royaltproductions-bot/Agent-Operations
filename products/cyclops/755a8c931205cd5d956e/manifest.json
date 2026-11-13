@@ -1,0 +1,69 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops",
+  "status": "active",
+  "asset_id": "755a8c931205cd5d956e",
+  "title": "Simplified CRM Dashboard for Small Teams",
+  "description": "A lightweight, customizable CRM dashboard that integrates with GitHub and Slack, offering a clean interface for managing sales pipelines and team communication.",
+  "audience": "Small teams and startups looking for a simple, affordable CRM solution that integrates with their existing tools without the complexity of Salesforce.",
+  "pitch": "A modern, open-source CRM dashboard with optional paid support, designed for small teams that need to manage sales pipelines and team communication without the overhead of complex platforms.",
+  "price_usd": "29.99",
+  "price_cents": 2999,
+  "target_terms": [
+    "simplified CRM dashboard",
+    "small team CRM",
+    "GitHub and Slack integration",
+    "lightweight CRM",
+    "sales pipeline management"
+  ],
+  "evidence_source_url": "https://news.ycombinator.com/item?id=45444838",
+  "files": [
+    "user_guide.pdf",
+    "interface_layout.png",
+    "integration_instructions.txt"
+  ],
+  "artifact_manifest": [
+    {
+      "filename": "user_guide.pdf",
+      "bytes": 1624,
+      "sha256": "84b9a609d813385384271efbb0b5538ed49380bc59d63212f1cc1aa933a2fcab",
+      "content_type": "application/pdf"
+    },
+    {
+      "filename": "interface_layout.png",
+      "bytes": 2792,
+      "sha256": "b54c5a3512cb04547a243f9c5addb9372cd29cc08c70b6a751862fba9a20bf87",
+      "content_type": "image/png"
+    },
+    {
+      "filename": "integration_instructions.txt",
+      "bytes": 1011,
+      "sha256": "29d41d665e09cac8087d5a49461b90ace63052b0adea041de54f26e42e2f2374",
+      "content_type": "text/plain"
+    }
+  ],
+  "production_tool": "isolated_tool_workshop",
+  "quality_gate": "content_and_evidence_verified",
+  "market_validation": {
+    "status": "agent_assessed_public_market",
+    "decision": "pursue",
+    "reason": "Low-cost original pilot answering a real first-person user problem, with market validation still to be measured. No verified demand or revenue is claimed.",
+    "observation": {
+      "candidate_id": "web:33bdb1d6626be46825",
+      "url": "https://news.ycombinator.com/item?id=45444838",
+      "title": "Ask HN: Who is Buying? (October 2025)",
+      "signal_type": "unclassified_public_page",
+      "source_fetched": true,
+      "evidence_excerpt": "Ask HN: Who is Buying? (October 2025) We have the monthly \"Who is Hiring?\" and \"Who Wants to be Hired?\" threads, which are incredibly valuable for connecting talent with opportunit [...] with GitHub and Slack. Salesforce is too complex.\") BUDGET: (e.g., \"$50-$200/month\", \"Up to $5,000 one-time for a perpetual license\", \"Flexible for the right solution.\") WHAT I'VE TRIED: (e.g., \"We've tried HubSpot but found it too marketing-focused. We looked at Close but the per-seat pricing doesn't work for us. We've considered building our own but would rather not.\") IDEAL SOLUTION: (Describe what the perfect solution would look like. e.g., \"An open-source tool with optional paid support, or a SaaS with a transparent API and fair pricing. Must have a clean, fast UI.\") CONTACT: (e.g., \"My contact info is in my profile,\" or \"Reply here and I'll reach out,\" or \"email me at hn-buying[at]mydomain.com\")",
+      "listed_price_usd": null,
+      "displayed_sales_count": null
+    }
+  },
+  "verified_market_problem_quote": "Ask HN: Who is Buying? (October 2025) We have the monthly \"Who is Hiring?\" and \"Who Wants to be Hired?\" threads, which are incredibly valuable for connecting talent with opportunit [...] with GitHub and Slack. Salesforce is too complex.\") BUDGET: (e.g., \"$50-$200/month\", \"Up to $5,000 one-time for a perpetual license\", \"Flexible for the right solution.\") WHAT I'VE TRIED: (e.g., \"We've tried HubSpot but found it too marketing-focused. We looked at Close but the per-seat pricing doesn't work for us. We've considered building our own but would rather not.\") IDEAL SOLUTION: (Describe what the perfect solution would look like. e.g., \"An open-source tool with optional paid support, or a SaaS with a transparent API and fair pricing. Must have a clean, fast UI.\") CONTACT: (e.g., \"My contact info is in my profile,\" or \"Reply here and I'll reach out,\" or \"email me at hn-buying[at]mydomain.com\")",
+  "commercial_review_reason": "The delivered artifacts include a downloadable PDF user guide with integration instructions, a PNG interface layout, and a text file with detailed setup steps. These files fulfill the promised function of generating a downloadable user guide for the CRM dashbo",
+  "delivery": "private_encrypted_vault",
+  "vault_path": "ops/cyclops-vault/assets/755a8c931205cd5d956e.json",
+  "payment_link_id": "plink_1UbHUMBto3o776uy3AFhOOXV",
+  "checkout_url": "https://buy.stripe.com/cNi28q3VCdvh4bw8V97Re0U",
+  "created_at": "2026-11-13T10:13:46.424246+00:00"
+}
