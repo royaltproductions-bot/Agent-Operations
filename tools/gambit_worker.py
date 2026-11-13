@@ -434,8 +434,6 @@ def record_owner_activity(state, bounty_id, messages):
 
 def send_proposal_preview(bounty_id, version, png, state):
     """Publish one real QA screenshot per brief version; never alters a claim."""
-    if bounty_id in commercial.APPROVAL_HOLD_IDS:
-        raise ValueError("buyer_changes_awaiting_owner_approval")
     if not isinstance(png, bytes) or not png.startswith(b"\x89PNG\r\n\x1a\n") or len(png) > 5_000_000:
         raise ValueError("proposal_preview_invalid")
     row = state.setdefault("commercial", {}).setdefault(bounty_id, {})
@@ -1704,11 +1702,6 @@ def handle_open(item, state):
         note(state, "sample_listing_excluded", bounty_id)
         state["bounties"][bounty_id] = {**state["bounties"].get(bounty_id, {}),
             "action": "sample_excluded", "version": current.get("version")}
-        return
-    if bounty_id in commercial.APPROVAL_HOLD_IDS and not any(
-            e.get("type") in {"work.message.created", "discussion.user_replied"} and
-            (e.get("data") or {}).get("bounty_id") == bounty_id for e in CURRENT_EVENTS):
-        note(state, "buyer_changes_awaiting_owner_approval", bounty_id)
         return
     if current.get("status") != "open":
         state["bounties"][bounty_id] = {
