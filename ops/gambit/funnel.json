@@ -1,22 +1,22 @@
 {
   "aging_active_bids_days": {
-    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 1.6113598599074073,
-    "mx738gap2ya9kbgbtfzc518mwx8j2gg3": 0.803023054351852,
-    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 1.615056052037037,
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 5.632154466388888,
-    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 1.6113886099074073,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 9.702903609907407,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 9.673063447870371,
-    "mx78wzkqdghteet6beyw1567mx8hewfj": 10.952008945555555,
-    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 1.611366792777778,
-    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 2.440699142314815,
-    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 1.6150355080555554,
-    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 1.6150200798148149,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 9.703754281203704,
-    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 1.611352302037037,
-    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 1.6113805659259262,
-    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 1.6150058437037036,
-    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 3.4731807511111112
+    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 1.611492177662037,
+    "mx738gap2ya9kbgbtfzc518mwx8j2gg3": 0.8031553721064815,
+    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 1.6151883697916667,
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 5.632286784143519,
+    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 1.611520927662037,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 9.703035927662038,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 9.673195765625,
+    "mx78wzkqdghteet6beyw1567mx8hewfj": 10.952141263310185,
+    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 1.6114991105324072,
+    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 2.4408314600694445,
+    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 1.6151678258101854,
+    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 1.6151523975694444,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 9.703886598958332,
+    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 1.6114846197916666,
+    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 1.6115128836805555,
+    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 1.6151381614583336,
+    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 3.4733130688657408
   },
   "browser": {
     "completed_job_count": {
@@ -92,7 +92,7 @@
   "coverage": "Observed unique bounties; historical events before instrumentation may be incomplete.",
   "cumulative": {
     "accepted": 0,
-    "asked": 7,
+    "asked": 8,
     "bids_active": 17,
     "bids_sent": 17,
     "declined": 0,
@@ -116,7 +116,7 @@
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-13T12:18:52.014896+00:00",
+  "generated_at": "2026-11-13T12:19:03.447150+00:00",
   "median_posting_to_bid_minutes": 16787.254683333333,
   "median_posting_to_detection_minutes": 95.10975575833334,
   "model_budget": {
@@ -139,7 +139,7 @@
   },
   "today": {
     "accepted": 0,
-    "asked": 0,
+    "asked": 1,
     "bids_active": 0,
     "bids_sent": 0,
     "declined": 0,
