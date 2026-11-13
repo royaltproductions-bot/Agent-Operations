@@ -1,0 +1,119 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-13T17:53:46.053380+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 6,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/Financial-Privacy-Foundation/ZcashCoinholderGrantsProgram/issues/124",
+        "title": "Retroactive Grant Application - Token Holder Voting",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Spacial/awesome-csirt/issues/30",
+        "title": "Dead external links report",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/diclogic/ai-daily-digest/issues/204",
+        "title": "AI Daily Digest \u2014 2026-11-05",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/iranpsc/Metaverse-Rang-Front-NextJS/issues/176",
+        "title": "[Security-Epic] \u0645\u0639\u0645\u0627\u0631\u06cc \u0648 \u067e\u06cc\u0627\u062f\u0647\u200c\u0633\u0627\u0632\u06cc \u062c\u0627\u0645\u0639 \u062a\u0633\u062a\u200c\u0647\u0627\u06cc \u06a9\u062f \u0627\u0645\u0646\u06cc\u062a\u06cc (AppSec & Bug-Bounty Test Suite) \u0648 \u0627\u0644\u0632\u0627\u0645 Merge Gate \u0631\u0648\u06cc \u0628\u0631\u0646\u0686 ",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/germanalvarez15/nfsmw-vita/issues/154",
+        "title": "Map image in Milestone Event and Bounty",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://auth0.com/blog/search/?query=refresh-token&page=1",
+        "title": "#refresh-token",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-14 design secure token",
+      "is:issue is:open bounty created:>=2026-09-14 "
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to design a secure token refresh workflow for mobile backend"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 9,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to design a secure token refresh workflow for mobile backend"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 115,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
