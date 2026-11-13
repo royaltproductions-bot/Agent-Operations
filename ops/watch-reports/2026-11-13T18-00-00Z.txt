@@ -1,0 +1,18 @@
+X-VARIANT RECEIPT WATCH
+Window UTC: 2026-11-13T10:00:00Z to 2026-11-13T18:00:00Z (end exclusive)
+Created UTC: 2026-11-13 approximately 18:02Z
+Evidence: GitHub main receipt directories and actions, gambit-state branch state and budget. Profile externally inaccessible.
+
+Wolverine: 0 new standalone receipts; no new offers, assets, fulfillments, or receipt-reported revenue established. Commerce Engine run 43477015093 began 17:52Z and was in progress; do not count it as completed.
+Cyclops: 1 receipt (43405855763-1.json, timestamp 10:04:41Z). Approved/published Simplified CRM Dashboard for Small Teams, $29.99, three artifacts (PDF guide, PNG layout, TXT instructions); four catalog listings and product pages. 0 outbound offers, 0 fulfilled orders, 0 verified paid cents. Structural failure: 13 invalid legacy products and zero payment links disabled; no opt-in distribution, public page fetch errors.
+Gambit: 0 standalone receipts; 59 marketplace listings observed at 15:54Z (not qualified jobs). Retained recent outcomes in window: 1 buyer question (asked, version 3), 2 unavailable event targets, 36 repeated buyer-change approval-wait events across three distinct bounties. No new bid, payout ask, bid withdrawal, hire, claim, deliverable, acceptance, settlement, refund or paid earnings recorded. Last check 15:54:59Z; bid reconciliation 15:54:58Z. 44 successful watcher cycles, 0 failed (run 43424051368 succeeded). Settlement ledger empty. Bid-to-hire and submission-success rates not measurable yet. Model budget ledger: 332 calls, $12.909936 reserved for November (not verified billing); latest ledger pace day November 12, potentially stale. Public profile unavailable; no independent bank deposit evidence.
+Other lanes: no newly evidenced additional X-variant revenue receipt directories in ops.
+Economic total: $0 verified platform earnings, 0 confirmed fulfillments. Green workflows are not revenue.
+Evidence confidence: high for persisted receipts and state snapshot, limited for live marketplace, external sales and bank settlement. Latest Gambit state trails window end by ~2h05m; Wolverine run pending.
+Open improvements:
+XW-01 pending: Cyclops disable/repair invalid legacy checkout links (13 invalid, 0 disabled).
+XW-02 pending: Gambit deduplicate unchanged buyer-change approval checks by bounty ID/version; regression test.
+XW-03 unknown: independently verify provider-router capabilities and tests on actual hired jobs.
+XW-04 pending: investigate Wolverine lack of contactable requester invitations.
+Highest impact: implement version-aware deduplication of Gambit buyer-change approval-wait processing, preserving polling and reconciliation.
+No operational modifications authorized or performed.
