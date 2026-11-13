@@ -1,0 +1,129 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-13T23:42:17.344468+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 16,
+    "source_counts": {
+      "open_web": 16
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "github_paid_issues": 5,
+      "bing": 1,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 16,
+    "candidates_without_email": 15,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=44848018",
+        "title": "Why Boring Businesses Outlast AI Hype Cycles",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=13938079",
+        "title": "Ask HN: Distributed consulting agency, advice?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=2323578",
+        "title": "Social Networking Concept - Complex Identity, Managing Interests/Interactions",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=2033858",
+        "title": "Awesome email advice from a friend on how to learn programming.",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=1066117",
+        "title": "Idea of company, what you think?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46639144",
+        "title": "Ask HN: Is Claude Code bad for ADHD?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to create a mobile-friendly form submission system for a SaaS product",
+      "need paid help with building a playable room-loop slice for a game prototype",
+      "is:issue is:open bounty created:>=2026-09-14 create mobile friendly",
+      "is:issue is:open bounty created:>=2026-09-14 building playable room"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create a mobile-friendly form submission system for a SaaS product",
+      "need paid help with building a playable room-loop slice for a game prototype",
+      "can anyone create a joint release command center app with real-time updates",
+      "hiring a freelancer to create a playable room-loop slice for a game prototype"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 16,
+      "skipped_revisits": 20,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create a mobile-friendly form submission system for a SaaS product",
+        "need paid help with building a playable room-loop slice for a game prototype",
+        "can anyone create a joint release command center app with real-time updates",
+        "hiring a freelancer to create a playable room-loop slice for a game prototype"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 113,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
