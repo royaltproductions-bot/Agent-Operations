@@ -1,0 +1,22 @@
+X-Variant Receipt Watch
+Window UTC: 2026-11-13T02:00:00Z to 2026-11-13T10:00:00Z
+Report created: 2026-11-13 approximately 10:01 UTC
+Repository: royaltproductions-bot/Agent-Operations
+Evidence: main branch Wolverine/Cyclops receipts, gambit-state branch state and budget, public GitHub Actions listing.
+
+Scoreboard:
+- Wolverine: 1 receipt (43403571413-1.json at 09:44:32Z). 14 candidates, 14 pages, 2 contactable sources but 0 linked requester contacts and 0 verified buyer invitations. External offers 0; new assets 0; fulfillments 0; receipt-verified revenue $0. No fatal structural failure; requester semantic-review timeout and Brave HTTP 429. Commerce Engine run succeeded.
+- Cyclops: 1 receipt (43350100159-1.json at 02:52:07Z). cyclops_engine_deadline. New assets 0; external offers 0; fulfillments 0; receipt-verified revenue $0. Workflow failed. Next run started at 10:01:11Z, outside this window, in progress at inspection.
+- Gambit: 0 standalone receipts. Authoritative state last_check 04:45:32Z; reconciliation 04:45:31Z; last market count 58 open listings (not qualified jobs). Window retained outcomes: 27 buyer_changes_awaiting_owner_approval events across 3 distinct bounties; no new bids, buyer questions, passes, hires, claims, deliverables, acceptances, withdrawals, refunds, or work.completed observed. Settlements ledger empty: $0 platform settlements. Bid-to-hire and submission success not measurable yet. Workflow run 43342680624 succeeded, but state has no later checkpoint in window; polling continuity unverified. Public profile independently unverified; browser metrics report authentication_not_configured. Provider router and tests present, but no verified real hired-work capability execution.
+- Other X-variants: no other clearly identified lane-specific revenue receipt directory in ops listing.
+
+Spending: Gambit budget ledger 332 calls, $12.909936 reserved in November against $38 configured limit; estimated internal reservations, not independently verified billing. Bank deposits not checked.
+Evidence confidence: high for observed receipt counts and state-ledger entries, limited for marketplace-wide outcomes and unobserved polling after 04:45Z.
+Errors: Cyclops deadline, Wolverine semantic-review timeout/Brave 429, Gambit repeated approval-wait processing and stale checkpoint.
+Highest-impact recommendation: In Gambit's buyer-change handling, persist a last-seen change/version per bounty and suppress unchanged buyer_changes_awaiting_owner_approval events; regression-test with 3 unchanged bounties over repeated watcher cycles. Also inspect resident-watcher checkpoint timing.
+Open improvements:
+- XV-001 Gambit buyer-change deduplication: pending (27 repeated events / 3 bounties).
+- XV-002 Cyclops production deadline: pending (failure receipt).
+- XV-003 Wolverine qualified buyer sourcing: pending (0 verified invitations).
+- XV-004 Gambit post-04:45 polling continuity: unknown (successful run, no later state checkpoint).
+No secrets or buyer personal information included. No operational changes authorized or made.
