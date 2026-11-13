@@ -6,9 +6,7 @@ worker before persistence. Missing source fields stay unknown, never zero.
 from datetime import datetime, timezone, timedelta
 import re
 
-APPROVAL_HOLD_IDS = frozenset({
-    'mx7802nm08nqrb6rhb2kdaygr18gszcr', 'mx78rdqaddbvhpg4hyfkd8v3e98gpcc8',
-    'mx78wzkqdghteet6beyw1567mx8hewfj', 'mx7dam93m4q8spz893n4zfsyzn8hgg6r'})
+APPROVAL_HOLD_IDS = frozenset()  # Historical owner approval holds have been released.
 SAMPLE_IDS = frozenset({'mx7a4tvzg7v95yjn9mxrjd0nb98gqtdd',
                         'mx7aw00zmf8ksqwqw2w284hx3d8gptjp'})
 TIME_FIELDS = ('created_at', 'posted_at', '_creationTime', 'createdAt')
