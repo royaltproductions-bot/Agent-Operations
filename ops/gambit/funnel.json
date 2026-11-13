@@ -1,22 +1,22 @@
 {
   "aging_active_bids_days": {
-    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 2.0124598639351854,
-    "mx738gap2ya9kbgbtfzc518mwx8j2gg3": 1.2041230583796296,
-    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 2.0161560560648146,
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 6.033254470416667,
-    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 2.012488613935185,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 10.104003613935186,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 10.074163451898148,
-    "mx78wzkqdghteet6beyw1567mx8hewfj": 11.353108949583333,
-    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 2.0124667968055556,
-    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 2.8417991463425927,
-    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 2.0161355120833333,
-    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 2.0161200838425923,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 10.104854285231482,
-    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 2.012452306064815,
-    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 2.0124805699537034,
-    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 2.0161058477314815,
-    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 3.874280755138889
+    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 2.015186465474537,
+    "mx738gap2ya9kbgbtfzc518mwx8j2gg3": 1.2068496599189815,
+    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 2.0188826576041667,
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 6.0359810719560185,
+    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 2.015215215474537,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 10.106730215474537,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 10.0768900534375,
+    "mx78wzkqdghteet6beyw1567mx8hewfj": 11.355835551122686,
+    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 2.0151933983449073,
+    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 2.8445257478819443,
+    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 2.018862113622685,
+    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 2.0188466853819445,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 10.107580886770833,
+    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 2.0151789076041666,
+    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 2.0152071714930555,
+    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 2.0188324492708336,
+    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 3.8770073566782406
   },
   "browser": {
     "completed_job_count": {
@@ -85,7 +85,7 @@
     "unread_count": 0
   },
   "conversion_rates": {
-    "bid_per_seen": 0.265625,
+    "bid_per_seen": 0.26153846153846155,
     "buyer_reply_per_bid": 0.058823529411764705,
     "hire_per_bid": 0.0
   },
@@ -111,14 +111,14 @@
     },
     "retry_pending": 0,
     "sample_excluded": 2,
-    "seen": 64,
+    "seen": 65,
     "settled": 0,
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-13T21:56:27.055244+00:00",
+  "generated_at": "2026-11-13T22:00:22.633617+00:00",
   "median_posting_to_bid_minutes": 16787.254683333333,
-  "median_posting_to_detection_minutes": 95.10975575833334,
+  "median_posting_to_detection_minutes": 92.20504588333333,
   "model_budget": {
     "call_count": 336,
     "month": "2026-11",
@@ -126,15 +126,15 @@
   },
   "null_fields": {
     "accepted_at": 0,
-    "bid_amount_cents": 47,
-    "bid_at": 47,
+    "bid_amount_cents": 48,
+    "bid_at": 48,
     "bid_status": 0,
     "budget_cents": 0,
     "conversation": 0,
     "delivered_at": 0,
     "first_detected_at": 0,
     "hired_at": 0,
-    "owner_activity_status": 46,
+    "owner_activity_status": 47,
     "posted_at": 0
   },
   "today": {
@@ -151,7 +151,7 @@
     },
     "retry_pending": 0,
     "sample_excluded": 0,
-    "seen": 2,
+    "seen": 3,
     "settled": 0,
     "settled_cents": 0,
     "withdrawn": 0
@@ -161,15 +161,15 @@
     "oldest_last_incoming_at": null
   },
   "unknown_fields": {
-    "accepted_at": 67,
+    "accepted_at": 68,
     "bid_amount_cents": 3,
     "bid_at": 3,
-    "bid_status": 50,
+    "bid_status": 51,
     "budget_cents": 3,
-    "conversation": 51,
-    "delivered_at": 67,
+    "conversation": 52,
+    "delivered_at": 68,
     "first_detected_at": 3,
-    "hired_at": 67,
+    "hired_at": 68,
     "owner_activity_status": 3,
     "posted_at": 3
   }
