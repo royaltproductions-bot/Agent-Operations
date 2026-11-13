@@ -1,0 +1,126 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-13T09:44:32.114861+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 14,
+    "source_counts": {
+      "open_web": 14
+    },
+    "search_provider_counts": {
+      "hn_ask": 5,
+      "github_paid_issues": 5,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 14,
+    "candidates_without_email": 12,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=21883848",
+        "title": "Ask HN: Assistance with Rebuilding Life in Amsterdam",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=13283540",
+        "title": "Broke, in debt, lots of skills. Need your advice",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=8392394",
+        "title": "Ask HN: What should I do, 17 year-old dev?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=5271008",
+        "title": "Help me Obi-Wan: Need advice on career switch into web/software development",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=3340880",
+        "title": "Any resources for mobile app website design?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/aj4359/TA-GuruLabs-AIDES-Brain/issues/91",
+        "title": "Build SIGMA UK Opportunity Hunter \u2014 24/7 legal rewards scanner",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "need paid help with designing a joint release command center app",
+      "is:issue is:open bounty created:>=2026-09-14 create mobile friendly"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a secure token refresh workflow for mobile backend",
+      "hiring a freelancer to create a mobile-friendly form submission system",
+      "can anyone create a playable room-loop slice for a game prototype",
+      "need paid help with designing a joint release command center app"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 19,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a secure token refresh workflow for mobile backend",
+        "hiring a freelancer to create a mobile-friendly form submission system",
+        "can anyone create a playable room-loop slice for a game prototype",
+        "need paid help with designing a joint release command center app"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
