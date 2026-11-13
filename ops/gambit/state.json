@@ -4072,11 +4072,11 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo2MCwiY2hlY2twb2ludEF0IjoxNzk0NTc2ODkxNzk5fQ",
-  "last_bid_reconciliation": "2026-11-13T13:34:57.566444+00:00",
-  "last_check": "2026-11-13T13:34:58.689546+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo2MCwiY2hlY2twb2ludEF0IjoxNzk0NTc4MDkzMDAxfQ",
+  "last_bid_reconciliation": "2026-11-13T13:54:58.884141+00:00",
+  "last_check": "2026-11-13T13:54:59.925773+00:00",
   "market_observation": {
-    "last_checked_at": "2026-11-13T13:54:08.311247+00:00",
+    "last_checked_at": "2026-11-13T13:54:32.579389+00:00",
     "last_open_count": 59,
     "newest_posted_at": "2026-11-13T08:47:57.919000+00:00"
   },
@@ -4102,21 +4102,6 @@
     }
   },
   "recent_outcomes": [
-    {
-      "action": "buyer_changes_awaiting_owner_approval",
-      "at": "2026-11-13T01:14:27.958764+00:00",
-      "bounty_id": "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8"
-    },
-    {
-      "action": "bid_followup_sent",
-      "at": "2026-11-13T01:14:28.637125+00:00",
-      "bounty_id": "mx76v3pva0rj63cc8kg4ewcxan8gpcmj"
-    },
-    {
-      "action": "bid_followup_sent",
-      "at": "2026-11-13T01:14:29.263069+00:00",
-      "bounty_id": "mx7e6d9ystrzd144ztqgcg0hf18gn7sg"
-    },
     {
       "action": "bid_followup_sent",
       "at": "2026-11-13T01:14:29.949955+00:00",
@@ -4404,6 +4389,21 @@
     {
       "action": "buyer_changes_awaiting_owner_approval",
       "at": "2026-11-13T13:34:58.685061+00:00",
+      "bounty_id": "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8"
+    },
+    {
+      "action": "buyer_changes_awaiting_owner_approval",
+      "at": "2026-11-13T13:54:59.200279+00:00",
+      "bounty_id": "mx7dam93m4q8spz893n4zfsyzn8hgg6r"
+    },
+    {
+      "action": "buyer_changes_awaiting_owner_approval",
+      "at": "2026-11-13T13:54:59.592751+00:00",
+      "bounty_id": "mx7802nm08nqrb6rhb2kdaygr18gszcr"
+    },
+    {
+      "action": "buyer_changes_awaiting_owner_approval",
+      "at": "2026-11-13T13:54:59.921456+00:00",
       "bounty_id": "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8"
     }
   ],
