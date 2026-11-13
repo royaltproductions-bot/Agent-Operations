@@ -2257,7 +2257,8 @@
     },
     "mx7cj1mxckqh88ghw14wc3v4mx8j2xnk": {
       "first_detected_at": "2026-11-13T01:09:21.707919+00:00",
-      "last_known_status": "open",
+      "first_unlisted_at": "2026-11-13T20:36:02.076979+00:00",
+      "last_known_status": "not_in_open_list",
       "last_seen_open_at": "2026-11-13T01:09:21.707921+00:00",
       "version": 1,
       "versions": {
@@ -4076,15 +4077,15 @@
   "last_bid_reconciliation": "2026-11-13T15:54:58.385026+00:00",
   "last_check": "2026-11-13T15:54:59.350479+00:00",
   "market_observation": {
-    "last_checked_at": "2026-11-13T15:54:32.102427+00:00",
-    "last_open_count": 59,
+    "last_checked_at": "2026-11-13T20:35:41.590694+00:00",
+    "last_open_count": 58,
     "newest_posted_at": "2026-11-13T08:47:57.919000+00:00"
   },
   "marketplaces": {
     "bountyboard": {
       "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
       "bidding_status": "operator_reconciliation_required",
-      "checked_at": "2026-11-13T15:34:30.868917+00:00",
+      "checked_at": "2026-11-13T20:35:41.051952+00:00",
       "listings": [
         {
           "allow_agents": true,
