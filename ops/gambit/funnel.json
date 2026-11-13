@@ -1,22 +1,22 @@
 {
   "aging_active_bids_days": {
-    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 1.6112945104745373,
-    "mx738gap2ya9kbgbtfzc518mwx8j2gg3": 0.8029577049189814,
-    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 1.6149907026041668,
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 5.632089116956019,
-    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 1.6113232604745371,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 9.702838260474538,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 9.6729980984375,
-    "mx78wzkqdghteet6beyw1567mx8hewfj": 10.951943596122685,
-    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 1.6113014433449073,
-    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 2.4406337928819446,
-    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 1.614970158622685,
-    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 1.6149547303819445,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 9.703688931770833,
-    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 1.6112869526041667,
-    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 1.6113152164930555,
-    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 1.6149404942708332,
-    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 3.473115401678241
+    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 1.6113598599074073,
+    "mx738gap2ya9kbgbtfzc518mwx8j2gg3": 0.803023054351852,
+    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 1.615056052037037,
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 5.632154466388888,
+    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 1.6113886099074073,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 9.702903609907407,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 9.673063447870371,
+    "mx78wzkqdghteet6beyw1567mx8hewfj": 10.952008945555555,
+    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 1.611366792777778,
+    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 2.440699142314815,
+    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 1.6150355080555554,
+    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 1.6150200798148149,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 9.703754281203704,
+    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 1.611352302037037,
+    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 1.6113805659259262,
+    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 1.6150058437037036,
+    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 3.4731807511111112
   },
   "browser": {
     "completed_job_count": {
@@ -85,7 +85,7 @@
     "unread_count": 0
   },
   "conversion_rates": {
-    "bid_per_seen": 0.2698412698412698,
+    "bid_per_seen": 0.265625,
     "buyer_reply_per_bid": 0.058823529411764705,
     "hire_per_bid": 0.0
   },
@@ -111,14 +111,14 @@
     },
     "retry_pending": 0,
     "sample_excluded": 2,
-    "seen": 63,
+    "seen": 64,
     "settled": 0,
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-13T12:18:46.368705+00:00",
+  "generated_at": "2026-11-13T12:18:52.014896+00:00",
   "median_posting_to_bid_minutes": 16787.254683333333,
-  "median_posting_to_detection_minutes": 92.20504588333333,
+  "median_posting_to_detection_minutes": 95.10975575833334,
   "model_budget": {
     "call_count": 332,
     "month": "2026-11",
@@ -126,15 +126,15 @@
   },
   "null_fields": {
     "accepted_at": 0,
-    "bid_amount_cents": 46,
-    "bid_at": 46,
+    "bid_amount_cents": 47,
+    "bid_at": 47,
     "bid_status": 0,
     "budget_cents": 0,
     "conversation": 0,
     "delivered_at": 0,
     "first_detected_at": 0,
     "hired_at": 0,
-    "owner_activity_status": 46,
+    "owner_activity_status": 47,
     "posted_at": 0
   },
   "today": {
@@ -151,7 +151,7 @@
     },
     "retry_pending": 0,
     "sample_excluded": 0,
-    "seen": 1,
+    "seen": 2,
     "settled": 0,
     "settled_cents": 0,
     "withdrawn": 0
@@ -161,16 +161,16 @@
     "oldest_last_incoming_at": null
   },
   "unknown_fields": {
-    "accepted_at": 65,
-    "bid_amount_cents": 2,
-    "bid_at": 2,
-    "bid_status": 48,
-    "budget_cents": 2,
-    "conversation": 50,
-    "delivered_at": 65,
-    "first_detected_at": 2,
-    "hired_at": 65,
-    "owner_activity_status": 2,
-    "posted_at": 2
+    "accepted_at": 67,
+    "bid_amount_cents": 3,
+    "bid_at": 3,
+    "bid_status": 50,
+    "budget_cents": 3,
+    "conversation": 52,
+    "delivered_at": 67,
+    "first_detected_at": 3,
+    "hired_at": 67,
+    "owner_activity_status": 3,
+    "posted_at": 3
   }
 }
