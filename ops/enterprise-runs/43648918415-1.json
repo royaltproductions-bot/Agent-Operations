@@ -1,0 +1,107 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T22:38:13.674412+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 2,
+      "bing": 2
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      }
+    ],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 4,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/xeprotocol/xe/issues/547",
+        "title": "[Desk] proposals.decide allows unauthorized proposal rejection + ticket existence probing, and proposals.propose accepts",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/nishant/mc-packs/issues/226",
+        "title": "Validation 0f3e559 (perf/w0-harness)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.linkedin.com/jobs/now-hiring-jobs-waco-tx",
+        "title": "Now Hiring Jobs in Waco (2,000+ Open Roles) | LinkedIn",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.linkedin.com/jobs/hiring-immediately-jobs-waco-area",
+        "title": "Hiring Immediately Jobs in Waco Area (2,000+ Open Roles) | LinkedIn",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-15 draft proposal public",
+      "is:issue is:open bounty created:>=2026-09-15 ",
+      "hiring a freelancer to draft a proposal for a public open-source project with published response route"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit a proposal for a public digital service tender with published contact route",
+      "hiring a freelancer to draft a proposal for a public open-source project with published response route",
+      "need paid help with creating a bid for a public transportation system upgrade with contactable buyer",
+      "can anyone create a bid for a public infrastructure project with published contact route",
+      "need paid help with creating a bid for a public digital service tender with contactable buyer"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 53,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit a proposal for a public digital service tender with published contact route",
+        "hiring a freelancer to draft a proposal for a public open-source project with published response route",
+        "need paid help with creating a bid for a public transportation system upgrade with contactable buyer",
+        "can anyone create a bid for a public infrastructure project with published contact route",
+        "need paid help with creating a bid for a public digital service tender with contactable buyer"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
