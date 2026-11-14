@@ -1,0 +1,121 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T03:13:47.899070+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 8,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "duckduckgo": 8
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 8,
+    "candidates_without_email": 8,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 7,
+    "public_source_sample": [
+      {
+        "url": "https://deventiatech.com/blogs/custom-software-rfp-template-2026",
+        "title": "Software RFP Template 2026 | DevEntia Tech",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://rfpplanet.com/blog/rfp-technology-2026-ai-automation-guide/",
+        "title": "RFP Technology in 2026: The Ultimate AI Automation Guide",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://yusmpgroup.com/blog/software-development-rfp",
+        "title": "RFP for Software Development: Guide & Template 2026 | YuSMP",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://cabrilloclub.com/insights/federal-rfp-proposal-automation-software-what-actually-works-2026",
+        "title": "Federal RFP Proposal Automation Software: What Actually...",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://lusivision.com/en/blog/software-development-rfp-template-2026",
+        "title": "How to Write a Software Development RFP (2026 Template)",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://www.quantlabusa.dev/blog/custom-software-rfp-template-2026",
+        "title": "Custom Software RFP Template: What to Ask in 2026",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      }
+    ],
+    "search_queries": [
+      "RFP custom software development services deadline 2026",
+      "request for proposals data analytics automation 2026"
+    ],
+    "attempted_search_queries": [
+      "RFP custom software development services deadline 2026",
+      "request for proposals data analytics automation 2026",
+      "looking for someone to submit proposal for AI adoption RFP with published submission guidelines",
+      "need paid help with AI consulting proposal for procurement tender 2026"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 8,
+      "skipped_revisits": 1,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "RFP custom software development services deadline 2026",
+        "request for proposals data analytics automation 2026",
+        "looking for someone to submit proposal for AI adoption RFP with published submission guidelines",
+        "need paid help with AI consulting proposal for procurement tender 2026"
+      ],
+      "next_query_queue": 6,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
