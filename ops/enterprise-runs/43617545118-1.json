@@ -1,0 +1,117 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T16:49:45.985338+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 10,
+    "source_counts": {
+      "open_web": 10
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "github_paid_issues": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 10,
+    "candidates_without_email": 10,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=47121964",
+        "title": "Managed OpenClaw hosting, 60-second provisioning",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45847255",
+        "title": "What Makes a Good QA?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=43883216",
+        "title": "Ask HN: How do I get over my fear of launching my product?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=40903647",
+        "title": "Will One Feature Be Enough to Beat Linktr.ee and Bio.link?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=38755180",
+        "title": "If only someone told me this before my first startup",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=35406902",
+        "title": "Ask HN: Attack resilience beyond tweaking Cloudflare?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to validate first-user onboarding in ARQANT Genesis with public proposal submission",
+      "is:issue is:open bounty created:>=2026-09-15 validate first user",
+      "is:issue is:open bounty created:>=2026-09-15 anyone create fix",
+      "is:issue is:open bounty created:>=2026-09-15 "
+    ],
+    "attempted_search_queries": [
+      "looking for someone to validate first-user onboarding in ARQANT Genesis with public proposal submission",
+      "need paid help with debugging awareness dashboard bug bounties in Apex with public response channel",
+      "can anyone create a fix for grossFor funder over-request in mergit-demo with public proposal submissio",
+      "Procurement RFP for wallet upgrade validation in ARQANT with bounty and public submission route",
+      "hiring a freelancer to resolve funder over-request in mergit-demo with contactable invitation"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 10,
+      "skipped_revisits": 27,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to validate first-user onboarding in ARQANT Genesis with public proposal submission",
+        "need paid help with debugging awareness dashboard bug bounties in Apex with public response channel",
+        "can anyone create a fix for grossFor funder over-request in mergit-demo with public proposal submissio",
+        "Procurement RFP for wallet upgrade validation in ARQANT with bounty and public submission route",
+        "hiring a freelancer to resolve funder over-request in mergit-demo with contactable invitation"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
