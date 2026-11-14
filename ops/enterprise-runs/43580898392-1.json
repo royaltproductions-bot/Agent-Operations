@@ -1,0 +1,117 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T09:32:31.111365+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 9,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "hn_ask": 5,
+      "github_paid_issues": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 8,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=11334949",
+        "title": "Ask HN: What Domain Registrar has the best TOS/provides best service & privacy?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=881134",
+        "title": "Ask HN: How do I find a marketing person for my startup?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=15959277",
+        "title": "Language 2.0 \u2013 Open-source, Machine Intelligent, an intriguing idea",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=14425213",
+        "title": "Ask HN: Advice on an idea to democratize capitalism",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=11578090",
+        "title": "Apply HN: The Decentralized Internet Endowment",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/NSPG13/agent-bounties/issues/1733",
+        "title": "A rail pass for you + your agents \u2014 invite from apex-edge board",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "need paid help with submitting a proposal for a blockchain-based payment safety toolkit with published submission guidelines",
+      "can anyone create a proposal for a decentralized crypto payment safety project with published submission instructions",
+      "is:issue is:open bounty created:>=2026-09-15 submit proposal crypto",
+      "is:issue is:open bounty created:>=2026-09-15 submit proposal public"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit a proposal for a crypto payment safety toolkit pilot with published submission guidelines",
+      "hiring a freelancer to submit a proposal for a public-benefit crypto project with published response instructions",
+      "need paid help with submitting a proposal for a blockchain-based payment safety toolkit with published submission guidelines",
+      "can anyone create a proposal for a decentralized crypto payment safety project with published submission instructions",
+      "looking for someone to submit a proposal for a grant application with published submission guidelines and contact details"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 17,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit a proposal for a crypto payment safety toolkit pilot with published submission guidelines",
+        "hiring a freelancer to submit a proposal for a public-benefit crypto project with published response instructions",
+        "need paid help with submitting a proposal for a blockchain-based payment safety toolkit with published submission guidelines",
+        "can anyone create a proposal for a decentralized crypto payment safety project with published submission instructions",
+        "looking for someone to submit a proposal for a grant application with published submission guidelines and contact details"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 115,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
