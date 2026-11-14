@@ -288,6 +288,15 @@ def solicitation_seed_queries(memory,now=None):
     return [q for q in pool if q.lower() not in recent][:2]
 
 
+SOLICITATION_QUERY=re.compile(
+    r"(?i)\b(?:rfp|tender|solicitation|procurement|request for proposals?|"
+    r"request for bids?|request for quotations?)\b")
+
+
+def solicitation_query(value):
+    return bool(SOLICITATION_QUERY.search(str(value or "")))
+
+
 def candidates(memory):
     """Advance independent web research and persisted leads every run."""
     issues=[]
@@ -313,12 +322,38 @@ def candidates(memory):
         issues.append({"source":"research_coverage","reason":"no_fresh_search_query"})
 
     budget=memory.budget()
-    rows,errors=open_web_candidates(
-        max_candidates=max(8,budget["max_candidates"]),
-        queries=queries,memory=memory,
-        max_pages=budget["max_pages"],strict_relevance=True,
-        deadline_monotonic=RUN_DEADLINE-240 if RUN_DEADLINE is not None else None,
-        include_discussions=True,include_paid_issues=True)
+    deadline=RUN_DEADLINE-240 if RUN_DEADLINE is not None else None
+    solicitation_queries=[q for q in queries if solicitation_query(q)]
+    general_queries=[q for q in queries if not solicitation_query(q)]
+    rows=[]
+    errors=[]
+
+    # Official solicitations must get a first-party web-search lane before
+    # discussion indexes or GitHub bounty rows can consume the candidate budget.
+    if solicitation_queries:
+        solicitation_rows,solicitation_errors=open_web_candidates(
+            max_candidates=max(4,min(8,budget["max_candidates"]//2)),
+            queries=solicitation_queries,memory=memory,
+            max_pages=max(6,min(12,budget["max_pages"]//2)),
+            strict_relevance=True,deadline_monotonic=deadline,
+            include_discussions=False,include_paid_issues=False)
+        rows.extend(solicitation_rows)
+        errors.extend(solicitation_errors)
+
+    if general_queries:
+        general_rows,general_errors=open_web_candidates(
+            max_candidates=max(4,budget["max_candidates"]-len(rows)),
+            queries=general_queries,memory=memory,
+            max_pages=max(6,budget["max_pages"]-(min(12,budget["max_pages"]//2)
+                                                if solicitation_queries else 0)),
+            strict_relevance=True,deadline_monotonic=deadline,
+            include_discussions=True,include_paid_issues=True)
+        seen={str(row.get("source_url") or "") for row in rows}
+        rows.extend(row for row in general_rows
+                    if str(row.get("source_url") or "") not in seen)
+        errors.extend(general_errors)
+
+    rows=rows[:max(8,budget["max_candidates"])]
     if not rows:
         issues.append({"source":"research_coverage",
                        "reason":"no_new_public_sources",
