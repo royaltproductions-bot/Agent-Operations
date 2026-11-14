@@ -1,0 +1,76 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T05:53:09.306683+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 0,
+    "source_counts": {},
+    "search_provider_counts": {},
+    "source_errors": [
+      {
+        "source": "research_coverage",
+        "reason": "no_new_public_sources",
+        "queries_attempted": [
+          "looking for someone to create a proposal for a public procurement with submission guidelines",
+          "hiring a freelancer to submit a proposal for an open tender with contactable response route",
+          "need paid help with creating a proposal for a government RFP with published submission instructions",
+          "can anyone create a proposal for a public solicitation with contactable guidelines",
+          "looking for someone to submit a proposal for a government procurement with contactable submission route"
+        ]
+      }
+    ],
+    "fetched_public_pages": 0,
+    "candidates_without_email": 0,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [],
+    "search_queries": [],
+    "attempted_search_queries": [
+      "looking for someone to create a proposal for a public procurement with submission guidelines",
+      "hiring a freelancer to submit a proposal for an open tender with contactable response route",
+      "need paid help with creating a proposal for a government RFP with published submission instructions",
+      "can anyone create a proposal for a public solicitation with contactable guidelines",
+      "looking for someone to submit a proposal for a government procurement with contactable submission route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 0,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create a proposal for a public procurement with submission guidelines",
+        "hiring a freelancer to submit a proposal for an open tender with contactable response route",
+        "need paid help with creating a proposal for a government RFP with published submission instructions",
+        "can anyone create a proposal for a public solicitation with contactable guidelines",
+        "looking for someone to submit a proposal for a government procurement with contactable submission route"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_research_results_found"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
