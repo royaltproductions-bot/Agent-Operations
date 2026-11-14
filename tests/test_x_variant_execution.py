@@ -815,3 +815,24 @@ class ChainedWorkflowTests(unittest.TestCase):
             self.assertIn("gh workflow run",text)
             self.assertIn("cancel-in-progress: false",text)
 
+class CyclopsPublicBrandingTests(unittest.TestCase):
+    def test_approved_cyclops_branding_is_durable(self):
+        cyclops=cyclops_or_skip(self)
+        self.assertEqual(cyclops.CYCLOPS_BRAND,"CYCLOPS")
+        self.assertEqual(
+            cyclops.CYCLOPS_EXPANSION,
+            "Continuously Yielding Customer-Led Original Products & Solutions")
+        self.assertEqual(
+            cyclops.CYCLOPS_STORE_TAGLINE,
+            "Practical digital solutions by ARI Operations.")
+        self.assertIn("gumroad.com",cyclops.CYCLOPS_FREE_SAMPLE_URL)
+
+    def test_published_storefront_uses_cyclops_brand_and_free_sample(self):
+        from pathlib import Path
+        page=Path("storefront/cyclops/index.html").read_text()
+        self.assertIn("CYCLOPS Product Store",page)
+        self.assertIn("Continuously Yielding Customer-Led Original Products &amp; Solutions",page)
+        self.assertIn("FREE PRACTICE SAMPLE",page)
+        self.assertIn("Research → Build → Verify → Publish",page)
+        self.assertNotIn("<h1>Ari Operations</h1>",page)
+
