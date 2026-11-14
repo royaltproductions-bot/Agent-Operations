@@ -508,9 +508,9 @@ def choose_asset_concept(rows,existing_assets=None):
     # execution boundary, not a separate inference clock.
     # Run 41410535278-1 ended mid-JSON at char 4466 near the former
     # 1050-token ceiling. Give this one local-model concept room to close.
-    # Keep local CPU inference bounded; the schema is substantial but a 1,000-token
-    # concept is sufficient and materially less likely to exhaust the transport timeout.
-    attempts=[(selected,3072,1000)]
+    # Keep the proven full concept allowance on the first attempt. model_json()
+    # already retries transport failures with a smaller 600-token response.
+    attempts=[(selected,4096,1800)]
     last=None
     for observation,ctx,predict in attempts:
         try:
