@@ -34,6 +34,7 @@ from tools.connected_commerce_tools import (
     autonomous_paid_orders,
     ensure_autonomous_checkout,
     recent_sent_subjects,
+    recent_solicitation_contact_count,
     stripe_usd_unit_amount,
     sent_subject_exists,
 )
@@ -229,9 +230,12 @@ def discovery_queries(memory):
         "solo remote digital operator without licenses, capital, onsite "
         "attendance or a long employment process. A buyer's own invitation "
         "matters more than commercial news discussing a sector. Do not "
-        "generate broad 2026 RFP, tender, procurement, bid-directory, job "
-        "board, or sector-overview searches: they have repeatedly yielded "
-        "no reachable buyer. Do not invent buyers, contact details or demand. "
+        "include recent official RFP, tender, procurement and contract-job "
+        "requests when the original buyer page explicitly invites proposals, "
+        "questions or document requests through a published response route. "
+        "Avoid aggregator-only bid directories and generic sector-overview pages "
+        "that do not expose the original requester. Do not invent buyers, "
+        "contact details or demand. "
         "Read avoid_recent_unsuccessful_topics from research history: choose "
         "DIFFERENT buyer problems and response channels instead of repeating "
         "the same industry with reworded searches. At least four generated "
@@ -431,16 +435,70 @@ def review_requester_pages(rows):
     return rows
 
 
+def explicit_solicitation_email(row):
+    """Return only an email the requester explicitly publishes for this solicitation."""
+    email=str(row.get("contact") or "").strip().lower()
+    page=str(row.get("page_text") or "")
+    lower=page.lower()
+    if (not email or email not in lower or not row.get("page_fetched")
+            or not is_requester_page(row) or not requester_evidence(row)):
+        return ""
+    # An email in a footer is not a response route. It must occur near language
+    # explicitly inviting proposal/bid/tender questions, documents or submissions.
+    for match in re.finditer(re.escape(email),lower):
+        window=lower[max(0,match.start()-650):match.end()+650]
+        if (re.search(r"\b(?:request for proposals?|rfp|tender|solicitation|"
+                      r"submit (?:a |your )?(?:proposal|bid)|proposal forms?|"
+                      r"proposal templates?|bid documents?|clarification questions?)\b",window)
+                and re.search(r"\b(?:email|contact|send|submit|request|questions?)\b",window)):
+            return email
+    return ""
+
+
+def solicitation_deadline_current(row,now=None):
+    """Allow undated official pages only when they publish a current/future deadline."""
+    created=row.get("created_at")
+    now=now or datetime.now(timezone.utc)
+    try:
+        posted=datetime.fromisoformat(str(created or "").replace("Z","+00:00"))
+        if posted.tzinfo is None:
+            posted=posted.replace(tzinfo=timezone.utc)
+        return timedelta(0) <= now-posted <= timedelta(days=60)
+    except (TypeError,ValueError):
+        pass
+    body=str(row.get("page_text") or "")
+    months={name.lower():number for number,name in enumerate(
+        ("January","February","March","April","May","June","July","August",
+         "September","October","November","December"),1)}
+    for match in re.finditer(
+            r"(?i)\b(?:deadline|due|submit(?:ted)?(?: electronically)? by|"
+            r"submission deadline)\b.{0,140}\b("
+            + "|".join(months) + r")\s+(\d{1,2})(?:st|nd|rd|th)?,?\s+(20\d{2})\b",
+            body):
+        try:
+            due=datetime(int(match.group(3)),months[match.group(1).lower()],
+                         int(match.group(2)),23,59,59,tzinfo=timezone.utc)
+        except (ValueError,KeyError):
+            continue
+        if now-timedelta(days=1) <= due <= now+timedelta(days=180):
+            return True
+    return False
+
+
 def enrich_public_response_route(rows):
     """Recover requester-owned platform reply/proposal routes; never cold-email."""
     enriched=[]
     followed=0
     for source_row in rows:
         row=dict(source_row)
-        if (row.get("contact") or not row.get("page_fetched")
+        solicitation_email=explicit_solicitation_email(row)
+        if solicitation_email:
+            row["solicitation_email"]=solicitation_email
+        if (not row.get("page_fetched")
                 or not is_requester_page(row)
                 or not requester_evidence(row)
-                or followed>=8):
+                or followed>=8
+                or solicitation_email):
             enriched.append(row)
             continue
         try:
@@ -490,12 +548,7 @@ def public_buyer_invitation(row):
     path = urllib.parse.urlsplit(str(row.get("source_url") or "")).path.lower()
     if any(part in path for part in ("/blog/", "/features/", "/hire/", "/freelancers/", "/tutorial", "/guide", "/docs/")):
         return False
-    try:
-        posted = datetime.fromisoformat(str(row.get("created_at") or "").replace("Z", "+00:00"))
-        age = datetime.now(timezone.utc) - posted
-        fresh = timedelta(0) <= age <= timedelta(days=60)
-    except (ValueError, TypeError):
-        fresh = False
+    fresh=solicitation_deadline_current(row)
     return bool(fresh and buyer_owned_request(row) and requester_evidence(row))
 
 
@@ -551,7 +604,8 @@ def choose_offer(rows):
     # Keep all findings in research memory, but never spend slow CPU inference
     # trying to send a paid offer to a page with no genuine response channel.
     actionable=[row for row in researched
-                if public_buyer_invitation(row) and row.get("platform_reply_url")]
+                if public_buyer_invitation(row)
+                and (row.get("platform_reply_url") or explicit_solicitation_email(row))]
     if not actionable:
         return None,{"reason":"no_verified_contactable_buyer_invitation"}
     ranked=sorted(actionable,key=lambda row:(
@@ -607,8 +661,8 @@ def choose_offer(rows):
     chosen=next((r for r in ranked if r["id"]==plan.get("candidate_id")),None)
     if not chosen:
         raise ValueError("model_selected_unknown_candidate")
-    if not chosen.get("platform_reply_url"):
-        return None,{"reason":"no_platform_reply_route_for_selected_action"}
+    if not chosen.get("platform_reply_url") and not explicit_solicitation_email(chosen):
+        return None,{"reason":"no_verified_response_route_for_selected_action"}
     if not public_buyer_invitation(chosen):
         return None,{"reason":"selected_source_lacks_direct_public_invitation"}
     price=normalize_price_usd(plan.get("price_usd"))
@@ -618,13 +672,43 @@ def choose_offer(rows):
     plan["price_usd"]=price
     return chosen,plan
 
-def send_offer(candidate,plan,checkout):
-    """Prepare only an invited in-platform proposal; email outreach is retired."""
+def send_offer(candidate,plan,checkout=None):
+    """Act only through an explicit buyer response route; never cold-email."""
     if not public_buyer_invitation(candidate):
         return {"result":"unverified_buyer_invitation", "channel":"none"}
+
+    solicitation_email=explicit_solicitation_email(candidate)
+    if solicitation_email:
+        # Claude/owner-approved RFP channel: a bounded qualification inquiry,
+        # not an unsolicited checkout pitch or fabricated formal proposal.
+        if recent_solicitation_contact_count(hours=24)>=3:
+            return {"result":"solicitation_daily_contact_cap", "channel":"email"}
+        marker=offer_marker(candidate["source_url"])
+        subject=("ARI Operations solicitation inquiry ["+marker+"]: "+
+                 str(candidate.get("title") or "public request")[:88])
+        if sent_subject_exists(subject):
+            return {"result":"solicitation_already_contacted", "channel":"email"}
+        body=(
+            "Hello,\n\n"
+            "ARI Operations is reviewing your public solicitation, "+
+            str(candidate.get("title") or "the posted request").strip()[:180]+". "
+            "Please confirm whether the public posting is the current complete "
+            "solicitation package and whether there are mandatory response forms, "
+            "addenda acknowledgements, vendor registration, or eligibility "
+            "prerequisites not stated on the page. If an official submission "
+            "portal or template is required, please point us to it.\n\n"
+            "Thank you,\nARI Operations")
+        message_id=agent_send(
+            solicitation_email,subject,body,
+            order_id="wolverine-rfp:"+marker)
+        return {"result":"solicitation_inquiry_sent","channel":"email",
+                "message_receipt":hashlib.sha256(str(message_id).encode()).hexdigest()[:16]}
+
     route=str(candidate.get("platform_reply_url") or "")
     if not route.startswith("https://"):
         return {"result":"platform_reply_route_missing", "channel":"none"}
+    if not checkout:
+        return {"result":"checkout_required_for_platform_offer", "channel":"platform"}
     proposal=(
         str(plan["pitch"]).strip()+"\n\n"
         "I can deliver: "+str(plan["deliverable"]).strip()+"\n"
@@ -771,27 +855,37 @@ def run():
                 "reason":"offer_selection_failed","detail":detail})
         if candidate and plan:
             try:
-                checkout=ensure_autonomous_checkout(
-                    candidate["source_url"],
-                    plan["title"],plan["deliverable"],plan["scope"],
-                    plan["price_usd"])
-                receipt["offer"]={
-                    "source_url":candidate["source_url"],
-                    "title":plan["title"][:160],
-                    "scope":plan["scope"][:400],
-                    "price_usd":plan["price_usd"],
-                    "price_cents":stripe_usd_unit_amount(plan["price_usd"]),
-                    "offer_id":checkout["offer_id"],
-                    "payment_link_id":checkout["payment_link_id"],
-                }
+                if explicit_solicitation_email(candidate):
+                    checkout=None
+                    receipt["offer"]={
+                        "source_url":candidate["source_url"],
+                        "title":plan["title"][:160],
+                        "scope":plan["scope"][:400],
+                        "response_mode":"solicitation_inquiry",
+                    }
+                else:
+                    checkout=ensure_autonomous_checkout(
+                        candidate["source_url"],
+                        plan["title"],plan["deliverable"],plan["scope"],
+                        plan["price_usd"])
+                    receipt["offer"]={
+                        "source_url":candidate["source_url"],
+                        "title":plan["title"][:160],
+                        "scope":plan["scope"][:400],
+                        "price_usd":plan["price_usd"],
+                        "price_cents":stripe_usd_unit_amount(plan["price_usd"]),
+                        "offer_id":checkout["offer_id"],
+                        "payment_link_id":checkout["payment_link_id"],
+                    }
                 action=send_offer(candidate,plan,checkout)
                 receipt["external_action"]={
                     "result":action["result"],
                     "channel":action["channel"],
                     "source_url":candidate["source_url"],
                     "platform_reply_url":action.get("platform_reply_url"),
+                    "message_receipt":action.get("message_receipt"),
                 }
-                if action["result"]!="platform_proposal_sent":
+                if action["result"] not in {"platform_proposal_sent","solicitation_inquiry_sent"}:
                     receipt["commercial_outcomes"].append({"reason":action["result"]})
             except Exception as exc:
                 receipt["structural_failures"].append({
@@ -807,15 +901,19 @@ def run():
     revenue=sum(int(x.get("amount_cents") or 0)
                 for x in receipt["fulfillment"]
                 if x.get("result") in {"fulfilled","already_fulfilled"})
+    external_result=(receipt.get("external_action") or {}).get("result")
     receipt["economic_result"]={
-        "new_offers_sent":1 if (receipt.get("external_action") or {}).get("result")=="platform_proposal_sent" else 0,
+        "new_offers_sent":1 if external_result=="platform_proposal_sent" else 0,
+        "qualified_external_contacts":1 if external_result=="solicitation_inquiry_sent" else 0,
         "fulfilled_orders_seen":fulfilled,
         "verified_autonomous_revenue_cents_seen":revenue,
     }
     blocked=sorted({str(e.get("provider")) for e in receipt["discovery"].get("source_errors",[])
                     if e.get("http_code") in (403,429,503) and e.get("provider")})
     receipt["operational_assessment"]={
-        "commercial_progress":bool(receipt["economic_result"]["new_offers_sent"] or revenue),
+        "commercial_progress":bool(receipt["economic_result"]["new_offers_sent"]
+                                   or receipt["economic_result"]["qualified_external_contacts"]
+                                   or revenue),
         "candidate_pages_with_invitation_and_email":sum(public_buyer_invitation(r) for r in rows),
         "blocked_search_providers":blocked,
         "primary_bottleneck":("none" if receipt["economic_result"]["new_offers_sent"] or revenue else
