@@ -1,0 +1,134 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-14T06:25:28.024611+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 2,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 2
+    },
+    "search_provider_counts": {
+      "bing": 2
+    },
+    "source_errors": [],
+    "fetched_public_pages": 2,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 2,
+    "public_market_sample": [
+      {
+        "url": "https://www.online-python.com/",
+        "title": "Online Python - IDE, Editor, Compiler, Interpreter",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://developer.mozilla.org/en-US/docs/Glossary/Python",
+        "title": "Python - Glossary | MDN - MDN Web Docs",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 2,
+    "search_queries": [
+      "Python script to generate personalized PDF invoices without API"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 1,
+      "skipped_revisits": 29,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "How to automate daily email sorting with Python script?",
+        "Downloadable spreadsheet template for tracking recurring expenses",
+        "Python script to generate personalized PDF invoices without API",
+        "Free downloadable tool to convert YouTube videos to MP3 batch",
+        "Downloadable script to extract links from web pages"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 118,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:2 candidates reviewed;  but there is no clear indication of a specific customer problem that a differentiated product could solve. The existing competition and lack of pricing or sales data ma"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 4,
+    "product_pages": 4,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 13,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "003c3c67f50b396938ad",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "755a8c931205cd5d956e",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:c6b72df2825dac8d03",
+      "decision": "pass",
+      "reason": "The observed page is an online Python IDE with educational content, but there is no clear indication of a specific customer problem that a differentiated product could solve. The existing competition and lack of pricing or sales data make it difficult to justify building a new product in this space without further evidence of a unique value proposi"
+    },
+    {
+      "candidate_id": "web:3a74f1bd2d1fe21a75",
+      "decision": "pass",
+      "reason": "The provided content is a glossary entry for Python and does not represent a specific product or service with a clear customer problem or demand. It lacks evidence of a viable product, pricing, or sales, and does not align with the existing catalog of tools focused on productivity, automation, and data extraction."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 4,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 2,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
