@@ -1,0 +1,108 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T21:17:07.441994+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 5,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "duckduckgo": 1,
+      "bing": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "ValueError"
+      }
+    ],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 5,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://www.section508.gov/buy/accessibility-in-procurement-solicitation-post-2/",
+        "title": "Accessibility In Procurement II: Solicitation & Post-Solicitation",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://cdn.naspo.org/RI/ProcurementToolboxIssue4_SolicitationMethods.pdf",
+        "title": "SOLICITATION METHODS - NASPO",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://unblock.federalregister.gov/",
+        "title": "eCFR :: 2 CFR 200.320 -- Procurement methods.",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.acquisition.gov/far/part-5",
+        "title": "Part 5 - Publicizing Contract Actions | Acquisition.GOV",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://sam.gov/opportunities",
+        "title": "Contract Opportunities - SAM.gov",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "public procurement solicitation with contactable response route"
+    ],
+    "attempted_search_queries": [
+      "RFP response required for a city-funded digital service initiative",
+      "submitting a bid for a public transportation system upgrade with published contact",
+      "public procurement solicitation with contactable response route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 18,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "RFP response required for a city-funded digital service initiative",
+        "submitting a bid for a public transportation system upgrade with published contact",
+        "public procurement solicitation with contactable response route"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
