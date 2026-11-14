@@ -10,6 +10,9 @@ import time
 
 
 def command(args, **kwargs):
+    # Git operations must never hold the resident worker indefinitely.
+    if args and args[0]=="git" and "timeout" not in kwargs:
+        kwargs["timeout"]=60
     return subprocess.run(args, check=True, **kwargs)
 
 
@@ -28,7 +31,7 @@ def checkpoint():
         originals = [
             subprocess.run(['git', 'show', 'origin/gambit-state:' + p],
                            check=not p.endswith("/funnel.json"), stdout=subprocess.PIPE,
-                           stderr=subprocess.DEVNULL).stdout
+                           stderr=subprocess.DEVNULL, timeout=60).stdout
             for p in files
         ]
         if all(Path(p).read_bytes() == original
@@ -51,7 +54,8 @@ def checkpoint():
                 command(prefix + ['commit', '-m',
                                   'Checkpoint Gambit market and API budget'])
                 pushed = subprocess.run(
-                    prefix + ['push', 'origin', 'HEAD:refs/heads/gambit-state'])
+                    prefix + ['push', 'origin', 'HEAD:refs/heads/gambit-state'],
+                    timeout=60)
                 if pushed.returncode == 0:
                     return
             finally:
@@ -65,7 +69,7 @@ def probe(module):
     with tempfile.TemporaryDirectory() as folder:
         output = Path(folder) / 'output'
         command([sys.executable, '-m', module, '--probe'],
-                env={**os.environ, 'GITHUB_OUTPUT': str(output)})
+                env={**os.environ, 'GITHUB_OUTPUT': str(output)}, timeout=90)
         return dict(line.split('=', 1) for line in output.read_text().splitlines()
                     if '=' in line)
 
@@ -85,16 +89,20 @@ GAMBIT_RELEVANT_MAIN_PATHS = (
 
 def relevant_main_change():
     """Yield the resident slot only for changes that would launch a new Gambit run."""
-    fetched=subprocess.run(
-        ["git","fetch","--quiet","--no-tags","origin",
-         "main:refs/remotes/origin/main"],
-        stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
-    if fetched.returncode != 0:
-        # Never stop commercial work merely because the comparison fetch failed.
+    try:
+        fetched=subprocess.run(
+            ["git","fetch","--quiet","--no-tags","origin",
+             "main:refs/remotes/origin/main"],
+            stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,timeout=30)
+        if fetched.returncode != 0:
+            return False
+        changed=subprocess.run(
+            ["git","diff","--quiet","HEAD","origin/main","--",*GAMBIT_RELEVANT_MAIN_PATHS],
+            timeout=30)
+        return changed.returncode == 1
+    except subprocess.TimeoutExpired:
+        # Never stop commercial work merely because the comparison fetch stalled.
         return False
-    changed=subprocess.run(
-        ["git","diff","--quiet","HEAD","origin/main","--",*GAMBIT_RELEVANT_MAIN_PATHS])
-    return changed.returncode == 1
 
 
 def prepare_video_runtime():
@@ -138,7 +146,10 @@ def cycle():
             return
         prepare_models(status.get('needs_production_model') == 'true')
     try:
-        command([sys.executable, '-m', 'tools.gambit_worker'])
+        # A resident cycle must fit inside the five-minute poll interval.
+        # TimeoutExpired is handled by watch() as a recoverable failed cycle,
+        # and the finally checkpoint below preserves retry state.
+        command([sys.executable, '-m', 'tools.gambit_worker'], timeout=240)
     finally:
         checkpoint()  # failed jobs retain retries and upload receipts
 
