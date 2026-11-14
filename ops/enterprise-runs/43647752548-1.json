@@ -1,0 +1,105 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T22:24:00.525452+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 3,
+    "source_counts": {
+      "open_web": 3
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 2,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 2,
+    "candidates_without_email": 3,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/paritytech/polkadot-sdk/issues/13772",
+        "title": "RFC: Multiple assets per bounty in `pallet-multi-asset-bounties`",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/surajgojanur/arc-splitpay-mumbai-2026/issues/6",
+        "title": "Issue 5 \u2014 Submission package",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.thefreedictionary.com/need",
+        "title": "Need - definition of need by The Free Dictionary",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-15 draft proposal zero",
+      "need paid help with creating a bid for a public transportation system upgrade with published contact route"
+    ],
+    "attempted_search_queries": [
+      "need paid help with creating a bid for a city-funded open-source project with contactable buyer",
+      "hiring a freelancer to draft a proposal for a zero-cost security hardening initiative with published contact route",
+      "looking for someone to submit a proposal for a public infrastructure project with contactable buyer",
+      "need paid help with creating a bid for a public transportation system upgrade with published contact route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 2,
+      "skipped_revisits": 45,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "need paid help with creating a bid for a city-funded open-source project with contactable buyer",
+        "hiring a freelancer to draft a proposal for a zero-cost security hardening initiative with published contact route",
+        "looking for someone to submit a proposal for a public infrastructure project with contactable buyer",
+        "need paid help with creating a bid for a public transportation system upgrade with published contact route"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
