@@ -827,6 +827,21 @@ class CyclopsPublicBrandingTests(unittest.TestCase):
             "Practical digital solutions by ARI Operations.")
         self.assertIn("gumroad.com",cyclops.CYCLOPS_FREE_SAMPLE_URL)
 
+    def test_quarantined_asset_is_not_publicly_listed_and_cleanup_is_durable(self):
+        import inspect
+        from pathlib import Path
+        cyclops=cyclops_or_skip(self)
+        manifest=json.loads(Path(
+            "products/cyclops/e46509dbb213a33c25fd/manifest.json").read_text())
+        self.assertEqual(manifest["status"],"quarantined")
+        self.assertFalse(manifest["payment_link_active"])
+        self.assertFalse(cyclops.catalog_eligible(manifest))
+        page=Path("storefront/cyclops/index.html").read_text()
+        self.assertNotIn("AI-Assisted Development Learning Pathway Generator",page)
+        source=inspect.getsource(cyclops.publish_catalog)
+        self.assertIn("github_delete",source)
+        self.assertIn('glob("*/index.html")',source)
+
     def test_published_storefront_uses_cyclops_brand_and_free_sample(self):
         from pathlib import Path
         page=Path("storefront/cyclops/index.html").read_text()
