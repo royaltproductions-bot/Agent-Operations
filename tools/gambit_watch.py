@@ -86,7 +86,8 @@ GAMBIT_RELEVANT_MAIN_PATHS = (
 def relevant_main_change():
     """Yield the resident slot only for changes that would launch a new Gambit run."""
     fetched=subprocess.run(
-        ["git","fetch","--quiet","--no-tags","origin","main"],
+        ["git","fetch","--quiet","--no-tags","origin",
+         "main:refs/remotes/origin/main"],
         stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
     if fetched.returncode != 0:
         # Never stop commercial work merely because the comparison fetch failed.
