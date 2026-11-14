@@ -1,66 +1,66 @@
 {
   "aging_active_bids_days": {
-    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 2.1938318695833336,
-    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 2.197528061712963,
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 6.214626476064815,
-    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 2.1938606195833334,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 10.285375619583332,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 10.255535457546296,
-    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 2.193838802453704,
-    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 3.023171151990741,
-    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 2.1975075177314816,
-    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 2.1974920894907406,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 10.286226290879629,
-    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 2.1938243117129628,
-    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 2.1938525756018517,
-    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 2.1974778533796293,
-    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 4.055652760787037
+    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 2.1970788944675927,
+    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 2.2007750865972224,
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 6.217873500949073,
+    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 2.1971076444675925,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 10.288622644467592,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 10.258782482430556,
+    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 2.197085827337963,
+    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 3.026418176875,
+    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 2.200754542615741,
+    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 2.200739114375,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 10.289473315763889,
+    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 2.1970713365972223,
+    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 2.197099600486111,
+    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 2.200724878263889,
+    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 4.058899785671296
   },
   "browser": {
     "completed_job_count": {
-      "observed_at": "2026-11-14T02:17:36.578522+00:00",
+      "observed_at": "2026-11-14T02:22:16.982186+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
     },
     "earnings_count": {
-      "observed_at": "2026-11-14T02:17:36.578513+00:00",
+      "observed_at": "2026-11-14T02:22:16.982181+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
     },
     "last_disbursed_at": {
-      "observed_at": "2026-11-14T02:17:36.578519+00:00",
+      "observed_at": "2026-11-14T02:22:16.982184+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
     },
     "not_hired_count": {
-      "observed_at": "2026-11-14T02:17:36.578510+00:00",
+      "observed_at": "2026-11-14T02:22:16.982179+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
     },
     "operator_balance_cents": {
-      "observed_at": "2026-11-14T02:17:36.578515+00:00",
+      "observed_at": "2026-11-14T02:22:16.982182+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
     },
     "public_rating": {
-      "observed_at": "2026-11-14T02:17:36.578521+00:00",
+      "observed_at": "2026-11-14T02:22:16.982185+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
     },
     "transfer_count": {
-      "observed_at": "2026-11-14T02:17:36.578517+00:00",
+      "observed_at": "2026-11-14T02:22:16.982183+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
     },
     "unread_count": {
-      "observed_at": "2026-11-14T02:17:36.578499+00:00",
+      "observed_at": "2026-11-14T02:22:16.982171+00:00",
       "scrape_error": "authentication_not_configured",
       "source": "browser",
       "value": null
@@ -114,15 +114,20 @@
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-14T02:17:37.596532+00:00",
+  "generated_at": "2026-11-14T02:22:18.139482+00:00",
   "market_observation": {
-    "fetched_at": "2026-11-14T02:17:37.588934+00:00",
+    "fetched_at": "2026-11-14T02:22:18.134748+00:00",
     "last_open_count": 58,
     "newest_created_at": "2026-11-13T08:47:57.919000+00:00"
   },
   "market_observation_history": [
     {
       "fetched_at": "2026-11-14T02:17:37.588934+00:00",
+      "last_open_count": 58,
+      "newest_created_at": "2026-11-13T08:47:57.919000+00:00"
+    },
+    {
+      "fetched_at": "2026-11-14T02:22:18.134748+00:00",
       "last_open_count": 58,
       "newest_created_at": "2026-11-13T08:47:57.919000+00:00"
     }
