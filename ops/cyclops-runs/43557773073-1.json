@@ -1,0 +1,153 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-14T04:42:09.196032+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 10,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 10
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 10,
+    "verified_firsthand_problem_pages": 5,
+    "observed_public_paid_offers": 1,
+    "market_candidates_considered": 1,
+    "public_sources_available_for_judgment": 10,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=45309992",
+        "title": "Saving Microsoft Movies and TV Titles as Videos on Windows 10 PC",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46076878",
+        "title": "My SaaS jumped from $6,523 to $12,648 monthly, here is how",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=1429996",
+        "title": "A Case For Personal Cloud - LinuxTag Talk by Dmitri Popov",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://herothemes.com/tools/answer-generator/",
+        "title": "Free AI Answer Generator\n Get a clear, concise answer to any question, optionally grounded in your own content.\n Open tool",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://herothemes.com/email-subject-lines/goodbye/",
+        "title": "goodbye email subject lines",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=35837011",
+        "title": "Ask HN: Can You Spot AI-Generated Content?",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=45309992",
+        "title": "Saving Microsoft Movies and TV Titles as Videos on Windows 10 PC",
+        "displayed_sales_count": null,
+        "listed_price_usd": "19.99"
+      }
+    ],
+    "candidates_without_email": 9,
+    "search_queries": [
+      "purchase numbered step-by-step process template for team workflows",
+      "buy ai how-to guide template for task automation",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 10,
+      "skipped_revisits": 43,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "buy ai how-to guide template for task automation",
+        "purchase numbered step-by-step process template for team workflows",
+        "downloadable ai email subject line generator tool",
+        "buy ai email reply generator for customer communication",
+        "purchase ai how-to guide for software setup instructions"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 114,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "deferred_model_transport_timeout",
+    "reason": "concept_generation_failed:cyclops_model_transport_timeout",
+    "remaining_seconds": 85.3
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 4,
+    "product_pages": 4,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 13,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "003c3c67f50b396938ad",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "755a8c931205cd5d956e",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 4,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 10,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
