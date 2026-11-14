@@ -1,0 +1,91 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T10:38:29.641402+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 4,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/onlyonee1/PaymentFlow/issues/692",
+        "title": "Create a Soroban contract deployment checklist and mainnet go-live runbook",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Rosemary-ux/lyricsflip/issues/140",
+        "title": "[Documentation] LF-151 \u00b7 Write security policy and responsible disclosure guide",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/pliniosilveira/commander-arena/issues/60",
+        "title": "Deck Support - Precon - Quandrix Unlimited",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Rohank143/BountyScout/issues/104",
+        "title": "\ud83c\udfaf Bounty Alert: 11 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-15 "
+    ],
+    "attempted_search_queries": [
+      "can anyone create a proposal for a blockchain-based identity verification system with published response instructions"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 18,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "can anyone create a proposal for a blockchain-based identity verification system with published response instructions"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 115,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
