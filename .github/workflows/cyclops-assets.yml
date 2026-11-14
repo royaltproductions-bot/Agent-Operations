@@ -1,10 +1,20 @@
 name: Cyclops Reusable Assets
 on:
   schedule:
-    - cron: '47 * * * *'
+    # Fallback only. Each completed run queues its successor below.
+    - cron: '47 */6 * * *'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/cyclops-assets.yml'
+      - 'tools/cyclops_asset_engine.py'
+      - 'tools/cyclops_workshop.py'
+      - 'tools/open_web_discovery.py'
+      - 'tools/research_memory.py'
   workflow_dispatch:
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: cyclops-reusable-assets
@@ -45,8 +55,8 @@ jobs:
       - name: Check live Cyclops execution before loading Qwen
         id: preflight
         run: |
-          python3 -m pip install --quiet --disable-pip-version-check cryptography pypdf beautifulsoup4 jinja2 'reportlab>=4,<5' 'pillow>=10,<13' 'python-docx>=1.2,<2' 'openpyxl>=3.1,<4' 'matplotlib>=3.8,<4' 'fpdf2>=2.8,<3' 'cairosvg>=2.7,<3'
-          python3 -c 'import bs4, jinja2, cryptography, pypdf, reportlab, docx, openpyxl, PIL, matplotlib, fpdf, cairosvg; print("Cyclops runtime imports OK")'
+          python3 -m pip install --quiet --disable-pip-version-check cryptography pypdf beautifulsoup4 jinja2 'reportlab>=4,<5' 'pillow>=10,<13' 'python-docx>=1.2,<2' 'openpyxl>=3.1,<4' 'matplotlib>=3.8,<4' 'fpdf2>=2.8,<3' 'cairosvg>=2.7,<3' 'pandas>=2.2,<3'
+          python3 -c 'import bs4, jinja2, cryptography, pypdf, reportlab, docx, openpyxl, PIL, matplotlib, fpdf, cairosvg, pandas; print("Cyclops runtime imports OK")'
           python3 -m unittest discover -s tests -p 'test_x_variant_execution.py' -q
           python3 -m unittest discover -s tests -p 'test_variant_optimization.py' -q
 
@@ -91,7 +101,7 @@ jobs:
         shell: bash
         run: |
           set +e
-          timeout --signal=TERM --kill-after=30s 40m python3 -m tools.cyclops_asset_engine
+          timeout --signal=TERM --kill-after=30s 25m python3 -m tools.cyclops_asset_engine
           code=$?
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
           exit 0
@@ -159,4 +169,19 @@ jobs:
           if [ "${ENGINE_EXIT_CODE:-}" != "0" ]; then
             echo "::error::Cyclops ended with operational error code ${ENGINE_EXIT_CODE:-missing}"
             exit 1
+          fi
+
+      - name: Chain next Cyclops run
+        if: always()
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          queued="$(gh run list --workflow cyclops-assets.yml --status queued --limit 1 --json databaseId --jq 'length')"
+          if [ "$queued" = "0" ]; then
+            gh workflow run cyclops-assets.yml --ref main
+            echo "Queued successor Cyclops run."
+          else
+            echo "Successor already queued; no duplicate dispatch."
           fi
