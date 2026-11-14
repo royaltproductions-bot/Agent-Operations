@@ -56,6 +56,8 @@ ROOT=Path("products/cyclops")
 RECEIPTS=Path("ops/cyclops-runs")
 NOW=lambda: datetime.now(timezone.utc)
 RUN_DEADLINE=None
+# Owner-approved distribution-first freeze; existing paid fulfillment and catalog remain live.
+CYCLOPS_PRODUCTION_ENABLED=os.getenv("CYCLOPS_PRODUCTION_ENABLED","NO").upper() in ("YES","TRUE","1")
 
 
 def remaining_run_seconds():
@@ -1936,7 +1938,12 @@ def run():
     # is unfinished work, not a reason to erase it or to stop existing sales.
     try:
         pending=read_pending()
-        if remaining_run_seconds() < 360:
+        if not CYCLOPS_PRODUCTION_ENABLED:
+            receipt["production"]={"result":"paused_for_distribution",
+                                   "reason":"owner_approved_distribution_first_freeze",
+                                   "pending_stage":pending.get("stage") or "empty"}
+            should_produce=False
+        elif remaining_run_seconds() < 360:
             receipt["production"]={
                 "result":"deferred_for_run_budget",
                 "remaining_seconds":round(remaining_run_seconds(),1),
