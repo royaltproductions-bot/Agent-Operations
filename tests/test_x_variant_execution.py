@@ -804,3 +804,13 @@ class CyclopsEfficiencyTests(unittest.TestCase):
 
 if __name__=="__main__":
     unittest.main()
+
+class ChainedWorkflowTests(unittest.TestCase):
+    def test_revenue_chains_reuse_pending_successor(self):
+        for workflow in ("commerce-engine.yml","cyclops-assets.yml"):
+            text=Path(".github/workflows",workflow).read_text()
+            self.assertIn('.status == "pending"',text)
+            self.assertIn('.status == "queued"',text)
+            self.assertIn("gh workflow run",text)
+            self.assertIn("cancel-in-progress: false",text)
+
