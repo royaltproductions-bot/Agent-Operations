@@ -1275,9 +1275,17 @@ def publish_catalog():
 
     expected_product_files=set()
     for asset in sorted(ready,key=lambda a:str(a.get("created_at") or ""),reverse=True):
-        name=escape(str(asset.get("title") or "Digital product"))
+        raw_title=str(asset.get("title") or "Digital product")
+        name=escape(raw_title)
         desc=escape(str(asset.get("description") or ""))
         audience=escape(str(asset.get("audience") or ""))
+        mark="DIGITAL"
+        for needle,label in (
+                ("CRM","CRM"),("Outlook","EMAIL"),("Workflow","AUTOMATE"),
+                ("Data Extraction","INSIGHTS"),("Dashboard","DASHBOARD")):
+            if needle.lower() in raw_title.lower():
+                mark=label
+                break
         price=escape(str(asset.get("price_usd") or ""))
         link=escape(str(asset.get("checkout_url") or ""),quote=True)
         canonical=public_product_url(asset)
@@ -1313,6 +1321,9 @@ main{max-width:930px;margin:0 auto;padding:34px 22px 70px}
 nav{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:28px}nav a{color:var(--cyan);text-decoration:none;font-weight:700}
 .brand{font-size:.82rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
 article{background:linear-gradient(145deg,rgba(20,34,54,.96),rgba(12,23,38,.97));padding:clamp(26px,5vw,48px);border-radius:24px;border:1px solid var(--line);box-shadow:0 28px 80px rgba(0,0,0,.28)}
+.product-art{position:relative;overflow:hidden;min-height:210px;margin:-4px -4px 30px;border-radius:20px;padding:28px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(125deg,#082f88 0%,#2949d8 44%,#ff3e2f 76%,#ffd51f 100%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
+.product-art:before,.product-art:after{content:"";position:absolute;border-radius:50%;border:26px solid rgba(255,255,255,.15)}.product-art:before{width:180px;height:180px;right:-62px;top:-76px}.product-art:after{width:110px;height:110px;left:-44px;bottom:-50px}
+.product-art span,.product-art strong,.product-art small{position:relative;z-index:1}.product-art span{font-size:.78rem;letter-spacing:.18em;font-weight:900}.product-art strong{font-size:clamp(2.6rem,9vw,5.2rem);line-height:.9;font-style:italic;letter-spacing:-.05em}.product-art small{font-weight:850;letter-spacing:.08em;text-transform:uppercase;margin-top:8px}
 .eyebrow{display:inline-block;padding:6px 10px;border:1px solid #3e5775;border-radius:999px;color:var(--cyan);font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
 h1{font-size:clamp(2rem,6vw,3.7rem);line-height:1.05;margin:.45em 0 .3em}.audience{color:var(--muted)}
 .price{font-size:2rem;font-weight:850;color:var(--gold);margin:.75em 0}
@@ -1320,7 +1331,8 @@ h1{font-size:clamp(2rem,6vw,3.7rem);line-height:1.05;margin:.45em 0 .3em}.audien
 .note{color:var(--muted);font-size:.9rem;margin-top:18px}a{color:var(--cyan)}
 </style></head><body><main>
 <nav><a href="/">← CYCLOPS Product Store</a><span class="brand">ARI Operations</span></nav>
-<article><span class="eyebrow">'''+CYCLOPS_EXPANSION+'''</span><h1>'''+name+'''</h1><p>'''+desc+'''</p>
+<article><div class="product-art"><span>CYCLOPS PRODUCT STORE</span><strong>'''+mark+'''</strong><small>Practical Digital Solution · By ARI Operations</small></div>
+<span class="eyebrow">'''+CYCLOPS_EXPANSION+'''</span><h1>'''+name+'''</h1><p>'''+desc+'''</p>
 <p class="audience"><strong>Designed for:</strong> '''+audience+'''</p><p class="price">$'''+price+'''</p>
 <a class="buy" href="'''+link+'''" rel="noopener noreferrer">Buy securely with Stripe</a>
 <p class="note">Payment processed by Sirius Sage. Digital delivery follows verified payment.</p>
@@ -1329,7 +1341,8 @@ h1{font-size:clamp(2rem,6vw,3.7rem);line-height:1.05;margin:.45em 0 .3em}.audien
         expected_product_files.add(product_file)
         publish_page(product_file,product_html)
         cards.append(
-            '<article class="product-card"><span class="card-kicker">CYCLOPS PRODUCT</span>'
+            '<article class="product-card"><div class="mini-art"><span>CYCLOPS</span><strong>'+mark+'</strong></div>'
+            '<span class="card-kicker">CYCLOPS PRODUCT</span>'
             '<h2>'+name+'</h2><p>'+desc+'</p>'
             '<p class="muted"><strong>For:</strong> '+audience+'</p>'
             '<div class="card-footer"><p class="price">$'+price+'</p>'
@@ -1348,7 +1361,8 @@ h1{font-size:clamp(2rem,6vw,3.7rem);line-height:1.05;margin:.45em 0 .3em}.audien
             modified+=1
 
     free_card=(
-        '<article class="product-card sample"><span class="card-kicker">FREE PRACTICE SAMPLE</span>'
+        '<article class="product-card sample"><div class="mini-art"><span>CYCLOPS</span><strong>LEARN</strong></div>'
+        '<span class="card-kicker">FREE PRACTICE SAMPLE</span>'
         '<h2>Quote Calculator Development Practice Sample</h2>'
         '<p>A no-purchase CYCLOPS practice resource for developers and makers exploring '
         'AI-assisted development through a concrete quote-calculator brief and acceptance checks.</p>'
@@ -1372,15 +1386,18 @@ h1{font-size:clamp(2rem,6vw,3.7rem);line-height:1.05;margin:.45em 0 .3em}.audien
 :root{--ink:#f7fbff;--muted:#a8b7c9;--line:#29415d;--cyan:#55e6ff;--violet:#ae86ff;--gold:#ffd166;--deep:#06101d}
 *{box-sizing:border-box}body{font:16px/1.6 system-ui,-apple-system,sans-serif;margin:0;color:var(--ink);background:radial-gradient(circle at 12% 5%,#163a68 0,transparent 29%),radial-gradient(circle at 88% 8%,#432b6a 0,transparent 27%),linear-gradient(180deg,#07111f,#091523 45%,#07111f)}
 main{max-width:1120px;margin:0 auto;padding:34px 20px 76px}
-.hero{position:relative;overflow:hidden;padding:clamp(26px,5vw,54px);border:1px solid #294867;border-radius:28px;background:linear-gradient(130deg,rgba(20,39,65,.96),rgba(22,18,47,.95));box-shadow:0 30px 90px rgba(0,0,0,.3);margin-bottom:26px}
+.hero{position:relative;overflow:hidden;padding:clamp(30px,6vw,64px);border:1px solid #294867;border-radius:28px;background:linear-gradient(120deg,#092b84 0%,#123fc0 38%,#f33b2f 72%,#ffd31c 100%);box-shadow:0 30px 90px rgba(0,0,0,.34);margin-bottom:26px}
 .hero:after{content:"";position:absolute;width:240px;height:240px;border:2px solid rgba(85,230,255,.26);border-radius:50%;right:-65px;top:-75px;box-shadow:0 0 0 26px rgba(174,134,255,.07),0 0 70px rgba(85,230,255,.12)}
-.brandline{font-size:.78rem;font-weight:850;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan)}
-h1{font-size:clamp(2.4rem,7vw,5.1rem);line-height:.95;margin:.18em 0 .15em;letter-spacing:-.045em}
-.expansion{font-size:clamp(1rem,2.5vw,1.28rem);max-width:790px;color:#d9e7f4;margin:0}.tagline{color:var(--muted);max-width:700px;margin:14px 0 0}
+.brandline{font-size:.78rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:white}
+h1{font-size:clamp(3rem,10vw,6.7rem);line-height:.86;margin:.2em 0 .16em;letter-spacing:-.065em;text-shadow:0 8px 32px rgba(0,0,0,.18)}
+.expansion{font-size:clamp(1rem,2.5vw,1.32rem);max-width:850px;color:white;font-weight:800;margin:0}.tagline{color:#fff8e8;max-width:760px;margin:14px 0 0;font-size:1.05rem}
+.brand-explainer{max-width:840px;margin:18px 0 0;padding:14px 16px;border-left:4px solid #fff;background:rgba(4,20,56,.24);border-radius:0 12px 12px 0;font-weight:650}
 .pulse{display:inline-flex;gap:8px;align-items:center;margin-top:20px;padding:7px 11px;border:1px solid #3b5877;border-radius:999px;color:#dceaf7;font-size:.82rem}.pulse:before{content:"";width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 16px var(--cyan)}
 section{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
-.product-card{display:flex;flex-direction:column;background:linear-gradient(150deg,rgba(19,34,54,.98),rgba(12,24,39,.98));border:1px solid var(--line);border-radius:20px;padding:23px;min-height:330px;box-shadow:0 18px 50px rgba(0,0,0,.18)}
+.product-card{display:flex;flex-direction:column;background:linear-gradient(150deg,rgba(19,34,54,.98),rgba(12,24,39,.98));border:1px solid var(--line);border-radius:20px;padding:16px 20px 22px;min-height:380px;box-shadow:0 18px 50px rgba(0,0,0,.18);overflow:hidden}
 .product-card.sample{background:linear-gradient(145deg,rgba(30,53,78,.98),rgba(47,29,75,.97));border-color:#5378a2}
+.mini-art{position:relative;overflow:hidden;margin:-16px -20px 18px;padding:22px 20px;min-height:112px;background:linear-gradient(120deg,#07339c,#254bdb 48%,#ff4434 76%,#ffd31d);display:flex;flex-direction:column;justify-content:flex-end}
+.mini-art:after{content:"";position:absolute;width:100px;height:100px;border:18px solid rgba(255,255,255,.17);border-radius:50%;right:-28px;top:-38px}.mini-art span,.mini-art strong{position:relative;z-index:1}.mini-art span{font-size:.68rem;letter-spacing:.15em;font-weight:900}.mini-art strong{font-size:2rem;line-height:1;font-style:italic}
 .card-kicker{color:var(--cyan);font-size:.7rem;letter-spacing:.12em;font-weight:900}.product-card h2{line-height:1.18;margin:.45em 0 .35em;font-size:1.42rem}.muted{color:var(--muted)}
 .card-footer{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:auto}.price{font-size:1.45rem;font-weight:850;color:var(--gold);margin:10px 0}
 .detail{color:var(--cyan);font-weight:750}.buy,.sample-link{display:inline-block;margin-top:10px;padding:11px 14px;border-radius:10px;text-decoration:none;font-weight:900}
@@ -1389,8 +1406,9 @@ footer{margin-top:32px;padding-top:20px;border-top:1px solid #21354c;color:var(-
 </style></head><body><main>
 <header class="hero"><div class="brandline">ARI Operations · Agentic Resource Integration</div>
 <h1>CYCLOPS</h1><p class="expansion">Continuously Yielding Customer-Led Original Products &amp; Solutions</p>
-<p class="tagline">CYCLOPS Product Store — Practical digital solutions by ARI Operations. Each paid listing is checked for deliverable completeness and accurate claims before purchase.</p>
-<div class="pulse">Research → Build → Verify → Publish</div></header>
+<p class="tagline">CYCLOPS Product Store — Practical digital solutions by ARI Operations.</p>
+<p class="brand-explainer"><strong>Customer-led</strong> means the products are driven by observed customer needs. ARI Operations handles the research, creation, testing and publishing; customers use the finished solutions.</p>
+<div class="pulse">Research → Create → Test → Publish</div></header>
 <section>'''+body+'''</section>
 <footer>ARI Operations · Questions? <a href="mailto:ari-operations@agentmail.to">Contact our digital products team</a>.</footer>
 </main></body></html>'''
