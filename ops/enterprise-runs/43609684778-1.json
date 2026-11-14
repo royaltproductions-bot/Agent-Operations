@@ -1,0 +1,125 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T15:22:55.688713+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 9,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "bing": 3,
+      "followup": 3,
+      "hn_ask": 1,
+      "github_paid_issues": 2
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      }
+    ],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 8,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://www.santanderopenacademy.com/es/blog/rfp-que-es.html",
+        "title": "Qu\u00e9 es una RFP y para qu\u00e9 sirve | Santander Open Academy",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://www.getguru.com/es/reference/rfp",
+        "title": "\u00bfQu\u00e9 es una RFP: Beneficios, Ejemplos y C\u00f3mo Crear Una [2026]",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://rfp.cl/",
+        "title": "RFP Agencia de Aduanas | Ricardo Fuenzalida Polanco",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://rfp.ai/ai-rfp-software/",
+        "title": "AI RFP software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://rfp.ai/login?mode=signup&amp;next=/app",
+        "title": "Try RFP.ai free",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://rfp.ai/",
+        "title": "RFP.ai",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "RFP for a persistent memory layer for AI agents in Rust with public document submission",
+      "RFP for a secure data export tool with public document submission route",
+      "need paid help with developing a real-time dashboard with contactable invitation",
+      "is:issue is:open bounty created:>=2026-09-15 create secure data",
+      "is:issue is:open bounty created:>=2026-09-15 developing real time"
+    ],
+    "attempted_search_queries": [
+      "need paid help with building a scalable notification system with public response channel",
+      "RFP for a persistent memory layer for AI agents in Rust with public document submission",
+      "hiring a freelancer to create a secure data validation pipeline with public proposal submission",
+      "need paid help with developing a real-time dashboard with contactable invitation",
+      "RFP for a secure data export tool with public document submission route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 8,
+      "skipped_revisits": 37,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "need paid help with building a scalable notification system with public response channel",
+        "RFP for a persistent memory layer for AI agents in Rust with public document submission",
+        "hiring a freelancer to create a secure data validation pipeline with public proposal submission",
+        "need paid help with developing a real-time dashboard with contactable invitation",
+        "RFP for a secure data export tool with public document submission route"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
