@@ -327,7 +327,10 @@ def summarize(state, now=None):
                                           (entry.get('at') if action == 'asked' else None)))
             bid_at = row.get('bid_at') or row.get('bid_created_at')
             values['bids_sent'] += int(on_date(bid_at))
-            values['bids_active'] += int(row.get('bid_status') == 'active' and on_date(bid_at))
+            values['bids_active'] += int(
+                row.get('bid_status') == 'active'
+                and row.get('platform_status') not in {'canceled', 'closed'}
+                and on_date(bid_at))
             for status in ('declined', 'withdrawn', 'missing_unconfirmed'):
                 values[status] += int(row.get('bid_status') == status and on_date(row.get('bid_status_changed_at')))
             for status in ('hired', 'delivered', 'accepted'):
@@ -367,11 +370,15 @@ def summarize(state, now=None):
         'median_posting_to_detection_minutes':latency('first_detected_at'),
         'median_posting_to_bid_minutes':latency('bid_at'),
         'aging_active_bids_days': {k:(now - utc_time(r['bid_at'])).total_seconds()/86400
-             if utc_time(r.get('bid_at')) else None for k,r in records.items() if r.get('bid_status') == 'active'},
+             if utc_time(r.get('bid_at')) else None for k,r in records.items()
+             if r.get('bid_status') == 'active'
+             and r.get('platform_status') not in {'canceled', 'closed'}},
         'unanswered_threads': {'count':len(unanswered), 'oldest_last_incoming_at':min(unanswered) if unanswered else None},
         'model_budget':state.get('analytics', {}).get('model_budget', {'call_count':None,'reserved_micro_usd':None}),
         'unknown_fields':{f:sum(f not in r for r in records.values()) for f in fields},
         'null_fields':{f:sum(f in r and r[f] is None for r in records.values()) for f in fields},
         'browser':state.get('analytics', {}).get('browser', {}),
         'browser_manual_snapshot':state.get('analytics', {}).get('browser_manual_snapshot'),
+        'market_observation':state.get('market_observation'),
+        'market_observation_history':state.get('market_observation_history', [])[-288:],
         'coverage':'Observed unique bounties; historical events before instrumentation may be incomplete.'}
