@@ -848,6 +848,20 @@ class CyclopsPublicBrandingTests(unittest.TestCase):
             "Practical digital solutions by ARI Operations.")
         self.assertIn("gumroad.com",cyclops.CYCLOPS_FREE_SAMPLE_URL)
 
+    def test_cyclops_distribution_first_default_freezes_new_production(self):
+        import inspect
+        cyclops=cyclops_or_skip(self)
+        self.assertFalse(cyclops.CYCLOPS_PRODUCTION_ENABLED)
+        source=inspect.getsource(cyclops.run)
+        self.assertIn('paused_for_distribution',source)
+        self.assertIn('should_produce=False',source)
+        self.assertLess(source.index('fulfill_orders()'),
+                        source.index('paused_for_distribution'))
+        self.assertLess(source.index('publish_catalog()'),
+                        source.index('paused_for_distribution'))
+        self.assertLess(source.index('send_asset_offer(distribution_rows,existing)'),
+                        source.index('paused_for_distribution'))
+
     def test_cyclops_engine_source_is_not_duplicated(self):
         from pathlib import Path
         source=Path("tools/cyclops_asset_engine.py").read_text()
