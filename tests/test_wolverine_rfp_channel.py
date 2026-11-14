@@ -94,12 +94,49 @@ class WolverineRfpChannelTests(unittest.TestCase):
         memory=Memory()
         with patch.object(brain,"discovery_queries",
                           return_value=["looking for someone to build a dashboard"]), \
-             patch.object(brain,"open_web_candidates",return_value=([],[])):
+             patch.object(brain,"open_web_candidates",return_value=([],[])) as search:
             rows,issues=brain.candidates(memory)
         self.assertEqual(rows,[])
         self.assertTrue(memory.proposed[0].lower().startswith("request for proposals"))
         self.assertIn("rfp",memory.proposed[1].lower())
         self.assertIn("looking for someone",memory.proposed[2].lower())
+        self.assertEqual(search.call_count,2)
+        first=search.call_args_list[0].kwargs
+        second=search.call_args_list[1].kwargs
+        self.assertTrue(all(brain.solicitation_query(q) for q in first["queries"]))
+        self.assertFalse(first["include_discussions"])
+        self.assertFalse(first["include_paid_issues"])
+        self.assertTrue(all(not brain.solicitation_query(q) for q in second["queries"]))
+        self.assertTrue(second["include_discussions"])
+        self.assertTrue(second["include_paid_issues"])
+
+    def test_solicitation_web_results_are_merged_before_general_rows(self):
+        class Memory:
+            state={"queries":[]}
+            def choose_queries(self,proposed):
+                return list(proposed[:3])
+            def budget(self):
+                return {"max_candidates":8,"max_pages":18}
+            def evidence_queries(self):
+                return []
+        memory=Memory()
+        official=self.row()
+        official["source_url"]="https://buyer.example/official-rfp"
+        general={"id":"web:general","source_url":"https://news.example/general",
+                 "title":"General request","page_text":"general","text":"general",
+                 "page_fetched":True,"created_at":"2026-11-13T12:00:00+00:00",
+                 "contact":None,"public_links":[]}
+        def search(**kwargs):
+            return ([official],[]) if not kwargs["include_discussions"] else ([general],[])
+        with patch.object(brain,"discovery_queries",
+                          return_value=["looking for someone to build a dashboard"]), \
+             patch.object(brain,"open_web_candidates",side_effect=search), \
+             patch.object(brain,"review_requester_pages",side_effect=lambda rows:rows), \
+             patch.object(brain,"enrich_public_response_route",side_effect=lambda rows:rows):
+            rows,issues=brain.candidates(memory)
+        self.assertEqual([r["source_url"] for r in rows],
+                         ["https://buyer.example/official-rfp",
+                          "https://news.example/general"])
 
     def test_solicitation_seed_rotates_away_from_recent_query(self):
         now=datetime(2026,11,14,2,0,tzinfo=timezone.utc)
