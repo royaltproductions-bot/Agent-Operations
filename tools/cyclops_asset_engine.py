@@ -1204,6 +1204,12 @@ def public_product_url(asset):
     return "https://ari-operations.onrender.com/products/"+slug+"/"
 
 
+CYCLOPS_BRAND="CYCLOPS"
+CYCLOPS_EXPANSION="Continuously Yielding Customer-Led Original Products & Solutions"
+CYCLOPS_STORE_TAGLINE="Practical digital solutions by ARI Operations."
+CYCLOPS_FREE_SAMPLE_URL="https://ariquest444.gumroad.com/cyclops-by-ari-operations-free-quote-calculator-practice-sample"
+
+
 def publish_catalog():
     """Independently expose approved catalog offers through existing storefront."""
     manifests=active_assets()
@@ -1252,22 +1258,2207 @@ def publish_catalog():
         product_html='''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="index,follow">
-<title>'''+name+''' | Ari Operations</title>
+<title>'''+name+''' | CYCLOPS by ARI Operations</title>
 <meta name="description" content="'''+escape(str(asset.get("description") or "")[:160],quote=True)+'''">
 <link rel="canonical" href="'''+canonical+'''">
 <meta property="og:type" content="product"><meta property="og:title" content="'''+escape(str(asset.get("title") or ""),quote=True)+'''">
 <meta property="og:description" content="'''+escape(str(asset.get("description") or "")[:180],quote=True)+'''">
 <meta property="og:url" content="'''+canonical+'''">
 <script type="application/ld+json">'''+jsonld+'''</script>
-<style>body{font:16px/1.65 system-ui,sans-serif;background:#f5f7f8;color:#182932;margin:0}
-main{max-width:850px;margin:0 auto;padding:45px 22px}article{background:white;padding:30px;border-radius:14px;border:1px solid #dbe3e7}
-.buy{display:inline-block;background:#155f65;color:white;padding:12px 20px;border-radius:8px;text-decoration:none}
-.price{font-size:1.5rem;font-weight:700}a{color:#155f65}</style></head><body><main>
-<nav><a href="/">Ari Operations · All products</a></nav>
-<article><h1>'''+name+'''</h1><p>'''+desc+'''</p>
-<p>Designed for: '''+audience+'''</p><p class="price">$'''+price+'''</p>
+<style>
+:root{--ink:#f8fbff;--muted:#a9b9ca;--panel:#111c2d;--line:#273a53;--cyan:#57e4ff;--violet:#b489ff;--gold:#ffd166;--deep:#07111f}
+*{box-sizing:border-box}body{font:16px/1.65 system-ui,-apple-system,sans-serif;margin:0;color:var(--ink);background:
+radial-gradient(circle at 12% 8%,#183964 0,transparent 31%),radial-gradient(circle at 88% 10%,#412a65 0,transparent 28%),var(--deep)}
+main{max-width:930px;margin:0 auto;padding:34px 22px 70px}
+nav{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:28px}nav a{color:var(--cyan);text-decoration:none;font-weight:700}
+.brand{font-size:.82rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+article{background:linear-gradient(145deg,rgba(20,34,54,.96),rgba(12,23,38,.97));padding:clamp(26px,5vw,48px);border-radius:24px;border:1px solid var(--line);box-shadow:0 28px 80px rgba(0,0,0,.28)}
+.eyebrow{display:inline-block;padding:6px 10px;border:1px solid #3e5775;border-radius:999px;color:var(--cyan);font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+h1{font-size:clamp(2rem,6vw,3.7rem);line-height:1.05;margin:.45em 0 .3em}.audience{color:var(--muted)}
+.price{font-size:2rem;font-weight:850;color:var(--gold);margin:.75em 0}
+.buy{display:inline-block;background:linear-gradient(100deg,#34d8f2,#8c6cff);color:#07111f;padding:13px 20px;border-radius:11px;text-decoration:none;font-weight:900;box-shadow:0 10px 30px rgba(87,228,255,.18)}
+.note{color:var(--muted);font-size:.9rem;margin-top:18px}a{color:var(--cyan)}
+</style></head><body><main>
+<nav><a href="/">← CYCLOPS Product Store</a><span class="brand">ARI Operations</span></nav>
+<article><span class="eyebrow">'''+CYCLOPS_EXPANSION+'''</span><h1>'''+name+'''</h1><p>'''+desc+'''</p>
+<p class="audience"><strong>Designed for:</strong> '''+audience+'''</p><p class="price">
+        publish_page("products/"+slug+"/index.html",product_html)
+        cards.append(
+            '<article class="product-card"><span class="card-kicker">CYCLOPS PRODUCT</span>'
+            '<h2>'+name+'</h2><p>'+desc+'</p>'
+            '<p class="muted"><strong>For:</strong> '+audience+'</p>'
+            '<div class="card-footer"><p class="price">
+    free_card=(
+        '<article class="product-card sample"><span class="card-kicker">FREE PRACTICE SAMPLE</span>'
+        '<h2>Quote Calculator Development Practice Sample</h2>'
+        '<p>A no-purchase CYCLOPS practice resource for developers and makers exploring '
+        'AI-assisted development through a concrete quote-calculator brief and acceptance checks.</p>'
+        '<p class="muted"><strong>Cost:</strong> Free · No checkout required</p>'
+        '<a class="sample-link" href="'+escape(CYCLOPS_FREE_SAMPLE_URL,quote=True)+
+        '" rel="noopener noreferrer">Open the free sample ↗</a></article>')
+    paid_body="".join(cards) if cards else (
+        '<article class="product-card"><h2>Products under review</h2>'
+        '<p>We are checking deliverable completeness and description accuracy '
+        'before placing digital products on sale.</p></article>')
+    body=free_card+paid_body
+    document='''<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="index,follow">
+<title>CYCLOPS Product Store | ARI Operations</title>
+<meta name="description" content="CYCLOPS — Continuously Yielding Customer-Led Original Products &amp; Solutions. Practical digital solutions by ARI Operations.">
+<link rel="canonical" href="https://ari-operations.onrender.com/">
+<style>
+:root{--ink:#f7fbff;--muted:#a8b7c9;--panel:#101d2f;--panel2:#14243a;--line:#29415d;--cyan:#55e6ff;--violet:#ae86ff;--gold:#ffd166;--deep:#06101d}
+*{box-sizing:border-box}body{font:16px/1.6 system-ui,-apple-system,sans-serif;margin:0;color:var(--ink);background:
+radial-gradient(circle at 12% 5%,#163a68 0,transparent 29%),radial-gradient(circle at 88% 8%,#432b6a 0,transparent 27%),linear-gradient(180deg,#07111f,#091523 45%,#07111f)}
+main{max-width:1120px;margin:0 auto;padding:34px 20px 76px}
+.hero{position:relative;overflow:hidden;padding:clamp(26px,5vw,54px);border:1px solid #294867;border-radius:28px;background:linear-gradient(130deg,rgba(20,39,65,.96),rgba(22,18,47,.95));box-shadow:0 30px 90px rgba(0,0,0,.3);margin-bottom:26px}
+.hero:after{content:"";position:absolute;width:240px;height:240px;border:2px solid rgba(85,230,255,.26);border-radius:50%;right:-65px;top:-75px;box-shadow:0 0 0 26px rgba(174,134,255,.07),0 0 70px rgba(85,230,255,.12)}
+.brandline{font-size:.78rem;font-weight:850;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan)}
+h1{font-size:clamp(2.4rem,7vw,5.1rem);line-height:.95;margin:.18em 0 .15em;letter-spacing:-.045em}
+.expansion{font-size:clamp(1rem,2.5vw,1.28rem);max-width:790px;color:#d9e7f4;margin:0}.tagline{color:var(--muted);max-width:700px;margin:14px 0 0}
+.pulse{display:inline-flex;gap:8px;align-items:center;margin-top:20px;padding:7px 11px;border:1px solid #3b5877;border-radius:999px;color:#dceaf7;font-size:.82rem}.pulse:before{content:"";width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 16px var(--cyan)}
+section{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.product-card{display:flex;flex-direction:column;background:linear-gradient(150deg,rgba(19,34,54,.98),rgba(12,24,39,.98));border:1px solid var(--line);border-radius:20px;padding:23px;min-height:330px;box-shadow:0 18px 50px rgba(0,0,0,.18)}
+.product-card.sample{background:linear-gradient(145deg,rgba(30,53,78,.98),rgba(47,29,75,.97));border-color:#5378a2}
+.card-kicker{color:var(--cyan);font-size:.7rem;letter-spacing:.12em;font-weight:900}.product-card h2{line-height:1.18;margin:.45em 0 .35em;font-size:1.42rem}.muted{color:var(--muted)}
+.card-footer{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:auto}.price{font-size:1.45rem;font-weight:850;color:var(--gold);margin:10px 0}
+.detail{color:var(--cyan);font-weight:750}.buy,.sample-link{display:inline-block;margin-top:10px;padding:11px 14px;border-radius:10px;text-decoration:none;font-weight:900}
+.buy{background:linear-gradient(100deg,#3dd9ef,#8c72ff);color:#07111f}.sample-link{background:#f5fbff;color:#132033}
+footer{margin-top:32px;padding-top:20px;border-top:1px solid #21354c;color:var(--muted)}footer a{color:var(--cyan)}
+</style></head><body><main>
+<header class="hero"><div class="brandline">ARI Operations · Agentic Resource Integration</div>
+<h1>CYCLOPS</h1><p class="expansion">Continuously Yielding Customer-Led Original Products &amp; Solutions</p>
+<p class="tagline">CYCLOPS Product Store — Practical digital solutions by ARI Operations. Each paid listing is checked for deliverable completeness and accurate claims before purchase.</p>
+<div class="pulse">Research → Build → Verify → Publish</div></header>
+<section>'''+body+'''</section>
+<footer>ARI Operations · Questions? <a href="mailto:ari-operations@agentmail.to">Contact our digital products team</a>.</footer>
+</main></body></html>'''
+    sitemap='''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+'''+''.join('<url><loc>'+escape(url)+'</loc></url>\n' for url in ([base_url+"/"] if ready else [])+pages)+'''</urlset>
+'''
+    robots='User-agent: *\nAllow: /\nSitemap: '+base_url+'/sitemap.xml\n'
+    publish_page("sitemap.xml",sitemap)
+    publish_page("robots.txt",robots)
+    # Update the catalog index last, after all linked product pages exist.
+    publish_page("index.html",document)
+    return {"result":"catalog_published" if modified else "catalog_unchanged",
+            "listed_products":len(ready),"product_pages":len(pages),
+            "files_updated":modified}
+
+
+def verified_session(session):
+    if (session.get("status")!="complete" or session.get("payment_status")!="paid"
+            or session.get("mode")!="payment"):
+        return False
+    intent=session.get("payment_intent")
+    if not isinstance(intent,str) or not intent.startswith("pi_"):
+        return False
+    pi=stripe_get("payment_intents/"+urllib.parse.quote(intent,safe=""))
+    charge_id=pi.get("latest_charge")
+    if pi.get("status")!="succeeded" or not isinstance(charge_id,str):
+        return False
+    charge=stripe_get("charges/"+urllib.parse.quote(charge_id,safe=""))
+    return bool(charge.get("paid") and charge.get("status")=="succeeded"
+                and not charge.get("refunded")
+                and int(charge.get("amount_refunded") or 0)==0)
+
+def _stripe_pages(endpoint):
+    """Follow Stripe's real has_more/starting_after cursor, not first 100 only."""
+    cursor=None
+    seen=set()
+    while True:
+        params={"limit":100}
+        if cursor:
+            params["starting_after"]=cursor
+        page=stripe_get(endpoint,params)
+        records=page.get("data") or []
+        for record in records:
+            yield record
+        if not page.get("has_more") or not records:
+            break
+        last=str(records[-1].get("id") or "")
+        if not last or last in seen:
+            raise RuntimeError("stripe_pagination_cursor_stalled")
+        seen.add(last)
+        cursor=last
+
+
+def paid_orders():
+    links={}
+    for link in _stripe_pages("payment_links"):
+        meta=link.get("metadata") or {}
+        if meta.get("cyclops_asset")=="yes" and meta.get("cyclops_asset_id"):
+            links[link.get("id")]=meta.get("cyclops_asset_id")
+    if not links:
+        return []
+    orders=[]
+    completed=set((read_ledger().get("fulfilled") or {}).keys())
+    for session in _stripe_pages("checkout/sessions"):
+        ident=links.get(session.get("payment_link"))
+        if not ident:
+            continue
+        marker=hashlib.sha256(str(session.get("id") or "").encode()).hexdigest()
+        if marker in completed:
+            # Already delivered, not a newly paid order. Avoid expensive
+            # repeat payment-intent/charge lookups each hourly execution.
+            continue
+        # Fail closed: only verified, settled, unrefunded real Stripe payments.
+        if not verified_session(session):
+            continue
+        email=(session.get("customer_details") or {}).get("email") or session.get("customer_email")
+        orders.append({
+            "session_id":session["id"],
+            "asset_id":ident,
+            "customer_email":email,
+            "amount_total":int(session.get("amount_total") or 0),
+            "currency":session.get("currency"),
+        })
+    return orders
+
+
+def fulfill_orders():
+    results=[]
+    new_paid=0
+    new_delivered=0
+    for order in paid_orders():
+        session=order["session_id"]
+        amount=order["amount_total"]
+        if record_order(session,amount,"paid"):
+            new_paid+=amount
+        marker=hashlib.sha256(str(session).encode()).hexdigest()[:18]
+        subject="Cyclops delivery ["+marker+"]"
+        if (hashlib.sha256(str(session).encode()).hexdigest()
+                in (read_ledger().get("fulfilled") or {})) or sent_subject_exists(subject):
+            record_order(session,amount,"fulfilled")
+            results.append({"result":"already_fulfilled",
+                            "asset_id":order["asset_id"],"amount_cents":amount})
+            continue
+        email=order.get("customer_email")
+        if not re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+",str(email or "")):
+            results.append({"result":"fulfillment_failed",
+                            "asset_id":order["asset_id"],
+                            "detail":"paid_order_has_no_valid_delivery_email",
+                            "amount_cents":amount})
+            continue
+        try:
+            folder=ROOT/order["asset_id"]
+            manifest=json.loads((folder/"manifest.json").read_text(encoding="utf-8"))
+            if manifest.get("delivery")=="private_encrypted_vault":
+                # File content is authenticated/decrypted only after payment.
+                files=read_asset_files(order["asset_id"])
+            else:
+                # Backwards compatibility for pre-vault historic paid sessions.
+                files=[(name,(folder/name).read_bytes())
+                       for name in manifest.get("files") or []]
+            if not files:
+                raise ValueError("asset_files_missing")
+            body=("Thanks for your purchase. Your files are attached.\n\n"
+                  +str(manifest.get("title") or "Digital asset"))
+            agent_send(email,subject,body,files,
+                       order_id="cyclops-delivery-"+str(session))
+            record_order(session,amount,"fulfilled")
+            new_delivered+=1
+            results.append({"result":"fulfilled",
+                            "asset_id":order["asset_id"],"amount_cents":amount})
+        except Exception as exc:
+            results.append({"result":"fulfillment_failed",
+                            "asset_id":order["asset_id"],
+                            "detail":(str(exc) or type(exc).__name__)[:160],
+                            "amount_cents":amount})
+    return {"orders":results,
+            "newly_observed_verified_paid_cents":new_paid,
+            "newly_fulfilled_orders":new_delivered}
+
+
+ASSET_RESOURCE_INVITATION=re.compile(
+    r"(?i)\b(?:submit (?:your |a |an )?(?:digital )?(?:resource|tool|product|template|listing)|"
+    r"suggest (?:your |a |an )?(?:resource|tool|product|template)|"
+    r"recommend (?:your |a |an )?(?:resource|tool|product|template)|"
+    r"(?:accept|accepting|welcome|welcoming) (?:submissions? of |suggestions? for )?"
+    r"(?:resources|tools|products|templates)|"
+    r"send (?:us |in |your )?(?:a |your )?(?:resource|tool|product|template))\b")
+
+
+def public_asset_distribution_invitation(row):
+    """Only an original, fetched invitation can unlock product outreach."""
+    if not row.get("page_fetched") or not row.get("contact"):
+        return False
+    from tools.autonomous_commerce_brain import public_buyer_invitation
+    return bool(public_buyer_invitation(row) or ASSET_RESOURCE_INVITATION.search(
+        str(row.get("page_text") or "")))
+
+
+def durable_distribution_leads(new_rows):
+    """Remember authentic, publicly invited contact possibilities across runs.
+
+    Contact details and source evidence remain encrypted in the Cyclops vault,
+    never in public campaign files. Source relevance and explicit invitation
+    are still checked before any commercial message is sent.
+    """
+    path="ops/cyclops-vault/distribution.json"
+    previous=read_private(path) or []
+    if not isinstance(previous,list):
+        raise RuntimeError("cyclops_distribution_queue_unreadable")
+    by_url={}
+    for item in previous:
+        if isinstance(item,dict) and item.get("source_url"):
+            by_url[item["source_url"]]=item
+    # Historical footer emails and vendor pages are not commercial prospects.
+    by_url={url:row for url,row in by_url.items()
+            if public_asset_distribution_invitation(row)}
+    # Re-save a scrubbed queue after removing old seller/footer contacts.
+    changed=len(by_url)!=len(previous)
+    for row in new_rows:
+        if not public_asset_distribution_invitation(row):
+            continue
+        url=str(row.get("source_url") or "")
+        if not url:
+            continue
+        by_url[url]={
+            "id":row["id"],"source_url":url,"source":"open_web",
+            "title":str(row.get("title") or "")[:180],
+            "text":str(row.get("text") or "")[:6000],
+            "page_text":str(row.get("page_text") or "")[:6000],
+            "contact":row["contact"],"page_fetched":True,
+            "created_at":row.get("created_at"),
+            "contact_source_url":str(row.get("contact_source_url") or "")[:400],
+            "search_query":str(row.get("search_query") or "")[:220],
+        }
+        changed=True
+    # Old leads aren't permanently excluded; inbox-level duplicate checks
+    # and source invitation verification protect against repeated messages.
+    pool=list(by_url.values())[-320:]
+    if changed:
+        save_private(path,pool)
+    return pool
+
+
+def find_asset_buyers(asset,memory):
+    """Discover opted-in outlets for finished assets, not freelance hiring ads."""
+    terms=[str(t).strip() for t in asset.get("target_terms") or []
+           if len(str(t).strip())>=4]
+    if not terms:
+        terms=[str(asset.get("title") or "").strip()]
+    queries=[]
+    for term in dict.fromkeys(terms[:4]):
+        queries.append('"'+term[:75]+'" "submit a resource"')
+        queries.append('"'+term[:75]+'" "suggest a tool"')
+        queries.append('"'+term[:75]+'" "submit your product"')
+        queries.append('"'+term[:75]+'" "looking for" ready-made resource')
+    rows,errors=open_web_candidates(
+        max_candidates=16,queries=queries[:8],memory=memory,
+        max_pages=18,strict_relevance=True,include_discussions=True)
+    # Resource curators may invite a submission on one page and list their
+    # contact route on another. Only follow links on an inviting source.
+    from tools.autonomous_commerce_brain import (
+        enrich_public_response_route, is_requester_page, PUBLIC_INVITATION)
+    invited=[row for row in rows if row.get("page_fetched") and (
+        ASSET_RESOURCE_INVITATION.search(str(row.get("page_text") or ""))
+        or (is_requester_page(row) and PUBLIC_INVITATION.search(
+            str(row.get("page_text") or ""))))]
+    resolved=enrich_public_response_route(invited)
+    return [row for row in resolved if public_asset_distribution_invitation(row)],errors
+
+
+def prospect_score(row,asset):
+    text=str(row.get("text") or "").lower()
+    target_hits=0
+    score=0
+    for term in asset.get("target_terms") or []:
+        term=str(term).strip().lower()
+        if term and term in text:
+            target_hits+=1
+            score+=8
+    # The product's own model-selected terms, not a fixed list of industries
+    # or paid-contract vocabulary, determine similarity to new evidence.
+    return score if target_hits else 0
+
+def asset_offer_subject(row,asset):
+    marker=hashlib.sha256(
+        (asset["asset_id"]+"|"+row["source_url"]).encode()).hexdigest()[:18]
+    if ASSET_RESOURCE_INVITATION.search(str(row.get("page_text") or "")):
+        return "Ari Operations resource suggestion ["+marker+"]"
+    return "Useful fixed asset ["+marker+"]"
+
+def has_uncontacted_matching_prospect(rows,asset,sent_subjects):
+    for row in rows:
+        if (row.get("contact") and prospect_score(row,asset)>0
+                and asset_offer_subject(row,asset) not in sent_subjects):
+            return True
+    return False
+
+PROSPECT_SCHEMA={
+    "type":"object",
+    "properties":{
+        "invited":{"type":"boolean"},
+        "reason":{"type":"string"},
+    },
+    "required":["invited","reason"],
+    "additionalProperties":False,
+}
+
+def can_contact_for_asset(row,asset):
+    """Assess a specific outreach action; never narrow discovery itself."""
+    if not row.get("contact") or not row.get("page_fetched"):
+        return False
+    system=(
+        "Determine if this specific original page EXPLICITLY invites outside "
+        "submissions of finished products or resources of the supplied type, "
+        "or explicitly requests a solution the finished product can supply. "
+        "Is the listed contact an appropriate destination for that invitation? "
+        "A generic footer email, informational article, mere question, unrelated "
+        "directory, or job post is NOT an invitation. Reject irrelevant "
+        "submissions, and never propose an interview or custom work. "
+        "If no fitting invitation appears in the actual page, invited=false. "
+        "Return schema-compliant JSON, no speculation."
+    )
+    try:
+        decision=model_json(
+            PROSPECT_SCHEMA,system,
+            {"source_url":row["source_url"],"evidence":row["text"][:2600],
+             "asset_title":asset["title"],"asset_description":asset["description"]},num_ctx=3072,num_predict=140)
+        return decision.get("invited") is True
+    except Exception:
+        return False
+
+def send_asset_offer(rows,asset):
+    sent=recent_sent_subjects()
+    ranked=sorted(rows,key=lambda r:(-prospect_score(r,asset),r["source_url"]))
+    for row in ranked:
+        if (prospect_score(row,asset)<=0 or
+                not public_asset_distribution_invitation(row)):
+            continue
+        subject=asset_offer_subject(row,asset)
+        marker=subject.rsplit("[",1)[-1].rstrip("]")
+        if subject in sent or not can_contact_for_asset(row,asset):
+            continue
+        price=int(asset["price_cents"])/100
+        resource_submission=bool(ASSET_RESOURCE_INVITATION.search(
+            str(row.get("page_text") or "")))
+        if resource_submission:
+            body=(
+                "Hello,\n\nYour public resource submission invitation appears "
+                "relevant to this finished digital product. Please consider "
+                "including it if it would genuinely serve your audience.\n\n"
+                "Product: "+str(asset["title"]).strip()+"\n"
+                "Description: "+str(asset["description"]).strip()+"\n"
+                "One-time price: $"+format(price,".2f")+"\n"
+                "Product details: "+public_product_url(asset)+"\n\n"
+                "No response is needed if it isn't suitable.\n\nAri Operations")
+        else:
+            body=(
+                str(asset["pitch"]).strip()+"\n\n"
+                "Product: "+str(asset["title"]).strip()+"\n"
+                "One-time price: $"+format(price,".2f")+"\n"
+                "Get it here: "+str(asset["checkout_url"])+"\n\n"
+                "The purchase is the finished reusable asset, not a custom engagement."
+            )
+        agent_send(row["contact"],subject,body,[],
+                   order_id="cyclops-offer-"+marker)
+        return {"result":"offer_sent","source_url":row["source_url"],
+                "asset_id":asset["asset_id"],"score":prospect_score(row,asset)}
+    return {"result":"no_relevant_opt_in_buyer","asset_id":asset["asset_id"]}
+
+def write_receipt(receipt):
+    RECEIPTS.mkdir(parents=True,exist_ok=True)
+    rid=re.sub(r"[^A-Za-z0-9_-]","",os.getenv("GITHUB_RUN_ID","local"))
+    attempt=re.sub(r"[^A-Za-z0-9_-]","",os.getenv("GITHUB_RUN_ATTEMPT","1"))
+    path=RECEIPTS/f"{rid}-{attempt}.json"
+    path.write_text(json.dumps(receipt,indent=2)+"\n",encoding="utf-8")
+
+def run():
+    global RUN_DEADLINE
+    RUN_DEADLINE=time.monotonic()+16*60
+    receipt={
+        "schema_version":2,
+        "lane":"cyclops_reusable_assets",
+        "timestamp":NOW().isoformat(),
+        "model":MODEL,
+        "asset":None,
+        "discovery":{},
+        "production":{},
+        "catalog":{},
+        "legacy_checkout_safety":{},
+        "external_action":None,
+        "fulfillment":[],
+        "structural_failures":[],
+        "commercial_outcomes":[],
+        "economic_result":{
+            "new_asset_created":0,
+            "new_product_offers_sent":0,
+            "fulfilled_orders_seen":0,
+            "verified_cyclops_revenue_cents_seen":0,
+            "newly_observed_verified_paid_cents":0,
+        },
+    }
+
+    # These are independent business activities, not a mandatory single funnel.
+    # Payment verification and delivery always get first access to the runner.
+    try:
+        fulfillment=fulfill_orders()
+        receipt["fulfillment"]=fulfillment["orders"]
+        receipt["economic_result"]["fulfilled_orders_seen"]=fulfillment["newly_fulfilled_orders"]
+        receipt["economic_result"]["newly_observed_verified_paid_cents"]=(
+            fulfillment["newly_observed_verified_paid_cents"])
+        receipt["economic_result"]["verified_cyclops_revenue_cents_seen"]=(
+            fulfillment["newly_observed_verified_paid_cents"])
+        if any(x.get("result")=="fulfillment_failed" for x in fulfillment["orders"]):
+            receipt["structural_failures"].append({
+                "reason":"verified_customer_fulfillment_incomplete"})
+    except Exception as exc:
+        receipt["structural_failures"].append({
+            "reason":"fulfillment_scan_failed",
+            "detail":(str(exc) or type(exc).__name__)[:160]})
+
+    # Catalog distribution does not require a new product or a new email lead.
+    try:
+        receipt["legacy_checkout_safety"]=retire_unverified_payment_links()
+    except Exception as exc:
+        receipt["structural_failures"].append({
+            "reason":"unverified_payment_link_retirement_failed",
+            "detail":(str(exc) or type(exc).__name__)[:160]})
+
+    try:
+        receipt["catalog"]=publish_catalog()
+    except Exception as exc:
+        receipt["structural_failures"].append({
+            "reason":"catalog_publication_failed",
+            "detail":(str(exc) or type(exc).__name__)[:160]})
+
+    memory=ResearchMemory("cyclops")
+    try:
+        # Drafts already carry their original source evidence. Continuing one
+        # must not spend the runner's Qwen budget on unrelated new research.
+        pending_at_start=read_pending()
+        if (pending_at_start.get("stage") in ("drafting","review","approved","sealed")
+                and not (pending_at_start.get("plan") or {}).get("output_files")):
+            # The old subjective reviewer created a permanently stuck draft.
+            # Retire it BEFORE deciding whether to search, so this same run
+            # can originate a fresh deliverable rather than wasting an hour.
+            try:
+                _retire_draft(pending_at_start,"legacy_fixed_format_non_executable_draft")
+            except ProductRetired as retirement:
+                receipt["commercial_outcomes"].append({
+                    "reason":"legacy_unproductive_draft_archived",
+                    "detail":str(retirement)[:145]})
+            pending_at_start={"stage":"empty"}
+        if (pending_at_start.get("stage") in ("building","drafting","review","approved","sealed")
+                and not validated_market_proof(pending_at_start.get("plan") or {})):
+            try:
+                _retire_draft(pending_at_start,"not_supported_by_public_market_evidence")
+            except ProductRetired as retirement:
+                receipt["commercial_outcomes"].append({
+                    "reason":"unsold_market_assumption_archived",
+                    "detail":str(retirement)[:145]})
+            pending_at_start={"stage":"empty"}
+        resuming=pending_at_start.get("stage") in ("building","drafting","review","approved","sealed")
+        if resuming:
+            rows,search_errors=[],[]
+        else:
+            rows,search_errors=demand_candidates(memory)
+        source_counts={}
+        provider_counts={}
+        for row in rows:
+            source=str(row.get("source") or "supplemental")
+            source_counts[source]=source_counts.get(source,0)+1
+            provider=str(row.get("search_provider") or "")
+            if provider:
+                provider_counts[provider]=provider_counts.get(provider,0)+1
+        receipt["discovery"]={
+            "status":("deferred_for_existing_product" if resuming else
+                      "new_public_evidence" if rows else "no_new_eligible_public_evidence"),
+            "candidate_count":len(rows),
+            "new_research_attempted":not resuming,
+            "research_deferred_for_product_completion":resuming,
+            "previous_product_evidence_count":(
+                len(pending_at_start.get("research_rows") or []) if resuming else 0),
+            "source_counts":source_counts,
+            "search_provider_counts":provider_counts,
+            "source_errors":search_errors,
+            "fetched_public_pages":sum(bool(r.get("page_fetched")) for r in rows),
+            "verified_firsthand_problem_pages":sum(bool(firsthand_problem_excerpt(r)) for r in rows),
+            "observed_public_paid_offers":sum(bool(observed_paid_listing(r)) for r in rows),
+            "market_candidates_considered":len(paid_listing_evidence(rows)),
+            "public_sources_available_for_judgment":len(public_market_evidence(rows)),
+            "public_market_sample":[{
+                "url":p["url"],"title":p["title"],
+                "signal_type":p["signal_type"],
+            } for p in public_market_evidence(rows)[:6]],
+            "paid_offer_sample":[{
+                "url":proof["url"],"title":proof["title"],
+                "displayed_sales_count":proof["displayed_sales_count"],
+                "listed_price_usd":proof["listed_price_usd"],
+            } for proof in (observed_paid_listing(r) for r in rows)
+              if proof][:6],
+            "candidates_without_email":sum(not bool(r.get("contact")) for r in rows),
+            "search_queries":list(dict.fromkeys(str(r.get("search_query") or "") for r in rows))[:12],
+        }
+    except Exception as exc:
+        rows=[]
+        receipt["discovery"]={"status":"research_runtime_error",
+                              "candidate_count":0,"new_research_attempted":True,
+                              "reason":(str(exc) or type(exc).__name__)[:160]}
+    receipt["discovery"]["research_memory"]=memory.save()
+    try:
+        # Competitor listings and editorial articles are not buyer lists.
+        distribution_rows=durable_distribution_leads([])
+        receipt["discovery"]["public_contact_addresses_in_history"]=len(distribution_rows)
+    except Exception as exc:
+        distribution_rows=rows
+        receipt["structural_failures"].append({
+            "reason":"distribution_history_failed",
+            "detail":(str(exc) or type(exc).__name__)[:160]})
+
+    # Existing products are marketed independently of new manufacturing.
+    assets=active_assets()
+    marketable=[a for a in assets if catalog_eligible(a)]
+    receipt["buyer_discovery"]=[]
+    for existing in marketable:
+        if remaining_run_seconds() < 300:
+            receipt["buyer_discovery"].append({
+                "asset_id":existing["asset_id"],
+                "deferred":"run_budget",
+                "remaining_seconds":round(remaining_run_seconds(),1)})
+            break
+        try:
+            prospective,errors=find_asset_buyers(existing,memory)
+            distribution_rows=durable_distribution_leads(prospective)
+            receipt["buyer_discovery"].append({
+                "asset_id":existing["asset_id"],
+                "valid_public_invitations":len(prospective),
+                "relevant_opt_in_outlets":len(prospective),
+                "search_issues":errors[:4]})
+        except Exception as exc:
+            receipt["buyer_discovery"].append({
+                "asset_id":existing["asset_id"],
+                "error":type(exc).__name__})
+        try:
+            action=send_asset_offer(distribution_rows,existing)
+            if action.get("result")=="offer_sent":
+                receipt["external_action"]=action
+                receipt["economic_result"]["new_product_offers_sent"]+=1
+                break
+        except Exception as exc:
+            receipt["structural_failures"].append({
+                "reason":"catalog_distribution_failed",
+                "detail":(str(exc) or type(exc).__name__)[:160]})
+
+    # Product work is checkpointed and resumable across runs. A rejected draft
+    # is unfinished work, not a reason to erase it or to stop existing sales.
+    try:
+        pending=read_pending()
+        if remaining_run_seconds() < 360:
+            receipt["production"]={
+                "result":"deferred_for_run_budget",
+                "remaining_seconds":round(remaining_run_seconds(),1),
+                "pending_stage":pending.get("stage") or "empty",
+            }
+            should_produce=False
+        else:
+            should_produce=bool(rows) or pending.get("stage") not in (None,"empty")
+        if should_produce:
+            plan=complete_asset(rows,assets)
+            asset=publish_finished_asset(plan)
+            receipt["economic_result"]["new_asset_created"]=1
+            receipt["asset"]={
+                "asset_id":asset["asset_id"],"title":asset["title"],
+                "price_usd":asset["price_usd"],"price_cents":asset["price_cents"],
+                "payment_link_id":asset["payment_link_id"],
+            }
+            receipt["production"]={
+                "result":"approved_and_published",
+                "asset_id":asset["asset_id"],
+                "production_tool":"isolated_tool_workshop",
+                "artifact_count":len(plan["_files"]),
+                "created_artifacts":[{
+                    "filename":x["filename"],
+                    "bytes":x["size_bytes"],
+                    "sha256":x["sha256"],
+                    "content_type":x["content_type"],
+                } for x in plan["_files"]],
+            }
+            # The store listing and checkout can now progress even without email.
+            receipt["catalog"]=publish_catalog()
+            if receipt["external_action"] is None:
+                prospective,errors=find_asset_buyers(asset,memory)
+                distribution_rows=durable_distribution_leads(prospective)
+                receipt["buyer_discovery"].append({
+                    "asset_id":asset["asset_id"],
+                    "valid_public_invitations":len(prospective),
+                    "relevant_opt_in_outlets":len(prospective),
+                    "search_issues":errors[:4]})
+                action=send_asset_offer(distribution_rows,asset)
+                receipt["external_action"]=action
+                if action.get("result")=="offer_sent":
+                    receipt["economic_result"]["new_product_offers_sent"]+=1
+        else:
+            if not receipt["production"]:
+                receipt["production"]={"result":"no_current_product_opportunity"}
+    except (ValueError,RuntimeError) as exc:
+        reason=(str(exc) or type(exc).__name__)[:220]
+        if isinstance(exc,MarketDeclined):
+            receipt["market_assessments"]=exc.assessments
+        try:
+            pending=read_pending()
+            stage=pending.get("stage") or "empty"
+        except Exception:
+            pending={}
+            stage="unreadable"
+        if isinstance(exc,ProductRetired):
+            receipt["production"]={"result":"invalid_draft_retired",
+                                   "reason":reason,
+                                   "new_concept_eligible_next_run":True}
+            receipt["structural_failures"].append({
+                "reason":"invalid_production_draft_retired","detail":reason})
+        elif isinstance(exc,ProductionPending):
+            progressed=str(exc).startswith("artifact_created_and_saved:")
+            receipt["production"]={
+                "result":("artifact_created_and_saved" if progressed
+                          else "objective_production_repair_pending"),
+                "stage":stage,
+                "last_issue":("" if progressed else str(pending.get("feedback") or reason)[-500:]),
+                "attempts":pending.get("attempts") or 0,
+                "files_finished":len(pending.get("files") or []),
+                "files_planned":len((pending.get("plan") or {}).get("output_files") or []),
+            }
+            if not progressed:
+                receipt["structural_failures"].append({
+                    "reason":"production_build_failed",
+                    "detail":str(pending.get("feedback") or reason)[-220:]})
+        elif stage in ("building","drafting","review","approved","sealed"):
+            receipt["production"]={
+                "result":"production_blocked",
+                "stage":stage,"last_issue":reason,
+                "revisions":int(pending.get("revision") or 0),
+            }
+            receipt["structural_failures"].append({
+                "reason":"production_stage_error","detail":reason})
+        elif retryable_model_failure(reason):
+            # A transient local-model timeout is not repository corruption. Preserve
+            # evidence and let the self-chained successor retry cleanly.
+            receipt["production"]={
+                "result":"deferred_model_transport_timeout",
+                "reason":reason,
+                "remaining_seconds":round(remaining_run_seconds(),1),
+            }
+        elif reason.startswith(("no_public_research_to_select_product",
+                                 "no_observed_public_paid_offers",
+                                 "no_fetched_firsthand_market_evidence",
+                                 "market_opportunity_declined:",
+                                 "no_independently_correlated_paid_product_demand",
+                                 "no_verified_firsthand_market_problem",
+                                 "product_evidence_quote_not_verified_against_actual_problem",
+                                "product_unrelated_to_cited_public_evidence",
+                                "product_source_not_in_real_research",
+                                "product_production_goal_missing","product_output_manifest_invalid",
+                                "invalid_asset_spec","duplicate_product_output_path")):
+            receipt["production"]={"result":"concept_not_producible",
+                                   "reason":reason}
+        else:
+            receipt["production"]={"result":"production_error","reason":reason}
+            receipt["structural_failures"].append({
+                "reason":"production_or_publication_failed","detail":reason})
+    except Exception as exc:
+        receipt["structural_failures"].append({
+            "reason":"production_unhandled_failure",
+            "detail":(str(exc) or type(exc).__name__)[:160]})
+
+    blocked=sorted({str(e.get("provider")) for e in receipt["discovery"].get("source_errors",[])
+                    if e.get("http_code") in (403,429,503) and e.get("provider")})
+    receipt["operational_assessment"]={
+        "commercial_progress":bool(receipt["economic_result"]["new_product_offers_sent"]
+                                    or receipt["economic_result"]["verified_cyclops_revenue_cents_seen"]),
+        "commercial_state":(
+            "observed_paid_customers" if receipt["economic_result"]["verified_cyclops_revenue_cents_seen"] else
+            "new_opt_in_distribution" if receipt["economic_result"]["new_product_offers_sent"] else
+            "no_saleable_products" if not receipt["catalog"].get("listed_products") else
+            "saleable_but_no_new_buyers"),
+        "indexable_product_pages":receipt["catalog"].get("product_pages",0),
+        "new_distribution_outlets":sum(
+            int(x.get("relevant_opt_in_outlets") or 0)
+            for x in receipt["buyer_discovery"]),
+        "production_progress":bool(receipt["economic_result"]["new_asset_created"]),
+        "public_sources_reviewable":receipt["discovery"].get("public_sources_available_for_judgment",0),
+        "blocked_search_providers":blocked,
+        "primary_bottleneck":("none" if receipt["economic_result"]["new_product_offers_sent"]
+                              or receipt["economic_result"]["verified_cyclops_revenue_cents_seen"] else
+                              "no_verified_products_to_sell" if not receipt["catalog"].get("listed_products")
+                              and not receipt["discovery"].get("public_sources_available_for_judgment") else
+                              "no_opt_in_distribution" if receipt["catalog"].get("listed_products") else
+                              "no_firsthand_market_source" if not receipt["discovery"].get("public_sources_available_for_judgment")
+                              else str(receipt["production"].get("reason") or receipt["production"].get("result") or "unknown")[:160]),
+    }
+    memory.note_outcome(receipt)
+    receipt["discovery"]["research_memory"]=memory.save()
+    write_receipt(receipt)
+    print(json.dumps(receipt,indent=2))
+    if receipt["structural_failures"]:
+        raise SystemExit(2)
+
+if __name__=="__main__":
+    try:
+        run()
+    except Exception as exc:
+        write_receipt({
+            "schema_version":1,
+            "lane":"cyclops_reusable_assets",
+            "timestamp":NOW().isoformat(),
+            "structural_failures":[{
+                "reason":"cyclops_runtime_failure",
+                "detail":(str(exc) or type(exc).__name__)[:160],
+            }],
+            "economic_result":{
+                "new_asset_created":0,
+                "new_product_offers_sent":0,
+                "fulfilled_orders_seen":0,
+                "verified_cyclops_revenue_cents_seen":0,
+            },
+        })
+        raise
+''+price+'''</p>
 <a class="buy" href="'''+link+'''" rel="noopener noreferrer">Buy securely with Stripe</a>
-<p>Payment processed by Sirius Sage. Digital delivery follows verified payment.</p>
+<p class="note">Payment processed by Sirius Sage. Digital delivery follows verified payment.</p>
+</article></main></body></html>'''
+        publish_page("products/"+slug+"/index.html",product_html)
+        cards.append(
+            '<article><h2>'+name+'</h2><p>'+desc+'</p>'
+            '<p class="muted">For: '+audience+'</p>'
+            '<p class="price">$'+price+'</p>'
+            '<a href="'+relative+'">Product details</a><br>'
+            '<a class="buy" href="'+link+'" rel="noopener noreferrer">'
+            'Buy securely with Stripe</a></article>')
+    body="".join(cards) if cards else (
+        '<article><h2>Products under review</h2>'
+        '<p>We are checking deliverable completeness and description accuracy '
+        'before placing digital products on sale. There are currently no '
+        'verified products available for purchase in this section.</p>'
+        '<p>For future releases, contact the Ari Operations team below.</p>'
+        '</article>')
+    document='''<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="'''+('index,follow' if ready else 'noindex,follow')+'''">
+<title>Ari Operations | Digital Products &amp; Tools</title>
+<meta name="description" content="Digital products and tools by Ari Operations, with verified deliverables and secure checkout.">
+<link rel="canonical" href="https://ari-operations.onrender.com/">
+<style>
+body{font:16px/1.6 system-ui,-apple-system,sans-serif;background:#f5f7f8;color:#182932;margin:0}
+main{max-width:980px;margin:0 auto;padding:35px 20px 70px}
+nav a{color:#195d69}h1{font-size:clamp(28px,5vw,48px);line-height:1.15}
+section{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px}
+article{background:white;border:1px solid #dbe3e7;border-radius:14px;padding:24px}
+.muted{color:#61717a}.price{font-size:1.4rem;font-weight:700}
+.buy{display:inline-block;background:#155f65;color:white;padding:11px 17px;border-radius:8px;text-decoration:none}
+</style></head><body><main>
+<h1>Ari Operations</h1>
+<p>Digital Products &amp; Tools. Each listing is checked for deliverable completeness and accurate claims before being offered for purchase.</p>
+<section>'''+body+'''</section>
+<p>Ari Operations · Questions? <a href="mailto:ari-operations@agentmail.to">Contact our digital products team</a>.</p>
+</main></body></html>'''
+    sitemap='''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+'''+''.join('<url><loc>'+escape(url)+'</loc></url>\n' for url in ([base_url+"/"] if ready else [])+pages)+'''</urlset>
+'''
+    robots='User-agent: *\nAllow: /\nSitemap: '+base_url+'/sitemap.xml\n'
+    publish_page("sitemap.xml",sitemap)
+    publish_page("robots.txt",robots)
+    # Update the catalog index last, after all linked product pages exist.
+    publish_page("index.html",document)
+    return {"result":"catalog_published" if modified else "catalog_unchanged",
+            "listed_products":len(ready),"product_pages":len(pages),
+            "files_updated":modified}
+
+
+def verified_session(session):
+    if (session.get("status")!="complete" or session.get("payment_status")!="paid"
+            or session.get("mode")!="payment"):
+        return False
+    intent=session.get("payment_intent")
+    if not isinstance(intent,str) or not intent.startswith("pi_"):
+        return False
+    pi=stripe_get("payment_intents/"+urllib.parse.quote(intent,safe=""))
+    charge_id=pi.get("latest_charge")
+    if pi.get("status")!="succeeded" or not isinstance(charge_id,str):
+        return False
+    charge=stripe_get("charges/"+urllib.parse.quote(charge_id,safe=""))
+    return bool(charge.get("paid") and charge.get("status")=="succeeded"
+                and not charge.get("refunded")
+                and int(charge.get("amount_refunded") or 0)==0)
+
+def _stripe_pages(endpoint):
+    """Follow Stripe's real has_more/starting_after cursor, not first 100 only."""
+    cursor=None
+    seen=set()
+    while True:
+        params={"limit":100}
+        if cursor:
+            params["starting_after"]=cursor
+        page=stripe_get(endpoint,params)
+        records=page.get("data") or []
+        for record in records:
+            yield record
+        if not page.get("has_more") or not records:
+            break
+        last=str(records[-1].get("id") or "")
+        if not last or last in seen:
+            raise RuntimeError("stripe_pagination_cursor_stalled")
+        seen.add(last)
+        cursor=last
+
+
+def paid_orders():
+    links={}
+    for link in _stripe_pages("payment_links"):
+        meta=link.get("metadata") or {}
+        if meta.get("cyclops_asset")=="yes" and meta.get("cyclops_asset_id"):
+            links[link.get("id")]=meta.get("cyclops_asset_id")
+    if not links:
+        return []
+    orders=[]
+    completed=set((read_ledger().get("fulfilled") or {}).keys())
+    for session in _stripe_pages("checkout/sessions"):
+        ident=links.get(session.get("payment_link"))
+        if not ident:
+            continue
+        marker=hashlib.sha256(str(session.get("id") or "").encode()).hexdigest()
+        if marker in completed:
+            # Already delivered, not a newly paid order. Avoid expensive
+            # repeat payment-intent/charge lookups each hourly execution.
+            continue
+        # Fail closed: only verified, settled, unrefunded real Stripe payments.
+        if not verified_session(session):
+            continue
+        email=(session.get("customer_details") or {}).get("email") or session.get("customer_email")
+        orders.append({
+            "session_id":session["id"],
+            "asset_id":ident,
+            "customer_email":email,
+            "amount_total":int(session.get("amount_total") or 0),
+            "currency":session.get("currency"),
+        })
+    return orders
+
+
+def fulfill_orders():
+    results=[]
+    new_paid=0
+    new_delivered=0
+    for order in paid_orders():
+        session=order["session_id"]
+        amount=order["amount_total"]
+        if record_order(session,amount,"paid"):
+            new_paid+=amount
+        marker=hashlib.sha256(str(session).encode()).hexdigest()[:18]
+        subject="Cyclops delivery ["+marker+"]"
+        if (hashlib.sha256(str(session).encode()).hexdigest()
+                in (read_ledger().get("fulfilled") or {})) or sent_subject_exists(subject):
+            record_order(session,amount,"fulfilled")
+            results.append({"result":"already_fulfilled",
+                            "asset_id":order["asset_id"],"amount_cents":amount})
+            continue
+        email=order.get("customer_email")
+        if not re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+",str(email or "")):
+            results.append({"result":"fulfillment_failed",
+                            "asset_id":order["asset_id"],
+                            "detail":"paid_order_has_no_valid_delivery_email",
+                            "amount_cents":amount})
+            continue
+        try:
+            folder=ROOT/order["asset_id"]
+            manifest=json.loads((folder/"manifest.json").read_text(encoding="utf-8"))
+            if manifest.get("delivery")=="private_encrypted_vault":
+                # File content is authenticated/decrypted only after payment.
+                files=read_asset_files(order["asset_id"])
+            else:
+                # Backwards compatibility for pre-vault historic paid sessions.
+                files=[(name,(folder/name).read_bytes())
+                       for name in manifest.get("files") or []]
+            if not files:
+                raise ValueError("asset_files_missing")
+            body=("Thanks for your purchase. Your files are attached.\n\n"
+                  +str(manifest.get("title") or "Digital asset"))
+            agent_send(email,subject,body,files,
+                       order_id="cyclops-delivery-"+str(session))
+            record_order(session,amount,"fulfilled")
+            new_delivered+=1
+            results.append({"result":"fulfilled",
+                            "asset_id":order["asset_id"],"amount_cents":amount})
+        except Exception as exc:
+            results.append({"result":"fulfillment_failed",
+                            "asset_id":order["asset_id"],
+                            "detail":(str(exc) or type(exc).__name__)[:160],
+                            "amount_cents":amount})
+    return {"orders":results,
+            "newly_observed_verified_paid_cents":new_paid,
+            "newly_fulfilled_orders":new_delivered}
+
+
+ASSET_RESOURCE_INVITATION=re.compile(
+    r"(?i)\b(?:submit (?:your |a |an )?(?:digital )?(?:resource|tool|product|template|listing)|"
+    r"suggest (?:your |a |an )?(?:resource|tool|product|template)|"
+    r"recommend (?:your |a |an )?(?:resource|tool|product|template)|"
+    r"(?:accept|accepting|welcome|welcoming) (?:submissions? of |suggestions? for )?"
+    r"(?:resources|tools|products|templates)|"
+    r"send (?:us |in |your )?(?:a |your )?(?:resource|tool|product|template))\b")
+
+
+def public_asset_distribution_invitation(row):
+    """Only an original, fetched invitation can unlock product outreach."""
+    if not row.get("page_fetched") or not row.get("contact"):
+        return False
+    from tools.autonomous_commerce_brain import public_buyer_invitation
+    return bool(public_buyer_invitation(row) or ASSET_RESOURCE_INVITATION.search(
+        str(row.get("page_text") or "")))
+
+
+def durable_distribution_leads(new_rows):
+    """Remember authentic, publicly invited contact possibilities across runs.
+
+    Contact details and source evidence remain encrypted in the Cyclops vault,
+    never in public campaign files. Source relevance and explicit invitation
+    are still checked before any commercial message is sent.
+    """
+    path="ops/cyclops-vault/distribution.json"
+    previous=read_private(path) or []
+    if not isinstance(previous,list):
+        raise RuntimeError("cyclops_distribution_queue_unreadable")
+    by_url={}
+    for item in previous:
+        if isinstance(item,dict) and item.get("source_url"):
+            by_url[item["source_url"]]=item
+    # Historical footer emails and vendor pages are not commercial prospects.
+    by_url={url:row for url,row in by_url.items()
+            if public_asset_distribution_invitation(row)}
+    # Re-save a scrubbed queue after removing old seller/footer contacts.
+    changed=len(by_url)!=len(previous)
+    for row in new_rows:
+        if not public_asset_distribution_invitation(row):
+            continue
+        url=str(row.get("source_url") or "")
+        if not url:
+            continue
+        by_url[url]={
+            "id":row["id"],"source_url":url,"source":"open_web",
+            "title":str(row.get("title") or "")[:180],
+            "text":str(row.get("text") or "")[:6000],
+            "page_text":str(row.get("page_text") or "")[:6000],
+            "contact":row["contact"],"page_fetched":True,
+            "created_at":row.get("created_at"),
+            "contact_source_url":str(row.get("contact_source_url") or "")[:400],
+            "search_query":str(row.get("search_query") or "")[:220],
+        }
+        changed=True
+    # Old leads aren't permanently excluded; inbox-level duplicate checks
+    # and source invitation verification protect against repeated messages.
+    pool=list(by_url.values())[-320:]
+    if changed:
+        save_private(path,pool)
+    return pool
+
+
+def find_asset_buyers(asset,memory):
+    """Discover opted-in outlets for finished assets, not freelance hiring ads."""
+    terms=[str(t).strip() for t in asset.get("target_terms") or []
+           if len(str(t).strip())>=4]
+    if not terms:
+        terms=[str(asset.get("title") or "").strip()]
+    queries=[]
+    for term in dict.fromkeys(terms[:4]):
+        queries.append('"'+term[:75]+'" "submit a resource"')
+        queries.append('"'+term[:75]+'" "suggest a tool"')
+        queries.append('"'+term[:75]+'" "submit your product"')
+        queries.append('"'+term[:75]+'" "looking for" ready-made resource')
+    rows,errors=open_web_candidates(
+        max_candidates=16,queries=queries[:8],memory=memory,
+        max_pages=18,strict_relevance=True,include_discussions=True)
+    # Resource curators may invite a submission on one page and list their
+    # contact route on another. Only follow links on an inviting source.
+    from tools.autonomous_commerce_brain import (
+        enrich_public_response_route, is_requester_page, PUBLIC_INVITATION)
+    invited=[row for row in rows if row.get("page_fetched") and (
+        ASSET_RESOURCE_INVITATION.search(str(row.get("page_text") or ""))
+        or (is_requester_page(row) and PUBLIC_INVITATION.search(
+            str(row.get("page_text") or ""))))]
+    resolved=enrich_public_response_route(invited)
+    return [row for row in resolved if public_asset_distribution_invitation(row)],errors
+
+
+def prospect_score(row,asset):
+    text=str(row.get("text") or "").lower()
+    target_hits=0
+    score=0
+    for term in asset.get("target_terms") or []:
+        term=str(term).strip().lower()
+        if term and term in text:
+            target_hits+=1
+            score+=8
+    # The product's own model-selected terms, not a fixed list of industries
+    # or paid-contract vocabulary, determine similarity to new evidence.
+    return score if target_hits else 0
+
+def asset_offer_subject(row,asset):
+    marker=hashlib.sha256(
+        (asset["asset_id"]+"|"+row["source_url"]).encode()).hexdigest()[:18]
+    if ASSET_RESOURCE_INVITATION.search(str(row.get("page_text") or "")):
+        return "Ari Operations resource suggestion ["+marker+"]"
+    return "Useful fixed asset ["+marker+"]"
+
+def has_uncontacted_matching_prospect(rows,asset,sent_subjects):
+    for row in rows:
+        if (row.get("contact") and prospect_score(row,asset)>0
+                and asset_offer_subject(row,asset) not in sent_subjects):
+            return True
+    return False
+
+PROSPECT_SCHEMA={
+    "type":"object",
+    "properties":{
+        "invited":{"type":"boolean"},
+        "reason":{"type":"string"},
+    },
+    "required":["invited","reason"],
+    "additionalProperties":False,
+}
+
+def can_contact_for_asset(row,asset):
+    """Assess a specific outreach action; never narrow discovery itself."""
+    if not row.get("contact") or not row.get("page_fetched"):
+        return False
+    system=(
+        "Determine if this specific original page EXPLICITLY invites outside "
+        "submissions of finished products or resources of the supplied type, "
+        "or explicitly requests a solution the finished product can supply. "
+        "Is the listed contact an appropriate destination for that invitation? "
+        "A generic footer email, informational article, mere question, unrelated "
+        "directory, or job post is NOT an invitation. Reject irrelevant "
+        "submissions, and never propose an interview or custom work. "
+        "If no fitting invitation appears in the actual page, invited=false. "
+        "Return schema-compliant JSON, no speculation."
+    )
+    try:
+        decision=model_json(
+            PROSPECT_SCHEMA,system,
+            {"source_url":row["source_url"],"evidence":row["text"][:2600],
+             "asset_title":asset["title"],"asset_description":asset["description"]},num_ctx=3072,num_predict=140)
+        return decision.get("invited") is True
+    except Exception:
+        return False
+
+def send_asset_offer(rows,asset):
+    sent=recent_sent_subjects()
+    ranked=sorted(rows,key=lambda r:(-prospect_score(r,asset),r["source_url"]))
+    for row in ranked:
+        if (prospect_score(row,asset)<=0 or
+                not public_asset_distribution_invitation(row)):
+            continue
+        subject=asset_offer_subject(row,asset)
+        marker=subject.rsplit("[",1)[-1].rstrip("]")
+        if subject in sent or not can_contact_for_asset(row,asset):
+            continue
+        price=int(asset["price_cents"])/100
+        resource_submission=bool(ASSET_RESOURCE_INVITATION.search(
+            str(row.get("page_text") or "")))
+        if resource_submission:
+            body=(
+                "Hello,\n\nYour public resource submission invitation appears "
+                "relevant to this finished digital product. Please consider "
+                "including it if it would genuinely serve your audience.\n\n"
+                "Product: "+str(asset["title"]).strip()+"\n"
+                "Description: "+str(asset["description"]).strip()+"\n"
+                "One-time price: $"+format(price,".2f")+"\n"
+                "Product details: "+public_product_url(asset)+"\n\n"
+                "No response is needed if it isn't suitable.\n\nAri Operations")
+        else:
+            body=(
+                str(asset["pitch"]).strip()+"\n\n"
+                "Product: "+str(asset["title"]).strip()+"\n"
+                "One-time price: $"+format(price,".2f")+"\n"
+                "Get it here: "+str(asset["checkout_url"])+"\n\n"
+                "The purchase is the finished reusable asset, not a custom engagement."
+            )
+        agent_send(row["contact"],subject,body,[],
+                   order_id="cyclops-offer-"+marker)
+        return {"result":"offer_sent","source_url":row["source_url"],
+                "asset_id":asset["asset_id"],"score":prospect_score(row,asset)}
+    return {"result":"no_relevant_opt_in_buyer","asset_id":asset["asset_id"]}
+
+def write_receipt(receipt):
+    RECEIPTS.mkdir(parents=True,exist_ok=True)
+    rid=re.sub(r"[^A-Za-z0-9_-]","",os.getenv("GITHUB_RUN_ID","local"))
+    attempt=re.sub(r"[^A-Za-z0-9_-]","",os.getenv("GITHUB_RUN_ATTEMPT","1"))
+    path=RECEIPTS/f"{rid}-{attempt}.json"
+    path.write_text(json.dumps(receipt,indent=2)+"\n",encoding="utf-8")
+
+def run():
+    global RUN_DEADLINE
+    RUN_DEADLINE=time.monotonic()+16*60
+    receipt={
+        "schema_version":2,
+        "lane":"cyclops_reusable_assets",
+        "timestamp":NOW().isoformat(),
+        "model":MODEL,
+        "asset":None,
+        "discovery":{},
+        "production":{},
+        "catalog":{},
+        "legacy_checkout_safety":{},
+        "external_action":None,
+        "fulfillment":[],
+        "structural_failures":[],
+        "commercial_outcomes":[],
+        "economic_result":{
+            "new_asset_created":0,
+            "new_product_offers_sent":0,
+            "fulfilled_orders_seen":0,
+            "verified_cyclops_revenue_cents_seen":0,
+            "newly_observed_verified_paid_cents":0,
+        },
+    }
+
+    # These are independent business activities, not a mandatory single funnel.
+    # Payment verification and delivery always get first access to the runner.
+    try:
+        fulfillment=fulfill_orders()
+        receipt["fulfillment"]=fulfillment["orders"]
+        receipt["economic_result"]["fulfilled_orders_seen"]=fulfillment["newly_fulfilled_orders"]
+        receipt["economic_result"]["newly_observed_verified_paid_cents"]=(
+            fulfillment["newly_observed_verified_paid_cents"])
+        receipt["economic_result"]["verified_cyclops_revenue_cents_seen"]=(
+            fulfillment["newly_observed_verified_paid_cents"])
+        if any(x.get("result")=="fulfillment_failed" for x in fulfillment["orders"]):
+            receipt["structural_failures"].append({
+                "reason":"verified_customer_fulfillment_incomplete"})
+    except Exception as exc:
+        receipt["structural_failures"].append({
+            "reason":"fulfillment_scan_failed",
+            "detail":(str(exc) or type(exc).__name__)[:160]})
+
+    # Catalog distribution does not require a new product or a new email lead.
+    try:
+        receipt["legacy_checkout_safety"]=retire_unverified_payment_links()
+    except Exception as exc:
+        receipt["structural_failures"].append({
+            "reason":"unverified_payment_link_retirement_failed",
+            "detail":(str(exc) or type(exc).__name__)[:160]})
+
+    try:
+        receipt["catalog"]=publish_catalog()
+    except Exception as exc:
+        receipt["structural_failures"].append({
+            "reason":"catalog_publication_failed",
+            "detail":(str(exc) or type(exc).__name__)[:160]})
+
+    memory=ResearchMemory("cyclops")
+    try:
+        # Drafts already carry their original source evidence. Continuing one
+        # must not spend the runner's Qwen budget on unrelated new research.
+        pending_at_start=read_pending()
+        if (pending_at_start.get("stage") in ("drafting","review","approved","sealed")
+                and not (pending_at_start.get("plan") or {}).get("output_files")):
+            # The old subjective reviewer created a permanently stuck draft.
+            # Retire it BEFORE deciding whether to search, so this same run
+            # can originate a fresh deliverable rather than wasting an hour.
+            try:
+                _retire_draft(pending_at_start,"legacy_fixed_format_non_executable_draft")
+            except ProductRetired as retirement:
+                receipt["commercial_outcomes"].append({
+                    "reason":"legacy_unproductive_draft_archived",
+                    "detail":str(retirement)[:145]})
+            pending_at_start={"stage":"empty"}
+        if (pending_at_start.get("stage") in ("building","drafting","review","approved","sealed")
+                and not validated_market_proof(pending_at_start.get("plan") or {})):
+            try:
+                _retire_draft(pending_at_start,"not_supported_by_public_market_evidence")
+            except ProductRetired as retirement:
+                receipt["commercial_outcomes"].append({
+                    "reason":"unsold_market_assumption_archived",
+                    "detail":str(retirement)[:145]})
+            pending_at_start={"stage":"empty"}
+        resuming=pending_at_start.get("stage") in ("building","drafting","review","approved","sealed")
+        if resuming:
+            rows,search_errors=[],[]
+        else:
+            rows,search_errors=demand_candidates(memory)
+        source_counts={}
+        provider_counts={}
+        for row in rows:
+            source=str(row.get("source") or "supplemental")
+            source_counts[source]=source_counts.get(source,0)+1
+            provider=str(row.get("search_provider") or "")
+            if provider:
+                provider_counts[provider]=provider_counts.get(provider,0)+1
+        receipt["discovery"]={
+            "status":("deferred_for_existing_product" if resuming else
+                      "new_public_evidence" if rows else "no_new_eligible_public_evidence"),
+            "candidate_count":len(rows),
+            "new_research_attempted":not resuming,
+            "research_deferred_for_product_completion":resuming,
+            "previous_product_evidence_count":(
+                len(pending_at_start.get("research_rows") or []) if resuming else 0),
+            "source_counts":source_counts,
+            "search_provider_counts":provider_counts,
+            "source_errors":search_errors,
+            "fetched_public_pages":sum(bool(r.get("page_fetched")) for r in rows),
+            "verified_firsthand_problem_pages":sum(bool(firsthand_problem_excerpt(r)) for r in rows),
+            "observed_public_paid_offers":sum(bool(observed_paid_listing(r)) for r in rows),
+            "market_candidates_considered":len(paid_listing_evidence(rows)),
+            "public_sources_available_for_judgment":len(public_market_evidence(rows)),
+            "public_market_sample":[{
+                "url":p["url"],"title":p["title"],
+                "signal_type":p["signal_type"],
+            } for p in public_market_evidence(rows)[:6]],
+            "paid_offer_sample":[{
+                "url":proof["url"],"title":proof["title"],
+                "displayed_sales_count":proof["displayed_sales_count"],
+                "listed_price_usd":proof["listed_price_usd"],
+            } for proof in (observed_paid_listing(r) for r in rows)
+              if proof][:6],
+            "candidates_without_email":sum(not bool(r.get("contact")) for r in rows),
+            "search_queries":list(dict.fromkeys(str(r.get("search_query") or "") for r in rows))[:12],
+        }
+    except Exception as exc:
+        rows=[]
+        receipt["discovery"]={"status":"research_runtime_error",
+                              "candidate_count":0,"new_research_attempted":True,
+                              "reason":(str(exc) or type(exc).__name__)[:160]}
+    receipt["discovery"]["research_memory"]=memory.save()
+    try:
+        # Competitor listings and editorial articles are not buyer lists.
+        distribution_rows=durable_distribution_leads([])
+        receipt["discovery"]["public_contact_addresses_in_history"]=len(distribution_rows)
+    except Exception as exc:
+        distribution_rows=rows
+        receipt["structural_failures"].append({
+            "reason":"distribution_history_failed",
+            "detail":(str(exc) or type(exc).__name__)[:160]})
+
+    # Existing products are marketed independently of new manufacturing.
+    assets=active_assets()
+    marketable=[a for a in assets if catalog_eligible(a)]
+    receipt["buyer_discovery"]=[]
+    for existing in marketable:
+        if remaining_run_seconds() < 300:
+            receipt["buyer_discovery"].append({
+                "asset_id":existing["asset_id"],
+                "deferred":"run_budget",
+                "remaining_seconds":round(remaining_run_seconds(),1)})
+            break
+        try:
+            prospective,errors=find_asset_buyers(existing,memory)
+            distribution_rows=durable_distribution_leads(prospective)
+            receipt["buyer_discovery"].append({
+                "asset_id":existing["asset_id"],
+                "valid_public_invitations":len(prospective),
+                "relevant_opt_in_outlets":len(prospective),
+                "search_issues":errors[:4]})
+        except Exception as exc:
+            receipt["buyer_discovery"].append({
+                "asset_id":existing["asset_id"],
+                "error":type(exc).__name__})
+        try:
+            action=send_asset_offer(distribution_rows,existing)
+            if action.get("result")=="offer_sent":
+                receipt["external_action"]=action
+                receipt["economic_result"]["new_product_offers_sent"]+=1
+                break
+        except Exception as exc:
+            receipt["structural_failures"].append({
+                "reason":"catalog_distribution_failed",
+                "detail":(str(exc) or type(exc).__name__)[:160]})
+
+    # Product work is checkpointed and resumable across runs. A rejected draft
+    # is unfinished work, not a reason to erase it or to stop existing sales.
+    try:
+        pending=read_pending()
+        if remaining_run_seconds() < 360:
+            receipt["production"]={
+                "result":"deferred_for_run_budget",
+                "remaining_seconds":round(remaining_run_seconds(),1),
+                "pending_stage":pending.get("stage") or "empty",
+            }
+            should_produce=False
+        else:
+            should_produce=bool(rows) or pending.get("stage") not in (None,"empty")
+        if should_produce:
+            plan=complete_asset(rows,assets)
+            asset=publish_finished_asset(plan)
+            receipt["economic_result"]["new_asset_created"]=1
+            receipt["asset"]={
+                "asset_id":asset["asset_id"],"title":asset["title"],
+                "price_usd":asset["price_usd"],"price_cents":asset["price_cents"],
+                "payment_link_id":asset["payment_link_id"],
+            }
+            receipt["production"]={
+                "result":"approved_and_published",
+                "asset_id":asset["asset_id"],
+                "production_tool":"isolated_tool_workshop",
+                "artifact_count":len(plan["_files"]),
+                "created_artifacts":[{
+                    "filename":x["filename"],
+                    "bytes":x["size_bytes"],
+                    "sha256":x["sha256"],
+                    "content_type":x["content_type"],
+                } for x in plan["_files"]],
+            }
+            # The store listing and checkout can now progress even without email.
+            receipt["catalog"]=publish_catalog()
+            if receipt["external_action"] is None:
+                prospective,errors=find_asset_buyers(asset,memory)
+                distribution_rows=durable_distribution_leads(prospective)
+                receipt["buyer_discovery"].append({
+                    "asset_id":asset["asset_id"],
+                    "valid_public_invitations":len(prospective),
+                    "relevant_opt_in_outlets":len(prospective),
+                    "search_issues":errors[:4]})
+                action=send_asset_offer(distribution_rows,asset)
+                receipt["external_action"]=action
+                if action.get("result")=="offer_sent":
+                    receipt["economic_result"]["new_product_offers_sent"]+=1
+        else:
+            if not receipt["production"]:
+                receipt["production"]={"result":"no_current_product_opportunity"}
+    except (ValueError,RuntimeError) as exc:
+        reason=(str(exc) or type(exc).__name__)[:220]
+        if isinstance(exc,MarketDeclined):
+            receipt["market_assessments"]=exc.assessments
+        try:
+            pending=read_pending()
+            stage=pending.get("stage") or "empty"
+        except Exception:
+            pending={}
+            stage="unreadable"
+        if isinstance(exc,ProductRetired):
+            receipt["production"]={"result":"invalid_draft_retired",
+                                   "reason":reason,
+                                   "new_concept_eligible_next_run":True}
+            receipt["structural_failures"].append({
+                "reason":"invalid_production_draft_retired","detail":reason})
+        elif isinstance(exc,ProductionPending):
+            progressed=str(exc).startswith("artifact_created_and_saved:")
+            receipt["production"]={
+                "result":("artifact_created_and_saved" if progressed
+                          else "objective_production_repair_pending"),
+                "stage":stage,
+                "last_issue":("" if progressed else str(pending.get("feedback") or reason)[-500:]),
+                "attempts":pending.get("attempts") or 0,
+                "files_finished":len(pending.get("files") or []),
+                "files_planned":len((pending.get("plan") or {}).get("output_files") or []),
+            }
+            if not progressed:
+                receipt["structural_failures"].append({
+                    "reason":"production_build_failed",
+                    "detail":str(pending.get("feedback") or reason)[-220:]})
+        elif stage in ("building","drafting","review","approved","sealed"):
+            receipt["production"]={
+                "result":"production_blocked",
+                "stage":stage,"last_issue":reason,
+                "revisions":int(pending.get("revision") or 0),
+            }
+            receipt["structural_failures"].append({
+                "reason":"production_stage_error","detail":reason})
+        elif retryable_model_failure(reason):
+            # A transient local-model timeout is not repository corruption. Preserve
+            # evidence and let the self-chained successor retry cleanly.
+            receipt["production"]={
+                "result":"deferred_model_transport_timeout",
+                "reason":reason,
+                "remaining_seconds":round(remaining_run_seconds(),1),
+            }
+        elif reason.startswith(("no_public_research_to_select_product",
+                                 "no_observed_public_paid_offers",
+                                 "no_fetched_firsthand_market_evidence",
+                                 "market_opportunity_declined:",
+                                 "no_independently_correlated_paid_product_demand",
+                                 "no_verified_firsthand_market_problem",
+                                 "product_evidence_quote_not_verified_against_actual_problem",
+                                "product_unrelated_to_cited_public_evidence",
+                                "product_source_not_in_real_research",
+                                "product_production_goal_missing","product_output_manifest_invalid",
+                                "invalid_asset_spec","duplicate_product_output_path")):
+            receipt["production"]={"result":"concept_not_producible",
+                                   "reason":reason}
+        else:
+            receipt["production"]={"result":"production_error","reason":reason}
+            receipt["structural_failures"].append({
+                "reason":"production_or_publication_failed","detail":reason})
+    except Exception as exc:
+        receipt["structural_failures"].append({
+            "reason":"production_unhandled_failure",
+            "detail":(str(exc) or type(exc).__name__)[:160]})
+
+    blocked=sorted({str(e.get("provider")) for e in receipt["discovery"].get("source_errors",[])
+                    if e.get("http_code") in (403,429,503) and e.get("provider")})
+    receipt["operational_assessment"]={
+        "commercial_progress":bool(receipt["economic_result"]["new_product_offers_sent"]
+                                    or receipt["economic_result"]["verified_cyclops_revenue_cents_seen"]),
+        "commercial_state":(
+            "observed_paid_customers" if receipt["economic_result"]["verified_cyclops_revenue_cents_seen"] else
+            "new_opt_in_distribution" if receipt["economic_result"]["new_product_offers_sent"] else
+            "no_saleable_products" if not receipt["catalog"].get("listed_products") else
+            "saleable_but_no_new_buyers"),
+        "indexable_product_pages":receipt["catalog"].get("product_pages",0),
+        "new_distribution_outlets":sum(
+            int(x.get("relevant_opt_in_outlets") or 0)
+            for x in receipt["buyer_discovery"]),
+        "production_progress":bool(receipt["economic_result"]["new_asset_created"]),
+        "public_sources_reviewable":receipt["discovery"].get("public_sources_available_for_judgment",0),
+        "blocked_search_providers":blocked,
+        "primary_bottleneck":("none" if receipt["economic_result"]["new_product_offers_sent"]
+                              or receipt["economic_result"]["verified_cyclops_revenue_cents_seen"] else
+                              "no_verified_products_to_sell" if not receipt["catalog"].get("listed_products")
+                              and not receipt["discovery"].get("public_sources_available_for_judgment") else
+                              "no_opt_in_distribution" if receipt["catalog"].get("listed_products") else
+                              "no_firsthand_market_source" if not receipt["discovery"].get("public_sources_available_for_judgment")
+                              else str(receipt["production"].get("reason") or receipt["production"].get("result") or "unknown")[:160]),
+    }
+    memory.note_outcome(receipt)
+    receipt["discovery"]["research_memory"]=memory.save()
+    write_receipt(receipt)
+    print(json.dumps(receipt,indent=2))
+    if receipt["structural_failures"]:
+        raise SystemExit(2)
+
+if __name__=="__main__":
+    try:
+        run()
+    except Exception as exc:
+        write_receipt({
+            "schema_version":1,
+            "lane":"cyclops_reusable_assets",
+            "timestamp":NOW().isoformat(),
+            "structural_failures":[{
+                "reason":"cyclops_runtime_failure",
+                "detail":(str(exc) or type(exc).__name__)[:160],
+            }],
+            "economic_result":{
+                "new_asset_created":0,
+                "new_product_offers_sent":0,
+                "fulfilled_orders_seen":0,
+                "verified_cyclops_revenue_cents_seen":0,
+            },
+        })
+        raise
++price+'</p>'
+            '<a class="detail" href="'+relative+'">View product</a></div>'
+            '<a class="buy" href="'+link+'" rel="noopener noreferrer">'
+            'Buy securely with Stripe</a></article>')
+    body="".join(cards) if cards else (
+        '<article><h2>Products under review</h2>'
+        '<p>We are checking deliverable completeness and description accuracy '
+        'before placing digital products on sale. There are currently no '
+        'verified products available for purchase in this section.</p>'
+        '<p>For future releases, contact the Ari Operations team below.</p>'
+        '</article>')
+    document='''<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="'''+('index,follow' if ready else 'noindex,follow')+'''">
+<title>Ari Operations | Digital Products &amp; Tools</title>
+<meta name="description" content="Digital products and tools by Ari Operations, with verified deliverables and secure checkout.">
+<link rel="canonical" href="https://ari-operations.onrender.com/">
+<style>
+body{font:16px/1.6 system-ui,-apple-system,sans-serif;background:#f5f7f8;color:#182932;margin:0}
+main{max-width:980px;margin:0 auto;padding:35px 20px 70px}
+nav a{color:#195d69}h1{font-size:clamp(28px,5vw,48px);line-height:1.15}
+section{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px}
+article{background:white;border:1px solid #dbe3e7;border-radius:14px;padding:24px}
+.muted{color:#61717a}.price{font-size:1.4rem;font-weight:700}
+.buy{display:inline-block;background:#155f65;color:white;padding:11px 17px;border-radius:8px;text-decoration:none}
+</style></head><body><main>
+<h1>Ari Operations</h1>
+<p>Digital Products &amp; Tools. Each listing is checked for deliverable completeness and accurate claims before being offered for purchase.</p>
+<section>'''+body+'''</section>
+<p>Ari Operations · Questions? <a href="mailto:ari-operations@agentmail.to">Contact our digital products team</a>.</p>
+</main></body></html>'''
+    sitemap='''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+'''+''.join('<url><loc>'+escape(url)+'</loc></url>\n' for url in ([base_url+"/"] if ready else [])+pages)+'''</urlset>
+'''
+    robots='User-agent: *\nAllow: /\nSitemap: '+base_url+'/sitemap.xml\n'
+    publish_page("sitemap.xml",sitemap)
+    publish_page("robots.txt",robots)
+    # Update the catalog index last, after all linked product pages exist.
+    publish_page("index.html",document)
+    return {"result":"catalog_published" if modified else "catalog_unchanged",
+            "listed_products":len(ready),"product_pages":len(pages),
+            "files_updated":modified}
+
+
+def verified_session(session):
+    if (session.get("status")!="complete" or session.get("payment_status")!="paid"
+            or session.get("mode")!="payment"):
+        return False
+    intent=session.get("payment_intent")
+    if not isinstance(intent,str) or not intent.startswith("pi_"):
+        return False
+    pi=stripe_get("payment_intents/"+urllib.parse.quote(intent,safe=""))
+    charge_id=pi.get("latest_charge")
+    if pi.get("status")!="succeeded" or not isinstance(charge_id,str):
+        return False
+    charge=stripe_get("charges/"+urllib.parse.quote(charge_id,safe=""))
+    return bool(charge.get("paid") and charge.get("status")=="succeeded"
+                and not charge.get("refunded")
+                and int(charge.get("amount_refunded") or 0)==0)
+
+def _stripe_pages(endpoint):
+    """Follow Stripe's real has_more/starting_after cursor, not first 100 only."""
+    cursor=None
+    seen=set()
+    while True:
+        params={"limit":100}
+        if cursor:
+            params["starting_after"]=cursor
+        page=stripe_get(endpoint,params)
+        records=page.get("data") or []
+        for record in records:
+            yield record
+        if not page.get("has_more") or not records:
+            break
+        last=str(records[-1].get("id") or "")
+        if not last or last in seen:
+            raise RuntimeError("stripe_pagination_cursor_stalled")
+        seen.add(last)
+        cursor=last
+
+
+def paid_orders():
+    links={}
+    for link in _stripe_pages("payment_links"):
+        meta=link.get("metadata") or {}
+        if meta.get("cyclops_asset")=="yes" and meta.get("cyclops_asset_id"):
+            links[link.get("id")]=meta.get("cyclops_asset_id")
+    if not links:
+        return []
+    orders=[]
+    completed=set((read_ledger().get("fulfilled") or {}).keys())
+    for session in _stripe_pages("checkout/sessions"):
+        ident=links.get(session.get("payment_link"))
+        if not ident:
+            continue
+        marker=hashlib.sha256(str(session.get("id") or "").encode()).hexdigest()
+        if marker in completed:
+            # Already delivered, not a newly paid order. Avoid expensive
+            # repeat payment-intent/charge lookups each hourly execution.
+            continue
+        # Fail closed: only verified, settled, unrefunded real Stripe payments.
+        if not verified_session(session):
+            continue
+        email=(session.get("customer_details") or {}).get("email") or session.get("customer_email")
+        orders.append({
+            "session_id":session["id"],
+            "asset_id":ident,
+            "customer_email":email,
+            "amount_total":int(session.get("amount_total") or 0),
+            "currency":session.get("currency"),
+        })
+    return orders
+
+
+def fulfill_orders():
+    results=[]
+    new_paid=0
+    new_delivered=0
+    for order in paid_orders():
+        session=order["session_id"]
+        amount=order["amount_total"]
+        if record_order(session,amount,"paid"):
+            new_paid+=amount
+        marker=hashlib.sha256(str(session).encode()).hexdigest()[:18]
+        subject="Cyclops delivery ["+marker+"]"
+        if (hashlib.sha256(str(session).encode()).hexdigest()
+                in (read_ledger().get("fulfilled") or {})) or sent_subject_exists(subject):
+            record_order(session,amount,"fulfilled")
+            results.append({"result":"already_fulfilled",
+                            "asset_id":order["asset_id"],"amount_cents":amount})
+            continue
+        email=order.get("customer_email")
+        if not re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+",str(email or "")):
+            results.append({"result":"fulfillment_failed",
+                            "asset_id":order["asset_id"],
+                            "detail":"paid_order_has_no_valid_delivery_email",
+                            "amount_cents":amount})
+            continue
+        try:
+            folder=ROOT/order["asset_id"]
+            manifest=json.loads((folder/"manifest.json").read_text(encoding="utf-8"))
+            if manifest.get("delivery")=="private_encrypted_vault":
+                # File content is authenticated/decrypted only after payment.
+                files=read_asset_files(order["asset_id"])
+            else:
+                # Backwards compatibility for pre-vault historic paid sessions.
+                files=[(name,(folder/name).read_bytes())
+                       for name in manifest.get("files") or []]
+            if not files:
+                raise ValueError("asset_files_missing")
+            body=("Thanks for your purchase. Your files are attached.\n\n"
+                  +str(manifest.get("title") or "Digital asset"))
+            agent_send(email,subject,body,files,
+                       order_id="cyclops-delivery-"+str(session))
+            record_order(session,amount,"fulfilled")
+            new_delivered+=1
+            results.append({"result":"fulfilled",
+                            "asset_id":order["asset_id"],"amount_cents":amount})
+        except Exception as exc:
+            results.append({"result":"fulfillment_failed",
+                            "asset_id":order["asset_id"],
+                            "detail":(str(exc) or type(exc).__name__)[:160],
+                            "amount_cents":amount})
+    return {"orders":results,
+            "newly_observed_verified_paid_cents":new_paid,
+            "newly_fulfilled_orders":new_delivered}
+
+
+ASSET_RESOURCE_INVITATION=re.compile(
+    r"(?i)\b(?:submit (?:your |a |an )?(?:digital )?(?:resource|tool|product|template|listing)|"
+    r"suggest (?:your |a |an )?(?:resource|tool|product|template)|"
+    r"recommend (?:your |a |an )?(?:resource|tool|product|template)|"
+    r"(?:accept|accepting|welcome|welcoming) (?:submissions? of |suggestions? for )?"
+    r"(?:resources|tools|products|templates)|"
+    r"send (?:us |in |your )?(?:a |your )?(?:resource|tool|product|template))\b")
+
+
+def public_asset_distribution_invitation(row):
+    """Only an original, fetched invitation can unlock product outreach."""
+    if not row.get("page_fetched") or not row.get("contact"):
+        return False
+    from tools.autonomous_commerce_brain import public_buyer_invitation
+    return bool(public_buyer_invitation(row) or ASSET_RESOURCE_INVITATION.search(
+        str(row.get("page_text") or "")))
+
+
+def durable_distribution_leads(new_rows):
+    """Remember authentic, publicly invited contact possibilities across runs.
+
+    Contact details and source evidence remain encrypted in the Cyclops vault,
+    never in public campaign files. Source relevance and explicit invitation
+    are still checked before any commercial message is sent.
+    """
+    path="ops/cyclops-vault/distribution.json"
+    previous=read_private(path) or []
+    if not isinstance(previous,list):
+        raise RuntimeError("cyclops_distribution_queue_unreadable")
+    by_url={}
+    for item in previous:
+        if isinstance(item,dict) and item.get("source_url"):
+            by_url[item["source_url"]]=item
+    # Historical footer emails and vendor pages are not commercial prospects.
+    by_url={url:row for url,row in by_url.items()
+            if public_asset_distribution_invitation(row)}
+    # Re-save a scrubbed queue after removing old seller/footer contacts.
+    changed=len(by_url)!=len(previous)
+    for row in new_rows:
+        if not public_asset_distribution_invitation(row):
+            continue
+        url=str(row.get("source_url") or "")
+        if not url:
+            continue
+        by_url[url]={
+            "id":row["id"],"source_url":url,"source":"open_web",
+            "title":str(row.get("title") or "")[:180],
+            "text":str(row.get("text") or "")[:6000],
+            "page_text":str(row.get("page_text") or "")[:6000],
+            "contact":row["contact"],"page_fetched":True,
+            "created_at":row.get("created_at"),
+            "contact_source_url":str(row.get("contact_source_url") or "")[:400],
+            "search_query":str(row.get("search_query") or "")[:220],
+        }
+        changed=True
+    # Old leads aren't permanently excluded; inbox-level duplicate checks
+    # and source invitation verification protect against repeated messages.
+    pool=list(by_url.values())[-320:]
+    if changed:
+        save_private(path,pool)
+    return pool
+
+
+def find_asset_buyers(asset,memory):
+    """Discover opted-in outlets for finished assets, not freelance hiring ads."""
+    terms=[str(t).strip() for t in asset.get("target_terms") or []
+           if len(str(t).strip())>=4]
+    if not terms:
+        terms=[str(asset.get("title") or "").strip()]
+    queries=[]
+    for term in dict.fromkeys(terms[:4]):
+        queries.append('"'+term[:75]+'" "submit a resource"')
+        queries.append('"'+term[:75]+'" "suggest a tool"')
+        queries.append('"'+term[:75]+'" "submit your product"')
+        queries.append('"'+term[:75]+'" "looking for" ready-made resource')
+    rows,errors=open_web_candidates(
+        max_candidates=16,queries=queries[:8],memory=memory,
+        max_pages=18,strict_relevance=True,include_discussions=True)
+    # Resource curators may invite a submission on one page and list their
+    # contact route on another. Only follow links on an inviting source.
+    from tools.autonomous_commerce_brain import (
+        enrich_public_response_route, is_requester_page, PUBLIC_INVITATION)
+    invited=[row for row in rows if row.get("page_fetched") and (
+        ASSET_RESOURCE_INVITATION.search(str(row.get("page_text") or ""))
+        or (is_requester_page(row) and PUBLIC_INVITATION.search(
+            str(row.get("page_text") or ""))))]
+    resolved=enrich_public_response_route(invited)
+    return [row for row in resolved if public_asset_distribution_invitation(row)],errors
+
+
+def prospect_score(row,asset):
+    text=str(row.get("text") or "").lower()
+    target_hits=0
+    score=0
+    for term in asset.get("target_terms") or []:
+        term=str(term).strip().lower()
+        if term and term in text:
+            target_hits+=1
+            score+=8
+    # The product's own model-selected terms, not a fixed list of industries
+    # or paid-contract vocabulary, determine similarity to new evidence.
+    return score if target_hits else 0
+
+def asset_offer_subject(row,asset):
+    marker=hashlib.sha256(
+        (asset["asset_id"]+"|"+row["source_url"]).encode()).hexdigest()[:18]
+    if ASSET_RESOURCE_INVITATION.search(str(row.get("page_text") or "")):
+        return "Ari Operations resource suggestion ["+marker+"]"
+    return "Useful fixed asset ["+marker+"]"
+
+def has_uncontacted_matching_prospect(rows,asset,sent_subjects):
+    for row in rows:
+        if (row.get("contact") and prospect_score(row,asset)>0
+                and asset_offer_subject(row,asset) not in sent_subjects):
+            return True
+    return False
+
+PROSPECT_SCHEMA={
+    "type":"object",
+    "properties":{
+        "invited":{"type":"boolean"},
+        "reason":{"type":"string"},
+    },
+    "required":["invited","reason"],
+    "additionalProperties":False,
+}
+
+def can_contact_for_asset(row,asset):
+    """Assess a specific outreach action; never narrow discovery itself."""
+    if not row.get("contact") or not row.get("page_fetched"):
+        return False
+    system=(
+        "Determine if this specific original page EXPLICITLY invites outside "
+        "submissions of finished products or resources of the supplied type, "
+        "or explicitly requests a solution the finished product can supply. "
+        "Is the listed contact an appropriate destination for that invitation? "
+        "A generic footer email, informational article, mere question, unrelated "
+        "directory, or job post is NOT an invitation. Reject irrelevant "
+        "submissions, and never propose an interview or custom work. "
+        "If no fitting invitation appears in the actual page, invited=false. "
+        "Return schema-compliant JSON, no speculation."
+    )
+    try:
+        decision=model_json(
+            PROSPECT_SCHEMA,system,
+            {"source_url":row["source_url"],"evidence":row["text"][:2600],
+             "asset_title":asset["title"],"asset_description":asset["description"]},num_ctx=3072,num_predict=140)
+        return decision.get("invited") is True
+    except Exception:
+        return False
+
+def send_asset_offer(rows,asset):
+    sent=recent_sent_subjects()
+    ranked=sorted(rows,key=lambda r:(-prospect_score(r,asset),r["source_url"]))
+    for row in ranked:
+        if (prospect_score(row,asset)<=0 or
+                not public_asset_distribution_invitation(row)):
+            continue
+        subject=asset_offer_subject(row,asset)
+        marker=subject.rsplit("[",1)[-1].rstrip("]")
+        if subject in sent or not can_contact_for_asset(row,asset):
+            continue
+        price=int(asset["price_cents"])/100
+        resource_submission=bool(ASSET_RESOURCE_INVITATION.search(
+            str(row.get("page_text") or "")))
+        if resource_submission:
+            body=(
+                "Hello,\n\nYour public resource submission invitation appears "
+                "relevant to this finished digital product. Please consider "
+                "including it if it would genuinely serve your audience.\n\n"
+                "Product: "+str(asset["title"]).strip()+"\n"
+                "Description: "+str(asset["description"]).strip()+"\n"
+                "One-time price: $"+format(price,".2f")+"\n"
+                "Product details: "+public_product_url(asset)+"\n\n"
+                "No response is needed if it isn't suitable.\n\nAri Operations")
+        else:
+            body=(
+                str(asset["pitch"]).strip()+"\n\n"
+                "Product: "+str(asset["title"]).strip()+"\n"
+                "One-time price: $"+format(price,".2f")+"\n"
+                "Get it here: "+str(asset["checkout_url"])+"\n\n"
+                "The purchase is the finished reusable asset, not a custom engagement."
+            )
+        agent_send(row["contact"],subject,body,[],
+                   order_id="cyclops-offer-"+marker)
+        return {"result":"offer_sent","source_url":row["source_url"],
+                "asset_id":asset["asset_id"],"score":prospect_score(row,asset)}
+    return {"result":"no_relevant_opt_in_buyer","asset_id":asset["asset_id"]}
+
+def write_receipt(receipt):
+    RECEIPTS.mkdir(parents=True,exist_ok=True)
+    rid=re.sub(r"[^A-Za-z0-9_-]","",os.getenv("GITHUB_RUN_ID","local"))
+    attempt=re.sub(r"[^A-Za-z0-9_-]","",os.getenv("GITHUB_RUN_ATTEMPT","1"))
+    path=RECEIPTS/f"{rid}-{attempt}.json"
+    path.write_text(json.dumps(receipt,indent=2)+"\n",encoding="utf-8")
+
+def run():
+    global RUN_DEADLINE
+    RUN_DEADLINE=time.monotonic()+16*60
+    receipt={
+        "schema_version":2,
+        "lane":"cyclops_reusable_assets",
+        "timestamp":NOW().isoformat(),
+        "model":MODEL,
+        "asset":None,
+        "discovery":{},
+        "production":{},
+        "catalog":{},
+        "legacy_checkout_safety":{},
+        "external_action":None,
+        "fulfillment":[],
+        "structural_failures":[],
+        "commercial_outcomes":[],
+        "economic_result":{
+            "new_asset_created":0,
+            "new_product_offers_sent":0,
+            "fulfilled_orders_seen":0,
+            "verified_cyclops_revenue_cents_seen":0,
+            "newly_observed_verified_paid_cents":0,
+        },
+    }
+
+    # These are independent business activities, not a mandatory single funnel.
+    # Payment verification and delivery always get first access to the runner.
+    try:
+        fulfillment=fulfill_orders()
+        receipt["fulfillment"]=fulfillment["orders"]
+        receipt["economic_result"]["fulfilled_orders_seen"]=fulfillment["newly_fulfilled_orders"]
+        receipt["economic_result"]["newly_observed_verified_paid_cents"]=(
+            fulfillment["newly_observed_verified_paid_cents"])
+        receipt["economic_result"]["verified_cyclops_revenue_cents_seen"]=(
+            fulfillment["newly_observed_verified_paid_cents"])
+        if any(x.get("result")=="fulfillment_failed" for x in fulfillment["orders"]):
+            receipt["structural_failures"].append({
+                "reason":"verified_customer_fulfillment_incomplete"})
+    except Exception as exc:
+        receipt["structural_failures"].append({
+            "reason":"fulfillment_scan_failed",
+            "detail":(str(exc) or type(exc).__name__)[:160]})
+
+    # Catalog distribution does not require a new product or a new email lead.
+    try:
+        receipt["legacy_checkout_safety"]=retire_unverified_payment_links()
+    except Exception as exc:
+        receipt["structural_failures"].append({
+            "reason":"unverified_payment_link_retirement_failed",
+            "detail":(str(exc) or type(exc).__name__)[:160]})
+
+    try:
+        receipt["catalog"]=publish_catalog()
+    except Exception as exc:
+        receipt["structural_failures"].append({
+            "reason":"catalog_publication_failed",
+            "detail":(str(exc) or type(exc).__name__)[:160]})
+
+    memory=ResearchMemory("cyclops")
+    try:
+        # Drafts already carry their original source evidence. Continuing one
+        # must not spend the runner's Qwen budget on unrelated new research.
+        pending_at_start=read_pending()
+        if (pending_at_start.get("stage") in ("drafting","review","approved","sealed")
+                and not (pending_at_start.get("plan") or {}).get("output_files")):
+            # The old subjective reviewer created a permanently stuck draft.
+            # Retire it BEFORE deciding whether to search, so this same run
+            # can originate a fresh deliverable rather than wasting an hour.
+            try:
+                _retire_draft(pending_at_start,"legacy_fixed_format_non_executable_draft")
+            except ProductRetired as retirement:
+                receipt["commercial_outcomes"].append({
+                    "reason":"legacy_unproductive_draft_archived",
+                    "detail":str(retirement)[:145]})
+            pending_at_start={"stage":"empty"}
+        if (pending_at_start.get("stage") in ("building","drafting","review","approved","sealed")
+                and not validated_market_proof(pending_at_start.get("plan") or {})):
+            try:
+                _retire_draft(pending_at_start,"not_supported_by_public_market_evidence")
+            except ProductRetired as retirement:
+                receipt["commercial_outcomes"].append({
+                    "reason":"unsold_market_assumption_archived",
+                    "detail":str(retirement)[:145]})
+            pending_at_start={"stage":"empty"}
+        resuming=pending_at_start.get("stage") in ("building","drafting","review","approved","sealed")
+        if resuming:
+            rows,search_errors=[],[]
+        else:
+            rows,search_errors=demand_candidates(memory)
+        source_counts={}
+        provider_counts={}
+        for row in rows:
+            source=str(row.get("source") or "supplemental")
+            source_counts[source]=source_counts.get(source,0)+1
+            provider=str(row.get("search_provider") or "")
+            if provider:
+                provider_counts[provider]=provider_counts.get(provider,0)+1
+        receipt["discovery"]={
+            "status":("deferred_for_existing_product" if resuming else
+                      "new_public_evidence" if rows else "no_new_eligible_public_evidence"),
+            "candidate_count":len(rows),
+            "new_research_attempted":not resuming,
+            "research_deferred_for_product_completion":resuming,
+            "previous_product_evidence_count":(
+                len(pending_at_start.get("research_rows") or []) if resuming else 0),
+            "source_counts":source_counts,
+            "search_provider_counts":provider_counts,
+            "source_errors":search_errors,
+            "fetched_public_pages":sum(bool(r.get("page_fetched")) for r in rows),
+            "verified_firsthand_problem_pages":sum(bool(firsthand_problem_excerpt(r)) for r in rows),
+            "observed_public_paid_offers":sum(bool(observed_paid_listing(r)) for r in rows),
+            "market_candidates_considered":len(paid_listing_evidence(rows)),
+            "public_sources_available_for_judgment":len(public_market_evidence(rows)),
+            "public_market_sample":[{
+                "url":p["url"],"title":p["title"],
+                "signal_type":p["signal_type"],
+            } for p in public_market_evidence(rows)[:6]],
+            "paid_offer_sample":[{
+                "url":proof["url"],"title":proof["title"],
+                "displayed_sales_count":proof["displayed_sales_count"],
+                "listed_price_usd":proof["listed_price_usd"],
+            } for proof in (observed_paid_listing(r) for r in rows)
+              if proof][:6],
+            "candidates_without_email":sum(not bool(r.get("contact")) for r in rows),
+            "search_queries":list(dict.fromkeys(str(r.get("search_query") or "") for r in rows))[:12],
+        }
+    except Exception as exc:
+        rows=[]
+        receipt["discovery"]={"status":"research_runtime_error",
+                              "candidate_count":0,"new_research_attempted":True,
+                              "reason":(str(exc) or type(exc).__name__)[:160]}
+    receipt["discovery"]["research_memory"]=memory.save()
+    try:
+        # Competitor listings and editorial articles are not buyer lists.
+        distribution_rows=durable_distribution_leads([])
+        receipt["discovery"]["public_contact_addresses_in_history"]=len(distribution_rows)
+    except Exception as exc:
+        distribution_rows=rows
+        receipt["structural_failures"].append({
+            "reason":"distribution_history_failed",
+            "detail":(str(exc) or type(exc).__name__)[:160]})
+
+    # Existing products are marketed independently of new manufacturing.
+    assets=active_assets()
+    marketable=[a for a in assets if catalog_eligible(a)]
+    receipt["buyer_discovery"]=[]
+    for existing in marketable:
+        if remaining_run_seconds() < 300:
+            receipt["buyer_discovery"].append({
+                "asset_id":existing["asset_id"],
+                "deferred":"run_budget",
+                "remaining_seconds":round(remaining_run_seconds(),1)})
+            break
+        try:
+            prospective,errors=find_asset_buyers(existing,memory)
+            distribution_rows=durable_distribution_leads(prospective)
+            receipt["buyer_discovery"].append({
+                "asset_id":existing["asset_id"],
+                "valid_public_invitations":len(prospective),
+                "relevant_opt_in_outlets":len(prospective),
+                "search_issues":errors[:4]})
+        except Exception as exc:
+            receipt["buyer_discovery"].append({
+                "asset_id":existing["asset_id"],
+                "error":type(exc).__name__})
+        try:
+            action=send_asset_offer(distribution_rows,existing)
+            if action.get("result")=="offer_sent":
+                receipt["external_action"]=action
+                receipt["economic_result"]["new_product_offers_sent"]+=1
+                break
+        except Exception as exc:
+            receipt["structural_failures"].append({
+                "reason":"catalog_distribution_failed",
+                "detail":(str(exc) or type(exc).__name__)[:160]})
+
+    # Product work is checkpointed and resumable across runs. A rejected draft
+    # is unfinished work, not a reason to erase it or to stop existing sales.
+    try:
+        pending=read_pending()
+        if remaining_run_seconds() < 360:
+            receipt["production"]={
+                "result":"deferred_for_run_budget",
+                "remaining_seconds":round(remaining_run_seconds(),1),
+                "pending_stage":pending.get("stage") or "empty",
+            }
+            should_produce=False
+        else:
+            should_produce=bool(rows) or pending.get("stage") not in (None,"empty")
+        if should_produce:
+            plan=complete_asset(rows,assets)
+            asset=publish_finished_asset(plan)
+            receipt["economic_result"]["new_asset_created"]=1
+            receipt["asset"]={
+                "asset_id":asset["asset_id"],"title":asset["title"],
+                "price_usd":asset["price_usd"],"price_cents":asset["price_cents"],
+                "payment_link_id":asset["payment_link_id"],
+            }
+            receipt["production"]={
+                "result":"approved_and_published",
+                "asset_id":asset["asset_id"],
+                "production_tool":"isolated_tool_workshop",
+                "artifact_count":len(plan["_files"]),
+                "created_artifacts":[{
+                    "filename":x["filename"],
+                    "bytes":x["size_bytes"],
+                    "sha256":x["sha256"],
+                    "content_type":x["content_type"],
+                } for x in plan["_files"]],
+            }
+            # The store listing and checkout can now progress even without email.
+            receipt["catalog"]=publish_catalog()
+            if receipt["external_action"] is None:
+                prospective,errors=find_asset_buyers(asset,memory)
+                distribution_rows=durable_distribution_leads(prospective)
+                receipt["buyer_discovery"].append({
+                    "asset_id":asset["asset_id"],
+                    "valid_public_invitations":len(prospective),
+                    "relevant_opt_in_outlets":len(prospective),
+                    "search_issues":errors[:4]})
+                action=send_asset_offer(distribution_rows,asset)
+                receipt["external_action"]=action
+                if action.get("result")=="offer_sent":
+                    receipt["economic_result"]["new_product_offers_sent"]+=1
+        else:
+            if not receipt["production"]:
+                receipt["production"]={"result":"no_current_product_opportunity"}
+    except (ValueError,RuntimeError) as exc:
+        reason=(str(exc) or type(exc).__name__)[:220]
+        if isinstance(exc,MarketDeclined):
+            receipt["market_assessments"]=exc.assessments
+        try:
+            pending=read_pending()
+            stage=pending.get("stage") or "empty"
+        except Exception:
+            pending={}
+            stage="unreadable"
+        if isinstance(exc,ProductRetired):
+            receipt["production"]={"result":"invalid_draft_retired",
+                                   "reason":reason,
+                                   "new_concept_eligible_next_run":True}
+            receipt["structural_failures"].append({
+                "reason":"invalid_production_draft_retired","detail":reason})
+        elif isinstance(exc,ProductionPending):
+            progressed=str(exc).startswith("artifact_created_and_saved:")
+            receipt["production"]={
+                "result":("artifact_created_and_saved" if progressed
+                          else "objective_production_repair_pending"),
+                "stage":stage,
+                "last_issue":("" if progressed else str(pending.get("feedback") or reason)[-500:]),
+                "attempts":pending.get("attempts") or 0,
+                "files_finished":len(pending.get("files") or []),
+                "files_planned":len((pending.get("plan") or {}).get("output_files") or []),
+            }
+            if not progressed:
+                receipt["structural_failures"].append({
+                    "reason":"production_build_failed",
+                    "detail":str(pending.get("feedback") or reason)[-220:]})
+        elif stage in ("building","drafting","review","approved","sealed"):
+            receipt["production"]={
+                "result":"production_blocked",
+                "stage":stage,"last_issue":reason,
+                "revisions":int(pending.get("revision") or 0),
+            }
+            receipt["structural_failures"].append({
+                "reason":"production_stage_error","detail":reason})
+        elif retryable_model_failure(reason):
+            # A transient local-model timeout is not repository corruption. Preserve
+            # evidence and let the self-chained successor retry cleanly.
+            receipt["production"]={
+                "result":"deferred_model_transport_timeout",
+                "reason":reason,
+                "remaining_seconds":round(remaining_run_seconds(),1),
+            }
+        elif reason.startswith(("no_public_research_to_select_product",
+                                 "no_observed_public_paid_offers",
+                                 "no_fetched_firsthand_market_evidence",
+                                 "market_opportunity_declined:",
+                                 "no_independently_correlated_paid_product_demand",
+                                 "no_verified_firsthand_market_problem",
+                                 "product_evidence_quote_not_verified_against_actual_problem",
+                                "product_unrelated_to_cited_public_evidence",
+                                "product_source_not_in_real_research",
+                                "product_production_goal_missing","product_output_manifest_invalid",
+                                "invalid_asset_spec","duplicate_product_output_path")):
+            receipt["production"]={"result":"concept_not_producible",
+                                   "reason":reason}
+        else:
+            receipt["production"]={"result":"production_error","reason":reason}
+            receipt["structural_failures"].append({
+                "reason":"production_or_publication_failed","detail":reason})
+    except Exception as exc:
+        receipt["structural_failures"].append({
+            "reason":"production_unhandled_failure",
+            "detail":(str(exc) or type(exc).__name__)[:160]})
+
+    blocked=sorted({str(e.get("provider")) for e in receipt["discovery"].get("source_errors",[])
+                    if e.get("http_code") in (403,429,503) and e.get("provider")})
+    receipt["operational_assessment"]={
+        "commercial_progress":bool(receipt["economic_result"]["new_product_offers_sent"]
+                                    or receipt["economic_result"]["verified_cyclops_revenue_cents_seen"]),
+        "commercial_state":(
+            "observed_paid_customers" if receipt["economic_result"]["verified_cyclops_revenue_cents_seen"] else
+            "new_opt_in_distribution" if receipt["economic_result"]["new_product_offers_sent"] else
+            "no_saleable_products" if not receipt["catalog"].get("listed_products") else
+            "saleable_but_no_new_buyers"),
+        "indexable_product_pages":receipt["catalog"].get("product_pages",0),
+        "new_distribution_outlets":sum(
+            int(x.get("relevant_opt_in_outlets") or 0)
+            for x in receipt["buyer_discovery"]),
+        "production_progress":bool(receipt["economic_result"]["new_asset_created"]),
+        "public_sources_reviewable":receipt["discovery"].get("public_sources_available_for_judgment",0),
+        "blocked_search_providers":blocked,
+        "primary_bottleneck":("none" if receipt["economic_result"]["new_product_offers_sent"]
+                              or receipt["economic_result"]["verified_cyclops_revenue_cents_seen"] else
+                              "no_verified_products_to_sell" if not receipt["catalog"].get("listed_products")
+                              and not receipt["discovery"].get("public_sources_available_for_judgment") else
+                              "no_opt_in_distribution" if receipt["catalog"].get("listed_products") else
+                              "no_firsthand_market_source" if not receipt["discovery"].get("public_sources_available_for_judgment")
+                              else str(receipt["production"].get("reason") or receipt["production"].get("result") or "unknown")[:160]),
+    }
+    memory.note_outcome(receipt)
+    receipt["discovery"]["research_memory"]=memory.save()
+    write_receipt(receipt)
+    print(json.dumps(receipt,indent=2))
+    if receipt["structural_failures"]:
+        raise SystemExit(2)
+
+if __name__=="__main__":
+    try:
+        run()
+    except Exception as exc:
+        write_receipt({
+            "schema_version":1,
+            "lane":"cyclops_reusable_assets",
+            "timestamp":NOW().isoformat(),
+            "structural_failures":[{
+                "reason":"cyclops_runtime_failure",
+                "detail":(str(exc) or type(exc).__name__)[:160],
+            }],
+            "economic_result":{
+                "new_asset_created":0,
+                "new_product_offers_sent":0,
+                "fulfilled_orders_seen":0,
+                "verified_cyclops_revenue_cents_seen":0,
+            },
+        })
+        raise
+''+price+'''</p>
+<a class="buy" href="'''+link+'''" rel="noopener noreferrer">Buy securely with Stripe</a>
+<p class="note">Payment processed by Sirius Sage. Digital delivery follows verified payment.</p>
 </article></main></body></html>'''
         publish_page("products/"+slug+"/index.html",product_html)
         cards.append(
