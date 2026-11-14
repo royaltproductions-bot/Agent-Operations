@@ -60,6 +60,30 @@ def open_listing_pages(api_key):
                        "bounties")
 
 
+def record_market_observation(state, opened):
+    """Persist every real open-list fetch, even when the market is unchanged."""
+    fetched_at = timestamp()
+    created = []
+    for item in opened:
+        if not isinstance(item, dict):
+            continue
+        for field in commercial.TIME_FIELDS:
+            parsed = commercial.utc_time(item.get(field))
+            if parsed:
+                created.append(parsed)
+                break
+    observation = {
+        "last_open_count": len(opened),
+        "newest_created_at": max(created).isoformat() if created else None,
+        "fetched_at": fetched_at,
+    }
+    state["market_observation"] = observation
+    history = state.setdefault("market_observation_history", [])
+    history.append(observation)
+    state["market_observation_history"] = history[-288:]
+    return observation
+
+
 def capture_ids(state, opened):
     """Idempotent. Never overwrite existing decisions, bids or encrypted terms."""
     state.setdefault("bounties", {})
@@ -233,16 +257,23 @@ def run(probe_mode=False):
     if state.get("schema") != 1:
         raise ValueError("incompatible_state")
     changed = capture_ids(state, opened)
-    if changed:
-        STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
-        temporary = STATE_PATH.with_suffix(".tmp")
-        temporary.write_text(json.dumps(state, indent=2, sort_keys=True) + "\n",
-                             encoding="utf-8")
-        temporary.replace(STATE_PATH)
-        # Expose the urgent checkpoint before reading unrelated event feeds.
-        # The workflow can persist this ID even if a later request times out.
-        if probe_mode:
-            output({"changed": True})
+    observation = record_market_observation(state, opened)
+    # Every market fetch is an operational measurement, not a no-op. Persist
+    # it even when there are no newly discovered listings.
+    STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    temporary = STATE_PATH.with_suffix(".tmp")
+    temporary.write_text(json.dumps(state, indent=2, sort_keys=True) + "\n",
+                         encoding="utf-8")
+    temporary.replace(STATE_PATH)
+    funnel = STATE_PATH.with_name("funnel.json")
+    temp_funnel = funnel.with_suffix(".tmp")
+    temp_funnel.write_text(
+        json.dumps(commercial.summarize(state), indent=2, sort_keys=True) + "\n",
+        encoding="utf-8")
+    temp_funnel.replace(funnel)
+    # Expose newly discovered IDs separately from the observation checkpoint.
+    if probe_mode and changed:
+        output({"changed": True})
     if probe_mode:
         held = other_pages(api_key,
                            "/v1/agent/bounties?status=claimed,submitted,reviewing,settling,disputed&limit=100",
@@ -258,7 +289,8 @@ def run(probe_mode=False):
         status = admission(state, opened, held, events)
         output({"connected": True, "changed": bool(changed), **status})
         print(json.dumps({"market_probe": "live", "checked_at": timestamp(),
-                          "released_open_total": len(opened), **status}))
+                          "released_open_total": len(opened),
+                          "market_observation": observation, **status}))
         return
     print(json.dumps({"early_market_scan": "ok", "checked_at": timestamp(),
                       "source": "trybounty_live_api", "released_open_total": len(opened),

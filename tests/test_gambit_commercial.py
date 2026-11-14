@@ -63,6 +63,31 @@ class CommercialTests(unittest.TestCase):
         self.assertEqual(sum(result['open_non_sample_by_posted_utc_day'].values()),1)
         self.assertEqual(result['open_non_sample_unknown_posted_time'],1)
 
+    def test_canceled_platform_bid_is_not_counted_active_or_aged(self):
+        state = {
+            'bounties': {
+                'live': {'action': 'bid_active', 'at': NOW.isoformat()},
+                'gone': {'action': 'bid_canceled_by_owner', 'at': NOW.isoformat()},
+            },
+            'commercial': {
+                'live': {'first_detected_at': NOW.isoformat(),
+                         'bid_at': NOW.isoformat(), 'bid_status': 'active',
+                         'platform_status': 'open'},
+                'gone': {'first_detected_at': NOW.isoformat(),
+                         'bid_at': NOW.isoformat(), 'bid_status': 'active',
+                         'platform_status': 'canceled'},
+            },
+            'market_observation': {
+                'last_open_count': 4,
+                'newest_created_at': NOW.isoformat(),
+                'fetched_at': NOW.isoformat(),
+            },
+        }
+        result = c.summarize(state, NOW)
+        self.assertEqual(result['cumulative']['bids_active'], 1)
+        self.assertEqual(set(result['aging_active_bids_days']), {'live'})
+        self.assertEqual(result['market_observation']['last_open_count'], 4)
+
     def test_samples_require_read_page_and_literal_fact(self):
         row={'name':'Acme','fact':'Acme supports seed stage founders.','source_url':'https://example.com'}
         evidence={'results':[{'url':row['source_url'],'page_text':row['fact'],'evidence_level':'search_snippet'}]}

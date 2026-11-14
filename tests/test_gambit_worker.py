@@ -2441,3 +2441,71 @@ class GambitTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+class ClaudeNov13CompletionTests(unittest.TestCase):
+    def test_cold_start_bid_cap_lifts_after_verified_hire(self):
+        self.assertEqual(gambit.cold_start_bid_cap_cents({'bounties': {}, 'settlements': {}}),
+                         15000)
+        hired = {'bounties': {'paid': {'action': 'hired'}}, 'settlements': {}}
+        self.assertIsNone(gambit.cold_start_bid_cap_cents(hired))
+
+    def test_reconcile_reprices_active_bid_above_owner_cap(self):
+        state = {
+            'bounties': {'high': {'action': 'bid_active', 'version': 1}},
+            'commercial': {'high': {'bid_amount_cents': 32000,
+                                    'bid_status': 'active',
+                                    'platform_status': 'open'}},
+            'settlements': {},
+            'recent_outcomes': [],
+        }
+        details = {
+            'bounty': {'_id': 'high', 'version': 1, 'status': 'open',
+                       'flow': 'bid', 'title': 'Research suppliers',
+                       'description': 'Deliver a sourced spreadsheet.',
+                       'verification': 'Spreadsheet with source URLs.'},
+            'bid': {'status': 'active', 'payout_cents': 32000,
+                    'note': 'I will deliver the sourced spreadsheet.'},
+        }
+        def request(path, method='GET', payload=None):
+            if method == 'POST' and path.endswith('/bid'):
+                return {'bid': {'status': 'active',
+                                'payout_cents': payload['payout_cents'],
+                                'note': payload.get('note')}}
+            return details
+        with patch.object(gambit, 'platform_active_bid_ids', return_value={'high'}), \
+             patch.object(gambit, 'api', side_effect=request) as api:
+            gambit.reconcile_active_bids([], state)
+        posts = [call for call in api.call_args_list
+                 if len(call.args) > 1 and call.args[1] == 'POST'
+                 and call.args[0].endswith('/bid')]
+        self.assertEqual(len(posts), 1)
+        self.assertEqual(posts[0].args[2]['payout_cents'], 15000)
+        self.assertEqual(state['commercial']['high']['bid_amount_cents'], 15000)
+        self.assertIn('bid_repriced_cold_start',
+                      [row['action'] for row in state['recent_outcomes']])
+
+    def test_reconcile_marks_canceled_listing_out_of_active_funnel(self):
+        state = {
+            'bounties': {'gone': {'action': 'bid_active', 'version': 1}},
+            'commercial': {'gone': {
+                'bid_amount_cents': 4500, 'bid_status': 'active',
+                'platform_status': 'canceled',
+                'source_fields': {'updated_at': '2026-11-09T17:32:03+00:00'}}},
+            'settlements': {},
+            'recent_outcomes': [],
+        }
+        details = {
+            'bounty': {'_id': 'gone', 'version': 1, 'status': 'canceled',
+                       'flow': 'bid', 'updated_at': '2026-11-09T17:32:03+00:00'},
+            'bid': {'status': 'active', 'payout_cents': 4500},
+        }
+        with patch.object(gambit, 'platform_active_bid_ids', return_value={'gone'}), \
+             patch.object(gambit, 'api', return_value=details) as api:
+            gambit.reconcile_active_bids([], state)
+        self.assertEqual(state['bounties']['gone']['action'],
+                         'bid_canceled_by_owner')
+        self.assertEqual(state['commercial']['gone']['bid_status'],
+                         'canceled_by_owner')
+        self.assertFalse(any(len(call.args) > 1 and call.args[1] == 'POST'
+                             for call in api.call_args_list))
+

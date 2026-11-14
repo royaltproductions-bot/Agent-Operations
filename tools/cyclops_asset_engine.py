@@ -23,6 +23,7 @@ import mimetypes
 import os
 from pathlib import Path
 import re
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -54,6 +55,22 @@ OLLAMA="http://127.0.0.1:11434/api/chat"
 ROOT=Path("products/cyclops")
 RECEIPTS=Path("ops/cyclops-runs")
 NOW=lambda: datetime.now(timezone.utc)
+RUN_DEADLINE=None
+
+
+def remaining_run_seconds():
+    """Bound expensive Cyclops work so receipts survive the workflow deadline."""
+    return float("inf") if RUN_DEADLINE is None else max(0.0, RUN_DEADLINE-time.monotonic())
+
+
+def model_call_timeout_seconds():
+    configured=_model_timeout_seconds()
+    remaining=remaining_run_seconds()
+    if remaining == float("inf"):
+        return configured
+    # Preserve at least 90 seconds for durable state/receipt publication.
+    return max(5, min(configured, int(max(5, remaining-90))))
+
 
 SEARCH_SCHEMA={
     "type":"object",
@@ -176,7 +193,7 @@ def _model_json_once(schema,system,observation,num_ctx=6144,num_predict=1800,
             ],
         }).encode(),
         headers={"Content-Type":"application/json"})
-    with urllib.request.urlopen(req,timeout=_model_timeout_seconds()) as response:
+    with urllib.request.urlopen(req,timeout=model_call_timeout_seconds()) as response:
         raw=json.load(response).get("message",{}).get("content","")
     obj=json.loads(raw)
     if not isinstance(obj,dict):
@@ -256,7 +273,8 @@ def demand_candidates(memory):
     rows,errors=open_web_candidates(
         max_candidates=budget["max_candidates"],queries=queries,
         memory=memory,max_pages=budget["max_pages"],
-        strict_relevance=True,include_discussions=True)
+        strict_relevance=True,include_discussions=True,
+        deadline_monotonic=(RUN_DEADLINE-240 if RUN_DEADLINE is not None else None))
     if not rows:
         issues.append({
             "source":"research_coverage",
@@ -559,7 +577,7 @@ def model_python(system,observation,num_ctx=7168,num_predict=5600):
             ],
         }).encode(),
         headers={"Content-Type":"application/json"})
-    with urllib.request.urlopen(request) as response:
+    with urllib.request.urlopen(request,timeout=model_call_timeout_seconds()) as response:
         reply=json.load(response)
     script=str((reply.get("message") or {}).get("content") or "").strip()
     # An occasional Markdown wrapper should not waste an otherwise valid build.
@@ -1613,6 +1631,8 @@ def write_receipt(receipt):
     path.write_text(json.dumps(receipt,indent=2)+"\n",encoding="utf-8")
 
 def run():
+    global RUN_DEADLINE
+    RUN_DEADLINE=time.monotonic()+16*60
     receipt={
         "schema_version":2,
         "lane":"cyclops_reusable_assets",
@@ -1758,6 +1778,12 @@ def run():
     marketable=[a for a in assets if catalog_eligible(a)]
     receipt["buyer_discovery"]=[]
     for existing in marketable:
+        if remaining_run_seconds() < 300:
+            receipt["buyer_discovery"].append({
+                "asset_id":existing["asset_id"],
+                "deferred":"run_budget",
+                "remaining_seconds":round(remaining_run_seconds(),1)})
+            break
         try:
             prospective,errors=find_asset_buyers(existing,memory)
             distribution_rows=durable_distribution_leads(prospective)
@@ -1785,7 +1811,15 @@ def run():
     # is unfinished work, not a reason to erase it or to stop existing sales.
     try:
         pending=read_pending()
-        should_produce=bool(rows) or pending.get("stage") not in (None,"empty")
+        if remaining_run_seconds() < 360:
+            receipt["production"]={
+                "result":"deferred_for_run_budget",
+                "remaining_seconds":round(remaining_run_seconds(),1),
+                "pending_stage":pending.get("stage") or "empty",
+            }
+            should_produce=False
+        else:
+            should_produce=bool(rows) or pending.get("stage") not in (None,"empty")
         if should_produce:
             plan=complete_asset(rows,assets)
             asset=publish_finished_asset(plan)
@@ -1822,7 +1856,8 @@ def run():
                 if action.get("result")=="offer_sent":
                     receipt["economic_result"]["new_product_offers_sent"]+=1
         else:
-            receipt["production"]={"result":"no_current_product_opportunity"}
+            if not receipt["production"]:
+                receipt["production"]={"result":"no_current_product_opportunity"}
     except (ValueError,RuntimeError) as exc:
         reason=(str(exc) or type(exc).__name__)[:220]
         if isinstance(exc,MarketDeclined):

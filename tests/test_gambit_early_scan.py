@@ -60,19 +60,29 @@ class EarlyMarketTests(TestCase):
             with self.assertRaises(ValueError):
                 early.open_listing_pages("dummy")
 
-    def test_full_scan_updates_only_if_new_and_keeps_state(self):
+    def test_full_scan_records_every_fetch_without_erasing_state(self):
         with tempfile.TemporaryDirectory() as folder:
             path = Path(folder) / "state.json"
             state = {"schema": 1, "bounties": {}, "settlements": {}}
             path.write_text(json.dumps(state))
+            listing = [{"_id": "new", "version": 1,
+                        "created_at": "2026-11-13T20:00:00+00:00"}]
             with patch.object(early, "STATE_PATH", path), \
-                 patch.object(early, "open_listing_pages", return_value=[{"_id": "new", "version": 1}]), \
+                 patch.object(early, "open_listing_pages", return_value=listing), \
                  patch.dict(early.os.environ, {"BOUNTY_AGENT_API_KEY": "dummy"}):
                 early.run()
-                original = path.read_text()
+                first = json.loads(path.read_text())
                 early.run()
-                self.assertEqual(original, path.read_text())
-                self.assertEqual(json.loads(original)["settlements"], {})
+                second = json.loads(path.read_text())
+            self.assertEqual(second["settlements"], {})
+            self.assertEqual(second["bounties"]["new"]["action"], "evaluation_pending")
+            self.assertEqual(second["market_observation"]["last_open_count"], 1)
+            self.assertEqual(second["market_observation"]["newest_created_at"],
+                             "2026-11-13T20:00:00+00:00")
+            self.assertEqual(len(first["market_observation_history"]), 1)
+            self.assertEqual(len(second["market_observation_history"]), 2)
+            funnel = json.loads(path.with_name("funnel.json").read_text())
+            self.assertEqual(funnel["market_observation"]["last_open_count"], 1)
 
     def test_market_request_bypasses_intermediary_cache(self):
         class Response:
