@@ -1,0 +1,115 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T13:18:42.888863+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 9,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "followup": 6,
+      "github_paid_issues": 3
+    },
+    "source_errors": [],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 9,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://opensourcecongress.org",
+        "title": "Open Source Congress",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://opensource.org/blog/open-source-ai-fellowship-announced-at-un-open-source-week",
+        "title": "Open Source AI Fellowship Announced at UN Open Source Week",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://opensource.org/blog/state-of-the-source-at-ato-2025-state-of-the-open-ai",
+        "title": "State of the Source at ATO 2025: State of the \u201cOpen\u201d AI",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/kshahwali533-cyber/sentinel-ai/issues/25",
+        "title": "Product roadmap: validation, researcher workflows, intelligence, analytics, teams, enterprise and billing",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/xeprotocol/xe/issues/361",
+        "title": "Wallet Seed File Permission Vulnerability",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/midnightntwrk/midnight-examples/issues/108",
+        "title": "Wallet wrappers still log the first 8 characters of the seed",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-15 create secure data",
+      "is:issue is:open bounty created:>=2026-09-15 "
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit a proposal for an open-source AI governance tool with contact route",
+      "hiring a freelancer to create a secure data management proposal with public response channel",
+      "need paid help with writing a proposal for an open-source blockchain governance platform with authorized submission method",
+      "open-source AI ethics framework procurement request with contactable invitation",
+      "looking for someone to develop a secure decentralized identity system with public response channel"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 44,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit a proposal for an open-source AI governance tool with contact route",
+        "hiring a freelancer to create a secure data management proposal with public response channel",
+        "need paid help with writing a proposal for an open-source blockchain governance platform with authorized submission method",
+        "open-source AI ethics framework procurement request with contactable invitation",
+        "looking for someone to develop a secure decentralized identity system with public response channel"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 110,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
