@@ -1,0 +1,179 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-14T08:31:33.703706+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 6,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "hn_ask": 3,
+      "bing": 2,
+      "followup": 1
+    },
+    "source_errors": [],
+    "fetched_public_pages": 6,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 6,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=38014496",
+        "title": "Find Your Next Profitable Niche Using AI with This Real-Life Success Story",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45896676",
+        "title": "Top Developer Articles of the Week for November on CoderLegion",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=14855944",
+        "title": "Ask HN: Google Sheet user's next learning path as a non-programmer",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Ready_(2011_film)",
+        "title": "Ready (2011 film) - Wikipedia",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.template.net/",
+        "title": "Template.net | AI Generator & Free Templates",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.microsoft.com/es-es/power-platform/topics/",
+        "title": "Temas sobre procesos empresariales y automatizaci\u00f3n de flujos de trabajo",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 6,
+    "search_queries": [
+      "automate spreadsheet data entry for invoice processing",
+      "ready-to-use python script for scraping product prices from websites",
+      "template for generating monthly expense reports in excel",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 47,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "automate spreadsheet data entry for invoice processing",
+        "downloadable tool for tracking personal budget envelopes",
+        "script to batch rename and organize photo files by date",
+        "ready-to-use python script for scraping product prices from websites",
+        "template for generating monthly expense reports in excel"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 118,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:6 candidates reviewed;  a unique, actionable product idea or customer problem being addressed. The existing catalog includes similar offerings, and th; The candidate is a film page on Wikipedi"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 4,
+    "product_pages": 4,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 13,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "003c3c67f50b396938ad",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "755a8c931205cd5d956e",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:aaf4bc53afe249cefb",
+      "decision": "pass",
+      "reason": "The candidate lacks concrete evidence of demand, such as displayed sales counts or pricing, and the evidence excerpt is speculative without a clear, specific customer problem or utility. The example provided (Xendoo) is not a product but a case study, and there's no indication of a viable product or market readiness."
+    },
+    {
+      "candidate_id": "web:fcaf8f4925163c9578",
+      "decision": "pass",
+      "reason": "The article highlights a structured roadmap for mastering cryptography, which indicates a specific and identifiable user need. However, the absence of pricing and sales data makes it difficult to assess market viability. While the topic is relevant, there is no clear evidence of existing demand or competition that would justify building a product w"
+    },
+    {
+      "candidate_id": "web:820e175e2d609723ec",
+      "decision": "pass",
+      "reason": "The evidence suggests a clear, specific user need for a learning path that connects Google Sheets to advanced data analysis tools like BigQuery and Cloud Functions, without requiring a full developer skillset. However, the absence of posted prices, sales counts, or existing products in this space means there is no concrete evidence of demand or mar"
+    },
+    {
+      "candidate_id": "web:5da01224bdb38c64a9",
+      "decision": "pass",
+      "reason": "The page describes Microsoft Power Platform topics, including low-code development, automation, and data storytelling, which are broad and not specific enough to indicate a clear product opportunity. There is no evidence of a unique, actionable product idea or customer problem being addressed. The existing catalog includes similar offerings, and th"
+    },
+    {
+      "candidate_id": "web:27f4b98e671b282ffe",
+      "decision": "pass",
+      "reason": "The candidate is a film page on Wikipedia, which does not represent a viable product or market opportunity. There is no indication of a product, service, or business model that can be developed or tested."
+    },
+    {
+      "candidate_id": "web:fd1f97e8cf1c21c448",
+      "decision": "pass",
+      "reason": "The evidence excerpt is corrupted or unreadable, making it impossible to assess the actual value proposition or demand for the product. Without clear, actionable information about the service or its features, it is not possible to determine if it is worth pursuing."
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 4,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 6,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
