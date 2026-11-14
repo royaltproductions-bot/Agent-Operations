@@ -1087,6 +1087,47 @@ def github_put(path,text):
     except urllib.error.HTTPError as exc:
         raise RuntimeError("github_asset_write_http_"+str(exc.code)) from None
 
+
+def github_delete(path):
+    """Remove a stale public storefront file from main; 404 is already clean."""
+    token=os.getenv("GH_TOKEN","")
+    repo=os.getenv("GITHUB_REPOSITORY","")
+    if not token or "/" not in repo:
+        raise RuntimeError("github_write_unavailable")
+    url="https://api.github.com/repos/"+repo+"/contents/"+urllib.parse.quote(path,safe="/")
+    headers={
+        "Authorization":"Bearer "+token,
+        "Accept":"application/vnd.github+json",
+        "X-GitHub-Api-Version":"2022-11-28",
+        "Content-Type":"application/json",
+        "User-Agent":"cyclops-commerce/1.0",
+    }
+    try:
+        with urllib.request.urlopen(
+                urllib.request.Request(url+"?ref=main",headers=headers),
+                timeout=30) as response:
+            sha=str(json.load(response).get("sha") or "")
+    except urllib.error.HTTPError as exc:
+        if exc.code==404:
+            return False
+        raise RuntimeError("github_asset_read_http_"+str(exc.code)) from None
+    if not sha:
+        return False
+    body=json.dumps({
+        "message":"Remove stale Cyclops storefront page",
+        "sha":sha,
+        "branch":"main",
+    }).encode()
+    try:
+        with urllib.request.urlopen(
+                urllib.request.Request(url,data=body,method="DELETE",headers=headers),
+                timeout=30):
+            return True
+    except urllib.error.HTTPError as exc:
+        if exc.code==404:
+            return False
+        raise RuntimeError("github_asset_delete_http_"+str(exc.code)) from None
+
 def persist_asset(plan,checkout):
     """Publish only the PUBLIC manifest; keep paid content encrypted in vault."""
     ident=plan["asset_id"]
@@ -1232,6 +1273,7 @@ def publish_catalog():
         github_put("storefront/cyclops/"+path,content)
         modified+=1
 
+    expected_product_files=set()
     for asset in sorted(ready,key=lambda a:str(a.get("created_at") or ""),reverse=True):
         name=escape(str(asset.get("title") or "Digital product"))
         desc=escape(str(asset.get("description") or ""))
@@ -1283,7 +1325,9 @@ h1{font-size:clamp(2rem,6vw,3.7rem);line-height:1.05;margin:.45em 0 .3em}.audien
 <a class="buy" href="'''+link+'''" rel="noopener noreferrer">Buy securely with Stripe</a>
 <p class="note">Payment processed by Sirius Sage. Digital delivery follows verified payment.</p>
 </article></main></body></html>'''
-        publish_page("products/"+slug+"/index.html",product_html)
+        product_file="products/"+slug+"/index.html"
+        expected_product_files.add(product_file)
+        publish_page(product_file,product_html)
         cards.append(
             '<article class="product-card"><span class="card-kicker">CYCLOPS PRODUCT</span>'
             '<h2>'+name+'</h2><p>'+desc+'</p>'
@@ -1292,6 +1336,18 @@ h1{font-size:clamp(2rem,6vw,3.7rem);line-height:1.05;margin:.45em 0 .3em}.audien
             '<a class="detail" href="'+relative+'">View product</a></div>'
             '<a class="buy" href="'+link+'" rel="noopener noreferrer">'
             'Buy securely with Stripe</a></article>')
+
+    # Public detail pages must track catalog eligibility, not historical creation.
+    # Quarantined/retired assets can otherwise leave stale purchase-looking pages live.
+    product_root=Path("storefront/cyclops/products")
+    if product_root.is_dir():
+        for stale in product_root.glob("*/index.html"):
+            rel=str(stale.relative_to(Path("storefront/cyclops"))).replace(os.sep,"/")
+            if rel in expected_product_files:
+                continue
+            stale.unlink(missing_ok=True)
+            github_delete("storefront/cyclops/"+rel)
+            modified+=1
 
     free_card=(
         '<article class="product-card sample"><span class="card-kicker">FREE PRACTICE SAMPLE</span>'
