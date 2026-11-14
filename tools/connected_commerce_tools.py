@@ -12,6 +12,7 @@ import hashlib
 import json
 import mimetypes
 import os
+from datetime import datetime, timedelta, timezone
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 import re
@@ -319,14 +320,36 @@ def autonomous_paid_orders(limit=100):
         })
     return orders
 
+def recent_sent_messages(limit=100):
+    """Provider-grounded sent-message metadata for duplicate/rate protection."""
+    result=agent_get("messages",{"limit":min(int(limit),100),"labels":["sent"]})
+    return [
+        m for m in (result.get("messages") or [])
+        if isinstance(m,dict) and "sent" in (m.get("labels") or [])
+    ]
+
 def recent_sent_subjects(limit=100):
     """One provider read for duplicate protection across an autonomous run."""
-    result=agent_get("messages",{"limit":min(int(limit),100),"labels":["sent"]})
-    return {
-        str(m.get("subject") or "")
-        for m in result.get("messages") or []
-        if "sent" in (m.get("labels") or [])
-    }
+    return {str(m.get("subject") or "") for m in recent_sent_messages(limit)}
+
+def recent_subject_prefix_count(prefix,hours=24,limit=100,now=None):
+    """Count matching sent messages in a bounded recent window."""
+    now=now or datetime.now(timezone.utc)
+    cutoff=now-timedelta(hours=max(1,int(hours)))
+    count=0
+    for message in recent_sent_messages(limit):
+        if not str(message.get("subject") or "").startswith(str(prefix)):
+            continue
+        stamp=message.get("timestamp") or message.get("created_at") or message.get("createdAt")
+        try:
+            parsed=datetime.fromisoformat(str(stamp).replace("Z","+00:00"))
+        except (TypeError,ValueError):
+            continue
+        if parsed.tzinfo is None:
+            parsed=parsed.replace(tzinfo=timezone.utc)
+        if parsed>=cutoff:
+            count+=1
+    return count
 
 def sent_subject_exists(subject):
     """Provider-grounded duplicate protection for a single autonomous action."""
