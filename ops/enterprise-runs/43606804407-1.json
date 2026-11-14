@@ -1,0 +1,123 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T14:50:40.410789+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 9,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "bing": 1,
+      "hn_ask": 5,
+      "github_paid_issues": 3
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      }
+    ],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 8,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://en.wikipedia.org/wiki/Request_for_proposal",
+        "title": "Request for proposal - Wikipedia",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=49731216",
+        "title": "Tell HN: An inside view of Montana's new biotech law",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=48409385",
+        "title": "Creating a GPS Tracking App from Scratch. What Should Come First?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47791664",
+        "title": "Idea Discussion: Can We Replace Needs of Static Websites with AI Profiles?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47499842",
+        "title": "I spent 2 months building a free AgTech app for my 5k-person hometown",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47223089",
+        "title": "I built a persistent memory layer for AI agents in Rust",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "RFP for a secure data export tool with public proposal submission",
+      "looking for someone to design a real-time dashboard with contactable invitation",
+      "is:issue is:open bounty created:>=2026-09-15 design real time",
+      "is:issue is:open bounty created:>=2026-09-15 "
+    ],
+    "attempted_search_queries": [
+      "RFP for a secure data export tool with public proposal submission",
+      "looking for someone to design a real-time dashboard with contactable invitation",
+      "hiring a freelancer to create a secure data validation pipeline with public response channel",
+      "need paid help with developing a scalable notification system with public proposal submission route",
+      "RFP for a data onboarding flow with public document submission"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 41,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "RFP for a secure data export tool with public proposal submission",
+        "looking for someone to design a real-time dashboard with contactable invitation",
+        "hiring a freelancer to create a secure data validation pipeline with public response channel",
+        "need paid help with developing a scalable notification system with public proposal submission route",
+        "RFP for a data onboarding flow with public document submission"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
