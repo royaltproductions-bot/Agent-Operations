@@ -5,6 +5,7 @@ No external website, payment, GitHub write, or email is touched.
 """
 import unittest
 import json
+from pathlib import Path
 from unittest.mock import patch
 from tools import open_web_discovery as web
 from tools import autonomous_commerce_brain as brain
