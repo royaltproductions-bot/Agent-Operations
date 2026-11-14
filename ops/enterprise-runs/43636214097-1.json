@@ -1,0 +1,109 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T20:14:04.695256+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "bing": 1,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "duckduckgo",
+        "reason": "URLError",
+        "http_code": null
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "URLError"
+      }
+    ],
+    "fetched_public_pages": 3,
+    "candidates_without_email": 4,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://www.velocibid.com/resources/ultimate-guide-rfp-automation-2026",
+        "title": "The Ultimate Guide to RFP Automation (2026 Edition)",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://arxiv.org/abs/2607.08920",
+        "title": "AI Adoption in S&P 500 Firms",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://ide.mit.edu/insights/pulling-back-the-curtain-on-enterprise-ai-adoption/",
+        "title": "Pulling Back the Curtain on Enterprise AI Adoption",
+        "provider": "followup",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://rfpplanet.com/ai-0253/ai-adoption-and-microsoft-copilot-enableme",
+        "title": "AI Adoption and Microsoft Copilot Enablement Services",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": true
+      }
+    ],
+    "search_queries": [
+      "request for proposals data analytics automation 2026"
+    ],
+    "attempted_search_queries": [
+      "RFP custom software development services deadline 2026",
+      "request for proposals data analytics automation 2026",
+      "can anyone create a digital response for AI adoption training procurement",
+      "need paid help with RFP response for enterprise AI adoption platform"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 11,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "RFP custom software development services deadline 2026",
+        "request for proposals data analytics automation 2026",
+        "can anyone create a digital response for AI adoption training procurement",
+        "need paid help with RFP response for enterprise AI adoption platform"
+      ],
+      "next_query_queue": 1,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
