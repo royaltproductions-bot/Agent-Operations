@@ -1,21 +1,21 @@
 {
   "aging_active_bids_days": {
-    "mx713jqgcsevmx5jfgvz6qnmed8j60gv": 0.0030657845833333332,
-    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 2.978078411898148,
-    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 0.7728010855092592,
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 6.998873018379629,
-    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 0.7727937359722222,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 11.069622161898149,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 11.03978199986111,
-    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 2.9780853447685187,
-    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 3.8074176943055553,
-    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 0.77278557625,
-    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 2.981738631805556,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 11.070472833194446,
-    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 2.9780708540277776,
-    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 2.978099117916667,
-    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 2.9817243956944446,
-    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 4.839899303101852
+    "mx713jqgcsevmx5jfgvz6qnmed8j60gv": 2.097083333333333e-06,
+    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 2.9783569697685186,
+    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 0.7730796433796296,
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 6.99915157625,
+    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 0.7730722938425926,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 11.069900719768519,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 11.040060557731481,
+    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 2.978363902638889,
+    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 3.807696252175926,
+    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 0.7730641341203703,
+    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 2.982017189675926,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 11.070751391064814,
+    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 2.978349411898148,
+    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 2.978377675787037,
+    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 2.9820029535648147,
+    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 4.840177860972222
   },
   "browser": {
     "completed_job_count": {
@@ -85,7 +85,7 @@
   },
   "conversion_rates": {
     "bid_per_seen": 0.26865671641791045,
-    "buyer_reply_per_bid": 0.05555555555555555,
+    "buyer_reply_per_bid": 0.1111111111111111,
     "hire_per_bid": 0.0
   },
   "coverage": "Observed unique bounties; historical events before instrumentation may be incomplete.",
@@ -115,10 +115,10 @@
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-14T21:06:56.497788+00:00",
+  "generated_at": "2026-11-14T21:07:20.565188+00:00",
   "market_observation": {
     "fetched_at": "2026-11-14T21:06:54.058435+00:00",
-    "last_checked_at": "2026-11-14T21:06:56.116743+00:00",
+    "last_checked_at": "2026-11-14T21:06:58.118615+00:00",
     "last_open_count": 60,
     "newest_created_at": "2026-11-14T21:01:47.805000+00:00",
     "newest_posted_at": "2026-11-14T21:01:47.805000+00:00"
@@ -829,9 +829,9 @@
   "median_posting_to_detection_minutes": 92.20504588333333,
   "median_posting_to_detection_minutes_24h": 1.31489645,
   "model_budget": {
-    "call_count": 347,
+    "call_count": 349,
     "month": "2026-11",
-    "reserved_micro_usd": 13376478
+    "reserved_micro_usd": 13431614
   },
   "null_fields": {
     "accepted_at": 0,
@@ -864,8 +864,8 @@
     "withdrawn": 0
   },
   "unanswered_threads": {
-    "count": 0,
-    "oldest_last_incoming_at": null
+    "count": 1,
+    "oldest_last_incoming_at": "2026-11-14T21:03:08.046000+00:00"
   },
   "unknown_fields": {
     "accepted_at": 70,
@@ -873,7 +873,7 @@
     "bid_at": 3,
     "bid_status": 52,
     "budget_cents": 3,
-    "conversation": 54,
+    "conversation": 53,
     "delivered_at": 70,
     "first_detected_at": 3,
     "hired_at": 70,
