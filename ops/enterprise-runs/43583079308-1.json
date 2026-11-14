@@ -1,0 +1,108 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T10:00:59.739907+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 5,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 4,
+      "bing": 1
+    },
+    "source_errors": [],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 5,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/3777",
+        "title": "[wildcard] Flip GUARANTEES Row 18: Linear Panic Enclaves & Zero-Cost Trampoline Unwinding (Replacing Whole-Process Abort",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2594",
+        "title": "[wildcard] Turn rejection into the product: synthesize the boundary from the failing alias graph, then prove the repair ",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2437",
+        "title": "[wildcard] Direct-to-SSA Lowering & Zero-Staticlib Boundary: Bypassing Plain Go Transpilation for 100% BCE Acceleration",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/2406",
+        "title": "[wildcard] Inline Ghost-Capability Directives: Erasing the .hy file split via standard Go AST comment pragmas",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.berwyn-il.gov/government/city-employment",
+        "title": "City Employment - Berwyn, IL",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-15 submit proposal rust",
+      "hiring a freelancer to submit a proposal for a decentralized finance compliance tool with published response instruction"
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to submit a proposal for a Rust-based boundary contract verification tool with published submission",
+      "looking for someone to submit a proposal for an open-source interoperability project with published response instruction",
+      "hiring a freelancer to submit a proposal for a decentralized finance compliance tool with published response instruction",
+      "need paid help with submitting a proposal for a public transportation data analysis project with published submission gui",
+      "looking for someone to submit a proposal for a blockchain-based identity verification project with published submission instructions"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 11,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to submit a proposal for a Rust-based boundary contract verification tool with published submission",
+        "looking for someone to submit a proposal for an open-source interoperability project with published response instruction",
+        "hiring a freelancer to submit a proposal for a decentralized finance compliance tool with published response instruction",
+        "need paid help with submitting a proposal for a public transportation data analysis project with published submission gui",
+        "looking for someone to submit a proposal for a blockchain-based identity verification project with published submission instructions"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 115,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
