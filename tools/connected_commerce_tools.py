@@ -351,6 +351,34 @@ def recent_subject_prefix_count(prefix,hours=24,limit=100,now=None):
             count+=1
     return count
 
+def recent_solicitation_contact_count(hours=24,limit=100,now=None):
+    """Count recent RFP/solicitation contacts, including operator-seeded outreach."""
+    now=now or datetime.now(timezone.utc)
+    cutoff=now-timedelta(hours=max(1,int(hours)))
+    count=0
+    for message in recent_sent_messages(limit):
+        subject=str(message.get("subject") or "")
+        lowered=subject.lower()
+        if not (
+            subject.startswith("ARI Operations solicitation inquiry [")
+            or "request for proposal" in lowered
+            or "rfp" in lowered
+            or "solicitation" in lowered
+            or re.search(r"\btrs\d{6}\b", lowered)
+        ):
+            continue
+        stamp=message.get("timestamp") or message.get("created_at") or message.get("createdAt")
+        try:
+            parsed=datetime.fromisoformat(str(stamp).replace("Z","+00:00"))
+        except (TypeError,ValueError):
+            continue
+        if parsed.tzinfo is None:
+            parsed=parsed.replace(tzinfo=timezone.utc)
+        if parsed>=cutoff:
+            count+=1
+    return count
+
+
 def sent_subject_exists(subject):
     """Provider-grounded duplicate protection for a single autonomous action."""
     return str(subject) in recent_sent_subjects()
