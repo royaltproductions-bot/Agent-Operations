@@ -1,0 +1,100 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T04:03:24.869033+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      }
+    ],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 1,
+    "contactable_sources": 3,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://www.quantlabusa.dev/software-development-augusta-ga",
+        "title": "Augusta software development service page",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.quantlabusa.dev/services/custom-crm-development",
+        "title": "Custom CRM Development",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.quantlabusa.dev/software-development-columbus-ga",
+        "title": "Columbus, GA software development service page",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.quantlabusa.dev/blog/custom-crm-development-guide",
+        "title": "Custom CRM Development Guide\n When custom CRM beats Salesforce, HubSpot, and Zoho \u2014 and what the build looks like.\n Read",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [],
+    "attempted_search_queries": [
+      "looking for someone to submit proposal for software development RFP with published submission guidelines",
+      "hiring a freelancer to write RFP proposal for custom CRM system with contactable response route",
+      "need paid help with submitting proposal for 2026 software development tender with published contact route",
+      "can anyone create RFP response for custom software project with published submission guidelines"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 1,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit proposal for software development RFP with published submission guidelines",
+        "hiring a freelancer to write RFP proposal for custom CRM system with contactable response route",
+        "need paid help with submitting proposal for 2026 software development tender with published contact route",
+        "can anyone create RFP response for custom software project with published submission guidelines"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
