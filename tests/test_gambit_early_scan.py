@@ -106,6 +106,57 @@ class EarlyMarketTests(TestCase):
         self.assertFalse(result["needs_run"])
         self.assertFalse(result["needs_model"])
 
+    def test_guardrail_violation_wakes_worker_even_with_fresh_ledger_timestamp(self):
+        from datetime import datetime, timezone
+        now=datetime.now(timezone.utc)
+        state={
+            "bounties":{"high":{"action":"bid_active","version":1}},
+            "commercial":{"high":{"bid_amount_cents":32000,
+                                   "platform_status":"open"}},
+            "settlements":{},
+            "last_check":now.isoformat(),
+            "last_bid_reconciliation":now.isoformat(),
+        }
+        decision=early.admission(
+            state,[{"_id":"high","version":1}],[],[],now)
+        self.assertTrue(decision["needs_run"])
+        self.assertTrue(decision["commercial_guardrail_due"])
+        self.assertFalse(decision["needs_model"])
+
+    def test_known_canceled_active_bid_wakes_worker_immediately(self):
+        from datetime import datetime, timezone
+        now=datetime.now(timezone.utc)
+        state={
+            "bounties":{"gone":{"action":"bid_active","version":1}},
+            "commercial":{"gone":{"bid_amount_cents":4500,
+                                   "platform_status":"canceled"}},
+            "settlements":{},
+            "last_check":now.isoformat(),
+            "last_bid_reconciliation":now.isoformat(),
+        }
+        decision=early.admission(state,[],[],[],now)
+        self.assertTrue(decision["needs_run"])
+        self.assertTrue(decision["commercial_guardrail_due"])
+
+    def test_verified_paid_hire_lifts_only_price_guardrail_wakeup(self):
+        from datetime import datetime, timezone
+        now=datetime.now(timezone.utc)
+        state={
+            "bounties":{
+                "high":{"action":"bid_active","version":1},
+                "paid":{"action":"hired","version":1},
+            },
+            "commercial":{"high":{"bid_amount_cents":32000,
+                                   "platform_status":"open"}},
+            "settlements":{},
+            "last_check":now.isoformat(),
+            "last_bid_reconciliation":now.isoformat(),
+        }
+        self.assertFalse(early.commercial_guardrail_reconciliation_due(state))
+        decision=early.admission(
+            state,[{"_id":"high","version":1},{"_id":"paid","version":1}],[],[],now)
+        self.assertFalse(decision["commercial_guardrail_due"])
+
     def test_prior_account_rejections_queued_once_without_touching_other_passes(self):
         from datetime import datetime, timezone
         now = datetime.now(timezone.utc)
