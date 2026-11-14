@@ -1,0 +1,83 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T04:37:34.992421+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 1,
+    "source_counts": {
+      "open_web": 1
+    },
+    "search_provider_counts": {
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 0,
+    "candidates_without_email": 1,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://hiringcafe.com/jobs/san-antonio-tx",
+        "title": "Jobs in San Antonio, TX | HiringCafe",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "hiring a freelancer to create proposal for open tender with published contact route"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit proposal for open RFP with published contact route",
+      "need paid help with submitting proposal for public tender with contactable response route",
+      "can anyone create RFP response for public procurement with published submission guidelines",
+      "hiring a freelancer to create proposal for open tender with published contact route",
+      "submitting proposal for recent public procurement with contactable response route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 1,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit proposal for open RFP with published contact route",
+        "need paid help with submitting proposal for public tender with contactable response route",
+        "can anyone create RFP response for public procurement with published submission guidelines",
+        "hiring a freelancer to create proposal for open tender with published contact route",
+        "submitting proposal for recent public procurement with contactable response route"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
