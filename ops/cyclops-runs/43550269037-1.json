@@ -1,0 +1,225 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-14T03:14:10.667458+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 12,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "bing": 5,
+      "duckduckgo": 7
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 7,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 1,
+    "market_candidates_considered": 1,
+    "public_sources_available_for_judgment": 7,
+    "public_market_sample": [
+      {
+        "url": "https://www.microsoft.com/en-us/microsoft-365/outlook/log-in",
+        "title": "Outlook Log In | Microsoft 365",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://herothemes.com/blog/customer-feedback-email-templates/",
+        "title": "17 Customer Feedback Email Templates That Work (2026 Guide) - HeroThemes",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://github.com/marcodpt/minirps",
+        "title": "Mini reverse proxy server written in rust - GitHub",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://fluentcrm.com/blog/customer-feedback-email-examples/",
+        "title": "10+ Customer Feedback Email Examples + Templates (2026) - FluentCRM",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://github.com/pchchv/mrps",
+        "title": "GitHub - pchchv/mrps: Mini reverse proxy server",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.sender.net/email-templates/feedback-emails/",
+        "title": "Customer Feedback Email Templates & Examples - Sender",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://www.microsoft.com/en-us/microsoft-365/outlook/log-in",
+        "title": "Outlook Log In | Microsoft 365",
+        "displayed_sales_count": null,
+        "listed_price_usd": "19.99"
+      }
+    ],
+    "candidates_without_email": 12,
+    "search_queries": [
+      "outlook dropdown email template builder alternatives",
+      "downloadable customer feedback email template with pricing",
+      "self-contained reverse proxy binary with minijinja templates"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 17,
+      "skipped_revisits": 24,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "downloadable customer feedback email template with pricing",
+        "self-contained reverse proxy binary with minijinja templates",
+        "event feedback email template with sales data",
+        "outlook dropdown email template builder alternatives",
+        "how to create a single binary with reverse proxy and static file server"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:7 candidates reviewed;  content is generic. While customer feedback is important, the market for email templates is highly saturated with free and paid options. There is no clear differentiati"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 4,
+    "product_pages": 4,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 13,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "003c3c67f50b396938ad",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "duckduckgo",
+          "reason": "HTTPError",
+          "http_code": 403
+        }
+      ]
+    },
+    {
+      "asset_id": "755a8c931205cd5d956e",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:80187cf78df02bda81",
+      "decision": "pass",
+      "reason": "The Microsoft 365 Basic subscription is a well-established product with a clear pricing model and a large existing user base. However, the evidence does not indicate a specific customer problem or a unique value proposition that is not already addressed by Microsoft's existing offerings. The product is not available for purchase, and there is no in"
+    },
+    {
+      "candidate_id": "web:f555d1f02d6f579b59",
+      "decision": "pass",
+      "reason": "The article discusses customer feedback email templates, which suggests there is a demand for tools to manage customer feedback. However, the absence of a specific product or pricing information makes it difficult to assess the viability of a new product in this space. Additionally, existing competition from platforms like FluentCRM indicates that "
+    },
+    {
+      "candidate_id": "web:056c2c00f2140f95b1",
+      "decision": "pass",
+      "reason": "The candidate lacks clear evidence of demand, such as sales counts, pricing, or specific customer problems. While the project is technically interesting, there is no indication of a real market need or buyer utility. The absence of public sales or pricing makes it difficult to justify pursuing this as a viable product without further validation."
+    },
+    {
+      "candidate_id": "web:cbdab9896186a068e7",
+      "decision": "pass",
+      "reason": "The content on the page is about customer feedback email examples and templates, which is a common and well-saturated area. There is no clear indication of a unique problem or a specific need that isn't already addressed by existing tools like FluentCRM or Sender. Additionally, there is no evidence of a viable product or demand beyond the general t"
+    },
+    {
+      "candidate_id": "web:9557f25f481a20dca6",
+      "decision": "pass",
+      "reason": "The candidate lacks clear evidence of demand, such as sales counts, pricing, or direct customer engagement. While the project is technically interesting, there is no indication of a viable market or buyer utility without further validation."
+    },
+    {
+      "candidate_id": "web:9508599c9bcd0f9da1",
+      "decision": "pass",
+      "reason": "The candidate lacks concrete evidence of demand or sales, and the provided content is generic. While customer feedback is important, the market for email templates is highly saturated with free and paid options. There is no clear differentiation or unique value proposition to justify building a new product in this space."
+    },
+    {
+      "candidate_id": "web:6fde62fbdbcb5e6cbe",
+      "decision": "pass",
+      "reason": "The candidate does not represent a new product or service but rather a well-established Microsoft product. The existing catalog includes products that offer unique value (e.g., Outlook Dropdown Email Template Builder, Automated Workflow Builder for Repetitive Tasks, Web Data Extraction Dashboard for Real-Time Market Insights, Simplified CRM Dashboa"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 4,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 7,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
