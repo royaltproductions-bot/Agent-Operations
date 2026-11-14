@@ -1,0 +1,116 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T15:39:03.090396+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 7,
+    "source_counts": {
+      "open_web": 7
+    },
+    "search_provider_counts": {
+      "followup": 2,
+      "hn_ask": 2,
+      "github_paid_issues": 3
+    },
+    "source_errors": [],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 5,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://rfp.ai/rfp-platform/",
+        "title": "Buyer guide RFP platform buyer guide\n When a platform replaces documents, spreadsheets, and black-box AI chat.",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=41872315",
+        "title": "I Trained an AI bot to find out how to run a $100M SaaS business",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=23625579",
+        "title": "Tell HN: Predictions on the Future of Freelancing",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/sigmasteve/hound/issues/548",
+        "title": "Clean up old branches on GitHub (about 345)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/filecoin-project/devgrants/issues/2249",
+        "title": "Open Grant Proposal: MockMirror Filecoin Fixtures - durable content-addressed mock API storage",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/filecoin-project/devgrants/issues/2248",
+        "title": "Open Grant Proposal: MockMirror Filecoin Fixtures - durable content-addressed mock API storage",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "hiring a freelancer to design an AI agent persistent memory layer in Rust",
+      "is:issue is:open bounty created:>=2026-09-15 create data onboarding"
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to build a secure data export tool with public proposal submission",
+      "looking for someone to create a data onboarding flow with public response channel",
+      "RFP for a scalable notification system with public document submission",
+      "hiring a freelancer to design an AI agent persistent memory layer in Rust",
+      "need paid help with building a secure data validation pipeline with public proposal submission"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 31,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to build a secure data export tool with public proposal submission",
+        "looking for someone to create a data onboarding flow with public response channel",
+        "RFP for a scalable notification system with public document submission",
+        "hiring a freelancer to design an AI agent persistent memory layer in Rust",
+        "need paid help with building a secure data validation pipeline with public proposal submission"
+      ],
+      "next_query_queue": 1,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
