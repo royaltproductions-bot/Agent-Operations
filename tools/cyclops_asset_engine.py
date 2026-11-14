@@ -1087,6 +1087,47 @@ def github_put(path,text):
     except urllib.error.HTTPError as exc:
         raise RuntimeError("github_asset_write_http_"+str(exc.code)) from None
 
+
+def github_delete(path):
+    """Remove a stale public storefront file from main; 404 is already clean."""
+    token=os.getenv("GH_TOKEN","")
+    repo=os.getenv("GITHUB_REPOSITORY","")
+    if not token or "/" not in repo:
+        raise RuntimeError("github_write_unavailable")
+    url="https://api.github.com/repos/"+repo+"/contents/"+urllib.parse.quote(path,safe="/")
+    headers={
+        "Authorization":"Bearer "+token,
+        "Accept":"application/vnd.github+json",
+        "X-GitHub-Api-Version":"2022-11-28",
+        "Content-Type":"application/json",
+        "User-Agent":"cyclops-commerce/1.0",
+    }
+    try:
+        with urllib.request.urlopen(
+                urllib.request.Request(url+"?ref=main",headers=headers),
+                timeout=30) as response:
+            sha=str(json.load(response).get("sha") or "")
+    except urllib.error.HTTPError as exc:
+        if exc.code==404:
+            return False
+        raise RuntimeError("github_asset_read_http_"+str(exc.code)) from None
+    if not sha:
+        return False
+    body=json.dumps({
+        "message":"Remove stale Cyclops storefront page",
+        "sha":sha,
+        "branch":"main",
+    }).encode()
+    try:
+        with urllib.request.urlopen(
+                urllib.request.Request(url,data=body,method="DELETE",headers=headers),
+                timeout=30):
+            return True
+    except urllib.error.HTTPError as exc:
+        if exc.code==404:
+            return False
+        raise RuntimeError("github_asset_delete_http_"+str(exc.code)) from None
+
 def persist_asset(plan,checkout):
     """Publish only the PUBLIC manifest; keep paid content encrypted in vault."""
     ident=plan["asset_id"]
@@ -1204,16 +1245,21 @@ def public_product_url(asset):
     return "https://ari-operations.onrender.com/products/"+slug+"/"
 
 
+CYCLOPS_BRAND="CYCLOPS"
+CYCLOPS_EXPANSION="Continuously Yielding Customer-Led Original Products & Solutions"
+CYCLOPS_STORE_TAGLINE="Practical digital solutions by ARI Operations."
+CYCLOPS_FREE_SAMPLE_URL="https://ariquest444.gumroad.com/cyclops-by-ari-operations-free-quote-calculator-practice-sample"
+
+
 def publish_catalog():
-    """Independently expose approved catalog offers through existing storefront."""
+    """Publish only catalog-eligible CYCLOPS products and purge stale detail pages."""
     manifests=active_assets()
-    # Old public-file products aren't considered paid-vault ready; do not
-    # accidentally advertise work that is already freely readable.
     ready=[a for a in manifests if catalog_eligible(a)]
     cards=[]
     base_url="https://ari-operations.onrender.com"
     pages=[]
     modified=0
+
     def publish_page(path,content):
         nonlocal modified
         target=Path("storefront/cyclops")/path
@@ -1227,6 +1273,7 @@ def publish_catalog():
         github_put("storefront/cyclops/"+path,content)
         modified+=1
 
+    expected_product_files=set()
     for asset in sorted(ready,key=lambda a:str(a.get("created_at") or ""),reverse=True):
         name=escape(str(asset.get("title") or "Digital product"))
         desc=escape(str(asset.get("description") or ""))
@@ -1242,7 +1289,7 @@ def publish_catalog():
             "name":str(asset.get("title") or "Digital product"),
             "description":str(asset.get("description") or "")[:500],
             "url":canonical,
-            "brand":{"@type":"Brand","name":"Ari Operations"},
+            "brand":{"@type":"Brand","name":"ARI Operations"},
             "offers":{"@type":"Offer","priceCurrency":"USD",
                       "price":str(asset.get("price_usd") or ""),
                       "availability":"https://schema.org/InStock",
@@ -1252,72 +1299,112 @@ def publish_catalog():
         product_html='''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="index,follow">
-<title>'''+name+''' | Ari Operations</title>
+<title>'''+name+''' | CYCLOPS by ARI Operations</title>
 <meta name="description" content="'''+escape(str(asset.get("description") or "")[:160],quote=True)+'''">
 <link rel="canonical" href="'''+canonical+'''">
 <meta property="og:type" content="product"><meta property="og:title" content="'''+escape(str(asset.get("title") or ""),quote=True)+'''">
 <meta property="og:description" content="'''+escape(str(asset.get("description") or "")[:180],quote=True)+'''">
 <meta property="og:url" content="'''+canonical+'''">
 <script type="application/ld+json">'''+jsonld+'''</script>
-<style>body{font:16px/1.65 system-ui,sans-serif;background:#f5f7f8;color:#182932;margin:0}
-main{max-width:850px;margin:0 auto;padding:45px 22px}article{background:white;padding:30px;border-radius:14px;border:1px solid #dbe3e7}
-.buy{display:inline-block;background:#155f65;color:white;padding:12px 20px;border-radius:8px;text-decoration:none}
-.price{font-size:1.5rem;font-weight:700}a{color:#155f65}</style></head><body><main>
-<nav><a href="/">Ari Operations · All products</a></nav>
-<article><h1>'''+name+'''</h1><p>'''+desc+'''</p>
-<p>Designed for: '''+audience+'''</p><p class="price">$'''+price+'''</p>
+<style>
+:root{--ink:#f8fbff;--muted:#a9b9ca;--line:#273a53;--cyan:#57e4ff;--violet:#b489ff;--gold:#ffd166;--deep:#07111f}
+*{box-sizing:border-box}body{font:16px/1.65 system-ui,-apple-system,sans-serif;margin:0;color:var(--ink);background:radial-gradient(circle at 12% 8%,#183964 0,transparent 31%),radial-gradient(circle at 88% 10%,#412a65 0,transparent 28%),var(--deep)}
+main{max-width:930px;margin:0 auto;padding:34px 22px 70px}
+nav{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:28px}nav a{color:var(--cyan);text-decoration:none;font-weight:700}
+.brand{font-size:.82rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+article{background:linear-gradient(145deg,rgba(20,34,54,.96),rgba(12,23,38,.97));padding:clamp(26px,5vw,48px);border-radius:24px;border:1px solid var(--line);box-shadow:0 28px 80px rgba(0,0,0,.28)}
+.eyebrow{display:inline-block;padding:6px 10px;border:1px solid #3e5775;border-radius:999px;color:var(--cyan);font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+h1{font-size:clamp(2rem,6vw,3.7rem);line-height:1.05;margin:.45em 0 .3em}.audience{color:var(--muted)}
+.price{font-size:2rem;font-weight:850;color:var(--gold);margin:.75em 0}
+.buy{display:inline-block;background:linear-gradient(100deg,#34d8f2,#8c6cff);color:#07111f;padding:13px 20px;border-radius:11px;text-decoration:none;font-weight:900;box-shadow:0 10px 30px rgba(87,228,255,.18)}
+.note{color:var(--muted);font-size:.9rem;margin-top:18px}a{color:var(--cyan)}
+</style></head><body><main>
+<nav><a href="/">← CYCLOPS Product Store</a><span class="brand">ARI Operations</span></nav>
+<article><span class="eyebrow">'''+CYCLOPS_EXPANSION+'''</span><h1>'''+name+'''</h1><p>'''+desc+'''</p>
+<p class="audience"><strong>Designed for:</strong> '''+audience+'''</p><p class="price">$'''+price+'''</p>
 <a class="buy" href="'''+link+'''" rel="noopener noreferrer">Buy securely with Stripe</a>
-<p>Payment processed by Sirius Sage. Digital delivery follows verified payment.</p>
+<p class="note">Payment processed by Sirius Sage. Digital delivery follows verified payment.</p>
 </article></main></body></html>'''
-        publish_page("products/"+slug+"/index.html",product_html)
+        product_file="products/"+slug+"/index.html"
+        expected_product_files.add(product_file)
+        publish_page(product_file,product_html)
         cards.append(
-            '<article><h2>'+name+'</h2><p>'+desc+'</p>'
-            '<p class="muted">For: '+audience+'</p>'
-            '<p class="price">$'+price+'</p>'
-            '<a href="'+relative+'">Product details</a><br>'
+            '<article class="product-card"><span class="card-kicker">CYCLOPS PRODUCT</span>'
+            '<h2>'+name+'</h2><p>'+desc+'</p>'
+            '<p class="muted"><strong>For:</strong> '+audience+'</p>'
+            '<div class="card-footer"><p class="price">$'+price+'</p>'
+            '<a class="detail" href="'+relative+'">View product</a></div>'
             '<a class="buy" href="'+link+'" rel="noopener noreferrer">'
             'Buy securely with Stripe</a></article>')
-    body="".join(cards) if cards else (
-        '<article><h2>Products under review</h2>'
+
+    product_root=Path("storefront/cyclops/products")
+    if product_root.is_dir():
+        for stale in product_root.glob("*/index.html"):
+            rel=str(stale.relative_to(Path("storefront/cyclops"))).replace(os.sep,"/")
+            if rel in expected_product_files:
+                continue
+            stale.unlink(missing_ok=True)
+            github_delete("storefront/cyclops/"+rel)
+            modified+=1
+
+    free_card=(
+        '<article class="product-card sample"><span class="card-kicker">FREE PRACTICE SAMPLE</span>'
+        '<h2>Quote Calculator Development Practice Sample</h2>'
+        '<p>A no-purchase CYCLOPS practice resource for developers and makers exploring '
+        'AI-assisted development through a concrete quote-calculator brief and acceptance checks.</p>'
+        '<p class="muted"><strong>Cost:</strong> Free · No checkout required</p>'
+        '<a class="sample-link" href="'+escape(CYCLOPS_FREE_SAMPLE_URL,quote=True)+
+        '" rel="noopener noreferrer">Open the free sample ↗</a></article>')
+    paid_body="".join(cards) if cards else (
+        '<article class="product-card"><h2>Products under review</h2>'
         '<p>We are checking deliverable completeness and description accuracy '
-        'before placing digital products on sale. There are currently no '
-        'verified products available for purchase in this section.</p>'
-        '<p>For future releases, contact the Ari Operations team below.</p>'
-        '</article>')
+        'before placing digital products on sale.</p></article>')
+    body=free_card+paid_body
+
     document='''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="'''+('index,follow' if ready else 'noindex,follow')+'''">
-<title>Ari Operations | Digital Products &amp; Tools</title>
-<meta name="description" content="Digital products and tools by Ari Operations, with verified deliverables and secure checkout.">
+<meta name="robots" content="index,follow">
+<title>CYCLOPS Product Store | ARI Operations</title>
+<meta name="description" content="CYCLOPS — Continuously Yielding Customer-Led Original Products &amp; Solutions. Practical digital solutions by ARI Operations.">
 <link rel="canonical" href="https://ari-operations.onrender.com/">
 <style>
-body{font:16px/1.6 system-ui,-apple-system,sans-serif;background:#f5f7f8;color:#182932;margin:0}
-main{max-width:980px;margin:0 auto;padding:35px 20px 70px}
-nav a{color:#195d69}h1{font-size:clamp(28px,5vw,48px);line-height:1.15}
-section{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px}
-article{background:white;border:1px solid #dbe3e7;border-radius:14px;padding:24px}
-.muted{color:#61717a}.price{font-size:1.4rem;font-weight:700}
-.buy{display:inline-block;background:#155f65;color:white;padding:11px 17px;border-radius:8px;text-decoration:none}
+:root{--ink:#f7fbff;--muted:#a8b7c9;--line:#29415d;--cyan:#55e6ff;--violet:#ae86ff;--gold:#ffd166;--deep:#06101d}
+*{box-sizing:border-box}body{font:16px/1.6 system-ui,-apple-system,sans-serif;margin:0;color:var(--ink);background:radial-gradient(circle at 12% 5%,#163a68 0,transparent 29%),radial-gradient(circle at 88% 8%,#432b6a 0,transparent 27%),linear-gradient(180deg,#07111f,#091523 45%,#07111f)}
+main{max-width:1120px;margin:0 auto;padding:34px 20px 76px}
+.hero{position:relative;overflow:hidden;padding:clamp(26px,5vw,54px);border:1px solid #294867;border-radius:28px;background:linear-gradient(130deg,rgba(20,39,65,.96),rgba(22,18,47,.95));box-shadow:0 30px 90px rgba(0,0,0,.3);margin-bottom:26px}
+.hero:after{content:"";position:absolute;width:240px;height:240px;border:2px solid rgba(85,230,255,.26);border-radius:50%;right:-65px;top:-75px;box-shadow:0 0 0 26px rgba(174,134,255,.07),0 0 70px rgba(85,230,255,.12)}
+.brandline{font-size:.78rem;font-weight:850;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan)}
+h1{font-size:clamp(2.4rem,7vw,5.1rem);line-height:.95;margin:.18em 0 .15em;letter-spacing:-.045em}
+.expansion{font-size:clamp(1rem,2.5vw,1.28rem);max-width:790px;color:#d9e7f4;margin:0}.tagline{color:var(--muted);max-width:700px;margin:14px 0 0}
+.pulse{display:inline-flex;gap:8px;align-items:center;margin-top:20px;padding:7px 11px;border:1px solid #3b5877;border-radius:999px;color:#dceaf7;font-size:.82rem}.pulse:before{content:"";width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 16px var(--cyan)}
+section{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.product-card{display:flex;flex-direction:column;background:linear-gradient(150deg,rgba(19,34,54,.98),rgba(12,24,39,.98));border:1px solid var(--line);border-radius:20px;padding:23px;min-height:330px;box-shadow:0 18px 50px rgba(0,0,0,.18)}
+.product-card.sample{background:linear-gradient(145deg,rgba(30,53,78,.98),rgba(47,29,75,.97));border-color:#5378a2}
+.card-kicker{color:var(--cyan);font-size:.7rem;letter-spacing:.12em;font-weight:900}.product-card h2{line-height:1.18;margin:.45em 0 .35em;font-size:1.42rem}.muted{color:var(--muted)}
+.card-footer{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:auto}.price{font-size:1.45rem;font-weight:850;color:var(--gold);margin:10px 0}
+.detail{color:var(--cyan);font-weight:750}.buy,.sample-link{display:inline-block;margin-top:10px;padding:11px 14px;border-radius:10px;text-decoration:none;font-weight:900}
+.buy{background:linear-gradient(100deg,#3dd9ef,#8c72ff);color:#07111f}.sample-link{background:#f5fbff;color:#132033}
+footer{margin-top:32px;padding-top:20px;border-top:1px solid #21354c;color:var(--muted)}footer a{color:var(--cyan)}
 </style></head><body><main>
-<h1>Ari Operations</h1>
-<p>Digital Products &amp; Tools. Each listing is checked for deliverable completeness and accurate claims before being offered for purchase.</p>
+<header class="hero"><div class="brandline">ARI Operations · Agentic Resource Integration</div>
+<h1>CYCLOPS</h1><p class="expansion">Continuously Yielding Customer-Led Original Products &amp; Solutions</p>
+<p class="tagline">CYCLOPS Product Store — Practical digital solutions by ARI Operations. Each paid listing is checked for deliverable completeness and accurate claims before purchase.</p>
+<div class="pulse">Research → Build → Verify → Publish</div></header>
 <section>'''+body+'''</section>
-<p>Ari Operations · Questions? <a href="mailto:ari-operations@agentmail.to">Contact our digital products team</a>.</p>
+<footer>ARI Operations · Questions? <a href="mailto:ari-operations@agentmail.to">Contact our digital products team</a>.</footer>
 </main></body></html>'''
     sitemap='''<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-'''+''.join('<url><loc>'+escape(url)+'</loc></url>\n' for url in ([base_url+"/"] if ready else [])+pages)+'''</urlset>
+'''+''.join('<url><loc>'+escape(url)+'</loc></url>\n' for url in [base_url+"/"]+pages)+'''</urlset>
 '''
     robots='User-agent: *\nAllow: /\nSitemap: '+base_url+'/sitemap.xml\n'
     publish_page("sitemap.xml",sitemap)
     publish_page("robots.txt",robots)
-    # Update the catalog index last, after all linked product pages exist.
     publish_page("index.html",document)
     return {"result":"catalog_published" if modified else "catalog_unchanged",
             "listed_products":len(ready),"product_pages":len(pages),
             "files_updated":modified}
-
 
 def verified_session(session):
     if (session.get("status")!="complete" or session.get("payment_status")!="paid"
