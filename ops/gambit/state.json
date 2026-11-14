@@ -3003,7 +3003,7 @@
     "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": {
       "bid_amount_cents": 15000,
       "bid_at": 1794623646484,
-      "bid_created_at": 1794432791172,
+      "bid_created_at": 1794623646484,
       "bid_id": "p17bdbfctyx6j7rqfy8d986yn58j7ytw",
       "bid_status": "active",
       "bid_status_changed_at": "2026-11-11T21:33:11.413893+00:00",
@@ -3122,7 +3122,7 @@
     "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": {
       "bid_amount_cents": 15000,
       "bid_at": 1794623647119,
-      "bid_created_at": 1794433108039,
+      "bid_created_at": 1794623647119,
       "bid_id": "p17aa52yadey178ycwtm4bw7hn8j7x9v",
       "bid_status": "active",
       "bid_status_changed_at": "2026-11-11T21:38:28.281517+00:00",
@@ -3761,7 +3761,7 @@
     "mx7ccb9n61fk12phncd2qsa13n8gxj8t": {
       "bid_amount_cents": 15000,
       "bid_at": 1794623647824,
-      "bid_created_at": 1794432792947,
+      "bid_created_at": 1794623647824,
       "bid_id": "p17ep8sapzj8paajr7wpsm0c758j71gp",
       "bid_status": "active",
       "bid_status_changed_at": "2026-11-11T21:33:13.196085+00:00",
@@ -4206,13 +4206,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo2MSwiY2hlY2twb2ludEF0IjoxNzk0NjIzOTQ3MzUwfQ",
-  "last_bid_reconciliation": "2026-11-14T02:34:11.546236+00:00",
-  "last_check": "2026-11-14T02:39:09.475123+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo2MSwiY2hlY2twb2ludEF0IjoxNzk0NjI0ODQ2NTI5fQ",
+  "last_bid_reconciliation": "2026-11-14T02:54:10.989303+00:00",
+  "last_check": "2026-11-14T02:54:10.993437+00:00",
   "market_observation": {
     "fetched_at": "2026-11-14T02:53:03.285749+00:00",
+    "last_checked_at": "2026-11-14T02:53:46.170774+00:00",
     "last_open_count": 58,
-    "newest_created_at": "2026-11-13T08:47:57.919000+00:00"
+    "newest_created_at": "2026-11-13T08:47:57.919000+00:00",
+    "newest_posted_at": "2026-11-13T08:47:57.919000+00:00"
   },
   "market_observation_history": [
     {
