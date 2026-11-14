@@ -1,0 +1,23 @@
+ARI Operations — X-Variant 8-hour receipt watch
+Window UTC: 2026-11-14T01:56:18Z to 2026-11-14T09:56:18Z
+Created UTC: 2026-11-14T09:56Z
+Repository: royaltproductions-bot/Agent-Operations
+
+WOLVERINE (main, ops/enterprise-runs): 73 new JSON receipts by file timestamp/ordered receipt directory. Sampled receipts across window show 0 offers, 0 linked requester contacts, 0 fulfillments, $0 receipt-reported verified earnings, no fatal structural failures. GitHub Actions showed many successful Commerce Engine runs; these are not economic outcomes. Persistent no-contactable-buyer-invitation bottleneck, search HTTP 429, page fetch/semantic review errors. Confidence: high on receipt count; moderate on aggregate economic outcomes (sampled rather than individually audited all 73 receipts).
+
+CYCLOPS (main, ops/cyclops-runs): 30 receipts, all inspected: 0 assets created, 0 offers, 0 fulfillments, $0 verified revenue. 16 model transport timeouts, 8 invalid drafts retired (TimeoutError), 6 concepts declined/not producible. No newly published saleable product. Existing historical catalog has four product pages; not new earnings. Actions include successful and failed workflows, neither implies sales. Confidence: high.
+
+GAMBIT (gambit-state branch authoritative): no standalone receipt file in this window; current state last_check 2026-11-14T09:55:47Z, last_bid_reconciliation 2026-11-14T09:55:47Z; 58 open marketplace listings last observed, not 58 qualified opportunities. recent_outcomes: two owner-canceled bids, three bid_repriced_cold_start at 02:34 UTC, all to $150 payout asks from $7,999, $240 and $320 respectively. No newly recorded bids, buyer questions, hires, claims, deliverables, acceptances, refunds or completed settlements. settlements={} and platform completed payout $0; Stripe deposits not checked. Bid-to-hire and submission success: not measurable yet. Watch health 41 successful cycles, 0 failed, one resident run. Public TryBounty profile inaccessible; browser metrics cannot independently corroborate marketplace. Confidence: high for persisted state, limited for independent platform confirmation.
+
+Model spend estimate: gambit-state openai_budget.json reserved_micro_usd=13050484 ($13.050484), call_count=337, against workflow monthly limit $38; ledger is not external invoice.
+
+Other lanes: ops/scout-runs, refiner-runs, external-intelligence-runs, ops/runs inspected for recency; no new clearly identified additional revenue X-variant receipt directory.
+
+Open improvements:
+- G-STATUS [pending]: preserve platform cancellations and reconcile bid statuses before follow-ups.
+- G-PRICE [pending]: verify changed bids and capability/fulfillment economics for cold-start repricing; $7,999 -> $150 deserves explicit audit.
+- C-TRANSPORT [pending]: regression-test model timeout and production retry/continuation paths; 24/30 receipts had timeout or invalid-draft failure.
+- W-LEADS [pending]: prioritize fresh paid buyer requests with independently verifiable requester contact; eliminate uncontactable research loops.
+- G-EXEC [unknown]: provider router tools/gambit_resources.py exists; live hired-job fulfillment and passing tests not independently established.
+
+Only authorized mutation: this immutable report file on main. No operational files, bids, workflow dispatches, email, Stripe, or automations touched.
