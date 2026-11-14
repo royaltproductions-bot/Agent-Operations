@@ -1,0 +1,118 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T13:46:50.175649+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 10,
+    "source_counts": {
+      "open_web": 10
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "github_paid_issues": 4
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "candidates_without_email": 10,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=46768595",
+        "title": "What Your VPN Knows About You (and Why It Matters)",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=12413051",
+        "title": "Ask HN: How would you design a voting system?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=9881848",
+        "title": "How much this virus scaning web project can cost?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=5635229",
+        "title": "Horrible experience with Iwantmyname.com",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=2647075",
+        "title": "Ask HN: How can a side project hacker get code review?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47513339",
+        "title": "Ask HN: Is anyone here giving their MCP server a code execution environment?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to design a secure data governance framework with public submission route",
+      "can anyone create a secure data sharing protocol with public submission route",
+      "is:issue is:open bounty created:>=2026-09-15 design secure data",
+      "is:issue is:open bounty created:>=2026-09-15 build scalable api"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to design a secure data governance framework with public submission route",
+      "can anyone create a secure data sharing protocol with public submission route",
+      "hiring a freelancer to build a scalable API gateway with public proposal submission"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 10,
+      "skipped_revisits": 30,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to design a secure data governance framework with public submission route",
+        "can anyone create a secure data sharing protocol with public submission route",
+        "hiring a freelancer to build a scalable API gateway with public proposal submission"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
