@@ -1,0 +1,30 @@
+name: One-time superseded Gambit rescue
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/gambit-superseded-run-rescue.yml'
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  cancel-superseded-resident:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Cancel superseded Gambit resident
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SUPERSEDED_RUN_ID: '43545350806'
+        run: |
+          set -euo pipefail
+          status="$(gh run view "$SUPERSEDED_RUN_ID" --repo "$GITHUB_REPOSITORY" --json status --jq .status)"
+          if [ "$status" = "in_progress" ] || [ "$status" = "queued" ] || [ "$status" = "pending" ] || [ "$status" = "waiting" ] || [ "$status" = "requested" ]; then
+            gh run cancel "$SUPERSEDED_RUN_ID" --repo "$GITHUB_REPOSITORY"
+            echo "Cancel requested for superseded Gambit run $SUPERSEDED_RUN_ID."
+          else
+            echo "Gambit run $SUPERSEDED_RUN_ID already terminal: $status"
+          fi
