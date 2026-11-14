@@ -28,6 +28,15 @@ class WatchTests(TestCase):
         health.assert_called_once_with(0,0)
         cycle.assert_not_called()
 
+    def test_relevant_change_refreshes_origin_main_explicitly(self):
+        fetch_result=type("R",(),{"returncode":0})()
+        diff_result=type("R",(),{"returncode":1})()
+        with patch.object(watch.subprocess,'run',
+                          side_effect=[fetch_result,diff_result]) as run:
+            self.assertTrue(watch.relevant_main_change())
+        self.assertIn("main:refs/remotes/origin/main",run.call_args_list[0].args[0])
+        self.assertIn("origin/main",run.call_args_list[1].args[0])
+
     def test_relevant_change_check_ignores_fetch_failure(self):
         with patch.object(watch.subprocess,'run') as run:
             run.return_value.returncode=1
