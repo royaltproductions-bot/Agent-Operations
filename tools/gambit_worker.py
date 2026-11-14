@@ -51,10 +51,38 @@ MAX_SOURCE_CHARS = 24_000
 CLARIFICATION_TIMEOUT = timedelta(hours=24)
 EVALUATION_TIMEOUT_SECONDS = int(os.getenv("GAMBIT_EVALUATION_TIMEOUT_SECONDS", "120"))
 TRIAGE_TOTAL_DEADLINE_SECONDS = int(os.getenv("GAMBIT_TRIAGE_TOTAL_DEADLINE_SECONDS", "180"))
+COLD_START_BID_CAP_CENTS = 15_000
 
 
 def timestamp():
     return datetime.now(timezone.utc).isoformat()
+
+
+def has_verified_paid_hire(state):
+    """Return True only after the platform has actually hired/funded Gambit."""
+    if state.get("settlements"):
+        return True
+    return any((entry or {}).get("action") in {
+        "hired", "claimed", "submitted", "accepted", "settled"
+    } for entry in (state.get("bounties") or {}).values())
+
+
+def cold_start_bid_cap_cents(state):
+    """Claude/owner guardrail: cap bids at $150 until the first verified hire."""
+    return None if has_verified_paid_hire(state) else COLD_START_BID_CAP_CENTS
+
+
+def saved_bid_note(state, bounty_id):
+    """Recover the already-sent proposal text without publishing plaintext."""
+    token = (state.get("commercial", {}).get(bounty_id) or {}).get("proposal_encrypted")
+    credential = os.getenv("BOUNTY_AGENT_API_KEY")
+    if not token or not credential:
+        return ""
+    secret = hashlib.sha256(("gambit-commercial-v1:" + credential).encode()).digest()
+    try:
+        return Fernet(base64.urlsafe_b64encode(secret)).decrypt(token.encode()).decode()
+    except (InvalidToken, UnicodeDecodeError, ValueError, TypeError):
+        return ""
 
 
 def retry_due(entry, now=None):
@@ -2019,6 +2047,14 @@ def handle_open(item, state):
     elif action == "bid" and current.get("flow") == "bid":
         payout = int(decision.get("payout_cents") or 0)
         payout, pricing = commercial.introductory_price(state, current, payout)
+        cap = cold_start_bid_cap_cents(state)
+        uncapped_payout = payout
+        if cap is not None:
+            payout = min(payout, cap)
+            if payout != uncapped_payout:
+                note(state, "bid_cold_start_cap_applied", bounty_id,
+                     previous_payout_cents=uncapped_payout, payout_cents=payout,
+                     version=version)
         if not 500 <= payout <= 10_000_000:
             action = "pass"
         else:
@@ -2482,18 +2518,10 @@ def platform_active_bid_ids(state=None):
 
 
 def reconcile_active_bids(opened, state, *, skip_ids=()):
-    """Check prior offers against current skills without loading an LLM.
-
-    An unchanged Bounty version is not proof the offer remains appropriate;
-    skills can be removed or improved independently of the buyer's listing.
-    """
-    # Use durable bid records, not today's open-list response. An older bid
-    # can disappear from that list without an event and still require review.
+    """Reconcile every platform bid, closed listing and cold-start price guardrail."""
     excluded = set(skip_ids)
     local_ids = {bid for bid, entry in state["bounties"].items()
                  if entry.get("action") in {"bid_sent", "bid_active"}}
-    # Bounty's GET /bids catches active offers missing from a lost or stale
-    # checkout state, including an accepted POST followed by a runner crash.
     for bounty_id in sorted(platform_active_bid_ids(state) | local_ids):
         if bounty_id in excluded:
             continue
@@ -2502,12 +2530,60 @@ def reconcile_active_bids(opened, state, *, skip_ids=()):
         remember_details(state, bounty_id, details)
         bid = details.get("bid") or {}
         current = details.get("bounty") or {}
+        platform_status = str(current.get("status") or "")
         status = str(bid.get("status") or "missing")
+
+        if platform_status in {"canceled", "closed"}:
+            commercial_row = state.setdefault("commercial", {}).setdefault(bounty_id, {})
+            cancel_source = (commercial_row.get("source_fields") or {}).get("updated_at")
+            canceled_at = commercial.utc_time(cancel_source)
+            canceled_iso = canceled_at.isoformat() if canceled_at else timestamp()
+            commercial_row.update(
+                platform_status=platform_status,
+                bid_status="canceled_by_owner",
+                bid_status_changed_at=canceled_iso)
+            state["bounties"][bounty_id] = {
+                **previous, "version": current.get("version"),
+                "action": "bid_canceled_by_owner",
+                "platform_status": platform_status,
+                "canceled_at": canceled_iso,
+                "at": canceled_iso}
+            if previous.get("action") != "bid_canceled_by_owner":
+                note(state, "bid_canceled_by_owner", bounty_id,
+                     platform_status=platform_status)
+            continue
+
         if status == "active":
+            cap = cold_start_bid_cap_cents(state)
+            commercial_row = state.setdefault("commercial", {}).setdefault(bounty_id, {})
+            current_payout = bid.get("payout_cents")
+            if not isinstance(current_payout, int) or isinstance(current_payout, bool):
+                current_payout = commercial_row.get("bid_amount_cents")
+            if (cap is not None and isinstance(current_payout, int)
+                    and current_payout > cap):
+                note_text = str(bid.get("note") or saved_bid_note(state, bounty_id)).strip()
+                payload = {
+                    "payout_cents": cap,
+                    "expected_version": current.get("version"),
+                    "idempotency_key": key("cold-start-reprice", bounty_id,
+                                           current.get("version"), cap),
+                }
+                if note_text:
+                    payload["note"] = note_text[:2000]
+                result = api(
+                    f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/bid",
+                    "POST", payload)
+                bid = result.get("bid") or {}
+                record_bid_measurement(
+                    state, bounty_id, bid, proposal=note_text or None,
+                    payout=cap, submitted_at=timestamp())
+                note(state, "bid_repriced_cold_start", bounty_id,
+                     previous_payout_cents=current_payout,
+                     payout_cents=cap, version=current.get("version"))
+                status = str(bid.get("status") or "active")
+
             gap = unsupported_deliverable(details)
             if gap:
-                # Reconciliation is observational. A regex hit is insufficient
-                # authority to withdraw a live offer without a full work review.
                 state["bounties"][bounty_id] = {
                     **previous, "version": current.get("version"),
                     "action": "bid_active", "capability_review_reason": gap,
