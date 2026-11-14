@@ -1,0 +1,121 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T11:35:23.021727+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "bing": 3,
+      "github_paid_issues": 3
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "ValueError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 6,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://www.sce.com/partners/consulting-services/project-request",
+        "title": "Project Requests \u2013 Construction and Renovation",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.sce.com/sites/default/files/custom-files/Web%20files/Form%2014-796.pdf",
+        "title": "Form 14-796 - SCE",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/VlcekM/MeitouClient/issues/683",
+        "title": "Feedback: NPC Spam",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Rosemary-ux/lyricsflip/issues/192",
+        "title": "[Documentation] LF-201 \u00b7 Create a \"good first issue\" guide for open-source contributors",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/taikoxyz/taiko-mono/issues/22359",
+        "title": "[Formal M05] Etna registry lifecycle and withdrawal accounting",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.linkedin.com/jobs/now-hiring%21-jobs-san-jose-ca",
+        "title": "Now Hiring! Jobs in San Jose (9,000+ Open Roles) | LinkedIn",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "request for proposal: security audit for a public data sharing platform with published submission instructions",
+      "is:issue is:open bounty created:>=2026-09-15 ",
+      "hiring a freelancer to submit a proposal for a public blockchain network with authorized submission method"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit a proposal for a public blockchain audit with authorized response channel",
+      "need paid help with writing a security policy for a public AI ethics tool with contact route",
+      "request for proposal: security audit for a public data sharing platform with published submission instructions",
+      "can anyone create a proposal for a government-funded open-source security tool with public response channel",
+      "hiring a freelancer to submit a proposal for a public blockchain network with authorized submission method"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 50,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit a proposal for a public blockchain audit with authorized response channel",
+        "need paid help with writing a security policy for a public AI ethics tool with contact route",
+        "request for proposal: security audit for a public data sharing platform with published submission instructions",
+        "can anyone create a proposal for a government-funded open-source security tool with public response channel",
+        "hiring a freelancer to submit a proposal for a public blockchain network with authorized submission method"
+      ],
+      "next_query_queue": 1,
+      "frontier_size": 115,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
