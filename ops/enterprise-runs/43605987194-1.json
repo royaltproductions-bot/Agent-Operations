@@ -1,0 +1,102 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T14:42:08.087611+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 5,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "bing": 2,
+      "github_paid_issues": 3
+    },
+    "source_errors": [],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 1,
+    "contactable_sources": 4,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://mrsc.org/research-tools/sample-documents/rfp-rfq-documents",
+        "title": "RFP/RFQ/Bid Documents - MRSC",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://associationsnow.com/format/templates/",
+        "title": "Sample RFPs - ASAE",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://github.com/Space-Stories/space-stories-14/issues/470",
+        "title": "TestExpireIdCardExpiryUsesPauseDuration test failure on main (Content.IntegrationTests.Tests.Access.ExpireIdCardTest.Tes",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/rroland10/dex223-bug-bounty/issues/111",
+        "title": "Protocol fees in unlisted tokens (including D223 itself) never reach stakers; the RevenueV2 owner sweeps them",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/rroland10/dex223-bug-bounty/issues/110",
+        "title": "Forged Onramp widget events via unauthenticated postMessage show a fake \"Sale complete\" (fiat on/off-ramp)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "RFP for a data validation pipeline with public document submission route",
+      "is:issue is:open bounty created:>=2026-09-15 "
+    ],
+    "attempted_search_queries": [
+      "looking for someone to design a secure data export tool with public proposal submission",
+      "RFP for a data validation pipeline with public document submission route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 22,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to design a secure data export tool with public proposal submission",
+        "RFP for a data validation pipeline with public document submission route"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
