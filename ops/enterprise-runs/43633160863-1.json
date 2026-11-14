@@ -1,0 +1,124 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T19:40:20.261567+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "duckduckgo": 5,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 4,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://wwf.panda.org/wwf_news/?16540916/Request-for-Proposals--Delivery-partner-for-four-AI-pilots-in-WWF-International",
+        "title": "Request for Proposals : Delivery partner for four AI pilots in ... - WWF",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.zabalist.com/bids/TRS000658",
+        "title": "Artificial Intelligence\u2026 | Texas Solicitation | Zabalist",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.contractsfinder.service.gov.uk/Notice/59e303fc-b728-4783-9e34-119e6b473705",
+        "title": "Artificial Intelligence as a Service Delivery Partner - Early ...",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://www.tendersontime.com/usa-tenders/artificial-intelligence-tenders/",
+        "title": "USA Artificial Intelligence Tenders, Bids & RFPs 2026",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.stotles.com/tenders/2026/W37/dfe-education-data-ai-and-interoperability-delivery-partner",
+        "title": "DfE Education Data, AI and Interoperability Delivery Partner",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.opportunitystation.com/search?q=Rockefeller%20Foundation%20Cities%20Deliver%20AI%20Solutions%20for%20Public%20Services%202026",
+        "title": "Rockefeller Foundation Cities Deliver AI Solutions for Public Services 2026",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "tender AI pilot delivery partner 2026",
+      "solicitation artificial intelligence technical support 2026"
+    ],
+    "attempted_search_queries": [
+      "tender AI pilot delivery partner 2026",
+      "solicitation artificial intelligence technical support 2026",
+      "looking for someone to submit proposal for open tender in AI-driven public services with public submission route",
+      "hiring a freelancer to create paid digital tool for public procurement in smart cities with contact",
+      "need paid help with tender response for public procurement in AI for public services with submission channel"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 7,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "tender AI pilot delivery partner 2026",
+        "solicitation artificial intelligence technical support 2026",
+        "looking for someone to submit proposal for open tender in AI-driven public services with public submission route",
+        "hiring a freelancer to create paid digital tool for public procurement in smart cities with contact",
+        "need paid help with tender response for public procurement in AI for public services with submission channel"
+      ],
+      "next_query_queue": 5,
+      "frontier_size": 110,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
