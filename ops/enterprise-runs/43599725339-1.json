@@ -1,0 +1,124 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T13:27:40.565774+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 7,
+    "source_counts": {
+      "open_web": 7
+    },
+    "search_provider_counts": {
+      "bing": 3,
+      "followup": 2,
+      "github_paid_issues": 2
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 7,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://rfp.ai/resources/what-is-an-rfp/",
+        "title": "RFP Meaning: What Is an RFP (Request for Proposal)?",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://www.investopedia.com/terms/p/procurement.asp",
+        "title": "What Is Procurement? Definition, Types, vs. Purchasing",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.merriam-webster.com/dictionary/procurement",
+        "title": "PROCUREMENT Definition & Meaning - Merriam-Webster",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.unopensource.org/",
+        "title": "UN Open Source Week",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/relayhop/sn-monetization-runtime/issues/1381",
+        "title": "[radar] SN open bounty 2026-11-14T13:24",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://github.com/miooor/aseansurvivor/issues/1",
+        "title": "Spec: Johor encounter-and-loot slice",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "RFP for open-source AI ethics framework with public proposal submission route",
+      "procurement request for secure data governance platform with contactable invitation",
+      "is:issue is:open bounty created:>=2026-09-15 "
+    ],
+    "attempted_search_queries": [
+      "can anyone create a proposal for a decentralized identity system with contactable invitation",
+      "need paid help with writing a proposal for an open-source blockchain governance platform with authorized submission meth",
+      "RFP for open-source AI ethics framework with public proposal submission route",
+      "procurement request for secure data governance platform with contactable invitation"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 39,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "can anyone create a proposal for a decentralized identity system with contactable invitation",
+        "need paid help with writing a proposal for an open-source blockchain governance platform with authorized submission meth",
+        "RFP for open-source AI ethics framework with public proposal submission route",
+        "procurement request for secure data governance platform with contactable invitation"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
