@@ -1,0 +1,119 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T06:39:49.773389+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "bing": 6
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 6,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 4,
+    "public_source_sample": [
+      {
+        "url": "https://en.wikipedia.org/wiki/Government",
+        "title": "Government - Wikipedia",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.investopedia.com/terms/r/request-for-proposal.asp",
+        "title": "RFP: What a Request for Proposal Is, Requirements, and a Sample",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Request_for_proposal",
+        "title": "Request for proposal - Wikipedia",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://www.gsa.gov/small-business/training-and-events/rfis-rfqs-and-rfps",
+        "title": "Understand common federal contracting terms: RFIs, RFQs, and RFPs",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.adobe.com/acrobat/business/resources/rfp-meaning.html",
+        "title": "What does RFP mean (and 7 tips on how to write one) - Adobe",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://project-management.com/rfq-vs-rfp-vs-rfi/",
+        "title": "RFI, RFP, RFQ: Understanding the Differences",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "government tender with published submission instructions - looking for someone to create a proposal",
+      "RFP with published submission route - looking for someone to create a proposal"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to draft a proposal for a government RFP with submission guidelines",
+      "need paid help with submitting a proposal for a public procurement request with contactable response route",
+      "government tender with published submission instructions - looking for someone to create a proposal",
+      "can anyone create a proposal for a public solicitation with contactable submission guidelines",
+      "RFP with published submission route - looking for someone to create a proposal"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 2,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to draft a proposal for a government RFP with submission guidelines",
+        "need paid help with submitting a proposal for a public procurement request with contactable response route",
+        "government tender with published submission instructions - looking for someone to create a proposal",
+        "can anyone create a proposal for a public solicitation with contactable submission guidelines",
+        "RFP with published submission route - looking for someone to create a proposal"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
