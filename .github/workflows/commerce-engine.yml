@@ -1,7 +1,15 @@
 name: Commerce Engine
 on:
   schedule:
-    - cron: '23 * * * *'
+    # Fallback only. Each completed run queues its successor below.
+    - cron: '23 */6 * * *'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/commerce-engine.yml'
+      - 'tools/autonomous_commerce_brain.py'
+      - 'tools/open_web_discovery.py'
+      - 'tools/research_memory.py'
   workflow_dispatch:
 permissions:
   contents: write
@@ -161,4 +169,19 @@ jobs:
           if [ "${ENGINE_EXIT_CODE:-}" != "0" ]; then
             echo "::error::Commerce Engine ended with operational error code ${ENGINE_EXIT_CODE:-missing}"
             exit 1
+          fi
+
+      - name: Chain next Commerce Engine run
+        if: always()
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          queued="$(gh run list --workflow commerce-engine.yml --status queued --limit 1 --json databaseId --jq 'length')"
+          if [ "$queued" = "0" ]; then
+            gh workflow run commerce-engine.yml --ref main
+            echo "Queued successor Commerce Engine run."
+          else
+            echo "Successor already queued; no duplicate dispatch."
           fi
