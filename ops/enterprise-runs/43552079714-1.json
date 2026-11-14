@@ -1,0 +1,104 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T03:33:07.817643+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 5,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "bing": 1,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 3,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://en.wikipedia.org/wiki/Software",
+        "title": "Software - Wikipedia",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.quantlabusa.dev/blog/2026-state-of-custom-software-development",
+        "title": "2026 State of Custom Software Development\n Industry-wide pricing, timelines, and engagement-model benchmarks for the yea",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.quantlabusa.dev/blog/augusta-software-development-guide-2026",
+        "title": "Augusta Software Development: A 2026 Guide\n Custom software, CRM, and security for Augusta companies \u2014 local context, bu",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.quantlabusa.dev/blog/best-custom-software-development-companies-atlanta-2026",
+        "title": "Best Custom Software Companies Atlanta 2026",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.quantlabusa.dev/blog/atlanta-software-development-guide-2026",
+        "title": "Atlanta Software Development: A Founder's 2026 Guide\n Tech scene, local-shop pricing, vertical strengths, and an intervi",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "software development RFP template 2026 with contactable response route"
+    ],
+    "attempted_search_queries": [
+      "software development RFP template 2026 with contactable response route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "software development RFP template 2026 with contactable response route"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
