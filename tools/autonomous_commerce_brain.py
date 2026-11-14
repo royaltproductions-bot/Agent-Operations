@@ -450,7 +450,7 @@ def explicit_solicitation_email(row):
         if (re.search(r"\b(?:request for proposals?|rfp|tender|solicitation|"
                       r"submit (?:a |your )?(?:proposal|bid)|proposal forms?|"
                       r"proposal templates?|bid documents?|clarification questions?)\b",window)
-                and re.search(r"\b(?:email|contact|send|submit|request|questions?)\b",window)):
+                and re.search(r"\b(?:email|contact|send|submit|questions?)\b",window)):
             return email
     return ""
 
@@ -470,18 +470,31 @@ def solicitation_deadline_current(row,now=None):
     months={name.lower():number for number,name in enumerate(
         ("January","February","March","April","May","June","July","August",
          "September","October","November","December"),1)}
-    for match in re.finditer(
-            r"(?i)\b(?:deadline|due|submit(?:ted)?(?: electronically)? by|"
-            r"submission deadline)\b.{0,140}\b("
-            + "|".join(months) + r")\s+(\d{1,2})(?:st|nd|rd|th)?,?\s+(20\d{2})\b",
-            body):
-        try:
-            due=datetime(int(match.group(3)),months[match.group(1).lower()],
-                         int(match.group(2)),23,59,59,tzinfo=timezone.utc)
-        except (ValueError,KeyError):
-            continue
-        if now-timedelta(days=1) <= due <= now+timedelta(days=180):
-            return True
+    month_pattern="|".join(months)
+    patterns=[
+        (r"(?i)\b(?:deadline|due|submit(?:ted)?(?: electronically)? by|"
+         r"submission deadline)\b.{0,140}\b("+month_pattern+
+         r")\s+(\d{1,2})(?:st|nd|rd|th)?,?\s+(20\d{2})\b","month_first"),
+        (r"(?i)\b(?:deadline|due|submit(?:ted)?(?: electronically)? by|"
+         r"submission deadline)\b.{0,140}\b(\d{1,2})(?:st|nd|rd|th)?\s+("+
+         month_pattern+r")\s+(20\d{2})\b","day_first"),
+    ]
+    for pattern,order in patterns:
+        for match in re.finditer(pattern,body):
+            try:
+                if order=="month_first":
+                    month,day,year=match.group(1),match.group(2),match.group(3)
+                else:
+                    day,month,year=match.group(1),match.group(2),match.group(3)
+                due=datetime(int(year),months[month.lower()],int(day),
+                             23,59,59,tzinfo=timezone.utc)
+            except (ValueError,KeyError):
+                continue
+            if now-timedelta(days=1) <= due <= now+timedelta(days=180):
+                return True
+    if (re.search(r"(?i)\bopen for bidding\b",body)
+            and explicit_solicitation_email(row)):
+        return True
     return False
 
 
@@ -579,7 +592,7 @@ def offer_marker(source_url):
 
 def already_contacted(candidate,sent_subjects):
     marker=offer_marker(candidate["source_url"])
-    return "Contained paid offer ["+marker+"]" in sent_subjects
+    return any(marker in str(subject) for subject in sent_subjects)
 
 def normalize_price_usd(value):
     """Normalize the model's freely chosen US-dollar price, without price bands."""
