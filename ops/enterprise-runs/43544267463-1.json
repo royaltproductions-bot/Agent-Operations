@@ -1,0 +1,122 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T02:06:57.389943+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 11,
+    "source_counts": {
+      "open_web": 11
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "github_paid_issues": 4,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "candidates_without_email": 11,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=48327218",
+        "title": "Hybrid local and cloud LLM stack for regulated financial document processing?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47223716",
+        "title": "Asking the raw Gemini 3.1 Pro API what kind of human it would choose to be",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46031537",
+        "title": "I am building a collaborative coding agent",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37863703",
+        "title": "Getting rejected by every marketplace payment processor, help",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=20656411",
+        "title": "Ask HN: Modern day web development for someone who last did it 15 years ago",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=13702727",
+        "title": "You are my last resort for the US",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a custom API integration for a real-time chatbot",
+      "is:issue is:open bounty created:>=2026-09-15 build custom api",
+      "can anyone create a data visualization tool for user engagement metrics"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a custom API integration for a real-time chatbot",
+      "need paid help with setting up a static site with SEO optimization and hosting",
+      "hiring a freelancer to create a mobile-responsive landing page with conversion tracking",
+      "can anyone create a data visualization tool for user engagement metrics",
+      "looking for someone to develop a secure user authentication system for a web app"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a custom API integration for a real-time chatbot",
+        "need paid help with setting up a static site with SEO optimization and hosting",
+        "hiring a freelancer to create a mobile-responsive landing page with conversion tracking",
+        "can anyone create a data visualization tool for user engagement metrics",
+        "looking for someone to develop a secure user authentication system for a web app"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 113,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
