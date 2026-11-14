@@ -1,0 +1,122 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T16:33:31.803099+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 7,
+    "source_counts": {
+      "open_web": 7
+    },
+    "search_provider_counts": {
+      "followup": 1,
+      "hn_ask": 2,
+      "github_paid_issues": 3,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 7,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://www.oecd.org/en/topics/policy-issues/public-procurement.html",
+        "title": "OECD, Public Procurement",
+        "provider": "followup",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46436872",
+        "title": "Tell HN: I write and ship code ~20\u201350x faster than I did 5 years ago",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=12839562",
+        "title": "How should I price my software as a service? I'm targetting developers",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Noetfield-Systems/ARQANT/issues/47",
+        "title": "[OPEN BUILD / GENESIS] Independently validate first-user onboarding, AGC and wallet upgrade on mobile",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/dev-kp-eloper/BountyScout/issues/1761",
+        "title": "\ud83c\udfaf Bounty Alert: 9 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/freedom-winds/BountyScout/issues/1413",
+        "title": "\ud83c\udfaf Bounty Alert: 9 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to fix signature-base line wrapping ceiling in http-signature-gateway with public proposal submission",
+      "is:issue is:open bounty created:>=2026-09-15 fix signature base"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to fix signature-base line wrapping ceiling in http-signature-gateway with public proposal submission",
+      "hiring a freelancer to resolve cross-cluster shieldednote storage collision in paraloom-wallet with contactable invitation",
+      "need paid help with debugging shieldednote destruction in paraloom-wallet with public response channel",
+      "Procurement RFP for CPI ordering violation fix in slash_validator with bounty and public submission route",
+      "can anyone create a fix for unguarded zero-lamport mutation in paraloom-core with public proposal submission"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 4,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to fix signature-base line wrapping ceiling in http-signature-gateway with public proposal submission",
+        "hiring a freelancer to resolve cross-cluster shieldednote storage collision in paraloom-wallet with contactable invitation",
+        "need paid help with debugging shieldednote destruction in paraloom-wallet with public response channel",
+        "Procurement RFP for CPI ordering violation fix in slash_validator with bounty and public submission route",
+        "can anyone create a fix for unguarded zero-lamport mutation in paraloom-core with public proposal submission"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
