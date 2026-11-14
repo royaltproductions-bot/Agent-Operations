@@ -13,9 +13,26 @@ class WatchTests(TestCase):
         def sleep(seconds):
             tick[0] += seconds
         with patch.object(watch, 'cycle', side_effect=[None, RuntimeError('temporary'), None]) as cycle, \
-             patch.object(watch, 'checkpoint'):
+             patch.object(watch, 'checkpoint'), \
+             patch.object(watch, 'relevant_main_change', return_value=False):
             watch.watch(seconds=90, clock=lambda: tick[0], sleep=sleep)
         self.assertEqual(cycle.call_count, 3)
+
+    def test_resident_yields_after_checkpoint_when_relevant_main_changes(self):
+        tick=[0]
+        with patch.object(watch,'relevant_main_change',return_value=True), \
+             patch.object(watch,'record_health') as health, \
+             patch.object(watch,'cycle') as cycle:
+            result=watch.watch(seconds=90,clock=lambda:tick[0],sleep=lambda _:None)
+        self.assertEqual(result,(0,0))
+        health.assert_called_once_with(0,0)
+        cycle.assert_not_called()
+
+    def test_relevant_change_check_ignores_fetch_failure(self):
+        with patch.object(watch.subprocess,'run') as run:
+            run.return_value.returncode=1
+            self.assertFalse(watch.relevant_main_change())
+        self.assertEqual(run.call_count,1)
 
     def test_housekeeping_uses_no_model_and_saves_state(self):
         with patch.object(watch, 'probe', side_effect=[{'needs_run':'true'},
