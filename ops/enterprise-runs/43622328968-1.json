@@ -1,0 +1,123 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T17:41:56.942327+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 8,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "followup": 1,
+      "hn_ask": 4,
+      "github_paid_issues": 3
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "ValueError"
+      }
+    ],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 8,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://registry.modelcontextprotocol.io/v0/servers?search=ai.rfp",
+        "title": "Official MCP Registry ai.rfp/rfp-ai",
+        "provider": "followup",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=2374214",
+        "title": "CUFP 2011 (Tokyo, Japan) Call For Presentations",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=33946752",
+        "title": "Ask HN: Is there a structure for startups where you can have 50 founders?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=15417014",
+        "title": "AI Weekly 6th Oct 2017",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=30134270",
+        "title": "How I got my first freelancing project!",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://github.com/malachi-hq/malachi/issues/303",
+        "title": "Malachi has no funding and uses none of the free programs open source projects qualify for",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to submit proposal for UN Tech Over Hackathon open source project",
+      "can anyone create a proposal for UN Tech Over Hackathon with public submission route",
+      "submitting proposal for UN Open Source Program Office with public response channel",
+      "is:issue is:open bounty created:>=2026-09-15 submit proposal tech"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit proposal for UN Tech Over Hackathon open source project",
+      "need paid help with submitting RFP response for UN Open Source Program Office initiative",
+      "can anyone create a proposal for UN Tech Over Hackathon with public submission route",
+      "submitting proposal for UN Open Source Program Office with public response channel",
+      "hiring a freelancer to submit RFP response for UN Tech Over Hackathon initiative"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 16,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit proposal for UN Tech Over Hackathon open source project",
+        "need paid help with submitting RFP response for UN Open Source Program Office initiative",
+        "can anyone create a proposal for UN Tech Over Hackathon with public submission route",
+        "submitting proposal for UN Open Source Program Office with public response channel",
+        "hiring a freelancer to submit RFP response for UN Tech Over Hackathon initiative"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 114,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
