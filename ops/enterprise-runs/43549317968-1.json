@@ -1,0 +1,117 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T03:02:27.070444+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 8,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "duckduckgo": 8
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 8,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://codewave.com/feeds/blog/ai-consulting-firms-workflow-ops-automation",
+        "title": "Best AI Consulting Firms for Workflow Automation in 2026",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.thryv.com/blog/ai-for-small-business-2026-report/",
+        "title": "AI for Small Business: 2026 AI Adoption Report | Thryv",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.pythian.com/blog/8-best-ai-automation-consulting-companies-2026-guide",
+        "title": "8 Best AI Automation Consulting Companies (2026 Guide)",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://gitnux.org/ai-in-the-corporate-training-industry-statistics/",
+        "title": "Ai In The Corporate Training Industry Statistics 2026 | Gitnux",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/service/automation-consulting/",
+        "title": "Automation Consulting Services: Top Picks (2026)",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/service/ai-adoption/",
+        "title": "Top AI Adoption Services (2026) - wifitalents.com",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "tender digital workflow automation consultant 2026",
+      "solicitation AI adoption training services 2026"
+    ],
+    "attempted_search_queries": [
+      "tender digital workflow automation consultant 2026",
+      "solicitation AI adoption training services 2026",
+      "looking for someone to submit proposal for AI consulting RFP with published submission guidelines",
+      "can anyone create proposal for AI enablement services tender with contactable response route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 8,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "tender digital workflow automation consultant 2026",
+        "solicitation AI adoption training services 2026",
+        "looking for someone to submit proposal for AI consulting RFP with published submission guidelines",
+        "can anyone create proposal for AI enablement services tender with contactable response route"
+      ],
+      "next_query_queue": 5,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
