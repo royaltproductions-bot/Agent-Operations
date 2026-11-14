@@ -178,7 +178,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          queued="$(gh run list --workflow cyclops-assets.yml --status queued --limit 1 --json databaseId --jq 'length')"
+          queued="$(gh run list --workflow cyclops-assets.yml --limit 10 --json databaseId,status --jq '[.[] | select(.status == "queued" or .status == "pending" or .status == "waiting" or .status == "requested")] | length')"
           if [ "$queued" = "0" ]; then
             gh workflow run cyclops-assets.yml --ref main
             echo "Queued successor Cyclops run."
