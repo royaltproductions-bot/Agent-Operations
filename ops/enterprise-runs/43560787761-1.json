@@ -1,0 +1,115 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T05:18:29.423121+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "duckduckgo": 6
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 4,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://www.globaltenders.com/rfp/software-development-tenders",
+        "title": "Latest Software Development Tenders and RFP",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.govproposals.com/lp/proposal-writing",
+        "title": "GovProposals | Government Proposal Writing & Bid Support",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://autotender.ai/",
+        "title": "AI Tender & RFP Software for Government Bids | AutoTender.ai",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://winvale.com/govt-contract-consulting/consulting-services/proposal-support/",
+        "title": "RFP and Proposal Writing Services & Support | Winvale",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.tendersinfo.com/global-it-software-tenders.php",
+        "title": "Software Services Sector Tenders & Procurement Opportunities",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://therfpfirm.com/services/",
+        "title": "Top Government Proposal Writing Consulting Services for ... - The RFP Firm",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to submit proposal for public software development tender with contactable response route",
+      "need paid help with submitting proposal for government RFP with contactable response route"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit proposal for public software development tender with contactable response route",
+      "need paid help with submitting proposal for government RFP with contactable response route",
+      "can anyone create proposal for open procurement with published submission guidelines"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit proposal for public software development tender with contactable response route",
+        "need paid help with submitting proposal for government RFP with contactable response route",
+        "can anyone create proposal for open procurement with published submission guidelines"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
