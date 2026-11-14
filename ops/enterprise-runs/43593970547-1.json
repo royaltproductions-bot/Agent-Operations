@@ -1,0 +1,112 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T12:17:58.682314+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 9,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 9,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/shellen/open-portable-entitlement/issues/23",
+        "title": "Request for comments: OPE v0.2, a proposed rebuild of Open Portable Entitlement on OAuth (until Nov 19, 2026)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ruohong2018/ruohong2018.github.io/issues/1366",
+        "title": "[\u6bcf\u65e5\u4fe1\u606f\u6d41] 2026-11-04",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/chainreactors/picker/issues/1415",
+        "title": "[\u6bcf\u65e5\u4fe1\u606f\u6d41] 2026-11-04",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/BruceFeIix/picker/issues/2789",
+        "title": "[\u6bcf\u65e5\u4fe1\u606f\u6d41] 2026-11-04",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/JinY0ung-Shin/oh-my-gateway/issues/248",
+        "title": "[Isolation] \uc138\uc158\uc744 \uc0ac\uc6a9\uc790\ubcc4 \ucee8\ud14c\uc774\ub108(Docker \u2192 gVisor/microVM)\ub85c \ub744\uc6b0\ub294 \ubc29\uc548 \uc11c\ubca0\uc774 \u2014 \ub2e8\uc77c \ucee8\ud14c\uc774\ub108 + Landlock/uid\uc640 \ube44\uad50",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.bestpractices.dev/en/criteria",
+        "title": "Open Source Security Foundation's best practices",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-15 designing public data"
+    ],
+    "attempted_search_queries": [
+      "can anyone create a proposal for a government-funded blockchain compliance tool with authorized submission method",
+      "hiring a freelancer to submit a proposal for a public data sharing platform with published response channel",
+      "need paid help with designing a public data governance framework with contact route",
+      "looking for someone to submit a proposal for a government-funded open-source data sharing tool with public response channel"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 34,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "can anyone create a proposal for a government-funded blockchain compliance tool with authorized submission method",
+        "hiring a freelancer to submit a proposal for a public data sharing platform with published response channel",
+        "need paid help with designing a public data governance framework with contact route",
+        "looking for someone to submit a proposal for a government-funded open-source data sharing tool with public response channel"
+      ],
+      "next_query_queue": 1,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
