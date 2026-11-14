@@ -1,0 +1,123 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T20:50:15.669316+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 6,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/InferMatrixLab/InferRSI/issues/362",
+        "title": "discussion: Knowledge / Harness / Benchmark \u4e09\u6a21\u5757\u76ee\u6807\u67b6\u6784\u2014\u2014\u73b0\u72b6\u3001\u539f\u8bed\u3001\u4ea4\u63a5\u65f6\u5e8f\u4e0e\u9057\u7559\u95ee\u9898",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/cantrip-rs/cantrip-rs/issues/3048",
+        "title": "Cards: Foundations red (59 cards)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/cantrip-rs/cantrip-rs/issues/3047",
+        "title": "Cards: Foundations green (56 cards)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/HCTDIP/corps-jobs/issues/192",
+        "title": "Railway \u8d4f\u91d1\uff1a\u6709 7 \u6761\u503c\u5f97\u62a2",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/4475",
+        "title": "hyb generate: recursive walk enters testdata, _-prefixed dirs and nested modules, so a fixture there aborts the whole ru",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://en.wikipedia.org/wiki/Looking",
+        "title": "Looking - Wikipedia",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-15 submit proposal upstream",
+      "is:issue is:open bounty created:>=2026-09-15 ",
+      "looking for someone to submit a proposal for upstream relay conversion project"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit a proposal for upstream relay conversion project",
+      "need paid help with submitting a bid for upstream port and i18n translation work",
+      "can anyone create a bid for upstream relay tracking and response conversion",
+      "looking for someone to draft an RFP response for upstream port and i18n evaluation"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 32,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit a proposal for upstream relay conversion project",
+        "need paid help with submitting a bid for upstream port and i18n translation work",
+        "can anyone create a bid for upstream relay tracking and response conversion",
+        "looking for someone to draft an RFP response for upstream port and i18n evaluation"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
