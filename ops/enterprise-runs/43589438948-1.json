@@ -1,0 +1,100 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T11:20:23.326020+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 4,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/izrik/tudor/issues/194",
+        "title": "Add the dependency audit step, the security baseline's last piece",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/youxuanxue/sub2api/issues/3109",
+        "title": "[upstream] \u4e0a\u6e38\u7f51\u5173\u8c03\u5ea6\u3001\u8ba1\u8d39\u4e0e\u8d26\u53f7\u95ee\u9898\u8ddf\u8e2a \u2014 \u7ebf\u7d22 2026-W46",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Rinnegatamante/VitaDB-contributions/issues/268",
+        "title": "[UPDATE] Void Trader",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/HCTDIP/corps-jobs/issues/191",
+        "title": "Railway \u8d4f\u91d1\uff1a\u6709 6 \u6761\u503c\u5f97\u62a2",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-15 writing security policy",
+      "is:issue is:open bounty created:>=2026-09-15 "
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit a proposal for an open-source security audit with public response channel",
+      "hiring a freelancer to draft a compliance plan for a blockchain-based voting system with submission guidelines",
+      "need paid help with writing a security policy for a blockchain-based identity project with contact route",
+      "request for proposal: security audit for a public blockchain network with authorized submission method",
+      "looking for someone to draft a deployment checklist for a decentralized finance platform with public contact"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 44,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit a proposal for an open-source security audit with public response channel",
+        "hiring a freelancer to draft a compliance plan for a blockchain-based voting system with submission guidelines",
+        "need paid help with writing a security policy for a blockchain-based identity project with contact route",
+        "request for proposal: security audit for a public blockchain network with authorized submission method",
+        "looking for someone to draft a deployment checklist for a decentralized finance platform with public contact"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 115,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
