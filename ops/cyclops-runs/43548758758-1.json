@@ -1,0 +1,163 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-14T02:56:01.505675+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 8,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "bing": 2
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 7,
+    "verified_firsthand_problem_pages": 5,
+    "observed_public_paid_offers": 1,
+    "market_candidates_considered": 1,
+    "public_sources_available_for_judgment": 7,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=4013955",
+        "title": "Ask HN: Are we drawing the right conclusions from the Facebook IPO?",
+        "signal_type": "public_paid_offer"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=5343644",
+        "title": "Learning to code, with no Internet access.",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46030365",
+        "title": "Ask HN: Anyone Know Anyone at Expedia?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=34727891",
+        "title": "Ask HN: Why is GitOps better than CI/CD",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=2384253",
+        "title": "Ask HN: What can I do to earn money?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46030857",
+        "title": "Don't obsess with security and privacy unless they are your core business",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=4013955",
+        "title": "Ask HN: Are we drawing the right conclusions from the Facebook IPO?",
+        "displayed_sales_count": null,
+        "listed_price_usd": "100.00"
+      }
+    ],
+    "candidates_without_email": 8,
+    "search_queries": [
+      "buy ready-made Excel macro for tracking project timelines",
+      "how to create a self-contained Python script for generating invoice PDFs",
+      "how to get a free downloadable tool for converting CSV to SQL"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 22,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "how to create a self-contained Python script for generating invoice PDFs",
+        "downloadable Python script to automate social media post scheduling",
+        "buy ready-made Excel macro for tracking project timelines",
+        "purchase standalone script for automating email campaign templates",
+        "how to get a free downloadable tool for converting CSV to SQL"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 108,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "invalid_draft_retired",
+    "reason": "unusable_production_archived:0bc55e0526ac0c51ca1d:TimeoutError:timed out",
+    "new_concept_eligible_next_run": true
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 4,
+    "product_pages": 4,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 13,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [
+    {
+      "reason": "invalid_production_draft_retired",
+      "detail": "unusable_production_archived:0bc55e0526ac0c51ca1d:TimeoutError:timed out"
+    }
+  ],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "003c3c67f50b396938ad",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "755a8c931205cd5d956e",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 4,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 7,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
