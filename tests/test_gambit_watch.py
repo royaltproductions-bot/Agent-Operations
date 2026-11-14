@@ -55,6 +55,7 @@ class WatchTests(TestCase):
         video.assert_not_called()
         self.assertEqual(checkpoint.call_count, 3)
         self.assertIn('tools.gambit_worker', command.call_args.args[0])
+        self.assertEqual(command.call_args.kwargs["timeout"],240)
 
     def test_missing_openai_key_keeps_market_watch_but_blocks_qwen_bids(self):
         with patch.dict(watch.os.environ, {
@@ -94,10 +95,24 @@ class WatchTests(TestCase):
         self.assertIn(['sudo','apt-get','install','-y','--no-install-recommends','ffmpeg'], commands)
 
     def test_probe_outputs_do_not_leak_between_cycles(self):
-        def command(args, env):
+        seen={}
+        def command(args, env, timeout=None):
+            seen["timeout"]=timeout
             Path(env['GITHUB_OUTPUT']).write_text('needs_run=false\n')
         with patch.object(watch, 'command', side_effect=command):
             self.assertEqual(watch.probe('ignored'), {'needs_run':'false'})
+        self.assertEqual(seen["timeout"],90)
+
+    def test_relevant_change_timeout_fails_open(self):
+        with patch.object(watch.subprocess,'run',
+                          side_effect=watch.subprocess.TimeoutExpired("git",30)):
+            self.assertFalse(watch.relevant_main_change())
+
+    def test_git_command_defaults_to_sixty_second_bound(self):
+        completed=type("R",(),{"returncode":0})()
+        with patch.object(watch.subprocess,'run',return_value=completed) as run:
+            watch.command(["git","status"])
+        self.assertEqual(run.call_args.kwargs["timeout"],60)
 
     def test_delisted_research_retry_is_recovered_by_id(self):
         now = datetime.now(timezone.utc)
