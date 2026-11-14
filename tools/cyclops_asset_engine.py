@@ -72,6 +72,11 @@ def model_call_timeout_seconds():
     return max(5, min(configured, int(max(5, remaining-90))))
 
 
+def retryable_model_failure(reason):
+    return str(reason or "").startswith(
+        "concept_generation_failed:cyclops_model_transport_timeout")
+
+
 SEARCH_SCHEMA={
     "type":"object",
     "properties":{
@@ -1899,7 +1904,7 @@ def run():
             }
             receipt["structural_failures"].append({
                 "reason":"production_stage_error","detail":reason})
-        elif reason.startswith("concept_generation_failed:cyclops_model_transport_timeout"):
+        elif retryable_model_failure(reason):
             # A transient local-model timeout is not repository corruption. Preserve
             # evidence and let the self-chained successor retry cleanly.
             receipt["production"]={
