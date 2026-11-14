@@ -1,0 +1,127 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T14:20:38.805747+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "bing": 1,
+      "hn_ask": 2,
+      "github_paid_issues": 3
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 6,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://en.wikipedia.org/wiki/Request_for_proposal",
+        "title": "Request for proposal - Wikipedia",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=21557351",
+        "title": "Tell HN: I Made a Math Sub for Aether",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=3131372",
+        "title": "Tell HN: How I fired my customer for the first time",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/zhangjiayang6835-cyber/bounty-plaza/issues/1899",
+        "title": "[Bounty] [Bounty: $60] Docs: add a \"Failure modes and recovery\" guide",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Chain-Love/chain-love/issues/4137",
+        "title": "[DBIP] Normalize security coverage into a controlled target vocabulary and relocate analysis techniques",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/blackmore-technology-group/ENTITY/issues/74",
+        "title": "[CONTRIBUTORS][PIPELINE] Prepare ENTITY for GSoC, Outreachy and structured mentorship programs",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "RFP for a secure Tor Onion service with public proposal submission route",
+      "looking for someone to build a decentralized application with public proposal submission",
+      "need paid help with auditing player progression in a game with public response channel",
+      "is:issue is:open bounty created:>=2026-09-15 build decentralized application"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a decentralized application with public proposal submission",
+      "hiring a freelancer to develop a zero-email business model with contactable invitation",
+      "need paid help with auditing player progression in a game with public response channel",
+      "RFP for a secure Tor Onion service with public proposal submission route",
+      "can anyone create a scalable leaderboard system with public submission route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 12,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a decentralized application with public proposal submission",
+        "hiring a freelancer to develop a zero-email business model with contactable invitation",
+        "need paid help with auditing player progression in a game with public response channel",
+        "RFP for a secure Tor Onion service with public proposal submission route",
+        "can anyone create a scalable leaderboard system with public submission route"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
