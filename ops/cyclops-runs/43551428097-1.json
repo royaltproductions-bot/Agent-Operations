@@ -1,0 +1,153 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-14T03:26:07.734469+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 4,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 4,
+    "verified_firsthand_problem_pages": 1,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 4,
+    "public_market_sample": [
+      {
+        "url": "https://herothemes.com/blog/apology-email-templates/",
+        "title": "10 Apology Email Templates, and Writing Tips",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.sender.net/email-templates/video-email-templates/",
+        "title": "Video email templates",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.sender.net/email-templates/email-announcement-templates/",
+        "title": "Email announcement templates",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://herothemes.com/blog/canned-email-templates/",
+        "title": "25+ Best Canned Response Templates for Customer Support and Service",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 4,
+    "search_queries": [
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 43,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "downloadable email template builder for customer feedback with pricing",
+        "automation tool for generating meeting recap emails with real examples",
+        "animated email templates for marketing campaigns with purchase link",
+        "batch email response generator with customizable placeholders"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:4 candidates reviewed; demand, pricing, or sales, making it difficult to assess viability. While email templates are a common need, the absence of specific buyer data or competitive differenti"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 4,
+    "product_pages": 4,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 13,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "003c3c67f50b396938ad",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "755a8c931205cd5d956e",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:a1cc50448dfe690a9a",
+      "decision": "pass",
+      "reason": "The candidate lacks clear evidence of demand, pricing, or sales, and the content appears to be promotional rather than indicative of a viable product. The absence of a specific, actionable problem with a clear solution makes it difficult to justify pursuing this opportunity."
+    },
+    {
+      "candidate_id": "web:c55633e0c377cce2a1",
+      "decision": "pass",
+      "reason": "The page for video email templates lacks clear pricing or sales data, and the content is presented as part of a broader service offering (Sender.net). There is no direct evidence of a standalone product or demand for a specific video email template solution. The existing catalog includes similar tools, and without concrete buyer demand or a unique "
+    },
+    {
+      "candidate_id": "web:e131c15b08660987f8",
+      "decision": "pass",
+      "reason": "The candidate lacks clear evidence of demand, pricing, or sales, making it difficult to assess viability. While email templates are a common need, the absence of specific buyer data or competitive differentiation makes it hard to justify pursuing this market without further validation."
+    },
+    {
+      "candidate_id": "web:7240340415caf87fd1",
+      "decision": "pass",
+      "reason": "The article highlights the need for canned email templates in customer support, but there is no evidence of existing sales or pricing for a product in this space. While the demand for such templates is implied, the absence of concrete sales data or competitor pricing makes it difficult to assess the viability of a new product. Additionally, there a"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 4,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 4,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
