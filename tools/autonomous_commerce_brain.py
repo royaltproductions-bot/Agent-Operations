@@ -229,10 +229,12 @@ def discovery_queries(memory):
         "individual, creator and small-team paid projects completable by a "
         "solo remote digital operator without licenses, capital, onsite "
         "attendance or a long employment process. A buyer's own invitation "
-        "matters more than commercial news discussing a sector. Do not "
-        "include recent official RFP, tender, procurement and contract-job "
+        "matters more than commercial news discussing a sector. "
+        "Include recent official RFP, tender, procurement and contract-job "
         "requests when the original buyer page explicitly invites proposals, "
         "questions or document requests through a published response route. "
+        "At least one generated query should target an RFP, tender, solicitation "
+        "or procurement request. "
         "Avoid aggregator-only bid directories and generic sector-overview pages "
         "that do not expose the original requester. Do not invent buyers, "
         "contact details or demand. "
@@ -253,6 +255,39 @@ def discovery_queries(memory):
     return [str(q).strip() for q in result.get("queries") or [] if str(q).strip()]
 
 
+def solicitation_seed_queries(memory,now=None):
+    """Guarantee bounded current-solicitation discovery without repeating a query daily."""
+    now=now or NOW()
+    year=now.year
+    pool=[
+        f"request for proposals artificial intelligence consulting {year}",
+        f"RFP AI implementation services proposal deadline {year}",
+        f"tender AI pilot delivery partner {year}",
+        f"solicitation artificial intelligence technical support {year}",
+        f"request for proposals Microsoft Copilot enablement {year}",
+        f"RFP software automation consulting proposal {year}",
+        f"procurement AI agent testing evaluation platform {year}",
+        f"request for bids data automation dashboard services {year}",
+        f"tender digital workflow automation consultant {year}",
+        f"solicitation AI adoption training services {year}",
+        f"RFP custom software development services deadline {year}",
+        f"request for proposals data analytics automation {year}",
+    ]
+    recent=set()
+    for row in memory.state.get("queries") or []:
+        if not isinstance(row,dict):
+            continue
+        try:
+            at=datetime.fromisoformat(str(row.get("at") or "").replace("Z","+00:00"))
+            if at.tzinfo is None:
+                at=at.replace(tzinfo=timezone.utc)
+        except (TypeError,ValueError):
+            continue
+        if timedelta(0) <= now-at < timedelta(days=1):
+            recent.add(re.sub(r"\s+"," ",str(row.get("query") or "").strip()).lower())
+    return [q for q in pool if q.lower() not in recent][:2]
+
+
 def candidates(memory):
     """Advance independent web research and persisted leads every run."""
     issues=[]
@@ -262,7 +297,10 @@ def candidates(memory):
         proposed=[]
         issues.append({"source":"query_planner","reason":type(exc).__name__})
 
-    queries=memory.choose_queries(proposed)
+    # Guarantee a bounded current-solicitation lane before model-generated ideas.
+    # ResearchMemory still enforces the 24h per-query cooling period and total
+    # query budget, so this does not create repeated search spam.
+    queries=memory.choose_queries(solicitation_seed_queries(memory)+proposed)
     if not queries:
         # Model ideas are sometimes repeats of searches already attempted
         # today. Derive a different direction from observed public evidence.
