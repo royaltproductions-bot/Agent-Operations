@@ -1,0 +1,133 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T16:18:40.051274+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "bing": 3,
+      "followup": 2,
+      "hn_ask": 4,
+      "github_paid_issues": 3
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "candidates_without_email": 12,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://zapro.ai/procurement/what-is-procurement/",
+        "title": "What Is Procurement? Definition, Meaning, Types and Process",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://rfp.ai/resources/gdpr-rfp-guide/",
+        "title": "Resource GDPR compliance in RFPs\n What to put in your RFP responses for GDPR, Schrems II, and EU AI Act",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://rfp.ai/integrations/ariba-rfp-response/",
+        "title": "Ariba RFP response",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=41715455",
+        "title": "Ask HN: Does My Company Think I'm a Cybersecurity Risk?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47119286",
+        "title": "60 Year old vibe coder create revenue SaaS with vibe agent and vibe testing tool",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=32502213",
+        "title": "Ask HN: Why do you trust electronic voting machines?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "Procurement RFP for game crash resolution while holding bounty with public response channel",
+      "looking for someone to fix CPI frame ceiling boundary in 64-bit account system with public response channel",
+      "can anyone create a fix for CPI frame ceiling boundary in 64-bit account system with public proposal submission",
+      "is:issue is:open bounty created:>=2026-09-15 fix cpi frame",
+      "hiring a freelancer to resolve double-counting edDeposit in XCM fee calculation with contactable invitation"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to fix CPI frame ceiling boundary in 64-bit account system with public response channel",
+      "hiring a freelancer to resolve double-counting edDeposit in XCM fee calculation with contactable invitation",
+      "need paid help with debugging bounty teleportation crash in game mod 1.0.6 with public proposal submission",
+      "Procurement RFP for game crash resolution while holding bounty with public response channel",
+      "can anyone create a fix for CPI frame ceiling boundary in 64-bit account system with public proposal submission"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 3,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to fix CPI frame ceiling boundary in 64-bit account system with public response channel",
+        "hiring a freelancer to resolve double-counting edDeposit in XCM fee calculation with contactable invitation",
+        "need paid help with debugging bounty teleportation crash in game mod 1.0.6 with public proposal submission",
+        "Procurement RFP for game crash resolution while holding bounty with public response channel",
+        "can anyone create a fix for CPI frame ceiling boundary in 64-bit account system with public proposal submission"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
