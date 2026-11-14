@@ -1,21 +1,21 @@
 {
   "aging_active_bids_days": {
-    "mx713jqgcsevmx5jfgvz6qnmed8j60gv": 0.03446095739583333,
-    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 3.012815830081019,
-    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 0.8075385036921296,
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 7.0336104365625,
-    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 0.8075311541550926,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 11.104359580081018,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 11.07451941804398,
-    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 3.012822762951389,
-    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 3.842155112488426,
-    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 0.8075229944328703,
-    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 3.016476049988426,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 11.105210251377315,
-    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 3.012808272210648,
-    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 3.0128365360995373,
-    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 3.016461813877315,
-    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 4.874636721284722
+    "mx713jqgcsevmx5jfgvz6qnmed8j60gv": 0.0379367615625,
+    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 3.0162916342476853,
+    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 0.8110143078587964,
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 7.037086240729168,
+    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 0.8110069583217593,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 11.107835384247684,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 11.077995222210648,
+    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 3.0162985671180556,
+    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 3.8456309166550926,
+    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 0.810998798599537,
+    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 3.0199518541550927,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 11.10868605554398,
+    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 3.016284076377315,
+    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 3.0163123402662038,
+    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 3.0199376180439814,
+    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 4.878112525451389
   },
   "browser": {
     "completed_job_count": {
@@ -115,9 +115,9 @@
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-14T21:56:57.810719+00:00",
+  "generated_at": "2026-11-14T22:01:58.120199+00:00",
   "market_observation": {
-    "fetched_at": "2026-11-14T21:56:57.804878+00:00",
+    "fetched_at": "2026-11-14T22:01:58.114105+00:00",
     "last_open_count": 60,
     "newest_created_at": "2026-11-14T21:01:47.805000+00:00"
   },
@@ -871,11 +871,16 @@
       "fetched_at": "2026-11-14T21:56:57.804878+00:00",
       "last_open_count": 60,
       "newest_created_at": "2026-11-14T21:01:47.805000+00:00"
+    },
+    {
+      "fetched_at": "2026-11-14T22:01:58.114105+00:00",
+      "last_open_count": 60,
+      "newest_created_at": "2026-11-14T21:01:47.805000+00:00"
     }
   ],
   "median_posting_to_bid_minutes": 10908.021091666666,
   "median_posting_to_detection_minutes": 92.20504588333333,
-  "median_posting_to_detection_minutes_24h": 1.31489645,
+  "median_posting_to_detection_minutes_24h": 135.127112175,
   "model_budget": {
     "call_count": 354,
     "month": "2026-11",
