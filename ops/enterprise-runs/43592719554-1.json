@@ -1,0 +1,126 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T12:02:51.107831+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 11,
+    "source_counts": {
+      "open_web": 11
+    },
+    "search_provider_counts": {
+      "duckduckgo": 8,
+      "github_paid_issues": 2,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "candidates_without_email": 8,
+    "contactable_sources": 3,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 5,
+    "public_source_sample": [
+      {
+        "url": "https://www.opentech.fund/news/request-for-proposals-security-lab/",
+        "title": "Request for Proposals: Security Lab | OTF",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://www.nsf.gov/funding/opportunities/pesose-pathways-enable-secure-open-source-ecosystems/nsf26-506/solicitation",
+        "title": "Pathways to Enable Secure Open-Source Ecosystems (PESOSE)",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.nsf.gov/funding/opportunities/pesose-pathways-enable-secure-open-source-ecosystems",
+        "title": "Pathways to Enable Secure Open-Source Ecosystems (PESOSE)",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://openssf.org/blog/2025/05/21/call-for-proposals-now-open-for-open-source-securitycon-2025/",
+        "title": "Call for Proposals Now Open for Open Source SecurityCon 2025",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://github.com/SepehrGhanbari/Ario/issues/94",
+        "title": "Incentive-first Ario adoption: offline utility \u2192 rewarded participation \u2192 opt-in P2P",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Element-Ventures-Canada-Ltd/openchokepoint/issues/41",
+        "title": "[Slice L6] Workforce and test-facility capacity map",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "request for proposal: open-source security tool with public submission guidelines",
+      "is:issue is:open bounty created:>=2026-09-15 submit proposal government",
+      "hiring a freelancer to submit a proposal for a public data governance tool with contact route"
+    ],
+    "attempted_search_queries": [
+      "request for proposal: open-source security tool with public submission guidelines",
+      "hiring a freelancer to submit a proposal for a public data governance tool with contact route",
+      "looking for someone to submit a proposal for a government-funded AI ethics platform with public response channel",
+      "can anyone create a proposal for a public blockchain compliance tool with authorized submission method",
+      "need paid help with writing a security policy for a public data sharing tool with published contact"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 10,
+      "skipped_revisits": 26,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "request for proposal: open-source security tool with public submission guidelines",
+        "hiring a freelancer to submit a proposal for a public data governance tool with contact route",
+        "looking for someone to submit a proposal for a government-funded AI ethics platform with public response channel",
+        "can anyone create a proposal for a public blockchain compliance tool with authorized submission method",
+        "need paid help with writing a security policy for a public data sharing tool with published contact"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
