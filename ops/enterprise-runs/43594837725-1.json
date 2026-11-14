@@ -1,0 +1,116 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T12:28:12.940311+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 10,
+    "source_counts": {
+      "open_web": 10
+    },
+    "search_provider_counts": {
+      "bing": 1,
+      "followup": 6,
+      "github_paid_issues": 3
+    },
+    "source_errors": [],
+    "fetched_public_pages": 10,
+    "candidates_without_email": 9,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://associationsnow.com/format/templates/",
+        "title": "Sample RFPs - ASAE",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://openssf.org",
+        "title": "Open Source Security Foundation (OpenSSF)",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://opensource.org/licenses",
+        "title": "approved by the Open Source Initiative (OSI).",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/smv620/Discord-DMbot/issues/3172",
+        "title": "Story memory: an internal importance rank (0 to 5) set by the story, used to pick recap details",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/lizTheDeveloper/privacy-the-game/issues/408",
+        "title": "[find opt-out] Safety Holdings Inc.: find the official opt-out route",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Element-Ventures-Canada-Ltd/openchokepoint/issues/3",
+        "title": "[Priority] Open call: digital-thread and critical-items register schema for rocket turbopump supply chains",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "RFP for a secure open-source collaboration tool with public submission route",
+      "is:issue is:open bounty created:>=2026-09-15 writing proposal government"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit a proposal for a public cybersecurity framework with contact route",
+      "hiring a freelancer to submit a proposal for an open-source data governance platform with published response channel",
+      "need paid help with writing a proposal for a government-funded open-source security tool with authorized submission method",
+      "can anyone create a proposal for a public data integrity platform with contactable buyer invitation",
+      "RFP for a secure open-source collaboration tool with public submission route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 40,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit a proposal for a public cybersecurity framework with contact route",
+        "hiring a freelancer to submit a proposal for an open-source data governance platform with published response channel",
+        "need paid help with writing a proposal for a government-funded open-source security tool with authorized submission method",
+        "can anyone create a proposal for a public data integrity platform with contactable buyer invitation",
+        "RFP for a secure open-source collaboration tool with public submission route"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 114,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
