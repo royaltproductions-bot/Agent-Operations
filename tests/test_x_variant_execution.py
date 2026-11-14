@@ -827,6 +827,13 @@ class CyclopsPublicBrandingTests(unittest.TestCase):
             "Practical digital solutions by ARI Operations.")
         self.assertIn("gumroad.com",cyclops.CYCLOPS_FREE_SAMPLE_URL)
 
+    def test_cyclops_engine_source_is_not_duplicated(self):
+        from pathlib import Path
+        source=Path("tools/cyclops_asset_engine.py").read_text()
+        self.assertEqual(source.count("def publish_catalog():"),1)
+        self.assertEqual(source.count("def verified_session("),1)
+        self.assertEqual(source.count("def github_delete("),1)
+
     def test_quarantined_asset_is_not_publicly_listed_and_cleanup_is_durable(self):
         import inspect
         from pathlib import Path
