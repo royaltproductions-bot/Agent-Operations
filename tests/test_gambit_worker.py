@@ -1484,6 +1484,30 @@ class GambitTests(unittest.TestCase):
         self.assertIn('/v1/agent/bounties/video1/unclaim',
                       [c.args[0] for c in api.call_args_list if len(c.args) > 1])
 
+    def test_guardrail_violation_reconciles_even_with_fresh_timestamp(self):
+        now=datetime.now(timezone.utc)
+        state={
+            'bounties': {'high': {'action':'bid_active','version':1}},
+            'commercial': {'high': {'bid_status':'active',
+                                    'bid_amount_cents':32000,
+                                    'platform_status':'open'}},
+            'settlements': {},
+            'last_bid_reconciliation': now.isoformat(),
+        }
+        self.assertTrue(gambit.bid_reconciliation_due(state,[],now=now))
+
+    def test_known_canceled_offer_reconciles_even_with_fresh_timestamp(self):
+        now=datetime.now(timezone.utc)
+        state={
+            'bounties': {'gone': {'action':'bid_active','version':1}},
+            'commercial': {'gone': {'bid_status':'active',
+                                    'bid_amount_cents':4500,
+                                    'platform_status':'canceled'}},
+            'settlements': {},
+            'last_bid_reconciliation': now.isoformat(),
+        }
+        self.assertTrue(gambit.bid_reconciliation_due(state,[],now=now))
+
     def test_existing_bid_reconciles_without_withdrawal_or_model(self):
         state = {'bounties': {'video1': {'version': 1, 'action': 'bid_active'}},
                  'recent_outcomes': [], 'events_cursor': None,
