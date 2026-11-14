@@ -1,0 +1,127 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T19:44:42.647042+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 8,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "bing": 2,
+      "duckduckgo": 6
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 7,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://www.merriam-webster.com/dictionary/tender",
+        "title": "TENDER Definition & Meaning - Merriam-Webster",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.find-tender.service.gov.uk/Search",
+        "title": "Find a Tender",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://deeprfp.com/blog/best-rfp-tools-comparison/",
+        "title": "31 Best RFP Tools for 2026 | AI-Powered Comparison",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://govtribe.com/file/government-file/rfp-ai-adoption-and-ms-copilot-enablement-services-dot-pdf",
+        "title": "RFP-AI Adoption and MS Copilot Enablement Services.pdf",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://proposalpanda.com/blog/best-rfp-software-2026",
+        "title": "Best RFP Software in 2026: 10 AI Tools Compared - Proposal Panda",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://civiciq.com/public-rfp/masshousing-ai-adoption-microsoft-copilot-enablement-services-rfp-2026",
+        "title": "AI Adoption & Microsoft Copilot\u2026 \u00b7 MassHousing | Due Nov 16, 2026",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "tender for AI service delivery partner in public sector with public response route",
+      "RFP software automation consulting proposal 2026",
+      "request for proposals Microsoft Copilot enablement 2026"
+    ],
+    "attempted_search_queries": [
+      "request for proposals Microsoft Copilot enablement 2026",
+      "RFP software automation consulting proposal 2026",
+      "RFP for AI-powered education data interoperability delivery partner 2026",
+      "tender for AI service delivery partner in public sector with public response route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 8,
+      "skipped_revisits": 7,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "request for proposals Microsoft Copilot enablement 2026",
+        "RFP software automation consulting proposal 2026",
+        "RFP for AI-powered education data interoperability delivery partner 2026",
+        "tender for AI service delivery partner in public sector with public response route"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 114,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
