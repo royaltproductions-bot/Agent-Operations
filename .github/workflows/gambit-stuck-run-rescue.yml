@@ -1,0 +1,30 @@
+name: One-time Gambit stuck-run rescue
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/gambit-stuck-run-rescue.yml'
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  cancel-stuck-resident:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Cancel superseded stuck Gambit resident
+        env:
+          GH_TOKEN: ${{ github.token }}
+          STUCK_RUN_ID: '43515534083'
+        run: |
+          set -euo pipefail
+          status="$(gh run view "$STUCK_RUN_ID" --repo "$GITHUB_REPOSITORY" --json status --jq .status)"
+          if [ "$status" = "in_progress" ] || [ "$status" = "queued" ] || [ "$status" = "pending" ] || [ "$status" = "waiting" ] || [ "$status" = "requested" ]; then
+            gh run cancel "$STUCK_RUN_ID" --repo "$GITHUB_REPOSITORY"
+            echo "Cancel requested for stuck Gambit run $STUCK_RUN_ID."
+          else
+            echo "Gambit run $STUCK_RUN_ID already terminal: $status"
+          fi
