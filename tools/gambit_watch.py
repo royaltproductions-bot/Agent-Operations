@@ -70,6 +70,32 @@ def probe(module):
                     if '=' in line)
 
 
+GAMBIT_RELEVANT_MAIN_PATHS = (
+    ".github/workflows/gambit-bounty.yml",
+    "tools/gambit_watch.py",
+    "tools/gambit_worker.py",
+    "tools/gambit_commercial.py",
+    "tools/gambit_openai.py",
+    "tools/gambit_artifacts.py",
+    "tools/gambit_secondary_marketplace.py",
+    "tools/gambit_credentials.py",
+    "ops/gambit/bountyboard-credential.json",
+)
+
+
+def relevant_main_change():
+    """Yield the resident slot only for changes that would launch a new Gambit run."""
+    fetched=subprocess.run(
+        ["git","fetch","--quiet","--no-tags","origin","main"],
+        stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+    if fetched.returncode != 0:
+        # Never stop commercial work merely because the comparison fetch failed.
+        return False
+    changed=subprocess.run(
+        ["git","diff","--quiet","HEAD","origin/main","--",*GAMBIT_RELEVANT_MAIN_PATHS])
+    return changed.returncode == 1
+
+
 def prepare_video_runtime():
     """Install FFmpeg only for an actual bounded MP4 job, never on empty polls."""
     from tools import gambit_artifacts
@@ -134,6 +160,14 @@ def watch(seconds=240, interval=30, clock=time.monotonic, sleep=time.sleep):
     successes = failures = 0
     last_health = clock()
     while clock() < deadline:
+        if relevant_main_change():
+            # Persist the last resident-health state, then release concurrency so
+            # GitHub can start the already-triggered latest-code worker.
+            record_health(successes, failures)
+            print(json.dumps({"watch_handoff":"relevant_main_change",
+                              "successful_cycles":successes,
+                              "failed_cycles":failures}), flush=True)
+            return successes, failures
         started = clock()
         try:
             cycle()
