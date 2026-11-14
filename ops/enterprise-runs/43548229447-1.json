@@ -1,0 +1,117 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T02:49:08.877737+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 8,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "duckduckgo": 6,
+      "followup": 2
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "IncompleteRead"
+      }
+    ],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 7,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://www.getmaxim.ai/articles/top-5-ai-agent-evaluation-platforms-in-2026/",
+        "title": "Top 5 AI Agent Evaluation Platforms in 2026 - getmaxim.ai",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://procurementaiagents.com/",
+        "title": "Best AI Agents for Procurement 2026 \u2014 Reviews",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.lyzr.ai/blog/ai-agents-in-procurement/",
+        "title": "AI Agents in Procurement: Use Cases, Platforms & What to Evaluate (2026)",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://procurementaiagents.com/blog/leading-ai-procurement-agent-platform",
+        "title": "The Leading AI Procurement Agent Platform in 2026 | Ranked",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.jaggaer.com/blog/ai-procurement-platform-landscape-2026",
+        "title": "AI Procurement Platform Landscape 2026: Top Vendors \u2502JAGGAER",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.techfinitive.com/product-guides/the-best-ai-procurement-platforms-for-the-enterprise-in-2026/",
+        "title": "The best AI procurement platforms for the enterprise in 2026",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "procurement AI agent testing evaluation platform 2026"
+    ],
+    "attempted_search_queries": [
+      "procurement AI agent testing evaluation platform 2026",
+      "request for bids data automation dashboard services 2026",
+      "looking for someone to submit a proposal for AI adoption RFP with contactable response route",
+      "can anyone create a proposal for AI enablement services tender with published submission guidelines"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 8,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "procurement AI agent testing evaluation platform 2026",
+        "request for bids data automation dashboard services 2026",
+        "looking for someone to submit a proposal for AI adoption RFP with contactable response route",
+        "can anyone create a proposal for AI enablement services tender with published submission guidelines"
+      ],
+      "next_query_queue": 6,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
