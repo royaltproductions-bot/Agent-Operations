@@ -1,0 +1,109 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T14:35:34.850617+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 5,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "hn_ask": 1,
+      "github_paid_issues": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 3,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=48760460",
+        "title": "Tell HN: We need an accounting system for cognitive debt",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/manaflow-ai/cmux/issues/13742",
+        "title": "Design and product calls (gallery: #15427), plus CI admin",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/shin2344234/master-looter/issues/107",
+        "title": "Pet filter deletes items the player picked up",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/rroland10/dex223-bug-bounty/issues/113",
+        "title": "RPC/subgraph proxy rate limits keyed by spoofable first X-Forwarded-For entry (per-Vercel-instance only)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/rroland10/dex223-bug-bounty/issues/112",
+        "title": "Factory accepts ERC-223 transfers with no way to recover them (funds permanently locked)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create a real-time dashboard with public proposal submission route",
+      "is:issue is:open bounty created:>=2026-09-15 designing user onboarding",
+      "is:issue is:open bounty created:>=2026-09-15 "
+    ],
+    "attempted_search_queries": [
+      "looking for someone to develop a secure data export tool with public proposal submission",
+      "hiring a freelancer to create a scalable notification system with contactable invitation",
+      "need paid help with designing a user onboarding flow with public response channel",
+      "can anyone create a real-time dashboard with public proposal submission route",
+      "RFP for a data validation pipeline with public document submission"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 39,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to develop a secure data export tool with public proposal submission",
+        "hiring a freelancer to create a scalable notification system with contactable invitation",
+        "need paid help with designing a user onboarding flow with public response channel",
+        "can anyone create a real-time dashboard with public proposal submission route",
+        "RFP for a data validation pipeline with public document submission"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
