@@ -1,0 +1,122 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T21:47:47.849026+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 8,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "github_paid_issues": 4
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      }
+    ],
+    "fetched_public_pages": 8,
+    "candidates_without_email": 7,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=34267132",
+        "title": "Sex offender can't get a job. Completely out of ideas. Help?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=20348139",
+        "title": "How to Guarantee Traction for Your Product?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37894996",
+        "title": "Ask HN: Businesses built on Tableau / Domo / existing BI platform?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=10917083",
+        "title": "Ask HN: Does anyone know of a REST API for monthly precipitation in the US?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/PandiO/knk-workspace/issues/234",
+        "title": "NPC behavior model for guards: perception, psychology, decisions, combat and dynamic navigation (Core Guards)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Thiesi/Karst41/issues/125",
+        "title": "Proposal: fundamentals for a small-population node (async presence, relay crews, territory, market, caps, bounties)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "need paid help with creating a proposal for a federal grant application with published contact route",
+      "can anyone create a bid for a public infrastructure project with authorized response channel",
+      "is:issue is:open bounty created:>=2026-09-15 draft proposal city",
+      "is:issue is:open bounty created:>=2026-09-15 creating proposal federal"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit a bid for a public procurement tender with published response route",
+      "hiring a freelancer to draft a proposal for a city-funded digital service initiative with contactable buyer",
+      "need paid help with creating a proposal for a federal grant application with published contact route",
+      "can anyone create a bid for a public infrastructure project with authorized response channel",
+      "submitting a proposal for a public digital service tender with published contact route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 22,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit a bid for a public procurement tender with published response route",
+        "hiring a freelancer to draft a proposal for a city-funded digital service initiative with contactable buyer",
+        "need paid help with creating a proposal for a federal grant application with published contact route",
+        "can anyone create a bid for a public infrastructure project with authorized response channel",
+        "submitting a proposal for a public digital service tender with published contact route"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
