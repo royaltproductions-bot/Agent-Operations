@@ -1,0 +1,124 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T02:35:23.579568+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 4,
+      "duckduckgo": 8
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 9,
+    "contactable_sources": 3,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/jcfischer/seelite/issues/460",
+        "title": "Map: seelite gameplay \u2014 missions, the expedition story, and what a pilot does between the beats",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/EtherAuthority/Smart-Contracts-Library/issues/28",
+        "title": "Critical Bugs on smart contract  Wrapped liquid staked Ether 2.0 (wstETH) and sensitive data leakage on website",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/xeprotocol/xe/issues/550",
+        "title": "[Track 2 pre-notice] Heavier transfer fan-out: up to 1000 wallets, \u226410 tx/s, \u2264300 s",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Rohank143/BountyScout/issues/103",
+        "title": "\ud83c\udfaf Bounty Alert: 7 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.zycus.com/blog/artificial-intelligence/ardent-partners-procurement-ai-pilots-2026",
+        "title": "Ardent Partners Procurement AI Pilots 2026: What Survives",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://duckduckgo.com/y.js?ad_domain=ai4.com&ad_provider=bingv7aa&ad_type=txad&click_metadata=O9qeBsOJWFPhihs11Mmr88hvYyZw4VtZaOvF2XPt1xNTom1ynhwdaLKZ9eDYt6RfkUicUYWYSvcKyB8FrgYMbNqBLVCFKxyldfRq38qdO",
+        "title": "The Future of AI is Here - Artificial Intelligence Summit",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-15 tender ai pilot",
+      "is:issue is:open bounty created:>=2026-09-15 ",
+      "tender AI pilot delivery partner 2026",
+      "solicitation artificial intelligence technical support 2026"
+    ],
+    "attempted_search_queries": [
+      "tender AI pilot delivery partner 2026",
+      "solicitation artificial intelligence technical support 2026"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 6,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "tender AI pilot delivery partner 2026",
+        "solicitation artificial intelligence technical support 2026"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 114,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
