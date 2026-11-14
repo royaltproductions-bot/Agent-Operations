@@ -2712,7 +2712,7 @@
     "mx713jqgcsevmx5jfgvz6qnmed8j60gv": {
       "bid_amount_cents": 800,
       "bid_at": 1794690440384,
-      "bid_created_at": 1794690151614,
+      "bid_created_at": 1794690440384,
       "bid_id": "p17bhdvbqv4vzxc6q7hm88h6c98j75zj",
       "bid_status": "active",
       "bid_status_changed_at": "2026-11-14T21:07:20.556345+00:00",
@@ -4376,13 +4376,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo2NSwiY2hlY2twb2ludEF0IjoxNzk0NjkxMDc5MjY5fQ",
-  "last_bid_reconciliation": "2026-11-14T21:07:03.077139+00:00",
-  "last_check": "2026-11-14T21:17:59.992387+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo2NSwiY2hlY2twb2ludEF0IjoxNzk0NjkxMzc4NzI5fQ",
+  "last_bid_reconciliation": "2026-11-14T21:23:03.953099+00:00",
+  "last_check": "2026-11-14T21:23:03.957817+00:00",
   "market_observation": {
     "fetched_at": "2026-11-14T21:21:55.323747+00:00",
+    "last_checked_at": "2026-11-14T21:22:38.371641+00:00",
     "last_open_count": 60,
-    "newest_created_at": "2026-11-14T21:01:47.805000+00:00"
+    "newest_created_at": "2026-11-14T21:01:47.805000+00:00",
+    "newest_posted_at": "2026-11-14T21:01:47.805000+00:00"
   },
   "market_observation_history": [
     {
