@@ -1856,7 +1856,8 @@ def run():
                 if action.get("result")=="offer_sent":
                     receipt["economic_result"]["new_product_offers_sent"]+=1
         else:
-            receipt["production"]={"result":"no_current_product_opportunity"}
+            if not receipt["production"]:
+                receipt["production"]={"result":"no_current_product_opportunity"}
     except (ValueError,RuntimeError) as exc:
         reason=(str(exc) or type(exc).__name__)[:220]
         if isinstance(exc,MarketDeclined):
