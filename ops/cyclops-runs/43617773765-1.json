@@ -1,0 +1,171 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-14T16:52:05.341788+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 4,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "bing": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 4,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 4,
+    "public_market_sample": [
+      {
+        "url": "https://www.template.net/free/",
+        "title": "Free Templates | Template.net",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "http://amwebsupport.com/",
+        "title": "Auto/Mate DMS Remote Support",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://slidesgo.com/",
+        "title": "Free Google Slides themes and Powerpoint templates | Slidesgo",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.adobe.com/express/templates/",
+        "title": "Free Templates | Adobe Express",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 3,
+    "search_queries": [
+      "template for creating a personal budget tracker in Google Sheets",
+      "how to automate invoice generation from Excel for small businesses"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 3,
+      "skipped_revisits": 57,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "how to automate invoice generation from Excel for small businesses",
+        "downloadable script to clean and organize CSV data for market research",
+        "customizable Google Calendar template for remote team meetings",
+        "python script to extract and format data from PDF receipts",
+        "template for creating a personal budget tracker in Google Sheets"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 118,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:4 candidates reviewed; ible, differentiated product. While the page offers free templates, it does not present a unique value proposition or a viable product idea that can be tested or built. "
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 4,
+    "product_pages": 4,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 13,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "003c3c67f50b396938ad",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": [
+        {
+          "source": "open_web_search",
+          "provider": "duckduckgo",
+          "reason": "HTTPError",
+          "http_code": 403
+        }
+      ]
+    },
+    {
+      "asset_id": "755a8c931205cd5d956e",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:adea4037eec529f7fe",
+      "decision": "pass",
+      "reason": "The evidence excerpt contains corrupted or unreadable data, making it impossible to assess the actual content or value proposition of the page. Without clear, actionable information about the templates or their utility, it is not possible to determine if there is a viable product opportunity here."
+    },
+    {
+      "candidate_id": "web:8ab4af7dffae10dcc5",
+      "decision": "pass",
+      "reason": "The candidate lacks clear evidence of demand, pricing, or sales. While the website mentions a DMS solution for dealerships, there is no indication of actual buyer utility, competitive positioning, or production feasibility. The content is vague and speculative without a specific, identifiable user need."
+    },
+    {
+      "candidate_id": "web:ac118e0c8fcd9201a4",
+      "decision": "pass",
+      "reason": "The candidate lacks a clear, specific customer problem and does not demonstrate a feasible, differentiated product. While the page offers free templates, it does not present a unique value proposition or a viable product idea that can be tested or built. The content is generic and does not indicate a specific need for a new product."
+    },
+    {
+      "candidate_id": "web:ad0ef352f1579eea23",
+      "decision": "pass",
+      "reason": "Adobe Express already provides a comprehensive set of free templates for business and marketing, including banners, brochures, logos, and more. The existing catalog includes similar tools like the Outlook Dropdown Email Template Builder, which suggests that the market is already well-served. There is no clear, unmet need or differentiation that wou"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 4,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 4,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
