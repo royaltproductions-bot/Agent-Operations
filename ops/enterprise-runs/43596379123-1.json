@@ -1,0 +1,125 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T12:47:21.755287+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 12,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "hn_ask": 2,
+      "github_paid_issues": 4,
+      "duckduckgo": 6
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 12,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=42604516",
+        "title": "Tell HN: The Quiet Collapse of US Defense Research Infrastructure",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=21798947",
+        "title": "Mozilla ignores call to limit misuse of it's lifelike open-source TTS",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/SecOpsNews/news/issues/76578",
+        "title": "[RegisterSec] OpenAI launches security products, tells orgs they\u2019re doomed if they don\u2019t use them",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/velrino/jobs/issues/533",
+        "title": "[EPAM Systems] Senior Security Architect \u2014 Remote: Argentina, Brazil, Chile, Colombia, Mexico / Remote",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/velrino/jobs/issues/532",
+        "title": "[EPAM Systems] Security Architect \u2014 Remote: Argentina, Brazil, Chile, Colombia, Mexico / Remote",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/freedom-winds/BountyScout/issues/1415",
+        "title": "\ud83c\udfaf Bounty Alert: 14 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to develop a secure open-source collaboration tool with public response channel",
+      "is:issue is:open bounty created:>=2026-09-15 develop secure open",
+      "is:issue is:open bounty created:>=2026-09-15 ",
+      "looking for someone to submit a proposal for an open-source data governance platform with published response channel"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit a proposal for an open-source data governance platform with published response channel",
+      "looking for someone to develop a secure open-source collaboration tool with public response channel",
+      "hiring a freelancer to submit a proposal for an open-source AI model with contactable invitation",
+      "need paid help with writing a proposal for an open-source AI security tool with authorized submission method"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 34,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit a proposal for an open-source data governance platform with published response channel",
+        "looking for someone to develop a secure open-source collaboration tool with public response channel",
+        "hiring a freelancer to submit a proposal for an open-source AI model with contactable invitation",
+        "need paid help with writing a proposal for an open-source AI security tool with authorized submission method"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 112,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
