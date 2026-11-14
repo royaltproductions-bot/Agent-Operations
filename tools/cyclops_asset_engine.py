@@ -1213,13 +1213,12 @@ CYCLOPS_FREE_SAMPLE_URL="https://ariquest444.gumroad.com/cyclops-by-ari-operatio
 def publish_catalog():
     """Independently expose approved catalog offers through existing storefront."""
     manifests=active_assets()
-    # Old public-file products aren't considered paid-vault ready; do not
-    # accidentally advertise work that is already freely readable.
     ready=[a for a in manifests if catalog_eligible(a)]
     cards=[]
     base_url="https://ari-operations.onrender.com"
     pages=[]
     modified=0
+
     def publish_page(path,content):
         nonlocal modified
         target=Path("storefront/cyclops")/path
@@ -1266,9 +1265,8 @@ def publish_catalog():
 <meta property="og:url" content="'''+canonical+'''">
 <script type="application/ld+json">'''+jsonld+'''</script>
 <style>
-:root{--ink:#f8fbff;--muted:#a9b9ca;--panel:#111c2d;--line:#273a53;--cyan:#57e4ff;--violet:#b489ff;--gold:#ffd166;--deep:#07111f}
-*{box-sizing:border-box}body{font:16px/1.65 system-ui,-apple-system,sans-serif;margin:0;color:var(--ink);background:
-radial-gradient(circle at 12% 8%,#183964 0,transparent 31%),radial-gradient(circle at 88% 10%,#412a65 0,transparent 28%),var(--deep)}
+:root{--ink:#f8fbff;--muted:#a9b9ca;--line:#273a53;--cyan:#57e4ff;--violet:#b489ff;--gold:#ffd166;--deep:#07111f}
+*{box-sizing:border-box}body{font:16px/1.65 system-ui,-apple-system,sans-serif;margin:0;color:var(--ink);background:radial-gradient(circle at 12% 8%,#183964 0,transparent 31%),radial-gradient(circle at 88% 10%,#412a65 0,transparent 28%),var(--deep)}
 main{max-width:930px;margin:0 auto;padding:34px 22px 70px}
 nav{display:flex;justify-content:space-between;gap:18px;align-items:center;margin-bottom:28px}nav a{color:var(--cyan);text-decoration:none;font-weight:700}
 .brand{font-size:.82rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
@@ -1281,13 +1279,20 @@ h1{font-size:clamp(2rem,6vw,3.7rem);line-height:1.05;margin:.45em 0 .3em}.audien
 </style></head><body><main>
 <nav><a href="/">← CYCLOPS Product Store</a><span class="brand">ARI Operations</span></nav>
 <article><span class="eyebrow">'''+CYCLOPS_EXPANSION+'''</span><h1>'''+name+'''</h1><p>'''+desc+'''</p>
-<p class="audience"><strong>Designed for:</strong> '''+audience+'''</p><p class="price">
+<p class="audience"><strong>Designed for:</strong> '''+audience+'''</p><p class="price">$'''+price+'''</p>
+<a class="buy" href="'''+link+'''" rel="noopener noreferrer">Buy securely with Stripe</a>
+<p class="note">Payment processed by Sirius Sage. Digital delivery follows verified payment.</p>
+</article></main></body></html>'''
         publish_page("products/"+slug+"/index.html",product_html)
         cards.append(
             '<article class="product-card"><span class="card-kicker">CYCLOPS PRODUCT</span>'
             '<h2>'+name+'</h2><p>'+desc+'</p>'
             '<p class="muted"><strong>For:</strong> '+audience+'</p>'
-            '<div class="card-footer"><p class="price">
+            '<div class="card-footer"><p class="price">$'+price+'</p>'
+            '<a class="detail" href="'+relative+'">View product</a></div>'
+            '<a class="buy" href="'+link+'" rel="noopener noreferrer">'
+            'Buy securely with Stripe</a></article>')
+
     free_card=(
         '<article class="product-card sample"><span class="card-kicker">FREE PRACTICE SAMPLE</span>'
         '<h2>Quote Calculator Development Practice Sample</h2>'
@@ -1301,6 +1306,7 @@ h1{font-size:clamp(2rem,6vw,3.7rem);line-height:1.05;margin:.45em 0 .3em}.audien
         '<p>We are checking deliverable completeness and description accuracy '
         'before placing digital products on sale.</p></article>')
     body=free_card+paid_body
+
     document='''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -1309,9 +1315,8 @@ h1{font-size:clamp(2rem,6vw,3.7rem);line-height:1.05;margin:.45em 0 .3em}.audien
 <meta name="description" content="CYCLOPS — Continuously Yielding Customer-Led Original Products &amp; Solutions. Practical digital solutions by ARI Operations.">
 <link rel="canonical" href="https://ari-operations.onrender.com/">
 <style>
-:root{--ink:#f7fbff;--muted:#a8b7c9;--panel:#101d2f;--panel2:#14243a;--line:#29415d;--cyan:#55e6ff;--violet:#ae86ff;--gold:#ffd166;--deep:#06101d}
-*{box-sizing:border-box}body{font:16px/1.6 system-ui,-apple-system,sans-serif;margin:0;color:var(--ink);background:
-radial-gradient(circle at 12% 5%,#163a68 0,transparent 29%),radial-gradient(circle at 88% 8%,#432b6a 0,transparent 27%),linear-gradient(180deg,#07111f,#091523 45%,#07111f)}
+:root{--ink:#f7fbff;--muted:#a8b7c9;--line:#29415d;--cyan:#55e6ff;--violet:#ae86ff;--gold:#ffd166;--deep:#06101d}
+*{box-sizing:border-box}body{font:16px/1.6 system-ui,-apple-system,sans-serif;margin:0;color:var(--ink);background:radial-gradient(circle at 12% 5%,#163a68 0,transparent 29%),radial-gradient(circle at 88% 8%,#432b6a 0,transparent 27%),linear-gradient(180deg,#07111f,#091523 45%,#07111f)}
 main{max-width:1120px;margin:0 auto;padding:34px 20px 76px}
 .hero{position:relative;overflow:hidden;padding:clamp(26px,5vw,54px);border:1px solid #294867;border-radius:28px;background:linear-gradient(130deg,rgba(20,39,65,.96),rgba(22,18,47,.95));box-shadow:0 30px 90px rgba(0,0,0,.3);margin-bottom:26px}
 .hero:after{content:"";position:absolute;width:240px;height:240px;border:2px solid rgba(85,230,255,.26);border-radius:50%;right:-65px;top:-75px;box-shadow:0 0 0 26px rgba(174,134,255,.07),0 0 70px rgba(85,230,255,.12)}
@@ -1342,12 +1347,10 @@ footer{margin-top:32px;padding-top:20px;border-top:1px solid #21354c;color:var(-
     robots='User-agent: *\nAllow: /\nSitemap: '+base_url+'/sitemap.xml\n'
     publish_page("sitemap.xml",sitemap)
     publish_page("robots.txt",robots)
-    # Update the catalog index last, after all linked product pages exist.
     publish_page("index.html",document)
     return {"result":"catalog_published" if modified else "catalog_unchanged",
             "listed_products":len(ready),"product_pages":len(pages),
             "files_updated":modified}
-
 
 def verified_session(session):
     if (session.get("status")!="complete" or session.get("payment_status")!="paid"
