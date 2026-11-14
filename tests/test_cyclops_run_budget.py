@@ -20,6 +20,8 @@ class CyclopsRunBudgetTests(unittest.TestCase):
     def test_concept_transport_timeout_is_retryable_not_structural(self):
         self.assertTrue(cyclops.retryable_model_failure(
             "concept_generation_failed:cyclops_model_transport_timeout"))
+        self.assertTrue(cyclops.retryable_model_failure(
+            "cyclops_model_transport_timeout"))
         self.assertFalse(cyclops.retryable_model_failure(
             "product_not_market_ready:missing output"))
 
