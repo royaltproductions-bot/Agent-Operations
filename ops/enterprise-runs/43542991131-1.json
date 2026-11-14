@@ -1,0 +1,116 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T01:52:52.284038+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 7,
+    "source_counts": {
+      "open_web": 7
+    },
+    "search_provider_counts": {
+      "hn_ask": 3,
+      "github_paid_issues": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 7,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=47277810",
+        "title": "I started making money online in 10th grade \u2013 some lessons about capital",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47219084",
+        "title": "Ask HN: How do you manage the gap between team chat and real work?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=6653365",
+        "title": "Ask HN: Getting quick UIX/Design feedback",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://github.com/Rohank143/BountyScout/issues/102",
+        "title": "\ud83c\udfaf Bounty Alert: 11 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/NSPG13/agent-bounties/issues/1776",
+        "title": "Maintainer notice: repair the submissions, navigation and forest browser-layout suites",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/kwesigaamon8-web/Amon-Kwesiga/issues/6",
+        "title": "DIRECTORS' COORDINATION ROOM \u2014 performance, shared handoffs, independent research",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to create a real-time analytics dashboard for a SaaS product",
+      "hiring a freelancer to design a mobile-first email newsletter template with A/B testing",
+      "is:issue is:open bounty created:>=2026-09-15 create real time"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create a real-time analytics dashboard for a SaaS product",
+      "hiring a freelancer to design a mobile-first email newsletter template with A/B testing",
+      "can anyone create a secure payment gateway integration for a non-profit platform",
+      "need paid help with setting up a CI/CD pipeline for a static site with Docker",
+      "looking for someone to build a custom dashboard for user analytics in a web app"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 22,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create a real-time analytics dashboard for a SaaS product",
+        "hiring a freelancer to design a mobile-first email newsletter template with A/B testing",
+        "can anyone create a secure payment gateway integration for a non-profit platform",
+        "need paid help with setting up a CI/CD pipeline for a static site with Docker",
+        "looking for someone to build a custom dashboard for user analytics in a web app"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 113,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
