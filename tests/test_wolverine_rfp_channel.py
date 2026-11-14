@@ -79,6 +79,43 @@ class WolverineRfpChannelTests(unittest.TestCase):
               "tenders@example.org before the deadline.")
         self.assertEqual(discovery.safe_email(text),"tenders@example.org")
 
+    def test_current_solicitation_queries_are_seeded_before_model_queries(self):
+        class Memory:
+            state={"queries":[]}
+            run_queries=[]
+            def choose_queries(self,proposed):
+                self.proposed=list(proposed)
+                self.run_queries=self.proposed[:4]
+                return self.run_queries
+            def budget(self):
+                return {"max_candidates":12,"max_pages":24}
+            def evidence_queries(self):
+                return []
+        memory=Memory()
+        with patch.object(brain,"discovery_queries",
+                          return_value=["looking for someone to build a dashboard"]), \
+             patch.object(brain,"open_web_candidates",return_value=([],[])):
+            rows,issues=brain.candidates(memory)
+        self.assertEqual(rows,[])
+        self.assertTrue(memory.proposed[0].lower().startswith("request for proposals"))
+        self.assertIn("rfp",memory.proposed[1].lower())
+        self.assertIn("looking for someone",memory.proposed[2].lower())
+
+    def test_solicitation_seed_rotates_away_from_recent_query(self):
+        now=datetime(2026,11,14,2,0,tzinfo=timezone.utc)
+        first="request for proposals artificial intelligence consulting 2026"
+        class Memory:
+            state={"queries":[{"query":first,"at":"2026-11-14T01:00:00+00:00"}]}
+        seeds=brain.solicitation_seed_queries(Memory(),now=now)
+        self.assertNotIn(first,seeds)
+        self.assertEqual(len(seeds),2)
+
+    def test_rfp_prompt_no_longer_excludes_official_solicitations(self):
+        import inspect
+        source=inspect.getsource(brain.discovery_queries)
+        self.assertIn("Include recent official RFP",source)
+        self.assertNotIn("Do not \"\n        \"include recent official RFP",source)
+
     def test_recent_contact_counter_includes_operator_seeded_rfps(self):
         messages=[
             {"labels":["sent"],"subject":"RFP documents request — AI pilots",
