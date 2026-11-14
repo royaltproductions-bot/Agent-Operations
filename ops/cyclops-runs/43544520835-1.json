@@ -1,0 +1,165 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-14T02:09:34.249006+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 5,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "hn_ask": 1,
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 5,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 5,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=41929524",
+        "title": "MiniRPS, A reverse proxy with minijinja templates",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.mailmodo.com/email-templates/about-us-email/",
+        "title": "Free About Us Email Template\n Preview Use this template",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.mailmodo.com/email-templates/star-rating/",
+        "title": "Star Rating Feedback Email Template\n Preview Use this template",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.mailmodo.com/email-templates/customer-feedback-email/",
+        "title": "Free Customer Feedback Email Template\n Preview Use this template",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.mailmodo.com/email-templates/event-feedback-form-email/",
+        "title": "Free Event Feedback Form Email Template\n Preview Use this template",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 1,
+    "search_queries": [
+      "self-contained Python scripts for extracting data from PDF invoices",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 38,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "free downloadable email templates for customer feedback surveys",
+        "paid downloadable tools for automating social media content scheduling",
+        "self-contained Python scripts for extracting data from PDF invoices",
+        "downloadable Excel templates for tracking freelance invoicing and payments"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 107,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "concept_not_producible",
+    "reason": "market_opportunity_declined:5 candidates reviewed;  appears to be promotional material for a platform offering templates rather than a standalone product. The market for customer feedback emails is competitive, and witho"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 4,
+    "product_pages": 4,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 13,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "003c3c67f50b396938ad",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "755a8c931205cd5d956e",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "market_assessments": [
+    {
+      "candidate_id": "web:ae96d7fc0ca669fda4",
+      "decision": "pass",
+      "reason": "The project described is a reverse proxy with minijinja templates, aiming to deliver a single self-contained binary with reverse proxy and static file server functionalities. While the concept is technically interesting and potentially useful for developers and system administrators, there is no clear evidence of demand or buyer utility. The absenc"
+    },
+    {
+      "candidate_id": "web:3bcaec036aa8090aef",
+      "decision": "pass",
+      "reason": "While the 'About Us Email Template' appears to be a useful tool for businesses looking to create professional email templates, there is no evidence of paid offerings, sales, or customer activity beyond the platform's own claims. The absence of pricing, sales data, or independent verification of customer engagement makes it difficult to assess the p"
+    },
+    {
+      "candidate_id": "web:a3047b69714b7456c0",
+      "decision": "pass",
+      "reason": "The candidate lacks evidence of actual sales or pricing, and the template is presented as a free tool. While there is potential for customer feedback collection, the absence of a clear monetization strategy or verified demand makes it speculative. A differentiated product would need to offer unique value beyond the free template, which is not evide"
+    },
+    {
+      "candidate_id": "web:64f5de80aa1fc4043e",
+      "decision": "pass",
+      "reason": "The candidate lacks evidence of actual sales or pricing, and the content appears to be promotional material for a platform offering templates rather than a standalone product. The market for customer feedback emails is competitive, and without clear differentiation or verified demand, the opportunity is not compelling."
+    },
+    {
+      "candidate_id": "web:89b9849e09e1812285",
+      "decision": "pass",
+      "reason": "The observed market opportunity is for an event feedback email template, which is already widely available as a free resource. The existing catalog includes similar tools like the Outlook Dropdown Email Template Builder, indicating that the market is saturated with low-cost or free solutions. There is no clear evidence of a unique, differentiated p"
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 4,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 5,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
