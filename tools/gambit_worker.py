@@ -130,12 +130,24 @@ def cursor_refresh_due(state, cursor, now=None):
 
 
 def bid_reconciliation_due(state, opened, now=None):
-    """Revisit platform bids even if local records were lost or listings disappear.
+    """Revisit platform bids immediately when a commercial guardrail is violated.
 
-    The reconciliation path is model-free: an unsupported offer must not stay
-    live merely because the buyer did not edit the Bounty. A bid may also
-    disappear from the open-list response without a corresponding event.
+    Routine active-offer reconciliation remains periodic, but an owner price cap
+    or known platform closure must not wait behind a fresh timestamp written by
+    superseded code.
     """
+    cap=cold_start_bid_cap_cents(state)
+    for bounty_id,row in (state.get("commercial") or {}).items():
+        entry=(state.get("bounties") or {}).get(bounty_id) or {}
+        active=entry.get("action") in {"bid_sent","bid_active"}
+        if not active:
+            continue
+        amount=row.get("bid_amount_cents")
+        if (cap is not None and isinstance(amount,int) and not isinstance(amount,bool)
+                and amount>cap):
+            return True
+        if row.get("platform_status") in {"canceled","closed"}:
+            return True
     try:
         previous = datetime.fromisoformat(state.get("last_bid_reconciliation") or "")
         if previous.tzinfo:
