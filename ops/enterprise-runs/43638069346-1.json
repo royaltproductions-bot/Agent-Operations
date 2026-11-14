@@ -1,0 +1,123 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T20:34:53.945274+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 7,
+    "source_counts": {
+      "open_web": 7
+    },
+    "search_provider_counts": {
+      "hn_ask": 2,
+      "github_paid_issues": 5
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "duckduckgo",
+        "reason": "URLError",
+        "http_code": null
+      }
+    ],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 6,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=47231498",
+        "title": "Ask HN: What will OpenAI employees do now who have signed notdividedorg petition",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46374734",
+        "title": "A (humble) new proposal for the FE ecosystem",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Devansh-awat/kyto/issues/234",
+        "title": "[kevinton] improvement: stop runaway disassembly turns and summarize partial findings",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/jejellyroll-fr/fpdb-3/issues/810",
+        "title": "[Parser] Betclic 2025+ client: shared knockouts and re-entry in tournaments",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/PortSwigger/extension-portal/issues/593",
+        "title": "Injection Scanner",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/TokenNotIncluded/lmm-api/issues/989",
+        "title": "\u4e0a\u6e38\u8fd0\u7ef4\u3001\u540e\u7aef\u6742\u9879\u4e0e i18n \u79fb\u690d\u8bc4\u4f30",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create a proposal for AI adoption and Microsoft Copilot enablement",
+      "is:issue is:open bounty created:>=2026-09-15 submit proposal ai",
+      "is:issue is:open bounty created:>=2026-09-15 "
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit a proposal for AI enablement services",
+      "need paid help with submitting a bid for AI adoption training RFP",
+      "can anyone create a proposal for AI adoption and Microsoft Copilot enablement"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 28,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit a proposal for AI enablement services",
+        "need paid help with submitting a bid for AI adoption training RFP",
+        "can anyone create a proposal for AI adoption and Microsoft Copilot enablement"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
