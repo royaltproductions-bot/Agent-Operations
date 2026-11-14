@@ -63,6 +63,24 @@ class CommercialTests(unittest.TestCase):
         self.assertEqual(sum(result['open_non_sample_by_posted_utc_day'].values()),1)
         self.assertEqual(result['open_non_sample_unknown_posted_time'],1)
 
+    def test_recent_detection_median_excludes_historical_slow_scans(self):
+        now=datetime(2026,11,14,2,0,tzinfo=timezone.utc)
+        state={'bounties':{},'commercial':{
+            'old':{
+                'first_detected_at':(now-timedelta(days=2)).isoformat(),
+                'posted_at':(now-timedelta(days=2,hours=4)).isoformat(),
+                'sample_listing':False,
+            },
+            'new':{
+                'first_detected_at':(now-timedelta(minutes=3)).isoformat(),
+                'posted_at':(now-timedelta(minutes=8)).isoformat(),
+                'sample_listing':False,
+            },
+        }}
+        result=c.summarize(state,now)
+        self.assertEqual(result['median_posting_to_detection_minutes_24h'],5)
+        self.assertGreater(result['median_posting_to_detection_minutes'],5)
+
     def test_canceled_platform_bid_is_not_counted_active_or_aged(self):
         state = {
             'bounties': {

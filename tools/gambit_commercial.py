@@ -356,9 +356,10 @@ def summarize(state, now=None):
     reply_count = sum(bool(row.get('conversation', {}).get('last_incoming_at')) and bool(row.get('bid_at')) for row in records.values())
     def ratio(n, d):
         return n/d if d else None
-    def latency(field):
+    def latency(field, since=None):
         pairs = [(utc_time(r.get('posted_at')), utc_time(r.get(field))) for r in records.values()]
-        values = [(end-start).total_seconds()/60 for start, end in pairs if start and end and end >= start]
+        values = [(end-start).total_seconds()/60 for start, end in pairs
+                  if start and end and end >= start and (since is None or end >= since)]
         return median(values) if values else None
     unanswered = [r['conversation']['last_incoming_at'] for r in records.values()
                   if r.get('conversation', {}).get('unanswered')]
@@ -368,6 +369,8 @@ def summarize(state, now=None):
         'conversion_rates': {'bid_per_seen':ratio(totals['bids_sent'], totals['seen']),
             'hire_per_bid':ratio(totals['hired'], totals['bids_sent']), 'buyer_reply_per_bid':ratio(reply_count, totals['bids_sent'])},
         'median_posting_to_detection_minutes':latency('first_detected_at'),
+        'median_posting_to_detection_minutes_24h':latency(
+            'first_detected_at', now - timedelta(hours=24)),
         'median_posting_to_bid_minutes':latency('bid_at'),
         'aging_active_bids_days': {k:(now - utc_time(r['bid_at'])).total_seconds()/86400
              if utc_time(r.get('bid_at')) else None for k,r in records.items()
