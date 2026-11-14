@@ -1,0 +1,99 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T13:31:58.376011+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 5,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 5
+    },
+    "source_errors": [],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 5,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/Crypto-Moonboys/Crypto-Moonboys.github.io/issues/1577",
+        "title": "MASTER BACKLOG \u2014 MoonPet OS remaining gameplay, economy, art, permanent ownership & live QA",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/MyZubster-Ecosystem/myzubster/issues/1584",
+        "title": "[DAO PILOT \u00b7 PROPOSED] Wasim \u2014 resilient Tor Onion access & Docker deployment",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/yeheskieltame/claudelance/issues/645",
+        "title": "Stats bountyCount reports resolved tasks instead of posted tasks",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://github.com/nimbusscale/software-factory/issues/16",
+        "title": "One name for each thing, and when to cite, in the project-docs skill",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/s-os-agency/agents/issues/7",
+        "title": "[MON-20261114-03] Digital task execution: structured data, public-source research and client-ready deliverables",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-15 designing secure data",
+      "is:issue is:open bounty created:>=2026-09-15 "
+    ],
+    "attempted_search_queries": [
+      "need paid help with designing a secure data sharing protocol with public submission route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 22,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "need paid help with designing a secure data sharing protocol with public submission route"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
