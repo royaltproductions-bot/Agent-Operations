@@ -1,0 +1,117 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T18:10:32.305342+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "hn_ask": 1,
+      "github_paid_issues": 4,
+      "bing": 1
+    },
+    "source_errors": [],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 6,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=41382707",
+        "title": "Grifters \u2013 ElixirLang, Capture the Red Flag (Ep1)",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/janzeerOrg/janzeer-sdk-kotlin/issues/2",
+        "title": "[20 JNZ] Example: watch new blocks over the WebSocket (newBlocks subscription)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/janzeerOrg/janzeer-sdk-dart/issues/2",
+        "title": "[20 JNZ] Example: watch new blocks over the WebSocket (newBlocks subscription)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Financial-Privacy-Foundation/ZcashCoinholderGrantsProgram/issues/76",
+        "title": "Retroactive Grant Application - ZecHub Bounty Board security & maintenance",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/LiamBMX/joshymc-plugin/issues/1545",
+        "title": "Lifesteal: Audit Banking, PvP Coin Stealing, Bounties, and Economy Transaction Integrity",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.linkedin.com/jobs/hiring-jobs-rocky-mount-nc",
+        "title": "Hiring Jobs in Rocky Mount (11,000+ Open Roles) | LinkedIn",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "hiring a freelancer to create a paid digital tool for open source project with contact",
+      "is:issue is:open bounty created:>=2026-09-15 create digital tool",
+      "is:issue is:open bounty created:>=2026-09-15 "
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to create a paid digital tool for open source project with contact",
+      "need paid help with submitting tender response for open source software development public contact",
+      "can anyone create a paid digital product for public procurement in education with submission channel",
+      "submitting proposal for open tender in open source project with public response route",
+      "looking for someone to produce a paid digital tool for public procurement in healthcare with contact"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 12,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to create a paid digital tool for open source project with contact",
+        "need paid help with submitting tender response for open source software development public contact",
+        "can anyone create a paid digital product for public procurement in education with submission channel",
+        "submitting proposal for open tender in open source project with public response route",
+        "looking for someone to produce a paid digital tool for public procurement in healthcare with contact"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 111,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
