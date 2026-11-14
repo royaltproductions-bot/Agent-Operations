@@ -1202,15 +1202,14 @@
       "version": 1
     },
     "mx7113wcwkk6d986td9hrrz51x8j41tm": {
-      "action": "retry_evaluation",
+      "action": "asked",
       "at": "2026-11-14T15:10:58.637693+00:00",
       "evidence_failures": 0,
       "feasible_ask_review_version": 3,
-      "last_asked_review_at": "2026-11-14T15:10:25.671589+00:00",
+      "last_asked_review_at": "2026-11-14T15:15:32.542368+00:00",
       "last_declined_bid": null,
       "last_error": "ValueError",
       "last_question_version": 3,
-      "retry_at": "2026-11-14T15:11:58.637676+00:00",
       "retry_count": 1,
       "stale_ask_review_version": 3,
       "version": 3
@@ -4275,12 +4274,12 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo2MiwiY2hlY2twb2ludEF0IjoxNzk0NjY4OTcxNTE3fQ",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo2MiwiY2hlY2twb2ludEF0IjoxNzk0NjY5MzMxOTc4fQ",
   "last_bid_reconciliation": "2026-11-14T15:09:37.654138+00:00",
-  "last_check": "2026-11-14T15:11:00.508056+00:00",
+  "last_check": "2026-11-14T15:15:32.948909+00:00",
   "market_observation": {
     "fetched_at": "2026-11-14T15:14:24.944360+00:00",
-    "last_checked_at": "2026-11-14T15:14:48.013329+00:00",
+    "last_checked_at": "2026-11-14T15:15:11.496435+00:00",
     "last_open_count": 59,
     "newest_created_at": "2026-11-14T10:39:14.781000+00:00",
     "newest_posted_at": "2026-11-14T10:39:14.781000+00:00"
