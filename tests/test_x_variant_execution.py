@@ -876,6 +876,26 @@ class CyclopsPublicBrandingTests(unittest.TestCase):
         self.assertIn("CYCLOPS Product Store",page)
         self.assertIn("Continuously Yielding Customer-Led Original Products &amp; Solutions",page)
         self.assertIn("FREE PRACTICE SAMPLE",page)
-        self.assertIn("Research → Build → Verify → Publish",page)
+        self.assertIn("Research → Create → Test → Publish",page)
+        self.assertIn("Customer-led",page)
+        self.assertIn("Practical digital solutions by ARI Operations",page)
+        self.assertIn('class="mini-art"',page)
+        for label in ("LEARN","CRM","EMAIL","AUTOMATE","INSIGHTS"):
+            self.assertIn("<strong>"+label+"</strong>",page)
         self.assertNotIn("<h1>Ari Operations</h1>",page)
+
+    def test_paid_product_pages_share_visual_marketing_identity(self):
+        from pathlib import Path
+        pages=list(Path("storefront/cyclops/products").glob("*/index.html"))
+        eligible=[
+            p for p in pages
+            if "ai-assisted-development-learning-pathway-generator" not in str(p)
+        ]
+        self.assertEqual(len(eligible),4)
+        for page_path in eligible:
+            page=page_path.read_text()
+            self.assertIn("CYCLOPS PRODUCT STORE",page)
+            self.assertIn("Practical Digital Solution · By ARI Operations",page)
+            self.assertIn('class="product-art"',page)
+            self.assertIn("Continuously Yielding Customer-Led Original Products & Solutions",page)
 
