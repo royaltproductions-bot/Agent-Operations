@@ -1,20 +1,21 @@
 {
   "aging_active_bids_days": {
-    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 2.9747637181828703,
-    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 0.7694863917939815,
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 6.995558324664351,
-    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 0.7694790422569445,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 11.06630746818287,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 11.036467306145832,
-    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 2.9747706510532406,
-    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 3.8041030005902776,
-    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 0.7694708825347223,
-    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 2.9784239380902777,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 11.067158139479167,
-    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 2.9747561603125,
-    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 2.9747844242013888,
-    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 2.9784097019791664,
-    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 4.836584609386574
+    "mx713jqgcsevmx5jfgvz6qnmed8j60gv": 3.654664351851852e-06,
+    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 2.975016281979167,
+    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 0.7697389555902777,
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 6.995810888460649,
+    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 0.7697316060532408,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 11.066560031979167,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 11.03671986994213,
+    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 2.975023214849537,
+    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 3.804355564386574,
+    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 0.7697234463310185,
+    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 2.978676501886574,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 11.067410703275463,
+    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 2.9750087241087964,
+    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 2.9750369879976852,
+    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 2.978662265775463,
+    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 4.836837173182871
   },
   "browser": {
     "completed_job_count": {
@@ -83,16 +84,16 @@
     "unread_count": 0
   },
   "conversion_rates": {
-    "bid_per_seen": 0.2537313432835821,
-    "buyer_reply_per_bid": 0.058823529411764705,
+    "bid_per_seen": 0.26865671641791045,
+    "buyer_reply_per_bid": 0.05555555555555555,
     "hire_per_bid": 0.0
   },
   "coverage": "Observed unique bounties; historical events before instrumentation may be incomplete.",
   "cumulative": {
     "accepted": 0,
     "asked": 9,
-    "bids_active": 15,
-    "bids_sent": 17,
+    "bids_active": 16,
+    "bids_sent": 18,
     "declined": 0,
     "delivered": 0,
     "hired": 0,
@@ -114,10 +115,10 @@
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-14T21:02:10.108251+00:00",
+  "generated_at": "2026-11-14T21:02:31.929763+00:00",
   "market_observation": {
     "fetched_at": "2026-11-14T21:01:53.777031+00:00",
-    "last_checked_at": "2026-11-14T21:02:09.482543+00:00",
+    "last_checked_at": "2026-11-14T21:02:13.451846+00:00",
     "last_open_count": 60,
     "newest_created_at": "2026-11-14T21:01:47.805000+00:00",
     "newest_posted_at": "2026-11-14T21:01:47.805000+00:00"
@@ -819,18 +820,18 @@
       "newest_created_at": "2026-11-14T21:01:47.805000+00:00"
     }
   ],
-  "median_posting_to_bid_minutes": 16787.254683333333,
+  "median_posting_to_bid_minutes": 10908.021091666666,
   "median_posting_to_detection_minutes": 92.20504588333333,
   "median_posting_to_detection_minutes_24h": 1.31489645,
   "model_budget": {
-    "call_count": 346,
+    "call_count": 347,
     "month": "2026-11",
-    "reserved_micro_usd": 13335048
+    "reserved_micro_usd": 13376478
   },
   "null_fields": {
     "accepted_at": 0,
-    "bid_amount_cents": 50,
-    "bid_at": 50,
+    "bid_amount_cents": 49,
+    "bid_at": 49,
     "bid_status": 0,
     "budget_cents": 0,
     "conversation": 0,
@@ -843,8 +844,8 @@
   "today": {
     "accepted": 0,
     "asked": 1,
-    "bids_active": 3,
-    "bids_sent": 3,
+    "bids_active": 4,
+    "bids_sent": 4,
     "declined": 0,
     "delivered": 0,
     "hired": 0,
@@ -865,7 +866,7 @@
     "accepted_at": 70,
     "bid_amount_cents": 3,
     "bid_at": 3,
-    "bid_status": 53,
+    "bid_status": 52,
     "budget_cents": 3,
     "conversation": 54,
     "delivered_at": 70,
