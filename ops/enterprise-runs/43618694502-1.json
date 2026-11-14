@@ -1,0 +1,122 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T17:02:17.973922+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 10,
+    "source_counts": {
+      "open_web": 10
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "github_paid_issues": 4
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      }
+    ],
+    "fetched_public_pages": 10,
+    "candidates_without_email": 10,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=37341620",
+        "title": "Stripe Shutdown Our Nonprofit's Account, Holding $12k in Donations Hostage",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=34741602",
+        "title": "Honest Review of Stripe Support",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=3373042",
+        "title": "What the Internet has done for me...",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=866299",
+        "title": "Tell HN: Dealing with VCs, my experience",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=33929997",
+        "title": "Ask HN: Help \u2013 Does anyone remember an app was shared here about words for iOS?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=2170560",
+        "title": "What it's like in Egypt: An email from my mom",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to resolve funder over-request in mergit-demo with contactable invitation",
+      "need paid help with fixing silent NaN index corruption in ttnn.argmax NC & W%32==0 paths",
+      "is:issue is:open bounty created:>=2026-09-15 validate wallet upgrade",
+      "is:issue is:open bounty created:>=2026-09-15 resolve funder over"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to validate wallet upgrade in ARQANT with public proposal submission",
+      "can anyone create a fix for unguarded zero-lamport mutation in paraloom-core with public proposal submissio",
+      "looking for someone to resolve funder over-request in mergit-demo with contactable invitation",
+      "need paid help with fixing silent NaN index corruption in ttnn.argmax NC & W%32==0 paths",
+      "can anyone create a fix for grossFor funder over-request in mergit-demo with public proposal submission"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 8,
+      "skipped_revisits": 25,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to validate wallet upgrade in ARQANT with public proposal submission",
+        "can anyone create a fix for unguarded zero-lamport mutation in paraloom-core with public proposal submissio",
+        "looking for someone to resolve funder over-request in mergit-demo with contactable invitation",
+        "need paid help with fixing silent NaN index corruption in ttnn.argmax NC & W%32==0 paths",
+        "can anyone create a fix for grossFor funder over-request in mergit-demo with public proposal submission"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
