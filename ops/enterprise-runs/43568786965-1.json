@@ -1,0 +1,86 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T06:59:31.075783+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 2,
+    "source_counts": {
+      "open_web": 2
+    },
+    "search_provider_counts": {
+      "bing": 1,
+      "followup": 1
+    },
+    "source_errors": [],
+    "fetched_public_pages": 2,
+    "candidates_without_email": 0,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://associationsnow.com/format/templates/",
+        "title": "Sample RFPs - ASAE",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://samsearch.co/ai-rfi-responses",
+        "title": "Respond To RFIs\n Draft structured RFI responses without rebuilding your positioning from scratch.\n \u2192",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "RFP with contactable response route - looking for someone to draft a proposal"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit a proposal for a public procurement request with published response guidelines",
+      "need paid help with creating a proposal for a government RFP with contactable submission route",
+      "RFP with contactable response route - looking for someone to draft a proposal",
+      "looking for someone to draft a proposal for a public procurement request with published submission guidelines",
+      "need paid help with submitting a proposal for a government RFP with published submission instructions"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 2,
+      "skipped_revisits": 6,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit a proposal for a public procurement request with published response guidelines",
+        "need paid help with creating a proposal for a government RFP with contactable submission route",
+        "RFP with contactable response route - looking for someone to draft a proposal",
+        "looking for someone to draft a proposal for a public procurement request with published submission guidelines",
+        "need paid help with submitting a proposal for a government RFP with published submission instructions"
+      ],
+      "next_query_queue": 1,
+      "frontier_size": 115,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
