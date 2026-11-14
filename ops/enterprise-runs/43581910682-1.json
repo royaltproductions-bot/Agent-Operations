@@ -1,0 +1,121 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T09:45:48.339789+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 8,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "github_paid_issues": 4
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      }
+    ],
+    "fetched_public_pages": 8,
+    "candidates_without_email": 8,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=48781622",
+        "title": "A fleshed-out IPv5 proposal",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47361981",
+        "title": "Becoming a Forest Civilisation",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46852619",
+        "title": "Six things we're learning from 1.5M AI agents self-organizing in a week",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=32208127",
+        "title": "Ask HN: A matching site for intellectual/study partners?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/tenstorrent/tt-metal/issues/65472",
+        "title": "[Bounty Proposal] Fix missing output_mem_config propagation and unpinned intermediate allocations in ttnn.binary_backwar",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/raid-guild/RIPs/issues/241",
+        "title": "November Cohort Commerce Experiments \u2014 2 WETH Funding",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create a proposal for a compile-time join guarantee system with published submission guidelines",
+      "is:issue is:open bounty created:>=2026-09-15 submit proposal open",
+      "is:issue is:open bounty created:>=2026-09-15 submit proposal rust"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit a proposal for an open-source interoperability project with published response instructions",
+      "hiring a freelancer to submit a proposal for a Rust-based boundary contract verification tool with published submission guidelines",
+      "need paid help with submitting a proposal for a zero-copy read-sharing system with published response instructions",
+      "can anyone create a proposal for a compile-time join guarantee system with published submission guidelines",
+      "looking for someone to submit a proposal for a public-sector RFP with published response instructions and contact details"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 8,
+      "skipped_revisits": 19,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit a proposal for an open-source interoperability project with published response instructions",
+        "hiring a freelancer to submit a proposal for a Rust-based boundary contract verification tool with published submission guidelines",
+        "need paid help with submitting a proposal for a zero-copy read-sharing system with published response instructions",
+        "can anyone create a proposal for a compile-time join guarantee system with published submission guidelines",
+        "looking for someone to submit a proposal for a public-sector RFP with published response instructions and contact details"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 115,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
