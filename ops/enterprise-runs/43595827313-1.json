@@ -1,0 +1,123 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T12:40:39.119676+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 8,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 4,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 8,
+    "candidates_without_email": 8,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/devlux76/vortex/issues/108",
+        "title": "Brief for the next aliases: what VORTEX is, what is built, decided and open (Winds, W-15 + W-17)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Adeolu05/zec-bounty-alerts/issues/3",
+        "title": "ZecHub bounty: Hausa: native review of the ZecHub glossary, menus and top pages (0.025 ZEC)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/limitlessprojects/Go-Hybrid/issues/4297",
+        "title": "[wildcard] The managed hatch asserts an invariant nobody writes: make every escape name a checked synchronization contra",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://github.com/jdowning100/noxa-contracts/issues/2",
+        "title": "Paid security-audit / private disclosure proposal \u2014 Noxa CTO suite (WETH/USDC)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://openssf.org/resources/securing-open-source-in-the-age-of-ai-a-practical-guide/",
+        "title": "Securing Open Source in the Age of AI",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://opensource.org/osd",
+        "title": "Open Source Definition",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-15 writing proposal open"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit a proposal for an open-source collaboration tool with public response channel",
+      "hiring a freelancer to submit a proposal for a secure data governance platform with contact route",
+      "need paid help with writing a proposal for an open-source cybersecurity framework with authorized submission method",
+      "can anyone create a proposal for a government-funded data integrity platform with contactable buyer invitation",
+      "RFP for a public data sharing platform with published submission route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 8,
+      "skipped_revisits": 43,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit a proposal for an open-source collaboration tool with public response channel",
+        "hiring a freelancer to submit a proposal for a secure data governance platform with contact route",
+        "need paid help with writing a proposal for an open-source cybersecurity framework with authorized submission method",
+        "can anyone create a proposal for a government-funded data integrity platform with contactable buyer invitation",
+        "RFP for a public data sharing platform with published submission route"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 111,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
