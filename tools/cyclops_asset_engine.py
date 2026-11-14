@@ -73,8 +73,10 @@ def model_call_timeout_seconds():
 
 
 def retryable_model_failure(reason):
-    return str(reason or "").startswith(
-        "concept_generation_failed:cyclops_model_transport_timeout")
+    # Local Qwen transport timeouts can arise in market judgment, concept
+    # generation, or review. They are retryable execution conditions, not
+    # evidence of corrupt source/artifacts.
+    return str(reason or "").endswith("cyclops_model_transport_timeout")
 
 
 SEARCH_SCHEMA={
