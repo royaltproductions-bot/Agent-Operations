@@ -1,0 +1,117 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T15:49:05.309263+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 11,
+    "source_counts": {
+      "open_web": 11
+    },
+    "search_provider_counts": {
+      "followup": 2,
+      "hn_ask": 5,
+      "github_paid_issues": 3,
+      "bing": 1
+    },
+    "source_errors": [],
+    "fetched_public_pages": 11,
+    "candidates_without_email": 11,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://rfp.ai/compare/rfpai-vs-responsive/",
+        "title": "RFP.ai vs Responsive",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://rfp.ai/resources/ai-for-rfp/",
+        "title": "Guide How to Use AI for RFP Responses\n Step-by-step guide to automating RFP responses with AI and reducing manual respon",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44494999",
+        "title": "AI Power Internal Tools",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=35168499",
+        "title": "Ask HN: When are we done with these automated systems, devoid of human help",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=29341859",
+        "title": "Ask HN: What is your online login/password preference?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=6849374",
+        "title": "Ask HN: What is a good book for building quality websites?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to create a secure data validation pipeline with public proposal submission",
+      "is:issue is:open bounty created:>=2026-09-15 designing persistent memory",
+      "is:issue is:open bounty created:>=2026-09-15 building real time",
+      "need paid help with building a real-time dashboard with contactable invitation"
+    ],
+    "attempted_search_queries": [
+      "need paid help with designing a persistent memory layer for an AI agent in Rust",
+      "looking for someone to create a secure data validation pipeline with public proposal submission",
+      "need paid help with building a real-time dashboard with contactable invitation",
+      "Procurement RFP for a scalable notification system with public response channel"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 8,
+      "skipped_revisits": 42,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "need paid help with designing a persistent memory layer for an AI agent in Rust",
+        "looking for someone to create a secure data validation pipeline with public proposal submission",
+        "need paid help with building a real-time dashboard with contactable invitation",
+        "Procurement RFP for a scalable notification system with public response channel"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
