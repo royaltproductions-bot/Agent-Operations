@@ -1,0 +1,117 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T04:51:03.759194+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 5,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "duckduckgo": 2,
+      "bing": 2,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "query_planner",
+        "reason": "recovered_fresh_public_research_directions"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 5,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://samsearch.co/blog/rfp-response",
+        "title": "How to Respond to an RFP: Complete Government Proposal Guide",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://govcongiants.com/guides/rfp-response",
+        "title": "How to Respond to an RFP [Free Template] \u2014 7-Step Government Proposal ...",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://civiciq.com/blog/how-to-respond-to-a-government-rfp",
+        "title": "How to Respond to a Government RFP: Structure, Scoring, and Common ...",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://govconskynet.com/blog/how-to-respond-to-rfps-2026-step-by-step-guide",
+        "title": "How to Respond to RFPs: 2026 Guide for Contractors",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://relevant.software/blog/software-development-process/",
+        "title": "software development process",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "submitting proposal public procurement contactable response route"
+    ],
+    "attempted_search_queries": [
+      "need paid help submitting proposal open RFP published submission guidelines",
+      "submitting proposal public procurement contactable response route",
+      "looking someone submit proposal recent public procurement contact route",
+      "submitting proposal public software development solicitation contact route",
+      "hiring freelancer submit proposal open software development tender"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 1,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "need paid help submitting proposal open RFP published submission guidelines",
+        "submitting proposal public procurement contactable response route",
+        "looking someone submit proposal recent public procurement contact route",
+        "submitting proposal public software development solicitation contact route",
+        "hiring freelancer submit proposal open software development tender"
+      ],
+      "next_query_queue": 7,
+      "frontier_size": 119,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
