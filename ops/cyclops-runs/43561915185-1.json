@@ -1,0 +1,149 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-14T05:34:16.684518+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 11,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 11
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "bing": 4,
+      "followup": 3
+    },
+    "source_errors": [],
+    "fetched_public_pages": 11,
+    "verified_firsthand_problem_pages": 3,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 11,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=39279600",
+        "title": "Ask HN: Struggling. Could use some advice/direction professionally",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=13626273",
+        "title": "Tell HN: Python 3.6 on OS X requires a post-install step for SSL to work",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=5103956",
+        "title": "Why the startup world needs a \"Vendor API\"",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=19432827",
+        "title": "Ask HN: As indie-developer, which code-signing do you use for your .exe files?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.adobe.com/acrobat/about-adobe-pdf.html",
+        "title": "What is a PDF? Portable Document Format | Adobe Acrobat",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.7-zip.org/",
+        "title": "7-Zip",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 10,
+    "search_queries": [
+      "ready-to-use python script for automating social media post scheduling",
+      "pdf template for creating a personal brand statement for job applications",
+      "zip file containing pre-designed google slides for project presentations",
+      "self-contained html file for creating a personal portfolio website without hosting",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 8,
+      "skipped_revisits": 42,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "downloadable excel template for tracking freelance invoicing and payments",
+        "ready-to-use python script for automating social media post scheduling",
+        "pdf template for creating a personal brand statement for job applications",
+        "zip file containing pre-designed google slides for project presentations",
+        "self-contained html file for creating a personal portfolio website without hosting"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 117,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "deferred_model_transport_timeout",
+    "reason": "cyclops_model_transport_timeout",
+    "remaining_seconds": 85.7
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 4,
+    "product_pages": 4,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 13,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "003c3c67f50b396938ad",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "755a8c931205cd5d956e",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 4,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 11,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
