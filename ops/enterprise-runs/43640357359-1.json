@@ -1,0 +1,90 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T21:01:41.279489+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 3,
+    "source_counts": {
+      "open_web": 3
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 3
+    },
+    "source_errors": [],
+    "fetched_public_pages": 3,
+    "candidates_without_email": 2,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/Vezryn-LLC/graph-community/issues/43",
+        "title": "[COMMUNITY/DOCS] Make security reporting policy concise and contributor-friendly",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Arrow-air/project-quiver/issues/286",
+        "title": "20 Ah Tattu 4.0 pack: review Tattu bridge version 2 and confirm the 20 Ah capacity failsafe values",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/alleycatassetacquisitions/pdn/issues/465",
+        "title": "Fold the match key into a shared secret-key holder",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-15 "
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit a proposal for upstream port and i18n evaluation",
+      "hiring a freelancer to draft an RFP response for upstream relay conversion project",
+      "need paid help with submitting a bid for upstream relay tracking and response conversion",
+      "can anyone create a proposal for upstream port and i18n translation work"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 3,
+      "skipped_revisits": 39,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit a proposal for upstream port and i18n evaluation",
+        "hiring a freelancer to draft an RFP response for upstream relay conversion project",
+        "need paid help with submitting a bid for upstream relay tracking and response conversion",
+        "can anyone create a proposal for upstream port and i18n translation work"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
