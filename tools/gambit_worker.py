@@ -63,7 +63,7 @@ def has_verified_paid_hire(state):
     if state.get("settlements"):
         return True
     return any((entry or {}).get("action") in {
-        "hired", "claimed", "submitted", "accepted", "settled"
+        "hired", "submitted", "accepted", "settled"
     } for entry in (state.get("bounties") or {}).values())
 
 
