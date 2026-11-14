@@ -208,8 +208,9 @@ def safe_email(text):
         return unique[0]
     # Public role inboxes are appropriate commercial contact routes even when
     # a page also contains unrelated staff/support addresses.
-    priority=("projects","business","partnerships","partnership","sales",
-              "hello","contact","work","info","marketing")
+    priority=("tenders","tender","proposals","proposal","procurement","rfp",
+              "bids","bid","projects","business","partnerships","partnership",
+              "sales","hello","contact","work","info","marketing")
     for local in priority:
         matches=[e for e in unique if e.split("@",1)[0] in (local,local+"s")]
         if len(matches)==1:

@@ -5,6 +5,7 @@ from unittest.mock import patch
 
 from tools import autonomous_commerce_brain as brain
 from tools import connected_commerce_tools as connected
+from tools import open_web_discovery as discovery
 
 
 class WolverineRfpChannelTests(unittest.TestCase):
@@ -72,6 +73,11 @@ class WolverineRfpChannelTests(unittest.TestCase):
             result=brain.send_offer(row,{"pitch":"x"},None)
         self.assertEqual(result["result"],"solicitation_daily_contact_cap")
         send.assert_not_called()
+
+    def test_rfp_role_inbox_wins_when_page_lists_multiple_emails(self):
+        text=("Questions: general@example.org. Submit proposals to "
+              "tenders@example.org before the deadline.")
+        self.assertEqual(discovery.safe_email(text),"tenders@example.org")
 
     def test_recent_contact_counter_includes_operator_seeded_rfps(self):
         messages=[
