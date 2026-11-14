@@ -1,0 +1,127 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T19:51:08.650868+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 8,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "duckduckgo": 4,
+      "bing": 3,
+      "followup": 1
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 8,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://www.capterra.com/proposal-management-software/",
+        "title": "Best Proposal Management Software 2026 | Capterra",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.steerlab.ai/blog/7-best-rfp-software-in-2026",
+        "title": "7 best RFP Software in 2026 - steerlab.ai",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://thedigitalprojectmanager.com/tools/best-rfp-software-reviewed/",
+        "title": "10 Best RFP Software In 2026 - The Digital Project Manager",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://croclub.com/tools/best-rfp-software/",
+        "title": "10 Best RFP Software Reviewed In 2026 - croclub.com",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://autorfp.ai/blog/bid-management-software",
+        "title": "7 Best Bid Management Software Solutions in 2026 - autorfp.ai",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.testmuai.com/blog/ai-agent-evaluation-tools/",
+        "title": "7 Best AI Agent Evaluation Tools in 2026 (Open Source and Commercial)",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "request for bids data automation dashboard services 2026",
+      "procurement AI agent testing evaluation platform 2026"
+    ],
+    "attempted_search_queries": [
+      "procurement AI agent testing evaluation platform 2026",
+      "request for bids data automation dashboard services 2026",
+      "looking for someone to help with public procurement tender response in smart infrastructure",
+      "hiring a freelancer to create a paid digital solution for open public sector tender"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 8,
+      "skipped_revisits": 4,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "procurement AI agent testing evaluation platform 2026",
+        "request for bids data automation dashboard services 2026",
+        "looking for someone to help with public procurement tender response in smart infrastructure",
+        "hiring a freelancer to create a paid digital solution for open public sector tender"
+      ],
+      "next_query_queue": 1,
+      "frontier_size": 119,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
