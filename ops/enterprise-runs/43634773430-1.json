@@ -1,0 +1,129 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T19:57:39.948788+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 8,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "duckduckgo": 8
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 8,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://www.tendersontime.com/government-tenders/workflow-automation-online-tenders/",
+        "title": "Government Workflow Automation Tender Online 2026",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.tendernews.com/tenders/latest-tender/automation-workflows.html",
+        "title": "automation workflows Tender News | Latest automation workflows Tender ...",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://govtribe.com/opportunity/federal-contract-opportunity/rfi-agentic-ai-and-advanced-genai-training-support-services-6hqoig26a0003",
+        "title": "RFI - Agentic AI and Advanced GenAI Training Support Services",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://brysa.ai/insights/top-workflow-automation-consultants",
+        "title": "Top Workflow Automation Consulting Companies in 2026: The Complete ...",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://ide.mit.edu/insights/ai-adoption-2026/",
+        "title": "AI Adoption in 2026: What MIT Research Tells Us About the State of ...",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.tendersontime.com/searchrfp/global-workflow-automation-rfp-88328/",
+        "title": "Global Workflow Automation RFP & RFQ | Workflow Automation RFQ in 2026",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "tender digital workflow automation consultant 2026",
+      "solicitation AI adoption training services 2026"
+    ],
+    "attempted_search_queries": [
+      "tender digital workflow automation consultant 2026",
+      "solicitation AI adoption training services 2026",
+      "looking for someone to submit a proposal for public procurement tender with response route",
+      "need paid help with RFP response for AI agent evaluation platform"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 8,
+      "skipped_revisits": 2,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "tender digital workflow automation consultant 2026",
+        "solicitation AI adoption training services 2026",
+        "looking for someone to submit a proposal for public procurement tender with response route",
+        "need paid help with RFP response for AI agent evaluation platform"
+      ],
+      "next_query_queue": 5,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
