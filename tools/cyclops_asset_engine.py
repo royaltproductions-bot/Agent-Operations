@@ -72,6 +72,11 @@ def model_call_timeout_seconds():
     return max(5, min(configured, int(max(5, remaining-90))))
 
 
+def retryable_model_failure(reason):
+    return str(reason or "").startswith(
+        "concept_generation_failed:cyclops_model_transport_timeout")
+
+
 SEARCH_SCHEMA={
     "type":"object",
     "properties":{
@@ -503,6 +508,8 @@ def choose_asset_concept(rows,existing_assets=None):
     # execution boundary, not a separate inference clock.
     # Run 41410535278-1 ended mid-JSON at char 4466 near the former
     # 1050-token ceiling. Give this one local-model concept room to close.
+    # Keep the proven full concept allowance on the first attempt. model_json()
+    # already retries transport failures with a smaller 600-token response.
     attempts=[(selected,4096,1800)]
     last=None
     for observation,ctx,predict in attempts:
@@ -1897,6 +1904,14 @@ def run():
             }
             receipt["structural_failures"].append({
                 "reason":"production_stage_error","detail":reason})
+        elif retryable_model_failure(reason):
+            # A transient local-model timeout is not repository corruption. Preserve
+            # evidence and let the self-chained successor retry cleanly.
+            receipt["production"]={
+                "result":"deferred_model_transport_timeout",
+                "reason":reason,
+                "remaining_seconds":round(remaining_run_seconds(),1),
+            }
         elif reason.startswith(("no_public_research_to_select_product",
                                  "no_observed_public_paid_offers",
                                  "no_fetched_firsthand_market_evidence",
