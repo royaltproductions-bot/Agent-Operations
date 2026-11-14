@@ -1,0 +1,125 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T02:43:20.534431+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "duckduckgo": 5,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "ValueError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "ValueError"
+      }
+    ],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 6,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 5,
+    "public_source_sample": [
+      {
+        "url": "https://www.masshousing.com/wp-content/uploads/RFP-AI-Adoption-MS-Copilot-Enablement-Services.pdf",
+        "title": "PDF Request for Proposals: AI Adoption & Microsoft Copilot Enablement Services",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://getflowedge.com/ai-tools/proposal-automation-software-best-options-in-2026/",
+        "title": "Proposal Automation Software: Best Options in 2026",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://blog.hubspot.com/marketing/rfp-template",
+        "title": "RFP: How to Write a Strong Request for Proposal [Examples & Template]",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://www.masshousing.com/wp-content/uploads/QA-RFP-AI-Adoption-MS-Copilot-Enablement-Services.pdf",
+        "title": "PDF Request for Proposals for AI Adoption & MS Copilot Enablement Services ...",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://lotuspetal.ai/blog/2026/09/10/best-rfp-proposal-software-of-2026/",
+        "title": "Best RFP & Proposal Software of 2026: (Updated September 2026)",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://starbridge.ai/rfp/request-for-proposal-for-ai-adoption-microsoft-copilot",
+        "title": "REQUEST FOR PROPOSAL FOR AI Adoption & Microsoft Copilot Enablement ...",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      }
+    ],
+    "search_queries": [
+      "request for proposals Microsoft Copilot enablement 2026",
+      "RFP software automation consulting proposal 2026",
+      "RFP technical delivery partner for AI growth lab pilot program 2026"
+    ],
+    "attempted_search_queries": [
+      "request for proposals Microsoft Copilot enablement 2026",
+      "RFP software automation consulting proposal 2026",
+      "RFP technical delivery partner for AI growth lab pilot program 2026",
+      "can anyone create a proposal for an AI delivery partner tender with contactable response route",
+      "looking for someone to apply for an AI consulting RFP with published submission guidelines"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "request for proposals Microsoft Copilot enablement 2026",
+        "RFP software automation consulting proposal 2026",
+        "RFP technical delivery partner for AI growth lab pilot program 2026",
+        "can anyone create a proposal for an AI delivery partner tender with contactable response route",
+        "looking for someone to apply for an AI consulting RFP with published submission guidelines"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
