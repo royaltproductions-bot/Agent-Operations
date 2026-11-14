@@ -503,7 +503,9 @@ def choose_asset_concept(rows,existing_assets=None):
     # execution boundary, not a separate inference clock.
     # Run 41410535278-1 ended mid-JSON at char 4466 near the former
     # 1050-token ceiling. Give this one local-model concept room to close.
-    attempts=[(selected,4096,1800)]
+    # Keep local CPU inference bounded; the schema is substantial but a 1,000-token
+    # concept is sufficient and materially less likely to exhaust the transport timeout.
+    attempts=[(selected,3072,1000)]
     last=None
     for observation,ctx,predict in attempts:
         try:
@@ -1897,6 +1899,14 @@ def run():
             }
             receipt["structural_failures"].append({
                 "reason":"production_stage_error","detail":reason})
+        elif reason.startswith("concept_generation_failed:cyclops_model_transport_timeout"):
+            # A transient local-model timeout is not repository corruption. Preserve
+            # evidence and let the self-chained successor retry cleanly.
+            receipt["production"]={
+                "result":"deferred_model_transport_timeout",
+                "reason":reason,
+                "remaining_seconds":round(remaining_run_seconds(),1),
+            }
         elif reason.startswith(("no_public_research_to_select_product",
                                  "no_observed_public_paid_offers",
                                  "no_fetched_firsthand_market_evidence",
