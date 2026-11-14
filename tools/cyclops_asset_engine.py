@@ -1599,14 +1599,19 @@ def find_asset_buyers(asset,memory):
            if len(str(t).strip())>=4]
     if not terms:
         terms=[str(asset.get("title") or "").strip()]
-    queries=[]
+    queries=[
+        '"submit your tool" software directory',
+        '"submit a resource" developer tools',
+        '"submit your product" software directory',
+        '"suggest a tool" developer resources',
+    ]
     for term in dict.fromkeys(terms[:4]):
         queries.append('"'+term[:75]+'" "submit a resource"')
         queries.append('"'+term[:75]+'" "suggest a tool"')
         queries.append('"'+term[:75]+'" "submit your product"')
         queries.append('"'+term[:75]+'" "looking for" ready-made resource')
     rows,errors=open_web_candidates(
-        max_candidates=16,queries=queries[:8],memory=memory,
+        max_candidates=20,queries=queries[:10],memory=memory,
         max_pages=18,strict_relevance=True,include_discussions=True)
     # Resource curators may invite a submission on one page and list their
     # contact route on another. Only follow links on an inviting source.
@@ -1629,9 +1634,15 @@ def prospect_score(row,asset):
         if term and term in text:
             target_hits+=1
             score+=8
-    # The product's own model-selected terms, not a fixed list of industries
-    # or paid-contract vocabulary, determine similarity to new evidence.
-    return score if target_hits else 0
+    # Exact product terms are strong relevance. A generic directory/resource
+    # page that explicitly invites tool submissions still gets a small base
+    # score so the existing model-backed can_contact_for_asset() relevance
+    # gate can decide whether this particular asset belongs there.
+    if target_hits:
+        return score
+    if ASSET_RESOURCE_INVITATION.search(str(row.get("page_text") or "")):
+        return 1
+    return 0
 
 def asset_offer_subject(row,asset):
     marker=hashlib.sha256(

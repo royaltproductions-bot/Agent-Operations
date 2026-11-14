@@ -416,6 +416,27 @@ class CyclopsEfficiencyTests(unittest.TestCase):
         self.assertIn("consider including",send.call_args.args[2])
         self.assertNotIn("interview",send.call_args.args[2])
 
+    def test_general_opt_in_software_directory_reaches_relevance_gate(self):
+        cyclops=cyclops_or_skip(self)
+        outlet={"id":"web:directory","source_url":"https://directory.example/submit",
+                "title":"Submit your software tool","page_fetched":True,
+                "contact":"submissions@directory.example",
+                "page_text":"Software makers: submit your tool to our developer resource directory.",
+                "text":"Submit your tool to our developer resource directory."}
+        asset={"asset_id":"asset_generic","title":"Invoice Reconciliation Helper",
+               "target_terms":["invoice reconciliation"],"description":"Useful helper",
+               "price_cents":1300,"pitch":"Saves time",
+               "checkout_url":"https://pay.example.org/one"}
+        self.assertEqual(cyclops.prospect_score(outlet,asset),1)
+        with patch.object(cyclops,"open_web_candidates",return_value=([outlet],[])) as search, \
+             patch.object(brain,"enrich_public_response_route",side_effect=lambda rows:rows):
+            matches,errors=cyclops.find_asset_buyers(asset,None)
+        self.assertEqual(matches,[outlet])
+        self.assertEqual(errors,[])
+        queries=search.call_args.kwargs["queries"]
+        self.assertTrue(any("software directory" in q for q in queries))
+        self.assertTrue(any("developer tools" in q for q in queries))
+
     def test_wolverine_does_not_pitch_marketing_agency_as_customer(self):
         seller = {
             "source_url": "https://growyourwebs.com/services/dashboards-admin-panels",
