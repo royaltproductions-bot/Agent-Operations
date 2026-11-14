@@ -1,0 +1,115 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T07:33:49.367089+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "hn_ask": 2,
+      "github_paid_issues": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 6,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=29894319",
+        "title": "Long term benefits on being active on Stack Overflow",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=450810",
+        "title": "Ask HN: small projects to network with other programmers",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/aritomas3123-boop/cuda-polynomial-acceleration-rfq/issues/1",
+        "title": "RFQ: CUDA polynomial multiplication performance optimization \u2014 quotes due Nov 15",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/mohameddtrabelsiiii-crypto/hamma/issues/11",
+        "title": "Zenvocloud: zero-cost first-customer acquisition sprint",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/klineodyssey/kline-odyssey/issues/559",
+        "title": "[KAIOS POLICY] DOT GitHub engineering authority and backlog ACK \u2014 2026-10-08",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/nymrel/nymrel-swarm-studio/issues/21",
+        "title": "Income Opportunity Registry \u2014 map studio assets to the best 100 digital revenue lanes",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to submit proposal for RFQ with published submission route",
+      "is:issue is:open bounty created:>=2026-09-15 submit proposal rfq"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit proposal for public RFP with published submission guidelines",
+      "hiring freelancer to create proposal for government procurement with contactable response route",
+      "need paid help with submitting proposal for public tender with published contact details",
+      "can anyone create proposal for public solicitation with published response instructions",
+      "looking for someone to submit proposal for RFQ with published submission route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 1,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit proposal for public RFP with published submission guidelines",
+        "hiring freelancer to create proposal for government procurement with contactable response route",
+        "need paid help with submitting proposal for public tender with published contact details",
+        "can anyone create proposal for public solicitation with published response instructions",
+        "looking for someone to submit proposal for RFQ with published submission route"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 115,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
