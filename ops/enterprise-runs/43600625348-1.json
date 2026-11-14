@@ -1,0 +1,116 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T13:38:12.641149+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 9,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "followup": 1,
+      "hn_ask": 5,
+      "github_paid_issues": 3
+    },
+    "source_errors": [],
+    "fetched_public_pages": 9,
+    "candidates_without_email": 9,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://www.unopensource.org/digital-public-infrastructure-dpi-day",
+        "title": "Digital Public Infrastructure (DPI) Day\n DPI Day convened the UN system, governments, and partners to advance coordinate",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=17542270",
+        "title": "Ask HN: Is Ada good for website development?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=13689850",
+        "title": "If you were asked to solve the 'fake news' problem, how would you solve it?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=10053405",
+        "title": "Thoughts about the cutting-edge of server programming",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=4948986",
+        "title": "Have an idea I believe can change the world, can I get advice on how to fund?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=1989740",
+        "title": "Rate my business plan: Porting a classic to the iPad",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to develop a secure Tor Onion service with public proposal submission",
+      "is:issue is:open bounty created:>=2026-09-15 create resilient docker"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to develop a secure Tor Onion service with public proposal submission",
+      "hiring a freelancer to create a resilient Docker deployment system with contactable invitation",
+      "need paid help with designing a privacy-conscious data access protocol with public response channel",
+      "RFP for a decentralized identity system with public proposal submission route",
+      "can anyone create a secure data governance framework with contactable invitation"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 11,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to develop a secure Tor Onion service with public proposal submission",
+        "hiring a freelancer to create a resilient Docker deployment system with contactable invitation",
+        "need paid help with designing a privacy-conscious data access protocol with public response channel",
+        "RFP for a decentralized identity system with public proposal submission route",
+        "can anyone create a secure data governance framework with contactable invitation"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
