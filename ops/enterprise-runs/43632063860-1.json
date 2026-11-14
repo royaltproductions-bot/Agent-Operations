@@ -1,0 +1,119 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T19:27:50.016466+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "duckduckgo": 3,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "ValueError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 4,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://www.iie.org/wp-content/uploads/2026/05/Custom-Application-Development-and-Artificial-Intelligence-AI-Services-RFP.pdf",
+        "title": "PDF Request for Proposals (RFP)",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.rockefellerfoundation.org/cities-deliver-ai-solutions-for-public-services/",
+        "title": "Cities Deliver: AI Solutions for Public Services | RF",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://www.opportunitystation.com/opportunities/rockefeller-foundation-cities-deliver-ai-solutions-for-public-services-2026",
+        "title": "Call for Proposals - Rockefeller Foundation Cities Deliver: AI ...",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://rfp.ai/use-cases/ddq-automation-for-saas/",
+        "title": "how RFP.ai handles DDQ automation for SaaS teams",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://rfp.ai/compare/best-ai-rfp-software-for-eu-teams/",
+        "title": "EU & data residency Best AI RFP software for EU teams\n How to evaluate the few real EU-resident options",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://rfp.ai/compare/autorfp-vs-rfpai/",
+        "title": "AutoRFP vs RFP.ai",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "RFP AI implementation services proposal deadline 2026"
+    ],
+    "attempted_search_queries": [
+      "request for proposals artificial intelligence consulting 2026",
+      "RFP AI implementation services proposal deadline 2026",
+      "looking for someone to submit proposal for open tender in electric vehicle charging network expansion with public submis",
+      "hiring a freelancer to create paid digital tool for public procurement in renewable energy storage systems with contact",
+      "looking for someone to submit proposal for open tender in smart grid infrastructure with public submission route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "request for proposals artificial intelligence consulting 2026",
+        "RFP AI implementation services proposal deadline 2026",
+        "looking for someone to submit proposal for open tender in electric vehicle charging network expansion with public submis",
+        "hiring a freelancer to create paid digital tool for public procurement in renewable energy storage systems with contact",
+        "looking for someone to submit proposal for open tender in smart grid infrastructure with public submission route"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 110,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
