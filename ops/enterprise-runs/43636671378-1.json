@@ -1,0 +1,115 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T20:19:47.070168+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 8,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "followup": 3,
+      "hn_ask": 1,
+      "github_paid_issues": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 8,
+    "candidates_without_email": 8,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://www.testmuai.com/conversational-ai-testing/",
+        "title": "conversational AI testing platform",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://rfpplanet.com/ai-0256/ai-consulting-services",
+        "title": "AI Consulting Services",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://rfpplanet.com/ai-0246/custom-ai-enabled-content-development",
+        "title": "Custom AI-enabled Content Development",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=50304514",
+        "title": "Ask HN: Is a $1 ERC-8004 research API on Theagora useful?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/close2ground1-debug/agent-market-x402/issues/1",
+        "title": "Claim Scout Persistent Memory",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/thiagoamaro91/negotiation-agent/issues/25",
+        "title": "Team bus",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create a bid for AI adoption and Microsoft Copilot enablement",
+      "is:issue is:open bounty created:>=2026-09-15 anyone create bid",
+      "is:issue is:open bounty created:>=2026-09-15 "
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit a proposal for AI adoption training procurement",
+      "looking for someone to draft an RFP response for AI enablement services",
+      "can anyone create a bid for AI adoption and Microsoft Copilot enablement",
+      "need paid help with RFP submission for AI adoption platform"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 8,
+      "skipped_revisits": 7,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit a proposal for AI adoption training procurement",
+        "looking for someone to draft an RFP response for AI enablement services",
+        "can anyone create a bid for AI adoption and Microsoft Copilot enablement",
+        "need paid help with RFP submission for AI adoption platform"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
