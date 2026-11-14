@@ -1,0 +1,122 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T02:19:47.299676+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 8,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "github_paid_issues": 4
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      }
+    ],
+    "fetched_public_pages": 8,
+    "candidates_without_email": 7,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=46676989",
+        "title": "NASA ID Sy1174304 \u2013 O(1) Strategic Proposal: Alzheimer's and Longevity",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=43789634",
+        "title": "Do Not Train\" Meta Tags: The Robots.txt of AI \u2013 Will Anyone Respect Them?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46076878",
+        "title": "My SaaS jumped from $6,523 to $12,648 monthly, here is how",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=33600837",
+        "title": "Ask HN: Career path choices/FAANG in Europe?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/scottonchain/microcredit-agent-testbed/issues/384",
+        "title": "Coordinate the 72-hour agent-credit experiment and integrate current instructions",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/JovieInc/Jovie/issues/23216",
+        "title": "Growth Lab: Founding 50 + autonomous multi-agent growth-loop registry",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "request for proposals artificial intelligence consulting 2026",
+      "RFP AI implementation services proposal deadline 2026",
+      "hiring a freelancer to create a secure API integration for a government service platform",
+      "is:issue is:open bounty created:>=2026-09-15 request proposals artificial"
+    ],
+    "attempted_search_queries": [
+      "request for proposals artificial intelligence consulting 2026",
+      "RFP AI implementation services proposal deadline 2026",
+      "looking for someone to submit a proposal for a public RFP with a published response route",
+      "hiring a freelancer to create a secure API integration for a government service platform",
+      "need paid help with developing a custom tool for data validation in a public procurement system"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 5,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "request for proposals artificial intelligence consulting 2026",
+        "RFP AI implementation services proposal deadline 2026",
+        "looking for someone to submit a proposal for a public RFP with a published response route",
+        "hiring a freelancer to create a secure API integration for a government service platform",
+        "need paid help with developing a custom tool for data validation in a public procurement system"
+      ],
+      "next_query_queue": 5,
+      "frontier_size": 113,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
