@@ -1,0 +1,97 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T05:07:54.115070+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 3,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://relevant.software/blog/guidelines-for-software-development-cost-estimation/",
+        "title": "software development costs",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://samsearch.co/ai-rfq-responses",
+        "title": "Respond To RFQs\n Move from quote request to draft response faster with AI-assisted proposal writing.\n \u2192",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://govcongiants.com/guides/pricing-volume",
+        "title": "Writing Pricing and Cost Volumes for Government Proposals",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://govcongiants.com/guides/proposal-manager-career",
+        "title": "Proposal Manager Career Guide: How to Lead Winning Government Proposals",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [],
+    "attempted_search_queries": [
+      "looking for someone to submit proposal for open RFP with published submission guidelines",
+      "need paid help with submitting proposal for public software development tender with contactable response route",
+      "can anyone create proposal for government solicitation with published submission instructions",
+      "hiring a freelancer to submit proposal for open procurement with published submission guidelines",
+      "submitting proposal for public tender with contactable response route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 2,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit proposal for open RFP with published submission guidelines",
+        "need paid help with submitting proposal for public software development tender with contactable response route",
+        "can anyone create proposal for government solicitation with published submission instructions",
+        "hiring a freelancer to submit proposal for open procurement with published submission guidelines",
+        "submitting proposal for public tender with contactable response route"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
