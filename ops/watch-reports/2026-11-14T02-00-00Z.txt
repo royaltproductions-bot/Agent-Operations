@@ -1,0 +1,18 @@
+X-VARIANT RECEIPT WATCH
+Window UTC: 2026-11-13T18:00:00Z to 2026-11-14T02:00:00Z
+Created: 2026-11-14T02:04:40Z (approximate run timestamp)
+Evidence: GitHub main receipts; Gambit state and budget from gambit-state. High confidence for receipt counts and state-reported outcomes; marketplace public-profile completions and bank deposits unverified.
+
+Wolverine: 2 receipts (23:42:17Z, 01:35:55Z). 23 candidates, 23 fetched pages. 0 offers, 0 assets, 0 fulfillments, $0 receipt-reported verified revenue. No fatal structural failures; semantic-review timeouts and Brave 429 both runs. No verified requester contacts.
+Cyclops: 2 receipts (00:36:00Z, 01:35:33Z). 0 assets, 0 offers, 0 fulfillments, $0 receipt-reported verified revenue. Two structural failures: cyclops_engine_deadline and cyclops_model_transport_timeout. Four existing catalog products; 13 invalid legacy products, zero disabled payment links. No verified new paid offers.
+Gambit: 0 standalone receipts. 58 open marketplace listings observed, not 58 qualified jobs. Retained outcomes in window: 3 bid_followup_sent, 1 pass (research_status deferred, pages_read 0), 1 duplicate_clarification_suppressed, 1 decision_disagreement_resolved. 0 newly recorded bids, buyer questions, claims, deliverables, acceptances, settlements, refunds, unsupported withdrawals, bid_missing or unclaimed_unfulfillable. Settlements ledger empty, $0 platform-completed payout. Bid-to-hire conversion and submission success not measurable yet. Last check and reconciliation 01:56:54Z. Watch health: 21 successful cycles, 0 failed, run 43515534083. Budget 337 calls, $13.050484 reserved in November; $38 workflow monthly limit. Browser metrics scrape authentication_not_configured, public profile not accessible. Provider router and tests present; real hired-job execution not evidenced. No bank deposit verification.
+Other lanes: no additional clearly identifiable X-variant revenue receipt directory in ops root.
+Economic outcome: $0 verified new earnings in receipts/settlements; no confirmed paid completions. Green watcher does not establish earnings.
+Open improvements:
+G-01 [pending]: Reconcile bid status against canceled listings and prevent stale follow-ups.
+G-02 [pending]: Ensure provider-router capability tests and real output checks before unsupported bids.
+C-01 [pending]: Resolve Cyclops model transport/deadline failures; verify dependency provisioning.
+C-02 [pending]: Investigate 13 invalid legacy checkout products; no checkout changes authorized here.
+W-01 [pending]: Improve verified buyer invitation discovery and handle Brave 429 / semantic timeouts.
+Recommendation (highest impact): Add explicit per-bounty marketplace status reconciliation before follow-up dispatch, including canceled/closed listing detection and regression tests; the historical active-bid/canceled-listing mismatch makes further follow-ups risky.
+No operational mutations authorized or performed.
