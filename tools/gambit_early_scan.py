@@ -181,6 +181,27 @@ def fulfillment_cooling(entry, now=None):
                          now or datetime.now(timezone.utc)) < 0
 
 
+def commercial_guardrail_reconciliation_due(state):
+    """Wake the full worker immediately for known owner-guardrail violations."""
+    records=state.get("bounties") or {}
+    commercial_rows=state.get("commercial") or {}
+    verified_paid=bool(state.get("settlements")) or any(
+        (entry or {}).get("action") in {"hired","submitted","accepted","settled"}
+        for entry in records.values())
+    cap=None if verified_paid else 15_000
+    for bounty_id,entry in records.items():
+        if (entry or {}).get("action") not in {"bid_sent","bid_active"}:
+            continue
+        row=commercial_rows.get(bounty_id) or {}
+        if row.get("platform_status") in {"canceled","closed"}:
+            return True
+        amount=row.get("bid_amount_cents")
+        if (cap is not None and isinstance(amount,int)
+                and not isinstance(amount,bool) and amount>cap):
+            return True
+    return False
+
+
 def admission(state, opened, held, events, now=None):
     """TryBounty is the authority; local state only deduplicates known work."""
     now = now or datetime.now(timezone.utc)
@@ -223,14 +244,16 @@ def admission(state, opened, held, events, now=None):
         entry.get("action") == "evaluation_pending" or
         entry.get("action") in {"retry_evaluation", "retry_search"} and retry_ready(entry, now))
         for bid, entry in records.items())
+    guardrail_due = commercial_guardrail_reconciliation_due(state)
     ledger_due = minutes_since(state, "last_bid_reconciliation", now) >= (15 if has_bid else 55)
     cursor_due = minutes_since(state, "last_check", now) >= 360
     return {"needs_run": bool(new or active or awake_events or recovery_due or
-                               pending_due or ledger_due or cursor_due),
+                               pending_due or guardrail_due or ledger_due or cursor_due),
             "needs_model": bool(new or active),
             "needs_production_model": bool(active),
             "new_or_changed": len(new), "claimed_ready": len(active),
-            "pending_events": len(events), "recovery_due": recovery_due}
+            "pending_events": len(events), "recovery_due": recovery_due,
+            "commercial_guardrail_due": guardrail_due}
 
 
 def output(fields):

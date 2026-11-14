@@ -2529,12 +2529,28 @@ def platform_active_bid_ids(state=None):
     return found
 
 
-def reconcile_active_bids(opened, state, *, skip_ids=()):
-    """Reconcile every platform bid, closed listing and cold-start price guardrail."""
+def reconcile_active_bids(opened, state, *, skip_ids=(), persist=None):
+    """Reconcile platform bids with owner guardrails first and durable progress.
+
+    When persist is supplied by production, each completed bid update is saved
+    locally before moving to the next network request. The resident parent can
+    therefore checkpoint partial progress even if the bounded worker times out.
+    """
     excluded = set(skip_ids)
     local_ids = {bid for bid, entry in state["bounties"].items()
                  if entry.get("action") in {"bid_sent", "bid_active"}}
-    for bounty_id in sorted(platform_active_bid_ids(state) | local_ids):
+    candidate_ids = platform_active_bid_ids(state) | local_ids
+    cap = cold_start_bid_cap_cents(state)
+
+    def guardrail_priority(bounty_id):
+        row=(state.get("commercial") or {}).get(bounty_id) or {}
+        canceled=row.get("platform_status") in {"canceled","closed"}
+        amount=row.get("bid_amount_cents")
+        overcap=(cap is not None and isinstance(amount,int)
+                 and not isinstance(amount,bool) and amount>cap)
+        return (0 if canceled else 1 if overcap else 2, bounty_id)
+
+    for bounty_id in sorted(candidate_ids,key=guardrail_priority):
         if bounty_id in excluded:
             continue
         previous = state["bounties"].get(bounty_id) or {}
@@ -2563,6 +2579,8 @@ def reconcile_active_bids(opened, state, *, skip_ids=()):
             if previous.get("action") != "bid_canceled_by_owner":
                 note(state, "bid_canceled_by_owner", bounty_id,
                      platform_status=platform_status)
+            if persist:
+                persist(state)
             continue
 
         if status == "active":
@@ -2615,6 +2633,8 @@ def reconcile_active_bids(opened, state, *, skip_ids=()):
                 "version": current.get("version"), "action": "bid_" + status,
                 "at": timestamp()}
             note(state, "bid_" + status, bounty_id)
+        if persist:
+            persist(state)
 
 
 def unclaim_unfulfillable(bounty_id, claim_id, state, reason, message):
@@ -3017,7 +3037,8 @@ def run(mode="run"):
         # Changed listings are handled by the ordinary model-backed path.
         changed_ids = {str(item.get("_id")) for item in waiting}
         try:
-            reconcile_active_bids(opened, state, skip_ids=changed_ids)
+            reconcile_active_bids(opened, state, skip_ids=changed_ids,
+                                  persist=save_state)
             state["last_bid_reconciliation"] = timestamp()
         except Exception as exc:
             failures.append(("bid_reconciliation", safe_failure_reason(exc)))

@@ -2475,6 +2475,52 @@ class ClaudeNov13CompletionTests(unittest.TestCase):
         hired = {'bounties': {'paid': {'action': 'hired'}}, 'settlements': {}}
         self.assertIsNone(gambit.cold_start_bid_cap_cents(hired))
 
+    def test_reconcile_prioritizes_guardrails_and_persists_each_result(self):
+        state = {
+            'bounties': {
+                'normal': {'action':'bid_active','version':1},
+                'high': {'action':'bid_active','version':1},
+                'gone': {'action':'bid_active','version':1},
+            },
+            'commercial': {
+                'normal': {'bid_amount_cents':10000,'bid_status':'active',
+                           'platform_status':'open'},
+                'high': {'bid_amount_cents':32000,'bid_status':'active',
+                         'platform_status':'open'},
+                'gone': {'bid_amount_cents':4500,'bid_status':'active',
+                         'platform_status':'canceled',
+                         'source_fields':{'updated_at':'2026-11-09T17:32:03+00:00'}},
+            },
+            'settlements': {}, 'recent_outcomes': [],
+        }
+        detail_order=[]
+        def request(path, method='GET', payload=None):
+            if method=='POST' and path.endswith('/bid'):
+                return {'bid': {'status':'active',
+                                'payout_cents':payload['payout_cents'],
+                                'note':payload.get('note')}}
+            bounty_id=path.rsplit('/',1)[-1]
+            detail_order.append(bounty_id)
+            if bounty_id=='gone':
+                return {'bounty': {'_id':'gone','version':1,'status':'canceled'},
+                        'bid': {'status':'active','payout_cents':4500}}
+            amount=32000 if bounty_id=='high' else 10000
+            return {'bounty': {'_id':bounty_id,'version':1,'status':'open',
+                               'flow':'bid','title':'Research suppliers',
+                               'description':'Deliver a sourced spreadsheet.',
+                               'verification':'Spreadsheet with source URLs.'},
+                    'bid': {'status':'active','payout_cents':amount,
+                            'note':'I will deliver the sourced spreadsheet.'}}
+        with patch.object(gambit,'platform_active_bid_ids',
+                          return_value={'normal','high','gone'}), \
+             patch.object(gambit,'api',side_effect=request), \
+             patch.object(gambit,'save_state') as persist:
+            gambit.reconcile_active_bids([],state,persist=persist)
+        self.assertEqual(detail_order,['gone','high','normal'])
+        self.assertEqual(persist.call_count,3)
+        self.assertEqual(state['commercial']['high']['bid_amount_cents'],15000)
+        self.assertEqual(state['commercial']['gone']['bid_status'],'canceled_by_owner')
+
     def test_reconcile_reprices_active_bid_above_owner_cap(self):
         state = {
             'bounties': {'high': {'action': 'bid_active', 'version': 1}},
