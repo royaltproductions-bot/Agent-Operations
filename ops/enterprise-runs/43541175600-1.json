@@ -1,0 +1,128 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-14T01:35:55.473090+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 7,
+    "source_counts": {
+      "open_web": 7
+    },
+    "search_provider_counts": {
+      "hn_ask": 3,
+      "github_paid_issues": 4
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 7,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=49104392",
+        "title": "How to get more coding productivity with LLMs",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=31557655",
+        "title": "Ask HN: Open-source sentiment analysis toolkit, a valid small business idea?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=18914049",
+        "title": "Ask HN: As a developer, How to find corporate customer to my own business?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/eitri-edd/AI-PDLC/issues/86",
+        "title": "[Concepts + Tech Scan] X sweep: expert content to cover, self-assessed (Novelty / Gap fill / Miss-out loss)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/farmmer938-lgtm/autonomous-zero-baht/issues/36",
+        "title": "AF alert: 157 new paid opportunity(ies)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://github.com/dev-kp-eloper/BountyScout/issues/1760",
+        "title": "\ud83c\udfaf Bounty Alert: 12 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to build a real-time chatbot for customer support",
+      "hiring a freelancer to create a custom dashboard for user analytics",
+      "is:issue is:open bounty created:>=2026-09-15 build real time"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to build a real-time chatbot for customer support",
+      "hiring a freelancer to create a custom dashboard for user analytics",
+      "can anyone create a secure payment gateway integration for a SaaS app",
+      "need paid help with setting up a CI/CD pipeline for a static site",
+      "looking for someone to develop a mobile-first email newsletter template"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 18,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to build a real-time chatbot for customer support",
+        "hiring a freelancer to create a custom dashboard for user analytics",
+        "can anyone create a secure payment gateway integration for a SaaS app",
+        "need paid help with setting up a CI/CD pipeline for a static site",
+        "looking for someone to develop a mobile-first email newsletter template"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 113,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
