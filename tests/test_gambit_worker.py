@@ -2446,6 +2446,8 @@ class ClaudeNov13CompletionTests(unittest.TestCase):
     def test_cold_start_bid_cap_lifts_after_verified_hire(self):
         self.assertEqual(gambit.cold_start_bid_cap_cents({'bounties': {}, 'settlements': {}}),
                          15000)
+        claimed = {'bounties': {'candidate': {'action': 'claimed'}}, 'settlements': {}}
+        self.assertEqual(gambit.cold_start_bid_cap_cents(claimed), 15000)
         hired = {'bounties': {'paid': {'action': 'hired'}}, 'settlements': {}}
         self.assertIsNone(gambit.cold_start_bid_cap_cents(hired))
 
