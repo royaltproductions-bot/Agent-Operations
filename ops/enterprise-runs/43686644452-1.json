@@ -1,0 +1,100 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T06:43:49.973768+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "followup": 1,
+      "github_paid_issues": 3
+    },
+    "source_errors": [],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 4,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://technicalwriterhq.com/career/freelance-proposal-writer/",
+        "title": "Freelance Proposal Writer",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/anthropics/claude-code/issues/110151",
+        "title": "[Bug] False Positive: Cyber Safeguard Blocks Authorized VDP Security Research Requests",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/hbuas-se-2026fall/cs2411-team04-campus-overflow/issues/51",
+        "title": "[T3-08] \u58f0\u8a89\u6f14\u793a\u811a\u672c + ADR-010\uff08\u60ac\u8d4f\u79ef\u5206\u4e0e\u58f0\u8a89\u5206\u79bb\uff09",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/hbuas-se-2026fall/cs2411-team04-campus-overflow/issues/50",
+        "title": "[T3-06] \u524d\u7aef\u8054\u8c03\u9a8c\u6536\uff1a\u6392\u884c\u699c / \u60ac\u8d4f\u5bf9\u8bdd\u6846 + \u8865\u9f50\u58f0\u8a89\u9875\uff08\u524d\u7aef\u552f\u4e00\u7f3a\u53e3\uff09",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-16 "
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to create proposal for recent government tender with contactable response method",
+      "need paid help with submitting bid for recent RFP with published invitation for proposal submission",
+      "can anyone create proposal for recent public sector contract with published invitation route",
+      "search for recent RFP with published invitation for proposal submission and contactable response",
+      "looking for someone to submit bid for recent public tender with published invitation route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 13,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to create proposal for recent government tender with contactable response method",
+        "need paid help with submitting bid for recent RFP with published invitation for proposal submission",
+        "can anyone create proposal for recent public sector contract with published invitation route",
+        "search for recent RFP with published invitation for proposal submission and contactable response",
+        "looking for someone to submit bid for recent public tender with published invitation route"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 119,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
