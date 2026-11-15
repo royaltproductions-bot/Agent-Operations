@@ -1,0 +1,106 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T05:06:33.648949+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "bing": 1,
+      "github_paid_issues": 3
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 3,
+    "candidates_without_email": 4,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://www.canva.com/",
+        "title": "Canva: Visual Suite for Everyone",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/nisargpatel7042lva/mba-demo/issues/8",
+        "title": "Print stylesheet for the widget grid",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/nisargpatel7042lva/mba-demo/issues/7",
+        "title": "Lazy-load widgets below the fold",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/nisargpatel7042lva/mba-demo/issues/6",
+        "title": "Widgets jump while their images load",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create tool for automating data validation in public procurement",
+      "is:issue is:open bounty created:>=2026-09-16 "
+    ],
+    "attempted_search_queries": [
+      "need paid help with submitting proposal for government contract with contactable response route",
+      "can anyone create tool for automating data validation in public procurement",
+      "hiring a freelancer to submit proposal for government tender with published response route",
+      "need paid help with creating script to automate compliance report generation for public sector",
+      "looking for someone to submit proposal for RFP with published response route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 3,
+      "skipped_revisits": 29,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "need paid help with submitting proposal for government contract with contactable response route",
+        "can anyone create tool for automating data validation in public procurement",
+        "hiring a freelancer to submit proposal for government tender with published response route",
+        "need paid help with creating script to automate compliance report generation for public sector",
+        "looking for someone to submit proposal for RFP with published response route"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 115,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
