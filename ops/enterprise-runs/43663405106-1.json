@@ -1,0 +1,127 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T01:32:23.552387+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 7,
+    "source_counts": {
+      "open_web": 7
+    },
+    "search_provider_counts": {
+      "hn_ask": 3,
+      "github_paid_issues": 4
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 7,
+    "candidates_without_email": 6,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=6916524",
+        "title": "Ask HN: What should I do before releasing a project as OSS?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=2264493",
+        "title": "Ask HN: Help with BASH Scripting?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=23118999",
+        "title": "Ask HN: Any legal problems working in the same field on the side?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Financial-Privacy-Foundation/ZcashCoinholderGrantsProgram/issues/106",
+        "title": "Retroactive Grant Application - Ledger Zcash App Vulnerability Disclosure: Memo Crash and Device Wipe (GHSA-376f-cc2v-g9",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/mismayil/daily-arxiv-digest/issues/417",
+        "title": "Arxiv Paper Digest for 2026-11-13",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/frankxai/frankx.ai-vercel-website/issues/1149",
+        "title": "Refresh comparison guides from reproducible product tests and verified affiliate terms",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create a script to automate bug-bounty-task reporting in public repositories",
+      "hiring a freelancer to develop a tool for benchmark-ingest in open-source projects",
+      "is:issue is:open bounty created:>=2026-09-16 anyone create script",
+      "is:issue is:open bounty created:>=2026-09-16 develop tool benchmark",
+      "is:issue is:open bounty created:>=2026-09-16 creating script automate"
+    ],
+    "attempted_search_queries": [
+      "need paid help with submitting a proposal to a government tender with contact details",
+      "can anyone create a script to automate bug-bounty-task reporting in public repositories",
+      "hiring a freelancer to develop a tool for benchmark-ingest in open-source projects",
+      "need paid help with creating a script to automate updates for bug-bounty-agent across ecosystems",
+      "can anyone create a script to automate report handling in open-source security tools"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 42,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "need paid help with submitting a proposal to a government tender with contact details",
+        "can anyone create a script to automate bug-bounty-task reporting in public repositories",
+        "hiring a freelancer to develop a tool for benchmark-ingest in open-source projects",
+        "need paid help with creating a script to automate updates for bug-bounty-agent across ecosystems",
+        "can anyone create a script to automate report handling in open-source security tools"
+      ],
+      "next_query_queue": 1,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
