@@ -1,0 +1,110 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T10:54:30.781222+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "duckduckgo": 2,
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 5,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://www.opm.gov/ai/2026-ai-training/",
+        "title": "2026 AI Training - U.S. Office of Personnel Management",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.highergov.com/sl/contract-opportunity/tx-rfp-739-sl3821039-consulting-services-72659843/",
+        "title": "Consulting Services - Enterprise AI Adoption and Enablement",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://www.getmaxim.ai/articles/top-5-platforms-for-ai-agent-evaluation-in-2026/",
+        "title": "Top 5 Platforms for AI Agent Evaluation in 2026\n TL;DR\nAI agent evaluation has become a production requirement in 2026 a",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.getmaxim.ai/articles/top-5-ai-agent-evaluation-platforms-in-2026.md",
+        "title": "https://www.getmaxim.ai/articles/top-5-ai-agent-evaluation-platforms-in-2026.md",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/document-automation-software/",
+        "title": "Business Finance Top 10 Best Document Automation Software of 2026 \n Review \u00b7 2026 Document Automation Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/invoice-processing-automation-software/",
+        "title": "Business Finance Top 10 Best Invoice Processing Automation Software of 2026 \n Review \u00b7 2026 Invoice Processing Automatio",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "solicitation AI adoption training services 2026"
+    ],
+    "attempted_search_queries": [
+      "tender digital workflow automation consultant 2026",
+      "solicitation AI adoption training services 2026",
+      "looking for someone to submit a proposal to RFP for AI technical delivery partner procurement in Pakistan with published invitation"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 3,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "tender digital workflow automation consultant 2026",
+        "solicitation AI adoption training services 2026",
+        "looking for someone to submit a proposal to RFP for AI technical delivery partner procurement in Pakistan with published invitation"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
