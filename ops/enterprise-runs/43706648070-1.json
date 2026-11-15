@@ -1,0 +1,132 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T11:00:49.966077+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "duckduckgo": 3,
+      "followup": 3
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 4,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://www.acuityanalytics.com/whitepaper/rfp-playbook-2026/",
+        "title": "RFP Playbook 2026 - Acuity Analytics",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.designrush.com/agency/software-development/trends/rfp-software-development",
+        "title": "How to Write a RFP for Software Development + Free Template",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.linkedin.com/pulse/top-rfp-automation-tools-2026-what-actually-separates-sandeep-kumar-nr4qc",
+        "title": "Top RFP Automation Tools in 2026 (And What Actually ... - LinkedIn",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.getmaxim.ai/articles/top-5-tools-for-evaluating-llm-powered-applications/",
+        "title": "Top 5 Tools for Evaluating LLM-Powered Applications\n As organizations deploy AI agents and LLM-powered applications into",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.getmaxim.ai/blog/ai-agent-quality-evaluation/",
+        "title": "AI agent quality evaluation",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.getmaxim.ai/edge",
+        "title": "Bifrost Edge New \n Extend AI governance to desktop apps, browsers, and coding agents.",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "request for proposals data analytics automation 2026",
+      "RFP custom software development services deadline 2026"
+    ],
+    "attempted_search_queries": [
+      "RFP custom software development services deadline 2026",
+      "request for proposals data analytics automation 2026",
+      "looking for someone to submit a proposal to RFP for AI agent evaluation platform procurement 2026",
+      "need paid help with tender submission for AI workflow automation services with published contact",
+      "can anyone create a proposal for AI evaluation platform tender with published invitation route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 8,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "RFP custom software development services deadline 2026",
+        "request for proposals data analytics automation 2026",
+        "looking for someone to submit a proposal to RFP for AI agent evaluation platform procurement 2026",
+        "need paid help with tender submission for AI workflow automation services with published contact",
+        "can anyone create a proposal for AI evaluation platform tender with published invitation route"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
