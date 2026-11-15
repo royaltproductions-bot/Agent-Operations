@@ -1,0 +1,104 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T03:53:24.566861+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 4
+    },
+    "source_errors": [
+      {
+        "source": "query_planner",
+        "reason": "recovered_fresh_public_research_directions"
+      }
+    ],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 4,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/alleycatassetacquisitions/pdn/issues/478",
+        "title": "close-out follow-up: reject a draw-result frame naming the local slot",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/nishant/mc-packs/issues/295",
+        "title": "Validation 6b2e0bb (perf/map-idle)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/LiamBMX/joshymc-plugin/issues/1551",
+        "title": "Lifesteal: Block Staff Speed and Flight Combat Exploits and Secure Rank Kit Eligibility",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/LiamBMX/joshymc-plugin/issues/1550",
+        "title": "Lifesteal: Prevent Event World Inventory Duplication, Data Loss, and Crash Recovery Failures",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-16 "
+    ],
+    "attempted_search_queries": [
+      "public tender digital automation script contactable submission method",
+      "public solicitation digital automation script contactable submission method",
+      "looking someone submit proposal public procurement published response route",
+      "need paid help developing script automating compliance reports open-source projects",
+      "public tender automation script contactable response channel"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 9,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "public tender digital automation script contactable submission method",
+        "public solicitation digital automation script contactable submission method",
+        "looking someone submit proposal public procurement published response route",
+        "need paid help developing script automating compliance reports open-source projects",
+        "public tender automation script contactable response channel"
+      ],
+      "next_query_queue": 7,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
