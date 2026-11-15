@@ -1,0 +1,116 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T18:32:50.625147+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 5,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "bing": 1,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 5,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://www.ziprecruiter.com/Jobs/-in-Houma,LA",
+        "title": "$17-$27/hr Jobs in Houma, LA (NOW HIRING) Nov 2026 - ZipRecruiter",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/recurring-revenue-billing-software/",
+        "title": "Business Finance Top 10 Best Recurring Revenue Billing Software of 2026 \n Review \u00b7 2026 Recurring Revenue Billing Softwa",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/database-cloud-software/",
+        "title": "Data Science Analytics Top 10 Best Database Cloud Software of 2026 \n Review \u00b7 2026 Database Cloud Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/cloud-based-customer-service-software/",
+        "title": "Customer Experience In Industry Top 10 Best Cloud Based Customer Service Software of 2026 \n Review \u00b7 2026 Cloud Based Cu",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/accounting-management-software/",
+        "title": "Business Finance Top 10 Best Accounting Management Software of 2026 \n Review \u00b7 2026 Accounting Management Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "hiring a freelancer to create proposal for 2026 SMB accounting software solicitation with published contact"
+    ],
+    "attempted_search_queries": [
+      "submitting proposal for 2026 cloud storage software RFP with published contact route",
+      "looking for someone to submit proposal for 2026 project-based ERP software procurement with published contact",
+      "need paid help with submitting proposal for 2026 accounts receivable software tender with published contact route",
+      "hiring a freelancer to create proposal for 2026 SMB accounting software solicitation with published contact",
+      "can anyone create proposal for 2026 cloud accounts receivable software RFP with published contact"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "submitting proposal for 2026 cloud storage software RFP with published contact route",
+        "looking for someone to submit proposal for 2026 project-based ERP software procurement with published contact",
+        "need paid help with submitting proposal for 2026 accounts receivable software tender with published contact route",
+        "hiring a freelancer to create proposal for 2026 SMB accounting software solicitation with published contact",
+        "can anyone create proposal for 2026 cloud accounts receivable software RFP with published contact"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
