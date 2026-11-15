@@ -1,0 +1,97 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T08:58:02.175672+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 4,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://jorpex.com/guides/find-tenders-kenya/",
+        "title": "Guides How to Find Government Tenders in Kenya\n Kenya is East Africa's largest economy and one of the continent's most a",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://jorpex.com/compare/best-tender-alert-services-singapore/",
+        "title": "Comparisons Tender Alert Services for Singapore Government Tenders (2026)\n Almost every Singapore public tender starts o",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://jorpex.com/use-cases/small-business/",
+        "title": "Use Cases Small Business Government Contracts: How SMEs Find and Win Public Sector Tenders\n Small and medium-sized enter",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://jorpex.com/use-cases/architecture-tenders/",
+        "title": "Find and Win Public Sector Architecture and Design Tenders",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [],
+    "attempted_search_queries": [
+      "hiring a freelancer to submit bid recent public procurement with contactable response",
+      "need paid help with submitting bid recent tender with published invitation route",
+      "can anyone create proposal for recent procurement with contactable response route",
+      "recent public tender with published response route invitation",
+      "looking for someone to submit bid recent tender with published invitation route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to submit bid recent public procurement with contactable response",
+        "need paid help with submitting bid recent tender with published invitation route",
+        "can anyone create proposal for recent procurement with contactable response route",
+        "recent public tender with published response route invitation",
+        "looking for someone to submit bid recent tender with published invitation route"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
