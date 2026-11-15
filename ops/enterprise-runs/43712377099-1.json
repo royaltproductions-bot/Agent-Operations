@@ -1,0 +1,112 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T12:12:15.839423+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 5,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "bing": 1,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 5,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://en.wikipedia.org/wiki/Someone,_Someday",
+        "title": "Someone, Someday - Wikipedia",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/medical-claims-auditing-software/",
+        "title": "Healthcare Medicine Top 10 Best Medical Claims Auditing Software of 2026 \n Review \u00b7 2026 Medical Claims Auditing Softwar",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/telecom-audit-software/",
+        "title": "Telecommunications Connectivity Top 10 Best Telecom Audit Software of 2026 \n Review \u00b7 2026 Telecom Audit Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/project-management-crm-software/",
+        "title": "Business Finance Top 10 Best Project Management CRM Software of 2026 \n Review \u00b7 2026 Project Management CRM Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/seo-agency-project-management-software/",
+        "title": "Marketing Advertising Top 10 Best SEO Agency Project Management Software of 2026 \n Review \u00b7 2026 SEO Agency Project Mana",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to submit proposal for accounts payable automation platform procurement with public response channel"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit proposal for accounts payable automation platform procurement with public response channel",
+      "hiring a freelancer to write proposal for accounts payable OCR software procurement with published contact",
+      "need paid help with submitting proposal to accounts payable invoice processing RFP 2026",
+      "can anyone create a proposal for accounts payable management software procurement with published contact",
+      "looking for someone to submit proposal for supplier audit management software tender 2026"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit proposal for accounts payable automation platform procurement with public response channel",
+        "hiring a freelancer to write proposal for accounts payable OCR software procurement with published contact",
+        "need paid help with submitting proposal to accounts payable invoice processing RFP 2026",
+        "can anyone create a proposal for accounts payable management software procurement with published contact",
+        "looking for someone to submit proposal for supplier audit management software tender 2026"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
