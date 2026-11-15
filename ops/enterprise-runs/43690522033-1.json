@@ -1,0 +1,122 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T07:36:46.294934+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "duckduckgo": 4,
+      "bing": 2
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 4,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://thebidlab.com/bid-manager/",
+        "title": "Bid Manager \u2014 We Run Your RFP Response, End to End - The Bid Lab",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.bidnetdirect.com/arizona/maricopacounty",
+        "title": "Maricopa County Procurement Services - Bid Opportunities and RFPs ...",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://bidsandtenders.zendesk.com/hc/en-us/articles/19857407211675-How-to-Submit-a-Bid",
+        "title": "How to Submit a Bid - bids&tenders",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://bidresponder.com/",
+        "title": "Bid Responder \u2014 AI-Powered RFP & RFQ Response Platform",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.tendersontime.com/tenders-support-services/",
+        "title": "Tender Support Services | Bid Facilitation & Submission Assistance ...",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://jorpex.com/guides/how-to-respond-to-a-tender/",
+        "title": "How to Respond to a Tender: Step-by-Step (2026) | Jorpex",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to submit bid for recent RFP with published response route",
+      "need paid help with submitting bid for recent tender with published invitation"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit bid for recent RFP with published response route",
+      "need paid help with submitting bid for recent tender with published invitation",
+      "can anyone create bid for recent government procurement with contactable invitation",
+      "need paid help with submitting proposal for recent tender with published response route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 1,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit bid for recent RFP with published response route",
+        "need paid help with submitting bid for recent tender with published invitation",
+        "can anyone create bid for recent government procurement with contactable invitation",
+        "need paid help with submitting proposal for recent tender with published response route"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
