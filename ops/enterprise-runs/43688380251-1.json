@@ -1,0 +1,76 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T07:07:39.528014+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 1,
+    "source_counts": {
+      "open_web": 1
+    },
+    "search_provider_counts": {
+      "bing": 1
+    },
+    "source_errors": [],
+    "fetched_public_pages": 1,
+    "candidates_without_email": 1,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://dictionary.cambridge.org/zhs/%E8%AF%8D%E5%85%B8/%E8%8B%B1%E8%AF%AD-%E6%B1%89%E8%AF%AD-%E7%AE%80%E4%BD%93/can",
+        "title": "CAN\u4e2d\u6587 (\u7b80\u4f53)\u7ffb\u8bd1\uff1a\u5251\u6865\u8bcd\u5178 - Cambridge Dictionary",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create proposal for recent tender with published invitation for proposal submission"
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to create proposal for recent government tender with published response route",
+      "can anyone create proposal for recent tender with published invitation for proposal submission",
+      "need paid help with submitting bid for recent government procurement with published response route",
+      "looking for someone to submit bid for recent government tender with published invitation route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 1,
+      "skipped_revisits": 1,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to create proposal for recent government tender with published response route",
+        "can anyone create proposal for recent tender with published invitation for proposal submission",
+        "need paid help with submitting bid for recent government procurement with published response route",
+        "looking for someone to submit bid for recent government tender with published invitation route"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 119,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
