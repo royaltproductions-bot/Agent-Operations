@@ -1,7 +1,20 @@
-# Optional Render Blueprint: deploy the existing public checkout page only.
-# This file does not create a Render account or deploy anything on its own.
-# Stripe and private customer fulfillment remain in their existing systems.
+# ARI Operations static storefronts. Keep operational logs and agent research
+# out of Render's build triggers to conserve paid build-pipeline minutes.
+# Existing production services are retained; do not create duplicate services.
 services:
+  - type: web
+    name: ari-operations
+    runtime: static
+    repo: https://github.com/royaltproductions-bot/Agent-Operations
+    branch: main
+    buildCommand: test -s storefront/cyclops/index.html
+    staticPublishPath: ./storefront/cyclops
+    autoDeployTrigger: commit
+    buildFilter:
+      paths:
+        - storefront/cyclops/**
+      ignoredPaths: []
+
   - type: web
     name: vendorsettle-checkout
     runtime: static
@@ -11,8 +24,11 @@ services:
     staticPublishPath: ./storefront
     autoDeployTrigger: commit
     buildFilter:
+      # The checkout site publishes the entire storefront tree, including
+      # the nested Cyclops pages. Keep it in sync with published assets.
       paths:
         - storefront/**
+      ignoredPaths: []
     headers:
       - path: /*
         name: X-Content-Type-Options
