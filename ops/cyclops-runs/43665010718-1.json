@@ -1,0 +1,146 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-15T01:53:34.692262+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 8,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "bing": 5,
+      "hn_ask": 3
+    },
+    "source_errors": [],
+    "fetched_public_pages": 8,
+    "verified_firsthand_problem_pages": 2,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 8,
+    "public_market_sample": [
+      {
+        "url": "https://www.microsoft.com/en-us/windows/learning-center/how-to-screenshot-windows-11",
+        "title": "How to Take Screenshots on Windows 11 | Microsoft Windows",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://support.microsoft.com/en-us/windows/apps/use-snipping-tool-to-capture-screenshots",
+        "title": "Use Snipping Tool to capture screenshots | Microsoft Support",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47318231",
+        "title": "I built a tool to export Gemini chat to PDF, Word, Docs, and Notion",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=46570715",
+        "title": "Ask HN: What tools/workflow do you use to write technical books?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=20418362",
+        "title": "Ask HN: Alternative to BrowserStack?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.wikihow.com/Take-a-Screenshot-in-Microsoft-Windows",
+        "title": "The Easiest Way to Take a Screenshot in Windows | wikiHow",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 7,
+    "search_queries": [
+      "Screenshot tool for Microsoft Edge full page capture",
+      "Export Gemini chat history to PDF and Word for free",
+      "Markdown to PDF converter for technical books"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 38,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "Export Gemini chat history to PDF and Word for free",
+        "Markdown to PDF converter for technical books",
+        "How to convert Markdown to PDF with code formatting",
+        "Screenshot tool for Microsoft Edge full page capture",
+        "Downloadable script to automate PDF export from Gemini"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 118,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "paused_for_distribution",
+    "reason": "owner_approved_distribution_first_freeze",
+    "pending_stage": "empty"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 4,
+    "product_pages": 4,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 13,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "003c3c67f50b396938ad",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "755a8c931205cd5d956e",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 4,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 8,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
