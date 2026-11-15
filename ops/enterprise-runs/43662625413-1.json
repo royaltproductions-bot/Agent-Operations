@@ -1,0 +1,115 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T01:22:57.118633+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 10,
+    "source_counts": {
+      "open_web": 10
+    },
+    "search_provider_counts": {
+      "hn_ask": 6,
+      "github_paid_issues": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 10,
+    "candidates_without_email": 9,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=47133121",
+        "title": "Colt \u2013 Describe a browser task in English, get a Playwright script",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=42500833",
+        "title": "CourseReel AI Max Review: Transform Your Course Creation Effortlessly",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37562807",
+        "title": "API or library to grade \u201cmusic quality\u201d?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=29722074",
+        "title": "Ask HN: Scheduled events in an event sourced system",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=19035321",
+        "title": "Ask HN: Any advice for note/scratchpad/idea dumping during the day?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=11016054",
+        "title": "Ask HN: Automating Tedious Remote Jobs for Profit and Fun",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create a script to automate bug-bounty-agent updates across ecosystems",
+      "is:issue is:open bounty created:>=2026-09-16 create tool benchmark"
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to create a tool for benchmark-ingest task in BOUNTIES.md",
+      "can anyone create a script to automate bug-bounty-agent updates across ecosystems",
+      "need paid help with submitting a bid to a public solicitation with published response route",
+      "hiring a freelancer to develop a script for Ollama model pulling and ecosystem updates",
+      "can anyone create a script to automate bug-report handling in lateralus-lang"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 7,
+      "skipped_revisits": 10,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to create a tool for benchmark-ingest task in BOUNTIES.md",
+        "can anyone create a script to automate bug-bounty-agent updates across ecosystems",
+        "need paid help with submitting a bid to a public solicitation with published response route",
+        "hiring a freelancer to develop a script for Ollama model pulling and ecosystem updates",
+        "can anyone create a script to automate bug-report handling in lateralus-lang"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
