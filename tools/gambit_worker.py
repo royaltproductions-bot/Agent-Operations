@@ -1783,6 +1783,55 @@ def handle_open(item, state):
         return
     declined_token = previous.get("last_declined_bid")
     if bid.get("status") == "declined":
+        declined_at = str(bid.get("declined_at") or bid.get("updated_at") or
+                          previous.get("declined_at") or "")
+        declined_version = previous.get("declined_version")
+        if declined_version is None:
+            declined_version = version
+        previous["declined_version"] = declined_version
+        previous["declined_at"] = declined_at
+        # A buyer decline is terminal for this version absent a later,
+        # explicit invitation to submit a revised offer. Buyer messages
+        # still receive the ordinary reply handling below.
+        if version == declined_version:
+            messages = sorted(messages_for(bounty_id),
+                              key=lambda m: m.get("created_at") or "")
+            record_owner_activity(state, bounty_id, messages)
+            incoming = [m for m in messages if m.get("author_type") == "user"]
+            latest = incoming[-1] if incoming else None
+            msg_time = str(latest.get("created_at") or "") if latest else ""
+            msg_text = str((latest.get("content") or {}).get("text") or "").lower() if latest else ""
+            explicit_invite = bool(
+                latest and declined_at and msg_time > declined_at and
+                __import__("re").search(
+                    r"\\b(?:re-?bid|submit (?:a )?(?:revised|new) (?:bid|proposal)|"
+                    r"send (?:a )?(?:revised|new) (?:bid|proposal)|"
+                    r"can you do it for \\$?\\d+)", msg_text))
+            if not explicit_invite:
+                last_reply_id = previous.get("last_owner_reply_id")
+                if latest:
+                    current_reply_id = buyer_message_id(latest)
+                    if current_reply_id != last_reply_id:
+                        reply = str(respond_to_buyer(details, messages).get("reply_text") or "").strip()
+                        if reply:
+                            api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/messages",
+                                "POST", {"content": {"type": "text", "text": reply[:3000]},
+                                         "idempotency_key": key("declined-buyer-reply", bounty_id,
+                                                                current_reply_id)})
+                            note(state, "agent_replied_to_buyer", bounty_id)
+                        previous["last_owner_reply_id"] = current_reply_id
+                if previous.get("action") != "bid_declined_final":
+                    note(state, "bid_declined_final", bounty_id, version=version)
+                previous["action"] = "bid_declined_final"
+                state["bounties"][bounty_id] = previous
+                return
+            # Explicit buyer invitation is the only same-version exception;
+            # record its message ID so replay cannot create repeated offers.
+            invitation_id = buyer_message_id(latest)
+            if previous.get("rebid_invitation_id") == invitation_id:
+                return
+            previous["rebid_invitation_id"] = invitation_id
+
         candidate = str(bid.get("_id") or bid.get("id") or
                         bid.get("created_at") or f"version-{version}")
         if declined_token != candidate:
@@ -2170,7 +2219,10 @@ def handle_open(item, state):
     else:
         action = "pass"
     next_entry = {"version": version, "action": action,
-                  "at": timestamp(), "last_declined_bid": declined_token}
+                  "at": timestamp(), "last_declined_bid": declined_token,
+                   "declined_version": previous.get("declined_version"),
+                   "declined_at": previous.get("declined_at"),
+                   "rebid_invitation_id": previous.get("rebid_invitation_id")}
     if previous.get("feasible_ask_review_version") == version:
         next_entry["feasible_ask_review_version"] = version
     if action == "asked" and current.get("flow") == "bid":
