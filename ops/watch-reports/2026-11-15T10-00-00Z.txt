@@ -1,0 +1,18 @@
+X-VARIANT RECEIPT WATCH — 2026-11-15T10:00:00Z
+Window UTC: 2026-11-15T02:00:00Z through 2026-11-15T10:00:00Z
+Report created: 2026-11-15 approximately 10:02 UTC
+Evidence: GitHub main recursive tree + GitHub Actions run IDs and sampled individual receipts; gambit-state branch state and budget, workflow and provider router. Economic outcomes for Wolverine/Cyclops are sampled, not exhaustive.
+
+Wolverine: 72 main-branch standalone receipts matched to window GitHub Actions runs. Sampled receipts: no offers, no external action, no fulfillment, $0 receipt-reported verified revenue. Search errors (Brave 429, DuckDuckGo URLError), no contactable buyer invitations, no new public sources. Green runs are not sales.
+Cyclops: 118 main-branch standalone receipts matched to window GitHub Actions runs. Sampled receipts: production paused_for_distribution (owner_approved_distribution_first_freeze), catalog 4 historical products, no new assets, offers, fulfillments, or verified revenue. 13 invalid legacy products, 0 disabled payment links; no opt-in outlets. Green runs are not sales.
+Gambit: 0 standalone receipt files. Authoritative state last_check and last_bid_reconciliation 2026-11-15T09:43:44Z; settlements {} (0 platform-paid completions, $0). Retained recent_outcomes contain no events dated within this 02:00-10:00 UTC window; recent_outcomes may be bounded and thus cannot prove no marketplace actions. Previous window: two $8 bid submissions on one bounty, one decline; NOT current-window activity. Available jobs, assessed opportunities, passes, buyer questions, bids, declines, hires, claims, submissions, verifications and acceptances in this window: not independently established. Bid-to-hire and submission success not measurable yet. Gambit workflow has 4-hour scheduled resident watcher and 300-second internal interval. Current run in progress at inspection. Public TryBounty profile inaccessible; provider-router file present but live capability fulfillment not verified.
+Budget gambit-state: 354 calls, reserved $13.636882 against workflow $38 monthly cap (internal estimate, not verified invoice). Bank deposits not checked.
+Other directories: external-intelligence-runs, gha-runs, refiner-runs, scout-runs are not newly identifiable active revenue X-variant receipt lanes.
+Evidence confidence: high for GitHub receipt counts and Gambit settlement ledger; limited for sampled Wolverine/Cyclops economics and bounded Gambit outcomes.
+Open improvements:
+XW-01 [pending] Fix contactable buyer invitation discovery and search provider errors in Wolverine.
+XC-01 [pending] Establish opt-in distribution for existing Cyclops catalog and address 13 invalid legacy checkout links.
+XG-01 [pending] Add decline-aware idempotent bid reconciliation to prevent repeat bids on same bounty/version.
+XG-02 [unknown] Confirm provider-router capability execution with tests and actual fulfillment receipts.
+Recommendation (highest impact Gambit): Regression-test the bid-declined -> bid-sent same bounty/version path, requiring explicit changed version or legitimate buyer invitation before resubmission.
+No operational code, state, marketplace or automation changes authorized or made.
