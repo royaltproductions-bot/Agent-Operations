@@ -1,0 +1,140 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-15T00:28:20.085668+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 5,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "bing": 1
+    },
+    "source_errors": [],
+    "fetched_public_pages": 5,
+    "verified_firsthand_problem_pages": 1,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 5,
+    "public_market_sample": [
+      {
+        "url": "https://support.google.com/youtube/answer/12182593?hl=en&ref_topic=9257610,3230811,3256124,&visit_id=639302993911302978-10804313&rd=1",
+        "title": "YouTube Creator Community",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.iheart.com/podcast/",
+        "title": "Listen to the Best Podcasts & Shows Online, Free | iHeart",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.youtube.com/creators/",
+        "title": "YouTube Creators site",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://music.youtube.com/library/podcasts?addrssfeed=%7Byour",
+        "title": "https://music.youtube.com/library/podcasts?addrssfeed=",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.youtube.com/podcasts",
+        "title": "youtube.com/podcasts",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 4,
+    "search_queries": [
+      "",
+      "podcast episode metadata template"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 3,
+      "skipped_revisits": 33,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "free trial software for podcast hosting",
+        "youtube studio podcast export template",
+        "downloadable podcast scheduling calendar",
+        "youtube channel badge creator tool",
+        "podcast episode metadata template"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 108,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "paused_for_distribution",
+    "reason": "owner_approved_distribution_first_freeze",
+    "pending_stage": "empty"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 4,
+    "product_pages": 4,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 13,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "003c3c67f50b396938ad",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "755a8c931205cd5d956e",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 4,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 5,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
