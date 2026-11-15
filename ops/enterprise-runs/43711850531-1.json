@@ -1,0 +1,97 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T12:05:20.586413+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 4,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://wifitalents.com/best/inventory-purchasing-software/",
+        "title": "Business Finance Top 10 Best Inventory Purchasing Software of 2026 \n Review \u00b7 2026 Inventory Purchasing Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/supplier-audit-management-software/",
+        "title": "Business Finance Top 10 Best Supplier Audit Management Software of 2026 \n Review \u00b7 2026 Supplier Audit Management Softwa",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/sourcing-project-management-software/",
+        "title": "Business Finance Top 10 Best Sourcing Project Management Software of 2026 \n Review \u00b7 2026 Sourcing Project Management So",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/billing-online-software/",
+        "title": "Finance Financial Services Top 10 Best Billing Online Software of 2026 \n Review \u00b7 2026 Billing Online Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [],
+    "attempted_search_queries": [
+      "looking for someone to submit proposal for accounts payable invoice processing RFP 2026",
+      "hiring a freelancer to write proposal for accounts payable automation platform procurement with public response channel",
+      "need paid help with submitting proposal to invoice processing software tender 2026",
+      "can anyone create a proposal for accounts payable OCR software procurement with published contact",
+      "RFP for invoice automation platform with public proposal submission route 2026"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 6,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit proposal for accounts payable invoice processing RFP 2026",
+        "hiring a freelancer to write proposal for accounts payable automation platform procurement with public response channel",
+        "need paid help with submitting proposal to invoice processing software tender 2026",
+        "can anyone create a proposal for accounts payable OCR software procurement with published contact",
+        "RFP for invoice automation platform with public proposal submission route 2026"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
