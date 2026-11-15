@@ -1,0 +1,124 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T10:40:02.068534+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 5,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "duckduckgo": 5
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "ValueError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "ValueError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 1,
+    "candidates_without_email": 5,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://www.masshousing.com/wp-content/uploads/RFP-AI-Adoption-MS-Copilot-Enablement-Services.pdf",
+        "title": "PDF Request for Proposals: AI Adoption & Microsoft Copilot Enablement Services",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://duckduckgo.com/y.js?ad_domain=capterra.com&ad_provider=bingv7aa&ad_type=txad&click_metadata=rWbIxOvjbh1IXWtQn-EjU14aolA0236LmelUWK-AKEKjvKRL37qtZZ2wXZKlqfYgAvacyn6cpWXdLwZOQBlPALsHyqhEvJAAOHZN",
+        "title": "Top 10 RFP Software - Industry Leading Software List",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.masshousing.com/wp-content/uploads/QA-RFP-AI-Adoption-MS-Copilot-Enablement-Services.pdf",
+        "title": "PDF Request for Proposals for AI Adoption & MS Copilot Enablement Services ...",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.capterra.com/rfp-software/",
+        "title": "Best RFP Software 2026 | Capterra",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/proposal-automation-software/",
+        "title": "10 Tools Compared: Best Proposal Automation Software (2026)",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "request for proposals Microsoft Copilot enablement 2026",
+      "RFP software automation consulting proposal 2026"
+    ],
+    "attempted_search_queries": [
+      "request for proposals Microsoft Copilot enablement 2026",
+      "RFP software automation consulting proposal 2026",
+      "looking for someone to submit a proposal to RFP/KFW/AP/2026/00042 with published response route",
+      "need paid help with tender submission for AI Growth Lab Pilot Program in Pakistan with contact details",
+      "can anyone create a proposal for AI technical delivery partner procurement in Pakistan with published invitation"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 3,
+      "skipped_revisits": 8,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "request for proposals Microsoft Copilot enablement 2026",
+        "RFP software automation consulting proposal 2026",
+        "looking for someone to submit a proposal to RFP/KFW/AP/2026/00042 with published response route",
+        "need paid help with tender submission for AI Growth Lab Pilot Program in Pakistan with contact details",
+        "can anyone create a proposal for AI technical delivery partner procurement in Pakistan with published invitation"
+      ],
+      "next_query_queue": 5,
+      "frontier_size": 119,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
