@@ -1,24 +1,25 @@
 {
   "aging_active_bids_days": {
-    "mx713jqgcsevmx5jfgvz6qnmed8j60gv": 0.9637874983912036,
-    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 3.942142371076389,
-    "mx75nwyvf4svm7q7a8hngq7v8d8j8s3h": 0.1513162136689815,
-    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 1.7368650446875,
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 7.96293697755787,
-    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 1.7368576951504628,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 12.03368612107639,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 12.003845959039351,
-    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 3.9421493039467594,
-    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 4.7714816534837965,
-    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 1.7368495354282407,
-    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 3.945802590983796,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 12.034536792372686,
-    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 3.9421348132060188,
-    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 3.9421630770949077,
-    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 3.945788354872685,
-    "mx7exjhfg5pzjtqgtg8v1s5ze58j8ez4": 0.14792256783564817,
-    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 5.803963262280093,
-    "mx7fy556ex1k9c7jcpzs2fyq2d8j94a6": 0.15124029931712962
+    "mx713jqgcsevmx5jfgvz6qnmed8j60gv": 0.9640180717592592,
+    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 3.9423729444444446,
+    "mx75jrevnm0cd1nc5328ahps8x8j8yyf": 2.4814814814814814e-06,
+    "mx75nwyvf4svm7q7a8hngq7v8d8j8s3h": 0.15154678703703706,
+    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 1.7370956180555557,
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 7.963167550925926,
+    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 1.7370882685185185,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 12.033916694444445,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 12.004076532407407,
+    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 3.942379877314815,
+    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 4.771712226851852,
+    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 1.7370801087962964,
+    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 3.9460331643518516,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 12.034767365740741,
+    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 3.942365386574074,
+    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 3.942393650462963,
+    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 3.9460189282407407,
+    "mx7exjhfg5pzjtqgtg8v1s5ze58j8ez4": 0.1481531412037037,
+    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 5.804193835648149,
+    "mx7fy556ex1k9c7jcpzs2fyq2d8j94a6": 0.1514708726851852
   },
   "browser": {
     "completed_job_count": {
@@ -87,16 +88,16 @@
     "unread_count": 0
   },
   "conversion_rates": {
-    "bid_per_seen": 0.2916666666666667,
-    "buyer_reply_per_bid": 0.09523809523809523,
+    "bid_per_seen": 0.3055555555555556,
+    "buyer_reply_per_bid": 0.09090909090909091,
     "hire_per_bid": 0.0
   },
   "coverage": "Observed unique bounties; historical events before instrumentation may be incomplete.",
   "cumulative": {
     "accepted": 0,
     "asked": 9,
-    "bids_active": 19,
-    "bids_sent": 21,
+    "bids_active": 20,
+    "bids_sent": 22,
     "declined": 0,
     "delivered": 0,
     "hired": 0,
@@ -118,10 +119,10 @@
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-15T20:15:11.623861+00:00",
+  "generated_at": "2026-11-15T20:15:31.545400+00:00",
   "market_observation": {
     "fetched_at": "2026-11-15T20:15:08.017595+00:00",
-    "last_checked_at": "2026-11-15T20:15:10.747383+00:00",
+    "last_checked_at": "2026-11-15T20:15:13.680011+00:00",
     "last_open_count": 65,
     "newest_created_at": "2026-11-15T20:12:43.374000+00:00",
     "newest_posted_at": "2026-11-15T20:12:43.374000+00:00"
@@ -1473,18 +1474,18 @@
       "newest_created_at": "2026-11-15T20:12:43.374000+00:00"
     }
   ],
-  "median_posting_to_bid_minutes": 4705.295666666667,
+  "median_posting_to_bid_minutes": 4248.0320833333335,
   "median_posting_to_detection_minutes": 56.643551458333334,
   "median_posting_to_detection_minutes_24h": 1.9375152416666668,
   "model_budget": {
-    "call_count": 361,
+    "call_count": 362,
     "month": "2026-11",
-    "reserved_micro_usd": 13945704
+    "reserved_micro_usd": 13987242
   },
   "null_fields": {
     "accepted_at": 0,
-    "bid_amount_cents": 51,
-    "bid_at": 51,
+    "bid_amount_cents": 50,
+    "bid_at": 50,
     "bid_status": 0,
     "budget_cents": 0,
     "conversation": 0,
@@ -1497,8 +1498,8 @@
   "today": {
     "accepted": 0,
     "asked": 0,
-    "bids_active": 3,
-    "bids_sent": 3,
+    "bids_active": 4,
+    "bids_sent": 4,
     "declined": 0,
     "delivered": 0,
     "hired": 0,
@@ -1521,7 +1522,7 @@
     "accepted_at": 75,
     "bid_amount_cents": 3,
     "bid_at": 3,
-    "bid_status": 54,
+    "bid_status": 53,
     "budget_cents": 3,
     "conversation": 57,
     "delivered_at": 75,
