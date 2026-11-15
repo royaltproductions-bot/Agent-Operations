@@ -1,0 +1,97 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T16:01:39.197306+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 4,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://wifitalents.com/best/supplier-risk-management-software/",
+        "title": "Supply Chain In Industry Top 10 Best Supplier Risk Management Software of 2026 \n Review \u00b7 2026 Supplier Risk Management ",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/supplier-evaluation-software/",
+        "title": "Supply Chain In Industry Top 10 Best Supplier Evaluation Software of 2026 \n Review \u00b7 2026 Supplier Evaluation Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/quality-system-management-software/",
+        "title": "Manufacturing Engineering Top 10 Best Quality System Management Software of 2026 \n Review \u00b7 2026 Quality System Manageme",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/supply-chain-logistic-software/",
+        "title": "Data Science Analytics Top 10 Best Supply Chain Logistic Software of 2026 \n Review \u00b7 2026 Supply Chain Logistic Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [],
+    "attempted_search_queries": [
+      "looking for someone to submit proposal for 2026 supplier quality management software rfp with published contact",
+      "hiring a freelancer to create proposal for 2026 product quality management software tender with contact",
+      "need paid help with submitting proposal for 2026 manufacturing quality control software procurement with published contact route",
+      "can anyone create proposal for 2026 cloud-based quality management software tender with published contact",
+      "submitting proposal for 2026 quality control inspection software procurement with published contact route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 1,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit proposal for 2026 supplier quality management software rfp with published contact",
+        "hiring a freelancer to create proposal for 2026 product quality management software tender with contact",
+        "need paid help with submitting proposal for 2026 manufacturing quality control software procurement with published contact route",
+        "can anyone create proposal for 2026 cloud-based quality management software tender with published contact",
+        "submitting proposal for 2026 quality control inspection software procurement with published contact route"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
