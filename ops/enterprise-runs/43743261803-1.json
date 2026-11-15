@@ -1,0 +1,112 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T17:51:32.891214+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 5,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "bing": 1,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 5,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://hiringcafe.com/",
+        "title": "HiringCafe: More Jobs, Smarter Search, Free AI Tools",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/virtual-simulation-software/",
+        "title": "Science Research Top 10 Best Virtual Simulation Software of 2026 \n Review \u00b7 2026 Virtual Simulation Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/business-sms-software/",
+        "title": "Communication Media Top 10 Best Business Sms Software of 2026 \n Review \u00b7 2026 Business Sms Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/mass-sms-marketing-software/",
+        "title": "Marketing Advertising Top 10 Best Mass Sms Marketing Software of 2026 \n Review \u00b7 2026 Mass Sms Marketing Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/bulk-email-sender-software/",
+        "title": "Marketing Advertising Top 10 Best Bulk Email Sender Software of 2026 \n Review \u00b7 2026 Bulk Email Sender Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "hiring a freelancer to create proposal for 2026 workflow automation software procurement with published contact"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit proposal for 2026 automated text messaging software tender with published contact",
+      "hiring a freelancer to create proposal for 2026 workflow automation software procurement with published contact",
+      "looking for someone to submit proposal for 2026 workflow creation software procurement with published contact",
+      "need paid help with submitting proposal for 2026 automated OCR software tender with published contact route",
+      "can anyone create proposal for 2026 manufacturing process tracking software RFP with published contact"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 1,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit proposal for 2026 automated text messaging software tender with published contact",
+        "hiring a freelancer to create proposal for 2026 workflow automation software procurement with published contact",
+        "looking for someone to submit proposal for 2026 workflow creation software procurement with published contact",
+        "need paid help with submitting proposal for 2026 automated OCR software tender with published contact route",
+        "can anyone create proposal for 2026 manufacturing process tracking software RFP with published contact"
+      ],
+      "next_query_queue": 1,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
