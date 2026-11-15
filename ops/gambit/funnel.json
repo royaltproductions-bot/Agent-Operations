@@ -1,21 +1,21 @@
 {
   "aging_active_bids_days": {
-    "mx713jqgcsevmx5jfgvz6qnmed8j60gv": 0.7740131016782408,
-    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 3.752367974363426,
-    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 1.5470906479745372,
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 7.773162580844907,
-    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 1.5470832984375,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 11.843911724363426,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 11.81407156232639,
-    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 3.752374907233796,
-    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 4.581707256770833,
-    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 1.5470751387152777,
-    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 3.7560281942708333,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 11.844762395659723,
-    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 3.7523604164930555,
-    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 3.7523886803819444,
-    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 3.756013958159722,
-    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 5.6141888655671295
+    "mx713jqgcsevmx5jfgvz6qnmed8j60gv": 0.7746671060648148,
+    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 3.75302197875,
+    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 1.5477446523611111,
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 7.773816585231481,
+    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 1.5477373028240742,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 11.84456572875,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 11.814725566712962,
+    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 3.7530289116203703,
+    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 4.582361261157407,
+    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 1.5477291431018518,
+    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 3.7566821986574075,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 11.845416400046297,
+    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 3.7530144208796297,
+    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 3.7530426847685185,
+    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 3.756667962546296,
+    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 5.614842869953704
   },
   "browser": {
     "completed_job_count": {
@@ -101,24 +101,24 @@
     "passed_by_reason": {
       "authenticated_account_operation": 1,
       "outbound_messaging": 1,
-      "software_deployment": 3,
+      "software_deployment": 4,
       "software_project_not_supported": 1,
       "unknown": 15,
       "unsupported_multi_or_file_format": 6,
       "video_production": 11,
       "website_visual_quality_unverified": 2
     },
-    "retry_pending": 0,
+    "retry_pending": 1,
     "sample_excluded": 2,
     "seen": 68,
     "settled": 0,
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-15T15:41:55.115985+00:00",
+  "generated_at": "2026-11-15T15:42:51.621964+00:00",
   "market_observation": {
     "fetched_at": "2026-11-15T15:41:51.684437+00:00",
-    "last_checked_at": "2026-11-15T15:41:54.375933+00:00",
+    "last_checked_at": "2026-11-15T15:41:57.270503+00:00",
     "last_open_count": 61,
     "newest_created_at": "2026-11-15T14:09:33.938000+00:00",
     "newest_posted_at": "2026-11-15T14:09:33.938000+00:00"
@@ -1249,9 +1249,9 @@
   "median_posting_to_detection_minutes": 92.25039993333333,
   "median_posting_to_detection_minutes_24h": 46.197635074999994,
   "model_budget": {
-    "call_count": 354,
+    "call_count": 358,
     "month": "2026-11",
-    "reserved_micro_usd": 13636882
+    "reserved_micro_usd": 13821352
   },
   "null_fields": {
     "accepted_at": 0,
@@ -1275,8 +1275,10 @@
     "delivered": 0,
     "hired": 0,
     "missing_unconfirmed": 0,
-    "passed_by_reason": {},
-    "retry_pending": 0,
+    "passed_by_reason": {
+      "software_deployment": 1
+    },
+    "retry_pending": 1,
     "sample_excluded": 0,
     "seen": 1,
     "settled": 0,
