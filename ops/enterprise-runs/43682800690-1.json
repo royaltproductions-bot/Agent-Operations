@@ -1,0 +1,105 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T05:52:57.640576+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 3,
+    "source_counts": {
+      "open_web": 3
+    },
+    "search_provider_counts": {
+      "bing": 3
+    },
+    "source_errors": [
+      {
+        "source": "query_planner",
+        "reason": "recovered_fresh_public_research_directions"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 1,
+    "candidates_without_email": 3,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://www.indeed.com/l-Anaheim,-CA-jobs.html",
+        "title": "Now Hiring: 276,000 Jobs in Anaheim, CA | Indeed",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.indeed.com/q-Hiring-Immediately-l-Anaheim,-CA-jobs.html",
+        "title": "Hiring Immediately jobs in Anaheim, CA - Indeed",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://hiring.amazon.com/locations/anaheim-ca-jobs",
+        "title": "Amazon Jobs In Anaheim, CA - Now Hiring, Apply Today! | Amazon",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "hiring freelancer submit proposal public sector RFP published invitation apply"
+    ],
+    "attempted_search_queries": [
+      "need paid help submitting proposal public sector contract published invitation",
+      "anyone create tool automating compliance documentation recent procurement requests",
+      "hiring freelancer submit proposal public sector RFP published invitation apply",
+      "need paid help submitting bid government tender contactable submission method",
+      "looking someone submit proposal recent public procurement published response route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 3,
+      "skipped_revisits": 26,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "need paid help submitting proposal public sector contract published invitation",
+        "anyone create tool automating compliance documentation recent procurement requests",
+        "hiring freelancer submit proposal public sector RFP published invitation apply",
+        "need paid help submitting bid government tender contactable submission method",
+        "looking someone submit proposal recent public procurement published response route"
+      ],
+      "next_query_queue": 7,
+      "frontier_size": 115,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
