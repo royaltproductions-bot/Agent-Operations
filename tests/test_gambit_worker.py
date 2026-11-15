@@ -49,6 +49,25 @@ class GambitTests(unittest.TestCase):
             gambit.validate_csv_source_urls(
                 b"company,source_url\nUnknown,https://example.org/unread\n", evidence)
 
+    def test_declined_bid_same_version_never_reposts(self):
+        bounty_id = "declined-case"
+        state = {"bounties": {bounty_id: {"version": 1, "action": "bid_active"}},
+                 "commercial": {}, "recent_outcomes": []}
+        details = {"bounty": {"_id": bounty_id, "version": 1, "status": "open",
+                              "flow": "bid", "title": "Research"},
+                   "bid": {"status": "declined", "id": "bid-1",
+                           "declined_at": "2026-11-15T21:06:58Z"}}
+        with patch.object(gambit, "api", return_value=details) as api, \
+             patch.object(gambit, "remember_details"), \
+             patch.object(gambit, "unsupported_deliverable", return_value=None), \
+             patch.object(gambit, "messages_for", return_value=[]), \
+             patch.object(gambit, "record_owner_activity"):
+            gambit.handle_open({"_id": bounty_id}, state)
+            gambit.handle_open({"_id": bounty_id}, state)
+        self.assertEqual(state["bounties"][bounty_id]["action"], "bid_declined_final")
+        self.assertFalse(any(call.args[1] == "POST" for call in api.call_args_list
+                             if len(call.args) > 1))
+
     def test_stable_idempotency_key(self):
         self.assertEqual(gambit.key('bid', 'x', 2, 500), gambit.key('bid', 'x', 2, 500))
         self.assertNotEqual(gambit.key('bid', 'x', 2, 500), gambit.key('bid', 'x', 3, 500))
