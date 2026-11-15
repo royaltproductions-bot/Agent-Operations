@@ -1,0 +1,115 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T02:10:17.491400+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "followup": 3,
+      "github_paid_issues": 3
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      }
+    ],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 6,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://sas-gps.com/services/government-proposal-writing-services/",
+        "title": "Government Proposal Writing Services",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://therfpfirm.com/how-businesses-can-win-more-contracts-through-government-proposals/",
+        "title": "How businesses can win more contracts through government proposals",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://therfpfirm.com/government-request-for-proposal-a-complete-guide-for-businesses/",
+        "title": "Government request for proposal: A complete guide for businesses",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://github.com/matiaszanolli/ByroRedux/issues/6911",
+        "title": "M65 Phase 2: detection tick and consumers, Wave 1 (FO3, FNV)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/freedom-winds/BountyScout/issues/1418",
+        "title": "\ud83c\udfaf Bounty Alert: 9 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Rohank143/BountyScout/issues/107",
+        "title": "\ud83c\udfaf Bounty Alert: 13 New Opportunityies found",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-16 "
+    ],
+    "attempted_search_queries": [
+      "submitting a proposal to a public tender with contact details",
+      "hiring a freelancer to create a script for automating bug bounty report generation",
+      "looking for someone to submit a proposal to a government solicitation with contact info"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 5,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "submitting a proposal to a public tender with contact details",
+        "hiring a freelancer to create a script for automating bug bounty report generation",
+        "looking for someone to submit a proposal to a government solicitation with contact info"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
