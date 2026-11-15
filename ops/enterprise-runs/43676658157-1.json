@@ -1,0 +1,116 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T04:27:02.015818+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 10,
+    "source_counts": {
+      "open_web": 10
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "github_paid_issues": 4,
+      "followup": 2
+    },
+    "source_errors": [],
+    "fetched_public_pages": 10,
+    "candidates_without_email": 9,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=47117393",
+        "title": "Ask HN: Freelance full-stack dev in between contracts",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=37550657",
+        "title": "Tell HN: Google Nest Wifi locks existing features under telemetry opt-in",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=35079262",
+        "title": "Stripe \u2013 Pricing changes for US businesses starting June 1, 2023",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=34031436",
+        "title": "Help wanted \u2013 Presscheck.org, a system for verifying journalists on Mastodon",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/paraspell/xcm-tools/issues/2536",
+        "title": "[Bug bounty] Repeated exchange parameters make /swap/pairs generate oversized responses",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/Fractal-Neurons/pacta/issues/24",
+        "title": "[$25 USDC Bounty] Live Chain-Feed Drift Catch (53 Indexed Protocols) or 4th Unindexed (>=$15M TVL) Control-Plane Mismatc",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "need paid help with automating internal compliance processes for nonprofit organization",
+      "is:issue is:open bounty created:>=2026-09-16 "
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit proposal for public procurement with published response route",
+      "hiring a freelancer to develop tool for automating data validation in public datasets",
+      "can anyone create script to automate compliance report generation for small business",
+      "need paid help with automating internal compliance processes for nonprofit organization",
+      "looking for someone to create script for automating data extraction from public records"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 9,
+      "skipped_revisits": 31,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit proposal for public procurement with published response route",
+        "hiring a freelancer to develop tool for automating data validation in public datasets",
+        "can anyone create script to automate compliance report generation for small business",
+        "need paid help with automating internal compliance processes for nonprofit organization",
+        "looking for someone to create script for automating data extraction from public records"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 115,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
