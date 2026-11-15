@@ -1,0 +1,112 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T13:36:23.765414+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 5,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "bing": 1,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 5,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://www.thefreedictionary.com/submitting",
+        "title": "Submitting - definition of submitting by The Free Dictionary",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/brand-reputation-monitoring-software/",
+        "title": "Marketing Advertising Top 10 Best Brand Reputation Monitoring Software of 2026 \n Review \u00b7 2026 Brand Reputation Monitori",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/web-based-asset-management-software/",
+        "title": "Business Finance Top 10 Best Web Based Asset Management Software of 2026 \n Review \u00b7 2026 Web Based Asset Management Soft",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/computer-asset-tracking-software/",
+        "title": "Technology Digital Media Top 10 Best Computer Asset Tracking Software of 2026 \n Review \u00b7 2026 Computer Asset Tracking So",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/b2b-loyalty-software/",
+        "title": "Marketing Advertising Top 10 Best B2B Loyalty Software of 2026 \n Review \u00b7 2026 B2B Loyalty Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "submitting proposal for 2026 branded software tender with published response route"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit proposal for 2026 brand asset management software tender",
+      "hiring a freelancer to write proposal for 2026 website-based seo software procurement",
+      "need paid help with submitting proposal for 2026 b2b sales prospecting software rfp",
+      "can anyone create proposal for 2026 consumer retail referral software procurement with published contact",
+      "submitting proposal for 2026 branded software tender with published response route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit proposal for 2026 brand asset management software tender",
+        "hiring a freelancer to write proposal for 2026 website-based seo software procurement",
+        "need paid help with submitting proposal for 2026 b2b sales prospecting software rfp",
+        "can anyone create proposal for 2026 consumer retail referral software procurement with published contact",
+        "submitting proposal for 2026 branded software tender with published response route"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
