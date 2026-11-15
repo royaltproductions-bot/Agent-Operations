@@ -1,0 +1,128 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T05:48:14.207193+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "bing": 4,
+      "github_paid_issues": 2
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 3,
+    "candidates_without_email": 5,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://www.indeed.com/l-St.-Louis,-MO-jobs.html",
+        "title": "Now Hiring: 60,000 Jobs in St. Louis, MO | Indeed",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.indeed.com/q-St-Louis-l-St.-Louis,-MO-jobs.html",
+        "title": "Now Hiring: 13,000 St Louis Jobs in St. Louis, MO | Indeed",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://hiring.amazon.com/locations/st-louis-jobs",
+        "title": "Amazon Jobs In St. Louis, MO - Now Hiring, Apply Today! | Amazon",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.stlouis-mo.gov/jobs/index.cfm",
+        "title": "Work for the City of St. Louis",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ZcashCommunityGrants/zcashcommunitygrants/issues/544",
+        "title": "Grant Application - Mock lightwalletd for Zcash wallet testing",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/topoteretes/cognee/issues/6332",
+        "title": "Hackathon [Feature]: Add HackerOne bug bounty and security report data-source connector",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": true
+      }
+    ],
+    "search_queries": [
+      "hiring a freelancer to submit proposal for public sector RFP with published invitation to apply",
+      "is:issue is:open bounty created:>=2026-09-16 submitting proposal public"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit proposal for recent public procurement with published response route",
+      "need paid help with submitting bid for government tender with contactable submission method",
+      "hiring a freelancer to submit proposal for public sector RFP with published invitation to apply",
+      "can anyone create tool for automating compliance documentation in recent procurement requests",
+      "need paid help with submitting proposal for public sector contract with published invitation to apply"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 11,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit proposal for recent public procurement with published response route",
+        "need paid help with submitting bid for government tender with contactable submission method",
+        "hiring a freelancer to submit proposal for public sector RFP with published invitation to apply",
+        "can anyone create tool for automating compliance documentation in recent procurement requests",
+        "need paid help with submitting proposal for public sector contract with published invitation to apply"
+      ],
+      "next_query_queue": 1,
+      "frontier_size": 115,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
