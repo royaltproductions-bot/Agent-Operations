@@ -1,0 +1,121 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T01:44:30.794674+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 8,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "github_paid_issues": 4
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      }
+    ],
+    "fetched_public_pages": 8,
+    "candidates_without_email": 7,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=46934662",
+        "title": "Ask HN: OpenClaw vs. Claude Cowork \u2013 local skills vs. MCP integrations?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=22459769",
+        "title": "What tools would you use to build a news nerve centre?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=11479361",
+        "title": "Apply HN: TestBeacon \u2013 Web Automation Testing as a Service",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=941606",
+        "title": "Ask HN: I'm looking for a technical co-founder/partner.",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://github.com/ecarlste/x4-pirates-life-mod/issues/109",
+        "title": "Spec: SWI build of A Pirate's Life, S/M capture on X4 8.00",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/rdearman/twclone/issues/534",
+        "title": "V4 Enhanced Play Epic: Python plugin framework, community modding and V5 federation compatibility",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to create a script to automate updates for bug-bounty-agent across ecosystems",
+      "is:issue is:open bounty created:>=2026-09-16 create script automate",
+      "is:issue is:open bounty created:>=2026-09-16 "
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit a proposal to a government tender with contact details",
+      "hiring a freelancer to submit a proposal to a government tender with contact details",
+      "looking for someone to create a script to automate updates for bug-bounty-agent across ecosystems",
+      "hiring a freelancer to create a script to automate updates for bug-bounty-agent across ecosystems",
+      "need paid help with a proposal for a government RFP with contact details"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 8,
+      "skipped_revisits": 10,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit a proposal to a government tender with contact details",
+        "hiring a freelancer to submit a proposal to a government tender with contact details",
+        "looking for someone to create a script to automate updates for bug-bounty-agent across ecosystems",
+        "hiring a freelancer to create a script to automate updates for bug-bounty-agent across ecosystems",
+        "need paid help with a proposal for a government RFP with contact details"
+      ],
+      "next_query_queue": 1,
+      "frontier_size": 118,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
