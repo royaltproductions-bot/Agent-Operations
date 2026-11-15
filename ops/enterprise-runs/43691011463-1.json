@@ -1,0 +1,120 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T07:43:07.703712+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "duckduckgo": 2,
+      "bing": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 4,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://thorntonandlowe.com/help-with-your-tender-applications-expert-guidance/",
+        "title": "Help With Your Tender Applications: Expert Guidance",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.phoenix.gov/administration/departments/humanservices/about-us/procurement.html",
+        "title": "Doing Business with Human Services | City of Phoenix",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.rfpverse.com/blogs/top-5-freelance-bid-writers-platforms-to-find-experts",
+        "title": "Top 5 Platforms to Find Expert Proposal and RFP Writing Services",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.phoenix.gov/administration/departments/finance/procurement/procurement-vendor-help-center.html",
+        "title": "Procurement Vendor Help Center | City of Phoenix",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.upwork.com/hire/tender-freelancers/",
+        "title": "Best Tender Freelancers for Hire (Nov 2026) - Upwork",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://proposalhelper.com/",
+        "title": "Winning Federal Contracts with ProposalHelper | Proven Proposal ...",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "need paid help with submitting proposal for recent tender with published invitation",
+      "looking for someone to create bid for recent tender with published invitation"
+    ],
+    "attempted_search_queries": [
+      "need paid help with submitting proposal for recent tender with published invitation",
+      "looking for someone to create bid for recent tender with published invitation",
+      "need paid help with submitting bid for recent government procurement with contactable invitation",
+      "can anyone create bid for recent RFP with contactable invitation",
+      "looking for someone to submit proposal for recent tender with published response route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 4,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "need paid help with submitting proposal for recent tender with published invitation",
+        "looking for someone to create bid for recent tender with published invitation",
+        "need paid help with submitting bid for recent government procurement with contactable invitation",
+        "can anyone create bid for recent RFP with contactable invitation",
+        "looking for someone to submit proposal for recent tender with published response route"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
