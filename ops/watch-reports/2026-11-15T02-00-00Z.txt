@@ -1,0 +1,17 @@
+X-Variant Revenue Watch — 2026-11-15T02:00:00Z
+Window UTC: 2026-11-14T18:00:00Z to 2026-11-15T02:00:00Z
+Created: 2026-11-15 approximately 02:02 UTC
+Evidence: GitHub main receipt directories, gambit-state state and budget, workflow source and Actions runs. Counts are enumerated; economic findings for Wolverine/Cyclops are sampled (9 each), not exhaustive.
+
+Wolverine: 82 receipts in window. Nine distributed receipts inspected: 0 external offers, 0 fulfillments, $0 receipt-reported verified revenue, no fatal structural failures in sample. Latest receipt has semantic-review timeout, no verified contactable invitation. Confidence: high receipt count, limited economic coverage.
+Cyclops: 85 receipts. Nine distributed receipts inspected: 0 new assets, 0 external offers, 0 fulfillments, $0 verified revenue in sample. First sampled run invalid draft/timeout; later sampled runs paused_for_distribution under owner_approved_distribution_first_freeze. Four existing product pages, not new window assets; 13 invalid legacy products, 0 payment links disabled in latest receipt. Confidence: high count, limited economic coverage.
+Gambit: 0 standalone lane receipts. Authoritative state last_check and reconciliation 2026-11-15T00:23:17Z. Recent outcomes: two bid_sent entries for same bounty, each payout_cents=800 ($8 ask), one bid_declined, one agent_replied_to_buyer, one decision_disagreement_resolved, one duplicate_clarification_suppressed. Distinct bounty bids: 1, attempts: 2; second bid after decline needs verification. No newly recorded hires, claims, deliverables, acceptances, settlements, or refunds. Durable settlements ledger empty; verified platform payout $0. Conversion and submission success not measurable yet. Latest open-listing count and assessed count not established from these events. Budget on gambit-state: $13.636882 reserved, 354 calls; estimate only, not billing. Workflow schedules four-hour resident watcher, 300-second internal polling; no proof from green workflow of marketplace earnings. Provider-router code exists; real fulfillment not verified. Profile independent evidence unavailable.
+Other lanes: ops directory examined; no other clearly attributable X-variant receipt lane established.
+Economic result: no paid completion verified; do not interpret uninspected receipts as confirmed zero. Stripe bank deposits not checked.
+Errors: sampled Wolverine semantic review timeout, Cyclops draft timeout/distribution freeze; Gambit repeat bid after decline, stale state relative to window end.
+Open improvements:
+G-01 pending: investigate duplicate $8 bid after declined event; reconcile marketplace status and prevent duplicate bid resubmission.
+G-02 pending: verify polling freshness / state checkpoint gap after 00:23Z.
+C-01 pending: verify distribution-first freeze leads to actual external opt-in distribution; resolve invalid legacy payment links.
+W-01 pending: improve verified requester-contact discovery and semantic-review timeout handling.
+Recommendation (highest impact): add bid-state idempotency and decline-aware reconciliation in Gambit worker before another bid attempt; regression-test declined then repeated bid_sent for same bounty. Report-only; no operational changes.
