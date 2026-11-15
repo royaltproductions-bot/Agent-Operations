@@ -1,0 +1,102 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T14:46:25.613331+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 3,
+    "candidates_without_email": 4,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://wifitalents.com/best/most-used-erp-software/",
+        "title": "Finance Financial Services Top 10 Best Most Used ERP Software of 2026 \n Review \u00b7 2026 Top 10 Best Most Used ERP Software",
+        "provider": "followup",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/cloud-computing-erp-software/",
+        "title": "Finance Financial Services Top 10 Best Cloud Computing ERP Software of 2026 \n Review \u00b7 2026 Cloud Computing ERP Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/money-exchange-software/",
+        "title": "Finance Financial Services Top 10 Best Money Exchange Software of 2026 \n Review \u00b7 2026 Money Exchange Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/stock-market-tracking-software/",
+        "title": "Finance Financial Services Top 10 Best Stock Market Tracking Software of 2026 \n Review \u00b7 2026 Stock Market Tracking Soft",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [],
+    "attempted_search_queries": [
+      "looking for someone to submit proposal for 2026 enterprise risk assessment software tender with published contact",
+      "hiring a freelancer to create proposal for 2026 money tracking software procurement with published response route",
+      "need paid help with submitting proposal for 2026 accounting and erp software rfp with published contact",
+      "can anyone create proposal for 2026 managing money software tender with published response route",
+      "submitting proposal for 2026 enterprise seo agency software procurement with published contact route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 1,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit proposal for 2026 enterprise risk assessment software tender with published contact",
+        "hiring a freelancer to create proposal for 2026 money tracking software procurement with published response route",
+        "need paid help with submitting proposal for 2026 accounting and erp software rfp with published contact",
+        "can anyone create proposal for 2026 managing money software tender with published response route",
+        "submitting proposal for 2026 enterprise seo agency software procurement with published contact route"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
