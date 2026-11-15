@@ -1,0 +1,93 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T04:50:33.532470+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 4,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/RSPSApp/tsps/issues/5644",
+        "title": "[Bug]: bounty hunter - skulling system and bot BH drops/inventory",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://github.com/ConcatenaLabs/emissio/issues/77",
+        "title": "own Bitcoin node task: two messages that do not match what is checked",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ConcatenaLabs/sequentia-testnet-ops/issues/249",
+        "title": "btc-peers: a wrong type in the previous file's history stops every later run",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/neomjs/neo/issues/21004",
+        "title": "No SECURITY.md: the private reporting path is unnamed",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-16 "
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit proposal for public tender with published response route",
+      "need paid help with submitting proposal for government contract with published response route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 11,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit proposal for public tender with published response route",
+        "need paid help with submitting proposal for government contract with published response route"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 115,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
