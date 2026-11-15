@@ -1,0 +1,109 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T05:33:13.081962+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 5,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "hn_ask": 2,
+      "github_paid_issues": 3
+    },
+    "source_errors": [],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 4,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=45854963",
+        "title": "ArahiAI \u2013 A no-code platform for building AI agents that take real actions",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=42289569",
+        "title": "Ask HN: How do you deal with feature flag cleanup?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/diclogic/ai-daily-digest/issues/213",
+        "title": "AI Daily Digest \u2014 2026-11-15",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/ttswap/ttswap-core/issues/312",
+        "title": "[BugBounty][High] Fake good with self-declared price drains a real USDT pool via buyGood",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/nisargpatel7042lva/mba-demo/issues/4",
+        "title": "Keyboard navigation between widgets",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create tool for automating compliance documentation for public sector projects",
+      "is:issue is:open bounty created:>=2026-09-16 anyone create tool",
+      "is:issue is:open bounty created:>=2026-09-16 "
+    ],
+    "attempted_search_queries": [
+      "hiring a freelancer to submit bid for government RFP with contactable submission method",
+      "need paid help with submitting proposal for tender with published response route",
+      "can anyone create tool for automating compliance documentation for public sector projects",
+      "search for recent RFP with published invitation to submit proposal",
+      "looking for someone to submit bid for public sector contract with contactable route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 38,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "hiring a freelancer to submit bid for government RFP with contactable submission method",
+        "need paid help with submitting proposal for tender with published response route",
+        "can anyone create tool for automating compliance documentation for public sector projects",
+        "search for recent RFP with published invitation to submit proposal",
+        "looking for someone to submit bid for public sector contract with contactable route"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 115,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
