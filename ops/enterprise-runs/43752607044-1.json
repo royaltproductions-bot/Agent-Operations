@@ -1,0 +1,112 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T19:30:57.388702+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 5,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "bing": 1,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 4,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://www.need.org/",
+        "title": "National Energy Education Development Program \u00b7 National Energy ...",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/product-review-software/",
+        "title": "Consumer Retail Top 10 Best Product Review Software of 2026 \n Review \u00b7 2026 Product Review Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/review-site-software/",
+        "title": "Business Finance Top 10 Best Review Site Software \n Review Review Site Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/keyword-rank-checker-software/",
+        "title": "Marketing Advertising Top 10 Best Keyword Rank Checker Software of 2026 \n Review \u00b7 2026 Keyword Rank Checker Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/seo-engine-optimization-software/",
+        "title": "Marketing Advertising Top 10 Best SEO Engine Optimization Software of 2026 \n Review \u00b7 2026 SEO Engine Optimization Softw",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "need paid help with submitting proposal for 2026 business software software solicitation with published contact route"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit proposal for 2026 systematic review software procurement with published contact",
+      "hiring a freelancer to create proposal for 2026 fingerprint database software tender with published contact",
+      "need paid help with submitting proposal for 2026 business software software solicitation with published contact route",
+      "can anyone create proposal for 2026 serial number database software procurement with published contact",
+      "submitting proposal for 2026 SEO keyword research software RFP with published contact"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 1,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit proposal for 2026 systematic review software procurement with published contact",
+        "hiring a freelancer to create proposal for 2026 fingerprint database software tender with published contact",
+        "need paid help with submitting proposal for 2026 business software software solicitation with published contact route",
+        "can anyone create proposal for 2026 serial number database software procurement with published contact",
+        "submitting proposal for 2026 SEO keyword research software RFP with published contact"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
