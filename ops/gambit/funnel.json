@@ -1,21 +1,21 @@
 {
   "aging_active_bids_days": {
-    "mx713jqgcsevmx5jfgvz6qnmed8j60gv": 0.11789545231481481,
-    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 3.096250325,
-    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 0.890972998611111,
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 7.117044931481482,
-    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 0.890965649074074,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 11.187794075,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 11.157953912962963,
-    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 3.0962572578703704,
-    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 3.9255896074074075,
-    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 0.8909574893518518,
-    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 3.099910544907407,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 11.188644746296296,
-    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 3.0962427671296298,
-    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 3.0962710310185186,
-    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 3.0998963087962963,
-    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 4.958071216203703
+    "mx713jqgcsevmx5jfgvz6qnmed8j60gv": 0.12137610712962964,
+    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 3.0997309798148147,
+    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 0.894453653425926,
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 7.120525586296297,
+    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 0.8944463038888888,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 11.191274729814815,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 11.161434567777778,
+    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 3.0997379126851854,
+    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 3.929070262222222,
+    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 0.8944381441666668,
+    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 3.103391199722222,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 11.192125401111111,
+    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 3.0997234219444443,
+    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 3.099751685833333,
+    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 3.1033769636111113,
+    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 4.961551871018519
   },
   "browser": {
     "completed_job_count": {
@@ -115,9 +115,9 @@
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-14T23:57:06.551080+00:00",
+  "generated_at": "2026-11-15T00:02:07.279656+00:00",
   "market_observation": {
-    "fetched_at": "2026-11-14T23:57:06.545058+00:00",
+    "fetched_at": "2026-11-15T00:02:07.273515+00:00",
     "last_open_count": 60,
     "newest_created_at": "2026-11-14T21:01:47.805000+00:00"
   },
@@ -991,6 +991,11 @@
       "fetched_at": "2026-11-14T23:57:06.545058+00:00",
       "last_open_count": 60,
       "newest_created_at": "2026-11-14T21:01:47.805000+00:00"
+    },
+    {
+      "fetched_at": "2026-11-15T00:02:07.273515+00:00",
+      "last_open_count": 60,
+      "newest_created_at": "2026-11-14T21:01:47.805000+00:00"
     }
   ],
   "median_posting_to_bid_minutes": 10908.021091666666,
@@ -1016,9 +1021,9 @@
   },
   "today": {
     "accepted": 0,
-    "asked": 1,
-    "bids_active": 4,
-    "bids_sent": 4,
+    "asked": 0,
+    "bids_active": 0,
+    "bids_sent": 0,
     "declined": 0,
     "delivered": 0,
     "hired": 0,
@@ -1026,7 +1031,7 @@
     "passed_by_reason": {},
     "retry_pending": 0,
     "sample_excluded": 0,
-    "seen": 2,
+    "seen": 0,
     "settled": 0,
     "settled_cents": 0,
     "withdrawn": 0
