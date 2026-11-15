@@ -1,0 +1,124 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T16:35:02.612427+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "bing": 2,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 6,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://www.snagajob.com/find-jobs/w-groveport,+oh",
+        "title": "Groveport, OH Jobs Paying $19 - $28 per hour - Now Hiring | Snagajob",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://dictionary.cambridge.org/dictionary/english/need",
+        "title": "NEED | English meaning - Cambridge Dictionary",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/change-log-software/",
+        "title": "Technology Digital Media Top 10 Best Change Log Software of 2026 \n Review \u00b7 2026 Change Log Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/print-order-software/",
+        "title": "Digital Products And Software Top 10 Best Print Order Software of 2026 \n Review \u00b7 2026 Print Order Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/inventory-order-management-software/",
+        "title": "Business Finance Top 10 Best Inventory Order Management Software of 2026 \n Review \u00b7 2026 Inventory Order Management Soft",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/spare-parts-management-software/",
+        "title": "Manufacturing Engineering Top 10 Best Spare Parts Management Software of 2026 \n Review \u00b7 2026 Spare Parts Management Sof",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "hiring a freelancer to create proposal for 2026 spare part management software tender with published contact",
+      "need paid help with submitting proposal for 2026 change order software rfp with published contact route"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit proposal for 2026 logistics solutions software procurement with published contact",
+      "hiring a freelancer to create proposal for 2026 spare part management software tender with published contact",
+      "need paid help with submitting proposal for 2026 change order software rfp with published contact route",
+      "can anyone create proposal for 2026 supply planning software procurement with published contact",
+      "submitting proposal for 2026 supplier order management software tender with published contact route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit proposal for 2026 logistics solutions software procurement with published contact",
+        "hiring a freelancer to create proposal for 2026 spare part management software tender with published contact",
+        "need paid help with submitting proposal for 2026 change order software rfp with published contact route",
+        "can anyone create proposal for 2026 supply planning software procurement with published contact",
+        "submitting proposal for 2026 supplier order management software tender with published contact route"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
