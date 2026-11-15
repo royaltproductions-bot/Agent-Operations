@@ -1,0 +1,135 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-15T01:05:54.041644+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 4,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "followup": 3,
+      "hn_ask": 1
+    },
+    "source_errors": [],
+    "fetched_public_pages": 4,
+    "verified_firsthand_problem_pages": 2,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 4,
+    "public_market_sample": [
+      {
+        "url": "https://markdown.org/tools/converters/word-to-md/",
+        "title": "Word \u2192 Markdown",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://markdown.org/tools/converters/image-to-md/",
+        "title": "Image (OCR) \u2192 Markdown",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=45822274",
+        "title": "Ask HN: How do you convert AI-generated Markdown into high-quality PDFs?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://smallpdf.com/blog/convert-pdf-vector-file-without-hassle",
+        "title": "How To Convert a PDF to a Vector File (3 Different Options)\n Need to convert PDF to vector for print or web? We\u2019ll help you prep the file in Smallpdf, then expo",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 4,
+    "search_queries": [
+      "",
+      "convert markdown to pdf with diagrams and tables"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 50,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "convert markdown to pdf with diagrams and tables",
+        "automate excel to markdown conversion with formulas",
+        "generate printable PDF from markdown with code formatting",
+        "downloadable markdown to word converter with table support",
+        "convert PDF to markdown with OCR and table recognition"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 110,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "paused_for_distribution",
+    "reason": "owner_approved_distribution_first_freeze",
+    "pending_stage": "empty"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 4,
+    "product_pages": 4,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 13,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "003c3c67f50b396938ad",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "755a8c931205cd5d956e",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 4,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 4,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
