@@ -1,25 +1,25 @@
 {
   "aging_active_bids_days": {
-    "mx713jqgcsevmx5jfgvz6qnmed8j60gv": 1.0167921720601851,
-    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 3.9951470447453703,
-    "mx75jrevnm0cd1nc5328ahps8x8j8yyf": 0.052776581782407406,
-    "mx75nwyvf4svm7q7a8hngq7v8d8j8s3h": 0.20432088733796297,
-    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 1.7898697183564813,
-    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 8.015941651226852,
-    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 1.7898623688194444,
-    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 12.08669079474537,
-    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 12.056850632708334,
-    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 3.995153977615741,
-    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 4.824486327152778,
-    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 1.7898542090972223,
-    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 3.9988072646527777,
-    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 12.087541466041667,
-    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 3.995139486875,
-    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 3.995167750763889,
-    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 3.998793028541667,
-    "mx7exjhfg5pzjtqgtg8v1s5ze58j8ez4": 0.20092724150462965,
-    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 5.856967935949074,
-    "mx7fy556ex1k9c7jcpzs2fyq2d8j94a6": 0.2042449729861111
+    "mx713jqgcsevmx5jfgvz6qnmed8j60gv": 1.019421206990741,
+    "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97": 3.997776079675926,
+    "mx75jrevnm0cd1nc5328ahps8x8j8yyf": 0.05540561671296296,
+    "mx75nwyvf4svm7q7a8hngq7v8d8j8s3h": 0.20694992226851852,
+    "mx76v3pva0rj63cc8kg4ewcxan8gpcmj": 1.7924987532870371,
+    "mx77kbrqz5859r74m1w2rd4mx98hkxf1": 8.018570686157409,
+    "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4": 1.79249140375,
+    "mx7802nm08nqrb6rhb2kdaygr18gszcr": 12.089319829675926,
+    "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": 12.05947966763889,
+    "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": 3.997783012546296,
+    "mx7a75kn8jtcwkw0yxp53n23e98hzsbs": 4.827115362083333,
+    "mx7ccb9n61fk12phncd2qsa13n8gxj8t": 1.7924832440277778,
+    "mx7ctr3ev01yjxyyznhmcey2jd8hahek": 4.001436299583333,
+    "mx7dam93m4q8spz893n4zfsyzn8hgg6r": 12.090170500972222,
+    "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": 3.997768521805556,
+    "mx7ee81rmhnjzj4h2m9gs07s0s8g9ms3": 3.9977967856944443,
+    "mx7ew77b7hca6jbwzr8g0tjv8x8g8ngd": 4.001422063472222,
+    "mx7exjhfg5pzjtqgtg8v1s5ze58j8ez4": 0.2035562764351852,
+    "mx7f3d5mtppbym4yn59zmgzzw58hw11v": 5.85959697087963,
+    "mx7fy556ex1k9c7jcpzs2fyq2d8j94a6": 0.20687400791666666
   },
   "browser": {
     "completed_job_count": {
@@ -119,13 +119,11 @@
     "settled_cents": 0,
     "withdrawn": 0
   },
-  "generated_at": "2026-11-15T21:31:31.227666+00:00",
+  "generated_at": "2026-11-15T21:35:18.376284+00:00",
   "market_observation": {
-    "fetched_at": "2026-11-15T21:30:18.171487+00:00",
-    "last_checked_at": "2026-11-15T21:31:02.958768+00:00",
+    "fetched_at": "2026-11-15T21:35:18.369871+00:00",
     "last_open_count": 65,
-    "newest_created_at": "2026-11-15T20:12:43.374000+00:00",
-    "newest_posted_at": "2026-11-15T20:12:43.374000+00:00"
+    "newest_created_at": "2026-11-15T20:12:43.374000+00:00"
   },
   "market_observation_history": [
     {
@@ -1545,6 +1543,11 @@
     },
     {
       "fetched_at": "2026-11-15T21:30:18.171487+00:00",
+      "last_open_count": 65,
+      "newest_created_at": "2026-11-15T20:12:43.374000+00:00"
+    },
+    {
+      "fetched_at": "2026-11-15T21:35:18.369871+00:00",
       "last_open_count": 65,
       "newest_created_at": "2026-11-15T20:12:43.374000+00:00"
     }
