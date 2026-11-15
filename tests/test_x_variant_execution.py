@@ -827,6 +827,15 @@ class CyclopsEfficiencyTests(unittest.TestCase):
 if __name__=="__main__":
     unittest.main()
 
+class CommerceRetirementTests(unittest.TestCase):
+    def test_commerce_auto_chain_requires_explicit_reenable(self):
+        from pathlib import Path
+        workflow=Path(".github/workflows/commerce-engine.yml").read_text()
+        self.assertIn("workflow_dispatch:",workflow)
+        self.assertIn("vars.COMMERCE_CHAIN_ENABLED == 'true'",workflow)
+        self.assertIn("gh workflow run commerce-engine.yml --ref main",workflow)
+
+
 class ChainedWorkflowTests(unittest.TestCase):
     def test_revenue_chains_reuse_pending_successor(self):
         for workflow in ("commerce-engine.yml","cyclops-assets.yml"):
