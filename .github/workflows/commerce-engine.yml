@@ -172,7 +172,9 @@ jobs:
           fi
 
       - name: Chain next Commerce Engine run
-        if: always()
+        # P3 retirement: no verified platform-mediated buyer contact by Nov 15.
+        # Preserve manual workflow_dispatch; re-enable only after source repair.
+        if: ${{ always() && vars.COMMERCE_CHAIN_ENABLED == 'true' }}
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
