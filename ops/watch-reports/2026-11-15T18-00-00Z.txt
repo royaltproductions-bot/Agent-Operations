@@ -1,0 +1,19 @@
+ARI Operations — X-Variant 8-hour receipt watch
+Window UTC: 2026-11-15T10:00:00Z to 2026-11-15T18:00:00Z
+Report created: 2026-11-15T17:58:24Z (pre-window-close snapshot; final minutes unobserved)
+Sources: main branch enterprise-runs/cyclops-runs, GitHub Actions; gambit-state branch state.json/openai_budget.json.
+
+Wolverine: 43 standalone receipts matched to completed Actions run IDs (44 Actions starts, one in progress). Sampled receipts: no external offers, no verified requester contacts, no fulfillments, $0 receipt-reported revenue. Research pages found, no verified buyer invitation; semantic-review timeouts, Brave 429, fetch errors. Evidence confidence: high receipt count, sampled economic details.
+Cyclops: 116 standalone receipts matched to completed Actions run IDs (117 Actions starts, one in progress). Sampled receipts: distribution-first production freeze, four historical catalog products, no new products, offers, orders, fulfillments, $0 receipt-reported revenue. 13 invalid legacy products, 0 payment links disabled. Evidence confidence: high receipt count, sampled economic details.
+Gambit: 0 standalone receipts (state-ledger lane). Last state check/reconciliation 2026-11-15T17:53:11Z. Marketplace last observed 64 open listings, not 64 qualified opportunities. 1 unsupported software-deployment pass, 1 missing-evidence evaluation retry, 3 distinct $5 bids at 16:37:18, 16:37:24 and 16:42:11 UTC (total requested $15, not earned). No new recorded hires, claims, submitted deliverables, acceptances, refunds, or completed settlements; settlements ledger empty; verified platform earnings $0, bank deposits unverified. Bid-to-hire and submission success not measurable yet. Watch health 27 successful, 0 failed cycles; resident Actions run in progress. Provider-router and tests exist, but real hired-job execution unverified.
+Budget: 361 calls, $13.945704 internally reserved against $38 monthly workflow cap; not independent billing.
+Additional revenue-specific receipt directories: none conclusively identified in ops root.
+Total: 159 standalone receipts. No verified new earned revenue in inspected evidence. Receipt economic audit sampled, not exhaustive. Green workflows do not imply commercial conversion.
+
+Open improvements:
+G1 pending — investigate proposal_samples_missing and enforce evidence-backed bids; add regression test for missing previews.
+G2 pending — decline-aware idempotency and marketplace bid-status reconciliation, prevent duplicate declined bids.
+W1 pending — focus verified buyer invitation/contact evidence before further repeated generic procurement research.
+C1 pending — fix distribution bottleneck and review 13 invalid legacy payment links under separate authorization.
+G3 unknown — verify provider-router execution and tests in real hired-work context.
+No operational files or marketplace records changed. Archive-only mutation authorized.
