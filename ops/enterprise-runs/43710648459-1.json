@@ -1,0 +1,119 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T11:49:44.770733+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "bing": 2,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      }
+    ],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 5,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 2,
+    "public_source_sample": [
+      {
+        "url": "https://secureframe.com/blog/rfp-process",
+        "title": "What is the RFP Process? A 5-Step Guide + Checklist - Secureframe",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://nppgov.com/open-rfps/",
+        "title": "Open RFPs - NPPGov",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://wifitalents.com/best/accounting-manager-software/",
+        "title": "Business Finance Top 10 Best Accounting Manager Software of 2026 \n Review \u00b7 2026 Accounting Manager Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/purchase-management-software/",
+        "title": "Business Finance Top 10 Best Purchase Management Software of 2026 \n Review \u00b7 2026 Purchase Management Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/account-billing-software/",
+        "title": "Finance Financial Services Top 10 Best Account Billing Software of 2026 \n Review \u00b7 2026 Account Billing Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/invoice-ocr-software/",
+        "title": "Business Finance Top 10 Best Invoice OCR Software of 2026 \n Review \u00b7 2026 Invoice OCR Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "RFP for accounts payable management software with public proposal submission route 2026"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit a proposal for accounts payable automation software RFP 2026",
+      "hiring a freelancer to prepare proposal for accounts payable OCR software procurement with public response channel",
+      "need paid help with submitting proposal to accounts payable automation platform tender 2026",
+      "can anyone create a proposal for accounts payable invoice scanning software procurement with published contact",
+      "RFP for accounts payable management software with public proposal submission route 2026"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 3,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit a proposal for accounts payable automation software RFP 2026",
+        "hiring a freelancer to prepare proposal for accounts payable OCR software procurement with public response channel",
+        "need paid help with submitting proposal to accounts payable automation platform tender 2026",
+        "can anyone create a proposal for accounts payable invoice scanning software procurement with published contact",
+        "RFP for accounts payable management software with public proposal submission route 2026"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
