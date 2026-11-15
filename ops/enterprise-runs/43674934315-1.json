@@ -1,0 +1,116 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T04:03:30.924438+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 8,
+    "source_counts": {
+      "open_web": 8
+    },
+    "search_provider_counts": {
+      "hn_ask": 4,
+      "github_paid_issues": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 8,
+    "candidates_without_email": 8,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=46012153",
+        "title": "Workbass: Free Invoice-Generating Software for Modern Businesses",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=43821259",
+        "title": "How to get an initial user base for a consumer app with no money and no audience",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=9370764",
+        "title": "Ask HN: What to do when you have hit the salary ceiling?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=3394070",
+        "title": "Ask HN: How should programming be taught at university?",
+        "provider": "hn_ask",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/anthropics/claude-code/issues/95758",
+        "title": "How is a company smart enough to build Opus dumb enough to guard it with something my grandma with Alzheimer's could hav",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/sunraymoonbeam/personal-portfolio/issues/12",
+        "title": "Add SECURITY.md",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "need paid help with automating data extraction from public records",
+      "is:issue is:open bounty created:>=2026-09-16 automating data extraction",
+      "is:issue is:open bounty created:>=2026-09-16 "
+    ],
+    "attempted_search_queries": [
+      "looking for someone to create a script for automating compliance report generation",
+      "hiring a freelancer to develop a tool for automating internal compliance processes",
+      "need paid help with automating data extraction from public records",
+      "can anyone create a script to automate invoice processing for small business",
+      "can anyone create a script to automate data validation in public datasets"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 8,
+      "skipped_revisits": 23,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to create a script for automating compliance report generation",
+        "hiring a freelancer to develop a tool for automating internal compliance processes",
+        "need paid help with automating data extraction from public records",
+        "can anyone create a script to automate invoice processing for small business",
+        "can anyone create a script to automate data validation in public datasets"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
