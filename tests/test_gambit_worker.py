@@ -49,6 +49,25 @@ class GambitTests(unittest.TestCase):
             gambit.validate_csv_source_urls(
                 b"company,source_url\nUnknown,https://example.org/unread\n", evidence)
 
+    def test_declined_bid_same_version_never_reposts(self):
+        bounty_id = "declined-case"
+        state = {"bounties": {bounty_id: {"version": 1, "action": "bid_active"}},
+                 "commercial": {}, "recent_outcomes": []}
+        details = {"bounty": {"_id": bounty_id, "version": 1, "status": "open",
+                              "flow": "bid", "title": "Research"},
+                   "bid": {"status": "declined", "id": "bid-1",
+                           "declined_at": "2026-11-15T21:06:58Z"}}
+        with patch.object(gambit, "api", return_value=details) as api, \
+             patch.object(gambit, "remember_details"), \
+             patch.object(gambit, "unsupported_deliverable", return_value=None), \
+             patch.object(gambit, "messages_for", return_value=[]), \
+             patch.object(gambit, "record_owner_activity"):
+            gambit.handle_open({"_id": bounty_id}, state)
+            gambit.handle_open({"_id": bounty_id}, state)
+        self.assertEqual(state["bounties"][bounty_id]["action"], "bid_declined_final")
+        self.assertFalse(any(call.args[1] == "POST" for call in api.call_args_list
+                             if len(call.args) > 1))
+
     def test_stable_idempotency_key(self):
         self.assertEqual(gambit.key('bid', 'x', 2, 500), gambit.key('bid', 'x', 2, 500))
         self.assertNotEqual(gambit.key('bid', 'x', 2, 500), gambit.key('bid', 'x', 3, 500))
@@ -2108,44 +2127,43 @@ class GambitTests(unittest.TestCase):
         self.assertEqual(waiting[0]["_id"], "c1")
         self.assertEqual(active, [])
 
-    def test_declined_bid_passes_owner_feedback_into_reassessment(self):
-        details = {'bounty': {'_id': 'b1', 'status': 'open', 'version': 3, 'flow': 'bid'},
-                   'bid': {'_id': 'oldbid', 'status': 'declined', 'payout_cents': 2400}}
-        state = {'bounties': {'b1': {'action': 'bid_sent'}}, 'recent_outcomes': []}
-        owner_reply = {'author_type': 'user', 'content': {'type': 'text', 'text': 'Can you narrow scope?'}}
-        with patch.object(gambit, 'api', return_value=details), \
-             patch.object(gambit, 'messages_for', return_value=[owner_reply]), \
-             patch.object(gambit, 'assess', return_value={'decision': 'pass'}) as assess:
-            gambit.handle_open({'_id': 'b1'}, state)
-        self.assertEqual(assess.call_args.args[1], [owner_reply])
-        self.assertEqual(state['bounties']['b1']['last_declined_bid'], 'oldbid')
-        self.assertIn('bid_declined', [x['action'] for x in state['recent_outcomes']])
-
-    def test_declined_bid_new_offer_has_new_idempotency_identity(self):
+    def test_declined_bid_answers_buyer_without_rebidding(self):
         details = {"bounty": {"_id": "b1", "status": "open", "version": 3,
-                              "flow": "bid", "title": "Analyze customer report"},
-                   "bid": {"_id": "oldbid", "status": "declined", "payout_cents": 2400}}
+                               "flow": "bid", "title": "Analyze report"},
+                   "bid": {"_id": "oldbid", "status": "declined",
+                           "declined_at": "2026-11-15T21:06:58Z"}}
+        state = {"bounties": {"b1": {"action": "bid_sent", "version": 3}},
+                 "recent_outcomes": [], "commercial": {}}
+        owner_reply = {"_id": "msg1", "author_type": "user",
+                       "created_at": "2026-11-15T21:08:00Z",
+                       "content": {"type": "text", "text": "No thanks"}}
+        def request(path, method="GET", payload=None):
+            return details if method == "GET" else {"ok": True}
+        with patch.object(gambit, "api", side_effect=request) as request_api, \
+             patch.object(gambit, "messages_for", return_value=[owner_reply]), \
+             patch.object(gambit, "respond_to_buyer", return_value={"reply_text": "Understood."}), \
+             patch.object(gambit, "unsupported_deliverable", return_value=None):
+            gambit.handle_open({"_id": "b1"}, state)
+        posts = [call for call in request_api.call_args_list
+                 if len(call.args) >= 2 and call.args[1] == "POST"]
+        self.assertEqual(len(posts), 1)
+        self.assertTrue(posts[0].args[0].endswith("/messages"))
+        self.assertEqual(state["bounties"]["b1"]["action"], "bid_declined_final")
+
+    def test_declined_bid_without_invitation_never_rebids(self):
+        details = {"bounty": {"_id": "b1", "status": "open", "version": 3,
+                               "flow": "bid", "title": "Analyze report"},
+                   "bid": {"_id": "oldbid", "status": "declined",
+                           "declined_at": "2026-11-15T21:06:58Z"}}
         state = {"bounties": {"b1": {"action": "bid_sent", "version": 3}},
                  "recent_outcomes": []}
-        def request(path, method="GET", payload=None):
-            if method == "GET":
-                return details
-            return {"bid": {"status": "active"}}
-        with patch.object(gambit, "api", side_effect=request) as request_api, \
+        with patch.object(gambit, "api", return_value=details) as request_api, \
              patch.object(gambit, "messages_for", return_value=[]), \
-             patch.object(gambit, "assess", return_value={
-                 "decision": "bid", "payout_cents": 2400, "note": ("I propose to analyze the customer report, identify the key findings, and deliver a documented summary with data-backed conclusions.")}):
+             patch.object(gambit, "unsupported_deliverable", return_value=None), \
+             patch.object(gambit, "assess") as assess:
             gambit.handle_open({"_id": "b1"}, state)
-        bids = [call for call in request_api.call_args_list
-                if len(call.args) >= 2 and call.args[1] == "POST"
-                and call.args[0].endswith("/bid")]
-        self.assertEqual(len(bids), 1)
-        sent = bids[0].args[2]
-        self.assertEqual(sent["idempotency_key"],
-                         gambit.key("bid", "b1", 3, 1900, "oldbid"))
-        self.assertNotEqual(sent["idempotency_key"],
-                            gambit.key("bid", "b1", 3, 1900, ""))
-        self.assertEqual(state["bounties"]["b1"]["action"], "bid_active")
+        assess.assert_not_called()
+        self.assertEqual(state["bounties"]["b1"]["action"], "bid_declined_final")
 
     def test_active_bid_answers_new_private_buyer_message_once(self):
         details = {'bounty': {'_id': 'b1', 'status': 'open', 'version': 3, 'flow': 'bid'},
