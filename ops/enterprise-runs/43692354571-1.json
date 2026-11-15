@@ -1,0 +1,95 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T08:00:36.466296+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 4,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://jorpex.com/guides/find-tenders-italy/",
+        "title": "Guides How to Find Government Tenders in Italy\n Italy's public procurement market exceeds \u20ac200 billion annually \u2014 making",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://jorpex.com/guides/find-tenders-spain/",
+        "title": "Guides How to Find Government Tenders in Spain\n Spain is one of the EU's largest public procurement markets, with annual",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://jorpex.com/guides/find-tenders-belgium/",
+        "title": "Guides How to Find Government Tenders in Belgium\n Belgium's public procurement market totals approximately \u20ac50 billion a",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://jorpex.com/guides/find-tenders-poland/",
+        "title": "Guides How to Find Government Tenders in Poland\n Poland is the EU's fastest-growing major procurement market, with annua",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [],
+    "attempted_search_queries": [
+      "looking for someone to submit proposal for recent city of phoenix procurement with published response route",
+      "need paid help with submitting bid for recent government rfp with contactable invitation",
+      "can anyone create bid for recent phoenix city tender with published invitation",
+      "looking for someone to create bid for recent rfp with published response route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit proposal for recent city of phoenix procurement with published response route",
+        "need paid help with submitting bid for recent government rfp with contactable invitation",
+        "can anyone create bid for recent phoenix city tender with published invitation",
+        "looking for someone to create bid for recent rfp with published response route"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
