@@ -1,0 +1,110 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T17:18:46.389096+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      },
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      }
+    ],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 4,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://wifitalents.com/best/automated-ocr-software/",
+        "title": "Business Finance Top 10 Best Automated OCR Software of 2026 \n Review \u00b7 2026 Automated OCR Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/automated-text-messaging-software/",
+        "title": "Communication Media Top 10 Best Automated Text Messaging Software of 2026 \n Review \u00b7 2026 Automated Text Messaging Softw",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/batch-tracking-software/",
+        "title": "Manufacturing Engineering Top 10 Best Batch Tracking Software of 2026 \n Review \u00b7 2026 Batch Tracking Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/industrial-process-simulation-software/",
+        "title": "Manufacturing Engineering Top 10 Best Industrial Process Simulation Software of 2026 \n Review \u00b7 2026 Industrial Process ",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [],
+    "attempted_search_queries": [
+      "looking for someone to submit proposal for 2026 production workflow software rfp with published contact",
+      "hiring a freelancer to create proposal for 2026 batch process software tender with published contact",
+      "can anyone create proposal for 2026 workflow creation software procurement with published contact",
+      "need paid help with submitting proposal for 2026 automated printing software tender with published contact route",
+      "looking for someone to submit proposal for 2026 workflow automation software rfp with published contact"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit proposal for 2026 production workflow software rfp with published contact",
+        "hiring a freelancer to create proposal for 2026 batch process software tender with published contact",
+        "can anyone create proposal for 2026 workflow creation software procurement with published contact",
+        "need paid help with submitting proposal for 2026 automated printing software tender with published contact route",
+        "looking for someone to submit proposal for 2026 workflow automation software rfp with published contact"
+      ],
+      "next_query_queue": 2,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
