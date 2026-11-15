@@ -1804,9 +1804,9 @@ def handle_open(item, state):
             explicit_invite = bool(
                 latest and declined_at and msg_time > declined_at and
                 __import__("re").search(
-                    r"\\b(?:re-?bid|submit (?:a )?(?:revised|new) (?:bid|proposal)|"
+                    r"\b(?:re-?bid|submit (?:a )?(?:revised|new) (?:bid|proposal)|"
                     r"send (?:a )?(?:revised|new) (?:bid|proposal)|"
-                    r"can you do it for \\$?\\d+)", msg_text))
+                    r"can you do it for \$?\d+)", msg_text))
             if not explicit_invite:
                 last_reply_id = previous.get("last_owner_reply_id")
                 if latest:
