@@ -1,0 +1,113 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T09:57:01.762963+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "duckduckgo": 6
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 4,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://www.ebrd.com/home/work-with-us/project-procurement/procurement-notices.html",
+        "title": "Procurement notices | We invest in changing lives - ebrd.com",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.tenderrender.com/en-gb/tender-guides/asian-development-bank",
+        "title": "How does procurement work at the Asian Development Bank?",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://ecepp.ebrd.com/",
+        "title": "Welcome to the EBRD Client e-Procurement Portal (ECEPP) - ECEPP",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.adb.org/business/institutional-procurement/notices",
+        "title": "Institutional Procurement Notices - Asian Development Bank",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.ebrd.com/home/work-with-us/project-procurement.suppliers-hub.html",
+        "title": "Project procurement | We invest in changing lives - ebrd.com",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://cuberfy.com/en/resources/adb-procurement",
+        "title": "ADB Procurement - Asian Development Bank Tenders | Cuberfy",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "looking for someone to submit a proposal to a recent EBRD procurement with published contact",
+      "can anyone create a proposal for a recent Asian Development Bank tender with published invitation and response route"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit a proposal to a recent EBRD procurement with published contact",
+      "can anyone create a proposal for a recent Asian Development Bank tender with published invitation and response route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit a proposal to a recent EBRD procurement with published contact",
+        "can anyone create a proposal for a recent Asian Development Bank tender with published invitation and response route"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
