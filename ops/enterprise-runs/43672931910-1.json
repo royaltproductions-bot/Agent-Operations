@@ -1,0 +1,84 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T03:35:31.547431+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 3,
+    "source_counts": {
+      "open_web": 3
+    },
+    "search_provider_counts": {
+      "github_paid_issues": 3
+    },
+    "source_errors": [],
+    "fetched_public_pages": 3,
+    "candidates_without_email": 3,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://github.com/AlexKollar/Apex/issues/213",
+        "title": "Home is the board only: feed health and the tab set come off the fused Home (field ruling on v0.3.0e \u2014 Build 3)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/nishant/mc-packs/issues/293",
+        "title": "Validation 19478ff (perf/census)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://github.com/nishant/mc-packs/issues/292",
+        "title": "A/A 8a379f9 (perf/w0d-compare A/A)",
+        "provider": "github_paid_issues",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "is:issue is:open bounty created:>=2026-09-16 "
+    ],
+    "attempted_search_queries": [
+      "need paid help with developing a script for automating compliance reports for open-source projects"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 3,
+      "skipped_revisits": 19,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "need paid help with developing a script for automating compliance reports for open-source projects"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
