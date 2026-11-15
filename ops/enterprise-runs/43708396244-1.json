@@ -1,0 +1,112 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T11:21:48.414414+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 5,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "bing": 1,
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 5,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://www.investopedia.com/terms/r/request-for-proposal.asp",
+        "title": "RFP: What a Request for Proposal Is, Requirements, and a Sample",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/accounts-payable-invoice-automation-software/",
+        "title": "Business Finance Top 10 Best Accounts Payable Invoice Automation Software of 2026 \n Review \u00b7 2026 Accounts Payable Invoi",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/account-payable-software/",
+        "title": "Business Finance Top 10 Best Account Payable Software of 2026 \n Review \u00b7 2026 Account Payable Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/account-payable-system-software/",
+        "title": "Business Finance Top 10 Best Account Payable System Software of 2026 \n Review \u00b7 2026 Account Payable System Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/account-receivable-automation-software/",
+        "title": "Business Finance Top 10 Best Account Receivable Automation Software of 2026 \n Review \u00b7 2026 Account Receivable Automatio",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "RFP for invoice processing automation software with public proposal submission route 2026"
+    ],
+    "attempted_search_queries": [
+      "looking for someone to submit a proposal to RFP for invoice processing automation software 2026",
+      "need paid help with tender submission for account payable automation platform with published contact",
+      "can anyone create a proposal for automotive invoicing software procurement with public response channel",
+      "hiring a freelancer to prepare RFP submission for invoice automation tool development 2026",
+      "RFP for invoice processing automation software with public proposal submission route 2026"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 5,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "looking for someone to submit a proposal to RFP for invoice processing automation software 2026",
+        "need paid help with tender submission for account payable automation platform with published contact",
+        "can anyone create a proposal for automotive invoicing software procurement with public response channel",
+        "hiring a freelancer to prepare RFP submission for invoice automation tool development 2026",
+        "RFP for invoice processing automation software with public proposal submission route 2026"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
