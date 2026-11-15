@@ -1,0 +1,102 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T08:13:48.144412+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "query_planner",
+        "reason": "recovered_fresh_public_research_directions"
+      }
+    ],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 2,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://jorpex.com/guides/find-tenders-portugal/",
+        "title": "Guides How to Find Government Tenders in Portugal\n Portugal's public procurement market is valued at approximately EUR 2",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://jorpex.com/guides/how-to-search-ted-tenders/",
+        "title": "Guides How to Search TED for EU Tenders\n TED (Tenders Electronic Daily) publishes over 700,000 EU procurement notices pe",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://jorpex.com/guides/find-tenders-austria/",
+        "title": "Guides Austria Public Procurement Guide\n Austria's public procurement market is worth approximately \u20ac45 billion per year",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://jorpex.com/sources/dtvp/",
+        "title": "Sources German Government Tenders via DTVP\n DTVP (Deutsches Vergabeportal) is Germany\u2019s leading e-procurement platform, ",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [],
+    "attempted_search_queries": [
+      "need paid help submitting bid recent rfp published invitation",
+      "need paid help submitting bid recent city phoenix tender contactable",
+      "looking someone submit bid recent phoenix city procurement published response",
+      "looking someone submit bid recent city phoenix procurement published response",
+      "looking someone create bid recent rfp published response route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "need paid help submitting bid recent rfp published invitation",
+        "need paid help submitting bid recent city phoenix tender contactable",
+        "looking someone submit bid recent phoenix city procurement published response",
+        "looking someone submit bid recent city phoenix procurement published response",
+        "looking someone create bid recent rfp published response route"
+      ],
+      "next_query_queue": 7,
+      "frontier_size": 115,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
