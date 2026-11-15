@@ -1,0 +1,107 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T11:15:34.659752+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 5,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "bing": 1,
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 5,
+    "candidates_without_email": 4,
+    "contactable_sources": 1,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://findrfp.com/",
+        "title": "Government RFP, Federal, State Bids & Contracts, Request for Proposal ...",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://wifitalents.com/best/account-payable-automation-software/",
+        "title": "Business Finance Top 10 Best Account Payable Automation Software of 2026 \n Review \u00b7 2026 Account Payable Automation Soft",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/automotive-invoicing-software/",
+        "title": "Automotive Services Top 10 Best Automotive Invoicing Software of 2026 \n Review \u00b7 2026 Automotive Invoicing Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.linkedin.com/pulse/what-best-rfp-automation-software-2026-sandeep-kumar-1g4dc",
+        "title": "What is the best RFP automation software in 2026?",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.getmaxim.ai/articles/top-5-tools-for-evaluating-llm-powered-applications.md",
+        "title": "https://www.getmaxim.ai/articles/top-5-tools-for-evaluating-llm-powered-applications.md",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "RFP for AI governance tool development with public response channel 2026"
+    ],
+    "attempted_search_queries": [
+      "RFP for AI governance tool development with public response channel 2026",
+      "hiring a freelancer to prepare tender submission for AI agent quality evaluation platform",
+      "looking for someone to produce a paid proposal for AI workflow automation tender 2026",
+      "need paid help with submitting a proposal to AI evaluation platform procurement RFP",
+      "can anyone create a proposal for AI governance platform tender with published contact"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "RFP for AI governance tool development with public response channel 2026",
+        "hiring a freelancer to prepare tender submission for AI agent quality evaluation platform",
+        "looking for someone to produce a paid proposal for AI workflow automation tender 2026",
+        "need paid help with submitting a proposal to AI evaluation platform procurement RFP",
+        "can anyone create a proposal for AI governance platform tender with published contact"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
