@@ -1,0 +1,102 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T14:52:18.511975+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 4,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "followup": 4
+    },
+    "source_errors": [
+      {
+        "source": "requester_semantic_review",
+        "reason": "TimeoutError"
+      }
+    ],
+    "fetched_public_pages": 4,
+    "candidates_without_email": 4,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 0,
+    "public_source_sample": [
+      {
+        "url": "https://wifitalents.com/best/cloud-banking-software/",
+        "title": "Finance Financial Services Top 10 Best Cloud Banking Software of 2026 \n Review \u00b7 2026 Cloud Banking Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/cloud-erp-manufacturing-software/",
+        "title": "Manufacturing Engineering Top 10 Best Cloud ERP Manufacturing Software of 2026 \n Review \u00b7 2026 Cloud ERP Manufacturing S",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/local-government-erp-software/",
+        "title": "Non Profit Public Sector Top 10 Best Local Government ERP Software of 2026 \n Review \u00b7 2026 Local Government ERP Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://wifitalents.com/best/foreign-exchange-software/",
+        "title": "Finance Financial Services Top 10 Best Foreign Exchange Software of 2026 \n Review \u00b7 2026 Foreign Exchange Software",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [],
+    "attempted_search_queries": [
+      "submitting proposal for 2026 financial software procurement with published contact route",
+      "looking for someone to submit proposal for 2026 cloud computing erp software tender with contact",
+      "need paid help with submitting proposal for 2026 money exchange software rfp with published response route",
+      "hiring a freelancer to create proposal for 2026 stock market tracking software procurement with contact",
+      "can anyone create proposal for 2026 financial software tender with published contact route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 0,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "submitting proposal for 2026 financial software procurement with published contact route",
+        "looking for someone to submit proposal for 2026 cloud computing erp software tender with contact",
+        "need paid help with submitting proposal for 2026 money exchange software rfp with published response route",
+        "hiring a freelancer to create proposal for 2026 stock market tracking software procurement with contact",
+        "can anyone create proposal for 2026 financial software tender with published contact route"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
