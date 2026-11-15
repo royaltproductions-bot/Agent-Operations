@@ -1,0 +1,102 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T10:36:22.252454+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 3,
+    "source_counts": {
+      "open_web": 3
+    },
+    "search_provider_counts": {
+      "duckduckgo": 3
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 1,
+    "candidates_without_email": 3,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://govtribe.com/opportunity/federal-contract-opportunity/va-enterprise-artificial-intelligence-support-services-36c10b26q0834",
+        "title": "VA Enterprise Artificial Intelligence Support Services",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.brightspyre.com/jobs/jid/61300",
+        "title": "RFP/KFW/AP/2026/00042: Procurement of Technical Delivery Partner for AI ...",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://govtribe.com/opportunity/federal-contract-opportunity/artificial-intelligence-ai-engineering-services-oaa2600349",
+        "title": "Artificial Intelligence (AI) Engineering Services",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "solicitation artificial intelligence technical support 2026",
+      "tender AI pilot delivery partner 2026"
+    ],
+    "attempted_search_queries": [
+      "tender AI pilot delivery partner 2026",
+      "solicitation artificial intelligence technical support 2026",
+      "looking for someone to submit a proposal to a recent USAC RFP for AI consulting with published response route",
+      "need paid help with tender submission for a recent CASACT AI RFP with published contact",
+      "can anyone create a proposal for a recent USAC AI consulting RFP with published invitation and response route"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 2,
+      "skipped_revisits": 9,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "tender AI pilot delivery partner 2026",
+        "solicitation artificial intelligence technical support 2026",
+        "looking for someone to submit a proposal to a recent USAC RFP for AI consulting with published response route",
+        "need paid help with tender submission for a recent CASACT AI RFP with published contact",
+        "can anyone create a proposal for a recent USAC AI consulting RFP with published invitation and response route"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 114,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
