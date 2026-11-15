@@ -1,0 +1,114 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-15T08:19:48.816492+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "bing": 2,
+      "duckduckgo": 2,
+      "followup": 2
+    },
+    "source_errors": [],
+    "fetched_public_pages": 6,
+    "candidates_without_email": 4,
+    "contactable_sources": 2,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 1,
+    "public_source_sample": [
+      {
+        "url": "https://www.gsa.gov/sell-to-government/step-2-compete-for-a-contract/respond-to-a-solicitation",
+        "title": "Respond to a solicitation - GSA",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.acquisition.gov/far/subpart-15.2",
+        "title": "Subpart 15.2 - Solicitation and Receipt of Proposals and Information ...",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://hudson-bidwriters.com/rfp-services/",
+        "title": "Proposal Writing Services | Global RFP & Bid Support",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://hudson-bidwriters.com/rfp-writing-services/",
+        "title": "RFP Writing Services | Expert RFP Writers for Hire",
+        "provider": "bing",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://jorpex.com/sources/national-portals/",
+        "title": "Sources National Procurement Portals: The Complete Guide to Government Tender Sources Worldwide\n Every country that spen",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://jorpex.com/glossary/cpv-codes/",
+        "title": "Glossary CPV Codes Explained\n CPV (Common Procurement Vocabulary) codes are the official classification system used acro",
+        "provider": "followup",
+        "fetched": true,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "can anyone create bid for recent rfp published invitation with response route",
+      "need paid help with submitting bid recent rfp published invitation"
+    ],
+    "attempted_search_queries": [
+      "can anyone create bid for recent rfp published invitation with response route",
+      "need paid help with submitting bid recent rfp published invitation",
+      "looking for someone to submit bid recent phoenix city procurement published response",
+      "looking for someone to submit bid recent city phoenix procurement published response"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 6,
+      "skipped_revisits": 5,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "can anyone create bid for recent rfp published invitation with response route",
+        "need paid help with submitting bid recent rfp published invitation",
+        "looking for someone to submit bid recent phoenix city procurement published response",
+        "looking for someone to submit bid recent city phoenix procurement published response"
+      ],
+      "next_query_queue": 0,
+      "frontier_size": 117,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
