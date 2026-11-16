@@ -1,0 +1,147 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-16T00:05:57.003296+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 9,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "hn_ask": 3,
+      "bing": 2,
+      "followup": 4
+    },
+    "source_errors": [],
+    "fetched_public_pages": 9,
+    "verified_firsthand_problem_pages": 3,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 9,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=21441764",
+        "title": "Ask HN: How would you grow this product?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://support.microsoft.com/en-us/windows/hardware/printer/view-a-printer-s-print-queue-in-windows",
+        "title": "View a printer's print queue in Windows | Microsoft Support",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.convertapi.com/blog/css-pagebreaks",
+        "title": "Page Breaks in HTML to PDF Conversion\n Our HTML to PDF converter provides an alternative solution for generating beautiful PDFs with dynamic content layouts, wi",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=43704846",
+        "title": "Ask HN: Built a SaaS API, but struggling with traction \u2013 advice?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=2026662",
+        "title": "Ask HN: APIs to reliably convert any document to HTML?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.vistaprint.com/",
+        "title": "VistaPrint Official Website: Online Printing Services",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 9,
+    "search_queries": [
+      "convert HTML to PDF without API",
+      "print to PDF without Microsoft Office",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 10,
+      "skipped_revisits": 55,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "convert HTML to PDF without API",
+        "downloadable Excel to PDF converter",
+        "paid PDF to Excel converter tool",
+        "print to PDF without Microsoft Office",
+        "convert DOCX to PDF online for free"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "paused_for_distribution",
+    "reason": "owner_approved_distribution_first_freeze",
+    "pending_stage": "empty"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 4,
+    "product_pages": 4,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 13,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "003c3c67f50b396938ad",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "755a8c931205cd5d956e",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 4,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 9,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
