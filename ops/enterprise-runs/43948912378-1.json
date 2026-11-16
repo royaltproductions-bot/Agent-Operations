@@ -1,0 +1,137 @@
+{
+  "schema_version": 2,
+  "engine": "autonomous_revenue_engine",
+  "timestamp": "2026-11-16T20:23:59.197446+00:00",
+  "model": "qwen3:8b",
+  "fulfillment": [],
+  "discovery": {
+    "candidate_count": 6,
+    "source_counts": {
+      "open_web": 6
+    },
+    "search_provider_counts": {
+      "duckduckgo": 5,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "open_web_search",
+        "provider": "brave",
+        "reason": "HTTPError",
+        "http_code": 429
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "ValueError"
+      },
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 3,
+    "candidates_without_email": 6,
+    "contactable_sources": 0,
+    "linked_requester_contacts": 0,
+    "potential_invitation_signals": 3,
+    "public_source_sample": [
+      {
+        "url": "https://alicelabs.ai/en/insights/ai-consulting-rfp-template",
+        "title": "AI Consulting RFP Template: Request for Proposal Guide 2026",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://www.thefreedictionary.com/submitting",
+        "title": "Submitting - definition of submitting by The Free Dictionary",
+        "provider": "bing",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://www.iie.org/wp-content/uploads/2026/05/Custom-Application-Development-and-Artificial-Intelligence-AI-Services-RFP.pdf",
+        "title": "PDF Request for Proposals (RFP)",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://opportunitydesk.org/2026/10/15/rockefeller-foundation-cities-deliver-ai-solutions-for-public-services-2026/",
+        "title": "Call for Proposals - Rockefeller Foundation Cities Deliver: AI ...",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": true
+      },
+      {
+        "url": "https://grantedai.com/grants/cities-deliver-ai-solutions-for-public-services-2026-call-for-proposals-by-the-rockefeller-647a97c7",
+        "title": "Cities Deliver: AI Solutions for Public Services 2026 Call for ...",
+        "provider": "duckduckgo",
+        "fetched": true,
+        "invitation_in_source": false
+      },
+      {
+        "url": "https://govtribe.com/opportunity/federal-contract-opportunity/usac-rfp-artificial-intelligence-ai-consulting-and-support-services-it26139",
+        "title": "USAC RFP: Artificial Intelligence (AI) Consulting and Support Services",
+        "provider": "duckduckgo",
+        "fetched": false,
+        "invitation_in_source": false
+      }
+    ],
+    "search_queries": [
+      "request for proposals artificial intelligence consulting 2026",
+      "submitting proposal for 2026 HR workforce management software solicitation with published contact",
+      "RFP AI implementation services proposal deadline 2026"
+    ],
+    "attempted_search_queries": [
+      "request for proposals artificial intelligence consulting 2026",
+      "RFP AI implementation services proposal deadline 2026",
+      "looking for someone to submit proposal for 2026 virtual career fair software RFP with published contact",
+      "need paid help with submitting proposal for 2026 staffing agencies software tender with published contact",
+      "submitting proposal for 2026 HR workforce management software solicitation with published contact"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/wolverine.json",
+      "new_pages_this_run": 3,
+      "skipped_revisits": 4,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "request for proposals artificial intelligence consulting 2026",
+        "RFP AI implementation services proposal deadline 2026",
+        "looking for someone to submit proposal for 2026 virtual career fair software RFP with published contact",
+        "need paid help with submitting proposal for 2026 staffing agencies software tender with published contact",
+        "submitting proposal for 2026 HR workforce management software solicitation with published contact"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 120,
+      "known_pages": 1800
+    }
+  },
+  "offer": null,
+  "external_action": null,
+  "structural_failures": [],
+  "commercial_outcomes": [
+    {
+      "reason": "no_verified_contactable_buyer_invitation"
+    }
+  ],
+  "economic_result": {
+    "new_offers_sent": 0,
+    "qualified_external_contacts": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_autonomous_revenue_cents_seen": 0
+  },
+  "operational_assessment": {
+    "commercial_progress": false,
+    "candidate_pages_with_invitation_and_email": 0,
+    "blocked_search_providers": [
+      "brave"
+    ],
+    "primary_bottleneck": "no_contactable_buyer_invitation"
+  }
+}
