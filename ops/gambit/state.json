@@ -1255,7 +1255,8 @@
       "ph7ddjaeppcg4gv627da7rm8b58j9bmk",
       "ph71wqqegw6p80x6xeqyv5k4898j8hdc",
       "ph75x64nqbysnbgwzj2p6m4q6s8j87n1",
-      "ph78cw47dkfwv8e3h63nhgdhx98j8d12"
+      "ph78cw47dkfwv8e3h63nhgdhx98j8d12",
+      "ph710n78r14bsyvnk897ded0718jbasf"
     ],
     "event_types": {
       "bounty.available": {
@@ -1281,14 +1282,14 @@
         "last_seen": "2026-11-08T20:44:12.972222+00:00"
       },
       "work.message.created": {
-        "count": 3,
+        "count": 4,
         "data_keys": [
           "bounty_id",
           "message",
           "message_id"
         ],
         "first_seen": "2026-11-06T15:41:33.227224+00:00",
-        "last_seen": "2026-11-14T21:06:56.490629+00:00"
+        "last_seen": "2026-11-16T08:40:09.109406+00:00"
       }
     },
     "model_budget": {
@@ -4700,8 +4701,10 @@
   "last_check": "2026-11-16T08:21:14.742636+00:00",
   "market_observation": {
     "fetched_at": "2026-11-16T08:40:05.565181+00:00",
+    "last_checked_at": "2026-11-16T08:40:08.649585+00:00",
     "last_open_count": 65,
-    "newest_created_at": "2026-11-15T20:12:43.374000+00:00"
+    "newest_created_at": "2026-11-15T20:12:43.374000+00:00",
+    "newest_posted_at": "2026-11-15T20:12:43.374000+00:00"
   },
   "market_observation_history": [
     {
