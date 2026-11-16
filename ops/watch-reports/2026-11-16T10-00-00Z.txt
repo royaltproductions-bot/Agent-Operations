@@ -1,0 +1,17 @@
+ARI X-Variant Receipt Watch — 2026-11-16T10:00:00Z
+Window UTC: 2026-11-16T02:00:00Z to 2026-11-16T10:00:00Z
+Created UTC: 2026-11-16T10:25:05Z (approximate inspection time; clock from automation context)
+
+Wolverine (main, ops/enterprise-runs): 1 receipt, run 43819612142. Four pages fetched, zero contactable invitations, offers, external actions, fulfillments, or verified revenue ($0). Semantic-review TimeoutError and Brave HTTP 429; workflow success is not a sale. Confidence high (single receipt fully read).
+Cyclops (main, ops/cyclops-runs): 102 receipts matched to successful Actions runs. Earliest, middle and latest inspected; zero new assets, offers, external actions, orders, fulfillments, or receipt-reported verified revenue in inspected samples. Production paused_for_distribution; four historical products; 13 invalid legacy products and zero payment links disabled. No opt-in outlets; no-new-eligible-public-pages research errors. Confidence high for counts, limited for economic conclusions (sampled 3/102).
+Gambit (gambit-state): zero standalone receipts; one successful resident Actions run, 44 successful cycles and zero failed cycles as of 10:19:56Z. Last check/reconciliation 10:11:25Z (after window); last observed market 65 open listings at 10:15Z (after window). Retained recent_outcomes in window: three agent_replied_to_buyer events on same bounty at 08:40, 09:15, 09:40Z. No new bids, asks, passes, hires, claims, deliverables, acceptances, verification failures, unsupported-bid withdrawals, refunds, or settlements in retained history; settlement ledger empty, $0 platform earned, bank deposits unverified. Assessments and job counts within window not measurable; conversion/submission success not measurable yet. Provider router and tests present, no hired-work execution verified. Public profile inaccessible. Confidence high for retained outcomes and ledger, limited for complete marketplace history.
+Estimated November model reservations: $14.038666, 365 calls (gambit-state/openai_budget.json); not actual invoice.
+Other lane-specific run directories exist (external-intelligence-runs, gha-runs, refiner-runs, scout-runs) but do not clearly establish additional revenue X-variants for this window.
+
+Open improvements:
+WOL-SEARCH-01 pending: prioritize source evidence of live paid buyer invitation; reduce non-buyer comparison-page retrieval and handle Brave 429.
+CYC-DIST-01 pending: investigate why distribution-first freeze yields repeated green receipts with no opt-in outlets; keep production freeze unchanged during audit.
+CYC-CHECKOUT-01 pending: reconcile 13 invalid legacy products and zero disabled payment links.
+GAM-BID-01 pending: prevent same-version declined bid resubmission; regression-test reconciliation.
+GAM-REPLY-01 pending: deduplicate repeated replies to same bounty when no new buyer event/version exists.
+No operational mutations or external commercial actions were performed by this report.
