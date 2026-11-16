@@ -2599,3 +2599,19 @@ class ClaudeNov13CompletionTests(unittest.TestCase):
         self.assertFalse(any(len(call.args) > 1 and call.args[1] == 'POST'
                              for call in api.call_args_list))
 
+
+class ProposalBriefFallbackTests(unittest.TestCase):
+    def test_brief_outline_is_truthful_and_long_enough(self):
+        details={"title":"Build CSV normalization script",
+                 "description":"Normalize buyer-provided CSV files, validate column headers and provide tests."}
+        outline=gambit.proposal_brief_excerpt(details)
+        self.assertGreaterEqual(len(outline),80)
+        self.assertIn("not a completed sample",outline)
+        self.assertIn("CSV normalization script",outline)
+
+    def test_missing_evidence_no_longer_blocks_bidding(self):
+        source=Path("tools/gambit_worker.py").read_text()
+        start=source.index('if not plain and decision.get("_requires_web") and len(sample_rows) < 2:')
+        end=source.index('if not plain and static_site_eligible(details)',start)
+        self.assertNotIn("schedule_evaluation_retry",source[start:end])
+        self.assertIn("proposal_brief_outline_sent",source)
