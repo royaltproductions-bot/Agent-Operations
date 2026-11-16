@@ -2203,7 +2203,7 @@ def handle_open(item, state):
                     bid_note += sample_text
             if plain:
                 outline = proposal_brief_excerpt(details)
-                bid_note = bid_note[:1100] + "\\n" + outline
+                bid_note = bid_note[:1100] + "\n" + outline
             proof = str(decision.get("sample_source_url") or "").strip()
             proof_line = "\nPublic source reviewed: " + proof
             if proof and proof not in bid_note and len(bid_note) + len(proof_line) <= 2000:
