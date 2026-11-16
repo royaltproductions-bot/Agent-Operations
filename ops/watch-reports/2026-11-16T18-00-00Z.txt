@@ -1,0 +1,19 @@
+ARI Operations — X-Variant 8-hour receipt watch
+Window UTC: 2026-11-16 10:00:00 to 2026-11-16 18:00:00 (end exclusive)
+Created: 2026-11-16 ~18:01 UTC
+Sources: main branch ops/enterprise-runs, ops/cyclops-runs, recursive tree, GitHub Actions; gambit-state branch ops/gambit/state.json and openai_budget.json; main gambit workflow/provider-router.
+Wolverine: 0 receipts within window. Last receipt 2026-11-16T06:53:04Z (outside window); no window-specific offers/assets/fulfillments/revenue verified. Latest prior receipt had 4 pages, 0 buyer invitations, Brave HTTP 429 and semantic review timeout. Evidence confidence high for zero receipt count; no new commercial outcome established.
+Cyclops: 54 new receipt files matched to 54 successful workflow runs; 1 failed workflow with no receipt (run 43871465359), 1 in-progress run without receipt at cutoff (43912200223). Four representative receipts inspected; all report paused_for_distribution, catalog unchanged at 4 products, no external action, no fulfillment, 0 new assets/offers/revenue. Legacy checkout: 13 invalid products, 0 payment links disabled. One sampled receipt identifies an external third-party SaaS sales story, not a Cyclops sale. Confidence high receipt count, sampled commercial outcomes only; not exhaustive across all 54.
+Gambit: 0 standalone receipt files. gambit-state last_check 2026-11-16T10:11:25Z; last_bid_reconciliation 10:11:25Z; watch_health last 10:19:56Z, 44 successful and 0 failed cycles (historical run 43818278238). Last marketplace observation 10:15:11Z, 65 open TryBounty listings; 1 BountyBoard listing observed, bidding_status operator_reconciliation_required. No new outcomes timestamped in 10:00-18:00Z retained recent_outcomes; 0 newly evidenced questions, bids, declines, hires, claims, submissions, verifications, acceptances, withdrawals, refunds or settlements. Durable settlements ledger empty; 0 platform-completed payout cents. The state is stale for most of window, so activity after 10:19Z is unverified. Bid-to-hire and submission success not measurable yet. Provider router tools/gambit_resources.py exists; live hired-job execution unverified. Public profile inaccessible. Workflow configured resident 4-hour blocks, 300-second polling. Budget gambit-state openai_budget.json: 365 calls, $14.038666 reserved against $38 monthly workflow limit; not actual invoice or bank deposit.
+Other X-variant receipt lanes: no additional identifiable lane-specific receipt directory found in main recursive tree.
+Economic result: no newly verified paid completion; $0 receipt-reported in sampled Cyclops files, no Wolverine window receipts, no Gambit platform settlements. Do not interpret 54 green runs as sales.
+Errors: Cyclops workflow failure 43871465359, in-progress 43912200223; Gambit checkpoint stale; TryBounty public profile unavailable; sample-based Cyclops economic inspection.
+Open improvements:
+XW-01 [pending] Wolverine buyer discovery: filter actual requester invitations before semantic review; reduce search provider 429/timeout failures.
+XC-01 [pending] Cyclops opt-in distribution discovery while freeze is active; do not confuse third-party SaaS pricing with own offers.
+XC-02 [pending] Cyclops legacy checkout safety: investigate 13 invalid products with zero disabled links.
+XC-03 [unknown] Investigate failed Cyclops Actions run 43871465359; exact failure cause not inspected.
+XG-01 [pending] Verify Gambit resident watcher scheduling and state checkpoint freshness after 10:19Z, without triggering runs; add alerting for missed checkpoints.
+XG-02 [pending] Reconcile decline/rebid event idempotency and buyer reply event versions; provider-router live execution remains unverified.
+Spending: Gambit estimated model reservation $14.04 month-to-date, 365 calls; no independent billing verification. Other lane spend unknown.
+Only permitted mutation: creation of this immutable archive file on main. No operational modifications.
