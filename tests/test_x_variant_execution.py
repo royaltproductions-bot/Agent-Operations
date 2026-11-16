@@ -832,6 +832,7 @@ class CommerceRetirementTests(unittest.TestCase):
         from pathlib import Path
         workflow=Path(".github/workflows/commerce-engine.yml").read_text()
         self.assertIn("workflow_dispatch:",workflow)
+        self.assertNotIn("  schedule:",workflow)
         self.assertIn("vars.COMMERCE_CHAIN_ENABLED == 'true'",workflow)
         self.assertIn("gh workflow run commerce-engine.yml --ref main",workflow)
 
