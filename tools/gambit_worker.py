@@ -567,6 +567,23 @@ def capture_new_details(state, waiting):
             continue
 
 
+def proposal_brief_excerpt(details):
+    """Honest brief-derived outline, not a fabricated completed work sample."""
+    if isinstance(details, dict):
+        source = " ".join(str(details.get(k) or "") for k in
+                          ("title", "description", "requirements", "instructions"))
+    else:
+        source = str(details or "")
+    source = re.sub(r"\s+", " ", source).strip()[:350]
+    if len(source) < 24:
+        source = "the scope and acceptance criteria stated in the buyer's bounty brief"
+    return ("Proposed deliverable outline (not a completed sample): "
+            "1. Confirm the requested scope against the buyer's brief. "
+            "2. Produce the requested output and check correctness. "
+            "3. Validate the result against the acceptance criteria. "
+            "Brief scope: " + source)[:900]
+
+
 EVIDENCE_ERRORS = {"proposal_samples_missing", "proposal_preview_not_ready",
                    "proposal_excerpt_missing", "proposal_samples_over_length"}
 
@@ -2149,16 +2166,11 @@ def handle_open(item, state):
             plain = bool(decision.get("_plain_fallback"))
             sample_rows = [] if plain else decision.get("_sample_rows") or []
             if not plain and decision.get("_requires_web") and len(sample_rows) < 2:
-                if payout < 2500 or int(previous.get("evidence_failures") or 0) >= 1:
-                    plain = True
-                    decision["_plain_fallback"] = True
-                    sample_rows = []
-                    note(state, "proposal_sample_fallback", bounty_id,
-                         reason="proposal_samples_missing")
-                else:
-                    schedule_evaluation_retry(state, bounty_id,
-                                              ValueError("proposal_samples_missing"))
-                    return
+                plain = True
+                decision["_plain_fallback"] = True
+                sample_rows = []
+                note(state, "proposal_sample_fallback", bounty_id,
+                     reason="proposal_samples_missing")
             if not plain and static_site_eligible(details) and website_capable():
                 preview = produce_website(details, messages, sources=sources)
                 if preview.get("status") != "ready":
@@ -2174,25 +2186,24 @@ def handle_open(item, state):
                 # not fabricated externally researched rows.
                 excerpt = str(decision.get("sample_excerpt") or "").strip()
                 if not excerpt and "_research_status" in decision:
-                    if payout < 2500 or int(previous.get("evidence_failures") or 0) >= 1:
-                        plain = True
-                        decision["_plain_fallback"] = True
-                        note(state, "proposal_sample_fallback", bounty_id,
-                             reason="proposal_excerpt_missing")
-                    else:
-                        schedule_evaluation_retry(state, bounty_id,
-                                                  ValueError("proposal_excerpt_missing"))
-                        return
+                    plain = True
+                    decision["_plain_fallback"] = True
+                    note(state, "proposal_sample_fallback", bounty_id,
+                         reason="proposal_excerpt_missing")
                 if excerpt:
                     bid_note += "\nPreliminary sample: " + excerpt
             if sample_rows:
                 sample_text = "\nSample rows (preliminary):\n" + "\n".join(sample_rows)
                 if len(bid_note) + len(sample_text) > 2000:
-                    schedule_evaluation_retry(state, bounty_id, ValueError("proposal_samples_over_length"))
-                    return
-                bid_note += sample_text
+                    plain = True
+                    sample_rows = []
+                    note(state, "proposal_sample_fallback", bounty_id,
+                         reason="proposal_samples_over_length")
+                else:
+                    bid_note += sample_text
             if plain:
-                bid_note += "\nI can prepare a preliminary sample on request."
+                outline = proposal_brief_excerpt(details)
+                bid_note = bid_note[:1100] + "\\n" + outline
             proof = str(decision.get("sample_source_url") or "").strip()
             proof_line = "\nPublic source reviewed: " + proof
             if proof and proof not in bid_note and len(bid_note) + len(proof_line) <= 2000:
@@ -2209,7 +2220,7 @@ def handle_open(item, state):
                                    proposal=bid_note, payout=payout, submitted_at=timestamp())
             action = "bid_active"
             if plain:
-                note(state, "proposal_sent_without_sample", bounty_id)
+                note(state, "proposal_brief_outline_sent", bounty_id)
             note(state, "bid_sent", bounty_id, payout_cents=payout, version=version)
     elif action == "claim" and current.get("flow") == "claim":
         result = api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/claims", "POST",
