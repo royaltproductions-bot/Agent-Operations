@@ -1,0 +1,16 @@
+ARI X-Variant 8-hour scoreboard
+Window UTC: 2026-11-15T18:00:00Z to 2026-11-16T02:00:00Z
+Report created: 2026-11-16 approximately 01:59 UTC (pre-close snapshot)
+Evidence: main receipt directories matched against GitHub Actions run IDs; gambit-state state and budget.
+Wolverine: 10 receipts; 2 individually inspected. No outbound offers, fulfillment or verified revenue in inspected receipts. Buyer invitation discovery failed; semantic-review TimeoutError in latest sample. Full 10-receipt economic audit not completed.
+Cyclops: 115 receipts; 2 individually inspected. Production paused for distribution; four historical listed products; no new assets, offers, orders or verified revenue in inspected receipts. 13 invalid legacy products, zero disabled links. Full 115-receipt economic audit not completed.
+Gambit: zero standalone receipts; 65 open listings last observed; qualified assessments unestablished; one $12 bid sent at 20:15 UTC after proposal_excerpt_missing fallback, without sample; no other retained new actions. No confirmed hires, claims, deliverables, verification failures, acceptances, refunds or completed settlements. Settlement ledger empty; bank deposits unverified. Bid-to-hire and submission success not measurable yet. Last check/reconciliation 01:51:50 UTC; watcher 25 successful/0 failed cycles. Workflow run in progress.
+Spending: 362 model calls; $13.987242 internally reserved in November vs $38 configured limit; not independent billing.
+Other receipt lanes: scout-runs, external-intelligence-runs and refiner-runs examined; no new identifiable revenue X-variant receipt directory.
+Evidence confidence: high for run-ID receipt counts and Gambit state, limited for Wolverine/Cyclops commercial outcome due to sampled receipt contents; pre-close snapshot.
+Open improvements:
+G-01 pending: enforce valid proposal samples before bidding; prevent unsupported fallback.
+W-01 pending: improve actual buyer-invitation discovery and reduce generic comparison-site results.
+C-01 pending: resolve distribution freeze and opt-in outlet discovery.
+C-02 pending: investigate 13 invalid legacy checkout links, zero disabled.
+No operational mutation performed.
