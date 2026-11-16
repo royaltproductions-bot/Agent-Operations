@@ -1,8 +1,7 @@
 name: Commerce Engine
 on:
-  schedule:
-    # Fallback only. Each completed run queues its successor below.
-    - cron: '23 */6 * * *'
+  # P3 retirement: both automatic cron and self-chain disabled until a verified
+  # platform-mediated buyer source is restored. Manual dispatch remains available.
   push:
     branches: [main]
     paths:
