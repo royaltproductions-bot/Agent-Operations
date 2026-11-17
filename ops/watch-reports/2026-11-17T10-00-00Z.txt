@@ -1,0 +1,17 @@
+ARI X-Variant 8-hour receipt watch
+Window UTC: 2026-11-17T02:00:00Z to 2026-11-17T10:00:00Z (snapshot near 09:59Z; last minutes unobserved)
+Created UTC: 2026-11-17T09:59:00Z
+Evidence: GitHub main Actions and operational receipts; gambit-state branch authoritative Gambit state/budget.
+Wolverine: 0 new receipts (main enterprise-runs latest 2026-11-16T20:23:59Z); no window actions or verified earnings evidenced. Confidence high on absence from directory.
+Cyclops: 108 completed successful Actions runs and 1 in progress during window; receipt directory GitHub contents capped at 1000 historical entries, so exact receipt count unverified. Three workflow-matched receipts sampled: paused_for_distribution, 0 new assets, 0 external actions, 0 fulfillments, no revenue reported. Catalog 4 historical products. 13 invalid legacy products and 0 payment links disabled. Confidence high on Actions counts, limited on full receipt economics.
+Gambit: 0 standalone receipts. gambit-state recent_outcomes within window: 1 bid_sent at 03:34:11Z for $28 proposed payout; 1 proposal_brief_outline_sent, 2 evaluation retries (openai_incomplete_output; proposal_preview_not_ready), 1 evidence block, 1 evaluation_abandoned legacy_retry_limit, 1 fallback requeue. 66 open listings last observed at 06:33Z (not qualified assessments). No new recorded buyer questions, hires, claims, deliveries, acceptances, refunds or withdrawals. Settlements empty: $0 verified platform payout, bank deposits unverified. last_check 06:34:23Z, last_bid_reconciliation 06:34:23Z, watch_health 06:37:56Z: 43 successful cycles, 1 failed. Actions run succeeded but 3h20m checkpoint gap before window end. BountyBoard 1 listing observed; bidding operator_reconciliation_required. Bid-to-hire and submission success not measurable yet. Model budget 370 calls, $14.213570 internally reserved of $38, not bank-billed cost. Provider router and tests present, hired-work execution unverified. Public TryBounty profile not independently confirmed.
+Other variant lanes: no additional clearly identified revenue X-variant receipt directory in ops listing.
+Economics: no confirmed paid completions or fulfillments in inspected evidence. Workflow green is not revenue.
+Errors/limitations: Cyclops directory truncated at 1000; economic receipts sampled; Gambit checkpoint stale, profile unverified; window not fully elapsed at snapshot.
+Open improvements:
+GAMBIT-01 pending: fix resident watcher state checkpoint freshness and record cycle failure reason.
+GAMBIT-02 pending: ensure proposal preview evidence before bid, avoid unverified outline fallback.
+CYCLOPS-01 pending: resolve distribution-first freeze via authorized workflow refinement, not watchdog.
+CYCLOPS-02 pending: disable invalid legacy payment links via separately authorized implementation.
+WOLVERINE-01 pending: improve qualified requester discovery and rate-limit resilience.
+Recommendations: prioritize Gambit last_check/last_bid_reconciliation persistence and failed-cycle diagnostics in tools/gambit_watch.py with tests; inspect Cyclops distribution freeze and legacy checkout separately. This watchdog made no operational changes.
