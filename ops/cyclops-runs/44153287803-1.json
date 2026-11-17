@@ -1,0 +1,144 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-17T18:59:02.432477+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 13,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 13
+    },
+    "search_provider_counts": {
+      "hn_ask": 8,
+      "followup": 4,
+      "bing": 1
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "HTTPError"
+      }
+    ],
+    "fetched_public_pages": 12,
+    "verified_firsthand_problem_pages": 5,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 12,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=46975121",
+        "title": "ArXiv Endorsement for Paper on Neuro-Symbolic Architecture for Financial Agents",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=43331739",
+        "title": "Two sales in 24 hours \u2013 Did I make something cool?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44780249",
+        "title": "Tell HN: I'm tired of formulaic, \"LLM house style\" show HN submissions",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://submitsaas.com/easy-submission-directories",
+        "title": "Easy Submission Directories",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://submitsaas.com/best-ai-directories",
+        "title": "best AI directories",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=47108710",
+        "title": "Forgelink Is Here",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 11,
+    "search_queries": [
+      "how to submit to ai tools directory for free",
+      "ai tool submission software with pricing",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 21,
+      "skipped_revisits": 16,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "how to submit to ai tools directory for free",
+        "ai tool submission software with pricing",
+        "best directory submission tools for ai products",
+        "ai tools directory submission guide"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 104,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 4
+  },
+  "production": {
+    "result": "paused_for_distribution",
+    "reason": "owner_approved_distribution_first_freeze",
+    "pending_stage": "empty"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 4,
+    "product_pages": 4,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 13,
+    "disabled_payment_links": 0
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "source_url": "https://tooldirs.com/submit",
+    "asset_id": "5e498a5f78be3dd053f8",
+    "score": 1
+  },
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "003c3c67f50b396938ad",
+      "valid_public_invitations": 1,
+      "relevant_opt_in_outlets": 1,
+      "search_issues": []
+    },
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 2,
+      "relevant_opt_in_outlets": 2,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": true,
+    "commercial_state": "new_opt_in_distribution",
+    "indexable_product_pages": 4,
+    "new_distribution_outlets": 3,
+    "production_progress": false,
+    "public_sources_reviewable": 12,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "none"
+  }
+}
