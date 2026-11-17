@@ -1,0 +1,21 @@
+ARI X-Variant 8-hour revenue scoreboard
+Window UTC: 2026-11-17 10:00:00 to 18:00:00
+Created UTC: 2026-11-17 approximately 18:05 (post-window review)
+Evidence: GitHub main tree and Actions runs, Gambit gambit-state branch; read-only operational inspection.
+
+Wolverine: 0 new receipts in ops/enterprise-runs; latest file 43948912378-1.json predates window. No new verified offers, fulfillments or revenue evidenced. Current-window structural health unknown; previous Brave HTTP 429/page fetch errors. Confidence HIGH for zero receipts, LIMITED for off-platform economic outcomes.
+
+Cyclops: 109 receipts matched to 109 successful Actions runs (created in window). Representative receipts report paused_for_distribution, zero new assets/offers/orders/paid cents, 4 historical listed products, 13 invalid legacy products, 0 disabled payment links, no new opt-in distribution. No new verified paid revenue in samples. Confidence HIGH receipt count, LIMITED commercial outcome due sampling.
+
+Gambit: 0 standalone receipts. Authoritative gambit-state recent_outcomes in window: 1 pass_unsupported(video_production), 1 bid_sent ($5 payout ask; active; posted bounty budget $5). 68 open listings last observed, not 68 assessed. No new buyer questions, declines, withdrawals, claim refunds, hires, claims, submissions, verification failures, acceptances or settlements in retained outcomes; settlements ledger empty, verified platform completed payout $0. Bid-to-hire and submission success not measurable yet. Last_check and last_bid_reconciliation 17:08:55Z; watcher health 17:12:23Z 44 successful/0 failed cycles; one green Actions run does not prove continuous coverage. Public TryBounty profile inaccessible. tools/gambit_resources.py and tests/test_gambit_resources.py present; real hired-work execution unverified. November model budget 372 calls, estimated reserved $14.272962 against $38 monthly configuration; not a bank or invoice figure. Confidence HIGH for retained ledger, LIMITED for public marketplace outcomes.
+
+Additional lane-specific receipt directories: no additional identifiable revenue X-variant established from main tree.
+Economic outcome: $0 verified platform earnings; no verified new fulfillments; Wolverine/Cyclops commercial checks sampled.
+
+Open improvements:
+G-01 PENDING: investigate checkpoint freshness gap from 17:08:55Z to window end in tools/gambit_watch.py; add freshness/failed-cycle diagnostics.
+G-02 PENDING: require valid proposal evidence or explicit documented safe fallback; test provider router on actual hired-job execution.
+C-01 PENDING: resolve 13 invalid legacy checkout products with zero disabled payment links; preserve distribution-first freeze until verified outlets.
+W-01 PENDING: improve buyer-request discovery and rate-limit/fetch fallback, rather than counting generic research as leads.
+
+Errors/limits: TryBounty profile inaccessible; no independent Stripe deposits checked; economic receipts not exhaustively read. No secrets or buyer identities included.
