@@ -1,0 +1,141 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-17T11:39:25.347217+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 5,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 5
+    },
+    "search_provider_counts": {
+      "hn_ask": 1,
+      "bing": 2,
+      "followup": 2
+    },
+    "source_errors": [],
+    "fetched_public_pages": 5,
+    "verified_firsthand_problem_pages": 1,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 5,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=40503066",
+        "title": "My position on: How GPT has changed coding",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.online-python.com/",
+        "title": "Online Python - IDE, Editor, Compiler, Interpreter",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://developer.mozilla.org/en-US/docs/Glossary/Python",
+        "title": "Python - Glossary | MDN - MDN Web Docs",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.projectmanager.com/blog/timesheet-templates-excel-google-sheets-word",
+        "title": "9 Free Timesheet Templates for Excel, Google Sheets & Word",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.projectmanager.com/templates/schedule-of-values-template",
+        "title": "7. Schedule of Values Template",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 5,
+    "search_queries": [
+      "python script to automate invoice generation from csv",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 5,
+      "skipped_revisits": 45,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "downloadable construction schedule template with gantt chart",
+        "automation script for repetitive data entry in excel",
+        "pdf template for residential construction bid proposal",
+        "python script to automate invoice generation from csv",
+        "free downloadable construction safety checklist template"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 117,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "paused_for_distribution",
+    "reason": "owner_approved_distribution_first_freeze",
+    "pending_stage": "empty"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 4,
+    "product_pages": 4,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 13,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "003c3c67f50b396938ad",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "755a8c931205cd5d956e",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 4,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 5,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
