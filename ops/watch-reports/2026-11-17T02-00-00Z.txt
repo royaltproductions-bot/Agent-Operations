@@ -1,0 +1,19 @@
+ARI X-Variant Receipt Watch
+Window UTC: 2026-11-16T18:00:00Z to 2026-11-17T02:00:00Z
+Report created: 2026-11-17T01:59:17Z (pre-close snapshot; final seconds unobserved)
+
+Scoreboard:
+Wolverine: 1 verified receipt (ops/enterprise-runs/43948912378-1.json); 6 candidates, 3 fetched pages, 0 contactable buyer invitations, 0 external offers, 0 fulfillments, $0 receipt-verified earnings. Brave 429 and page-fetch errors; no fatal structural failure.
+Cyclops: 105 successful Actions runs in window with corresponding receipt convention, 1 run in progress; directory API listing capped at 1000 historical entries, so 105 is a workflow-backed provisional receipt count, not independently exhaustive. Representative receipts (including 43998746488-1.json and 43997471172-1.json): paused_for_distribution; 4 existing product pages; no new assets, offers, orders, fulfillments, or receipt-verified earnings. 13 invalid legacy products; 0 payment links disabled. Brave 429 / DuckDuckGo 403 in sampled receipts. Economic outcome confidence: sampled only.
+Gambit: 0 standalone lane receipts; authoritative gambit-state last_check and last_bid_reconciliation 2026-11-17T00:00:56Z; watch health 44 successful cycles, 0 failed, at 00:04:30Z. 65 open listings last observed (not qualified assessments). Retained recent outcomes within window: 4 bid_followup_sent on existing bids at 18:40Z (3) and 20:20Z (1); 0 new bids/payout asks, 0 buyer questions, 0 confirmed hires, claims, deliverables, acceptances, refunds or settlements. Durable settlements {} => $0 platform-completed payouts; bank deposits not checked. Bid-to-hire and submission success: not measurable yet. Public TryBounty profile inaccessible. Model budget: 365 calls, $14.038666 internally reserved in November against $38 configured cap; actual provider billing unverified. Provider router and tests present; live hired-job execution unverified. Latest state is ~2 hours behind end of window, despite green watcher.
+Additional X-variant lanes: none newly established from ops directory inspection.
+Economic conclusion: no new paid completion verified; Wolverine complete receipt, Cyclops economic sample, Gambit durable settlement ledger. Green workflows are not revenue.
+Evidence confidence: high Wolverine, high Gambit persisted ledger through 00:00:56Z, moderate Cyclops count and sampled economics. Errors: GitHub contents directory truncation, public TryBounty profile inaccessible, end-of-window not yet elapsed.
+Open improvements:
+WOL-SEARCH-01 pending: filter out generic RFP guides and require contactable buyer invitations; improve fallback for Brave 429.
+CYC-DIST-01 pending: resolve owner-approved distribution freeze/no opt-in channels; investigate 13 invalid legacy checkout entries and 0 disabled links.
+GAM-WATCH-01 pending: add checkpoint freshness alert to resident watcher, reconcile schedule vs persisted state.
+GAM-FOLLOWUP-01 pending: dedupe follow-ups by bid ID and buyer status/version; validate 4 follow-ups against actual changes.
+GAM-ROUTER-01 unknown: prove provider router executes real hired-job capabilities using contract tests and actual work receipts.
+Highest-impact recommendation: GAM-WATCH-01: instrument watcher persistence and alert when last_check/last_bid_reconciliation lag by > one expected poll interval despite green Actions status.
+No operational files, state, workflows, marketplace actions, payments, or automations modified.
