@@ -2441,6 +2441,20 @@ class GambitTests(unittest.TestCase):
         self.assertEqual(record["retry_count"], 1)
         self.assertTrue(record["retry_at"])
 
+    def test_first_evidence_failure_uses_cached_proposal_without_retry(self):
+        from unittest.mock import patch
+        state = {"bounties": {"b1": {"action": "evaluation_pending",
+                  "version": 1}}, "recent_outcomes": []}
+        proposal = {"decision": "bid", "payout_cents": 3500,
+                    "note": "Proposed work outline"}
+        with patch.object(gambit, "cached_proposal", return_value=proposal):
+            gambit.schedule_evaluation_retry(
+                state, "b1", ValueError("proposal_preview_not_ready"))
+        self.assertEqual(state["bounties"]["b1"]["action"], "proposal_fallback_pending")
+        self.assertEqual(state["bounties"]["b1"]["evidence_failures"], 1)
+        self.assertFalse(any(x["action"] == "evaluation_retry_scheduled"
+                             for x in state["recent_outcomes"]))
+
     def test_safe_failure_reason_never_persists_unrecognized_buyer_text(self):
         self.assertEqual(gambit.safe_failure_reason(ValueError("proposal_samples_missing")),
                          "proposal_samples_missing")
