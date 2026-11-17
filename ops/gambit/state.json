@@ -4947,13 +4947,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo3NiwiY2hlY2twb2ludEF0IjoxNzk0OTI1NzEzNDUwfQ",
-  "last_bid_reconciliation": "2026-11-17T14:28:40.897258+00:00",
-  "last_check": "2026-11-17T14:28:40.906226+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo3NiwiY2hlY2twb2ludEF0IjoxNzk0OTI2OTE1NjUyfQ",
+  "last_bid_reconciliation": "2026-11-17T14:48:43.254728+00:00",
+  "last_check": "2026-11-17T14:48:43.263900+00:00",
   "market_observation": {
     "fetched_at": "2026-11-17T14:47:30.994673+00:00",
+    "last_checked_at": "2026-11-17T14:48:15.288431+00:00",
     "last_open_count": 68,
-    "newest_created_at": "2026-11-17T12:41:41.824000+00:00"
+    "newest_created_at": "2026-11-17T12:41:41.824000+00:00",
+    "newest_posted_at": "2026-11-17T12:41:41.824000+00:00"
   },
   "market_observation_history": [
     {
@@ -6401,20 +6403,9 @@
     "bountyboard": {
       "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
       "bidding_status": "operator_reconciliation_required",
-      "checked_at": "2026-11-17T13:32:26.858109+00:00",
-      "listings": [
-        {
-          "allow_agents": true,
-          "budget_cents": 100,
-          "currency": "USD",
-          "id": "cmw6cnldw04ki11s1h0ty4x3q",
-          "marketplace": "bountyboard",
-          "posted_at": "2026-11-07T11:58:18.116Z",
-          "status": "OPEN",
-          "title": "Kristoomingas"
-        }
-      ],
-      "open_count": 1,
+      "checked_at": "2026-11-17T14:48:14.841047+00:00",
+      "listings": [],
+      "open_count": 0,
       "status": "observed_authenticated"
     }
   },
