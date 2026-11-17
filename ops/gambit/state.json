@@ -1187,49 +1187,49 @@
     ],
     "browser": {
       "completed_job_count": {
-        "observed_at": "2026-11-16T20:24:30.380916+00:00",
+        "observed_at": "2026-11-17T02:57:56.397780+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "earnings_count": {
-        "observed_at": "2026-11-16T20:24:30.380910+00:00",
+        "observed_at": "2026-11-17T02:57:56.397774+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "last_disbursed_at": {
-        "observed_at": "2026-11-16T20:24:30.380914+00:00",
+        "observed_at": "2026-11-17T02:57:56.397778+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "not_hired_count": {
-        "observed_at": "2026-11-16T20:24:30.380908+00:00",
+        "observed_at": "2026-11-17T02:57:56.397772+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "operator_balance_cents": {
-        "observed_at": "2026-11-16T20:24:30.380912+00:00",
+        "observed_at": "2026-11-17T02:57:56.397775+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "public_rating": {
-        "observed_at": "2026-11-16T20:24:30.380915+00:00",
+        "observed_at": "2026-11-17T02:57:56.397779+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "transfer_count": {
-        "observed_at": "2026-11-16T20:24:30.380913+00:00",
+        "observed_at": "2026-11-17T02:57:56.397777+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "unread_count": {
-        "observed_at": "2026-11-16T20:24:30.380893+00:00",
+        "observed_at": "2026-11-17T02:57:56.397759+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
@@ -1866,6 +1866,11 @@
       "at": "2026-11-10T00:57:29.399694+00:00",
       "last_declined_bid": null,
       "last_owner_reply_id": null,
+      "version": 1
+    },
+    "mx7f8sysgjjj265c6fzwmp2a7x8jd2ww": {
+      "action": "evaluation_pending",
+      "at": "2026-11-17T02:57:57.296407+00:00",
       "version": 1
     },
     "mx7f8tqb7r75rmrp9hacmt52tn8hm0sn": {
@@ -2808,6 +2813,13 @@
           "encrypted_brief": "gAAAAABq8gZGglO0FYXuABjbhMIoUhnUW5ZCITYp4kbVQUJeeBMByN8hUvaskUFS3qEB9VVYhFCB3Ht0hXDy99WfzvgyNqUtLnCr1HCPK2qeUuPP0vg1V3biBVUzNofmy4gHxKg-YyIYODg1WZWyxgA64BFMf9Ol-3RlbFONVXVdTnQmdRPt6ZS0fXTXS2XhjJNBPvJ7hyZQxH12A_F7Ecy900QSByxgbNxVYAyPJ8SY0uHt31wpQx-9XGUnEEheNRA4dVNbFniYkmuzfcH7cUcNgYPJy07yxWRjmmumwLCfPw4njWu8x1DH982-Mi77wBNVwnA7qJCpvJp1-h8eAmiis9DNEZ1xe-WwHqSAa4Ua8l1ZHpscpFoDgNARCr8e0apfbdN4UxNngYBqb4mtdHEgYypytwVJlqyQe3zt42JWv7lL0ru97KuJ9iHss2p2th-hr6SVUFmRU30QC2dlPfGkvNXwAy3-d2pv1Ih4SevXRs62bSlsTI8o47vnhL9Orbn653K9iZhbFiRfKoxrfopp51w39HvhNqDln6IjWfHG0ONj50xNikJkhEJyMXyv64S4Mjf7JdVC9DD6a6DmJXbvxL0pJWE6tlyxr4i0NvkLvW4fL6X2kmeKY_d6XpirVkZ7ngguFFoBxUAgwrpKjW60I8jYVwz6g8cXysBlbRqmgKBpcE308hERpx5FIrIbWAxmgIjlpOTJMGhB2oz7IIOyQ7hIK64epbRruZ2MJe_XcpDg-EGQJdbHqAwVzuiqU-gYobppxCD2yd7R3884tYnvqHWfi7wDY-Rp_EGtzlV5rnPB1oFXxC4XXiilDmhGyaEAdigOLBzJ_t_bPRm2glesAWlsuVfDBn_eOzeOERwd_khnzlMWo8Q_KKM--Zobdd6zUDaspjf8zYiw9E4h0HHpl61olSvKnTeBKXUFpNW38DMQZCc3JSYulDpV2ZOGADtQN2_DE-n6LgCfG1efScGS-nE-BRJidZ8SfBriajFQnxHfMadEsSXnbheUJGV1y_7LeL8J9bmY545TRqAWGH7lhXtFXNzRvr7c85uvkVp5M30N2Y-EGGE="
         }
       }
+    },
+    "mx7f8sysgjjj265c6fzwmp2a7x8jd2ww": {
+      "first_detected_at": "2026-11-17T02:57:57.296403+00:00",
+      "last_known_status": "open",
+      "last_seen_open_at": "2026-11-17T02:57:57.296405+00:00",
+      "version": 1,
+      "versions": {}
     },
     "mx7f8tqb7r75rmrp9hacmt52tn8hm0sn": {
       "first_detected_at": "2026-11-05T03:04:06.247674+00:00",
@@ -4689,6 +4701,26 @@
       },
       "submitted_at": "2026-11-10T00:57:29.399498+00:00"
     },
+    "mx7f8sysgjjj265c6fzwmp2a7x8jd2ww": {
+      "bid_amount_cents": null,
+      "bid_at": null,
+      "bid_id": null,
+      "budget_cents": 3500,
+      "first_detected_at": "2026-11-17T02:57:57.296262+00:00",
+      "observed_at": "2026-11-17T02:57:57.296262+00:00",
+      "owner_activity_status": null,
+      "platform_status": "open",
+      "posted_at": "2026-11-17T02:15:38.813000+00:00",
+      "posted_time_field": "created_at",
+      "sample_listing": false,
+      "source_fields": {
+        "budget_cents": 3500,
+        "created_at": 1794881738813,
+        "currency": "usd",
+        "status": "open",
+        "updated_at": 1794881743091
+      }
+    },
     "mx7f8tqb7r75rmrp9hacmt52tn8hm0sn": {
       "bid_amount_cents": null,
       "bid_at": null,
@@ -4747,18 +4779,11 @@
   "last_bid_reconciliation": "2026-11-17T00:00:56.363978+00:00",
   "last_check": "2026-11-17T00:00:56.369801+00:00",
   "market_observation": {
-    "fetched_at": "2026-11-16T23:59:45.991746+00:00",
-    "last_checked_at": "2026-11-17T00:00:29.435920+00:00",
-    "last_open_count": 65,
-    "newest_created_at": "2026-11-15T20:12:43.374000+00:00",
-    "newest_posted_at": "2026-11-15T20:12:43.374000+00:00"
+    "fetched_at": "2026-11-17T02:57:57.297514+00:00",
+    "last_open_count": 66,
+    "newest_created_at": "2026-11-17T02:15:38.813000+00:00"
   },
   "market_observation_history": [
-    {
-      "fetched_at": "2026-11-15T00:12:07.867058+00:00",
-      "last_open_count": 60,
-      "newest_created_at": "2026-11-14T21:01:47.805000+00:00"
-    },
     {
       "fetched_at": "2026-11-15T00:17:07.954375+00:00",
       "last_open_count": 60,
@@ -6193,6 +6218,11 @@
       "fetched_at": "2026-11-16T23:59:45.991746+00:00",
       "last_open_count": 65,
       "newest_created_at": "2026-11-15T20:12:43.374000+00:00"
+    },
+    {
+      "fetched_at": "2026-11-17T02:57:57.297514+00:00",
+      "last_open_count": 66,
+      "newest_created_at": "2026-11-17T02:15:38.813000+00:00"
     }
   ],
   "marketplaces": {
