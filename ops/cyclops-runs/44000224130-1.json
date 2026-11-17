@@ -1,0 +1,147 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-17T02:07:41.474714+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 12,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 12
+    },
+    "search_provider_counts": {
+      "bing": 5,
+      "followup": 4,
+      "hn_ask": 3
+    },
+    "source_errors": [],
+    "fetched_public_pages": 12,
+    "verified_firsthand_problem_pages": 4,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 11,
+    "public_market_sample": [
+      {
+        "url": "https://learn.zapier.com/",
+        "title": "Zapier Academy",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.templateroller.com/tags/114394-work-request/",
+        "title": "work request form",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.templateroller.com/template/204952/alternative-work-schedule-request-form.html",
+        "title": "Alternative Work Schedule Request Form",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.templateroller.com/template/1620131/elementary-school-vacation-or-extended-absence-preapproval-request-form.html",
+        "title": "Elementary School Vacation or Extended Absence Preapproval Request Form",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=44169521",
+        "title": "Opening up my SaaS's API turned out to be one of the smartest growth decisions",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=32558047",
+        "title": "Tasks automation for social media only",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 12,
+    "search_queries": [
+      "Zapier automation workflow for social media content scheduling",
+      "",
+      "Python script for automatically scraping and exporting product data from Amazon"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 42,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "Google Sheets template for tracking project deadlines and task dependencies",
+        "Zapier automation workflow for social media content scheduling",
+        "Markdown file for generating printable monthly budget tracker",
+        "Python script for automatically scraping and exporting product data from Amazon",
+        "PDF form for requesting leave of absence with approval workflow"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 116,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 0
+  },
+  "production": {
+    "result": "paused_for_distribution",
+    "reason": "owner_approved_distribution_first_freeze",
+    "pending_stage": "empty"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 4,
+    "product_pages": 4,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 13,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "003c3c67f50b396938ad",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "755a8c931205cd5d956e",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 4,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 11,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
