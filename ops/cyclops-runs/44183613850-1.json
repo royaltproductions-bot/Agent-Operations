@@ -1,0 +1,142 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-17T21:50:35.282570+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 4,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 4
+    },
+    "search_provider_counts": {
+      "hn_ask": 1,
+      "bing": 1,
+      "followup": 2
+    },
+    "source_errors": [],
+    "fetched_public_pages": 4,
+    "verified_firsthand_problem_pages": 0,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 4,
+    "public_market_sample": [
+      {
+        "url": "https://news.ycombinator.com/item?id=22286545",
+        "title": "Part Two: Execution \u2013 Hatclone.com: A Study in Hybrid Physical/Digital Virality",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://make.preview.powerautomate.com/oauth/",
+        "title": "Microsoft Power Automate",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://www.youtube.com/watch?v=fXLs0giEH1U",
+        "title": "How to Automate Email Notifications in Jotform Workflows",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://slack.com/events/work-smarter-automate-faster-ai-powered-workflows-in-slack",
+        "title": "Link may open in new tab \n On-Demand\n Work Smarter, Automate Faster: AI-Powered Workflows in Slack\n Skip the busywork. Build no-code AI workflows with smart log",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 4,
+    "search_queries": [
+      "buy ready-made document automation tool for real estate",
+      "how to automate contract signing process without legal software",
+      ""
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 4,
+      "skipped_revisits": 32,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "how to automate contract signing process without legal software",
+        "buy ready-made document automation tool for real estate",
+        "downloadable form builder with conditional logic for small businesses",
+        "purchase no-code workflow tool for managing client requests",
+        "buy automated email template generator for customer service"
+      ],
+      "next_query_queue": 3,
+      "frontier_size": 118,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 6
+  },
+  "production": {
+    "result": "paused_for_distribution",
+    "reason": "owner_approved_distribution_first_freeze",
+    "pending_stage": "empty"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 4,
+    "product_pages": 4,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 13,
+    "disabled_payment_links": 0
+  },
+  "external_action": {
+    "result": "offer_sent",
+    "source_url": "https://submitmatic.com/",
+    "asset_id": "755a8c931205cd5d956e",
+    "score": 1
+  },
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 1,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "003c3c67f50b396938ad",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "755a8c931205cd5d956e",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": true,
+    "commercial_state": "new_opt_in_distribution",
+    "indexable_product_pages": 4,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 4,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "none"
+  }
+}
