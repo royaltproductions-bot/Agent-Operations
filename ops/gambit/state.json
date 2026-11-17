@@ -1144,6 +1144,13 @@
           "first_at": "2026-11-17T02:58:59.946911+00:00",
           "reason": "proposal_preview_not_ready"
         },
+        "legacy_evidence_fallback_requeued": {
+          "days": [
+            "2026-11-17"
+          ],
+          "first_at": "2026-11-17T03:33:21.910315+00:00",
+          "reason": "proposal_preview_not_ready"
+        },
         "proposal_blocked_missing_evidence": {
           "days": [
             "2026-11-17"
@@ -1893,12 +1900,12 @@
       "version": 1
     },
     "mx7f8sysgjjj265c6fzwmp2a7x8jd2ww": {
-      "action": "evaluation_abandoned",
+      "action": "proposal_fallback_pending",
       "at": "2026-11-17T03:03:33.401781+00:00",
       "evidence_failures": 1,
       "last_error": "proposal_preview_not_ready",
       "proposal_cache": "gAAAAABq-8P9LMl54OU7T14jzNx2gP1KIXHlHzgIgSB4rXfaBcQsgiUwMw9r2lTsogMvVL0dLWnkwEGeyvj0-R47esV_O1NyXJENI8TjX7vkd_JxUPwnwD2EJBUJX20bMcmDfuUmVkaPiekphdRrA1VI68me0fbBT73xrVNqJDOnHgsHdPvJZurPuHKB0LF2Xz4gGtH2KciXhiAXy6LEJ0-uGoUvwzw37oqhP3AozE9auo45h1bpVMlTETpCh0V4dBM7V7AXxAQHQQNYkL5Zy2eQZc-QmQhbEtea7H0N0J-4wLiF3LckpTSL3Tf6Lk89Vf2CW6SJyf-Mjd_lLTLS-L0YGzuXaSxlLpNcbjqG-2aSfSRqNFvLI1qvl_gpm8GzTr05ZckUPrNnOnXtp_QXRwpAlhc40Wgh3POV3WBcEpbS5KhFbbDo-Sw1LQRlcG7aq63t_scqDJINS9Axsv_w6BrM9LIc8tThVgWKt0uOaCIO2A9Ky2BgWBQf0pQtS_NOL2xD2aloiMAKiLMVfMs9Xl4V9l4R9urdn0SGEzAXEnwsVlE-O85bLThyaI1KSHffdaQoSqPoSj9MInCo7re1f4qQnVC2J0Oxi6C6V8hmgbmfEgFhk7LgqWcJubmHNKzDxZdAO8rEE62uXsrxQWUwFKMLujRHsn9IRZyvEwYsuGASnODwvwVBaxK2rKs-EqPxdPbTliWD1tAi6SHs4nyQ4TBHfpfy9vZIRvso8q_KzLJNx_cdLS9jftQRvm56fLXWSSgRL2DAYwDfR3TsJ5vIsq7Q9HV9YUYwPK9vp-P2V1KyPz9H8J6xAzv6T7mscTfQlltoaIHg5MiYYWhbO8g3o5vvBB_txP0kN_hGgj3X-dMmGTRIZNulA5Y0u2hs1RrMnv-mjKVSNde4Bi28KSzqv49nHrUCghM6tT3dDiTXayvL_lM_SMyL73EBS3ozaKmkxhmntvP5eFJEVgffUWjtNL9gDbrXK9AiKYO7EaBxI-uBaNujZgI0FAY=",
-      "retry_at": null,
+      "retry_at": "2026-11-17T03:33:21.910296+00:00",
       "retry_count": 2,
       "version": 1
     },
@@ -4817,8 +4824,10 @@
   "last_check": "2026-11-17T03:14:08.771304+00:00",
   "market_observation": {
     "fetched_at": "2026-11-17T03:32:59.515320+00:00",
+    "last_checked_at": "2026-11-17T03:33:22.120131+00:00",
     "last_open_count": 66,
-    "newest_created_at": "2026-11-17T02:15:38.813000+00:00"
+    "newest_created_at": "2026-11-17T02:15:38.813000+00:00",
+    "newest_posted_at": "2026-11-17T02:15:38.813000+00:00"
   },
   "market_observation_history": [
     {
@@ -6286,11 +6295,6 @@
   "recent_outcomes": [
     {
       "action": "buyer_changes_awaiting_owner_approval",
-      "at": "2026-11-13T14:14:58.304351+00:00",
-      "bounty_id": "mx7dam93m4q8spz893n4zfsyzn8hgg6r"
-    },
-    {
-      "action": "buyer_changes_awaiting_owner_approval",
       "at": "2026-11-13T14:14:58.699463+00:00",
       "bounty_id": "mx7802nm08nqrb6rhb2kdaygr18gszcr"
     },
@@ -6632,6 +6636,12 @@
       "at": "2026-11-17T03:13:41.502884+00:00",
       "bounty_id": "mx7f8sysgjjj265c6fzwmp2a7x8jd2ww",
       "reason": "legacy_retry_limit"
+    },
+    {
+      "action": "legacy_evidence_fallback_requeued",
+      "at": "2026-11-17T03:33:21.910372+00:00",
+      "bounty_id": "mx7f8sysgjjj265c6fzwmp2a7x8jd2ww",
+      "reason": "proposal_preview_not_ready"
     }
   ],
   "schema": 1,
