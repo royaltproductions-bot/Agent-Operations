@@ -622,9 +622,9 @@ def schedule_evaluation_retry(state, bounty_id, exc):
         return
     evidence = int(previous.get("evidence_failures") or 0) + (reason in EVIDENCE_ERRORS)
     cached = cached_proposal(previous) if reason in EVIDENCE_ERRORS else None
-    cached_payout = int((cached or {}).get("payout_cents") or 0)
-    fallback_after = 1 if 0 < cached_payout < 2500 else 2
-    fallback = bool(cached) and reason in EVIDENCE_ERRORS and evidence >= fallback_after
+    # An evidence-generation failure is not a reason to repeat model
+    # assessment. Reuse the already-approved bid decision immediately.
+    fallback = bool(cached) and reason in EVIDENCE_ERRORS
     action = "proposal_fallback_pending" if fallback else (
         "retry_evaluation" if reason in EVIDENCE_ERRORS else
         ("evaluation_abandoned" if attempt >= 2 else "retry_evaluation"))
@@ -2174,13 +2174,18 @@ def handle_open(item, state):
             if not plain and static_site_eligible(details) and website_capable():
                 preview = produce_website(details, messages, sources=sources)
                 if preview.get("status") != "ready":
-                    schedule_evaluation_retry(state, bounty_id, ValueError("proposal_preview_not_ready"))
-                    return
-                rendered = resources.execute("site_visual", preview["_site_html"],
-                                             asset_files=preview.get("_site_assets"))
-                png = rendered["desktop"]["screenshot"]
-                send_proposal_preview(bounty_id, version, png, state)
-                bid_note += "\nA preliminary desktop design screenshot is in this thread."
+                    # H-G4: fall back within this same bid cycle. Never claim
+                    # a screenshot was delivered when preview generation failed.
+                    plain = True
+                    decision["_plain_fallback"] = True
+                    note(state, "proposal_sample_fallback", bounty_id,
+                         reason="proposal_preview_not_ready")
+                else:
+                    rendered = resources.execute("site_visual", preview["_site_html"],
+                                                 asset_files=preview.get("_site_assets"))
+                    png = rendered["desktop"]["screenshot"]
+                    send_proposal_preview(bounty_id, version, png, state)
+                    bid_note += "\nA preliminary desktop design screenshot is in this thread."
             elif not plain and not sample_rows and not decision.get("_requires_web"):
                 # Supplied-data and writing commissions need a labeled excerpt,
                 # not fabricated externally researched rows.
