@@ -73,7 +73,26 @@ def clean_html(raw):
     return text.strip()
 
 def fetch_public_text(url,with_links=False):
-    final,ctype,raw=_open(url)
+    # Public solicitations are frequently PDFs rather than HTML pages.
+    # Cap bytes and pages; a truncated/oversized PDF is not usable evidence.
+    limit=2500000
+    final,ctype,raw=_open(
+        url,accept="text/html,application/xhtml+xml,application/pdf",limit=limit)
+    if "application/pdf" in ctype or raw.startswith(b"%PDF-"):
+        if len(raw)>=limit:
+            raise ValueError("public_pdf_too_large")
+        from io import BytesIO
+        from pypdf import PdfReader
+        reader=PdfReader(BytesIO(raw),strict=False)
+        if reader.is_encrypted:
+            raise ValueError("public_pdf_encrypted")
+        text="\n".join((page.extract_text() or "") for page in list(reader.pages)[:24])
+        text=re.sub(r"[ \t]+"," ",text).strip()
+        if not text:
+            raise ValueError("public_pdf_no_extractable_text")
+        if with_links:
+            return final,text[:12000],[]
+        return final,text[:12000]
     if not ("text/" in ctype or "html" in ctype or not ctype):
         raise ValueError("unsupported_public_content")
     # Preserve public email addresses that may exist only in mailto attributes.

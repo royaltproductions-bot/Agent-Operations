@@ -376,7 +376,7 @@ PUBLIC_INVITATION=re.compile(
     r"|(?:looking for|seeking|hiring|need|we need) (?:a |an )?"
     r"(?:someone|freelancer|contractor|professional|provider) to\b"
     r"|(?:open|paid|funded) bounty\b"
-    r"|soliciting (?:proposals?|quotes?|bids?))\b"
+    r"|soliciting (?:sealed )?(?:proposals?|quotes?|bids?))\b"
 )
 
 # A how-to article about hiring is not itself a request to hire. Such pages
@@ -521,6 +521,7 @@ def explicit_solicitation_email(row):
     for match in re.finditer(re.escape(email),lower):
         window=lower[max(0,match.start()-650):match.end()+650]
         if (re.search(r"\b(?:request for proposals?|rfp|tender|solicitation|"
+                      r"soliciting (?:sealed )?(?:proposals?|quotes?|bids?)|"
                       r"submit (?:a |your )?(?:proposal|bid)|proposal forms?|"
                       r"proposal templates?|bid documents?|clarification questions?)\b",window)
                 and re.search(r"\b(?:email|contact|send|submit|questions?)\b",window)):
@@ -616,13 +617,22 @@ def enrich_public_response_route(rows):
 
 
 def buyer_owned_request(row):
-    return bool(re.search(
+    body=str(row.get("page_text") or "").lower()
+    # Public buyer solicitations commonly use the institution's name rather
+    # than "we": "The Town of X is soliciting sealed proposals...".
+    institution_request=re.search(
+        r"\b(?:the )?(?:town|city|county|state|municipality|university|"
+        r"college|agency|department|district|institution|organization)\b"
+        r".{0,110}\b(?:is|are) soliciting (?:sealed )?"
+        r"(?:proposals?|bids?|quotes?)\b",body)
+    direct_request=re.search(
         r"\b(?:we(?: are|'re) (?:seeking|hiring|looking for) (?:an? |outside |external )?"
         r"(?:contractor|freelancer|developer|designer|writer|consultant|provider)"
         r"|we need (?:someone to|an? (?:contractor|freelancer|developer|designer|writer|consultant|provider))"
         r"|we would like outside help|our (?:small )?team could use outside assistance"
         r"|we(?: are|'re) accepting (?:bids|proposals)|request for proposals? (?:for|to))\b",
-        str(row.get("page_text") or "").lower()))
+        body)
+    return bool(institution_request or direct_request)
 
 
 def public_buyer_invitation(row):
