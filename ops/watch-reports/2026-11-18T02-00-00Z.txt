@@ -1,0 +1,19 @@
+ARI X-Variant Receipt Watch — 2026-11-18T02:00:00Z
+Window UTC: 2026-11-17T18:00:00Z to 2026-11-18T02:00:00Z
+Created: 2026-11-18T02:04:18Z (approximate; runtime clock).
+Evidence confidence: Gambit state HIGH for retained ledger, LIMITED for window event completeness; Wolverine/Cyclops receipt counts and economics UNKNOWN because connector cannot enumerate directories. No independent GitHub Actions run enumeration available.
+
+Wolverine (main, ops/enterprise-runs): receipt count UNKNOWN, not verified zero. Offers, assets, fulfillments, earnings UNKNOWN. Structural failures this window UNKNOWN.
+Cyclops (main, ops/cyclops-runs): receipt count UNKNOWN, not verified zero. Offers, assets, fulfillments, earnings UNKNOWN. Structural failures this window UNKNOWN.
+Gambit (gambit-state): zero standalone receipt files established (not exhaustively enumerable); retained recent_outcomes contains ZERO events in window. 68 open listings last observed at 2026-11-18T02:03Z (after window), NOT qualified assessments. New questions, bids, passes, declines, withdrawals, claims, submissions, acceptances, refunds: none in retained outcomes, not independently proven zero. Settlement ledger empty: 0 recorded completed platform settlements, $0 recorded settled payout; bank deposits not checked. Last_check and last_bid_reconciliation 02:04:15Z, watcher 25 successful/0 failed cycles at 02:04:17Z; watcher evidence is after window. Bid-to-hire and submission-success rates not measurable yet. Public TryBounty profile inaccessible. Provider router tools/gambit_resources.py and tests/test_gambit_resources.py exist; hired-job execution unverified.
+Model reservation: 372 calls; $14.272962 reserved in November (internal estimate, not actual bill).
+Additional lanes: not verifiable without directory enumeration.
+Open improvements:
+G-01 [pending] Record durable per-cycle assessment/decision counts and independently check actual platform outcomes.
+G-02 [pending] Test proposal evidence/fallback and actual hired-job provider execution.
+G-03 [unknown] Confirm watcher checkpoint freshness and GitHub Actions run continuity.
+W-01 [unknown] Obtain complete Wolverine receipt enumeration and audit commercial outcomes.
+C-01 [unknown] Obtain complete Cyclops receipt enumeration and audit checkout/distribution outcomes.
+Highest-impact recommendation: persist bounded timestamped per-cycle outcome counters in Gambit's state so an eight-hour audit can independently quantify assessments, passes, bids and failures without depending on truncated recent_outcomes.
+Errors: GitHub fetch_file rejects directory paths; public profile inaccessible; Actions enumeration unavailable.
+No operational modifications made.
