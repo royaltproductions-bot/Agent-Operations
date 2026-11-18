@@ -1147,6 +1147,12 @@
         }
       },
       "mx7f8sysgjjj265c6fzwmp2a7x8jd2ww": {
+        "bid_followup_sent": {
+          "days": [
+            "2026-11-18"
+          ],
+          "first_at": "2026-11-18T03:44:35.285793+00:00"
+        },
         "bid_sent": {
           "days": [
             "2026-11-17"
@@ -1953,6 +1959,7 @@
       "declined_at": null,
       "declined_version": null,
       "last_declined_bid": null,
+      "last_owner_reply_id": null,
       "rebid_invitation_id": null,
       "version": 1
     },
@@ -4874,6 +4881,8 @@
       "budget_cents": 3500,
       "discount_percent": 20,
       "first_detected_at": "2026-11-17T02:57:57.296262+00:00",
+      "followup_sent_at": "2026-11-18T03:44:35.285771+00:00",
+      "last_outgoing_at": "2026-11-18T03:44:35.285787+00:00",
       "observed_at": "2026-11-17T02:57:57.296262+00:00",
       "owner_activity_status": null,
       "platform_status": "open",
@@ -4947,12 +4956,12 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo3NiwiY2hlY2twb2ludEF0IjoxNzk0OTcyMjUzNzk0fQ",
-  "last_bid_reconciliation": "2026-11-18T03:24:20.941094+00:00",
-  "last_check": "2026-11-18T03:24:20.946057+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo3NiwiY2hlY2twb2ludEF0IjoxNzk0OTczNDY2NzE1fQ",
+  "last_bid_reconciliation": "2026-11-18T03:44:34.672841+00:00",
+  "last_check": "2026-11-18T03:44:35.291371+00:00",
   "market_observation": {
     "fetched_at": "2026-11-18T03:43:20.831984+00:00",
-    "last_checked_at": "2026-11-18T03:43:43.527430+00:00",
+    "last_checked_at": "2026-11-18T03:44:06.204393+00:00",
     "last_open_count": 68,
     "newest_created_at": "2026-11-17T12:41:41.824000+00:00",
     "newest_posted_at": "2026-11-17T12:41:41.824000+00:00"
@@ -6412,11 +6421,6 @@
   "recent_outcomes": [
     {
       "action": "buyer_changes_awaiting_owner_approval",
-      "at": "2026-11-13T14:34:59.753221+00:00",
-      "bounty_id": "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8"
-    },
-    {
-      "action": "buyer_changes_awaiting_owner_approval",
       "at": "2026-11-13T14:54:57.732786+00:00",
       "bounty_id": "mx7dam93m4q8spz893n4zfsyzn8hgg6r"
     },
@@ -6765,6 +6769,11 @@
       "bounty_id": "mx72jbj5cbswdcxxfdnf7t2sw58jd39y",
       "payout_cents": 500,
       "version": 1
+    },
+    {
+      "action": "bid_followup_sent",
+      "at": "2026-11-18T03:44:35.285805+00:00",
+      "bounty_id": "mx7f8sysgjjj265c6fzwmp2a7x8jd2ww"
     }
   ],
   "schema": 1,
