@@ -616,13 +616,22 @@ def enrich_public_response_route(rows):
 
 
 def buyer_owned_request(row):
-    return bool(re.search(
+    body=str(row.get("page_text") or "").lower()
+    # Public buyer solicitations commonly use the institution's name rather
+    # than "we": "The Town of X is soliciting sealed proposals...".
+    institution_request=re.search(
+        r"\b(?:the )?(?:town|city|county|state|municipality|university|"
+        r"college|agency|department|district|institution|organization)\b"
+        r".{0,110}\b(?:is|are) soliciting (?:sealed )?"
+        r"(?:proposals?|bids?|quotes?)\b",body)
+    direct_request=re.search(
         r"\b(?:we(?: are|'re) (?:seeking|hiring|looking for) (?:an? |outside |external )?"
         r"(?:contractor|freelancer|developer|designer|writer|consultant|provider)"
         r"|we need (?:someone to|an? (?:contractor|freelancer|developer|designer|writer|consultant|provider))"
         r"|we would like outside help|our (?:small )?team could use outside assistance"
         r"|we(?: are|'re) accepting (?:bids|proposals)|request for proposals? (?:for|to))\b",
-        str(row.get("page_text") or "").lower()))
+        body)
+    return bool(institution_request or direct_request)
 
 
 def public_buyer_invitation(row):
