@@ -214,11 +214,12 @@ class OptimizationTests(unittest.TestCase):
         self.assertIn("soliciting sealed proposals",text)
         self.assertEqual(links,[])
         self.assertTrue(brain.buyer_owned_request({"page_text":text}))
-        self.assertTrue(brain.public_buyer_invitation({
-            "source_url":pdf_url,"title":"Digital service proposal",
-            "page_fetched":True,"page_text":text,
-            "created_at":datetime.now(timezone.utc).isoformat(),
-            "contact":"buyer@example.org"}))
+        row={"source_url":pdf_url,"title":"Digital service proposal",
+             "page_fetched":True,"page_text":text,
+             "created_at":datetime.now(timezone.utc).isoformat(),
+             "contact":"buyer@example.org"}
+        self.assertTrue(brain.public_buyer_invitation(row))
+        self.assertEqual(brain.explicit_solicitation_email(row),"buyer@example.org")
 
     def test_wolverine_rejects_oversized_public_pdf(self):
         pdf_url="https://example.org/rfp.pdf"
