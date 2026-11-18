@@ -9,7 +9,7 @@ This is an actionable operator checklist, not a record of completed publication 
 - Eligible candidate sources: `products/cyclops/003c3c67f50b396938ad/` Outlook Dropdown Email Template Builder ($19.99); `products/cyclops/5e498a5f78be3dd053f8/` Automated Workflow Builder ($29.99); `products/cyclops/6380f853132221ff30b7/` Web Data Extraction Dashboard ($199.99); `products/cyclops/755a8c931205cd5d956e/` Simplified CRM Dashboard ($29.99). Use each manifest's `files` array and verify actual file bytes, function and delivery before publishing.
 - Record each outlet's platform name, public listing URL, exact title/price, live listing ID, uploaded source path, and screenshot/API publication receipt. The only verified prior non-marketplace directory submissions are SaaS Surf Gmail ID `1a1d7af8874c6947` and WebBest `1a1d7b023543e3eb`; do not count them as confirmed published sales outlets.
 
-## Legacy payment links — 13 inactive manifests plus one separately quarantined
+## Legacy payment links — 12 inactive manifests plus one separately quarantined
 The following links are historical source-manifest URLs, **not proof of currently live checkouts**. Verify Stripe status and the corresponding marketplace listing independently before changing anything. Owner must not deactivate a link already inactive or a legitimate active customer commitment.
 
 | Legacy product | Manifest directory under products/cyclops | Stripe payment link ID | Historical checkout URL |
