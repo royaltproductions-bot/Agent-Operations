@@ -13,6 +13,7 @@ from tools import autonomous_commerce_brain as brain
 from tools import cyclops_asset_engine as cyclops
 from tools import persist_run_receipt as receipts
 from tools import research_memory
+from tools import open_web_discovery as discovery
 
 
 class OptimizationTests(unittest.TestCase):
@@ -195,3 +196,33 @@ class OptimizationTests(unittest.TestCase):
         self.assertIn('No usable reply route',str(context))
         self.assertIn('smaller packages',str(context))
         self.assertNotIn('internal_error_123',str(context))
+
+    def test_wolverine_extracts_public_pdf_solicitation(self):
+        from unittest.mock import Mock
+        pdf_url="https://example.org/requests/digital-service.pdf"
+        pdf_body=("The Town of Example is soliciting sealed proposals "
+                  "for digital service assistance.\n"
+                  "Proposal due December 31, 2026. "
+                  "Email proposals to buyer@example.org.")
+        with patch.object(discovery,"_open",
+                          return_value=(pdf_url,"application/pdf",b"%PDF-fake")), \
+             patch("pypdf.PdfReader") as reader:
+            reader.return_value.is_encrypted=False
+            reader.return_value.pages=[Mock(extract_text=lambda:pdf_body)]
+            url,text,links=discovery.fetch_public_text(pdf_url,with_links=True)
+        self.assertEqual(url,pdf_url)
+        self.assertIn("soliciting sealed proposals",text)
+        self.assertEqual(links,[])
+        self.assertTrue(brain.buyer_owned_request({"page_text":text}))
+        self.assertTrue(brain.public_buyer_invitation({
+            "source_url":pdf_url,"title":"Digital service proposal",
+            "page_fetched":True,"page_text":text,
+            "created_at":datetime.now(timezone.utc).isoformat(),
+            "contact":"buyer@example.org"}))
+
+    def test_wolverine_rejects_oversized_public_pdf(self):
+        pdf_url="https://example.org/rfp.pdf"
+        with patch.object(discovery,"_open",
+                          return_value=(pdf_url,"application/pdf",b"%PDF-"+b"x"*2500000)):
+            with self.assertRaisesRegex(ValueError,"public_pdf_too_large"):
+                discovery.fetch_public_text(pdf_url)
