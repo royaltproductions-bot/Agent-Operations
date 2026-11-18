@@ -376,7 +376,7 @@ PUBLIC_INVITATION=re.compile(
     r"|(?:looking for|seeking|hiring|need|we need) (?:a |an )?"
     r"(?:someone|freelancer|contractor|professional|provider) to\b"
     r"|(?:open|paid|funded) bounty\b"
-    r"|soliciting (?:proposals?|quotes?|bids?))\b"
+    r"|soliciting (?:sealed )?(?:proposals?|quotes?|bids?))\b"
 )
 
 # A how-to article about hiring is not itself a request to hire. Such pages
@@ -521,6 +521,7 @@ def explicit_solicitation_email(row):
     for match in re.finditer(re.escape(email),lower):
         window=lower[max(0,match.start()-650):match.end()+650]
         if (re.search(r"\b(?:request for proposals?|rfp|tender|solicitation|"
+                      r"soliciting (?:sealed )?(?:proposals?|quotes?|bids?)|"
                       r"submit (?:a |your )?(?:proposal|bid)|proposal forms?|"
                       r"proposal templates?|bid documents?|clarification questions?)\b",window)
                 and re.search(r"\b(?:email|contact|send|submit|questions?)\b",window)):
