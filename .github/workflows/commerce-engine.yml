@@ -1,7 +1,9 @@
 name: Commerce Engine
 on:
-  # P3 retirement: both automatic cron and self-chain disabled until a verified
-  # platform-mediated buyer source is restored. Manual dispatch remains available.
+  # Bounded Wolverine recovery: four source/market passes per day.
+  # The former continuous self-chain remains disabled pending buyer receipts.
+  schedule:
+    - cron: '23 */6 * * *'
   push:
     branches: [main]
     paths:
