@@ -1,8 +1,5 @@
 name: Cyclops Reusable Assets
 on:
-  schedule:
-    # Fallback only. Each completed run queues its successor below.
-    - cron: '47 */6 * * *'
   push:
     branches: [main]
     paths:
@@ -172,7 +169,7 @@ jobs:
           fi
 
       - name: Chain next Cyclops run
-        if: always()
+        if: ${{ always() && vars.CYCLOPS_CHAIN_ENABLED == 'true' }}
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}

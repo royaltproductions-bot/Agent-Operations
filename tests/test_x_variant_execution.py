@@ -923,3 +923,12 @@ class CyclopsPublicBrandingTests(unittest.TestCase):
             self.assertIn('class="product-art"',page)
             self.assertIn("Continuously Yielding Customer-Led Original Products & Solutions",page)
 
+
+
+class CyclopsDistributionFreezeWorkflowTests(unittest.TestCase):
+    def test_no_automatic_cyclops_cycles_without_explicit_opt_in(self):
+        workflow=Path(".github/workflows/cyclops-assets.yml").read_text()
+        self.assertIn("workflow_dispatch:",workflow)
+        self.assertNotIn("  schedule:",workflow)
+        self.assertIn("vars.CYCLOPS_CHAIN_ENABLED == 'true'",workflow)
+        self.assertIn("Chain next Cyclops run",workflow)
