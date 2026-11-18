@@ -1,0 +1,152 @@
+{
+  "schema_version": 2,
+  "lane": "cyclops_reusable_assets",
+  "timestamp": "2026-11-18T13:10:57.135761+00:00",
+  "model": "qwen3:8b",
+  "asset": null,
+  "discovery": {
+    "status": "new_public_evidence",
+    "candidate_count": 9,
+    "new_research_attempted": true,
+    "research_deferred_for_product_completion": false,
+    "previous_product_evidence_count": 0,
+    "source_counts": {
+      "open_web": 9
+    },
+    "search_provider_counts": {
+      "followup": 4,
+      "hn_ask": 3,
+      "bing": 2
+    },
+    "source_errors": [
+      {
+        "source": "public_page_fetch",
+        "reason": "ValueError"
+      }
+    ],
+    "fetched_public_pages": 8,
+    "verified_firsthand_problem_pages": 1,
+    "observed_public_paid_offers": 0,
+    "market_candidates_considered": 0,
+    "public_sources_available_for_judgment": 8,
+    "public_market_sample": [
+      {
+        "url": "https://www.zoho.com/vault/",
+        "title": "Password managers like Zoho Vault offer dedicated browser extensions",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=9562482",
+        "title": "Ask HN: What software do you use for creating estimates?",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=43740549",
+        "title": "Some Recent Thoughts on AI Agents",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://news.ycombinator.com/item?id=130234",
+        "title": "Ask YC: The business process sweet spot",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://excel.cloud.microsoft/create/en/spreadsheet-maker/",
+        "title": "Create Excel spreadsheets online for free | Microsoft Excel",
+        "signal_type": "unclassified_public_page"
+      },
+      {
+        "url": "https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fcreatecatalog.public.onecdn.static.microsoft%2Fcatalog-assets%2Fen-us%2F25d7e007-a45c-4c4f-9ee8-679cb45d90d3%2FTF25d7e007-a45c-4c4f-9ee8-679cb45d90d3a3d69df3_wac-37e36d7d82b3.xlsx",
+        "title": "Four-week project timeline",
+        "signal_type": "unclassified_public_page"
+      }
+    ],
+    "paid_offer_sample": [],
+    "candidates_without_email": 9,
+    "search_queries": [
+      "",
+      "google sheets templates for team collaboration workflows",
+      "excel-based budget planning templates for small businesses",
+      "excel templates for project timelines and task tracking"
+    ],
+    "research_memory": {
+      "persisted": true,
+      "path": "ops/research-state/cyclops.json",
+      "new_pages_this_run": 12,
+      "skipped_revisits": 34,
+      "invented_site_filters_removed": 0,
+      "executed_queries": [
+        "excel templates for project timelines and task tracking",
+        "downloadable password manager for chrome extensions",
+        "google sheets templates for team collaboration workflows",
+        "excel-based budget planning templates for small businesses"
+      ],
+      "next_query_queue": 4,
+      "frontier_size": 116,
+      "known_pages": 1800
+    },
+    "public_contact_addresses_in_history": 6
+  },
+  "production": {
+    "result": "paused_for_distribution",
+    "reason": "owner_approved_distribution_first_freeze",
+    "pending_stage": "empty"
+  },
+  "catalog": {
+    "result": "catalog_unchanged",
+    "listed_products": 4,
+    "product_pages": 4,
+    "files_updated": 0
+  },
+  "legacy_checkout_safety": {
+    "invalid_products": 13,
+    "disabled_payment_links": 0
+  },
+  "external_action": null,
+  "fulfillment": [],
+  "structural_failures": [],
+  "commercial_outcomes": [],
+  "economic_result": {
+    "new_asset_created": 0,
+    "new_product_offers_sent": 0,
+    "fulfilled_orders_seen": 0,
+    "verified_cyclops_revenue_cents_seen": 0,
+    "newly_observed_verified_paid_cents": 0
+  },
+  "buyer_discovery": [
+    {
+      "asset_id": "003c3c67f50b396938ad",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "5e498a5f78be3dd053f8",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "6380f853132221ff30b7",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    },
+    {
+      "asset_id": "755a8c931205cd5d956e",
+      "valid_public_invitations": 0,
+      "relevant_opt_in_outlets": 0,
+      "search_issues": []
+    }
+  ],
+  "operational_assessment": {
+    "commercial_progress": false,
+    "commercial_state": "saleable_but_no_new_buyers",
+    "indexable_product_pages": 4,
+    "new_distribution_outlets": 0,
+    "production_progress": false,
+    "public_sources_reviewable": 8,
+    "blocked_search_providers": [],
+    "primary_bottleneck": "no_opt_in_distribution"
+  }
+}
