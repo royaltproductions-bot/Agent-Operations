@@ -2580,7 +2580,8 @@
     },
     "mx73aev0qcty3w9rkdtg6p58p58jhz2b": {
       "first_detected_at": "2026-11-19T16:52:42.571276+00:00",
-      "last_known_status": "open",
+      "first_unlisted_at": "2026-11-19T17:23:28.072365+00:00",
+      "last_known_status": "not_in_open_list",
       "last_seen_open_at": "2026-11-19T16:52:42.571277+00:00",
       "version": 1,
       "versions": {
@@ -3378,7 +3379,8 @@
     },
     "mx7e5rpc2tppw4z62cqv9wcz898jhw0m": {
       "first_detected_at": "2026-11-19T16:52:42.571136+00:00",
-      "last_known_status": "open",
+      "first_unlisted_at": "2026-11-19T17:23:28.072375+00:00",
+      "last_known_status": "not_in_open_list",
       "last_seen_open_at": "2026-11-19T16:52:42.571138+00:00",
       "version": 1,
       "versions": {
@@ -5867,8 +5869,10 @@
   "last_check": "2026-11-19T17:04:00.531034+00:00",
   "market_observation": {
     "fetched_at": "2026-11-19T17:22:44.534872+00:00",
+    "last_checked_at": "2026-11-19T17:23:07.539496+00:00",
     "last_open_count": 68,
-    "newest_created_at": "2026-11-17T12:41:41.824000+00:00"
+    "newest_created_at": "2026-11-17T12:41:41.824000+00:00",
+    "newest_posted_at": "2026-11-17T12:41:41.824000+00:00"
   },
   "market_observation_history": [
     {
