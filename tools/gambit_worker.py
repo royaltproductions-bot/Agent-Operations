@@ -390,6 +390,27 @@ def save_state(state):
     temp_funnel = funnel.with_suffix(".tmp")
     temp_funnel.write_text(json.dumps(commercial.summarize(state), indent=2, sort_keys=True) + "\n")
     temp_funnel.replace(funnel)
+    # Durable daily observed funnel rows, derived from unique bounty/action IDs.
+    # This is not an assertion that unavailable historical events were zero.
+    daily = STATE_PATH.with_name("funnel_daily.json")
+    try:
+        existing = json.loads(daily.read_text(encoding="utf-8"))
+        if not isinstance(existing, dict):
+            existing = {}
+    except (OSError, ValueError):
+        existing = {}
+    snapshot = commercial.summarize(state)
+    day = snapshot["generated_at"][:10]
+    existing[day] = {
+        "generated_at": snapshot["generated_at"],
+        "source": "gambit_state_observed",
+        "coverage": "Observed unique state records only; missing platform events unknown",
+        "counts": snapshot["today"],
+        "conversion_rates": snapshot["conversion_rates"],
+    }
+    daily_tmp = daily.with_suffix(".tmp")
+    daily_tmp.write_text(json.dumps(existing, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    daily_tmp.replace(daily)
 
 
 def encrypted_brief(details):
@@ -529,6 +550,9 @@ def record_bid_measurement(state, bounty_id, bid, *, proposal=None, payout=None,
             secret = hashlib.sha256(("gambit-commercial-v1:" + os.environ["BOUNTY_AGENT_API_KEY"]).encode()).digest()
             record["proposal_encrypted"] = Fernet(base64.urlsafe_b64encode(secret)).encrypt(str(text).encode()).decode()
             record["proposal_sha256"] = digest
+            # Public state receives only a contact-redacted excerpt; full text
+            # remains recoverable from the existing encrypted proposal.
+            record["proposal_text_redacted"] = commercial.redact_commercial_text(text, 2000)
 
 
 def remember_details(state, bounty_id, details):
