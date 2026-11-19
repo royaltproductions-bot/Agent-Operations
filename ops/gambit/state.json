@@ -781,6 +781,12 @@
         }
       },
       "mx7bj9svjat5eq1nqekktgm64s8jgh40": {
+        "bid_canceled_by_owner": {
+          "days": [
+            "2026-11-19"
+          ],
+          "first_at": "2026-11-19T16:42:53.425046+00:00"
+        },
         "bid_sent": {
           "days": [
             "2026-11-19"
@@ -1865,11 +1871,13 @@
       "version": 1
     },
     "mx7bj9svjat5eq1nqekktgm64s8jgh40": {
-      "action": "bid_active",
-      "at": "2026-11-19T16:33:03.049803+00:00",
+      "action": "bid_canceled_by_owner",
+      "at": "2026-11-19T16:34:27.683000+00:00",
+      "canceled_at": "2026-11-19T16:34:27.683000+00:00",
       "declined_at": null,
       "declined_version": null,
       "last_declined_bid": null,
+      "platform_status": "canceled",
       "rebid_invitation_id": null,
       "version": 1
     },
@@ -2769,7 +2777,7 @@
     "mx7bj9svjat5eq1nqekktgm64s8jgh40": {
       "first_detected_at": "2026-11-19T16:32:41.581959+00:00",
       "first_unlisted_at": "2026-11-19T16:37:45.891843+00:00",
-      "last_known_status": "not_in_open_list",
+      "last_known_status": "canceled",
       "last_seen_open_at": "2026-11-19T16:32:41.581961+00:00",
       "version": 1,
       "versions": {
@@ -4480,14 +4488,14 @@
       "bid_amount_cents": 2000,
       "bid_at": 1795105982842,
       "bid_id": "p17axmwqsyg528es8ktxc61px98jh415",
-      "bid_status": "active",
-      "bid_status_changed_at": "2026-11-19T16:33:03.049615+00:00",
+      "bid_status": "canceled_by_owner",
+      "bid_status_changed_at": "2026-11-19T16:34:27.683000+00:00",
       "budget_cents": 2500,
       "discount_percent": 20,
       "first_detected_at": "2026-11-19T16:32:41.581779+00:00",
-      "observed_at": "2026-11-19T16:32:41.581779+00:00",
+      "observed_at": "2026-11-19T16:42:53.424956+00:00",
       "owner_activity_status": null,
-      "platform_status": "open",
+      "platform_status": "canceled",
       "posted_at": "2026-11-19T16:28:48.676000+00:00",
       "posted_budget_cents": 2500,
       "posted_time_field": "created_at",
@@ -4499,8 +4507,8 @@
         "budget_cents": 2500,
         "created_at": 1795105728676,
         "currency": "usd",
-        "status": "open",
-        "updated_at": 1795105732566
+        "status": "canceled",
+        "updated_at": 1795106067683
       },
       "submitted_at": "2026-11-19T16:33:03.049593+00:00"
     },
@@ -5149,12 +5157,12 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo4MSwiY2hlY2twb2ludEF0IjoxNzk1MTA2MjY5MDI5fQ",
-  "last_bid_reconciliation": "2026-11-19T16:23:46.107041+00:00",
-  "last_check": "2026-11-19T16:37:49.537455+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo4MiwiY2hlY2twb2ludEF0IjoxNzk1MTA2NTY4MzE4fQ",
+  "last_bid_reconciliation": "2026-11-19T16:42:56.583297+00:00",
+  "last_check": "2026-11-19T16:42:56.587273+00:00",
   "market_observation": {
     "fetched_at": "2026-11-19T16:42:42.148820+00:00",
-    "last_checked_at": "2026-11-19T16:42:44.936493+00:00",
+    "last_checked_at": "2026-11-19T16:42:47.899912+00:00",
     "last_open_count": 68,
     "newest_created_at": "2026-11-17T12:41:41.824000+00:00",
     "newest_posted_at": "2026-11-17T12:41:41.824000+00:00"
@@ -6614,16 +6622,6 @@
   "recent_outcomes": [
     {
       "action": "buyer_changes_awaiting_owner_approval",
-      "at": "2026-11-13T15:34:58.620252+00:00",
-      "bounty_id": "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8"
-    },
-    {
-      "action": "buyer_changes_awaiting_owner_approval",
-      "at": "2026-11-13T15:54:58.695210+00:00",
-      "bounty_id": "mx7dam93m4q8spz893n4zfsyzn8hgg6r"
-    },
-    {
-      "action": "buyer_changes_awaiting_owner_approval",
       "at": "2026-11-13T15:54:59.003983+00:00",
       "bounty_id": "mx7802nm08nqrb6rhb2kdaygr18gszcr"
     },
@@ -6980,6 +6978,18 @@
       "at": "2026-11-19T16:42:45.775689+00:00",
       "bounty_id": "mx78sa9e1qay6sfrf9t7wcc5dn8jh0hh",
       "reason": "bounty_api_BOUNTY_NOT_FOUND"
+    },
+    {
+      "action": "event_target_unavailable",
+      "at": "2026-11-19T16:42:48.582863+00:00",
+      "bounty_id": "mx78sa9e1qay6sfrf9t7wcc5dn8jh0hh",
+      "reason": "bounty_api_BOUNTY_NOT_FOUND"
+    },
+    {
+      "action": "bid_canceled_by_owner",
+      "at": "2026-11-19T16:42:53.425055+00:00",
+      "bounty_id": "mx7bj9svjat5eq1nqekktgm64s8jgh40",
+      "platform_status": "canceled"
     }
   ],
   "schema": 1,
