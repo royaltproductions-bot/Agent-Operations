@@ -1413,11 +1413,20 @@
       "ph7e5avpf8bx0g02tyk2z898798jhm6g",
       "ph77sb0enpawbsnfsyxgxracp18jhgh5",
       "ph79rkqyz2fvtcyqcnrf6bhp0h8jhwa2",
-      "ph7413yzjfk36fv630na2twwth8jge2y"
+      "ph7413yzjfk36fv630na2twwth8jge2y",
+      "ph75ydxbtw4fsa5tceahtzf2a18jhf8y",
+      "ph7ecgkqxwq5xyfyktx5zas8wh8jhyj0",
+      "ph7dcfyrs1vaftbassrdggkb3x8jh0gn",
+      "ph7dwfqkqqhsnc4csxfed3mnp18jhsnb",
+      "ph7dc14tqfzqjsqk1nff5fxnah8jh806",
+      "ph70hznz6j1mran78w9ne264vx8jgw4z",
+      "ph751mgx9gn82yh9xn0a3r1een8jh9bx",
+      "ph74kne7m4khrnmd4vtb0wqg4x8jgyky",
+      "ph7ed9pqe3vfxrww4fefhg3cfs8jgrpe"
     ],
     "event_types": {
       "bounty.available": {
-        "count": 34,
+        "count": 43,
         "data_keys": [
           "bounty_id",
           "bounty_version",
@@ -1425,7 +1434,7 @@
           "title"
         ],
         "first_seen": "2026-11-08T20:41:15.070418+00:00",
-        "last_seen": "2026-11-19T16:42:45.482607+00:00"
+        "last_seen": "2026-11-19T16:52:46.548673+00:00"
       },
       "bounty.claimed": {
         "count": 1,
@@ -2675,7 +2684,12 @@
       "last_known_status": "open",
       "last_seen_open_at": "2026-11-19T16:52:42.571203+00:00",
       "version": 1,
-      "versions": {}
+      "versions": {
+        "1": {
+          "captured_at": "2026-11-19T16:52:47.806750+00:00",
+          "encrypted_brief": "gAAAAABq_ylfZA5ffnNUIQpDJZDOYnvfSe1ztGX2vtK9l6FRe1vdCCqXmQ4aov86a0OixhZnkduGrEgXQxQPo-ry92Uzvqt9ePYUXJBtwcfhcQas94mIbSdK0qY_xRVsLzPS1ZXmRiLYXa4R5yLH-XJYvnHhVjIEp0pl1eCsGq3Tiewywlk8PqGmiF15NQpGmGZtwBaD6xG733Xi-RbJqu_ejbef-y2RqbGAeoLpNxKfR9svpPt4Uvp_jInC4JxDeqABtUucotYNlvpZmh8nqqk7kj26NHXx1LaCVjGLmivGfvU4M9QWm3uNC7QTn-BsT1khKhwWJOao3oRrtwF5M8XVY4zwewV0PgKmJ1UrkPpEyNxP0bFFNaxdi1TKIXf6ftT99hMm-5rhNkkn6tVlPsh0LX5L38FgtZd8DCZ2GuYhaWhEua-N85vVuHJ-2i76TrsX3P3jsiOv3npHPBh9wePsd_W0-lRHLlmyk3nNWg-doezWJDlS0KIwI1CeJuhJ6q_kNsjVxmBC6pA1_DqTrst8yFNNO-pLlRLpF5KfV6ctt8w9B8CDfAwbemgNM3CdTSI137t7kKURKA36IRA_msdQl2q23bXYcDMdnea9Srx8LHx3pvv8ctg30PJDsurjgKAKt2cn7nLxmnYZwFFYkMzlGSyDVc7DShduVoQWzsjKgeVgAXygvZuQLF46KBvbMD-iyItzT0YL1C49-YhBJTTTfIOOCznnwFRR-8pvutBe39-v76NOtTnpJUsN4dywH1T0GMbCFSPP"
+        }
+      }
     },
     "mx79h55fz6nnjtxcfzkewhkwvn8grcy9": {
       "first_detected_at": "2026-10-30T16:10:18.044133+00:00",
@@ -2814,7 +2828,12 @@
       "last_known_status": "open",
       "last_seen_open_at": "2026-11-19T16:52:42.571248+00:00",
       "version": 1,
-      "versions": {}
+      "versions": {
+        "1": {
+          "captured_at": "2026-11-19T16:52:48.752742+00:00",
+          "encrypted_brief": "gAAAAABq_ylgUsUoO9G7tGSQJVvgMgTwxh0OHpISgE4bsHoNMJoMuDENZy0UhSKsGmeJNJ8RaqjJ6XQrt13v3VAEtKEreUDoWUV1hc5u0Twe80CYAc2RzfZfvYOkqmqFUBenkf_6Bn4AxkPODxaKjOP1Y7eLVLJe4Df3gXKdqY7elgUZdcscDw35546TywXKJRChwFJAGr28FxA8PsnqDvd89U-35N23ApDn_p9YHB1m95bJEOBpts3MgE1h6LpjNChtyQDZuPzs5CnkXabCCmpvB3uBPC0jkCP-Ur4rbZZh4A2qrxuy0i73RdnlU8mSEtBy3QM1D-remA8-HxJK57gBqhRApUcGErNuB_qvGc3Yp-ltyfQPqNYVkcXRZO23hiykV1rxALCV65Yf-IcngwSD-s9PlA8Vrc_ipOi5_1uEHkm3Q6sAnz2BWh0JmfFNVpz1MNohwXUdnY--oa6gDLnTSuN-Q-nVf9XY-Y7YUjUC3icvdCOAI3aeindmsAiMiqXxF82HmlrpJViF4Wt64xSO1RyFiwYsUmjOfNWGqOjMaSpmO5zuX5GxgGho_GBRBsGJ47bsQEo-qi7XA-RMmsJSy4KgbXgIz65YgXu8KxlT2VWTlRTZdrsIzo-P7ThI8RZvcufeBMJHoylF8HjBqZiYmC2xmPTOZ0gHdAulpZj_x2dAx4tcM9_wWgsbbt5z6FEYOP82VmJneod88yzpHWsIkQvDdy5qoQ=="
+        }
+      }
     },
     "mx7b5r22yezh2hsytbgae3ywms8h8r5z": {
       "first_detected_at": "2026-10-30T16:34:24.772882+00:00",
@@ -2918,14 +2937,24 @@
       "last_known_status": "open",
       "last_seen_open_at": "2026-11-19T16:52:42.571189+00:00",
       "version": 1,
-      "versions": {}
+      "versions": {
+        "1": {
+          "captured_at": "2026-11-19T16:52:47.494519+00:00",
+          "encrypted_brief": "gAAAAABq_ylfBJCUVOVJCnyxwLZz4mIw-g3c8gG7H4nwN9St5OxRQfPCPFKs_zOlUojLy3DyfEBJ8QuFTylHguz8NWU0Ly1min6nE7Lambvy2CQ0Ze3jGtQ38fvHKmboCJd1PaDpjZ0Bund7q7R58NL69kSgHEG-KXMVUtalRoDIiQM5IAH6YESRDNNj2JUNvwzOWytFnoM-WQflmdNoE8u3M0bkfp3w6HpuXG5WSBAiS9g_EkVFLzk8c1LQP-RM6a15eQfJ1VGa-4Y0gu9oD2pPWMnGdUy5KuBVqB4IWYS1LghLNSotKvbzuVNjHsNprC3gQqOsSuO2m4KhP_HVjVjvkYpuiOhpIQvdpw-icMRYt2L6YZxQKUsm18nqClGGCJB5XU2p1u8GPFZFhpnaIvk7zQz626Vp6-0AQGkC0wPc3BmNyV0oVdVzPOdUgTTYINd13Zk3cNlx0bARp8_O_t3sY5ozRA9QjB38fBwIaC-ch4n9tPnD0glOe7Vs7xkr2i6POLsqFUULyj9wA6XQmGSIr2lcoZ89JlYPDNVxLtZfx-_ClcR5v8HNNWG8FttaEREI1iOq6gU5g9SitoeiDf3pSb4NLDIMEpzTVDlQraDRiAXANN17NMn2hE4CBKU022oQeXr71ueYcU020S2AFJTB3lHy17TRha7IRzU_qT1N3uBdqO3hKkM="
+        }
+      }
     },
     "mx7cg7yy7fge2t3q8gqcvxs7ax8jhghr": {
       "first_detected_at": "2026-11-19T16:52:42.571163+00:00",
       "last_known_status": "open",
       "last_seen_open_at": "2026-11-19T16:52:42.571164+00:00",
       "version": 1,
-      "versions": {}
+      "versions": {
+        "1": {
+          "captured_at": "2026-11-19T16:52:47.128124+00:00",
+          "encrypted_brief": "gAAAAABq_ylfV7XtvyXHgCohPTEl_iVtrj7eahAG-9a_-F_xZYx2UXD0Y4ja1mYxa-Px7t1HYk4mzq1oYKrxtNYgBvxkq-8R2PiR6f9HMqISvGGkHWO4CJkYyzi0XbERVIQGZTr5saNz16ftCYPweah5H0abbqgpdsrLQB9wITCkg6cghr1jMhGKRO-LTyDGYbL3Y3C2fJqsIZ-WWCsU8jCqcP09TumJ10cHQvkyH_9F_1eksonKvPEXTIiNBIXv8J87Pm3Fb0HjSTEN7mRR-0n9snUzYPeanQIEjFISNhIfVIi9feWL5hrgTrAcg_QRXbxMaH7t0zlsn8H45DCIYBoa_V1X0-YU20Kt-u_8kg0bwE23wBm-y-0wC-n0ph8DMoI0VPTPdJQ7dt1WxnXMPGjdoTwfh6_BDVrb5S6j2n4f-_GjQGrd6sz63lVlxO3OKkAUhCBAlmCs3Lfe9ckRLCFEaNH2QX6IX2p22jZbWIsKAX20X_4kxIx-LaBHk4lkntgpD0_QPXHJgz3r9XvyOSJg9xwc8dfe4nri1LNlCaGMIqpQaneut9MrKMj5vnX-3FZ4AsIxB-aMiuUXpNxZpCHka4lg4CCkKu9XtlclGAVYJP8OBsBbpx4hzy_1mt8zvZeNE8lsnuoK2xuHYCEZ5DEk5mbl62QnvZ7ETpMsvN4JTjLzyFa4S18="
+        }
+      }
     },
     "mx7cj1mxckqh88ghw14wc3v4mx8j2xnk": {
       "first_detected_at": "2026-11-13T01:09:21.707919+00:00",
@@ -2957,7 +2986,12 @@
       "last_known_status": "open",
       "last_seen_open_at": "2026-11-19T16:52:42.571236+00:00",
       "version": 1,
-      "versions": {}
+      "versions": {
+        "1": {
+          "captured_at": "2026-11-19T16:52:48.432300+00:00",
+          "encrypted_brief": "gAAAAABq_ylgkN4vViuel95hbcksFiiO3CU_fgaA9DIaU50UIvfrA-AbiFD5tOTeqQvem-Zjkm4_JFB8AcsT2XvyAMkwEjKBqYm-VmPUjYfMwK7J2IF5Z3gBYS7TWGxrOp7vZCMpn1QASaZuswp13saK_1Idw7ijGtRYuim4DEq5mcazpysI_LWZCcCujDHvJj9RSEeeF3lxKganRVHrlWa7oJc2vzN1kU6eisGhSt9k8dRB7BCSku6nxvfU2lF9GST0ZxsZC_rUZb2MEdKrARTDES9G7ntBN287U_E9Sjhr3HditRJdWm4k_tj1UblUcsDZHmddP_qxsQrGrNTX_8T8P4534JarBh2SiQpgrlKpvE_H9f7JxYgcJnSwjMoGygoVY8xOhx5hv4c7voVxQ35i3ikzGkJrfaIjxKXpbviRiW4RT0fZdKReSTfm0R0NBUg8IP5ThDXW4D4qV3fiJVQc7NmqoRkX-_hY57UnWYAK7oDwGMiCfQmrqJ8Ro6Gvl6iOBYOdp3y9J3sJvt88iODQlSOcAJhsYbj68NFCuW_tt6oTQleYNwV1jpaGXjgHkiQxQ84RIKM33EaWyVvJLehQgQgu2QFRWtQED4HNUyA4_Mxvf-wBM8MYRfn-dccHQOCf82hQAyFdXAH64IlfLTgxcQPzJDjXYp2KYnT-Na8WpHQ_vTE3_nBuBtF-WjpdAUWQPhFg_3h1FVtcMg_p0-np9aSx1xAwDk5xzS0TSVskE5j7C1We_cL_FBIHdVPbXmTNbnDk84hR"
+        }
+      }
     },
     "mx7ctr3ev01yjxyyznhmcey2jd8hahek": {
       "first_detected_at": "2026-10-31T05:46:14.810249+00:00",
@@ -3013,7 +3047,12 @@
       "last_known_status": "open",
       "last_seen_open_at": "2026-11-19T16:52:42.571220+00:00",
       "version": 1,
-      "versions": {}
+      "versions": {
+        "1": {
+          "captured_at": "2026-11-19T16:52:48.108190+00:00",
+          "encrypted_brief": "gAAAAABq_ylgh45R5ylQPd3aS830_jFw-ho0igyP-ChRZ8DDM6A0rubUJN-gU2kG8rUcSZfpq6GisF_tbtKGZHdh4aad7Uqf8kWc0h99ujhyT09jVUKY1nNTIDTRMd1rTnewZzBh7KPXC0iAbDpdLK9vHL5s3fwbGo3z3hEA9YkHIBZstoQHGGJMi9GytvCtAjOBfmnzJ_EzcaeKF02nvoXeCusows4KViIbixiS8ldeKNL9llcMx8i3oAaoU09Fmx4jSl6zE_qu7sebo5JtbJy8wnRdv1PZU2YLZ3APxgxS2xcA7_z0A8xwb-dGIAKXk-4c_yfFNxt1xx2h100JCquZkV4YQg5RojZefHHMmJo6j8Mhy_skaEcCbf37p8MWqL3uD6yyp2eInK-q29R3Wn8NJZUHCjqkXakAYcyE5Jc2ImZqcHDIXjp8JRkID7njk_N4P2GZ3-yTSpP7fmJ2iVQE0-RLlkzBdGMfZtf6LP2v5Q0peJcbAZSm0Lisx31PREeRHnyOQWpQ-PBf24ebJm-0eQU5HfjHanoq1zjTHxk55MuKT4MPlI6SgeBnRVqnoozPKE3btMag1Vx3FAuXuXKCZeQMxJpwDJyf7ccuPyql8QDzuP_PFd7BRFnopk41V2DbATkx4QJx_cEPnAvxFBr3UDEqlOSXlr99K8RmRza0Oxszw9GQsxvFWtqZ0Cdla3lqCQoZUwH6G1yIMjVdJXJa5JGFxk4zaIiymWkh_BfmsGvS3Lax_ys="
+        }
+      }
     },
     "mx7dh8gghmxf286e92849x6dx98j4qy6": {
       "first_detected_at": "2026-11-13T22:00:18.625964+00:00",
@@ -3045,7 +3084,12 @@
       "last_known_status": "open",
       "last_seen_open_at": "2026-11-19T16:52:42.571261+00:00",
       "version": 1,
-      "versions": {}
+      "versions": {
+        "1": {
+          "captured_at": "2026-11-19T16:52:49.013232+00:00",
+          "encrypted_brief": "gAAAAABq_ylhgG84TftxTdMxypWC08zs78jHvxOCHrc8TiW8X_IyylA_nrBM8JNFOJNWc7XSRW1tApTI1cTgJKqLJGhOBEbzbgOBljGz1c1Ju5pfFb-WWqkT_zS6SLz07NrSDet5Zu0hqH7louIq0tkKsXSYC7iIyQaixkN8c7btdIF0WuwqM-terIu-h2stgyiR-MknqH0dofPew3y9HfQ6EdYnSaLwTVkr6TVwRb3zuggxYlbOqA3en3C39oIuCDV0lBaqE2RqPZ_JD_JC284nkHlt-o3GpU8rOG32-Z3WZ5f48gabEB3hjrHE3xW6vdjo0hIIQ9WAjeb0F1k6P8V140DL2UMLTEMe0sR8ncyAN4vB8_yFBceH4hXAVrwWEVQTmpeaHVzp7ySStluL5bxznAGCyQ2VY94L03FQJwMzCH1OXZnsS6fuFmTDFcPD9r97x-0LQ9pdmZnHaXRTUO8GtLbsBTUlALEoqZdxDN5UhpsTYtdj-GPnW7GyhYE4se4OFohe94zX8F3lVTNUcvSibWJMuS-j9yxQeo6k4YX7AODs8dVImW43O6piQPd7H7WCgINQO7J2aHaMecacLzyt26PkRoBlZHm1OH0OV_7uY9z9lHyCA1sPQoWwpAvQNPcrrfIAee4jLB0RY0uIX29hV0wXGZNx_C1Gv0mED2uKzHhNc_XJVkjOhA8aGT6LKqEjiTZ0vosY"
+        }
+      }
     },
     "mx7dzny0f4hm4ypp05ch6xws5n8h79xt": {
       "first_detected_at": "2026-10-29T14:40:48.320569+00:00",
@@ -3065,7 +3109,12 @@
       "last_known_status": "open",
       "last_seen_open_at": "2026-11-19T16:52:42.571138+00:00",
       "version": 1,
-      "versions": {}
+      "versions": {
+        "1": {
+          "captured_at": "2026-11-19T16:52:46.826293+00:00",
+          "encrypted_brief": "gAAAAABq_ylervoVGSEH7LGh9--c26o85wR99-SYP2BrEM02zsibb7Uy0gyZzT067j7mSrma_nVogikHqz0fyQ-ZZwnFtjyyCwsLVQR96qqwZd9XqfAevM-P2tiB7mjr8a8OJ1d01_79FYBKZu0j9WOSdvkDGiIu5l10NfHYi6LFJew3Oa4-hXioyPyZRxa8jhBwOpJq3JfmYAzcWInQdTUky-FsstugfLbvXlv9Z1wY5s0vJgV5ofAtpdV5ul4AeWIgvR50FIOw1bTpw9GHjvdrkcNCYTIx2lBjEw392G945xjTzwct0AeH4T-r_-5kFZ9IrvQlatP5KurXXnC_mvxhXlSnhCvPvp1uGUySt9vRQw7Pc8SC00LIEBvjYIxYf1zR3xE2ErzdC3md_pt-tMcqN8icZe_xB-T5e00a7WJO8amnOaiwjWUThhZNCNo9_D3hHH5UVoBeTGJXtLQL7BmIgafwAqPbfNpaafdTUmVLX0-3FAJmWQMzG8Nsb1eXCk3YNEmGFfPWdnYE5NsWKUxytD01CeJnQMsQQJWgmyufitvspJXOkfujpXHlg-rE8YNTHLsWDDFe4VVpr8MNImRkEOwAbRAo1XtqxHwy_Ef0NiJmbeDIQ4ukZmakVMKxz7aABV6DN0tKz_Wc2iD8nt75CpTs51ykDveXgUR3ShFyyvLv5NBmPkGmFzjLjgfsXpqfBGFH6QbW"
+        }
+      }
     },
     "mx7e6d9ystrzd144ztqgcg0hf18gn7sg": {
       "first_detected_at": "2026-10-30T16:10:18.044175+00:00",
@@ -5450,8 +5499,10 @@
   "last_check": "2026-11-19T16:42:56.587273+00:00",
   "market_observation": {
     "fetched_at": "2026-11-19T16:52:42.572352+00:00",
+    "last_checked_at": "2026-11-19T16:52:46.029427+00:00",
     "last_open_count": 77,
-    "newest_created_at": "2026-11-19T16:50:41.744000+00:00"
+    "newest_created_at": "2026-11-19T16:50:41.744000+00:00",
+    "newest_posted_at": "2026-11-19T16:50:41.744000+00:00"
   },
   "market_observation_history": [
     {
@@ -6899,7 +6950,7 @@
     "bountyboard": {
       "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
       "bidding_status": "operator_reconciliation_required",
-      "checked_at": "2026-11-19T15:43:13.998607+00:00",
+      "checked_at": "2026-11-19T16:52:45.158268+00:00",
       "listings": [],
       "open_count": 0,
       "status": "observed_authenticated"
