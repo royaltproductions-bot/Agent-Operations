@@ -269,9 +269,9 @@ def redact_commercial_text(value, limit=600):
     """Keep useful audit context out of public state without exposing contacts."""
     import re
     text = str(value or "")
-    text = re.sub(r"(?i)\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\b", "[email]", text)
-    text = re.sub(r"(?i)\\b(?:https?://|www\\.)[^\\s<>]+", "[url]", text)
-    text = re.sub(r"(?<!\\w)(?:\\+?\\d[\\d\\s().-]{7,}\\d)(?!\\w)", "[phone]", text)
+    text = re.sub(r"(?i)\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", "[email]", text)
+    text = re.sub(r"(?i)\b(?:https?://|www\.)[^\s<>]+", "[url]", text)
+    text = re.sub(r"(?<!\w)(?:\+?\d[\d\s().-]{7,}\d)(?!\w)", "[phone]", text)
     return text[:limit]
 
 
