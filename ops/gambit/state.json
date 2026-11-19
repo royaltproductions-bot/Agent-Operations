@@ -3648,17 +3648,66 @@
       "budget_cents": 1000,
       "conversation": {
         "last_incoming_at": "2026-11-16T09:38:39.627000+00:00",
-        "last_outgoing_at": "2026-11-16T09:40:22.461766+00:00",
+        "last_outgoing_at": "2026-11-16T09:40:22.317000+00:00",
         "message_count": 9,
         "response_lag_minutes": [
           10.131400000000001,
           9.924883333333334,
           3.1822333333333335,
-          4.678616666666667
+          4.678616666666667,
+          1.7115
         ],
         "unanswered": false,
         "unknown_timestamp_count": 0
       },
+      "conversation_evidence": [
+        {
+          "author_type": "agent",
+          "created_at": "1794822022317",
+          "text_redacted": "My proposed price is $5, but I can\u2019t change the displayed $8 bid through this chat, so it has not been updated. The $5 offer covers one PDF containing the chatbot conversation flow and a web-interface mockup showing a match question and an illustrative prediction response."
+        },
+        {
+          "author_type": "user",
+          "created_at": "1794821919627",
+          "text_redacted": "Update it and chat me back"
+        },
+        {
+          "author_type": "agent",
+          "created_at": "1794820527546",
+          "text_redacted": "You're right\u2014the active bid still shows $8. My proposed price is $5 for one PDF containing the chatbot conversation flow and interface mockup, but the active bid has not been updated to reflect that."
+        },
+        {
+          "author_type": "user",
+          "created_at": "1794820246829",
+          "text_redacted": "But your is still showing $8"
+        },
+        {
+          "author_type": "agent",
+          "created_at": "1794818426311",
+          "text_redacted": "My revised offer is $5 for one shareable PDF, designed in PowerPoint, containing both the chatbot conversation flow and a web-interface mockup in a clean, dark sports-dashboard style. It will show a user requesting a soccer match prediction and the chatbot replying with an illustrative prediction. Delivery within 48 hours; this is a static design, not a functioning prediction service."
+        },
+        {
+          "author_type": "user",
+          "created_at": "1794818235377",
+          "text_redacted": "Reoffer $5"
+        },
+        {
+          "author_type": "agent",
+          "created_at": "1794690783539",
+          "text_redacted": "I can offer $5 for one shareable PDF containing the chatbot conversation flow and a web-interface mockup, using a clean soccer-dashboard style. It will show a user requesting a match prediction and the chatbot responding with a clearly labeled illustrative prediction. Delivery within 2 days; design only, not a working prediction service."
+        },
+        {
+          "author_type": "user",
+          "created_at": "1794690188046",
+          "text_redacted": "Offer $5"
+        },
+        {
+          "author_type": "user",
+          "created_at": "1794690175655",
+          "text_redacted": "Offer $5"
+        }
+      ],
+      "conversation_evidence_backfilled_at": "2026-11-19T21:04:37.243781+00:00",
       "declined_at": "2026-11-14T21:06:58.891775+00:00",
       "discount_percent": 20,
       "first_detected_at": "2026-11-14T21:01:53.775970+00:00",
@@ -3666,7 +3715,7 @@
       "observed_at": "2026-11-14T21:01:53.775970+00:00",
       "outcome": "declined",
       "owner_activity_status": "reply_observed",
-      "owner_last_message_at": 1794821919627,
+      "owner_last_message_at": 1794690175655,
       "platform_status": "open",
       "posted_at": "2026-11-14T21:01:47.805000+00:00",
       "posted_budget_cents": 1000,
@@ -3674,6 +3723,7 @@
       "pricing_mode": "introductory_first_five",
       "proposal_encrypted": "gAAAAABq-M2IfzIg755u3gnEaPZUX7iSNo1eZwOYbvr48am8GhPgxB2s5gBfZaGtETnN9axJ4x9-erKV4P6KyRni3wM3sf1qHmf-PvGs9DWc7k0O3rBSMaO4KySpIbdVLiLf6yHHbP2i7WKe6gMGRmMMSxlHbDp7bNKRGc8SG2F7lKfokqm7naqAyiacOgdR1rRIM_bRtakLPxnjee-dgr7XmW6oevUb3fNi8Q-2bMHHN5hn29DDjuGAi5Dh4ZD9gPGL8LEWBArThbiiBc0YGYuJpVb4uz7D-sW_uGcMDxntxOFXpFxf_XqXW_-M06Lc9yZXXtTEXrHwoMulg5jy4-hLbbFPBNeGVQzaHKD39IWXy7mp89xVgdfTDYSNmW4dq50GIPhT0NMR5eJ6WE7sxFiBLzPB5nwMYkdXU7g-ld6kRYeZ4M7wGprsIXNDyH9mo8LKQzrCFZaNKYsaQsEw-wYpi3rifsRa3YfRiyl9gCK6RJptIo1WFY9B9BDO_3_XwwTIB-v0yU1dAUsHo3mYG3ackUrqjhX581IlTkb2BE9rZT7Bw0vFtTRrwzKDaPGWJx2VmtSEY5BTpYWv2WtZ-uUQW24blCB2_Krj9EUEqmZUQkKRTKyFTB1Xp1-3HzhOwGLcjAZE6p41Oajr3eIozSwsianUmVqVLJT_gTgJ7dkqflJfcOhY32kqWCA7K_sX0VTrblfequmUxv1vZe4l7dn6yLrZ3Xt5S5B7Oavn8dnL0TlJUKUxzrNFjmfh9oC7JXf2n77c0_axtKFrk7SIpUrh0ERGlcglxSS6Gx64-fqmC92XCmHIYAXAjU0c_MtEoVP5zXl24nxXG_pqp396JiYP5mRh6_OsFMv-n_JvzXzIDYoNppi6Ssu1R1AKp0KJ-j5x5krzBtnFv1P8EV2sp68xV2KKD5yoZr-VF9iucctsDXOMmjE7BmV1-8k-tBRX7jSZpjFa8NPeDZpnTm_oRnfmzDowRlkLmif1bDvfOlzuUsUCDPmFvD3SoLfYu7CGKRJY0OHDWb6AMD-wXFPvLpsphx-0mnxbQymJC0spRbnLlLnYhB3T0wLcn-Jb9li8eK_oQIi-GcasH2iziAHO-Z5voJcIQcdctxQawRUPeEq4e10nPd3J7g96L1Ryy3cVICxAPMsTQ8jfJI5jpMgDlkhw0sDwUb9l6NJg-xOIN2rw6Wnmo4O7D2hPwMCipUFAhzNXo3Zrt9uilPS632j228vw8OqmXMtU0Osoaw4ij3GzhrIMwir58arUKd8MeF8DOdvTHNgZzf51",
       "proposal_sha256": "6a043f4795844a38009ad0b8699273f37c29e7dd9be9e18acdae174c42de0fc3",
+      "proposal_text_redacted": "I will deliver one editable PowerPoint (.pptx) design file within 24 hours after hire for your offered $5. Three slides will show the conversation flow, the user's match-prediction request, and the chatbot's prediction response. I'll use a dark stadium-inspired interface with green accents, match-selection prompts, probability cards, and follow-up actions. I'll check that the flow and mockups agree, text remains readable, and both the question and prediction are clearly visible. Prediction values will be labeled illustrative.\nNew on TryBounty; introductory rate while I build my track record.\nPreliminary sample: Preliminary conversation sample \u2014 User: \u201cWho will win Team A vs Team B?\u201d Chatbot: \u201cTeam A is the slight favorite: Team A 45%, draw 30%, Team B 25%. Illustrative prediction\u2014not a guaranteed result.\u201d Follow-up buttons: \u201cWhy this prediction?\u201d and \u201cChoose another match.\u201d",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 1000,
@@ -3781,12 +3831,28 @@
       "bid_status_changed_at": "2026-11-17T13:32:53.419085+00:00",
       "bid_updated_at": null,
       "budget_cents": 500,
+      "conversation": {
+        "last_incoming_at": null,
+        "last_outgoing_at": "2026-11-18T13:45:47.001000+00:00",
+        "message_count": 1,
+        "response_lag_minutes": [],
+        "unanswered": false,
+        "unknown_timestamp_count": 0
+      },
+      "conversation_evidence": [
+        {
+          "author_type": "agent",
+          "created_at": "1795009547001",
+          "text_redacted": "Following up on my proposal. I can answer questions about the scope or provide a preliminary sample or preview where the brief supports one."
+        }
+      ],
+      "conversation_evidence_backfilled_at": "2026-11-19T21:04:37.520789+00:00",
       "discount_percent": 20,
       "first_detected_at": "2026-11-17T13:32:24.574317+00:00",
       "followup_sent_at": "2026-11-18T13:45:47.154785+00:00",
       "last_outgoing_at": "2026-11-18T13:45:47.154801+00:00",
       "observed_at": "2026-11-17T13:32:24.574317+00:00",
-      "owner_activity_status": null,
+      "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
       "posted_at": "2026-11-17T10:12:44.750000+00:00",
       "posted_budget_cents": 500,
@@ -3794,6 +3860,7 @@
       "pricing_mode": "introductory_first_five",
       "proposal_encrypted": "gAAAAABq_FeFv3xF_p65Zi5IHLvo12M9OrcirIsuMtN7xvnhJsJ4WkNqTHJlLPXMVnTB82KlDKSUNPt9ANlGP4vHA2tQtKqD9wLbLGQgbQl6d5_AOvGSt9y0qLE9T8Vl40e7iDxGaoBBKZXthUahNsbaC111sdrwJxyUk5GkBpRjiz1UB_X0q1cI0Rn-wCp89AE_YUxuxg5rDLYoJ3V-g9_c68I3SZyhGGNITWqn_EOYDuyQiQN5UPSLoFH9mzGIA5L7GSuoYrHArejBq5psu-ZX7niUluaZcL-xXcCOxZW6UTssvZl4CphMsx19l6JIQ2cUOIW9ahysgcKG673LN5-Ru9ymtdw_H9X2YvwjhNfpvwKyvgtE_7uMaiuSMsOdVXuOSTTh14amgCNsfRZGm8M2EKf6ib7d1-1VOYv-P7lGemZrmagAgtthqnEfKAe5JG9AJjs3vmHyJBu4IuBN4i-3QHGNTrKEKl85DqUdYB2uGHmz364bHof5ZOBeDwj-n5YvzLEqhczO5uoo7uUHpmoV18VMiEkeiHylu4GeBgCcCoV6MohpbpfZrUFeAA3TAcZ2Lnl5GggxKm-XRgpU6aRZ3KtcglXWVWBtQ03V5Q9kKjmiltodLqi8Ptra9PS7vDNd7jBMB7mfoTjHmKbc7fxMk3QpHefUYLcnlLkM8AZPlzQ6nahDHudvqlyY6u-TEYTFEqTWcrG_eQKQII7YDvHfu3Sc1jbjq3SxkYSdaSUrr3wdokweSrKDpuu6I3XnbZnbQ--XEwAHaVXTq15ptZxyd4GMH7vNuIFfzNYdQSt9QkfSA-IMx3nISmmiqlG66OWoRJiG1J3x_JKF26S1QdDKKAvI1vwRPsVcQLRCiLhVV6oEEBbPCceqT7RB8FpmTkMLKF4NVH2Cq37dk_k28Hb1jIG7vcGEP7H0FeBN6kD5qRDacKoAYFtep6llL2bJEfoOkidFx47EcfU6yLD9TvoVTLA3Mtep6jamSzm-qnTUkNV23n9pGhIoH3CZpfknKZq7UNcbwoPmK8ngL9rQujduEuuIlgIubMvGZDwzzZZuan1vANLOkAT9d40l64xb4wdbJnEO7sG73JyOLZdmIbX_NS-n7Q9fBZ0itSBXwWkdAj0cN-BqYzWlsT4-EjIzKme2wrJroAksd83VFbWm3VlRWSnh3BLXZxv3vb1i-GLccxtAUZmWSl6BeKRNkPO52miACquKilg7B8RuVLBxBMCRi5IUdaDkopBr0WyYK6Q0rHff6KPAQ9U-qg5fA8EchNboezxTTetXRIq_6BmfDBJfQgijXXhoNQ==",
       "proposal_sha256": "1eba658f63a9a119a06ebe7a1ac6f62f3c13bb3113263834e04a166e3c592f73",
+      "proposal_text_redacted": "I will deliver a source ZIP containing the Python 3 `xcomment-lint` CLI, README, and offline unittest suite within 24 hours after hire for $5. The tool will accept a UTF-8 file or stdin, implement exactly your width, URL, and banned-substring rules, emit one JSON object, and use the specified exit codes. I will run tests covering your three-line acceptance input, 140/141-width boundaries, all banned strings, case-insensitive URLs, combined failures, empty lines, and usage/I/O errors. The README will provide exact run and test commands; no third-party packages or network access will be required.\nNew on TryBounty; introductory rate while I build my track record.\nPreliminary sample: Preliminary implementation excerpt:\nimport unicodedata\n\ndef comment_width(text):\n    return sum(2 if unicodedata.east_asian_width(c) in ('F', 'W') else 1 for c in text)\n\n# Expected: comment_width('\u4eca\u65e5\u3082\u9032\u6357\u3042\u308a') == 14",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 500,
@@ -3833,12 +3900,28 @@
       "bid_status_changed_at": "2026-11-11T21:38:30.719284+00:00",
       "bid_updated_at": null,
       "budget_cents": 850,
+      "conversation": {
+        "last_incoming_at": null,
+        "last_outgoing_at": "2026-11-13T01:09:32.648000+00:00",
+        "message_count": 1,
+        "response_lag_minutes": [],
+        "unanswered": false,
+        "unknown_timestamp_count": 0
+      },
+      "conversation_evidence": [
+        {
+          "author_type": "agent",
+          "created_at": "1794532172648",
+          "text_redacted": "Following up on my proposal. I can answer questions about the scope or provide a preliminary sample or preview where the brief supports one."
+        }
+      ],
+      "conversation_evidence_backfilled_at": "2026-11-19T21:04:37.787942+00:00",
       "discount_percent": 20,
       "first_detected_at": "2026-11-09T07:20:57.279760+00:00",
       "followup_sent_at": "2026-11-13T01:09:32.791184+00:00",
       "last_outgoing_at": "2026-11-13T01:09:32.791201+00:00",
       "observed_at": "2026-11-09T07:20:57.279760+00:00",
-      "owner_activity_status": null,
+      "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
       "posted_at": "2026-11-09T06:27:44.413000+00:00",
       "posted_budget_cents": 850,
@@ -3846,6 +3929,7 @@
       "pricing_mode": "introductory_first_five",
       "proposal_encrypted": "gAAAAABq9OBWctpeBHIflOt2KS93ZOcGkMogd-mDWEirunVJilsqSpqPPR1P4r9cA22PJdm-kUNovuhlz61t-IYGvpfAnM9ZBXlG3d7UXI_2xvSinKGAz4idgKk5JrbOnrrPJh7ym9LXnNbbKWSItwKCk0Xr57q6UGE7stUOGkT1kzfKn3OebcMqqn7jl19gBs_VtKXRNM7XpbFuwvOXRg5D8y1aY5Dhsb-pa5sgSMAN3UchONTKZFw12xX-ZNye8GmZOU-83i7eEmrQLPPQWD1MapVAs7nqPqvY4wvC5Z3GN9vmmEUDhC-gM4qPsxQ6GPoj8Nmh1S1JZMNf3cm-WPkHOmj-SabqQzWK8qlDKs71tFnNIanKCCzEP1Q8jZGLwRyjDGHD_mK0A_5ZnOMvRqS32w1pGJWPU0zSiwRAZxQWm7y4-HlO-6s8cul0p1rqnuk8SSt8xUWT647pUZ4aIYzfEIcefWsapihtUo6c6IplnZUBfDROjApBgED6-XVM3Viw7FbB5GdZJCEuyie6vVlMSvLc3iHbmRwoL8NZRxXoRPUJItjuEeQBvl8OE9VFZ5YEP1KYe3u_xsJ1Zg-3eASDB1RXRQfonbRULFhmPmiEd3wscu0T4Gzbsz958zjbNzBQ76lvTrY9N8Mqbt5cgjq3UOsRV_MfzJVstTAbI_jejUvoIxJ_DdO2vqzt0nXqAmVozkzuZ4PFZDnh0v870fKfJXLFzDON3sOgBTipPmq2wE4y-g85yQdOFSW3yeVvJxATxJFKMFAOtGvt-W20FMka89qg5CN96Dp_OAfOofKiPuYXoBuB5Tw=",
       "proposal_sha256": "d63e040ff1814d4d27abdac780b0dc5f8075bae8c09e3c828bf39ea88f431bcb",
+      "proposal_text_redacted": "I propose to deliver Find one woman who offers online instruction in both yoga and English. The buyer prefers a tutor with a curvy, prominent backside; include a public profile or listing that lets the buyer assess whether she fits that preference. Submit the tutor\u2019s name or profile name and public profile/listing URL. Do not contact candidates or arrange lessons.\nTurnaround: 24h.\nAssumptions: scope and acceptance criteria as posted.\nI can prepare a preliminary sample on request.\nNew on TryBounty; introductory rate while I build my track record.",
       "research_pass_recovered": true,
       "sample_listing": false,
       "source_fields": {
@@ -4073,12 +4157,28 @@
       "bid_status_changed_at": "2026-11-15T20:15:31.534916+00:00",
       "bid_updated_at": null,
       "budget_cents": 1500,
+      "conversation": {
+        "last_incoming_at": null,
+        "last_outgoing_at": "2026-11-16T20:20:14.810000+00:00",
+        "message_count": 1,
+        "response_lag_minutes": [],
+        "unanswered": false,
+        "unknown_timestamp_count": 0
+      },
+      "conversation_evidence": [
+        {
+          "author_type": "agent",
+          "created_at": "1794860414810",
+          "text_redacted": "Following up on my proposal. I can answer questions about the scope or provide a preliminary sample or preview where the brief supports one."
+        }
+      ],
+      "conversation_evidence_backfilled_at": "2026-11-19T21:04:38.031336+00:00",
       "discount_percent": 20,
       "first_detected_at": "2026-11-15T20:15:08.016501+00:00",
       "followup_sent_at": "2026-11-16T20:20:14.999056+00:00",
       "last_outgoing_at": "2026-11-16T20:20:14.999071+00:00",
       "observed_at": "2026-11-15T20:15:08.016501+00:00",
-      "owner_activity_status": null,
+      "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
       "posted_at": "2026-11-15T20:12:43.374000+00:00",
       "posted_budget_cents": 1500,
@@ -4086,6 +4186,7 @@
       "pricing_mode": "introductory_first_five",
       "proposal_encrypted": "gAAAAABq-hLjSYY2b5Cd85SMcOFALgk0UCc2WcF2P5LJR0zH2HqeV7thxCLepQIAcPJS5msA6oyxTzD-slKB6LJU9iNl0TG-LwKzS0Z8lWodTedAELjE7YrFHRQacjS1Jqt_Y7dQwAZcVvgcW13gKNqzXkuJrNS85vMBRVl3FwF4Leb1_B7X9-7UBYw9lWe2-ovpadsOEPtZ4n56t6TVH7qGigHyrQD53aMEtKXHA8Xg1m6c-xVSZlxgTTHrjck2bWha7cgyXMlDscekFzIPxPFR3oNNiQ2BOyWuGMSENdJnFqLd3ziEMc9hlzKD6wNgHIyvREvxhPpg0QFa_ilf1S4MJO3qvSKucDAhCtreXo8_iE5dcRJ-sF-7ifAy0ZjX2KbQmWaeSp3bmmi1nLuZjcy6WwoZskcL8_diq_S5hZH6kRBxpsaK3rK0MDBlxCM2u3-UPGvuQFTm4ifSZMyiH7wIBocZWiymplgLb4KIITdlkyUKdnsrKUQWxKXkuL6BHSN-OYh8NnBw1q6R5qvItmWhN_E-nbxaPJ1294npT2Q2pAeQjM5HCQlPT3_LqStsickYNbd8HNKoykt_uuQeLTx4KHbHQNoWoN23jZLJ04M4AvPFdIYyZoIG36tk_-yDqrsc6qw12zNzKUgnxT7sxBhrXcnmkLMm892iKw9SuuDmHE_D-cwfk9FtzeK_TmWkU737l4gFPZ5o_WMoIc8tGfCraTftZm_LPa6Cjd0iNXRURjqZ8dhx71OgbhGQ0Z4e4oYG2j0iKQJiy8ENLsQQIRHTjiCHcrIrVxNjLU4WZdUbZiKntaub-M_1lUahFD-fH40CRa7I2OCcQ5rLqlna1MJrC7EvVKCM_1dWCMNqADxE0WN84v5uXBChT_ogQJkJGlo4BuDvyk_FM739B3bjQQwCKlCm_WHgadWwXhouIjTrXx5kn4e2sXAL458TBZgQFCp19uiKVWqGVvMTVbGBIlBtf7GU7M4TUdvHCFgCWCftop8f-fvB-cQE-eX-a5WAaWW7d6nJ2qzZf9vThLxhbgdTVkn_QSxe8Q==",
       "proposal_sha256": "3b545f30fcc4a3494e4f01d4c2f92c19a5581adb07ce4208f340b0975a601ae9",
+      "proposal_text_redacted": "I propose to deliver a simple CSV table of 10 US-based institutional allocators and family offices within three hours after hire. Each row will include the investor name, type, a specific fit note, and a public source URL. I will screen for distressed/opportunistic credit or relevant hedge-fund allocations, European/global exposure, and institutional scale consistent with a potential $5 million commitment. I will check every cited page and distinguish documented interests from inferred fit; neither interest in this fund nor commitment capacity will be presented as confirmed. Does a 10-prospect CSV suit your needs?\nNew on TryBounty; introductory rate while I build my track record.\nI can prepare a preliminary sample on request.",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 1500,
@@ -4118,6 +4219,7 @@
       "pricing_mode": "introductory_first_five",
       "proposal_encrypted": "gAAAAABq-d--rXTsX3V-xAAnNrFIAnxFaUI7Rl88-v5zfD1FjeCEYJWXRaVd3Kx44v2Ntxs-byoMr4ICOZSVeKLbofbKVyc8WJJR0molC44nnp1wPCWfbl1BxAwdtrc5y2xjADDG7UA0uYeneguyOwfbbihW_A3BzwGHTPhP5aOJmidR2MQLz34KTNfHtdbiqntFPh1JTy7ZDbv5iJQW4AMHoWCKpneE_l_snFfC8_1PDEpkabItCz_oOVo5y6m43NOKZ5ZQfDG9Y-OahkrRI8708GXeC2Wr1BEwZPJLlrsH3nqskRzIs2F1ea6vWFU51e8S5KkemSm1y6NbpWQeyxZK-rlfSgxi6he6yFf_VkzF-7eIt05tNjc4hoYxS-4XesYpMOIAYVm46UylR7pfwo-1S32ar968IWPQsK82IvJQguCHRZrJVW4ain0nojMob5_jbieHZSDENfksuNZL-jg9_84bk-mv6F6Q_P30jLGvTaXsS_6INnDmQaBKL2-7KQ1uDkMrwPmsMj00E9VTFjOkMHXxjtfvWcvyKIqAXUUVgqiEPIy4t9xKv-9DJXNBzHwfglbzOcnDDsFllwZawlITEkoVft5RAwaK83PYtlEYBoNvwQ7e5URA2kd2xR7MGocnnH0I2ImsoYLQg6ioMemY5emahpFDFRKt17rM4YkRBy1hKM75Tbk9TlVR6aZJkXpETgGEAa3nzUloDR0l3d-0iGRv9AjM2ISlBk8tZigH6sv5WlkQcyaP9lq99UA1Wjja-8FsoPmgNWfAK2cElvZaOpojsCqrAK1UOpRGbfy4S9igrHekf5lUsTPMPagCFLKlpiRyZu31DfKhZsnj59ADPdU2rZseOeZDPqdpaK3wAEql7ea0S_RFuocV12ObjTDnJSwJ6fmps2q4kDGxj0O_3FnaEsdx71P47XXASe-Vl10ahwpBl0W4fIj9mWV8XeVFCP8t1YMUnRrRmRKsBve08WNXpyE5iLAjrUs8xFB9Z4OnrKxRg1k1p5KoCI8o4PHiuq7AmgW8zwgzgyBZG80jgIM3rcY97mkQfFp9YMV1BNk78Y9rn5W7orF-eJAWaVwnEWLez-qF-sVNQbzyDeVhCG8U7bl4LZ7Ri_SvdeHrEc4OFjtjNDUEL6po6eVFqGyzNB8nQ-ML",
       "proposal_sha256": "b1566ab0d4aa6eb6fe48e9782f9a8c6afa7fad84b9a59897dc6f892c223353b9",
+      "proposal_text_redacted": "I will deliver one Facebook-ready promotional post in Hebrew as plain text only, aimed at small and medium-sized businesses, within 3 hours after hire. I\u2019ll check the supplied website and Facebook page, use only supported business details, and include a clear invitation to contact the business. Before delivery, I\u2019ll check the Hebrew, audience fit, and factual accuracy\u2014without inventing contact details, results, or promises.\nNew on TryBounty; introductory rate while I build my track record.\nPreliminary sample: \u05d3\u05d5\u05d2\u05de\u05d4 \u05e8\u05d0\u05e9\u05d5\u05e0\u05d9\u05ea \u05e2\u05dc \u05d1\u05e1\u05d9\u05e1 \u05d4\u05d1\u05e8\u05d9\u05e3: \u05f4\u05de\u05e0\u05d4\u05dc\u05d9\u05dd \u05e2\u05e1\u05e7 \u05e7\u05d8\u05df \u05d0\u05d5 \u05d1\u05d9\u05e0\u05d5\u05e0\u05d9 \u05d5\u05e8\u05d5\u05e6\u05d9\u05dd \u05dc\u05d1\u05d3\u05d5\u05e7 \u05d0\u05d9\u05da \u05d0\u05d5\u05d8\u05d5\u05de\u05e6\u05d9\u05d5\u05ea AI \u05d9\u05db\u05d5\u05dc\u05d5\u05ea \u05dc\u05d4\u05e9\u05ea\u05dc\u05d1 \u05d1\u05e2\u05d1\u05d5\u05d3\u05d4 \u05e9\u05dc\u05db\u05dd? \u05e9\u05dc\u05d7\u05d5 \u05d4\u05d5\u05d3\u05e2\u05d4 \u05dc\u05e2\u05de\u05d5\u05d3 \u05d5\u05e1\u05e4\u05e8\u05d5 \u05dc\u05e0\u05d5 \u05de\u05d4 \u05d4\u05d9\u05d9\u05ea\u05dd \u05e8\u05d5\u05e6\u05d9\u05dd \u05dc\u05d9\u05d9\u05e2\u05dc.\u05f4",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 500,
@@ -4310,6 +4412,7 @@
       "pricing_mode": "introductory_first_five",
       "proposal_encrypted": "gAAAAABq9N8XU8wmVj_usOe8khhZ3SwGNfmQbyN9SfkmImENoJu-INa5zwPdWlbpxloe3G0r9QB7TDBH_StcTk-HC8Wh3Mg1KP8RqrsfW4m-ZOqvujwGZRoduH41D8-JrSf7xHyJ2-QgSzCLelNQ3mziOyvivAERacVwRrDs-69CJU4Us8CQK4mA77tX448c3NK8cZHMlQoO-wV01KSF6rvr43ypIfzArKwpHrg9K9pugixH9AQ4ChAhqcbnipU67rVkjr4lHU0V3Ls10As5kdiKHPyJP1MbcZhfV4pe4TN4Ia6V8oYsYvCFYc_HCZzq4cvzasYF_nitKsD2YCs7wAJp9aBjDk4eantSFH8EKEouheaKRpFq-FbOnpMjHYqZij6amwC2f-iP_txoMAz5jwczIYQWim0eeeg5Ge_-lW5CbwwGMJ33PHsLNIVVkD2msax1LKSS0nqwiMeAVTHSS1VO32VoS-Ut78vLr0E7s56FgQFgOkz44eG0mMIBp5Q5qzzsp8C3Qh2c1XAA0gVOMJL2lGKP5yyVhhlRJ1KUpVsMhGOwt1PHE8w=",
       "proposal_sha256": "209e84b0179a0caf49d95c9c2ce40f2cc12494d4621c1b96abe816a094e6d46b",
+      "proposal_text_redacted": "I propose to deliver Al agent\nTurnaround: 24h.\nAssumptions: scope as described\nWhat specific task should the AI agent perform, and do you need a written design, a static interface prototype, or a working agent connected to tools and services?\nNew on TryBounty; introductory rate while I build my track record.\nI can prepare a preliminary sample on request.",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 999900,
@@ -4369,6 +4472,7 @@
       "posted_time_field": "created_at",
       "proposal_encrypted": "gAAAAABq75NSOCDJJ6nS3wk4tMyztvffSr0BBmHdXRexYQEVzbtTzrFzsMSBcqqhuZjBASrjZpR8-0rW1lv3js15-bsQnq-knEJ3EsbYVCZKEXeiJ8RRKxDado-sGJOw9CBUlg5K9z7N8XOt0kIEiil0n9E1sIcZMYkmYNAaDm4HzXNIy7AfD1rppM85JCuy6AhyWbHqJKLFRKrDJFy4SNckndMUs1Gku_dOseHh1w1PTGyhGDCjTD5cBqCnYgvbzWhv2Nuoxtt6eAjTfkbHsXtMT4mDlMsGgBUeytJdD5K0ey0tLKFPkTbzyVADYkXXnQ7_kK8sOIcnSrM0Ix1-I7YUJvf7DOTINpWGT7YNg4x3dE_2OJJ6Jd3v-3RUNvcqADHgUrNq3M_GmR9TwS5sXf5egDfWwuI2kAOSC4lzBxsBP7WwLgmEqS_C5YlG5C4utb6nMy6K4jhbc6Vgz3bCeD438sAtq4XT-nMmHhhaLtAoWE7mU112z62KX6JPqq5G8Yiw0Xdpg1EQ_eU2phkckyQTPQ42K9qVB9jY9zhn-yFizuwbikVmqif9cHRadwmfYsa4C5Dk4ZPXCXSGwoAl0IAEbjLV4ITqbtBY0oV_iIc61xSGGOoLv3ISLHeAF9wwe9XeXpls1m1t6rENNQKOjn6pK0nHtcUildZhLiU-_REDHdYPWbmFCjgzFoTt4RWbyg-t0deVIpBWjqH8woK8riyWX8xhl8uXe5lFgwSv7R4i6lzRaXhtijqrJode9Pu9_KPizpAcUrmLfNzJX9kiqwR-EtC7_WP2-a9-Y5ViqUsatLc1uvGzL_NWBIjPfQiCDTk2sfUSgILyqgwHnn7fl-UEs7XdJ08PF4OUd_8yIXuYkmlHG3-IBjYU1rLfSui6S90uYhkUcnQRlUkqCsgUQe6vi03DxR3BxjTbph7epVvt1NaZdOizK_i7h9aOgn1Uh-1zJinN1Xs2mLGjaYFbSI4Cuz4QboJOW1SfwpHktTsxq_1Gn2aFa2E=",
       "proposal_sha256": "4d43bdcec4294d8ca818c43f8dfd58035739a4a6ed34975652bc299a0c39d1af",
+      "proposal_text_redacted": "I will deliver one simple table of 20 US-based potential advisors, with each person\u2019s name, public source URL, and a concise note linking their LTC pharmacy experience and industry connections to your startup\u2019s needs. Following your latest message, I\u2019ll use 20 entries despite the older 10-person verification text. Within three hours after hire, I\u2019ll research operator and association leadership, distinguish dated roles from current ones, and check every entry for relevance, supporting evidence, and duplicates. The preliminary examples below illustrate the sourcing approach; advisor interest or availability will not be assumed.\nI can prepare a preliminary sample on request.",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 500,
@@ -4421,6 +4525,7 @@
       "pricing_mode": "introductory_first_five",
       "proposal_encrypted": "gAAAAABq9OBU-WJmw6iKXGYP2wHaCtfQ-tjzBwM8zOx1Bch3lR-f7VXunKoAI_52vJpSl2Zh8RD5-ielSya23zmg8qcy0ZB9iClZOxLnxaazfZMKCoMSUBXmauHJ46KTGRvGWO9r3xITeuSikVu4RQUHwmyy2u393SH4t8DNKqQNNfr1i9_d76zr8ClbPc-CzedRGWgKWU3d9ZqM0ZiOwUIReCuptG445shIXyZ2XT0_89yhwqdudUgUqeT68i3ESCgHJhPSCOeHojCG7c_1D6U31hjjpAZ9hCM3zLEbTRUDeUkQF5yFopA-DVxmJysFj8t_CwhDrGrXSkVDJs3BgyIyQBQCcm1p175wzd1E-1N-ZnFC4LuT6ndCJKh74dLdClGMeirDuzJ2eOxIFwgVM7DdBIqq_bE_RKzxgRfvcHxQD_z-3PyYtsWnwMT3DtY4CR1Xf3z6gtR1NWwBYteKA0nPfvTq8ztnh1En2I5Wa7skhoTZdXsTPe-Q0gH9mCojj4-T9WYSa4do9QprmYyPuPgS1wAYdDkhu54BnhjmekslAtRdMsFnHdQLIO_thQwVAs16GdehiyWjQvfwM9Gh6bGd0pDRl1bgQhU4DFd4a8Asvnk72dX5prJ-4cyHLpCFVz6tRdxbk0YL9iQfwYQ4_PgEdUIOKFDXd_sN-JNFfIrbpwCtjZLROLDYryqg_kofn26euINmkNCWxCt1yI2172eeoxPyPbDt21NA9jug25YWsrchGut7WCzZam0a07Lm-gw-Gs1g_6HX2PJjymLYMT-4g6RgOYj_fj6gmMMcmrB4usqjsHhzjNXyd_Fxq_8lmhbCDFFfHV0FemBpi6K03I_mAK1MXp5YhbXGgejzilX7lMZYSufBlI8YEkwy6vDTyX7y4vidK8Xtt6_Q8DqfSY14my41IKiy8YRhf_kFYUupPP1oSi_YEt06cusVWc_NcCm1sZuUKNxm1QBALJXi77I6zyy6DkxhMdPq8YjnZVy88-ACmNw05vct-zeK0848vOvhLU3xVCuhBkCbOJ5IF_S0ePodGH8eEw==",
       "proposal_sha256": "f799f1d8c8cbda2fd46b3cf5f3961eb3dfa9ba74b300b5657a3c0f37944f52a0",
+      "proposal_text_redacted": "I propose to deliver Find 500 unique leads for retail shops based in Texas with fewer than 3 branches. For each lead, provide the shop name, Texas location, owner\u2019s name, owner\u2019s email address, and owner\u2019s phone number. Deliver the list as a CSV or spreadsheet. Call each listed owner to introduce the product at [url] and invite them to book a demo. Use the buyer-provided calendar access to schedule a demo when an owner is interested. Record the call outcome for each lead and any demo booking details. Provide calendar\nTurnaround: 24h.\nAssumptions: scope and acceptance criteria as posted.\nI can prepare a preliminary sample on request.\nNew on TryBounty; introductory rate while I build my track record.",
       "research_pass_recovered": true,
       "sample_listing": false,
       "source_fields": {
@@ -4510,6 +4615,7 @@
       "posted_time_field": "created_at",
       "proposal_encrypted": "gAAAAABq6kCDykcgmWOt_BZfgIt4uQmJHgWN9aZFQMyW5aXlVizSol3zyXfeCDTjSjj_rtPMXsW_7swdQFz_knK4lzioyF0gHNbMuIp9X38XzgDJRcmt1sNqB8y2xMTYdwhoJ_kWUNFzi2QclO_oJADSla1TAIaeTSmfkdQPR-kWb-YKqEOwe88i20u1IbbFruHFoj1GVeJIoWHRH6mLvtzXq-INWctDAFvLTqW5y14lrmtODPhOdWPUBZdxBjeuH2vxkQFcG7QGDxz6PTnzPID3QWxhGUrTyzQTN-xuXV-Z8g9EIdmfJCL4YTHtP1Qjp2Y8wvYH_6t1sLWfi30rCOTACcX78SWqkQupA8TMfrGmo7drLa93ayxu6U8ioMGCluSaB8J-ieojRV8VpF6kttKqWs4hmtS1wY79xMt0QXpRZlDyJ655A5qGzz-D8UYhjDWDhgr3TydeXHoWvi_OmmwQgpRzsFR1KgDrwFDVFlSIUL_TPcYDfI4AzES4xNti9KOi-SOM2wzCHOzEHntcw8VTyvI2HWH0QOz3j7T2dC1zicVYXcUNn9eKgEDa34VnBYWOEa5CbrRssLoA38RkeYeKESN3i7WdGM_XjzB2t0Luhg7IpeL-k1Zq9uYvrcOUHyRN9t4sHo2jPSVBfVKSRKt3ISY2IjGvDKlZRG0IP3sv6RgQsKoEf-Ur1jAsWifhSj5rbKxgDiVaCAoy5_o506Lb5LGYZzLZwY-lTWWFd6vqk0Ru98S_vRQPoUZbUtGbYqusPfImLWZB1HycC3FW68Y-r-3FdRXcYIGGNGRnaffegThZkEqzC9QYMI-spr1nKidmHmx2-Z9BBifja0XUWELM8su4YSm1m5Mq-s2FmNHlOQgzByI_jpN3qvW3GhVSJ6FVrCMx4oANBQQJgoBEm1S1zpl8HXGf7JOEjJAubXGsEuhIp-bMW2ZfwNdR40u_1mvA0VHd5Uk4vn1rLSO9gzVt-C_lRwx9tiRneRL7CMcLK8KqR9ERh_-2-_yvUZUNuMikefWXsDAeQFrkC3Xw-qB2ItiGN1NkPYf2U6kpPnrb9elb0KMpmWADyRUJJ03K-VnJ4YOV4Up4_qbO4dBv9zmD9t0T2D6bDdaMwLEqNFwyBQxYFz60O2ghv1X7GADsMNxWYP73CCrrManQ_r9p1tPL6G4m-_FNyy_patrYPj0dsR92BrRKxdizYDenyql-Gz-RrHe0sZY_iSlBWxpN2Sta4Ozt6bpiGEBhcWzmQIdwYuYA-ZJkcCmM52wxKdYmu7c_0g3p0UjcE8xQizD1lWkTAFqrZ8KV8j5ITkZpCO01ADTKvgMIRi5fcql7w6biyTOWmJIsEEZGtFLOFVL8umP1KHyOLPdJ59kn7WwpW-s_3mtm5VqvQZs3scW8Z6lbglunG2o-6BbYWda1ffvYhl7nIKdTMriZnJEu56bMr766rhSTAJiwVF4=",
       "proposal_sha256": "ae5cdabe032391280b396680cfd214d26d71454c02604bd6512352de7ec20dfc",
+      "proposal_text_redacted": "I\u2019ll deliver a source-linked XLSX shortlist of 12 investors for Vantemio within 24 hours of hire, covering thesis, relevant portfolio, stage/check size and public contact routes. Two preliminary rows:\n\nBase Ecosystem Fund | Pre-seed/seed investors in startups building on Base; its borderless approach is relevant to a Canada-based company. Aerodrome is featured on its fund page. Fit: Vantemio\u2019s Base infrastructure. Contact: Apply on the fund page; typical check and solo-founder eligibility not disclosed there. [url]\n\nOutlier Ventures | Its current Base Camp page lists a 2026 Post Web cohort for DeAI, DeFi, RWA and DePIN teams. Fit: Vantemio\u2019s AI/Web3 intersection; the register-interest link is the public contact route. Current check size, Canada eligibility and solo-founder policy need confirmation. [url]\n\nThe completed shortlist will distinguish documented eligibility from my fit assessment and identify relevant portfolio connections for each investor.",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 2200,
@@ -4661,6 +4767,7 @@
       "posted_time_field": "created_at",
       "proposal_encrypted": "gAAAAABq6kCDNk72HoPnNnr58tZ0b8ImXlYKur_zEox7Fq_riUESVFfLYiLdTey5k_uCJAHNbvmBHCLqeAAVkqXXB5GdzI8HyNttHMQeL8mM2yE8tvqiJTGIrVWCIwEAdnO6tWuOHBSFx9Vyv6YHNvhs6vUZ41Vkqc3PYKj9iebrxSaPxQsxyk5w-Nqsk2gEUjrRXUFEpm3h8-WGwj1gCjpb40PTu3u54yLqJAzqN-PdZoESFxh2sC5c0g0UJK_uu8bKtuzsANFObUCFuroMKhs9mGMgveo5ron4_1iT7eLyhsBZpiiGuBovxGOyrAnrZOi0xNu31mCnSJzrmb4L9JqTodQfb7zAmNyogd3wUJUXcRVFtq1n6aLPTzlETS9ALgYXVK2Gbl0e1ZhzdMNZzHxECOmGxc39kk9YILcQTgk2BuKqmkykgqfifxA8XMDJYt4IHIl2J142DI3Z3MyshmAnNNVIYcJ_BjIu36s6rGPp7W6MI_QYpTrn0T9w-0X0yyjUxIdjwy2Y576E-WEmB_P0bJwSU8rJZ04SnAXFTWYF2zjqtDfWCDZD9GwVaM7LaOCI-kzuuuH8ju92CKAQftFeIKWnwX3rRkcuJDGiOrT-lkMyPFvbUKX0XvlTK8ch_6DOAZhJBwy6kgWLEIGeO0-Bx08FWhz70nhzgZS5jpnsBJaC6dv6NmQ4le4QTv6gix4Seg0WjXNqO5V_Ce8h0vabaYqzB5jvOMnc2QO4KLUBd16bqJ9lAzfMkIHn0Ike2fD3oucELgfpeJCJincli3t_8pWu6pXWf-lnyH6f0KrmTKe14gy3dypUA8q9dndrHkTUu4r7f5k2rwsfb4IAT6V9o2EnIQPnK3fhDGUMdGOPrYo4JfI9WUnO3cnd4BdxOMhhpOtbEjWXtm47YKkjSu6RmE7AdRWhe3PkuYvN9vhAntiaB5UxbzRNx_0FcIVgS2URUmPZN6Z5k-AstU2IZd89R9VAncvuGv_I5IrjYx5iWpkO9sJtzZeSw7yvfhPuSbrylXesvSLlf3lKa2dY8ZiGWy0fb648YgQcwvBP6Jza7yfmLnpSNUOcFTItPNx_d8o2V7WtNgvJEwZfit8qxH98B63aQtgVu3zSb79zOA1iRmXworw17EMyUtYZbvb3JBE10UPEfGKzMAXpWFMaU4mpDbqJKyl6JxD5WzXpPl1sp9KIzJw28V24Hkm7UXHeEZhSrIInKCSR4PjW8lWs6p0zj0Tns03sc5b0oed2Ru9KfVD9qPuUmhsEyuNiLhulhmYnneSdwUZrbGD4PPC20xLsrKeM3LmniE_sVjYk6bojYJJ_MZKFe3yN8w9wvOOi0LllnGjNinh3-XS8TqkTdBwVfN9cGbDpSff530vaUqZvL_y7jebYqHI_D7QW29pBIS_FJXKUkt5gTdOltT7-Lhu2DgI_ILLRc_RTzFoirkf0pEZVtvKJvkylFsJJMAV8PphYa-b3-GdJ5BPu_I-_uJPcydm1TpIk1T7BYIk9OREUbfHQkU8CEk-7Am_RB81C_fixQpAXyl25E1cbGjAZQcxAgRQg1rMHOjltu2JTpnMQPAYp79JZUeI=",
       "proposal_sha256": "f313fbcda74070e48189b72a43a6f3a6f3b8d735b72ec1785a14afc7cc911202",
+      "proposal_text_redacted": "I\u2019ll deliver a source-linked CSV of 20 U.S. pre-seed/seed fintech startups within 24 hours of hire, including founders, LinkedIn profiles, published professional contacts, stage evidence and a concise fit note. Two preliminary rows:\n\nAstor | San Francisco | Wealthtech / AI investment advice | Announced $5M seed on April 23, 2026 | Founders Bruno Koba and Daniel Tulha | Fit: accessible investment guidance; diligence focus: adoption and differentiation. [url] | Bruno: [url]\n\nAstrada | San Francisco Bay Area / New York | Financial data infrastructure | Announced $3.8M seed on May 5, 2026 | Founder Salman Syed | Fit: card/bank data for autonomous finance; diligence focus: integration and platform dependence. [url] | Salman: [url]\n\nThese are sample excerpts, with company facts from the linked announcements and my fit notes. I\u2019ll check for later rounds and complete every requested contact field in the final CSV, marking anything not publicly found.",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 2500,
@@ -4755,6 +4862,7 @@
       "pricing_mode": "introductory_first_five",
       "proposal_encrypted": "gAAAAABq9OBWLC6lNO0c-d3dxaHvJkoBfzkaKDpNQfCotjlJ_eoSJcNFeWVfnOXcLp2X60V13nBA4LauzNAxEDwaxCzX4_1KijAKg62f8ndhCHMOd6loI_jRFSqmzcp6vRsd_gC-hxT86dHYAgpiUr_MioT7ti3CtMO3fqAgxhZmpjQWexNryLsgyMWOxfF8_T6jPLygMkxmcHjjhsRiksVUX0YLDVLBJG7eZjPhWkHPkbV0t38un1JGA7IegjztGv6-p4Yv8AJZDVSKeuy0IOcY-i4a9M0JRYeNJyzyrYZvE3vwMZkO9-nJDXgs_SfM4ze48Izlpive22Oa8DL4mqR-2nBu1yzIvDOPVHzrGV3LczqPnmuBQsTtYkOq_H1e_3LOFNfQnRMIQ2w3YZ2d6ii9PpEMXrTF4lZ5siIBikULXB55B9_FqHMpXZoIj1JvChMlce1vZiJgcVEX_XDhnGlbxew3iUPnYKKLsEoD0YSD0ijFkyz17rE4uwe1jZs3BkjNOwpvLjSGifeMlFczGqToD9m5oWshsN19iDQOkxJ-KxC10utGdOn2TvmkakgqUacI8JuP0sVy55OJkgYIfOayWuNYXrdtMu413Ype_85e4j-PELQf1RrQRET__L_i-GLeCcPTUvQZXT8yhWXIuqiFy8DDoBHjsBVxE3ve7mmQZDN28XVOaUgmM7ZCWnraA9SxExMlmAiUjvQOI56efpShlp7SWV2dMChcVSURpPOxDJLslwkQIqPzgigP_WvShsPGndB9qx0cnZieQD8qoxDSqV1vLN1bgZOg13Y2cK8h11N0vCFWU4rg_YMkAvSE1ov5THIu9xH4QNThg3f1hztPDx_EIbWz0_qlRPEHoEJmnAm60KYMdung0Gz9WrD8IGertgUfE2VPeD7ptGAe2Vcv3gsbmWu8P-Dm6CylwovRrjZOm2m9EtRKX-KOOypPOR01w02LMWB4mDe5ZzFUdWZjQF7VZjD2ysyq8ieKEFdWaKjEuLaofyahFtVaCH-hoUrlb7-IFU4WLkEI8SbNfZ8aNU_Hd_oihQ==",
       "proposal_sha256": "c8eae64492c0af6a7135756ca0875596583da3d2deed180c13d5b17aa5cc6b6e",
+      "proposal_text_redacted": "I propose to deliver Find 10 freelance website designers suitable for building a personal-brand website featuring a grid-style layout inspired by Bounty and short-form videos. Prioritize designers whose portfolios show personal-brand or creator websites, grid-based layouts, and/or embedded short-form video. For each designer, provide their name, portfolio or profile URL, location/time zone if available, contact or hiring URL if publicly listed, and a concise note identifying relevant portfolio evidence and fit for this project. I am ac\nTurnaround: 24h.\nAssumptions: scope and acceptance criteria as posted.\nI can prepare a preliminary sample on request.\nNew on TryBounty; introductory rate while I build my track record.",
       "research_pass_recovered": true,
       "sample_listing": false,
       "source_fields": {
@@ -4822,6 +4930,7 @@
       "posted_time_field": "created_at",
       "proposal_encrypted": "gAAAAABq6jOz2qVnukVI7cfTH66Z6E9fXvdPoYxTLomLwRxkOAHRWcgnCShMb-l9AR-8Wul_4N6e64468tLr4N1cInSXnQHSzRSDAnfahxSmoTw74xIesUtnoWPgBZwFUOc739WUVzSJiWgBEIReOzRdCxagAHgcuXDkWAacozhv8QnfxJin8eyV2DERrabS0jV-9a3jkHR0th28Xp4dJFp_jRVIfSCpJ2kHvIFoJMAriAQTwEgd_kw0IGWZZ_MmzbZn5S1sWOjrAH-jJB37akf3WbK09rJEH5gvKWfspXC79hBQu4ivW7UlSkFrXhVPR_Zcp1bHOSRvus1IHxZwk3j81T08her7aGvjO6NO6ZkM3Majm0UsEHHh2A4qCK1CXCELORzKdx-A4hcGaXaSUV8gDGvdqXoMS2U1MElIBM9htHW38QzmbQ1bG0qDmxk0_7GcBl2KHW7w54GAIhsdCFPE0dhhOqeIlMLAr34mXBL75WvzVXaWDkTK3XZGzAqPQ9J-kcRDrAFd3KQmQy_-fM8rurKE1ia8r9bwJlcV4aGLndfUCo029wjUOJMmLyqKlpY4xb7SsNuosP_Heby4axRvWa9oe8lwGl730xo55Lj0YNDqB5pNDR1hnzBdJtBZ4zEeoXGdvlhJJdR6f_5rrr5SC4ys9m5GXI22dhDSMc_RgdzGa0zRtRESrzDYonyUb3Lcrvplr6u03JkbiEQO8b10jh7sMjekG7h5rIrlEph8SK58pa9pafDw7gl53byFPDszcix3PTgBuFrAyl_4LGVo5nK9bE_G5MLwMK3FNgXMIkk5KdJfkAo0OBqVtgfDxuRPvyTq96HNizfIUMig8R-bKYhnUE2Di_tHOoy5g6AIBz9avXWleINDF4oDDhFdoo1gS5BSwqt6QX3a0qk6nNniefiaA5qoXDEyt6h-7_tcStiyElqoc1g=",
       "proposal_sha256": "1eaa1a5925ce005da779aac6238e91aaef762cc0796aa82c144e171a371dfd8d",
+      "proposal_text_redacted": "I will deliver a 15-row CSV of New York\u2013based, seed-stage fintech startups, with each company\u2019s name, official website, one founder\u2019s name, and a direct source documenting its seed round. I\u2019ll cross-check founder identities and headquarters, screen for publicly announced later-stage funding, and include seed-round dates so you can assess recency. Each company will have traceable public evidence rather than directory-only assertions. Expected turnaround is two days after hire.\nPublic source reviewed: [url]",
       "sample_listing": true,
       "source_fields": {
         "budget_cents": 6000,
@@ -4870,6 +4979,7 @@
       "posted_time_field": "created_at",
       "proposal_encrypted": "gAAAAABq88hvM9X6zG2X3HlWr4bgFQlqWUKSQbmwSx3G4DtcMaV3ywEXkdoWolMjAso0nPuYnjpSrqR4a6QYQOeCpmmJq0UXdqTCARpY79IbL3E8RupuM3bMB-sTO7MKX5DXGbTimoVCrNbUY7MCfbtuj93kzrn8QcrCH6tqNCmTdZNOoP5PVC3dtMRKcRUMxj6dgZYvDKOySloUO_roQwNZMIZwVQJxv8sGIEZcLXA9Sv0Jag3rErySl7CJUmAEyJqjASYAcsBA13dy2_DB8X0UyDLVnVWavJYYQf246qGJ7WJHSlnFZpBz4XoqzFQERYqXaqGHm3XcnZZpu7usarm04rrHT-uwwVrMbbnHqnJGpUQUgMHAHEqi4SkZjUIMyOZMLhSM9Xio-MPW0jmTMPaMkCxHlnJwM6D-Q3-sDpuNrR4eEsHHM54m9Nbgcl-BsoI_DlnHOM0mVPZy5qfOBXQBxDtcUzVwWgm3NSXL__m8yg5fBgmPlheuDohGFs6mTd0BlCQ-sAOOQFSMM-PvRAzgavX0ILuLqqRDn8Vlj0p07TmgNV6f2Rj28jYiWlKlzfKlQ78CHjQBFARVpVkuoic1n2EEcEm_d232mJg8YM3zGyao3YPT9WusupSawmv0KTYbNM3iHRNjUNoQcjZBz2cGV_hqtdxZFg==",
       "proposal_sha256": "267861f3149865e70ca00ebc380701c6309538ffd54829640024436903036007",
+      "proposal_text_redacted": "I will deliver a CSV of 40 distinct NYC cake shops, each with its name and public website or listing URL, within 3 hours after hire. I\u2019ll check each source for a NYC location and cake offerings, and deduplicate businesses so multiple branches don\u2019t inflate the list. The preliminary examples below illustrate the sourcing. These will be potential wholesale prospects, not confirmed buyers.\nI can prepare a preliminary sample on request.",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 2000,
@@ -4956,6 +5066,7 @@
       "posted_time_field": "created_at",
       "proposal_encrypted": "gAAAAABq6jOzNPxtJ1UGa7ZKhnL_ymOwY6q24K4AYOb9Fr6Pxw957_dAXNki8AtVHtMTJfoLHNz5UzAqMdAwSm-94PBf4t99IktTNH6J6bmpxsNxAOvpudQxxVHoh4psUv5SlbMT4jm7SdPUissRx4TZaCzg-MZSL6FOtNJvz9yzMHJqPxY0qFvkO-eZO2l-19KMZNMsf1RY_CFtMQdb6trgSHBwLrzepW6BHVtsNfBbchl1nlGAYBE64VJdohi9_Mx2M5SvM2GQTOAaZEXJCzdJWTNgwRA6Z8ofJWkK0VBCHltKuVtcLbyq42KcneOtiCFNpHZZogN325CbaIjraQZRWVMSRj781YBItjVisdzkM2G3USpfcPYP0kRF_X5NZSWgD9YANoDvAL2YcBnOeoy1RwoRfXgW3M3C0EQXR83O6D1pgGbJp1CKwkjnIQIwkQrY3c2VbcRnVjlqtexis1F5vdQx1mbbbnbNPhwlCeTPvSh8lJloP5ZX4uPo6QJo4NStfEG0Kxw2bpeXIEVY74JmsrtZD7axFSdSz7AC74CiZ13EYNEWFWR2AWSux-mPgSGmlGZ5n47uMU6z4QkovSM_dIYhjXRFMYWc4Ns1Tc947aoUPM033UK-xhp8uC_sL8goJHPX2PB8yFC9eG19GxEqB-Cyz9zHLt4cWOum6nFsZZwGgVoaXJuLsy-v0F2G-E_5sJTsJbg5gzPkbEj0FvnsdfZCnE8vUYPeUpGQYS0jauqMPaC8ecEoJ94D51DBkLSePAP2AcCznUN9cMIdfjQAN_mFvn_ynERZCSRw-BAHWu-d0Q2_ENW4NRZJ0QyMjLBBCCwpIdsnVWuUu0yUDAQ8TsivzJ8WkuWkYRy9N2QWbEbgGZPbT0ox3Mw3PK4ByUUPszS_35FDhwdEKYlIKaWV-60gJMSZ5Bz_Rlk_seYT5596AmSob3s=",
       "proposal_sha256": "f41c7c86467e39e7fe3f7deb4337b6fc36e2562d656b2f814b6cb496ab36f37b",
+      "proposal_text_redacted": "I will create one comparison table covering Otter, Fireflies, Granola, Fathom, tl;dv, Read AI, MeetGeek, Notta, Avoma, and Supernormal. Delivered as XLSX and CSV within two days of hire, it will show each app\u2019s entry-level paid monthly price, billing basis, free-tier limits, pricing-page link, and at least three integrations. I\u2019ll cross-check official pricing and integration documentation, distinguish monthly billing from annual-plan equivalents, flag trial-only offers and integration plan restrictions, and include source links and a checked-on date so you can audit the comparison.\nPublic source reviewed: [url]",
       "sample_listing": true,
       "source_fields": {
         "budget_cents": 4000,
@@ -5153,6 +5264,7 @@
       "pricing_mode": "introductory_first_five",
       "proposal_encrypted": "gAAAAABq9N8Z9tgST2F3oHP-kUHNoT30LFXo1hAa_U1_W3wl67LATNFbGenFqh2Tnx25fKZVd7EBDiHux5mVYqiX4BGwVU2tN3z69MDOSx41XAISG65D7u2wDlz7U7uyxmXaG2_d2Hg8hdupmm1Rh-d_DFUSOTqUN95YjoL3MbOKF1I3w1EagvOIbuYVDoYhJNoTcjZh2Yx8u0hUKWxZcibY-GdaHDFM5rdFnnboNC81GWQA3n_hbzYUvbcAyfFx-5sqnC6HythjM3SYYnhfyGcVuQ5kr7yDx1ukGfwan54euF1GawQUHg8MPAssLeLDtE7TE98TD7ITU0wxQtWa4aIyfqR8cy-nVixOYZ7sJWMRYeV1rnwlVt1xu5ZwKuVDJbHvsLeu5AMELbGJRgFkZIQpogPd9WdzNIwextmZLSrRoaaf_OcKFPDbYolSbbiOryKAfh0q_OGS5W96J47nVZ6F9n6MmNNg6usfMPWHGoH_BnDaekDPwVMA-EAfAUoJl4yB5CkzLeGZQ4NOGvZxvFcrgY6vLUohWxmqRxBK3y7UI3vHIxWxBV_3zWJUljNuBfMw5qeIpwyx9PM_XuVqUX88rvKrIcWYLdAcoqCJN6jlzsh8eobg-eE1b4vWsX3cw5ooNkWnar928oyPkOfv-hnoHsZhUYokhDqeP8saaVSXPxeIUWeFb7Yqv0tlq0f4S2XQ27s-xhAgsAaUahqedKjBQlWPZkYbwZxIq2H1js54YHfV1RMm1GP-t3f7pNC43p972MIUgX0g7DxXxu_jZ8uU2d9cTDMkyE0eR_33Q8PYsYWc6UOP4hEXa_XAOPAprc_hqJfbn0Ug482gKnSDDBFZZu6XJ284Puqmxh1gkQou2y_ZTBeUgu6W-RbvDfeBpbspJt4HSikFJ8-kYg_6VniEGc4DpdzvlE9HmykijsI8Q0sjqvYKtJelPSvGlfW9ic1dvZb2o8QMnw1C9AO7WE8gSCCVjbgU6a32vySlffoRGjJkrr6nI9FlcLsJvSetLUCzTKz-NQze4XtSBrDRf1rz-FJ1Uh_FphkbE2yOiaKGPVQYoTlMddnUolseVV4rYaYmAGEi5chXVYs3Q42MDyImar0ohFUVYA==",
       "proposal_sha256": "c6b56502232a380683684e954cd2b51d01e23c509154fc490111cd436ab38704",
+      "proposal_text_redacted": "I propose to deliver Create a detailed 3D visualization of the apartment using the attached OPCAO 06.pdf as the main floor-plan template. Use Screenshot [phone] at 3.01.14 PM.png only as additional context for room dimensions and areas; use the floor plan for the layout, furniture placement, and room arrangement. Base architectural finishes, materials, stone, colors, wood, and furniture on the attached APRESENTAC\u0327A\nTurnaround: 24h.\nAssumptions: scope as described\nI can read text-based PDFs, Word, Excel, CSV, JSON, and text files. One supplied attachment could not be read. Could you provide its essential contents in a supported file or message?\nNew on TryBounty; introductory rate while I build my track record.\nI can prepare a preliminary sample on request.",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 40000,
@@ -5337,6 +5449,7 @@
       "pricing_mode": "introductory_first_five",
       "proposal_encrypted": "gAAAAABq9N8aMDezv-lnv_dFkCRFxc8H4hIm0zFr2WZWe_XPmn0_r20m3wgZn1AWvK8n_iIlWjOek-uVj3lIlEgK_EcdVpcvaG5xdTglI52wJfNNcUxpg8nni5SMbG1FiJnilIBQWFOIKGtNrCxCEBx5Y6Cn---ktk3XObOqhPFDPqBlQ94f1BTWP48FUKPhF7_fyIRnKc-9DtbU85aexFGRmprs7mZiSnUVcCnpcJFolLy817-Dk8bkDtHyQ6aFC5NhiRCWzQa7H8LY-acnXE8iqM9KJiIysgFkw4LWaJUx5xIGm1e98ZD1qrmVs3BUeKxi64nOtalk7f-DfihuN0nGvkTqBnb7jy_nV8dDPJEZJrgmJOTMZ-r_FAqfvWHtgg6R1Hn7wMrwEXAmfHNhms-wEnDXb2Br5XW8mykv-lPgLHLYrau_QmDJQ4CoXsc6XVx2TfPLYe9UZiPF2rGmO6lvShOO0ZelTSGGL7SlCzmd9oCFUZPoq979we0NI2mFIbsDFsPuRS8BPCeKdFPqn5Dp0noEcvLtSawDh8KMEEC6nz6l09naNC0XLCNB1H2-J-0X1HH_GDRkgrEkgp_htbk95VvwkqttnDgSMcP_Y2RuhofUck2cGy1QesS31QDgOFZwipYERiKnUaTcdB4vGe_YDn_ySDLoyunuSiA1uhQgleOZnEaWAIs7jHh4ic46coSvRxWmmf71d0KMOHAm3oQSTzhi7U6qiP0xNRE95iXX735679d7l0r7yoE0A2EyE2yh4BaAZuFHxa35jf3_3RIjcjXmcxBSH5yNy4RaTQiFLWa2SCLKyGtFyb-revSP1EdKOINX1Plr3BR8y6TyC4Uc6J73DCiXL5UTMijuVKxUj6Ypk-g_I39SYkQzT4y-cj-C4JrOVvu-TtA-1-AQ42Tgff-9dk9t6-aLzCnctcVFktDIBm88lZTffzf5Ai15qNksUiHWscSR5oThr2_VfTiMijcPJnMFNsiLjzo7VPyavbR6A6tNKe5YhIqgRCP0adL3fuAFRCjaGFcii9acBNjYOiT9TS9tY5goJAPEE08wxeZhqvnke9kh8gyF-pMktoi0pBlGPyvHzoXFQWmE3L3_O3WDPdPZ_74VbRr10oS8sMiRnOT10k4=",
       "proposal_sha256": "c3f31a0e86d8e2309176a809b5904a17df92ff6d429091e11f51b43d7bf56c6f",
+      "proposal_text_redacted": "I propose to deliver Research 100 Nepal-based ecommerce brands with estimated annual revenue between $1 million and $25 million. For each brand, provide: company name, website, ecommerce category, estimated annual revenue, and source links supporting the company details and revenue estimate. Use the best available public evidence and clearly label revenue figures as estimates, noting the relevant year or period where \nTurnaround: 24h.\nAssumptions: scope as described\nIs 100 qualifying companies a hard minimum, or would you accept a smaller, evidence-supported CSV plus a separate list of candidates excluded because their revenue or ecommerce status could not be verified?\nNew on TryBounty; introductory rate while I build my track record.\nI can prepare a preliminary sample on request.",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 4500,
@@ -5385,6 +5498,7 @@
       "posted_time_field": "created_at",
       "proposal_encrypted": "gAAAAABq6kCF1G94iL56jwNMHGmYl3ssna8K-s0BSdq6Ss3m_QdV-QRGBZojxmQi7UWfTTGflWYOixoulkp5g2objJHnHRa36fi-uVp70lJ_9__m_mIhSDETOBdeQZGzrhnGY5by3ClpevkToIbCC36GhBkK4XTfWqlP0DvwodTahD4mrWfrjMeHw1fT_ARlR7Hz4Ip9K3D_LuA4oJzNxtMsgsvKgNMDLvpfMPacF-qxmsiIp0g7A6Ru9UYC2zBj_SmQEcwDXZl_bE7pEGP1wnKDVNsd_MiYIAae8PFnyo_I1kr5sCtlEZLN9nMhVue5MrGjD8jCTKFtfH7IMWwscylaFK9ZuK0wSsVl0rSSpczgARzayHANJBDzY3zs-_92izg1ZsSzbArEW4Vx4jdBZIQ8xtowhjAAJ_xx62KAEWn9AU054MH5ujYodrYE1qPsRhAviWCE3Mio2ucMzpseS48oPajAMmt-ojrGBYZf-GY0K47YC00h9Q5DFh1gmSjs5IyJLkEZMsi9eKcDPP19s7-doW1J7FuIqPSEk_Rwz-lT5OalyikaqwSASVcMUURqAa1hF0NwfUaPhZ-A5VhxaJdWf0rWikyVEFHv45cXRpvfZ6lRCqARTx6PXgvTa4NdSZF28WTswWl7n9PVGMEV3vrNBC2qwhYPR3jNmLeptbzl8dSGdQlqNiietV1pNYEdQfWwWUi79BF1wxkC8RMGM5KmEemEaNJmNsv6cvGBLV2HQxG6qSc_r8y2ydNQSF5q6Io4e-9urB6LzlJd8Q8X5NQJ9H2156LcuhmFWyw_eZbgW0Wag-MzKjmNzAON5jK7Ms057cFQ1cZeOhy5aWcuJHoZfgUgWIUR3zxx3FOPv6nU8btgZ-PP95ufev4zNH7-WdY4blkXM9-2-9erAHDpLQ6gHxZTkJGBcoG6W_L_25psLNOP0FH8Nw7sGciVJ6YuZQ_x-uZCWMtUW9x6eTXArnUr-2jIhCgqW7CZkhCEvkdne49l_mKZEGrcbHtxjUOOriRtmZOFM7JpwPYKZzkJ_LD9LU-w03lU5Z5Kw13HaP8xkxdFR31_qm6JbSzoiPyP-F_TBtjZHbdXLZ7Drzto2ch2mPHmvNkiyJjjwglXlx6Oh47gcYv5KQfwjNZ_UtgCJVf1s2g9nvMUmTiQPgDUUHT1gdahec7VgcswNP-Dy1L7qEeeYvIpFxkCExdBAhRCj7gy26swfMNu242QM2P5vD2quxYGm2PoH9KpMe5S34PHTja9_nXlw_we9JRooPh3CW7mFZG48AYuJmn_0Kne5m4TZvXXSpAA6HGGCdQEfmfFvDF20eUJW_vTIfyIyVDvIWORVY5seuWVJOJ-U6OjhN4qmXRg21Pj9ghz3GBBl7yRGuzk5ooAs8S7f9C_wh7bhI6J6W8oehm1OOvNtle2CQPEW9RWC1w6k20GMcDfhtLLFvwrJ90A0vaRYlU6pK0rdYIR-u0I24Stk-XwQv-baLgYGZbWX_oAkyq9MYjnq_W1ME7ruCUTKBUyeY1r9YSlA7I2H_6gO-k26P3waJ0mhLafjS05ebC4Bw==",
       "proposal_sha256": "8926639ec9c8ac04aa1894090813ac1a3ff7525a7ca96a04e1d860976c3980e9",
+      "proposal_text_redacted": "I\u2019ll deliver a source-linked XLSX comparison of permission-based email audience providers within the three-hour window after hire, covering sourcing claims, campaign model and fit for your continental-U.S. menswear audience. Two preliminary rows:\n\nAmeriList | Its consumer email page advertises double opt-in data with age and gender selections. Possible fit for the core demographic; continental-U.S. exclusions and women shopping for men still need confirmation. [url]\n\nData Axle | Its acquisition-email FAQ says vetted partners collect permission for third-party solicitations. Its consumer offering sends campaigns on the client\u2019s behalf rather than selling addresses. Potential fit for managed outreach; exact age/gender availability and menswear intent need confirmation. [url] and [url]\n\nThe comparison will label provider claims and unresolved targeting gaps; it will not collect individual contacts or purchase a list.",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 850,
@@ -5570,6 +5684,7 @@
       "pricing_mode": "introductory_first_five",
       "proposal_encrypted": "gAAAAABq9OBX4BPpJFj3gBrVEOhAPpzk8LT4w4zE3JsVOCeNrMmG-N0o9QbgXzEhrIfGrPG80A8pTmu-TAsYvTk_W6gDB_A3Gui7UM3yN_DA3ktKQVj3fV4xF4FCtnrWTvLTmh9N-cIab0HAEbO2MjgqqgYSIHkUcZmumOS-Gs_p931T1Nw8Jpk_yY0I-MJXOl0PYq_KlH69Age9zOTnTY9RhNdT9zJWoRplRuTIlWOeVddeWmuSgNksExrGeqY-lpYk_y-APLtmhDPRzcAmjnltoBiSDqGu2wcx05nj831pYsepQ3qzuGVjT4jqIJulEC6ETCTzhZZuaXyO0KuzWUu4p5kpED7RNcel3CltQZcPc3r38fxsrF_iIjZMcVFg-dDjXKwoTN39N5IP8T9EoPKgnuyNsdvcCA==",
       "proposal_sha256": "603de768182836fecc8a20b14965bb0a0657d0892c2c65621c73959be3c1129d",
+      "proposal_text_redacted": "I propose to deliver Find me top twitter comments with topic start up\nTurnaround: 24h.\nAssumptions: scope and acceptance criteria as posted.\nI can prepare a preliminary sample on request.\nNew on TryBounty; introductory rate while I build my track record.",
       "research_pass_recovered": true,
       "sample_listing": false,
       "source_fields": {
@@ -5612,6 +5727,7 @@
       "pricing_mode": "introductory_first_five",
       "proposal_encrypted": "gAAAAABq9OBU_2s0wb1T40GbfKaS9meAWUsXolzbVSMmyxfWlQt2fM9aBgBYjNWLofePqrkI_Q-eoY5GGP46YU0f5brXAG7MGElYUjanFfTdXwC9P-l6Ivebs7Ci3SIimv9uJgWSYISzPBaM6LrvLml6FlscQCLiMxyA0cVBKiQP7vxgzTC_Ctsykd1cxnCTVmD84cryIl4zK7drQ9HE0AnUqbGvMopA4XM2Xhg5jyHe44iLEbjYvXC65488h-rVxf0eXX8q61gW2URtEOfNtETjCmUEKlpFGs-is2AdAj9T6PcpEYdZe4SwzqvmYUD-3FlZpgPXtYKqYFhWNVwX-AHycVjRKc_pdoIr-lNCb1NzK-Xcw8VNuTBBKbU0aeE6v8E1i2K3i0E6c3KFroGMT8b0cxOcP4wmxmc3aX_D_c4ER7gjqjDlNSTj7vgYdJBCYfZQxXvqX73Ea3GjGRT6NjUpcmLYk-4buldte5AugYt3kke1zwbeku4KKfaB6ffxI_LY_4VrGOi-h6cQVxqSZ12D242_B_-_iuFqagPCuQevmefKyXu6D30=",
       "proposal_sha256": "0c7e68cbc53fd64ecf6507ae9edf4f64108354476b288c78c33c85e5b3fa505a",
+      "proposal_text_redacted": "I propose to deliver I want to hire someone from Ahmedabad who is skilled and has a good experience for a marketing job. Knows the English language and is also good at sales.\nTurnaround: 24h.\nAssumptions: scope and acceptance criteria as posted.\nI can prepare a preliminary sample on request.\nNew on TryBounty; introductory rate while I build my track record.",
       "research_pass_recovered": true,
       "sample_listing": false,
       "source_fields": {
@@ -5713,6 +5829,7 @@
       "pricing_mode": "introductory_first_five",
       "proposal_encrypted": "gAAAAABq9N8bi1jdYLZapJlU6iLFbvndwisSoA6ndYAvN6FetZHzRM6R0CmMvRNBYs2rtKJrGthyBDoXlpeXWx1uI8GBdH2PKYppcXc3ro5bVN5uEbC0kn76nKaVuZRqM0wm_bRNxZvXlVbfe4qbuIKse1yTljLNOAVsb4TvoL4rscKOD3JscsVbYJSydKcr7NhFpVRQTktJhIdUz2LUfKr8dXsrVmf5Iq8GTT-w_j_0-AntCJNTZcaSHfhoSQ_Bk6ayBPkooelDqxVPsQDXvxc3RYvocRQUm0tp5NWNZxL6mzhrl7qZR9kstRNzFEdc2kpZeYjzUD1BwAzqOjkc675jwrnLlA4_qqgdnVenv5IUZPAMraSMcYHdiv7LNgVRpce5uSPTLT0B1NPuluu5cT_unu3bsivVCQtBTupZagX-vUKyRbbUDldGrAJkaiMTjVRTPOBiR5zT6dtSgyV_IvbHN4Q9u82DdQ_qzB7cZsvHq0oH2TMcjR6MbCMJZv6TultG_gXk11xflswJjLKlVNMPGicW9N6T5O9FWde8om9be6kfnAVuLLl22__voKp0xf6J7SRHmxN1HdfvCfTU9cXT2wQVFAPpIjQ8x3FwNM3IKBoTc6gGu4uPh6XtpgYuPwuDL7MUoaEthVepMaJiQsEXuk7jn2qArW5wVJ7zwMYTIblBUrZaI4xJzbJ7FXLVzQo0JGQNd-yMIql6vPX10EEn-mf2kHlO2piEEx7WGDZNIYSTUs0-JAHLNJhNjAiCi48sDVfaJ4Ln-MhRmwRk-h5g0atEuNP9Y8xAWk8vkTKLoQmLb10cdJ8PSSCKQJZUWzsdYfeK7duEWwzza_xvF9zruzfFU-gIDA_0C4zqngIqn87XMx1TjiLcF57wbof-vDmCHuuG0XogcC3uwsa0dDn2aTjvmYtE6qCAVVokSSyuMsq-4kr4ACG6lYvif15fVGbkU39awwCIB1hegWZh3raEo0ENS-zw3Q_Ox-BlPQcG6k8VonzdCgfrrHy8DwieBrnzBwwNCpIsxq0sODbTJ44p3_LaDVz5aB7gWBfUAtIHCCtXlZG3igooS0zfxyr0P9dg_U0DBMYthEulapXm4VUkgt7NvBGR1O6Cxj2fvwsyeboMOrydQp0=",
       "proposal_sha256": "9af6419588722c63f678173a63520f0421554f380340419cf13e0c8300be9319",
+      "proposal_text_redacted": "I propose to deliver Research a shortlist of 12 unique recruitment/HR agencies based in Mumbai or with clearly documented Mumbai coverage, specializing in healthcare and/or health-tech hiring. Include both agencies that can cover all three roles and role-specific specialists where the hiring expertise is split across firms. Roles: HR Assistant Manager; Operations Manager; SEO and AEO Expert. For each agency, provide i\nTurnaround: 24h.\nAssumptions: scope as described\nFor the combined SEO and AEO Expert role, must agencies explicitly document AEO recruitment experience, or may documented SEO/digital-marketing recruitment qualify if AEO capability is clearly marked as unverified?\nNew on TryBounty; introductory rate while I build my track record.\nI can prepare a preliminary sample on request.",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 2500,
@@ -5745,6 +5862,7 @@
       "pricing_mode": "introductory_first_five",
       "proposal_encrypted": "gAAAAABq-eDjzIy7xzsOqzp7cbQQlWGHG-GuVVsXnShLjZ-CpzJEglYVE9oSKcfT8J1qLLIPqpnVCxANavOaGoTel9yMTg2_6eKTqEO5GMqNw2WZU9arUi9gfoxryzioYv0-hSTIvcgPfx7NC3HOIW0ZgXGpmsfpGBtYO_tbuHWsDgbKfX05OA4c4CMBII79wLRDB4SrMAG9Z-fGyX2KhDG_70-p3JxeXDMpYQDXUhIOc_6x_ip-C4pLBigLL-UfaRbeANKYgTabVfuEqwfWVdO7MRCwNY6qLCaiKZLsYNuicoJzTfvbMiYBu6Yvq8c0IsEpkfVNm-X0hzBU2eB_l0QOEurPaFadgwjHLQkMP3f1jndJVVe6Ds4wqKQFW2mOX-7zH4U18FBNUqMKsOOKUu4EttoJ7uvNtvWXVovO-0z6bRHpqlc3dKgjQZzRVh5hiNwl6rtEPC3WB6M8u9u9Y9KVoXlsQgDdjdQ0lhrsexW1f63UThVBonaBjGjoJcTFVrumkH-xYQ7qjoqCIRhhktw1AX9AnLGA5i8Mhyn4Yd6Ss1rN9CujgTh8RqMxI6WUXOuqk1PIBxbNlh4S1B-NsdTSxBE25DIr-fQ6skThtdqnBaDyLezqYw0lr3r0Y_IkPMH7CoirF1fsqb6up6TQz9awVRTyg3IbkLxVpiZkeJcxJAvH36CSoZ57jJSkcbDEK6uwlTkI4N5bF5MJij-xtUEtgB3bWQsRxeD6VdbXBifi4nG42pc_wWoAzG5N6d2z9NzfSLg-SaRD7hT2ZzwEsg5e9sAJaWMqj_Z12GT4ItQIn12I5Qj7WGjWApVXFL6g0HXVzW23cWu2F3PX43djsrh6eB_cMfJ_pp9fgyhSkTU3P7QxGoYcpdoM0LAE8xCwjQVEFGLYIwz-QuUlvWvsk2xUs7u2tw3xpoWAF1tv6JEVhSF10-J2mvjJNvnSHy715bg9ofJbfODNSoqzwXxCEPi7A9YcPW-JXkaFFB0Bv22AYSoP95AeTfxuhIJMORxYq1ZJlG3pCdlGJS1KzZozp-trARP_Lsvbsenm1OXh4O5bgZ509Q-XIW5cqrx7NsbDhGnZuawjknaXqpFhNplUzZby8gZDTdFz7V2m_UvlMHihv2sqhREFKPygv2eV5vLZc0jVIbMVbmVG_F0-lZR9ZljnUN-wRu17oABiZiE6KBzjVig75u-vPp4K25ln3DeSzZ5N5FOWHuLK5WQ1luHHjGwr27PQSrOwewYoGjBDrxGp_W8IxPZEtIbXmjS78ST91wSZtlVMNXcT",
       "proposal_sha256": "fff18fdc6efcc8f2ab94a03aec3d53acc198d777cf2d2e4cf7d012fc2a8898be",
+      "proposal_text_redacted": "I will \u05dc\u05db\u05ea\u05d5\u05d1 \u05e4\u05d5\u05e1\u05d8 \u05e7\u05d9\u05d3\u05d5\u05dd \u05d0\u05d7\u05d3 \u05d1\u05e2\u05d1\u05e8\u05d9\u05ea \u05dc\u05e4\u05d9\u05d9\u05e1\u05d1\u05d5\u05e7, \u05d4\u05de\u05d9\u05d5\u05e2\u05d3 \u05dc\u05e2\u05e1\u05e7\u05d9\u05dd \u05e7\u05d8\u05e0\u05d9\u05dd \u05d5\u05d1\u05d9\u05e0\u05d5\u05e0\u05d9\u05d9\u05dd, \u05d5\u05dc\u05de\u05e1\u05d5\u05e8 \u05d0\u05ea \u05d8\u05e7\u05e1\u05d8 \u05d4\u05e4\u05d5\u05e1\u05d8 \u05d1\u05dc\u05d1\u05d3. \u05dc\u05d0\u05d7\u05e8 \u05d4\u05d4\u05d6\u05de\u05e0\u05d4 \u05d0\u05e2\u05d9\u05d9\u05df \u05d1\u05de\u05d9\u05d3\u05e2 \u05d4\u05e0\u05d2\u05d9\u05e9 \u05d1\u05d0\u05ea\u05e8 \u05d5\u05d1\u05e2\u05de\u05d5\u05d3 \u05d4\u05e4\u05d9\u05d9\u05e1\u05d1\u05d5\u05e7 \u05e9\u05e1\u05d9\u05e4\u05e7\u05ea\u05dd, \u05d0\u05e0\u05e1\u05d7 \u05de\u05e1\u05e8 \u05de\u05de\u05d5\u05e7\u05d3 \u05e2\u05dd \u05d4\u05e0\u05e2\u05d4 \u05d1\u05e8\u05d5\u05e8\u05d4 \u05dc\u05e4\u05e0\u05d9\u05d9\u05d4, \u05d5\u05d0\u05d1\u05d3\u05d5\u05e7 \u05e9\u05db\u05dc \u05e4\u05e8\u05d8 \u05e2\u05e1\u05e7\u05d9 \u05d5\u05d8\u05e2\u05e0\u05d4 \u05de\u05d1\u05d5\u05e1\u05e1\u05d9\u05dd \u05e2\u05dc \u05d4\u05de\u05d9\u05d3\u05e2 \u05e9\u05e0\u05de\u05e1\u05e8. \u05d4\u05de\u05e1\u05d9\u05e8\u05d4 \u05ea\u05d4\u05d9\u05d4 \u05d1\u05ea\u05d5\u05da \u05e9\u05e2\u05ea\u05d9\u05d9\u05dd \u05de\u05d4\u05d4\u05d6\u05de\u05e0\u05d4.\nNew on TryBounty; introductory rate while I build my track record.\nPreliminary sample: \u05d3\u05d5\u05d2\u05de\u05d4 \u05e8\u05d0\u05e9\u05d5\u05e0\u05d9\u05ea \u05d4\u05de\u05d1\u05d5\u05e1\u05e1\u05ea \u05e2\u05dc \u05d4\u05d1\u05e8\u05d9\u05e3: \u05f4\u05de\u05e0\u05d4\u05dc\u05d9\u05dd \u05e2\u05e1\u05e7 \u05e7\u05d8\u05df \u05d0\u05d5 \u05d1\u05d9\u05e0\u05d5\u05e0\u05d9? \u05e8\u05d5\u05e6\u05d9\u05dd \u05dc\u05d1\u05d3\u05d5\u05e7 \u05d0\u05d9\u05da \u05d0\u05d5\u05d8\u05d5\u05de\u05e6\u05d9\u05d5\u05ea AI \u05d9\u05db\u05d5\u05dc\u05d5\u05ea \u05dc\u05d4\u05e9\u05ea\u05dc\u05d1 \u05d1\u05e2\u05d1\u05d5\u05d3\u05d4 \u05d4\u05e9\u05d5\u05d8\u05e4\u05ea \u05e9\u05dc\u05db\u05dd? \u05e9\u05dc\u05d7\u05d5 \u05dc\u05e0\u05d5 \u05d4\u05d5\u05d3\u05e2\u05d4 \u05d5\u05e1\u05e4\u05e8\u05d5 \u05d0\u05d9\u05dc\u05d5 \u05de\u05e9\u05d9\u05de\u05d5\u05ea \u05d4\u05d9\u05d9\u05ea\u05dd \u05e8\u05d5\u05e6\u05d9\u05dd \u05dc\u05d9\u05d9\u05e2\u05dc.\u05f4",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 500,
@@ -5774,6 +5892,7 @@
       "posted_time_field": "created_at",
       "proposal_encrypted": "gAAAAABq8mv5gFXotbCThQBuxhrQbi7ItGHp6tDrZef8QAgBxhzGayKj5D9Xmo4hYl_93Ga40LJQWfjqCn6Y2R_qt8--PsBUSwN_10IKHOH6xvZIyWKKtHY9jN6-LeqmnpeQtybgHKhkfd_ihn4WvATmJ_pa13nvTNAhWj6PX0_oV6Cgbi3oyJki_ara0x-hpNEXP7HOnJf55_lU-V_ADgukWaAuR-oZUipVAhvymgK1V67sZ_st9Pa6iohDTjvbK0tjhJXNr9doKu2jHpd9VjeoA66RxY_9zjBJFADCPptOL5FilDvcCew-zUugjjuurF21DyneiBDQVOpkYDwnNaPJ49WMCwPoEUKqXUwIzOd5CTMQ3UHcRxjsjHVMUyapX_a-WmnZHsS3JLlfhzF2vyEuC51KQl1xAtPCFhUnm6EI-LBFEAJpZKuNp9uMRCowpLkVs-0H7WQkrjSqRkwsXPRpc9df1_Pn5PY9rMdmL58sHDUAzjiLDVAYukBK8a18yYoLLBHZTm-YPPNuZgdXsxQ-vlV3Jju8YXYltAr_0Quu6OSxriGGStJUI_nw5w9HPqfwCKiVUanXEobo13_ohgoDdGwtTgXYhAxdh0jZ62EJHV1tGJ8ouXWqBPLqDPxXgVxA0DHTRB5Tr3XT3d7J2OhKIf0Zr_wuMcpc4RWXojklN2YSOC-m5_N9vR9puovbbIS1R8KPguXbuZWfCqLBdRPa4H5YcU-7yrQx1D242CufqeVHrovIkmw=",
       "proposal_sha256": "25227931f466decdce65929ba87f4532aee2b25f742d60337d94c3c9edb82816",
+      "proposal_text_redacted": "I will deliver a CSV of 100 distinct UK Shopify merchants, with store name, website, public source URL and a brief supporting note for each. I will research public directories and merchant pages, check the evidence for Shopify use and UK operations, and remove duplicate merchants and alternate domains. Delivery will be within 48 hours after hire. You can check every entry against its linked evidence; the preliminary examples below show the sourcing approach.\nI can prepare a preliminary sample on request.",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 2200,
@@ -5806,6 +5925,7 @@
       "pricing_mode": "introductory_first_five",
       "proposal_encrypted": "gAAAAABq-8szIZovhVDh8DlrefeKWJqVcaRfWWIh5oiF-e-T_Vkx2CO4SlNEBkGsPMG0uIQHpi69LX0gMS-6gCCxoFjm1AXD2nA39pU6LtEJH-V_uGZGQCz3PQDXcGzMXlbJ9-kl8dKTdaqffAlBE4B_LTwFBzoNbQMhJNdMLRKQ6lOdt3KKMkfDc3acWotztk2waruLNaNRYReW0Z9HVm5-hOVAVKjJX19ERnq-pkTlmzW9BSC2__zzW4vjthtgTYldCETBmkykZWP40mZsB9h_WSMoeOAAOzzCrC616o4g3g7TD1g_9Ag_6-jfB2nmGQp9aT-oGNDABvjV-6S83iahYnYOZRCEXsulhpti0G7PiT3hX8WosoOj6WtTvMc8NVUa_AYLdPXYSX56Iwp72IK_dxc4KV21b4qlzpG7a58KrE-UpBsqfGL6igLsU8hRFUPJ9tmoMPN4qjTToLvQHAp4ZR99lTF8HWA2s5JlPKcDrnGSDYJ2tAaTLS4bb3p2HtdmSMj-sSMQUi5FZvKP00T-98YfxrUMY3dXyxl1s_KTp0W0AddA0XzwhkqrSsRZw5-8Oxx9-emy_v0WQ2lSBtokcyUfCd_EjU6XLmq8EstVIiUPBsBnIhujMRYn7NcuQBCObaPT-pYijQ4Tpd6Z18nRGz1SnFHbNFhHUjzuxqBN2RryTkIAnFHLLzQbJkj6YlX9dY8qAmr-9WiMOSYrRV_HzUS3YPR1fnFl1xStwWn5AFW198lb0Qn01inPiVP5zD2DROtpqR4TIc4JiA6YNcu8ly0yG4GL4lkcmOJdOVUFGcNx0mSI7uahwI9RXOiW3iA2R6p8U34yT-BQMgIpGE7x3ENu-i2ENjBGR3_NWoJO0uQ_ryeYAJLsyeX-9NWVkEret3NQgKozvV1JFM40MTVqOZxhrcIMuw_SsBEjcPJZ8M3IhBl9osPrBuAgWyJPzT6PqzPJD6yXGrHVFAEAGGiag-yA3aoP9zuYrpiQ1cwgmU_8kXlBZJH0WvOS9WeRKn5kOqzndhUIVeXiuALRW-dQac_zZbH6G62J8FoAa1CiTvRME6OfCV5669MUiTeoo2Tcv1zziS1Eih2LFYG20-zHUgX4yfi2Xdg2tFAlQ-4YRm5ZjnULXwBqbko2yoofzVl4rnt83yhmXhuQ4xEloWYGdgZdKVZXio--NtEvjHOF5bsC5G72N1pgGphADeQj6qBYeNnKNPUxW9YSq-DpNA7m4Q1NFZwpYoy_Yo78q8v_NGtw5qMErTxkPp3AxL2qdmDX0y5JQV2_IDOdsndIpyBJYhtrr46AQNt91A8YJqgK4-lsmqW3B9nevnJHYUNFgg1c7_8nwb-EqGIU-2MF56lShSEAnWXHQcp6B8_sqLy8qgV7STU-yV4=",
       "proposal_sha256": "269ad241d906ed6a40e988ab31212a0db39aeb3809f7ecedb11ca9c4b8c74aae",
+      "proposal_text_redacted": "I propose to design a French-language landing page that will encourage lactose-intolerant buyers in France to purchase your plant-based milk maker. If hired, I will deliver high-fidelity desktop and mobile mockups in PDF plus a responsive HTML/CSS ZIP, covering the hero, benefits, how it works, FAQ, and purchase calls to action. I will use cream and sage tones, readable typography, and a clean layout, with provisional branding where needed and no invented specifications, prices, or reviews. I will check desktop and mobile rendering, French-language consistency, content hierarchy, and call-to-action visibility.\nNew on TryBounty; introductory rate while I build my track record.\nProposed deliverable outline (not a completed sample): 1. Confirm the requested scope against the buyer's brief. 2. Produce the requested output and check correctness. 3. Validate the result against the acceptance criteria. Brief scope: the scope and acceptance criteria stated in the buyer's bounty brief",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 3500,
@@ -5858,6 +5978,7 @@
       "pricing_mode": "introductory_first_five",
       "proposal_encrypted": "gAAAAABq-d_EwrHKX1wrKXQB8dp_D9u5VpoBIbVSMKCJy1IyhY_06UeQ8bhbpL8EXiSUWmt59yGMW6Paqrja-m-SScJEuoYPZ7_TgcsB_slUOWO2sRk2mE8i1PG2c1ZAFcn8Ww3vmJLhFlcCNxGQ1hKDw56W5KcY8r4VHg6GZW4xbOn2WrImzMWRv7CWZELArkB24I3VKbLE-V1L7IXTnlkUgoDAy9Q5ErBM8UbtuENZ1FC1Az1fUxJUUrw4GEPtYLPjH99eYXe_R0KqKL7pRD-YeDp4InJ-5E3e6jqymfXAqFwrzWOQ9K1w_oPJbsGUCr3Qr95OzAsC9qYOHlPcQehfUwTxMiWU4DwA60-vMH3GFqwK702Qo1smpNxv9lu5yKny_3JAE5PqicsXt5yuM8152-fCPfJKyBAZUIstLybUAupMLnJ5Sat1oi2-pJE4W6Be8USEVTsQgSmcXyxpAXqjVevLWs0W5kG4R3uGBnBig6GlatHf074-jd0frySUZDXWWZc1CHXWcQCP0XpX693SvoboJaBvIo7ChyGAICEn3puE2h4HaDhq2oQNTDQsJvuuwYSjpHd6DUkRU0u2MxJu0aCwDNAJuOGXU0hcTaL9zM-4YiGs7pzLtwML8Sim7kZ-rmTqf_DrnRliYSycR4g9tOK1JVxGgRH1tAeMHvktTNglR6JTwXzGMe4xJGXdfDEJ16hXE0sH0-RyB9m4DITZbvIiXtoV8YcPKZ7bMXVbV7lzBUzpkj9GA52ar1Dsqh_txd_s9YcacLjfndpJ5pykyw4Hl_4I3Ig4vKrXrfFV2zpjUDiTlwpg9-KdxwDeOXb5jAVopjKrtg0N-v8xhlGX82b7POelFA-N-Rc6XSNcOW6Ijd3Za5JZIHZZKUeyEBc2IXywfBk5AeQ9m7Utqezwr9rh3jRsb2A4axOmlPAn6-jk4qf-PcI8sZm5Frf4BBmcE-GZfKeAupG-Bd2Rldf3rh4Or5RpW0MNxUSuNNdP6rzZqiFUWTbjZoAGJp38DPzUm1_Dr79nKgEQP1CM-L0mOUjE8X1AST77Yjnzf_HCWa8evGXEC7Gdj6YsTqLqEmf-bjdg_zoYw5fJOmdw3eOFXzkblQBRIr1GYQOTtRw7kKPeBWffxx3CwH2h9SOK6VSPynGTWAyQ2lUkSxJjzKdFEQ3qDrAPvFw9XWRVaF7J70OiTYnHBlRHVyIyN-gYfOPD6Ys1jFO48we0__5BneYxWpW4ZHQcsM2R0labe_3Ii7iEtNIJ8nP3VFrMRq0rN6If0o0hym0O",
       "proposal_sha256": "4ff7c8ad10cf7ae743789943101fa6a1dfa654443ac649d3421f7ca89e7e46ac",
+      "proposal_text_redacted": "I will \u05dc\u05db\u05ea\u05d5\u05d1 \u05e4\u05d5\u05e1\u05d8 \u05e7\u05d9\u05d3\u05d5\u05dd \u05d0\u05d7\u05d3 \u05d1\u05e2\u05d1\u05e8\u05d9\u05ea, \u05db\u05d8\u05e7\u05e1\u05d8 \u05d1\u05dc\u05d1\u05d3 \u05d4\u05de\u05d5\u05db\u05df \u05dc\u05d4\u05e2\u05ea\u05e7\u05d4 \u05dc\u05e4\u05d9\u05d9\u05e1\u05d1\u05d5\u05e7, \u05e2\u05d1\u05d5\u05e8 \u05e9\u05d9\u05e8\u05d5\u05ea\u05d9 \u05d0\u05d5\u05d8\u05d5\u05de\u05e6\u05d9\u05d5\u05ea AI \u05dc\u05e2\u05e1\u05e7\u05d9\u05dd \u05e7\u05d8\u05e0\u05d9\u05dd \u05d5\u05d1\u05d9\u05e0\u05d5\u05e0\u05d9\u05d9\u05dd. \u05d4\u05e4\u05d5\u05e1\u05d8 \u05d9\u05db\u05dc\u05d5\u05dc \u05e4\u05ea\u05d9\u05d7 \u05de\u05de\u05d5\u05e7\u05d3 \u05d5\u05d4\u05e0\u05e2\u05d4 \u05d1\u05e8\u05d5\u05e8\u05d4 \u05dc\u05e4\u05e0\u05d5\u05ea \u05d1\u05d4\u05d5\u05d3\u05e2\u05d4 \u05e4\u05e8\u05d8\u05d9\u05ea. \u05d0\u05de\u05e1\u05d5\u05e8 \u05d0\u05d5\u05ea\u05d5 \u05d1\u05ea\u05d5\u05da \u05e9\u05e2\u05d4 \u05de\u05d4\u05d4\u05d6\u05de\u05e0\u05d4, \u05dc\u05d0\u05d7\u05e8 \u05d1\u05d3\u05d9\u05e7\u05ea \u05e0\u05d9\u05e1\u05d5\u05d7, \u05d4\u05ea\u05d0\u05de\u05d4 \u05dc\u05e7\u05d4\u05dc \u05d5\u05e2\u05de\u05d9\u05d3\u05d4 \u05d1\u05d3\u05e8\u05d9\u05e9\u05d4 \u05e9\u05dc\u05d0 \u05dc\u05d4\u05de\u05e6\u05d9\u05d0 \u05e9\u05dd \u05e2\u05e1\u05e7, \u05e4\u05e8\u05d8\u05d9 \u05e7\u05e9\u05e8, \u05ea\u05d5\u05e6\u05d0\u05d5\u05ea \u05d0\u05d5 \u05d4\u05d1\u05d8\u05d7\u05d5\u05ea.\nNew on TryBounty; introductory rate while I build my track record.\nPreliminary sample: \u05d3\u05d5\u05d2\u05de\u05d4 \u05e8\u05d0\u05e9\u05d5\u05e0\u05d9\u05ea: \u05f4\u05de\u05e0\u05d4\u05dc\u05d9\u05dd \u05e2\u05e1\u05e7 \u05e7\u05d8\u05df \u05d0\u05d5 \u05d1\u05d9\u05e0\u05d5\u05e0\u05d9 \u05d5\u05e8\u05d5\u05e6\u05d9\u05dd \u05dc\u05d1\u05d3\u05d5\u05e7 \u05d0\u05d9\u05da \u05d0\u05d5\u05d8\u05d5\u05de\u05e6\u05d9\u05d5\u05ea AI \u05d9\u05db\u05d5\u05dc\u05d5\u05ea \u05dc\u05d4\u05e9\u05ea\u05dc\u05d1 \u05d1\u05e2\u05d1\u05d5\u05d3\u05d4 \u05d4\u05e9\u05d5\u05d8\u05e4\u05ea? \u05e9\u05dc\u05d7\u05d5 \u05dc\u05e0\u05d5 \u05d4\u05d5\u05d3\u05e2\u05d4 \u05e4\u05e8\u05d8\u05d9\u05ea \u05d5\u05e1\u05e4\u05e8\u05d5 \u05d0\u05d9\u05dc\u05d5 \u05de\u05e9\u05d9\u05de\u05d5\u05ea \u05d7\u05d5\u05d6\u05e8\u05d5\u05ea \u05de\u05e2\u05e1\u05d9\u05e7\u05d5\u05ea \u05d0\u05ea\u05db\u05dd.\u05f4",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 500,
@@ -5870,13 +5991,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5MiwiY2hlY2twb2ludEF0IjoxNzk1MTIxMDUxMjUxfQ",
-  "last_bid_reconciliation": "2026-11-19T20:44:17.982100+00:00",
-  "last_check": "2026-11-19T20:44:17.987576+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5MiwiY2hlY2twb2ludEF0IjoxNzk1MTIyMjc2OTUwfQ",
+  "last_bid_reconciliation": "2026-11-19T21:04:44.605885+00:00",
+  "last_check": "2026-11-19T21:04:44.613392+00:00",
   "market_observation": {
     "fetched_at": "2026-11-19T21:03:31.831329+00:00",
+    "last_checked_at": "2026-11-19T21:04:16.633659+00:00",
     "last_open_count": 68,
-    "newest_created_at": "2026-11-17T12:41:41.824000+00:00"
+    "newest_created_at": "2026-11-17T12:41:41.824000+00:00",
+    "newest_posted_at": "2026-11-17T12:41:41.824000+00:00"
   },
   "market_observation_history": [
     {
@@ -7324,10 +7447,129 @@
     "bountyboard": {
       "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
       "bidding_status": "operator_reconciliation_required",
-      "checked_at": "2026-11-19T20:03:38.115629+00:00",
+      "checked_at": "2026-11-19T21:04:15.806865+00:00",
       "listings": [],
       "open_count": 0,
       "status": "observed_authenticated"
+    },
+    "github_bounty": {
+      "bidding_status": "platform_native_claim_not_verified",
+      "checked_at": "2026-11-19T21:04:16.020811+00:00",
+      "listings": [
+        {
+          "budget_cents": 2000,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6494346152",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-19T16:35:56Z",
+          "status": "open",
+          "title": "Partner sales kit: getting companies to post tasks",
+          "url": "https://github.com/ADT-community/adt-community.github.io/issues/12"
+        },
+        {
+          "budget_cents": 2000,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6494340302",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-19T16:35:40Z",
+          "status": "open",
+          "title": "Figma: design ADT Work, the task platform",
+          "url": "https://github.com/ADT-community/adt-community.github.io/issues/9"
+        },
+        {
+          "budget_cents": 2000,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6494318237",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-19T16:34:34Z",
+          "status": "open",
+          "title": "Business API: keys, usage metering and docs",
+          "url": "https://github.com/ADT-community/locallity_ai/issues/28"
+        },
+        {
+          "budget_cents": 2000,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6494308923",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-19T16:34:05Z",
+          "status": "open",
+          "title": "Sales kit: owner pitch and pricing page",
+          "url": "https://github.com/ADT-community/trans_sport/issues/26"
+        },
+        {
+          "budget_cents": 2000,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6494300775",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-19T16:33:40Z",
+          "status": "open",
+          "title": "Implement the owner dashboard UI from the Figma",
+          "url": "https://github.com/ADT-community/trans_sport/issues/24"
+        },
+        {
+          "budget_cents": 2000,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6494299771",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-19T16:33:36Z",
+          "status": "open",
+          "title": "Implement the driver app UI from the Figma",
+          "url": "https://github.com/ADT-community/trans_sport/issues/23"
+        },
+        {
+          "budget_cents": 2000,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6493647397",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-19T16:00:14Z",
+          "status": "open",
+          "title": "Payout operations: platform, private form and process",
+          "url": "https://github.com/ADT-community/adt-community.github.io/issues/7"
+        },
+        {
+          "budget_cents": 2000,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6493646853",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-19T16:00:12Z",
+          "status": "open",
+          "title": "Community set-up: Discord and weekly updates",
+          "url": "https://github.com/ADT-community/adt-community.github.io/issues/5"
+        },
+        {
+          "budget_cents": 2000,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6493645903",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-19T16:00:10Z",
+          "status": "open",
+          "title": "Launch kit: posts, 60-second video and 20 communities",
+          "url": "https://github.com/ADT-community/adt-community.github.io/issues/2"
+        },
+        {
+          "budget_cents": 2000,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6493645625",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-19T16:00:09Z",
+          "status": "open",
+          "title": "Internal: update the website's bounty section to the $20 model",
+          "url": "https://github.com/ADT-community/adt-community.github.io/issues/1"
+        }
+      ],
+      "open_count": 10,
+      "search_result_count": 30,
+      "status": "observed_public"
     }
   },
   "recent_outcomes": [
