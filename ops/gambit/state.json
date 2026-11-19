@@ -876,6 +876,27 @@
           "first_at": "2026-11-19T16:33:03.049789+00:00"
         }
       },
+      "mx7c024mjrmc4zzrn60xdxmb2d8jgnee": {
+        "bid_sent": {
+          "days": [
+            "2026-11-19"
+          ],
+          "first_at": "2026-11-19T22:48:54.909260+00:00"
+        },
+        "proposal_brief_outline_sent": {
+          "days": [
+            "2026-11-19"
+          ],
+          "first_at": "2026-11-19T22:48:54.909244+00:00"
+        },
+        "proposal_sample_fallback": {
+          "days": [
+            "2026-11-19"
+          ],
+          "first_at": "2026-11-19T22:48:54.587078+00:00",
+          "reason": "proposal_excerpt_missing"
+        }
+      },
       "mx7c2qbzmr82sprzjackynhesd8hz5ys": {
         "pass_unsupported": {
           "days": [
@@ -1661,9 +1682,9 @@
       }
     },
     "model_budget": {
-      "call_count": 386,
+      "call_count": 387,
       "month": "2026-11",
-      "reserved_micro_usd": 14846724
+      "reserved_micro_usd": 14888854
     }
   },
   "bounties": {
@@ -2143,8 +2164,12 @@
       "version": 1
     },
     "mx7c024mjrmc4zzrn60xdxmb2d8jgnee": {
-      "action": "evaluation_pending",
-      "at": "2026-11-19T22:48:36.253864+00:00",
+      "action": "bid_active",
+      "at": "2026-11-19T22:48:54.909267+00:00",
+      "declined_at": null,
+      "declined_version": null,
+      "last_declined_bid": null,
+      "rebid_invitation_id": null,
       "version": 1
     },
     "mx7c2qbzmr82sprzjackynhesd8hz5ys": {
@@ -5357,16 +5382,24 @@
       }
     },
     "mx7c024mjrmc4zzrn60xdxmb2d8jgnee": {
-      "bid_amount_cents": null,
-      "bid_at": null,
-      "bid_id": null,
+      "bid_amount_cents": 1600,
+      "bid_at": 1795128534731,
+      "bid_id": "p1738za3xx30jfr1c6q0ftfcqs8jh4jd",
+      "bid_status": "active",
+      "bid_status_changed_at": "2026-11-19T22:48:54.908302+00:00",
       "budget_cents": 2000,
+      "discount_percent": 20,
       "first_detected_at": "2026-11-19T22:48:36.253733+00:00",
       "observed_at": "2026-11-19T22:48:36.253733+00:00",
       "owner_activity_status": null,
       "platform_status": "open",
       "posted_at": "2026-11-19T22:48:03.447000+00:00",
+      "posted_budget_cents": 2000,
       "posted_time_field": "created_at",
+      "pricing_mode": "introductory_first_five",
+      "proposal_encrypted": "gAAAAABq_3zWoFYl7RJOU0VJyE4TaRKoP119B7FPPiqSzCZiV5ur9q4QbtbThBYdSauEwkgqwBqZ21ZezPLIvLf_I_5_tNBcTio7HWlcOhrMkLcogKCQmbrjj58CtCrFTnKP9OgNSACj1MtFogS6rG_O_H6skgm45ZYoDikRD17QDBOe0EBd6zidbvD68iSaKnfvOO7DwKIbRFuHGxat5Bk2hdYe3LKSmmjJR2WmsJ3mZNNtVTJUMoEtssLlUbzFtIWq2fP4aMPUVyfTsjHDIGS8_N2-nO3Hyiz3RX0xAdtK1zdLv6Hbxqgwn_lHKA5_vYrbTCsuE5y9wnO1XggKv8d7BBuY8j7Pd6AleXe4DIUJ1_6e3RzkGRRMSVgzHqXeURiAt8fcuOsjcq35rtFRhNOgvRXHTPl3_6Q5AbbQ7qEiwMg6GyoeyOFebcgBSUf8JjeJFsXdFdbB63qMgjN7dWxmRpLusuj04eXIHSG__NBU8qertNESBBf1h4SDGYmImudkz3KgeX0Cs2HxLDx8aLXrEvH5BC_1FwE9JjOTiA0HBeoR7VxP5J_VGcnv_5eGvVYuEl_p3j8MXwU6BPDD4UcTFGOlVwvq6ZpXibsUPonDvb9kSkvST04EWA1R4xJ7LKRzvifxa99NojyboXfhS1Y3thT4T8xp0ChhpANN6QhVl5TXLOO1N24Qq0uzy3NBvL6gQWSGiZtPaclUmtHyzu1jJGeFcO66sPjRZbnHkCAGZ8cp7GUiZUM8Tba8p-UirIrHjA97jA7wJhiNQ7XwdQLT9nSHUbzskGrcz9uVYx2ZlVd1_3RhgDolnGwI226O5ZGaWNLofQwBErKBsMe9uqgqbhx3WGu7BLSgtGpTDcBSYW8tikKc6VC7ALbFSGWk74RULAgrnCsdvV_muhwCC7P8rH0lzunS0cZMhdCkyizUr2j46mgdqy3ebj-d55STfpCcrCOd2eMie_gUpv_1zxPfYQl2e95_abvaMpwA1iiOoClpnnOSdOWVWeE-XX_jNgru2PUZym7-TK7kq1ZnVoJe44a3Y3KlNa3xO2VFmBvocinMw2CDrjoXfzvaz6HoA24dHFs0_oZNVZwc08C63LM0wvxRG3n6RHqOPRr9T-YEdhp8-CI-u9kUo46j5goOyROkuwwDCLGaAgZt6ANp9dFyBUAiS7e4tUkRukmMXWs9PHUjFE9HGZA-2Be-KVZfxyxad_GjA1sTw4_wJmnpVHaTVe6_9fMDzG-LbUcH7RKxcGldE5DX7NKkuRbpuKuG8F9ZsaBRaz6wr-Tzj6vbq7ere4aW5HSTwhivMHergEy_sVReNvPHNXbVu-GTmCW_mGe2AAfbQWBwTaM-8OpzV1nwfw51cSf5Qn_MRuYOJvWIVI8H7AgHYb2vxZEVhARx_6U37misE_AwJOAPR6g4-VObI8q8jtoRuXybpJTkL6pR1K9wl0nSi0WFQ1Oafbw3NQOKEZnQbpQv6FGILUP8n12fGLgnX8a0k_OcXrq7s97r-e4F8S_smWo=",
+      "proposal_sha256": "e7ba9a15789a5e7fd795c9accecd3677e2e965b54ce751f530dfa2ff50c5eab1",
+      "proposal_text_redacted": "I will deliver one XLSX spreadsheet with 50 distinct, active NYC/Brooklyn consumer brands, targeting delivery within your three-hour window after hire. Each row will include the website, Instagram, category, location, dated activity evidence, supporting URLs, and a specific opportunity for your studio\u2019s identity, art direction, content, or campaign services. I\u2019ll prioritize independent fashion, beauty, lifestyle, wellness, and design brands, adding founder or marketing contacts only when publicly documented. Before delivery, I\u2019ll open each website, check location and activity evidence, remove duplicates and agencies, and ensure every opportunity is grounded in an observable brand need.\nNew on TryBounty; introductory rate while I build my track record.\nProposed deliverable outline (not a completed sample): 1. Confirm the requested scope against the buyer's brief. 2. Produce the requested output and check correctness. 3. Validate the result against the acceptance criteria. Brief scope: the scope and acceptance criteria stated in the buyer's bounty brief",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 2000,
@@ -5374,7 +5407,8 @@
         "currency": "usd",
         "status": "open",
         "updated_at": 1795128485059
-      }
+      },
+      "submitted_at": "2026-11-19T22:48:54.908289+00:00"
     },
     "mx7c2qbzmr82sprzjackynhesd8hz5ys": {
       "bid_amount_cents": null,
@@ -6318,12 +6352,12 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5MiwiY2hlY2twb2ludEF0IjoxNzk1MTI4Mjc5NjE2fQ",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5MywiY2hlY2twb2ludEF0IjoxNzk1MTI4NTIxMjcxfQ",
   "last_bid_reconciliation": "2026-11-19T22:44:46.920827+00:00",
-  "last_check": "2026-11-19T22:44:46.929207+00:00",
+  "last_check": "2026-11-19T22:48:54.917810+00:00",
   "market_observation": {
     "fetched_at": "2026-11-19T22:48:36.255194+00:00",
-    "last_checked_at": "2026-11-19T22:48:38.461449+00:00",
+    "last_checked_at": "2026-11-19T22:48:40.958028+00:00",
     "last_open_count": 69,
     "newest_created_at": "2026-11-19T22:48:03.447000+00:00",
     "newest_posted_at": "2026-11-19T22:48:03.447000+00:00"
@@ -7901,24 +7935,6 @@
   },
   "recent_outcomes": [
     {
-      "action": "proposal_sample_fallback",
-      "at": "2026-11-15T20:15:31.142098+00:00",
-      "bounty_id": "mx75jrevnm0cd1nc5328ahps8x8j8yyf",
-      "reason": "proposal_excerpt_missing"
-    },
-    {
-      "action": "proposal_sent_without_sample",
-      "at": "2026-11-15T20:15:31.535104+00:00",
-      "bounty_id": "mx75jrevnm0cd1nc5328ahps8x8j8yyf"
-    },
-    {
-      "action": "bid_sent",
-      "at": "2026-11-15T20:15:31.535111+00:00",
-      "bounty_id": "mx75jrevnm0cd1nc5328ahps8x8j8yyf",
-      "payout_cents": 1200,
-      "version": 1
-    },
-    {
       "action": "agent_replied_to_buyer",
       "at": "2026-11-16T08:40:26.464076+00:00",
       "bounty_id": "mx713jqgcsevmx5jfgvz6qnmed8j60gv"
@@ -8266,6 +8282,24 @@
       "at": "2026-11-19T17:23:52.840301+00:00",
       "bounty_id": "mx73aev0qcty3w9rkdtg6p58p58jhz2b",
       "platform_status": "canceled"
+    },
+    {
+      "action": "proposal_sample_fallback",
+      "at": "2026-11-19T22:48:54.587128+00:00",
+      "bounty_id": "mx7c024mjrmc4zzrn60xdxmb2d8jgnee",
+      "reason": "proposal_excerpt_missing"
+    },
+    {
+      "action": "proposal_brief_outline_sent",
+      "at": "2026-11-19T22:48:54.909256+00:00",
+      "bounty_id": "mx7c024mjrmc4zzrn60xdxmb2d8jgnee"
+    },
+    {
+      "action": "bid_sent",
+      "at": "2026-11-19T22:48:54.909264+00:00",
+      "bounty_id": "mx7c024mjrmc4zzrn60xdxmb2d8jgnee",
+      "payout_cents": 1600,
+      "version": 1
     }
   ],
   "schema": 1,
