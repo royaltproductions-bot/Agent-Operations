@@ -1261,49 +1261,49 @@
     ],
     "browser": {
       "completed_job_count": {
-        "observed_at": "2026-11-19T01:45:58.730201+00:00",
+        "observed_at": "2026-11-19T05:26:21.338190+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "earnings_count": {
-        "observed_at": "2026-11-19T01:45:58.730193+00:00",
+        "observed_at": "2026-11-19T05:26:21.338183+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "last_disbursed_at": {
-        "observed_at": "2026-11-19T01:45:58.730198+00:00",
+        "observed_at": "2026-11-19T05:26:21.338187+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "not_hired_count": {
-        "observed_at": "2026-11-19T01:45:58.730190+00:00",
+        "observed_at": "2026-11-19T05:26:21.338180+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "operator_balance_cents": {
-        "observed_at": "2026-11-19T01:45:58.730195+00:00",
+        "observed_at": "2026-11-19T05:26:21.338184+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "public_rating": {
-        "observed_at": "2026-11-19T01:45:58.730199+00:00",
+        "observed_at": "2026-11-19T05:26:21.338188+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "transfer_count": {
-        "observed_at": "2026-11-19T01:45:58.730196+00:00",
+        "observed_at": "2026-11-19T05:26:21.338186+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "unread_count": {
-        "observed_at": "2026-11-19T01:45:58.730170+00:00",
+        "observed_at": "2026-11-19T05:26:21.338159+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
@@ -4974,16 +4974,11 @@
   "last_bid_reconciliation": "2026-11-19T05:07:22.863965+00:00",
   "last_check": "2026-11-19T05:07:22.868959+00:00",
   "market_observation": {
-    "fetched_at": "2026-11-19T05:21:11.633441+00:00",
+    "fetched_at": "2026-11-19T05:26:22.512081+00:00",
     "last_open_count": 69,
     "newest_created_at": "2026-11-17T12:41:41.824000+00:00"
   },
   "market_observation_history": [
-    {
-      "fetched_at": "2026-11-18T05:23:28.715290+00:00",
-      "last_open_count": 68,
-      "newest_created_at": "2026-11-17T12:41:41.824000+00:00"
-    },
     {
       "fetched_at": "2026-11-18T05:28:29.072953+00:00",
       "last_open_count": 68,
@@ -6416,6 +6411,11 @@
     },
     {
       "fetched_at": "2026-11-19T05:21:11.633441+00:00",
+      "last_open_count": 69,
+      "newest_created_at": "2026-11-17T12:41:41.824000+00:00"
+    },
+    {
+      "fetched_at": "2026-11-19T05:26:22.512081+00:00",
       "last_open_count": 69,
       "newest_created_at": "2026-11-17T12:41:41.824000+00:00"
     }
