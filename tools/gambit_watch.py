@@ -26,11 +26,13 @@ def checkpoint():
     files = ['ops/gambit/state.json', 'ops/gambit/openai_budget.json']
     if Path('ops/gambit/funnel.json').exists():
         files.append('ops/gambit/funnel.json')
+    if Path('ops/gambit/funnel_daily.json').exists():
+        files.append('ops/gambit/funnel_daily.json')
     for attempt in range(4):
         command(['git', 'fetch', '--no-tags', 'origin', 'gambit-state'])
         originals = [
             subprocess.run(['git', 'show', 'origin/gambit-state:' + p],
-                           check=not p.endswith("/funnel.json"), stdout=subprocess.PIPE,
+                           check=not (p.endswith("/funnel.json") or p.endswith("/funnel_daily.json")), stdout=subprocess.PIPE,
                            stderr=subprocess.DEVNULL, timeout=60).stdout
             for p in files
         ]
