@@ -1623,11 +1623,12 @@
       "ph751mgx9gn82yh9xn0a3r1een8jh9bx",
       "ph74kne7m4khrnmd4vtb0wqg4x8jgyky",
       "ph7ed9pqe3vfxrww4fefhg3cfs8jgrpe",
-      "ph7059pspa0dnp8w3jjj0ahz318jgqvf"
+      "ph7059pspa0dnp8w3jjj0ahz318jgqvf",
+      "ph757j0sv28ez9yfsj6028d3cd8jhz24"
     ],
     "event_types": {
       "bounty.available": {
-        "count": 44,
+        "count": 45,
         "data_keys": [
           "bounty_id",
           "bounty_version",
@@ -1635,7 +1636,7 @@
           "title"
         ],
         "first_seen": "2026-11-08T20:41:15.070418+00:00",
-        "last_seen": "2026-11-19T16:57:46.253847+00:00"
+        "last_seen": "2026-11-19T22:48:38.846482+00:00"
       },
       "bounty.claimed": {
         "count": 1,
@@ -3173,7 +3174,12 @@
       "last_known_status": "open",
       "last_seen_open_at": "2026-11-19T22:48:36.253861+00:00",
       "version": 1,
-      "versions": {}
+      "versions": {
+        "1": {
+          "captured_at": "2026-11-19T22:48:39.110220+00:00",
+          "encrypted_brief": "gAAAAABq_3zHGC_HuSNHhaZ_5IbYsjpV2_qM8Pef-JizgSrK-6oyZ0C6WQH4kFIzPoMY6yj5JaHJGwQjUxUBx9O3UgqmZgbZI1KEOBYByfYjqdW6MukmWKkdGCr-1I0Pk6VbPgxIVDOnEDLmFaCLazev1x4zolUpS7ZoAj3Ppw6BrnPYLA0Xsei46qt_YMeVB4OZWiPYArXeGW64tUVEx3nsJZdOog_UnstXFRPOLKBrZR40UVICTeUyZceXOS1Seu8NZ_BEf3n1l3fXusiFbD34SbXisqA_ivWA46KdVoU5K3XfoaDOO6bQH0KKCaEyMI2-3GBdZnR-Tk6aC_uEqHuJ5ViwQVIO_aIDPI6SxK5EPJyr7fBY3oEHL6AiOOk3iX203H-UG8pIkYv4QsMJjcCmfi1yhVcCJ_Qaf42h7otm00dboFBJGLj8pAPEEw1q5PXanbBcQFCCPqr_b-nFm_ti9RsyV8UuDlF6KcL5mJwNI_18P0u7OvV8p_KXg_TEyGGUepNPe2GIhsUwyye_-J9EvTbYFz8i04TEGszjKF7wDcTzqb_ppG-dDtiBasbCtxAYPOzOslJmTAsLeXe32G0Cyv7U2oWGU2QohxxOxQXRElnIyniXz3U1c85QTEyKdCI1W-qtIYr27q5_NqcMx3DoXt_e5ZABnx11pGGTpgcwoaeznfTNng8-9pqPrlnEvdktUcoiyR3XP9_sVK7Wubdk2fX0-VWxBhprwq1hliJm4ufpHZLKBNQ7KCFwdaVOdi97olr1TGcVIR0MpHzTwwXQes5PpMVmZO8ydl34ynQvYRJzU8DWbTZCVz8ZjeKUZo7L8AL1eunZdX0VOwdQhJIztjQ3orQtMpcVlpx0jPvoPyXyAktf1FiFSz7D0_ZRat8AXbX-maxW0pY-eYqVPkkEt7ILzeyNuP4U6oh0Nm2Jgg8Y5kLi8chohd3Z2EvsQj-tcUoy27GGqwY1hyN1y8mNIKUNIoEI1o39ECas9cMIp_O6LB7w64SjmFJ6LxOrZ_ZmDmlENUStBD0eBwBiolTHnoYGR7dikzXJ4E7j1WwMR2kqRiqKBWjV4c6v4rR1bR8RZGdAqeLMA1XE2i3gm1K-EfAj9-J4weB5XRIZ2uYcdS1w8pXu6YP4a56xZD6jslALXrKho-OXi9Oscu5iBRc2uoqVpv-sxrXSL-Rz6L2Nqu8sCcgNOK19FzfnFaXQFcLJSp6ctwb0juGb6jNqNZSrEYHohkrdHbKH4UtRMLItIC2zIDnTzEmgI_3cD3HgKZIHgyYJIcnn1uQy-0n5As2Ay5QZEGRY3dXcA-bG62BaNKgDxCZI9A1yAQe1EgJLM-Ub_00H-EblvPGXmkfIo9gwrznCXfnZt5vFr2bzGlotGnlrdbSepM-thyRzw7XnN0LtBaMrqOdFlwaOSc--lfcZyTD-LKfmvS24t9mjvYODPvnY44ycsgGuBXQ3kBnnvMuqK2JdLdmxciOvYOUVeQekW4uQlRnusrIx1nfKdQQrAO9WZKs6ukhEa6R_RQ1Ai25Pfyt9J5-WtbMEWihVUGs6NreAQZLCQVwGbfl-2QFbse23Xce-sMLEmy86sEiYf2vsdQcuO-c1a1DiBgoguo5ExfwQ51ir9D5MysvU5R6gFJguvqlgLpMFl7N4BfW5ZQlAB9JXq40YJMA1hlsPecyraVy9D4POMxOCwh0sqcVOyzeRvvtd2Vo14xKWdhY8ZG7kNvxtC4jXE7EnXWa7KR9_Qs6ImO3omjwmY51lzyzoC02PmP1YIu-SgmldkmG04YXVah4v8VmoP--o5jrSV5omwlnowCqLPt7DVcqkrFYavCBu1vaDsPV6k5CzIgtlaRnVfe0xljUI-6u8Wotw88DgY1SylrHixdWalsaEB_x85ppXk7IZaIceM_GFcjlQDQef-gaTrMp4BDYF6y7J4-qGUyESzFkqm8du62PolABD2nfvt8Qlktb1dYSR-ZnD0rOzt46WIpEwqNrxlPiE43TY77gJ_6yVkh4GnwRCtSFIrk0iZBz9isW1LflnUdsHpXkb-cPWbaCINOY694tGlG0eED346dWKZUFkrv4eYfyZOVh03W7bgdM="
+        }
+      }
     },
     "mx7c2qbzmr82sprzjackynhesd8hz5ys": {
       "first_detected_at": "2026-11-10T21:52:57.985117+00:00",
@@ -6317,8 +6323,10 @@
   "last_check": "2026-11-19T22:44:46.929207+00:00",
   "market_observation": {
     "fetched_at": "2026-11-19T22:48:36.255194+00:00",
+    "last_checked_at": "2026-11-19T22:48:38.461449+00:00",
     "last_open_count": 69,
-    "newest_created_at": "2026-11-19T22:48:03.447000+00:00"
+    "newest_created_at": "2026-11-19T22:48:03.447000+00:00",
+    "newest_posted_at": "2026-11-19T22:48:03.447000+00:00"
   },
   "market_observation_history": [
     {
