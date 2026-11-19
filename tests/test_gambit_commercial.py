@@ -141,6 +141,20 @@ class CommercialTests(unittest.TestCase):
         self.assertEqual(len(state["commercial"]["test"]["conversation_evidence"]), 20)
         self.assertNotIn("alex@example.com", str(state))
 
+    def test_backfill_active_bid_evidence_is_read_only_and_idempotent(self):
+        state = {"commercial": {"a": {"bid_status": "active", "proposal_text_redacted": "Proposal"}}}
+        messages = [{"author_type": "user", "created_at": "2026-11-19T12:00:00Z",
+                     "content": {"text": "Email me at buyer@example.com"}}]
+        with patch.object(w, "messages_for", return_value=messages) as fetch, patch.object(w, "api") as api:
+            self.assertEqual(w.backfill_commercial_evidence(state), 1)
+            self.assertEqual(w.backfill_commercial_evidence(state), 0)
+            fetch.assert_called_once_with("a")
+            api.assert_not_called()
+        row = state["commercial"]["a"]
+        self.assertEqual(len(row["conversation_evidence"]), 1)
+        self.assertNotIn("buyer@example.com", str(row))
+        self.assertTrue(row["conversation_evidence_backfilled_at"])
+
     def test_held_buyers_never_reach_assessment_or_outbound_api(self):
         for id in c.APPROVAL_HOLD_IDS:
             with patch.object(w,'api',return_value={'bounty':{'_id':id,'status':'open','version':1}}) as api, patch.object(w,'assess') as assess, patch.object(w,'note'):
