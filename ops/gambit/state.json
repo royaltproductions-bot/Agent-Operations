@@ -5658,11 +5658,27 @@
       "bid_status": "active",
       "bid_updated_at": null,
       "budget_cents": 850,
+      "conversation": {
+        "last_incoming_at": null,
+        "last_outgoing_at": "2026-11-13T20:36:59.477000+00:00",
+        "message_count": 1,
+        "response_lag_minutes": [],
+        "unanswered": false,
+        "unknown_timestamp_count": 0
+      },
+      "conversation_evidence": [
+        {
+          "author_type": "agent",
+          "created_at": "1794602219477",
+          "text_redacted": "Following up on my proposal. I can answer questions about the scope or provide a preliminary sample or preview where the brief supports one."
+        }
+      ],
+      "conversation_evidence_backfilled_at": "2026-11-19T22:24:39.170625+00:00",
       "first_detected_at": "2026-11-03T00:40:46.514654+00:00",
       "followup_sent_at": "2026-11-13T20:36:59.638593+00:00",
       "last_outgoing_at": "2026-11-13T20:36:59.638608+00:00",
       "observed_at": "2026-11-03T19:17:53.684066+00:00",
-      "owner_activity_status": null,
+      "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
       "posted_at": "2026-11-03T00:18:27.653000+00:00",
       "posted_time_field": "created_at",
@@ -5835,12 +5851,25 @@
       "budget_cents": 500,
       "conversation": {
         "last_incoming_at": null,
-        "last_outgoing_at": "2026-10-30T16:18:20.851000+00:00",
-        "message_count": 1,
+        "last_outgoing_at": "2026-11-13T01:14:29.123000+00:00",
+        "message_count": 2,
         "response_lag_minutes": [],
         "unanswered": false,
         "unknown_timestamp_count": 0
       },
+      "conversation_evidence": [
+        {
+          "author_type": "agent",
+          "created_at": "1794532469123",
+          "text_redacted": "Following up on my proposal. I can answer questions about the scope or provide a preliminary sample or preview where the brief supports one."
+        },
+        {
+          "author_type": "agent",
+          "created_at": "1793377100851",
+          "text_redacted": "Would a CSV of 10 original startup-related X posts from the past 30 days, ranked by publicly visible likes among the posts found, meet your needs\u2014or do you mean replies to posts?"
+        }
+      ],
+      "conversation_evidence_backfilled_at": "2026-11-19T22:24:39.417620+00:00",
       "discount_percent": 20,
       "first_detected_at": "2026-10-30T16:10:18.044175+00:00",
       "followup_sent_at": "2026-11-13T01:14:29.263040+00:00",
@@ -5878,12 +5907,25 @@
       "budget_cents": 1000,
       "conversation": {
         "last_incoming_at": null,
-        "last_outgoing_at": "2026-10-30T16:21:35.697000+00:00",
-        "message_count": 1,
+        "last_outgoing_at": "2026-11-13T01:14:29.796000+00:00",
+        "message_count": 2,
         "response_lag_minutes": [],
         "unanswered": false,
         "unknown_timestamp_count": 0
       },
+      "conversation_evidence": [
+        {
+          "author_type": "agent",
+          "created_at": "1794532469796",
+          "text_redacted": "Following up on my proposal. I can answer questions about the scope or provide a preliminary sample or preview where the brief supports one."
+        },
+        {
+          "author_type": "agent",
+          "created_at": "1793377295697",
+          "text_redacted": "Would you accept an evidence-backed shortlist for your own interviews, or must every lead already be contacted and screened? Please also specify the industry, minimum experience, salary range, and number of leads required."
+        }
+      ],
+      "conversation_evidence_backfilled_at": "2026-11-19T22:24:39.657847+00:00",
       "discount_percent": 20,
       "first_detected_at": "2026-10-30T16:10:18.044208+00:00",
       "followup_sent_at": "2026-11-13T01:14:29.949927+00:00",
@@ -5980,12 +6022,25 @@
       "budget_cents": 2500,
       "conversation": {
         "last_incoming_at": null,
-        "last_outgoing_at": "2026-10-30T16:22:09.351000+00:00",
-        "message_count": 1,
+        "last_outgoing_at": "2026-11-13T01:14:30.482000+00:00",
+        "message_count": 2,
         "response_lag_minutes": [],
         "unanswered": false,
         "unknown_timestamp_count": 0
       },
+      "conversation_evidence": [
+        {
+          "author_type": "agent",
+          "created_at": "1794532470482",
+          "text_redacted": "Following up on my proposal. I can answer questions about the scope or provide a preliminary sample or preview where the brief supports one."
+        },
+        {
+          "author_type": "agent",
+          "created_at": "1793377329351",
+          "text_redacted": "For the combined SEO and AEO Expert role, must agencies explicitly document AEO recruitment experience, or may documented SEO/digital-marketing recruitment qualify if AEO capability is clearly marked as unverified?"
+        }
+      ],
+      "conversation_evidence_backfilled_at": "2026-11-19T22:24:39.896654+00:00",
       "discount_percent": 20,
       "first_detected_at": "2026-10-30T16:10:18.044212+00:00",
       "followup_sent_at": "2026-11-13T01:14:30.631275+00:00",
@@ -6161,13 +6216,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5MiwiY2hlY2twb2ludEF0IjoxNzk1MTI1ODc4NzQyfQ",
-  "last_bid_reconciliation": "2026-11-19T22:04:46.718708+00:00",
-  "last_check": "2026-11-19T22:04:46.726890+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5MiwiY2hlY2twb2ludEF0IjoxNzk1MTI3MDc4ODgyfQ",
+  "last_bid_reconciliation": "2026-11-19T22:24:46.461574+00:00",
+  "last_check": "2026-11-19T22:24:46.469821+00:00",
   "market_observation": {
     "fetched_at": "2026-11-19T22:23:35.161158+00:00",
+    "last_checked_at": "2026-11-19T22:24:18.567040+00:00",
     "last_open_count": 68,
-    "newest_created_at": "2026-11-17T12:41:41.824000+00:00"
+    "newest_created_at": "2026-11-17T12:41:41.824000+00:00",
+    "newest_posted_at": "2026-11-17T12:41:41.824000+00:00"
   },
   "market_observation_history": [
     {
