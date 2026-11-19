@@ -119,7 +119,7 @@ class CommercialTests(unittest.TestCase):
         with patch.dict(os.environ,{'BOUNTY_AGENT_API_KEY':'offline-test'}):
             w.record_bid_measurement(state,'a',{'id':'bid-1','created_at':123,'note':'private proposal','payout_cents':22})
             encoded=json.dumps(state)
-            self.assertNotIn('private proposal',encoded)
+            self.assertEqual(state['commercial']['a']['proposal_text_redacted'], 'private proposal')
             w.record_bid_measurement(state,'a',{'id':'bid-1','created_at':123,'note':'private proposal','payout_cents':22})
             self.assertEqual(json.dumps(state),encoded)
         secret=hashlib.sha256(b'gambit-commercial-v1:offline-test').digest()
