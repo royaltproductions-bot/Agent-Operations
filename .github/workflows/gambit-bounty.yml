@@ -15,6 +15,7 @@ on:
       - 'tools/gambit_openai.py'
       - 'tools/gambit_artifacts.py'
       - 'tools/gambit_secondary_marketplace.py'
+      - 'tools/gambit_github_bounties.py'
       - 'tools/gambit_credentials.py'
       - 'ops/gambit/bountyboard-credential.json'
   workflow_dispatch:
@@ -48,6 +49,7 @@ jobs:
       GAMBIT_APP_BUILDER: '1'
       GAMBIT_INCREMENTAL_RESEARCH: '1'
       GAMBIT_SECONDARY_MARKETPLACE: 'bountyboard'
+      GAMBIT_GITHUB_BOUNTY_DISCOVERY: '1'
       GAMBIT_MODEL: qwen3:8b
       GAMBIT_TRIAGE_MODEL: qwen3:1.7b
       OLLAMA_MODELS: ${{ github.workspace }}/.ollama-cache/models
