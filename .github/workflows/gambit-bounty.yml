@@ -70,6 +70,8 @@ jobs:
           git fetch --no-tags origin gambit-state
           git show origin/gambit-state:ops/gambit/state.json > ops/gambit/state.json
           git show origin/gambit-state:ops/gambit/openai_budget.json > ops/gambit/openai_budget.json
+          # Preserve prior daily rows across resident worker checkouts.
+          git show origin/gambit-state:ops/gambit/funnel_daily.json > ops/gambit/funnel_daily.json || rm -f ops/gambit/funnel_daily.json
 
       - name: Install runtime dependencies
         run: |
