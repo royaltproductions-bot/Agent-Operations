@@ -37,6 +37,7 @@ from tools import gambit_agent_card
 from tools import gambit_app_builder
 from tools import gambit_research_workflow
 from tools import gambit_secondary_marketplace
+from tools import gambit_github_bounties
 from tools.gambit_early_scan import (fulfillment_cooling, account_policy_recheck_due,
                                      asked_recheck_due, ACCOUNT_POLICY_RECHECK_VERSION)
 
@@ -390,6 +391,27 @@ def save_state(state):
     temp_funnel = funnel.with_suffix(".tmp")
     temp_funnel.write_text(json.dumps(commercial.summarize(state), indent=2, sort_keys=True) + "\n")
     temp_funnel.replace(funnel)
+    # Durable daily observed funnel rows, derived from unique bounty/action IDs.
+    # This is not an assertion that unavailable historical events were zero.
+    daily = STATE_PATH.with_name("funnel_daily.json")
+    try:
+        existing = json.loads(daily.read_text(encoding="utf-8"))
+        if not isinstance(existing, dict):
+            existing = {}
+    except (OSError, ValueError):
+        existing = {}
+    snapshot = commercial.summarize(state)
+    day = snapshot["generated_at"][:10]
+    existing[day] = {
+        "generated_at": snapshot["generated_at"],
+        "source": "gambit_state_observed",
+        "coverage": "Observed unique state records only; missing platform events unknown",
+        "counts": snapshot["today"],
+        "conversion_rates": snapshot["conversion_rates"],
+    }
+    daily_tmp = daily.with_suffix(".tmp")
+    daily_tmp.write_text(json.dumps(existing, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    daily_tmp.replace(daily)
 
 
 def encrypted_brief(details):
@@ -472,6 +494,42 @@ def record_owner_activity(state, bounty_id, messages):
         row["owner_last_message_at"] = incoming[-1].get("created_at")
 
 
+def backfill_commercial_evidence(state, max_threads=4):
+    """Incrementally read existing active-bid threads without new buyer actions.
+
+    Reuses the authenticated agent API, stores redacted excerpts, and retries
+    failed reads on a later cycle. No inference calls or outbound messages.
+    """
+    rows = state.get("commercial") or {}
+    pending = [
+        (ident, row) for ident, row in rows.items()
+        if isinstance(row, dict) and row.get("bid_status") == "active"
+        and row.get("platform_status") not in {"canceled", "closed"}
+    ]
+    for ident, row in pending:
+        if not row.get("proposal_text_redacted"):
+            proposal = saved_bid_note(state, ident)
+            if proposal:
+                row["proposal_text_redacted"] = commercial.redact_commercial_text(proposal, 2000)
+    count = 0
+    for ident, row in pending:
+        if count >= max_threads:
+            break
+        if row.get("conversation_evidence_backfilled_at"):
+            continue
+        try:
+            messages = messages_for(ident)
+            if not isinstance(messages, list):
+                continue
+            record_owner_activity(state, ident, messages)
+            row["conversation_evidence_backfilled_at"] = timestamp()
+            count += 1
+        except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError,
+                ValueError, RuntimeError):
+            continue
+    return count
+
+
 def send_proposal_preview(bounty_id, version, png, state):
     """Publish one real QA screenshot per brief version; never alters a claim."""
     if not isinstance(png, bytes) or not png.startswith(b"\x89PNG\r\n\x1a\n") or len(png) > 5_000_000:
@@ -529,6 +587,9 @@ def record_bid_measurement(state, bounty_id, bid, *, proposal=None, payout=None,
             secret = hashlib.sha256(("gambit-commercial-v1:" + os.environ["BOUNTY_AGENT_API_KEY"]).encode()).digest()
             record["proposal_encrypted"] = Fernet(base64.urlsafe_b64encode(secret)).encrypt(str(text).encode()).decode()
             record["proposal_sha256"] = digest
+            # Public state receives only a contact-redacted excerpt; full text
+            # remains recoverable from the existing encrypted proposal.
+            record["proposal_text_redacted"] = commercial.redact_commercial_text(text, 2000)
 
 
 def remember_details(state, bounty_id, details):
@@ -755,6 +816,8 @@ def scan(state):
     # Public discovery is free; bidding stays disabled until an agent key exists.
     if os.getenv("GAMBIT_SECONDARY_MARKETPLACE") == "bountyboard":
         gambit_secondary_marketplace.observe(state)
+    if os.getenv("GAMBIT_GITHUB_BOUNTY_DISCOVERY") == "1":
+        gambit_github_bounties.observe(state)
     opened = pages("/v1/agent/bounties?status=open&limit=100", "bounties")
     # Observation is independent of inference budget or evaluation eligibility.
     for item in opened:
@@ -3071,6 +3134,9 @@ def run(mode="run"):
     if discoveries_changed or recovery_changed or waiting:
         save_state(state)
     CURRENT_EVENTS = events
+    if mode != "probe":
+        backfill_commercial_evidence(state)
+        save_state(state)
     if mode == "probe":
         needs_model = bool(waiting or active)
         video_candidates = []

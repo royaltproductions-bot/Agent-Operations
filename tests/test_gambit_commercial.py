@@ -119,11 +119,41 @@ class CommercialTests(unittest.TestCase):
         with patch.dict(os.environ,{'BOUNTY_AGENT_API_KEY':'offline-test'}):
             w.record_bid_measurement(state,'a',{'id':'bid-1','created_at':123,'note':'private proposal','payout_cents':22})
             encoded=json.dumps(state)
-            self.assertNotIn('private proposal',encoded)
+            self.assertEqual(state['commercial']['a']['proposal_text_redacted'], 'private proposal')
             w.record_bid_measurement(state,'a',{'id':'bid-1','created_at':123,'note':'private proposal','payout_cents':22})
             self.assertEqual(json.dumps(state),encoded)
         secret=hashlib.sha256(b'gambit-commercial-v1:offline-test').digest()
         self.assertEqual(Fernet(base64.urlsafe_b64encode(secret)).decrypt(state['commercial']['a']['proposal_encrypted'].encode()),b'private proposal')
+
+    def test_redacted_conversation_evidence(self):
+        raw = "Please email alex@example.com, call +1 (415) 555-0132, or visit https://example.org/private; keep the rest."
+        cleaned = c.redact_commercial_text(raw)
+        for secret in ("alex@example.com", "415", "https://example.org"):
+            self.assertNotIn(secret, cleaned)
+        self.assertIn("keep the rest", cleaned)
+        self.assertIn("[email]", cleaned)
+        self.assertIn("[phone]", cleaned)
+        self.assertIn("[url]", cleaned)
+        state = {}
+        messages = [{"author_type": "user", "created_at": "2026-11-19T12:00:00Z",
+                     "content": {"text": raw}}] * 23
+        c.record_conversation(state, "test", messages)
+        self.assertEqual(len(state["commercial"]["test"]["conversation_evidence"]), 20)
+        self.assertNotIn("alex@example.com", str(state))
+
+    def test_backfill_active_bid_evidence_is_read_only_and_idempotent(self):
+        state = {"commercial": {"a": {"bid_status": "active", "proposal_text_redacted": "Proposal"}}}
+        messages = [{"author_type": "user", "created_at": "2026-11-19T12:00:00Z",
+                     "content": {"text": "Email me at buyer@example.com"}}]
+        with patch.object(w, "messages_for", return_value=messages) as fetch, patch.object(w, "api") as api:
+            self.assertEqual(w.backfill_commercial_evidence(state), 1)
+            self.assertEqual(w.backfill_commercial_evidence(state), 0)
+            fetch.assert_called_once_with("a")
+            api.assert_not_called()
+        row = state["commercial"]["a"]
+        self.assertEqual(len(row["conversation_evidence"]), 1)
+        self.assertNotIn("buyer@example.com", str(row))
+        self.assertTrue(row["conversation_evidence_backfilled_at"])
 
     def test_held_buyers_never_reach_assessment_or_outbound_api(self):
         for id in c.APPROVAL_HOLD_IDS:
