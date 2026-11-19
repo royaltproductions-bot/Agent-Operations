@@ -1370,11 +1370,12 @@
       "ph71mssbg3m5sse9pvex8rafp58jcqyz",
       "ph709hfkn0j6h90dx49estzt2n8jdytc",
       "ph735k7g9gdxtdn6hw2zatk8ds8jemds",
-      "ph72aacxgc3vzpr0r2t578q6s98jh8x9"
+      "ph72aacxgc3vzpr0r2t578q6s98jh8x9",
+      "ph7e5avpf8bx0g02tyk2z898798jhm6g"
     ],
     "event_types": {
       "bounty.available": {
-        "count": 30,
+        "count": 31,
         "data_keys": [
           "bounty_id",
           "bounty_version",
@@ -1382,7 +1383,7 @@
           "title"
         ],
         "first_seen": "2026-11-08T20:41:15.070418+00:00",
-        "last_seen": "2026-11-19T06:06:28.744937+00:00"
+        "last_seen": "2026-11-19T16:32:44.983600+00:00"
       },
       "bounty.claimed": {
         "count": 1,
@@ -2724,7 +2725,12 @@
       "last_known_status": "open",
       "last_seen_open_at": "2026-11-19T16:32:41.581961+00:00",
       "version": 1,
-      "versions": {}
+      "versions": {
+        "1": {
+          "captured_at": "2026-11-19T16:32:45.337150+00:00",
+          "encrypted_brief": "gAAAAABq_yStUZWxTTO6sgwGtVUOHaNZKd-zheWlMC2I-q8ZdKc-Fq0Jaz0twB6N8OIkE4E_5f6ut2lfrSerpEj2Vm0xC-l79Xj82_N2EXc86wwwU7_PftVAHQLu1dyqEsR_f2jppHKHos7Q4kOGUb1xhZZXMi8EbQnBdsuIhJ3GR3A9gC6rWiuOjTN9r6KyCzqyxsQWKJGxVuE8Ld8ekgDRU11pGrH6LO78iZMyXb1E3T94TTQdn9CHeu5ArIZoIZXs0jnn2ZQVVF7_hUOnnyZ_qSmEMoqV_SI-ypI9-HvfNXotA8rrZUay_GaIPNj2xJOMXVc7y-bURWhe4LfPZs46Xm6HYLqDAn55HdlvbouXCynikc9VfW3_n_VIiyYXqO81nTOuR4zqGjjqp3hd4ZU6olMFmxzDH_q82mZEO_p4KHi7OlY_SlOtXpOLtbHMLL9A6MORmXy4NCxbIXuJL1Qp8fFAu6Yon2zy-qa7ULrc7GBm6pglb_7tWzip5nJ16Utqj_PwTVUY3-YwZDXDdsJdEvdV3YPvESNeHDb0O1RqQa_zYlfJuEXpMpJNxql8r0UFB3ArjK8tZuuvPr55Kww7rRbDO7zGZoLjnacb88wRlEmYMlHdmtDM5NdA2VuSpURo_AIoa8oNBxFCs3mbCGEDbuXLlZRwujl6yjehv3PvWj3tsuQMyas="
+        }
+      }
     },
     "mx7bzw2y0xe66kb9j4b4wjv9398h99p4": {
       "first_detected_at": "2026-10-30T10:53:20.641636+00:00",
@@ -5058,8 +5064,10 @@
   "last_check": "2026-11-19T16:23:46.112235+00:00",
   "market_observation": {
     "fetched_at": "2026-11-19T16:32:41.583073+00:00",
+    "last_checked_at": "2026-11-19T16:32:44.446149+00:00",
     "last_open_count": 69,
-    "newest_created_at": "2026-11-19T16:28:48.676000+00:00"
+    "newest_created_at": "2026-11-19T16:28:48.676000+00:00",
+    "newest_posted_at": "2026-11-19T16:28:48.676000+00:00"
   },
   "market_observation_history": [
     {
