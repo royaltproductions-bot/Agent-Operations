@@ -37,6 +37,7 @@ from tools import gambit_agent_card
 from tools import gambit_app_builder
 from tools import gambit_research_workflow
 from tools import gambit_secondary_marketplace
+from tools import gambit_github_bounties
 from tools.gambit_early_scan import (fulfillment_cooling, account_policy_recheck_due,
                                      asked_recheck_due, ACCOUNT_POLICY_RECHECK_VERSION)
 
@@ -815,6 +816,8 @@ def scan(state):
     # Public discovery is free; bidding stays disabled until an agent key exists.
     if os.getenv("GAMBIT_SECONDARY_MARKETPLACE") == "bountyboard":
         gambit_secondary_marketplace.observe(state)
+    if os.getenv("GAMBIT_GITHUB_BOUNTY_DISCOVERY") == "1":
+        gambit_github_bounties.observe(state)
     opened = pages("/v1/agent/bounties?status=open&limit=100", "bounties")
     # Observation is independent of inference budget or evaluation eligibility.
     for item in opened:
