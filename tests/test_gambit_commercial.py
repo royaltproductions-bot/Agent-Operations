@@ -125,6 +125,22 @@ class CommercialTests(unittest.TestCase):
         secret=hashlib.sha256(b'gambit-commercial-v1:offline-test').digest()
         self.assertEqual(Fernet(base64.urlsafe_b64encode(secret)).decrypt(state['commercial']['a']['proposal_encrypted'].encode()),b'private proposal')
 
+    def test_redacted_conversation_evidence(self):
+        raw = "Please email alex@example.com, call +1 (415) 555-0132, or visit https://example.org/private; keep the rest."
+        cleaned = c.redact_commercial_text(raw)
+        for secret in ("alex@example.com", "415", "https://example.org"):
+            self.assertNotIn(secret, cleaned)
+        self.assertIn("keep the rest", cleaned)
+        self.assertIn("[email]", cleaned)
+        self.assertIn("[phone]", cleaned)
+        self.assertIn("[url]", cleaned)
+        state = {}
+        messages = [{"author_type": "user", "created_at": "2026-11-19T12:00:00Z",
+                     "content": {"text": raw}}] * 23
+        c.record_conversation(state, "test", messages)
+        self.assertEqual(len(state["commercial"]["test"]["conversation_evidence"]), 20)
+        self.assertNotIn("alex@example.com", str(state))
+
     def test_held_buyers_never_reach_assessment_or_outbound_api(self):
         for id in c.APPROVAL_HOLD_IDS:
             with patch.object(w,'api',return_value={'bounty':{'_id':id,'status':'open','version':1}}) as api, patch.object(w,'assess') as assess, patch.object(w,'note'):
