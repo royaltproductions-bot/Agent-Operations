@@ -493,6 +493,42 @@ def record_owner_activity(state, bounty_id, messages):
         row["owner_last_message_at"] = incoming[-1].get("created_at")
 
 
+def backfill_commercial_evidence(state, max_threads=4):
+    """Incrementally read existing active-bid threads without new buyer actions.
+
+    Reuses the authenticated agent API, stores redacted excerpts, and retries
+    failed reads on a later cycle. No inference calls or outbound messages.
+    """
+    rows = state.get("commercial") or {}
+    pending = [
+        (ident, row) for ident, row in rows.items()
+        if isinstance(row, dict) and row.get("bid_status") == "active"
+        and row.get("platform_status") not in {"canceled", "closed"}
+    ]
+    for ident, row in pending:
+        if not row.get("proposal_text_redacted"):
+            proposal = saved_bid_note(state, ident)
+            if proposal:
+                row["proposal_text_redacted"] = commercial.redact_commercial_text(proposal, 2000)
+    count = 0
+    for ident, row in pending:
+        if count >= max_threads:
+            break
+        if row.get("conversation_evidence_backfilled_at"):
+            continue
+        try:
+            messages = messages_for(ident)
+            if not isinstance(messages, list):
+                continue
+            record_owner_activity(state, ident, messages)
+            row["conversation_evidence_backfilled_at"] = timestamp()
+            count += 1
+        except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError,
+                ValueError, RuntimeError):
+            continue
+    return count
+
+
 def send_proposal_preview(bounty_id, version, png, state):
     """Publish one real QA screenshot per brief version; never alters a claim."""
     if not isinstance(png, bytes) or not png.startswith(b"\x89PNG\r\n\x1a\n") or len(png) > 5_000_000:
@@ -3095,6 +3131,9 @@ def run(mode="run"):
     if discoveries_changed or recovery_changed or waiting:
         save_state(state)
     CURRENT_EVENTS = events
+    if mode != "probe":
+        backfill_commercial_evidence(state)
+        save_state(state)
     if mode == "probe":
         needs_model = bool(waiting or active)
         video_candidates = []
