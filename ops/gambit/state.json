@@ -1499,6 +1499,7 @@
       "mx7a4tvzg7v95yjn9mxrjd0nb98gqtdd",
       "mx7a75kn8jtcwkw0yxp53n23e98hzsbs",
       "mx7aw00zmf8ksqwqw2w284hx3d8gptjp",
+      "mx7c024mjrmc4zzrn60xdxmb2d8jgnee",
       "mx7ccb9n61fk12phncd2qsa13n8gxj8t",
       "mx7ctr3ev01yjxyyznhmcey2jd8hahek",
       "mx7dam93m4q8spz893n4zfsyzn8hgg6r",
@@ -5384,14 +5385,26 @@
     "mx7c024mjrmc4zzrn60xdxmb2d8jgnee": {
       "bid_amount_cents": 1600,
       "bid_at": 1795128534731,
+      "bid_created_at": 1795128534731,
       "bid_id": "p1738za3xx30jfr1c6q0ftfcqs8jh4jd",
       "bid_status": "active",
       "bid_status_changed_at": "2026-11-19T22:48:54.908302+00:00",
+      "bid_updated_at": null,
       "budget_cents": 2000,
+      "conversation": {
+        "last_incoming_at": null,
+        "last_outgoing_at": null,
+        "message_count": 0,
+        "response_lag_minutes": [],
+        "unanswered": false,
+        "unknown_timestamp_count": 0
+      },
+      "conversation_evidence": [],
+      "conversation_evidence_backfilled_at": "2026-11-19T23:04:41.696770+00:00",
       "discount_percent": 20,
       "first_detected_at": "2026-11-19T22:48:36.253733+00:00",
       "observed_at": "2026-11-19T22:48:36.253733+00:00",
-      "owner_activity_status": null,
+      "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
       "posted_at": "2026-11-19T22:48:03.447000+00:00",
       "posted_budget_cents": 2000,
@@ -6352,13 +6365,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5MywiY2hlY2twb2ludEF0IjoxNzk1MTI4NTIxMjcxfQ",
-  "last_bid_reconciliation": "2026-11-19T22:44:46.920827+00:00",
-  "last_check": "2026-11-19T22:48:54.917810+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5MywiY2hlY2twb2ludEF0IjoxNzk1MTI5NDgxMzQ5fQ",
+  "last_bid_reconciliation": "2026-11-19T23:04:48.216786+00:00",
+  "last_check": "2026-11-19T23:04:48.224570+00:00",
   "market_observation": {
     "fetched_at": "2026-11-19T23:03:36.754689+00:00",
+    "last_checked_at": "2026-11-19T23:04:21.013207+00:00",
     "last_open_count": 69,
-    "newest_created_at": "2026-11-19T22:48:03.447000+00:00"
+    "newest_created_at": "2026-11-19T22:48:03.447000+00:00",
+    "newest_posted_at": "2026-11-19T22:48:03.447000+00:00"
   },
   "market_observation_history": [
     {
@@ -7806,14 +7821,14 @@
     "bountyboard": {
       "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
       "bidding_status": "operator_reconciliation_required",
-      "checked_at": "2026-11-19T22:04:17.993408+00:00",
+      "checked_at": "2026-11-19T23:04:20.241362+00:00",
       "listings": [],
       "open_count": 0,
       "status": "observed_authenticated"
     },
     "github_bounty": {
       "bidding_status": "platform_native_claim_not_verified",
-      "checked_at": "2026-11-19T21:04:16.020811+00:00",
+      "checked_at": "2026-11-19T23:04:20.408870+00:00",
       "listings": [
         {
           "budget_cents": 2000,
@@ -7913,20 +7928,9 @@
           "status": "open",
           "title": "Launch kit: posts, 60-second video and 20 communities",
           "url": "https://github.com/ADT-community/adt-community.github.io/issues/2"
-        },
-        {
-          "budget_cents": 2000,
-          "claim_status": "unverified_platform_terms",
-          "currency": "USD",
-          "id": "6493645625",
-          "marketplace": "github_bounty",
-          "posted_at": "2026-11-19T16:00:09Z",
-          "status": "open",
-          "title": "Internal: update the website's bounty section to the $20 model",
-          "url": "https://github.com/ADT-community/adt-community.github.io/issues/1"
         }
       ],
-      "open_count": 10,
+      "open_count": 9,
       "search_result_count": 30,
       "status": "observed_public"
     }
