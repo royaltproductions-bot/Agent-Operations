@@ -4206,12 +4206,28 @@
       "bid_status_changed_at": "2026-11-15T16:37:18.112888+00:00",
       "bid_updated_at": null,
       "budget_cents": 500,
+      "conversation": {
+        "last_incoming_at": null,
+        "last_outgoing_at": "2026-11-16T18:40:05.597000+00:00",
+        "message_count": 1,
+        "response_lag_minutes": [],
+        "unanswered": false,
+        "unknown_timestamp_count": 0
+      },
+      "conversation_evidence": [
+        {
+          "author_type": "agent",
+          "created_at": "1794854405597",
+          "text_redacted": "Following up on my proposal. I can answer questions about the scope or provide a preliminary sample or preview where the brief supports one."
+        }
+      ],
+      "conversation_evidence_backfilled_at": "2026-11-19T21:24:36.573689+00:00",
       "discount_percent": 20,
       "first_detected_at": "2026-11-15T16:36:55.829005+00:00",
       "followup_sent_at": "2026-11-16T18:40:05.758345+00:00",
       "last_outgoing_at": "2026-11-16T18:40:05.758362+00:00",
       "observed_at": "2026-11-15T16:36:55.829005+00:00",
-      "owner_activity_status": null,
+      "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
       "posted_at": "2026-11-15T16:35:50.044000+00:00",
       "posted_budget_cents": 500,
@@ -4393,12 +4409,25 @@
       "budget_cents": 999900,
       "conversation": {
         "last_incoming_at": null,
-        "last_outgoing_at": "2026-10-30T16:16:51.097000+00:00",
-        "message_count": 1,
+        "last_outgoing_at": "2026-11-13T01:14:28.486000+00:00",
+        "message_count": 2,
         "response_lag_minutes": [],
         "unanswered": false,
         "unknown_timestamp_count": 0
       },
+      "conversation_evidence": [
+        {
+          "author_type": "agent",
+          "created_at": "1794532468486",
+          "text_redacted": "Following up on my proposal. I can answer questions about the scope or provide a preliminary sample or preview where the brief supports one."
+        },
+        {
+          "author_type": "agent",
+          "created_at": "1793377011097",
+          "text_redacted": "What specific task should the AI agent perform, and do you need a written design, a static interface prototype, or a working agent connected to tools and services?"
+        }
+      ],
+      "conversation_evidence_backfilled_at": "2026-11-19T21:24:36.818785+00:00",
       "discount_percent": 20,
       "first_detected_at": "2026-10-30T16:10:18.044157+00:00",
       "followup_sent_at": "2026-11-13T01:14:28.637096+00:00",
@@ -4462,6 +4491,24 @@
         "unanswered": false,
         "unknown_timestamp_count": 0
       },
+      "conversation_evidence": [
+        {
+          "author_type": "agent",
+          "created_at": "1794432447178",
+          "text_redacted": "Understood\u201420 distinct U.S.-based candidates, each with a public professional profile or source URL and a brief note on their long-term-care pharmacy operations experience and relevant industry connections, in one simple table. The title and verification criteria still specify 10; please update those to 20 so the scope and acceptance criteria match."
+        },
+        {
+          "author_type": "user",
+          "created_at": "1793979469596",
+          "text_redacted": "20"
+        },
+        {
+          "author_type": "agent",
+          "created_at": "1793818856882",
+          "text_redacted": "Should the final table contain exactly 10 advisors, as required by verification, or 20 as stated in the instructions?"
+        }
+      ],
+      "conversation_evidence_backfilled_at": "2026-11-19T21:24:37.055586+00:00",
       "first_detected_at": "2026-11-04T15:12:52.416423+00:00",
       "last_outgoing_at": "2026-11-11T21:27:27.403816+00:00",
       "observed_at": "2026-11-04T18:59:18.584706+00:00",
@@ -4512,12 +4559,28 @@
       "bid_status_changed_at": "2026-11-11T21:38:28.281517+00:00",
       "bid_updated_at": null,
       "budget_cents": 30000,
+      "conversation": {
+        "last_incoming_at": null,
+        "last_outgoing_at": "2026-11-13T01:09:31.860000+00:00",
+        "message_count": 1,
+        "response_lag_minutes": [],
+        "unanswered": false,
+        "unknown_timestamp_count": 0
+      },
+      "conversation_evidence": [
+        {
+          "author_type": "agent",
+          "created_at": "1794532171860",
+          "text_redacted": "Following up on my proposal. I can answer questions about the scope or provide a preliminary sample or preview where the brief supports one."
+        }
+      ],
+      "conversation_evidence_backfilled_at": "2026-11-19T21:24:37.290575+00:00",
       "discount_percent": 20,
       "first_detected_at": "2026-11-10T16:23:20.736938+00:00",
       "followup_sent_at": "2026-11-13T01:09:32.004255+00:00",
       "last_outgoing_at": "2026-11-13T01:09:32.004271+00:00",
       "observed_at": "2026-11-10T16:23:20.736938+00:00",
-      "owner_activity_status": null,
+      "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
       "posted_at": "2026-11-10T14:45:19.869000+00:00",
       "posted_budget_cents": 30000,
@@ -5991,13 +6054,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5MiwiY2hlY2twb2ludEF0IjoxNzk1MTIyMjc2OTUwfQ",
-  "last_bid_reconciliation": "2026-11-19T21:04:44.605885+00:00",
-  "last_check": "2026-11-19T21:04:44.613392+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5MiwiY2hlY2twb2ludEF0IjoxNzk1MTIzNDc2Mjg4fQ",
+  "last_bid_reconciliation": "2026-11-19T21:24:44.117136+00:00",
+  "last_check": "2026-11-19T21:24:44.125401+00:00",
   "market_observation": {
     "fetched_at": "2026-11-19T21:23:32.613643+00:00",
+    "last_checked_at": "2026-11-19T21:24:15.938317+00:00",
     "last_open_count": 68,
-    "newest_created_at": "2026-11-17T12:41:41.824000+00:00"
+    "newest_created_at": "2026-11-17T12:41:41.824000+00:00",
+    "newest_posted_at": "2026-11-17T12:41:41.824000+00:00"
   },
   "market_observation_history": [
     {
