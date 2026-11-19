@@ -5087,11 +5087,27 @@
       "bid_status_changed_at": "2026-11-11T01:44:15.813992+00:00",
       "bid_updated_at": null,
       "budget_cents": 2000,
+      "conversation": {
+        "last_incoming_at": null,
+        "last_outgoing_at": "2026-11-12T01:45:51.706000+00:00",
+        "message_count": 1,
+        "response_lag_minutes": [],
+        "unanswered": false,
+        "unknown_timestamp_count": 0
+      },
+      "conversation_evidence": [
+        {
+          "author_type": "agent",
+          "created_at": "1794447951706",
+          "text_redacted": "Following up on my proposal. I can answer questions about the scope or provide a preliminary sample or preview where the brief supports one."
+        }
+      ],
+      "conversation_evidence_backfilled_at": "2026-11-19T22:04:39.128209+00:00",
       "first_detected_at": "2026-11-10T21:52:57.984917+00:00",
       "followup_sent_at": "2026-11-12T01:45:51.863395+00:00",
       "last_outgoing_at": "2026-11-12T01:45:51.863410+00:00",
       "observed_at": "2026-11-10T21:52:57.984917+00:00",
-      "owner_activity_status": null,
+      "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
       "posted_at": "2026-11-10T21:12:32.174000+00:00",
       "posted_time_field": "created_at",
@@ -5176,9 +5192,19 @@
       "bid_status": "active",
       "bid_updated_at": null,
       "budget_cents": 4000,
+      "conversation": {
+        "last_incoming_at": null,
+        "last_outgoing_at": null,
+        "message_count": 0,
+        "response_lag_minutes": [],
+        "unanswered": false,
+        "unknown_timestamp_count": 0
+      },
+      "conversation_evidence": [],
+      "conversation_evidence_backfilled_at": "2026-11-19T22:04:39.421362+00:00",
       "first_detected_at": "2026-10-30T16:10:18.044149+00:00",
       "observed_at": "2026-11-03T19:17:53.684732+00:00",
-      "owner_activity_status": null,
+      "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
       "posted_at": "2026-10-21T23:52:26.136000+00:00",
       "posted_time_field": "created_at",
@@ -5363,12 +5389,25 @@
       "budget_cents": 40000,
       "conversation": {
         "last_incoming_at": null,
-        "last_outgoing_at": "2026-10-30T16:12:55.536000+00:00",
-        "message_count": 1,
+        "last_outgoing_at": "2026-11-13T01:14:26.325000+00:00",
+        "message_count": 2,
         "response_lag_minutes": [],
         "unanswered": false,
         "unknown_timestamp_count": 0
       },
+      "conversation_evidence": [
+        {
+          "author_type": "agent",
+          "created_at": "1794532466325",
+          "text_redacted": "Following up on my proposal. I can answer questions about the scope or provide a preliminary sample or preview where the brief supports one."
+        },
+        {
+          "author_type": "agent",
+          "created_at": "1793376775536",
+          "text_redacted": "I can read text-based PDFs, Word, Excel, CSV, JSON, and text files. One supplied attachment could not be read. Could you provide its essential contents in a supported file or message?"
+        }
+      ],
+      "conversation_evidence_backfilled_at": "2026-11-19T22:04:39.683664+00:00",
       "discount_percent": 20,
       "first_detected_at": "2026-10-30T16:10:18.044114+00:00",
       "followup_sent_at": "2026-11-13T01:14:26.481216+00:00",
@@ -5548,12 +5587,25 @@
       "budget_cents": 4500,
       "conversation": {
         "last_incoming_at": null,
-        "last_outgoing_at": "2026-10-31T05:46:55.428000+00:00",
-        "message_count": 1,
+        "last_outgoing_at": "2026-11-13T01:09:35.523000+00:00",
+        "message_count": 2,
         "response_lag_minutes": [],
         "unanswered": false,
         "unknown_timestamp_count": 0
       },
+      "conversation_evidence": [
+        {
+          "author_type": "agent",
+          "created_at": "1794532175523",
+          "text_redacted": "Following up on my proposal. I can answer questions about the scope or provide a preliminary sample or preview where the brief supports one."
+        },
+        {
+          "author_type": "agent",
+          "created_at": "1793425615428",
+          "text_redacted": "Is 100 qualifying companies a hard minimum, or would you accept a smaller, evidence-supported CSV plus a separate list of candidates excluded because their revenue or ecommerce status could not be verified?"
+        }
+      ],
+      "conversation_evidence_backfilled_at": "2026-11-19T22:04:39.961420+00:00",
       "discount_percent": 20,
       "first_detected_at": "2026-10-31T05:46:14.810249+00:00",
       "followup_sent_at": "2026-11-13T01:09:35.686511+00:00",
@@ -6109,13 +6161,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5MiwiY2hlY2twb2ludEF0IjoxNzk1MTI0Njc3Mjc2fQ",
-  "last_bid_reconciliation": "2026-11-19T21:44:45.214280+00:00",
-  "last_check": "2026-11-19T21:44:45.222510+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5MiwiY2hlY2twb2ludEF0IjoxNzk1MTI1ODc4NzQyfQ",
+  "last_bid_reconciliation": "2026-11-19T22:04:46.718708+00:00",
+  "last_check": "2026-11-19T22:04:46.726890+00:00",
   "market_observation": {
     "fetched_at": "2026-11-19T22:03:34.676806+00:00",
+    "last_checked_at": "2026-11-19T22:04:18.370158+00:00",
     "last_open_count": 68,
-    "newest_created_at": "2026-11-17T12:41:41.824000+00:00"
+    "newest_created_at": "2026-11-17T12:41:41.824000+00:00",
+    "newest_posted_at": "2026-11-17T12:41:41.824000+00:00"
   },
   "market_observation_history": [
     {
@@ -7563,7 +7617,7 @@
     "bountyboard": {
       "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
       "bidding_status": "operator_reconciliation_required",
-      "checked_at": "2026-11-19T21:04:15.806865+00:00",
+      "checked_at": "2026-11-19T22:04:17.993408+00:00",
       "listings": [],
       "open_count": 0,
       "status": "observed_authenticated"
