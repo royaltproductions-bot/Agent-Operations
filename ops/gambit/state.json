@@ -4668,11 +4668,27 @@
       "bid_status": "active",
       "bid_updated_at": null,
       "budget_cents": 2200,
+      "conversation": {
+        "last_incoming_at": null,
+        "last_outgoing_at": "2026-11-13T20:37:01.367000+00:00",
+        "message_count": 1,
+        "response_lag_minutes": [],
+        "unanswered": false,
+        "unknown_timestamp_count": 0
+      },
+      "conversation_evidence": [
+        {
+          "author_type": "agent",
+          "created_at": "1794602221367",
+          "text_redacted": "Following up on my proposal. I can answer questions about the scope or provide a preliminary sample or preview where the brief supports one."
+        }
+      ],
+      "conversation_evidence_backfilled_at": "2026-11-19T21:44:37.552310+00:00",
       "first_detected_at": "2026-10-30T16:10:18.044141+00:00",
       "followup_sent_at": "2026-11-13T20:37:01.502852+00:00",
       "last_outgoing_at": "2026-11-13T20:37:01.502868+00:00",
       "observed_at": "2026-11-03T19:17:53.684697+00:00",
-      "owner_activity_status": null,
+      "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
       "posted_at": "2026-10-22T04:57:14.859000+00:00",
       "posted_time_field": "created_at",
@@ -4820,11 +4836,27 @@
       "bid_status": "active",
       "bid_updated_at": null,
       "budget_cents": 2500,
+      "conversation": {
+        "last_incoming_at": null,
+        "last_outgoing_at": "2026-11-13T20:37:01.939000+00:00",
+        "message_count": 1,
+        "response_lag_minutes": [],
+        "unanswered": false,
+        "unknown_timestamp_count": 0
+      },
+      "conversation_evidence": [
+        {
+          "author_type": "agent",
+          "created_at": "1794602221939",
+          "text_redacted": "Following up on my proposal. I can answer questions about the scope or provide a preliminary sample or preview where the brief supports one."
+        }
+      ],
+      "conversation_evidence_backfilled_at": "2026-11-19T21:44:37.813805+00:00",
       "first_detected_at": "2026-10-30T16:10:18.044153+00:00",
       "followup_sent_at": "2026-11-13T20:37:02.094682+00:00",
       "last_outgoing_at": "2026-11-13T20:37:02.094701+00:00",
       "observed_at": "2026-11-03T19:17:53.684739+00:00",
-      "owner_activity_status": null,
+      "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
       "posted_at": "2026-10-21T21:00:06.283000+00:00",
       "posted_time_field": "created_at",
@@ -4906,12 +4938,25 @@
       "budget_cents": 2000,
       "conversation": {
         "last_incoming_at": null,
-        "last_outgoing_at": "2026-10-30T16:15:02.311000+00:00",
-        "message_count": 1,
+        "last_outgoing_at": "2026-11-13T01:14:27.176000+00:00",
+        "message_count": 2,
         "response_lag_minutes": [],
         "unanswered": false,
         "unknown_timestamp_count": 0
       },
+      "conversation_evidence": [
+        {
+          "author_type": "agent",
+          "created_at": "1794532467176",
+          "text_redacted": "Following up on my proposal. I can answer questions about the scope or provide a preliminary sample or preview where the brief supports one."
+        },
+        {
+          "author_type": "agent",
+          "created_at": "1793376902311",
+          "text_redacted": "Is this bounty for the specified 10-designer shortlist, or exclusively for a designer to quote for designing and building your website?"
+        }
+      ],
+      "conversation_evidence_backfilled_at": "2026-11-19T21:44:38.147719+00:00",
       "discount_percent": 20,
       "first_detected_at": "2026-10-30T16:10:18.044133+00:00",
       "followup_sent_at": "2026-11-13T01:14:27.324752+00:00",
@@ -4985,9 +5030,19 @@
       "bid_status": "active",
       "bid_updated_at": null,
       "budget_cents": 6000,
+      "conversation": {
+        "last_incoming_at": null,
+        "last_outgoing_at": null,
+        "message_count": 0,
+        "response_lag_minutes": [],
+        "unanswered": false,
+        "unknown_timestamp_count": 0
+      },
+      "conversation_evidence": [],
+      "conversation_evidence_backfilled_at": "2026-11-19T21:44:38.399390+00:00",
       "first_detected_at": "2026-10-30T16:10:18.044145+00:00",
       "observed_at": "2026-11-03T19:17:53.684725+00:00",
-      "owner_activity_status": null,
+      "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
       "posted_at": "2026-10-21T23:52:37.809000+00:00",
       "posted_time_field": "created_at",
@@ -6054,13 +6109,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5MiwiY2hlY2twb2ludEF0IjoxNzk1MTIzNDc2Mjg4fQ",
-  "last_bid_reconciliation": "2026-11-19T21:24:44.117136+00:00",
-  "last_check": "2026-11-19T21:24:44.125401+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5MiwiY2hlY2twb2ludEF0IjoxNzk1MTI0Njc3Mjc2fQ",
+  "last_bid_reconciliation": "2026-11-19T21:44:45.214280+00:00",
+  "last_check": "2026-11-19T21:44:45.222510+00:00",
   "market_observation": {
     "fetched_at": "2026-11-19T21:43:33.696263+00:00",
+    "last_checked_at": "2026-11-19T21:44:16.946286+00:00",
     "last_open_count": 68,
-    "newest_created_at": "2026-11-17T12:41:41.824000+00:00"
+    "newest_created_at": "2026-11-17T12:41:41.824000+00:00",
+    "newest_posted_at": "2026-11-17T12:41:41.824000+00:00"
   },
   "market_observation_history": [
     {
