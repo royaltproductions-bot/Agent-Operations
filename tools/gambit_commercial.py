@@ -265,6 +265,32 @@ def record_bid_snapshot(state, bids):
     analytics['bid_bounty_ids'] = sorted(found)
 
 
+def redact_commercial_text(value, limit=600):
+    """Keep useful audit context out of public state without exposing contacts."""
+    import re
+    text = str(value or "")
+    text = re.sub(r"(?i)\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\b", "[email]", text)
+    text = re.sub(r"(?i)\\b(?:https?://|www\\.)[^\\s<>]+", "[url]", text)
+    text = re.sub(r"(?<!\\w)(?:\\+?\\d[\\d\\s().-]{7,}\\d)(?!\\w)", "[phone]", text)
+    return text[:limit]
+
+
+def conversation_evidence(messages):
+    """Retain only 20 recent redacted message excerpts, never raw buyer text."""
+    rows = []
+    for item in messages[-20:]:
+        if not isinstance(item, dict):
+            continue
+        content = item.get("content") or {}
+        raw = content.get("text") if isinstance(content, dict) else ""
+        rows.append({
+            "author_type": str(item.get("author_type") or "unknown")[:32],
+            "created_at": str(item.get("created_at") or "")[:64],
+            "text_redacted": redact_commercial_text(raw),
+        })
+    return rows
+
+
 def record_conversation(state, bounty_id, messages):
     times = sorted((utc_time(m.get('created_at')), m.get('author_type')) for m in messages
                    if utc_time(m.get('created_at')) and m.get('author_type') in {'user', 'agent'})
@@ -272,6 +298,7 @@ def record_conversation(state, bounty_id, messages):
     outgoing = [at for at, role in times if role == 'agent']
     last_in, last_out = (max(incoming) if incoming else None), (max(outgoing) if outgoing else None)
     row = state.setdefault('commercial', {}).setdefault(bounty_id, {})
+    row['conversation_evidence'] = conversation_evidence(messages)
     row['conversation'] = {'message_count': len(messages),
         'unknown_timestamp_count': sum(utc_time(m.get('created_at')) is None for m in messages),
         'last_incoming_at': last_in.isoformat() if last_in else None,
