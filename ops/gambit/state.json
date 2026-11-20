@@ -1676,11 +1676,12 @@
       "ph7ed9pqe3vfxrww4fefhg3cfs8jgrpe",
       "ph7059pspa0dnp8w3jjj0ahz318jgqvf",
       "ph757j0sv28ez9yfsj6028d3cd8jhz24",
-      "ph7f2r82msn5cp22b8rkyc9rgd8jk1jn"
+      "ph7f2r82msn5cp22b8rkyc9rgd8jk1jn",
+      "ph76z9s9k3j2xz4ss889f8xmqx8jk0ds"
     ],
     "event_types": {
       "bounty.available": {
-        "count": 46,
+        "count": 47,
         "data_keys": [
           "bounty_id",
           "bounty_version",
@@ -1688,7 +1689,7 @@
           "title"
         ],
         "first_seen": "2026-11-08T20:41:15.070418+00:00",
-        "last_seen": "2026-11-20T01:38:59.410180+00:00"
+        "last_seen": "2026-11-20T15:10:25.984126+00:00"
       },
       "bounty.claimed": {
         "count": 1,
@@ -3525,7 +3526,12 @@
       "last_known_status": "open",
       "last_seen_open_at": "2026-11-20T15:10:22.440038+00:00",
       "version": 1,
-      "versions": {}
+      "versions": {
+        "1": {
+          "captured_at": "2026-11-20T15:10:26.376904+00:00",
+          "encrypted_brief": "gAAAAABrAGLiu_Vlu72lr9gC6eNNyUDpS6VYChzYSx8zIIJcUC_GnIU8fZxpteAZ4AULRG-O-It3Ypd-_BYydPSmz7S8wF5lc50nd3UKCa1F6ggiA-KXSLf-flkP8kDHig_xzVFabIiDfeOeBPc3eY6DseVgdHaSzeHGMHTSO5Og73iT1Gmn8BpA4yAjy3LU0W4EoFmkdiGCsU24q6gL2fj8B5IbW4mMzLTN7cX0RXmy5zTxYLk600-RVJgBt4qTdz9nuH2NhjGrJ4c5BxOaM6N0Jiy3X69phI_8QGj1HGbzvsIV_6IAIikfrp27EYZzNdNMF7esTNvQx01xfWHI4j61x3Jn3oS5F4H-Z02ccJjmLSqvOaLxOurfiU2x_HbrtQLl3s1ubLfL0lm4vHrLtvbXHV03xuZKzcTojESq7sBw6pF0Q25LBmyFDXZTiZzkGqw1eFxYMKSB6aFfCi8wK3T5AauLeQlZwUI6N-3icrvDB6dQ1e6H6v9mHBKr2hAKYMyHURwoKfp_gx8CcXmrEQMIGEsRfnm42w=="
+        }
+      }
     },
     "mx7ejbyr9v0ygxjws98fqpt2098gae1x": {
       "first_detected_at": "2026-10-30T16:10:18.044197+00:00",
@@ -6529,8 +6535,10 @@
   "last_check": "2026-11-20T15:01:36.706593+00:00",
   "market_observation": {
     "fetched_at": "2026-11-20T15:10:22.441617+00:00",
+    "last_checked_at": "2026-11-20T15:10:25.425373+00:00",
     "last_open_count": 71,
-    "newest_created_at": "2026-11-20T15:06:19.787000+00:00"
+    "newest_created_at": "2026-11-20T15:06:19.787000+00:00",
+    "newest_posted_at": "2026-11-20T15:06:19.787000+00:00"
   },
   "market_observation_history": [
     {
