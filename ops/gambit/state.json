@@ -6365,13 +6365,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5MywiY2hlY2twb2ludEF0IjoxNzk1MTM1NDk3NDkzfQ",
-  "last_bid_reconciliation": "2026-11-20T00:45:04.900301+00:00",
-  "last_check": "2026-11-20T00:45:04.907239+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5MywiY2hlY2twb2ludEF0IjoxNzk1MTM2Njk4Nzk2fQ",
+  "last_bid_reconciliation": "2026-11-20T01:05:05.591844+00:00",
+  "last_check": "2026-11-20T01:05:05.597816+00:00",
   "market_observation": {
     "fetched_at": "2026-11-20T01:03:54.422891+00:00",
+    "last_checked_at": "2026-11-20T01:04:38.478438+00:00",
     "last_open_count": 69,
-    "newest_created_at": "2026-11-19T22:48:03.447000+00:00"
+    "newest_created_at": "2026-11-19T22:48:03.447000+00:00",
+    "newest_posted_at": "2026-11-19T22:48:03.447000+00:00"
   },
   "market_observation_history": [
     {
@@ -7819,14 +7821,14 @@
     "bountyboard": {
       "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
       "bidding_status": "operator_reconciliation_required",
-      "checked_at": "2026-11-20T00:04:22.260656+00:00",
+      "checked_at": "2026-11-20T01:04:37.570252+00:00",
       "listings": [],
       "open_count": 0,
       "status": "observed_authenticated"
     },
     "github_bounty": {
       "bidding_status": "platform_native_claim_not_verified",
-      "checked_at": "2026-11-19T23:04:20.408870+00:00",
+      "checked_at": "2026-11-20T01:04:37.757470+00:00",
       "listings": [
         {
           "budget_cents": 2000,
@@ -7915,20 +7917,9 @@
           "status": "open",
           "title": "Community set-up: Discord and weekly updates",
           "url": "https://github.com/ADT-community/adt-community.github.io/issues/5"
-        },
-        {
-          "budget_cents": 2000,
-          "claim_status": "unverified_platform_terms",
-          "currency": "USD",
-          "id": "6493645903",
-          "marketplace": "github_bounty",
-          "posted_at": "2026-11-19T16:00:10Z",
-          "status": "open",
-          "title": "Launch kit: posts, 60-second video and 20 communities",
-          "url": "https://github.com/ADT-community/adt-community.github.io/issues/2"
         }
       ],
-      "open_count": 9,
+      "open_count": 8,
       "search_result_count": 30,
       "status": "observed_public"
     }
