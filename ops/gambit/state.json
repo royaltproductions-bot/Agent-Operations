@@ -73,12 +73,31 @@
         }
       },
       "mx725b5p6wmhyqs6869t0j9k098jkt83": {
+        "bid_sent": {
+          "days": [
+            "2026-11-20"
+          ],
+          "first_at": "2026-11-20T01:44:35.492635+00:00"
+        },
         "evaluation_retry_scheduled": {
           "days": [
             "2026-11-20"
           ],
           "first_at": "2026-11-20T01:40:00.787594+00:00",
           "reason": "openai_incomplete_output"
+        },
+        "proposal_brief_outline_sent": {
+          "days": [
+            "2026-11-20"
+          ],
+          "first_at": "2026-11-20T01:44:35.492615+00:00"
+        },
+        "proposal_sample_fallback": {
+          "days": [
+            "2026-11-20"
+          ],
+          "first_at": "2026-11-20T01:44:35.152484+00:00",
+          "reason": "proposal_preview_not_ready"
         }
       },
       "mx72hwz41htyeaatvf4y29f2f18j0n7j": {
@@ -1693,9 +1712,9 @@
       }
     },
     "model_budget": {
-      "call_count": 389,
+      "call_count": 391,
       "month": "2026-11",
-      "reserved_micro_usd": 14970794
+      "reserved_micro_usd": 15052734
     }
   },
   "bounties": {
@@ -1758,13 +1777,12 @@
       "version": 1
     },
     "mx725b5p6wmhyqs6869t0j9k098jkt83": {
-      "action": "retry_evaluation",
-      "at": "2026-11-20T01:40:00.787587+00:00",
-      "evidence_failures": 0,
-      "last_error": "openai_incomplete_output",
-      "proposal_cache": "gAAAAABq_6TLtP5JhVwSFRWOJdc_2mQOVT0oId26wEgidDZhOJ4Lr8zBG3FeEFlpRAknVTXc9w3Jh9aDegB7fD8atFknvOmYIkZC8Bs6JEXZYZaJ9go0Uy34nQ_nffYxwqIQZhxQL4olnwT_yFFJAlKGdD9qsDzz9ro4nT2u7YJMi15Qj8NzP0lvBXXPga0gQNgSh0QjFYTGNwUT20JOxt1WqeCtt7eNIrzD31q4oRiy7_EtTjYoOU9H1GgM5ccE9MmYLhhDac_PynjYK0MzptrhvO1DoUGsPOD-5V5zuXBpDHwGXmMrfQw50WKIuJTkU-mtAffAmprLA2eeAmxQ2k7znyjbdvUqLub4djXaxaCWQEqBq8Hy6LSPkXMcRqqFmCjWLL1XgIGwyGeU-txwRobSDxmlX4KEkC8RHVsvPEY0FB_7Xw4AYvipjpfclhCaI0npC3G8ELofBX4nNN8jUIc29Z4mmzTK1IgVKrjER-Wx4xQMY6Gk7iAQhzUT6Gwmp2l1hgT2ibIEGj-dP11cdw2P0FFwzSo0o7_360c7s4fdsYyiyz7gJcZvUbdAW90bWatBm5V47HCNr2dJxk3H53qqdkoIaLW1L3tWadvfEzwPrag02Nu_wUcLR2c7Xr63PI88B1l11ckigt6wUS1tZF_blVwft6Tinyx3GhiftNwYofwrypOEULTsSHFd44daLNQC2FK0_ujpuTdUBn3odj8_UECXuM3zGyEQWLk6uz6ExjtpkMftSH0m_Tzc-75pcKYYX6LxVuSMt8ZbixzPTFH8DussuA0e0XyIKUI2iMS0f45ah12rAw3re1Jn-0QKBuHRy0inCu9D1jSodDs8N0b8ElYnOwxzkPcddvOFm69M8heIUGI0TGd3IsGi4uNUNTyfKgw15NIfm2gaQDGyJJrbo7yGY-XsknE1_KdKcwVKV4j5yz9pt0yVIJVYJ248CETCtafWEMnb0R_IiphANOw3i7hsXgXuCUnWK8OEYRy-71pxpTjUmypP5I4xc7LGcGeE8-fFaSVDRmX8xaZPuj_F13gpa1xIcuKiLwnOCCJRaZk2j5h8b7qZYmdyPKpajmlFJBAh6XyF",
-      "retry_at": "2026-11-20T01:41:00.787564+00:00",
-      "retry_count": 1,
+      "action": "bid_active",
+      "at": "2026-11-20T01:44:35.492642+00:00",
+      "declined_at": null,
+      "declined_version": null,
+      "last_declined_bid": null,
+      "rebid_invitation_id": null,
       "version": 1
     },
     "mx72gbvhm4s0e87p6cm72dwb318h7dx5": {
@@ -3859,9 +3877,11 @@
       "submitted_at": "2026-11-19T16:57:57.168971+00:00"
     },
     "mx725b5p6wmhyqs6869t0j9k098jkt83": {
-      "bid_amount_cents": null,
-      "bid_at": null,
-      "bid_id": null,
+      "bid_amount_cents": 6000,
+      "bid_at": 1795139075326,
+      "bid_id": "p17822yrqp0jw8cvy0m2k3wa2x8jjx80",
+      "bid_status": "active",
+      "bid_status_changed_at": "2026-11-20T01:44:35.491118+00:00",
       "budget_cents": 7500,
       "discount_percent": 20,
       "first_detected_at": "2026-11-20T01:38:55.862305+00:00",
@@ -3872,6 +3892,9 @@
       "posted_budget_cents": 7500,
       "posted_time_field": "created_at",
       "pricing_mode": "introductory_first_five",
+      "proposal_encrypted": "gAAAAABq_6YDopJD2DDl04IgReLpHC2PBLlXjnGBGHCvF2JRiwCg_sMBLXrSxODg38uRTC4PzGEdbvjkGnh4W1QqMei3_q3_9mOpOLV9NGkBEWpslhjZP184tzwFaNlfFCRhthgYhmbRYEOOiT5LNaJFlLNRLgL-gALWAANxKoWbX8Ucxxz9yUiVn9teJSS2ZRs2XOl2QM8nD3Fd4nTV-mxyEnXE4ittWlEBZcTYe4bN9p_7DWSYqVe6UMwsszA_Sn6adBYzbpiJ9he8L-zNasq0Cjjg4wLif5x6ERIB8KyYOrd3fewezfqY9tpyENaPYGBQh-avUNGtvCisvvwBtcbF3kZk4Phc7hUhshzhufZb0tuW0WOgEef0BQn9spb8c4MQ59ONCmQ7cbgO3kYXje4lmOCMMeLk5JP8z1E2ziIuwZi4LcvMTNHav88MsJ9IXAPwg_7-t1LnEbI32JjbK5YZqupo_YZrHWwCAlRiR6uoM9oPsxi1NF0pe7zyhObPQYVZsRcEfEpQGERNC5ZnsHhq1cXNzzR7xRUy-ftRxNFkBwIz8PHtkyPFf1tRCNCgQBFj0FRjyCP8_x6SwID7rOZ6uzYZJ1CRyd2wWauJ0CWsGpMqGZhx1G8Wgx2A2J0jicXqjLCLyVvojKPqsOtWXzo8qkcq1A9Xb15gZmutw3LgtYiYK5NPuxgbd4wYVbQsr5Egx6ejsQO8OYPGPivPx3f-Kw9p1M6x4QdMCw3e31RkUwK20SNGcKFyGpsowpiwTo5szxOCd6xTNThFarPrNGPp5jh9hR_fVqZzmdcO-L8ecZo052k2_v1wndILpXYWeSXGLOglHJt6ruKrDmL1I_fjtqHWYAntj__yjzLaec3pHrflFefWOYUlYAaAmRGCoEdj1UheIzC_lkgYeFF0xUO0UkviIZ1Pg3TSeNOLkFBZUy7l6yu8Kl2iIKzBKw4v1H73WN8-jC6li7MAj1QV5k51mjYZZmthL47eiDu_y-IxSMYCtgLZLom3r3BEaaMcRLlfhIcRfPsF5UAoPD5AkXP9cE8QOT05sesXa8lCAASow1-2xIYOUr9PMc_FeR-470W1HJBcaWi3jkjN-YHzHb2LSjP5653El8tlvtkwuXzFxP7P9DkGu9IfjYZ1BeQmTV20tbbcRissKRkIOhW4qk4zoCWnMv3ZemZ3-NYBKWh-ia3qAS3ujm-fUVA-19AuyaRq9nolJbvs4gl3ey0dALKcE2HLFz9db2ugn9pjGNzdIs41FB2ZZxUeQ9oqh4TkDuahXFZ4y50tbijFO9vO1r13UlTh_dB_6PySvGOiGWLLqdJO0V3RFLDSsLOZy0M8CiUt_HDH2h7OHRXCzFzgiFHOBRlDUud4sRdbxtwfwPIXYSaOzUvtMP-Uz097FQWffMDbwd59lpKrIt8kyvRTQBdvREzsd67QOXynLeXB6gHV9Qy1a1YitunCgrmoYPivI9eSkxgpE8oadt5Gl8SMmf1XYDa2HhMOkA==",
+      "proposal_sha256": "ef1b6d4f4a63967e5b6717f29c6b0662e60b6697b21977c4ce0ea2a2681e15e5",
+      "proposal_text_redacted": "I propose to deliver an editable HTML/CSS-based responsive mockup ZIP covering Relistex\u2019s existing public pages and key user flows, with desktop/mobile states and a concise Markdown handoff. After hire, I\u2019ll review relistex.com, map its pages and flows, develop cohesive typography, color and layout, and revise copy without inventing product claims. I\u2019ll check navigation, responsive rendering and coverage against that inventory, and label placeholders and assumptions. Delivery: within four days after hire. The handoff will explain page structure, design tokens, components and interaction states. Is editable browser-based source, rather than a native Figma file, acceptable?\nNew on TryBounty; introductory rate while I build my track record.\nProposed deliverable outline (not a completed sample): 1. Confirm the requested scope against the buyer's brief. 2. Produce the requested output and check correctness. 3. Validate the result against the acceptance criteria. Brief scope: the scope and acceptance criteria stated in the buyer's bounty brief",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 7500,
@@ -3879,7 +3902,8 @@
         "currency": "usd",
         "status": "open",
         "updated_at": 1795138616007
-      }
+      },
+      "submitted_at": "2026-11-20T01:44:35.491006+00:00"
     },
     "mx72gbvhm4s0e87p6cm72dwb318h7dx5": {
       "bid_amount_cents": null,
@@ -6420,13 +6444,12 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5MywiY2hlY2twb2ludEF0IjoxNzk1MTM3ODk5MjU3fQ",
-  "handled_event_ids": [],
-  "last_bid_reconciliation": "2026-11-20T01:25:06.486925+00:00",
-  "last_check": "2026-11-20T01:40:00.794926+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5NCwiY2hlY2twb2ludEF0IjoxNzk1MTM5MDQwNzQ2fQ",
+  "last_bid_reconciliation": "2026-11-20T01:44:07.587960+00:00",
+  "last_check": "2026-11-20T01:44:35.508725+00:00",
   "market_observation": {
     "fetched_at": "2026-11-20T01:43:55.924306+00:00",
-    "last_checked_at": "2026-11-20T01:43:58.253847+00:00",
+    "last_checked_at": "2026-11-20T01:44:00.425618+00:00",
     "last_open_count": 70,
     "newest_created_at": "2026-11-20T01:36:54.160000+00:00",
     "newest_posted_at": "2026-11-20T01:36:54.160000+00:00"
@@ -7982,21 +8005,6 @@
   },
   "recent_outcomes": [
     {
-      "action": "agent_replied_to_buyer",
-      "at": "2026-11-16T09:15:27.689118+00:00",
-      "bounty_id": "mx713jqgcsevmx5jfgvz6qnmed8j60gv"
-    },
-    {
-      "action": "agent_replied_to_buyer",
-      "at": "2026-11-16T09:40:22.461796+00:00",
-      "bounty_id": "mx713jqgcsevmx5jfgvz6qnmed8j60gv"
-    },
-    {
-      "action": "bid_followup_sent",
-      "at": "2026-11-16T18:40:04.682500+00:00",
-      "bounty_id": "mx7exjhfg5pzjtqgtg8v1s5ze58j8ez4"
-    },
-    {
       "action": "bid_followup_sent",
       "at": "2026-11-16T18:40:05.758377+00:00",
       "bounty_id": "mx75nwyvf4svm7q7a8hngq7v8d8j8s3h"
@@ -8349,6 +8357,24 @@
       "bounty_id": "mx725b5p6wmhyqs6869t0j9k098jkt83",
       "reason": "openai_incomplete_output",
       "retry_count": 1
+    },
+    {
+      "action": "proposal_sample_fallback",
+      "at": "2026-11-20T01:44:35.152590+00:00",
+      "bounty_id": "mx725b5p6wmhyqs6869t0j9k098jkt83",
+      "reason": "proposal_preview_not_ready"
+    },
+    {
+      "action": "proposal_brief_outline_sent",
+      "at": "2026-11-20T01:44:35.492629+00:00",
+      "bounty_id": "mx725b5p6wmhyqs6869t0j9k098jkt83"
+    },
+    {
+      "action": "bid_sent",
+      "at": "2026-11-20T01:44:35.492639+00:00",
+      "bounty_id": "mx725b5p6wmhyqs6869t0j9k098jkt83",
+      "payout_cents": 6000,
+      "version": 1
     }
   ],
   "schema": 1,
