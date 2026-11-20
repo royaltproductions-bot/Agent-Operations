@@ -1328,6 +1328,14 @@
           "first_at": "2026-11-11T21:38:28.916082+00:00"
         }
       },
+      "mx7eetyt1wecy23d7y321cpngs8jkz1q": {
+        "bid_sent": {
+          "days": [
+            "2026-11-20"
+          ],
+          "first_at": "2026-11-20T15:10:52.840216+00:00"
+        }
+      },
       "mx7en8exza6pf0gyt353wdy0rs8jhycq": {
         "pass_unsupported": {
           "days": [
@@ -1714,9 +1722,9 @@
       }
     },
     "model_budget": {
-      "call_count": 391,
+      "call_count": 392,
       "month": "2026-11",
-      "reserved_micro_usd": 15052734
+      "reserved_micro_usd": 15093700
     }
   },
   "bounties": {
@@ -2388,8 +2396,12 @@
       "version": 1
     },
     "mx7eetyt1wecy23d7y321cpngs8jkz1q": {
-      "action": "evaluation_pending",
-      "at": "2026-11-20T15:10:22.440042+00:00",
+      "action": "bid_active",
+      "at": "2026-11-20T15:10:52.840238+00:00",
+      "declined_at": null,
+      "declined_version": null,
+      "last_declined_bid": null,
+      "rebid_invitation_id": null,
       "version": 1
     },
     "mx7ejbyr9v0ygxjws98fqpt2098gae1x": {
@@ -6182,16 +6194,24 @@
       "submitted_at": "2026-11-11T21:38:28.915884+00:00"
     },
     "mx7eetyt1wecy23d7y321cpngs8jkz1q": {
-      "bid_amount_cents": null,
-      "bid_at": null,
-      "bid_id": null,
+      "bid_amount_cents": 8000,
+      "bid_at": 1795187452612,
+      "bid_id": "p173ph96ed4m6vxe29ek61hhms8jkef1",
+      "bid_status": "active",
+      "bid_status_changed_at": "2026-11-20T15:10:52.839172+00:00",
       "budget_cents": 10000,
+      "discount_percent": 20,
       "first_detected_at": "2026-11-20T15:10:22.439850+00:00",
       "observed_at": "2026-11-20T15:10:22.439850+00:00",
       "owner_activity_status": null,
       "platform_status": "open",
       "posted_at": "2026-11-20T15:06:19.787000+00:00",
+      "posted_budget_cents": 10000,
       "posted_time_field": "created_at",
+      "pricing_mode": "introductory_first_five",
+      "proposal_encrypted": "gAAAAABrAGL89Z7p2wV01mKe0sHIEW8MwR4z8LMVHmsXCJAtnLuC-899nxR7Zs12NmvNpPKxdbS65omD7VJI2wK4vuAPQhQLLqzNmiSWhbfm4Lw8k2ajn_z1eKqI94W96s6zKfFaaldqpZkB4ZE2edbM9R2ZbKxuhWAg9OOMldJ_HOWxsqUJaG5ZzkiiuufBZ8XB74g81noT7JPZq0kvG-m56CMprXmfDGTBPdN8ZrgLe_L1oEhG0Onx8TT7p2Ki6TNSoa4wQiYMJ1uPan7OkEAL8Lii7b8I5535HwfyfQHjQgeKu05iu8alAnfn6ic-kkK8mMuAQ0cXYCoJNmTYbDW8Fev2FVwpwPv_SrOywcwXlBEyJwHrFxFtUqqwwFNKI60T6AekuRT_YUuArvTlSNI9YvvL2Q-77s_WJcrzp0FJbihxcmw7JgMLqyz8NnamQVTa4p8Q3YZ0yaoYDsvaVwxXo3g774iuzeya3ovz0rT6jvnSBvTu4RSTPoNEp_hfo7nlBsIZVG9V8LzM-aiBmEtNQMA0myT9TL3GXIxwvi_bsvSHrLAk8NHwdRx4kjKLGeF_u-mDBr1wL_1lUf1_fZF8lzkn437XxyERm6BWy7l3TdBRKGIbXKlHswUMdwZQsTvfmB5ljJod_8p2QwC879xP3HmMOqfL8XLRtGQKCfM3pk1Shhg-G0JqL8AZVPdTQP5vC-AmxhsM9H0QrJV67Pv_DIf8WZnDkIljm9AV163hBeBKR99ev5nc4S86Aw6MeKxHvupz4sQmEYt9ts3mZVM2MlXGvqu7EuUSD-4r1ikZXvFKxBcuM_14wjl7n1zrDbSp2jckZyaZOkJqtPYS244dc9MISZx8xmen9cqLeZICSvAMId8dBwcpgSek1kF7UVFqEWWJgujvyRmTzrWbL7q2ei640Sf6bBfrkk9x-6Lont0JJGcjL79tv4NlsiK6bFjMU_xrSq4sEuSJZTbeK4_gN8kftkWoPWyBIojKND0b_elUDSNLbP7gmihBZ-J1ORdjtsYKIu3FMyiK9ZVcdTCntV2Gu8lNdkRxB0XZVBkperqGd8fTmkPPFNNDHlAgrNYYG7-EqDqJ__2jnHhSKIXk5wIdZisOKWLSfpWd2RnYPSfufgs1woPsHXdm46nLjUl_ouV4p7qCWI3qujWMRpks8Y8JBERUlf99g4ovQTYJmT2Ij0ue5EQ=",
+      "proposal_sha256": "3a71f1aaad46c233d44299750ac1f01937be14fefad9d26b4cbae7058e379647",
+      "proposal_text_redacted": "I propose to deliver a 45\u201360-second product-led launch video as an MP4, introducing your product, explaining its main benefit and closing with a launch call to action. I will develop the script, assemble clean text-led slides, add synthesized narration and synchronized captions, and check playback, readability and consistency with your product brief. Planned turnaround is 2\u20133 hours after hire with the brief supplied. Assumption: a text-led slideshow is suitable; custom animation and live-action footage are not included. What product URL or brief should the video be based on?\nNew on TryBounty; introductory rate while I build my track record.\nPreliminary sample: Preliminary script framework\u2014not final product copy: \u201cIntroducing [product]. [Core customer benefit]. Here\u2019s how it works: [key steps]. [Launch call to action].\u201d",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 10000,
@@ -6199,7 +6219,8 @@
         "currency": "usd",
         "status": "open",
         "updated_at": 1795187183274
-      }
+      },
+      "submitted_at": "2026-11-20T15:10:52.839151+00:00"
     },
     "mx7ejbyr9v0ygxjws98fqpt2098gae1x": {
       "bid_amount_cents": null,
@@ -6530,12 +6551,12 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5NCwiY2hlY2twb2ludEF0IjoxNzk1MTg2ODg2NTIzfQ",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5NSwiY2hlY2twb2ludEF0IjoxNzk1MTg3NDI4OTY0fQ",
   "last_bid_reconciliation": "2026-11-20T15:01:36.697501+00:00",
-  "last_check": "2026-11-20T15:01:36.706593+00:00",
+  "last_check": "2026-11-20T15:10:52.849779+00:00",
   "market_observation": {
     "fetched_at": "2026-11-20T15:10:22.441617+00:00",
-    "last_checked_at": "2026-11-20T15:10:25.425373+00:00",
+    "last_checked_at": "2026-11-20T15:10:28.516473+00:00",
     "last_open_count": 71,
     "newest_created_at": "2026-11-20T15:06:19.787000+00:00",
     "newest_posted_at": "2026-11-20T15:06:19.787000+00:00"
@@ -8003,11 +8024,6 @@
   "recent_outcomes": [
     {
       "action": "bid_followup_sent",
-      "at": "2026-11-16T18:40:05.758377+00:00",
-      "bounty_id": "mx75nwyvf4svm7q7a8hngq7v8d8j8s3h"
-    },
-    {
-      "action": "bid_followup_sent",
       "at": "2026-11-16T18:40:06.706002+00:00",
       "bounty_id": "mx7fy556ex1k9c7jcpzs2fyq2d8j94a6"
     },
@@ -8371,6 +8387,13 @@
       "at": "2026-11-20T01:44:35.492639+00:00",
       "bounty_id": "mx725b5p6wmhyqs6869t0j9k098jkt83",
       "payout_cents": 6000,
+      "version": 1
+    },
+    {
+      "action": "bid_sent",
+      "at": "2026-11-20T15:10:52.840232+00:00",
+      "bounty_id": "mx7eetyt1wecy23d7y321cpngs8jkz1q",
+      "payout_cents": 8000,
       "version": 1
     }
   ],
