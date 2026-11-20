@@ -2386,6 +2386,11 @@
       "last_owner_reply_id": null,
       "version": 1
     },
+    "mx7eetyt1wecy23d7y321cpngs8jkz1q": {
+      "action": "evaluation_pending",
+      "at": "2026-11-20T15:10:22.440042+00:00",
+      "version": 1
+    },
     "mx7ejbyr9v0ygxjws98fqpt2098gae1x": {
       "action": "pass",
       "at": "2026-10-30T16:19:41.630545+00:00",
@@ -3514,6 +3519,13 @@
           "encrypted_brief": "gAAAAABq5MPLlfCNRU6W2STFrHBv1zSJ_wiCQyjTifw-WE1uz4YYuP4TfqcTbSN6yjnlU2N59dglByO3J9TdYpfLYilJWHd2hYlgfcIoivxBMQTJwJjL5PxbafuQbzuPKMZfI7F8wmXccdyjErfKUWn980rADISuILl_-ga_LcjDlXv-fCN4IxzybHO67q_Lba7gyL26O5dolzWCBQSLKkLatnFoS-1Jemm9K-AkD8asyQF0v10WQ8oPSPMBULse0D-44ZWzUO0qMjmkhqGq7lz6F0_Zq-vL9cZpuwImuapoIYZCboXhlk_McEHwuCKBRthrUFrtl1SsafI0wV7GgsfPh3fl9wqfVx7Npc0cOkzt1ciQ7hs-mSScImwEw7jODl6thjfnO4l1wJxqHk3ZwDkY5dAuXo_sUmHg5BK5nz3rRKBuhuhChdOctnirtyUha2RDmhZl4b5MO7KJbXCPesFoonPpz3a3sUe9CVajBnUjm6ioXRHg-jkb5FjxLVGRoa5zffOEVuRiuDSfBw65fB8lxaO6F0nLkdpa1Ee_WpPAXCEGppv9qALiF7pIZiXEE5tMPotq4lbkff7QIaIRECZcxODRaHM120e3VWXUnY8pLpGCFafkD-L_-PwT8byXx_VPZPSnR5s6UprKhOfYrNBFbFor2h7qMoRsUMDVfZd9oic7c59zuaocOVXYc52PehxGGRbn5lJ5oRmvyBs9t9S8CtyWJVK7enNPO-98HIhcBamKUEJoPwk="
         }
       }
+    },
+    "mx7eetyt1wecy23d7y321cpngs8jkz1q": {
+      "first_detected_at": "2026-11-20T15:10:22.440035+00:00",
+      "last_known_status": "open",
+      "last_seen_open_at": "2026-11-20T15:10:22.440038+00:00",
+      "version": 1,
+      "versions": {}
     },
     "mx7ejbyr9v0ygxjws98fqpt2098gae1x": {
       "first_detected_at": "2026-10-30T16:10:18.044197+00:00",
@@ -6163,6 +6175,26 @@
       },
       "submitted_at": "2026-11-11T21:38:28.915884+00:00"
     },
+    "mx7eetyt1wecy23d7y321cpngs8jkz1q": {
+      "bid_amount_cents": null,
+      "bid_at": null,
+      "bid_id": null,
+      "budget_cents": 10000,
+      "first_detected_at": "2026-11-20T15:10:22.439850+00:00",
+      "observed_at": "2026-11-20T15:10:22.439850+00:00",
+      "owner_activity_status": null,
+      "platform_status": "open",
+      "posted_at": "2026-11-20T15:06:19.787000+00:00",
+      "posted_time_field": "created_at",
+      "sample_listing": false,
+      "source_fields": {
+        "budget_cents": 10000,
+        "created_at": 1795187179787,
+        "currency": "usd",
+        "status": "open",
+        "updated_at": 1795187183274
+      }
+    },
     "mx7ejbyr9v0ygxjws98fqpt2098gae1x": {
       "bid_amount_cents": null,
       "bid_at": null,
@@ -6496,16 +6528,11 @@
   "last_bid_reconciliation": "2026-11-20T15:01:36.697501+00:00",
   "last_check": "2026-11-20T15:01:36.706593+00:00",
   "market_observation": {
-    "fetched_at": "2026-11-20T15:05:22.412225+00:00",
-    "last_open_count": 70,
-    "newest_created_at": "2026-11-20T01:36:54.160000+00:00"
+    "fetched_at": "2026-11-20T15:10:22.441617+00:00",
+    "last_open_count": 71,
+    "newest_created_at": "2026-11-20T15:06:19.787000+00:00"
   },
   "market_observation_history": [
-    {
-      "fetched_at": "2026-11-19T15:07:26.893778+00:00",
-      "last_open_count": 68,
-      "newest_created_at": "2026-11-17T12:41:41.824000+00:00"
-    },
     {
       "fetched_at": "2026-11-19T15:12:27.976628+00:00",
       "last_open_count": 68,
@@ -7940,6 +7967,11 @@
       "fetched_at": "2026-11-20T15:05:22.412225+00:00",
       "last_open_count": 70,
       "newest_created_at": "2026-11-20T01:36:54.160000+00:00"
+    },
+    {
+      "fetched_at": "2026-11-20T15:10:22.441617+00:00",
+      "last_open_count": 71,
+      "newest_created_at": "2026-11-20T15:06:19.787000+00:00"
     }
   ],
   "marketplaces": {
