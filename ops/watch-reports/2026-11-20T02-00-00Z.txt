@@ -1,0 +1,14 @@
+ARI X-Variant Receipt Watch
+Window UTC: 2026-11-19T18:00:00Z to 2026-11-20T02:00:00Z
+Report created: 2026-11-20T02:01:36Z (approximate runtime start; state read shortly after window end)
+Evidence: GitHub main recursive tree (not truncated), path-filtered commit history, GitHub Actions runs; gambit-state authoritative state, budget, funnel; workflow and provider router.
+
+Wolverine: 0 new receipt commits under ops/enterprise-runs; 0 observed new external actions, assets, offers or fulfillments. New revenue not established. Confidence high for zero receipt commits, not a complete independent economic audit.
+Cyclops: 0 new receipt commits under ops/cyclops-runs; 0 observed new external actions, assets, offers or fulfillments. New revenue not established. Confidence high for zero receipt commits; prior distribution pause remains historical.
+Gambit: 0 standalone receipt files established; 2 bid_sent events, requested payouts $16 and $60 ($76 proposed, not earned); 2 proposal outline sends, 2 proposal sample fallbacks (excerpt missing; preview not ready), 1 model incomplete-output retry. 70 open listings last observed; assessed jobs unknown. No new buyer questions, declines, repricings, cancellations, withdrawals, refunds, hires, claims, submissions, verification failures, acceptances or completed settlements in retained outcomes. Durable settlements={} => 0 recorded platform completions / $0 payout. Bid-to-hire and submission success: not measurable yet. Latest check and reconciliation 2026-11-20T02:00:07Z; watcher 16 successful and 1 failed cycles (run 44634529939), which remained in progress at inspection. Two other Gambit workflow runs completed successfully in window. Provider router tools/gambit_resources.py and tests/test_gambit_resources.py present; hired-work execution unverified. Public TryBounty profile not independently verified.
+Model reservation: $15.052734 November total, 391 calls; estimate only, not independently verified spending or deposits.
+Other ops run directories (scout/refiner/gha/external intelligence) not established as distinct autonomous revenue X-variants.
+Evidence confidence: high for branch state and empty settlement ledger; medium for bounded recent outcomes; external marketplace profile not verified.
+Open improvements: G-01 pending: prevent missing proposal previews from generating weak bids (tools/gambit_worker.py and tools/gambit_commercial.py); G-02 pending: investigate openai_incomplete_output retry and watcher failed cycle (tools/gambit_watch.py); G-03 unknown: validate actual provider execution on hired work (tools/gambit_resources.py and tests); C-01 pending historical distribution/checkout issue; W-01 unknown buyer discovery.
+Recommendation: gate Gambit bid submission on verifiable proposal evidence or a documented supported fallback; retain exact reason and final bid status per bounty to measure downstream hires and prevent unfulfillable offers.
+No operational changes made.
