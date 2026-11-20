@@ -11,7 +11,7 @@ import urllib.request
 
 MARKETPLACE = "github_bounty"
 URL = ("https://api.github.com/search/issues?q="
-       + urllib.parse.quote("is:issue is:open (bounty OR reward OR paid) ", safe="")
+       + urllib.parse.quote("is:issue is:open bounty ", safe="")
        + "&sort=created&order=desc&per_page=30")
 REFRESH = timedelta(hours=2)
 MAX_CENTS = 30000
