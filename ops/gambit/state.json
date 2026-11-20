@@ -6496,18 +6496,11 @@
   "last_bid_reconciliation": "2026-11-20T08:41:05.208488+00:00",
   "last_check": "2026-11-20T08:41:08.899206+00:00",
   "market_observation": {
-    "fetched_at": "2026-11-20T08:39:48.548388+00:00",
-    "last_checked_at": "2026-11-20T08:40:35.138839+00:00",
+    "fetched_at": "2026-11-20T08:44:49.152163+00:00",
     "last_open_count": 70,
-    "newest_created_at": "2026-11-20T01:36:54.160000+00:00",
-    "newest_posted_at": "2026-11-20T01:36:54.160000+00:00"
+    "newest_created_at": "2026-11-20T01:36:54.160000+00:00"
   },
   "market_observation_history": [
-    {
-      "fetched_at": "2026-11-19T08:41:33.069771+00:00",
-      "last_open_count": 69,
-      "newest_created_at": "2026-11-17T12:41:41.824000+00:00"
-    },
     {
       "fetched_at": "2026-11-19T08:46:33.419880+00:00",
       "last_open_count": 69,
@@ -7940,6 +7933,11 @@
     },
     {
       "fetched_at": "2026-11-20T08:39:48.548388+00:00",
+      "last_open_count": 70,
+      "newest_created_at": "2026-11-20T01:36:54.160000+00:00"
+    },
+    {
+      "fetched_at": "2026-11-20T08:44:49.152163+00:00",
       "last_open_count": 70,
       "newest_created_at": "2026-11-20T01:36:54.160000+00:00"
     }
