@@ -1,0 +1,15 @@
+ARI X-Variant 8-hour receipt watch
+Window UTC: 2026-11-20T10:00:00Z to 2026-11-20T18:00:00Z
+Report created: 2026-11-20T18:01:36Z (approximate)
+Evidence: GitHub main recursive tree (not truncated), gambit-state branch, Actions runs.
+
+Wolverine: 0 new ops/enterprise-runs receipts; 0 evidenced offers, contacts, assets, fulfillments; revenue not established. Confidence high for repository receipt count.
+Cyclops: 0 new ops/cyclops-runs receipts; 0 evidenced new offers/assets/fulfillments; revenue not established. Confidence high for repository receipt count.
+Gambit: 0 standalone receipts; 1 bid_sent in retained outcomes at 15:10:52Z, $80 requested against $100 posted budget for a 45-60-second product launch video (MP4, text-led slides, narration and captions). Bid active, no buyer reply recorded, no hire/claim/submission/acceptance. Distinct settlements: 0; platform completed payout $0; bank deposit unverified. No recorded new bid declines, changes, missing bids, withdrawals, claim refunds or verification failures. Bid-to-hire and submission success: not measurable yet. 71 open listings last observed at 18:00:42Z (just after window), not a count of assessed jobs. Assessments/passes/buyer questions: not established in bounded outcomes. Latest check and reconciliation 17:41:55Z; watcher health 17:51:04Z, 31 successful and 0 failed cycles for resident run. One completed successful Gambit workflow, one in progress and one pending. BountyBoard 0 listings and operator reconciliation required; GitHub bounty 0 listings, native claim unverified. Provider-router present, hired-job fulfillment not verified. Public profile independent verification unavailable.
+Model spending: gambit-state openai_budget.json 392 calls, $15.0937 cumulative internal reserved estimate of $38 configured monthly limit; not billing.
+Structural failure/risk: bid on video production despite earlier video-production unsupported passes; proposal is preliminary text-led script, no independently verified delivery. Highest-impact recommendation: enforce a capability-and-deliverability gate in tools/gambit_worker.py / tools/gambit_commercial.py using tools/gambit_resources.py capability checks before submitting video/media bids; test video output availability and block unsupported jobs.
+Other ops run directories are infrastructure/refinement/scouting, not independently verified additional revenue X-variants.
+Open improvements: GAMBIT-VIDEO-GATE pending; GAMBIT-FULFILLMENT-VERIFICATION unknown; GAMBIT-EVENT-COUNTERS pending; CYCLOPS-DISTRIBUTION pending; WOLVERINE-BUYER-DISCOVERY pending.
+Confidence: high for main tree receipt absence and Gambit durable settlement count; medium for retained events, low for external economic outcomes without platform acceptance/bank evidence.
+Errors: TryBounty public profile not independently checked; bounded recent_outcomes limits complete event coverage.
+Only this report archive is authorized to be written.
