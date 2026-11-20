@@ -1,0 +1,21 @@
+ARI X-Variant Receipt Watch
+Window UTC: 2026-11-20T02:00:00Z to 2026-11-20T10:00:00Z
+Report created: 2026-11-20 approximately 10:00 UTC
+
+Wolverine (main ops/enterprise-runs): 0 new receipt commits/files evidenced; 0 verified external actions, offers, fulfillments, earnings. Confidence high for repository receipts, not external accounts. Last lane files predate window.
+Cyclops (main ops/cyclops-runs): 0 new receipt commits/files evidenced; 0 verified external actions, assets, fulfillments, earnings. Confidence high for repository receipts; prior paused_for_distribution remains unresolved/unknown in this window.
+Gambit (gambit-state): 0 standalone receipts and 0 recent_outcomes events dated within window; 70 open listings last observed at 09:59:52Z; 23 successful watcher cycles and 0 failures at 09:50:14Z; last_check and last_bid_reconciliation 09:41:06Z. 0 new bids, questions, declines, changes, withdrawals, refunds, claims, deliverables, acceptances or verification failures visible in retained outcomes. Complete event totals not independently measurable because history is bounded. Settlements ledger empty: 0 platform completions, $0 payout_cents; bank deposits not checked. Bid-to-hire and submission success not measurable yet. GitHub Actions completed run and one in progress are operational evidence only. Provider router exists, real hired fulfillment unverified.
+Other lanes: no new identifiable revenue X-variant receipt commits established; other historic ops directories are not confirmed new autonomous X-variants.
+
+Economics: $0 verified newly earned in accessible receipts; no positive economic outcome established. November Gambit model reservation 15.052734 USD across 391 calls against 38 USD configuration, not verified billing. No new spending estimate beyond this cumulative reservation.
+Evidence confidence: main commit history and tree high for repository receipts; gambit-state high for current checkpoint and ledger, medium/limited for all commercial events; public profile independent evidence unavailable.
+Errors: GitHub Actions workflow-specific endpoint rejected; general Actions listing worked. TryBounty profile not independently established.
+
+Open improvements:
+GAMBIT-EVIDENCE-GATE pending: proposal previews previously unavailable and model incomplete output before bids; inspect worker/commercial pre-bid checks in subsequent authorized refinement.
+GAMBIT-COUNTERS pending: persist timestamped commercial event counters beyond bounded recent_outcomes.
+GAMBIT-REAL-FULFILLMENT unknown: provider-router capability execution on hired jobs lacks evidence.
+CYCLOPS-DISTRIBUTION pending: previously paused_for_distribution, no new receipts.
+WOLVERINE-BUYER-DISCOVERY pending: no new buyer-facing receipts.
+
+Highest-impact recommendation: implement durable timestamped Gambit decision/settlement event accounting in tools/gambit_watch.py or existing state persistence so 8-hour outcome counts and missed-event diagnostics can be audited without truncated history. Report-only: no operational mutation.
