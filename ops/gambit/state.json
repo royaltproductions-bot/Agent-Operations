@@ -6641,13 +6641,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5NiwiY2hlY2twb2ludEF0IjoxNzk1Mjk1MDk2ODI2fQ",
-  "last_bid_reconciliation": "2026-11-21T21:05:04.194890+00:00",
-  "last_check": "2026-11-21T21:05:04.203521+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5NiwiY2hlY2twb2ludEF0IjoxNzk1Mjk2Mjk3OTU0fQ",
+  "last_bid_reconciliation": "2026-11-21T21:25:05.230632+00:00",
+  "last_check": "2026-11-21T21:25:05.239229+00:00",
   "market_observation": {
     "fetched_at": "2026-11-21T21:23:53.236856+00:00",
+    "last_checked_at": "2026-11-21T21:24:37.586726+00:00",
     "last_open_count": 72,
-    "newest_created_at": "2026-11-21T07:54:30.466000+00:00"
+    "newest_created_at": "2026-11-21T07:54:30.466000+00:00",
+    "newest_posted_at": "2026-11-21T07:54:30.466000+00:00"
   },
   "market_observation_history": [
     {
@@ -8095,16 +8097,146 @@
     "bountyboard": {
       "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
       "bidding_status": "operator_reconciliation_required",
-      "checked_at": "2026-11-21T20:24:26.123184+00:00",
+      "checked_at": "2026-11-21T21:24:36.691730+00:00",
       "listings": [],
       "open_count": 0,
       "status": "observed_authenticated"
     },
     "github_bounty": {
       "bidding_status": "platform_native_claim_not_verified",
-      "checked_at": "2026-11-21T19:24:22.213590+00:00",
-      "listings": [],
-      "open_count": 0,
+      "checked_at": "2026-11-21T21:24:36.896297+00:00",
+      "listings": [
+        {
+          "budget_cents": 5000,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6534566120",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-21T21:23:59Z",
+          "status": "open",
+          "title": "A free one-line swap widget for the $NOMAD page",
+          "url": "https://github.com/kadiri-seer/nomad/issues/16"
+        }
+      ],
+      "open_count": 1,
+      "rejected": [
+        {
+          "id": "6534536731",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6534248672",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6534133170",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6533989831",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6533989313",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6533988706",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6533897505",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6533892332",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6533845415",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6533756136",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6533735644",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6533707591",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6533707661",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6533691462",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6533656868",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6533596449",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6533490301",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6533458899",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6533406921",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6533296490",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6533289012",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6533249984",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6533146392",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6532940096",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6532902068",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6532827921",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6532618403",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6532576171",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6532573033",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        }
+      ],
       "search_result_count": 30,
       "status": "observed_public"
     }
