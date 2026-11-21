@@ -6641,13 +6641,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5NiwiY2hlY2twb2ludEF0IjoxNzk1MzAyMzAxMDk5fQ",
-  "last_bid_reconciliation": "2026-11-21T23:05:14.899399+00:00",
-  "last_check": "2026-11-21T23:05:14.908054+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5NiwiY2hlY2twb2ludEF0IjoxNzk1MzAzNTAyMzQ3fQ",
+  "last_bid_reconciliation": "2026-11-21T23:25:09.929978+00:00",
+  "last_check": "2026-11-21T23:25:09.938571+00:00",
   "market_observation": {
     "fetched_at": "2026-11-21T23:23:57.986588+00:00",
+    "last_checked_at": "2026-11-21T23:24:42.039413+00:00",
     "last_open_count": 72,
-    "newest_created_at": "2026-11-21T07:54:30.466000+00:00"
+    "newest_created_at": "2026-11-21T07:54:30.466000+00:00",
+    "newest_posted_at": "2026-11-21T07:54:30.466000+00:00"
   },
   "market_observation_history": [
     {
@@ -8095,15 +8097,48 @@
     "bountyboard": {
       "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
       "bidding_status": "operator_reconciliation_required",
-      "checked_at": "2026-11-21T22:24:38.805030+00:00",
+      "checked_at": "2026-11-21T23:24:41.171910+00:00",
       "listings": [],
       "open_count": 0,
       "status": "observed_authenticated"
     },
     "github_bounty": {
       "bidding_status": "platform_native_claim_not_verified",
-      "checked_at": "2026-11-21T21:24:36.896297+00:00",
+      "checked_at": "2026-11-21T23:24:41.350967+00:00",
       "listings": [
+        {
+          "budget_cents": 2500,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6535656769",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-21T23:14:00Z",
+          "status": "open",
+          "title": "AF alert: 151 new paid opportunity(ies)",
+          "url": "https://github.com/farmmer938-lgtm/autonomous-zero-baht/issues/45"
+        },
+        {
+          "budget_cents": 2500,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6535371645",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-21T22:44:18Z",
+          "status": "open",
+          "title": "[bounty] stdlib.protobuf tutorial",
+          "url": "https://github.com/bad-antics/lateralus-lang/issues/471"
+        },
+        {
+          "budget_cents": 5000,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6535330842",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-21T22:39:54Z",
+          "status": "open",
+          "title": "A free one-line swap widget for the $OAK page",
+          "url": "https://github.com/OakAgentKit/oak/issues/31"
+        },
         {
           "budget_cents": 5000,
           "claim_status": "unverified_platform_terms",
@@ -8116,10 +8151,78 @@
           "url": "https://github.com/kadiri-seer/nomad/issues/16"
         }
       ],
-      "open_count": 1,
+      "open_count": 4,
       "rejected": [
         {
+          "id": "6535744955",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6535715060",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6535684335",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6535670010",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6535636016",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6535623333",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6535536972",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6535481450",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6535465552",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6535416107",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6535317832",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6535130522",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6534956614",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6534737046",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6534684930",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6534626641",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
           "id": "6534536731",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6534319441",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
@@ -8152,86 +8255,6 @@
         },
         {
           "id": "6533845415",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6533756136",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6533735644",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6533707591",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6533707661",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6533691462",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6533656868",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6533596449",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6533490301",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6533458899",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6533406921",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6533296490",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6533289012",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6533249984",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6533146392",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6532940096",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6532902068",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6532827921",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6532618403",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6532576171",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6532573033",
           "reason": "no_explicit_20_to_300_usd_reward"
         }
       ],
