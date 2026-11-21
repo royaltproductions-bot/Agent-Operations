@@ -1,0 +1,24 @@
+# ARI X-Variant 8-hour receipt watch
+Window UTC: 2026-11-20T18:00:00Z to 2026-11-21T02:00:00Z
+Created UTC: 2026-11-21T02:02:00Z (approximately)
+Evidence: GitHub main complete tree (3330 entries, not truncated), path-scoped commit history, GitHub Actions, gambit-state state/budget/funnel; public TryBounty profile not independently verified.
+
+| Lane | New standalone receipts | External actions | New offers/assets | Fulfillments | Verified earnings |
+| Wolverine | 0 | None evidenced | 0 | 0 evidenced | Not established |
+| Cyclops | 0 | None evidenced | 0 | 0 evidenced | Not established |
+| Gambit | 0 | 1 existing-bid follow-up at 2026-11-20T23:02:36Z | 0 new bids, 0 new assets | 0 | $0 platform-completed (empty settlement ledger) |
+
+Gambit: 71 open listings last observed at 02:01Z (after window), 39 successful/0 failed watcher cycles at 01:51Z, run 44830947650 in progress and successor 44850924695 pending. Last check and bid reconciliation 01:42:40Z. No window-dated new bids, passes, buyer questions, declines, unsupported withdrawals, claim refunds, hires, submissions, acceptances, verification failures, or settlements in retained outcomes/analytics. Bounded event history means exhaustive event counts not guaranteed. Bid-to-hire and submission success not measurable yet. BountyBoard zero listings; operator reconciliation required. GitHub bounty search 30 results, zero open actionable listings. No additional X-variant receipt directory found.
+
+Model reservation estimate: $15.0937 November cumulative (392 calls); $38 configured monthly limit. Not verified billing. Stripe deposits unverified.
+
+Structural failures: Wolverine lacks recent receipts; Cyclops distribution remains historically paused (no new receipt to confirm resolution). Gambit follow-up without confirmed hire; no proven execution of provider router on hired work; public TryBounty profile not independently confirmed. Green watcher status is not economic traction.
+
+Open improvements:
+- G1 [pending]: enforce pre-bid supported fulfillment capability checks in tools/gambit_worker.py / tools/gambit_commercial.py via tools/gambit_resources.py; previous video-production bid lacks verified execution proof.
+- G2 [pending]: durable timestamped per-cycle commercial decision accounting to avoid truncated outcome coverage.
+- C1 [unknown]: Cyclops distribution and legacy checkout repair; no new receipts.
+- W1 [unknown]: Wolverine buyer discovery and outreach; no new receipts.
+- G3 [blocked]: BountyBoard operator reconciliation; observed status operator_reconciliation_required.
+
+Highest-impact refinement: G1, require real supported capability proof before any bid on video or other uncertain fulfillment; do not alter operations from this watchdog.
