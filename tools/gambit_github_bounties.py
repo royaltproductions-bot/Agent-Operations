@@ -26,8 +26,15 @@ def parse_reward_cents(item):
     for label in labels:
         name = str(label.get("name") or "") if isinstance(label, dict) else str(label)
         candidates.extend(re.findall(r"(?i)(?:bounty|reward)[: ]*\$\s*(\d+(?:\.\d{1,2})?)", name))
-    text = str(item.get("title") or "") + "\n" + str(item.get("body") or "")[:12000]
-    candidates.extend(re.findall(r"(?<![\w])\$\s*(\d+(?:\.\d{1,2})?)(?![\d])", text))
+    title = str(item.get("title") or "")
+    body = str(item.get("body") or "")[:12000]
+    # Dollar figures in third-party proposals and unrelated metrics are not
+    # an offer to pay a contributor for this issue.
+    if re.search(r"(?i)\b(bounty|reward|paid issue|payout)\b", title):
+        candidates.extend(re.findall(r"(?<![\w])\$\s*(\d+(?:\.\d{1,2})?)(?![\d])", title))
+    for line in body.splitlines():
+        if re.search(r"(?i)\b(bounty|reward|payout)\b", line):
+            candidates.extend(re.findall(r"(?<![\w])\$\s*(\d+(?:\.\d{1,2})?)(?![\d])", line))
     values = [round(float(v) * 100) for v in candidates]
     eligible = [v for v in values if MIN_CENTS <= v <= MAX_CENTS]
     return min(eligible) if eligible else None
@@ -81,6 +88,7 @@ def observe(state, opener=None, now=None):
             cents = parse_reward_cents(item)
             url = str(item.get("html_url") or "")
             listings.append({
+                "payer_mechanism": "unverified",
                 "marketplace": MARKETPLACE,
                 "id": str(item.get("id") or "")[:40],
                 "url": url[:350],
