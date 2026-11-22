@@ -26,8 +26,15 @@ def parse_reward_cents(item):
     for label in labels:
         name = str(label.get("name") or "") if isinstance(label, dict) else str(label)
         candidates.extend(re.findall(r"(?i)(?:bounty|reward)[: ]*\$\s*(\d+(?:\.\d{1,2})?)", name))
-    text = str(item.get("title") or "") + "\n" + str(item.get("body") or "")[:12000]
-    candidates.extend(re.findall(r"(?<![\w])\$\s*(\d+(?:\.\d{1,2})?)(?![\d])", text))
+    title = str(item.get("title") or "")
+    body = str(item.get("body") or "")[:12000]
+    # Dollar figures in third-party proposals and unrelated metrics are not
+    # an offer to pay a contributor for this issue.
+    if re.search(r"(?i)\b(bounty|reward|paid issue|payout)\b", title):
+        candidates.extend(re.findall(r"(?<![\w])\$\s*(\d+(?:\.\d{1,2})?)(?![\d])", title))
+    for line in body.splitlines():
+        if re.search(r"(?i)\b(bounty|reward|payout)\b", line):
+            candidates.extend(re.findall(r"(?<![\w])\$\s*(\d+(?:\.\d{1,2})?)(?![\d])", line))
     values = [round(float(v) * 100) for v in candidates]
     eligible = [v for v in values if MIN_CENTS <= v <= MAX_CENTS]
     return min(eligible) if eligible else None
@@ -49,6 +56,38 @@ def rejection_reason(item, now):
     if parse_reward_cents(item) is None:
         return "no_explicit_20_to_300_usd_reward"
     return None
+
+
+
+def payer_mechanism(item, opener=None):
+    """Only platform-bot or repository maintainer evidence counts as backing."""
+    url = str(item.get("comments_url") or "")
+    if not url.startswith("https://api.github.com/repos/") or not url.endswith("/comments"):
+        return "unverified"
+    request = urllib.request.Request(url + "?per_page=100", headers={
+        "Accept": "application/vnd.github+json",
+        "User-Agent": "ARI-Gambit-bounty-observer/1.0"})
+    try:
+        with (opener or urllib.request.urlopen)(request, timeout=12) as response:
+            comments = json.loads(response.read(300000).decode("utf-8"))
+    except (OSError, ValueError, TimeoutError):
+        return "unverified"
+    if not isinstance(comments, list):
+        return "unverified"
+    for comment in comments:
+        author = str((comment.get("user") or {}).get("login") or "").lower()
+        body = str(comment.get("body") or "")
+        if ("algora" in author and "bot" in author and
+                re.search(r"(?i)\b(bounty|reward)\b", body)):
+            return "algora"
+        if ("opire" in author and "bot" in author and
+                re.search(r"(?i)\b(bounty|reward)\b", body)):
+            return "opire"
+        if (comment.get("author_association") in {"OWNER", "MEMBER", "COLLABORATOR"} and
+                re.search(r"(?i)\b(pay|paid|payment|payout|reward)\b", body) and
+                re.search(r"(?i)\b(algora|opire|escrow|paypal|stripe|usdc|bank transfer)\b", body)):
+            return "maintainer_explicit"
+    return "unverified"
 
 
 def observe(state, opener=None, now=None):
@@ -79,8 +118,14 @@ def observe(state, opener=None, now=None):
                                  "reason": reason})
                 continue
             cents = parse_reward_cents(item)
+            mechanism = payer_mechanism(item, opener=opener)
+            if mechanism == "unverified":
+                rejected.append({"id": str(item.get("id") or "")[:40],
+                                 "reason": "payer_mechanism_unverified"})
+                continue
             url = str(item.get("html_url") or "")
             listings.append({
+                "payer_mechanism": mechanism,
                 "marketplace": MARKETPLACE,
                 "id": str(item.get("id") or "")[:40],
                 "url": url[:350],
