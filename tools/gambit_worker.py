@@ -2768,6 +2768,99 @@ def reconcile_active_bids(opened, state, *, skip_ids=(), persist=None):
             persist(state)
 
 
+
+def process_operator_actions(state, actions=None, *, persist=None):
+    """Execute owner-approved, lower-price buyer corrections with API readback.
+
+    A stable action ID supplies repeat-safe idempotency for both writes. The
+    state checkpoint after price confirmation survives interrupted workers.
+    """
+    if actions is None:
+        path = Path(__file__).resolve().parents[1] / "ops/gambit/operator_actions.json"
+        if not path.exists():
+            return
+        actions = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(actions, list):
+        raise ValueError("operator_actions_not_list")
+    done = state.setdefault("operator_actions_done", {})
+    for action in actions:
+        action_id = action.get("id") if isinstance(action, dict) else None
+        if not isinstance(action_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,80}", action_id):
+            raise ValueError("operator_action_invalid_id")
+        if action_id in done and done[action_id].get("status") == "complete":
+            continue
+        if action.get("type") != "reprice":
+            raise ValueError("operator_action_unsupported_type")
+        bounty_id = action.get("bounty_id")
+        amount = action.get("payout_cents")
+        note_text = action.get("note")
+        confirm = action.get("confirm_message")
+        if (not isinstance(bounty_id, str) or
+                not re.fullmatch(r"[A-Za-z0-9_-]{1,128}", bounty_id) or
+                not isinstance(amount, int) or isinstance(amount, bool) or amount < 1 or
+                not isinstance(note_text, str) or not 1 <= len(note_text) <= 2000 or
+                not isinstance(confirm, str) or not 1 <= len(confirm) <= 3000):
+            raise ValueError("operator_action_invalid_fields")
+        cap = cold_start_bid_cap_cents(state)
+        if cap is not None and amount > cap:
+            raise ValueError("operator_action_over_cap")
+        endpoint = f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}"
+        details = api(endpoint)
+        bid = details.get("bid") or {}
+        bounty = details.get("bounty") or {}
+        current = bid.get("payout_cents")
+        if bid.get("status") != "active":
+            raise RuntimeError("operator_action_bid_not_active")
+        if not isinstance(current, int) or isinstance(current, bool):
+            raise RuntimeError("operator_action_bid_price_unverified")
+        if amount > current:
+            raise ValueError("operator_action_not_lower_price")
+        phase = done.get(action_id) or {}
+        if current != amount:
+            if phase.get("price_confirmed_at"):
+                raise RuntimeError("operator_action_price_regressed")
+            version = bounty.get("version")
+            if version is None:
+                raise RuntimeError("operator_action_version_missing")
+            response = api(endpoint + "/bid", "POST", {
+                "payout_cents": amount,
+                "expected_version": version,
+                "note": note_text,
+                "idempotency_key": key("operator", action_id)})
+            record_bid_measurement(state, bounty_id, response.get("bid") or {},
+                                   proposal=note_text)
+            # A successful POST alone is not price acceptance.
+            details = api(endpoint)
+            bid = details.get("bid") or {}
+            if bid.get("status") != "active" or bid.get("payout_cents") != amount:
+                raise RuntimeError("operator_action_price_readback_mismatch")
+        else:
+            # Already priced correctly; do not send a second reprice POST.
+            record_bid_measurement(state, bounty_id, bid, proposal=note_text)
+        phase.update(status="price_confirmed", price_confirmed_at=phase.get(
+            "price_confirmed_at") or timestamp(), bid_id=bid.get("_id") or bid.get("id"),
+            payout_cents=amount)
+        done[action_id] = phase
+        if persist:
+            persist(state)
+        if not phase.get("message_sent_at"):
+            result = api(endpoint + "/messages", "POST", {
+                "content": {"type": "text", "text": confirm},
+                "idempotency_key": key("operator-msg", action_id)})
+            phase["message_id"] = (result.get("message") or {}).get("_id") or result.get("id")
+            phase["message_sent_at"] = timestamp()
+            if persist:
+                persist(state)
+        phase["status"] = "complete"
+        phase["completed_at"] = timestamp()
+        record_bid_measurement(state, bounty_id, bid, proposal=note_text)
+        state.setdefault("commercial", {}).setdefault(bounty_id, {})["last_outgoing_at"] = phase["message_sent_at"]
+        note(state, "operator_reprice_completed", bounty_id,
+             action_id=action_id, payout_cents=amount)
+        if persist:
+            persist(state)
+
+
 def unclaim_unfulfillable(bounty_id, claim_id, state, reason, message):
     """Notify the buyer, then release an impossible assignment for refund.
 
@@ -3135,6 +3228,11 @@ def run(mode="run"):
         save_state(state)
     CURRENT_EVENTS = events
     if mode != "probe":
+        try:
+            process_operator_actions(state, persist=save_state)
+        except Exception as exc:
+            note(state, "operator_action_pending", "operator", reason=safe_failure_reason(exc))
+            save_state(state)
         backfill_commercial_evidence(state)
         save_state(state)
     if mode == "probe":
