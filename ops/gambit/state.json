@@ -6785,13 +6785,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5OCwiY2hlY2twb2ludEF0IjoxNzk1MzQ1NTgyNTc3fQ",
-  "last_bid_reconciliation": "2026-11-22T11:06:32.695657+00:00",
-  "last_check": "2026-11-22T11:06:32.702167+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5OCwiY2hlY2twb2ludEF0IjoxNzk1MzQ2Nzg4NzUyfQ",
+  "last_bid_reconciliation": "2026-11-22T11:26:37.746081+00:00",
+  "last_check": "2026-11-22T11:26:37.751437+00:00",
   "market_observation": {
     "fetched_at": "2026-11-22T11:25:23.641728+00:00",
+    "last_checked_at": "2026-11-22T11:26:08.368889+00:00",
     "last_open_count": 74,
-    "newest_created_at": "2026-11-22T00:58:03.009000+00:00"
+    "newest_created_at": "2026-11-22T00:58:03.009000+00:00",
+    "newest_posted_at": "2026-11-22T00:58:03.009000+00:00"
   },
   "market_observation_history": [
     {
@@ -8239,143 +8241,206 @@
     "bountyboard": {
       "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
       "bidding_status": "operator_reconciliation_required",
-      "checked_at": "2026-11-22T10:25:57.619495+00:00",
+      "checked_at": "2026-11-22T11:26:07.214253+00:00",
       "listings": [],
       "open_count": 0,
       "status": "observed_authenticated"
     },
     "github_bounty": {
       "bidding_status": "platform_native_claim_not_verified",
-      "checked_at": "2026-11-22T09:25:54.146027+00:00",
+      "checked_at": "2026-11-22T11:26:07.576873+00:00",
       "listings": [
         {
           "budget_cents": 2500,
           "claim_status": "unverified_platform_terms",
           "currency": "USD",
-          "id": "6540655923",
+          "id": "6541812529",
           "marketplace": "github_bounty",
-          "posted_at": "2026-11-22T09:13:04Z",
+          "posted_at": "2026-11-22T11:25:59Z",
           "status": "open",
-          "title": "[API Integration] AUREN TailHedge: automated tail-risk mitigation & hedging agent (/risk external demo)",
-          "url": "https://github.com/Ayush441-python/AUREN/issues/198"
+          "title": "[Bounty Claim] Tutorial: stdlib/rle.ltl - Lossless Run-Length Encoding, PackBits & Roundtrip Decoding",
+          "url": "https://github.com/bad-antics/lateralus-lang/issues/551"
+        },
+        {
+          "budget_cents": 2500,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6541785903",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-22T11:22:54Z",
+          "status": "open",
+          "title": "[Bounty Claim] Tutorial: stdlib/utf8.ltl - RFC 3629 UTF-8 Multi-byte Validation, Decoding & Unicode Invariants",
+          "url": "https://github.com/bad-antics/lateralus-lang/issues/549"
+        },
+        {
+          "budget_cents": 2500,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6541757462",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-22T11:19:35Z",
+          "status": "open",
+          "title": "[Bounty Claim] Tutorial: stdlib/diff.ltl - Myers Diff Algorithm, Shortest Edit Script & LCS",
+          "url": "https://github.com/bad-antics/lateralus-lang/issues/547"
+        },
+        {
+          "budget_cents": 5000,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6541745471",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-22T11:18:09Z",
+          "status": "open",
+          "title": "Decision: bug bounty awards paid from epoch distributions, approved by vote",
+          "url": "https://github.com/monkey-trading/engine/issues/1222"
+        },
+        {
+          "budget_cents": 2500,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6541737999",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-22T11:17:15Z",
+          "status": "open",
+          "title": "[bounty] stdlib.json tutorial",
+          "url": "https://github.com/bad-antics/lateralus-lang/issues/545"
+        },
+        {
+          "budget_cents": 2500,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6541727988",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-22T11:16:05Z",
+          "status": "open",
+          "title": "[Bounty Claim] Tutorial: stdlib/bitmap.ltl - High-Density BitSet, Bit Manipulation & Set Operations",
+          "url": "https://github.com/bad-antics/lateralus-lang/issues/544"
+        },
+        {
+          "budget_cents": 10000,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6541686442",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-22T11:11:17Z",
+          "status": "open",
+          "title": "[Bug Bounty] Rounding exit times marks an over-cap position as sellable in one day and selects the wrong slowest ticker",
+          "url": "https://github.com/Ayush441-python/AUREN/issues/202"
+        },
+        {
+          "budget_cents": 6000,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6541542589",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-22T10:55:21Z",
+          "status": "open",
+          "title": "\ud83c\udfaf Bounty Alert: 23 New Opportunityies found",
+          "url": "https://github.com/Rohank143/BountyScout/issues/136"
+        },
+        {
+          "budget_cents": 6000,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6541519805",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-22T10:52:57Z",
+          "status": "open",
+          "title": "\ud83c\udfaf Bounty Alert: 23 New Opportunityies found",
+          "url": "https://github.com/dev-kp-eloper/BountyScout/issues/1794"
+        },
+        {
+          "budget_cents": 6000,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6541433035",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-22T10:43:06Z",
+          "status": "open",
+          "title": "\ud83c\udfaf Bounty Alert: 20 New Opportunityies found",
+          "url": "https://github.com/freedom-winds/BountyScout/issues/1445"
         }
       ],
-      "open_count": 1,
+      "open_count": 10,
       "rejected": [
         {
-          "id": "6540756442",
+          "id": "6541693635",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6540754616",
+          "id": "6541693355",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6540727592",
+          "id": "6541679840",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6540687118",
+          "id": "6541665942",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6540662431",
+          "id": "6541636040",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6540641121",
+          "id": "6541607911",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6540575743",
+          "id": "6541580955",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6540559823",
+          "id": "6541557916",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6540515115",
+          "id": "6541531093",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6540487527",
+          "id": "6541529584",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6540385866",
+          "id": "6541495127",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6540385209",
+          "id": "6541471767",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6540256429",
+          "id": "6541461354",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6540086487",
+          "id": "6541435017",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6540077879",
+          "id": "6541398212",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6539895254",
+          "id": "6541372207",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6539891059",
+          "id": "6541360709",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6539875969",
+          "id": "6541347320",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6539868541",
+          "id": "6541320753",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6539868116",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6539864281",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6539839846",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6539788659",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6539782334",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6539686345",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6539662131",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6539606755",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6539600888",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6539597027",
+          "id": "6541317711",
           "reason": "no_explicit_20_to_300_usd_reward"
         }
       ],
