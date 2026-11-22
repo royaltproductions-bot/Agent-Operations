@@ -6785,13 +6785,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5OCwiY2hlY2twb2ludEF0IjoxNzk1MzIzOTQzOTg2fQ",
-  "last_bid_reconciliation": "2026-11-22T05:05:51.700246+00:00",
-  "last_check": "2026-11-22T05:05:51.705991+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5OCwiY2hlY2twb2ludEF0IjoxNzk1MzI1MTQ1MjM2fQ",
+  "last_bid_reconciliation": "2026-11-22T05:25:52.656179+00:00",
+  "last_check": "2026-11-22T05:25:52.661932+00:00",
   "market_observation": {
     "fetched_at": "2026-11-22T05:24:41.191261+00:00",
+    "last_checked_at": "2026-11-22T05:25:24.901001+00:00",
     "last_open_count": 74,
-    "newest_created_at": "2026-11-22T00:58:03.009000+00:00"
+    "newest_created_at": "2026-11-22T00:58:03.009000+00:00",
+    "newest_posted_at": "2026-11-22T00:58:03.009000+00:00"
   },
   "market_observation_history": [
     {
@@ -8239,15 +8241,70 @@
     "bountyboard": {
       "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
       "bidding_status": "operator_reconciliation_required",
-      "checked_at": "2026-11-22T04:25:22.214996+00:00",
+      "checked_at": "2026-11-22T05:25:24.004883+00:00",
       "listings": [],
       "open_count": 0,
       "status": "observed_authenticated"
     },
     "github_bounty": {
       "bidding_status": "platform_native_claim_not_verified",
-      "checked_at": "2026-11-22T03:25:03.461294+00:00",
+      "checked_at": "2026-11-22T05:25:24.171310+00:00",
       "listings": [
+        {
+          "budget_cents": 10000,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6538325756",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-22T04:14:02Z",
+          "status": "open",
+          "title": "[Bug Bounty] F-03 MEDIUM - Decoder blind to deposit_note_spl whose mint is loaded via Address Lookup Table",
+          "url": "https://github.com/paraloom-labs/paraloom-core/issues/1633"
+        },
+        {
+          "budget_cents": 25000,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6538314859",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-22T04:12:46Z",
+          "status": "open",
+          "title": "fix(dwarf_trace): Preserve exact column-offset delta invariants across exception handler tables ($250 bounty) [cpython-pep626-line-profiler]",
+          "url": "https://github.com/IES-BoilerRoom/cpython-pep626-line-profiler/issues/2"
+        },
+        {
+          "budget_cents": 12500,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6538314806",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-22T04:12:46Z",
+          "status": "open",
+          "title": "fix(dwarf_trace): Resolve trace frame ceiling off-by-one and PEP 626 instruction-envelope residue ($125 bounty) [collect_trace_event_frames]",
+          "url": "https://github.com/IES-BoilerRoom/cpython-pep626-line-profiler/issues/1"
+        },
+        {
+          "budget_cents": 15000,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6538183919",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-22T03:57:28Z",
+          "status": "open",
+          "title": "[BOUNTY] Medium: slash_validator double-decrements registry stake counters for a reset-excluded orphan, halting settlement quorum",
+          "url": "https://github.com/paraloom-labs/paraloom-core/issues/1631"
+        },
+        {
+          "budget_cents": 15000,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6538177063",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-22T03:56:44Z",
+          "status": "open",
+          "title": "[BOUNTY] Medium: unregister_validator double-decrements registry stake counters for a reset-excluded orphan, halting settlement quorum",
+          "url": "https://github.com/paraloom-labs/paraloom-core/issues/1630"
+        },
         {
           "budget_cents": 12500,
           "claim_status": "unverified_platform_terms",
@@ -8260,14 +8317,30 @@
           "url": "https://github.com/Ayush441-python/AUREN/issues/192"
         }
       ],
-      "open_count": 1,
+      "open_count": 6,
       "rejected": [
         {
-          "id": "6537797771",
+          "id": "6538571484",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6537717528",
+          "id": "6538282507",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6538272201",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6538140267",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6538138871",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6537797771",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
@@ -8340,42 +8413,6 @@
         },
         {
           "id": "6536606478",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6536575903",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6536405580",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6536072699",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6535876215",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6535839747",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6535763615",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6535750860",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6535750136",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6535749511",
           "reason": "no_explicit_20_to_300_usd_reward"
         }
       ],
