@@ -106,6 +106,14 @@
           "reason": "proposal_preview_not_ready"
         }
       },
+      "mx72h5rt4s2b48fw9n5vyzhz418jqds9": {
+        "bid_sent": {
+          "days": [
+            "2026-11-22"
+          ],
+          "first_at": "2026-11-22T00:59:44.676700+00:00"
+        }
+      },
       "mx72hwz41htyeaatvf4y29f2f18j0n7j": {
         "pass_unsupported": {
           "days": [
@@ -653,6 +661,14 @@
           ],
           "first_at": "2026-11-11T01:45:31.148399+00:00",
           "reason": "proposal_samples_missing"
+        }
+      },
+      "mx788ak2jbky9e4e55vhqyk5rs8jp17p": {
+        "bid_sent": {
+          "days": [
+            "2026-11-22"
+          ],
+          "first_at": "2026-11-22T00:59:34.252978+00:00"
         }
       },
       "mx78eanbrs75gfsdvaat9nmmbx8hwx6b": {
@@ -1752,9 +1768,9 @@
       }
     },
     "model_budget": {
-      "call_count": 393,
+      "call_count": 395,
       "month": "2026-11",
-      "reserved_micro_usd": 15135220
+      "reserved_micro_usd": 15217760
     }
   },
   "bounties": {
@@ -1833,8 +1849,12 @@
       "version": 1
     },
     "mx72h5rt4s2b48fw9n5vyzhz418jqds9": {
-      "action": "evaluation_pending",
-      "at": "2026-11-22T00:59:14.792729+00:00",
+      "action": "bid_active",
+      "at": "2026-11-22T00:59:44.676715+00:00",
+      "declined_at": null,
+      "declined_version": null,
+      "last_declined_bid": null,
+      "rebid_invitation_id": null,
       "version": 1
     },
     "mx72hwz41htyeaatvf4y29f2f18j0n7j": {
@@ -2094,8 +2114,12 @@
       "version": 1
     },
     "mx788ak2jbky9e4e55vhqyk5rs8jp17p": {
-      "action": "evaluation_pending",
-      "at": "2026-11-22T00:59:14.792700+00:00",
+      "action": "bid_active",
+      "at": "2026-11-22T00:59:34.252994+00:00",
+      "declined_at": null,
+      "declined_version": null,
+      "last_declined_bid": null,
+      "rebid_invitation_id": null,
       "version": 1
     },
     "mx78apwsra2pbng9yehfhbr5mh8hah01": {
@@ -4066,16 +4090,24 @@
       }
     },
     "mx72h5rt4s2b48fw9n5vyzhz418jqds9": {
-      "bid_amount_cents": null,
-      "bid_at": null,
-      "bid_id": null,
+      "bid_amount_cents": 5900,
+      "bid_at": 1795309184516,
+      "bid_id": "p178s9x0wt6axmaymbghajqk7n8jqbky",
+      "bid_status": "active",
+      "bid_status_changed_at": "2026-11-22T00:59:44.676470+00:00",
       "budget_cents": 7400,
+      "discount_percent": 20,
       "first_detected_at": "2026-11-22T00:59:14.792703+00:00",
       "observed_at": "2026-11-22T00:59:14.792703+00:00",
       "owner_activity_status": null,
       "platform_status": "open",
       "posted_at": "2026-11-22T00:55:17.010000+00:00",
+      "posted_budget_cents": 7400,
       "posted_time_field": "created_at",
+      "pricing_mode": "introductory_first_five",
+      "proposal_encrypted": "gAAAAABrAj6Ao91JzPM6AbeH8CA1V25mr-SZBSWoCHM0E6APulk5wmHtJ-RG2Dog-TCSDilwEq2tFu4GwZstRaBggIgj4t4gy-GpuazvVkgPTLBRsJU-Pf4ph2Myqd_j0GzS4lHC9KbAbSlR737UdskQjKxtCN6d8MqLTlN6W9VN6CIa2stDysda_qArZmk8mGebToHbc8lyOrlVpd4ejXEln6tXSFpSbnKz7EtupheL5uP_yoxykFVxAGJlH3llhKXrYvkjVrPMXKJANJjVH3WTyUgeOlLw4n0g65BJWe91TwGSAB2tPgx8VO4XGuoKGUCNuhJ3tjb4BjGK-n4NIvuNjexUEVyH-2LEDRuOOYrJbxc_qQrSoNQ0YN_2MNGDAD31TV2c9FjWFEG7HFMGSHkmj0zmTFGf_upZUS0Olz2vpnAd1oUoat5Vcj1A0vWgmjc_9enhsQObDYrPpvDBDlxFIXyAxbaoF11MZstwfGiy2fuxBzKWSzfbWwdStUlL5J-TGJQ437atb20Z6fTlNAfGbljA8O25esdme3oqdOvKJkWDqg-tYXXuLzI3xM3PY4s_krwR6hliScdkXYM5o69ytCsGzIBkPqvSQqAZi8jkgBLNf-iNwHZVuNhPJfGtiEdcmtZMvEk1eHJeIFu_LPw4sVOJl4ABTIYAa7Hml77iiK742hic9tXZ6C9p-hQe4EiErsFiKAryd-CrtXTxaxV6FeCx724JgMGmJOj9yV6s3cuiAjMRKU1XddXln3nWPzFig1wlzE7ooS8-MS3ZGCakO5dCvYECpjx1avSRxfbGMWXaYWLNS5hDs533V8lOI3PG5oqxgHle9wnkRuZh4JI7ke_b657tt1bzH9c_5hjEvRHGVOl5eWCOXFyv9WR_VmBLmcmmcJ8h_iMq-b1_QiGVjmSL8sPB9_dG_Q6lG6OXmvq2RoZEY1SQBb0j7lqyHGvh3QwDcNvsS6myMO29oS6RNoUmL3igJObPEGbX9M5p9L_qP5kJyi9OqZCC8wb9QskGr5H9W77RMQSyqJeR6bmHIyzhXbtFbKUVio4qR60eHPGdiKHIAuNTj9WKNGtHJh_c-zu9DGKdBMuTEOE2KGjHm12xKwdasPQGwYDUMF2XouEvvA55b_bwe-XQ9Tjh0L7XCfsIZuMlJW0ISEPHD6cb6W45Oh7AHZR_P_R25RKDQ2EQI6L-DZjPGxK5XNXiyiVc3kIgfYyfykWF4WEUX59zZCVC2nqX4mjPSRjDJNVHINTv-YtTG-c=",
+      "proposal_sha256": "d1789b44915c22a5c9e1472b3f49876e88e58904b34b92feead318fcac2a98f0",
+      "proposal_text_redacted": "I will deliver a concise PDF financial report covering revenue, expenses, cash flow, and key trends in plain language. I\u2019ll calculate period-to-period changes where supported, explain the main movements, and reconcile reported totals against your data while flagging gaps rather than guessing. Delivery is targeted within three hours after hire, assuming the statements are supplied at the start. Can you attach the financial statements or spreadsheet, including comparative periods and cash-flow data?\nNew on TryBounty; introductory rate while I build my track record.\nPreliminary sample: Preliminary report structure\u2014not financial findings: Revenue\u2014level and change over the available periods. Expenses\u2014major costs and their movement relative to revenue. Cash flow\u2014cash generated and used, distinguished from profit. Key trends\u2014material changes supported by the supplied figures.",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 7400,
@@ -4083,7 +4115,8 @@
         "currency": "usd",
         "status": "open",
         "updated_at": 1795308918499
-      }
+      },
+      "submitted_at": "2026-11-22T00:59:44.676449+00:00"
     },
     "mx72hwz41htyeaatvf4y29f2f18j0n7j": {
       "bid_amount_cents": null,
@@ -5050,16 +5083,24 @@
       }
     },
     "mx788ak2jbky9e4e55vhqyk5rs8jp17p": {
-      "bid_amount_cents": null,
-      "bid_at": null,
-      "bid_id": null,
+      "bid_amount_cents": 2000,
+      "bid_at": 1795309174083,
+      "bid_id": "p178zzk7cj9tnw4azx9z5zgj718jp58y",
+      "bid_status": "active",
+      "bid_status_changed_at": "2026-11-22T00:59:34.252282+00:00",
       "budget_cents": 2500,
+      "discount_percent": 20,
       "first_detected_at": "2026-11-22T00:59:14.792532+00:00",
       "observed_at": "2026-11-22T00:59:14.792532+00:00",
       "owner_activity_status": null,
       "platform_status": "open",
       "posted_at": "2026-11-22T00:58:03.009000+00:00",
+      "posted_budget_cents": 2500,
       "posted_time_field": "created_at",
+      "pricing_mode": "introductory_first_five",
+      "proposal_encrypted": "gAAAAABrAj52qKdAsC2bflHqDKb7H3NTJxrzRoyjUaIYowlQlCJ0z3ATOo3TShKNuJzRhpRLvSRefDhCgdcsPJwCmO6a6YhqFtiNoGwaC9DeSEkJkptZyQPUlxm2YhuNWf0oe6WbVyTUAng2ceIf96uGWn4ttFbF0M4Z3sa-K6H0b1qg5YJqL8W2q07f9hZbRmtWA7MPKgXfXEtf5ir0FeyjIIyJLpoJADoR1yh5x85jum1QeL4kNhr6IYgTcZHdowOTnp7C51KryxNX-YkYveNd6eAhB7P0kYPHv3gTqySl1B9W3BecNPhuBuqIu5ZIFL4vIeeNi6dGTugXvfFMggrCdhulRMRYizh6wzrlbQJmnrTmEk8UD8eWyIi6t6npbq3tcagc3Z2XPPSK85ZZOY1WxJ3DUX0Ep9cdJRh3IFxQB_2sF0agMwa8GrViciDuPnHWHny47VYllYzzR-uPaKrHrQOpCAK9qEubPz7zul2LcSUcNCP1Yvori5bcE7ld9aw09yHiY6KX5ve_93yBsE1apq2MRBQ8vz1X8dCRmMzMHbYyMy_CmrKlusXpjzDh7yVW0oT7P9S6HdhEGVy1wamFIPFyeVQ_XfipWueyRaCE5eBOEi6U9KiiCpp0OypzwVz_mLCM0ItErlJyyakGHPHTDJPcl46da2I8hMLETrabBOolT8U9RcjHFF-ZD_7-Xe8WzRX8dTDUeHetfwb-GxxMsBr_bxwUhAdXcJd1jwrync8G74G7ZERj9PYlYb-KXZvUIZQtwwoJgHk6LD7h4I2YY5Efc2e09081swuYiBXBKaqbdrNoJSOFlkLjmKllORBtutqe7WXAXhdC8wCNzqz8-VQDeoKfuR_Ff_Kk9ltWkINXFnBzFN4hQ4BEKRjHQPFm-qjjKoH6InZxsdn3erOvwHbF2_MFeXsdP-_kSmnN1ioxRvb0PxvGXzMcRPrX2mK08VPmfb2PRO_2G5aoEVKSi7mHS2rSzXW4iCq01M9ku4XCsiJI6T87HOOl-KCHFOahD6XVnIzBLFI-TmkPagcz4vVxeQyiAMMu0NlsN7kXKNSc82xgCESzMF95WitT2EvFXm717nxygZnr07-HTOd7BvPEjTv1hHw-m-HuIWohmgc1GKSh0DtRrCIZmweHvNaII4QrA1u-WLmwafalh0obvNNgBS5DusVmI27el9OAm8ZtaAUGkr_vdyvx8vRmczSlQCbG5LCqWssSUuNMuSUtv9x1IjWhv0pMq_WQq0aYm0tLm29UpeQ=",
+      "proposal_sha256": "78ee767ad932753f2f3edf284676e711c17f779003e0995a8d1a4026669284ef",
+      "proposal_text_redacted": "I will deliver a plain-language report in PDF and editable DOCX covering revenue, expenses, cash flow, and key trends, with a comparison table and references to the supplied figures. I\u2019ll calculate period-to-period changes, distinguish profit from cash movement, and check totals and calculations against the statements. Turnaround: within three hours after hire and receipt of the complete data. Can you attach the income statements, balance sheets, and cash-flow statements for the periods you want compared?\nNew on TryBounty; introductory rate while I build my track record.\nPreliminary sample: Preliminary report structure\u2014not findings: Revenue and expenses: what changed between periods and how that affected profit. Cash flow: whether operations generated cash and how investing and financing affected the cash balance. Key trends: the largest changes, supported by statement figures.",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 2500,
@@ -5067,7 +5108,8 @@
         "currency": "usd",
         "status": "open",
         "updated_at": 1795309087545
-      }
+      },
+      "submitted_at": "2026-11-22T00:59:34.252261+00:00"
     },
     "mx78apwsra2pbng9yehfhbr5mh8hah01": {
       "bid_amount_cents": null,
@@ -6717,12 +6759,12 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5NiwiY2hlY2twb2ludEF0IjoxNzk1MzA4MzE3NTg1fQ",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5OCwiY2hlY2twb2ludEF0IjoxNzk1MzA5MTYwNDI1fQ",
   "last_bid_reconciliation": "2026-11-22T00:45:24.458189+00:00",
-  "last_check": "2026-11-22T00:45:24.464995+00:00",
+  "last_check": "2026-11-22T00:59:44.684183+00:00",
   "market_observation": {
     "fetched_at": "2026-11-22T00:59:14.793862+00:00",
-    "last_checked_at": "2026-11-22T00:59:17.327499+00:00",
+    "last_checked_at": "2026-11-22T00:59:20.116283+00:00",
     "last_open_count": 74,
     "newest_created_at": "2026-11-22T00:58:03.009000+00:00",
     "newest_posted_at": "2026-11-22T00:58:03.009000+00:00"
@@ -8340,19 +8382,6 @@
   },
   "recent_outcomes": [
     {
-      "action": "evaluation_retry_scheduled",
-      "at": "2026-11-17T03:03:33.401846+00:00",
-      "bounty_id": "mx7f8sysgjjj265c6fzwmp2a7x8jd2ww",
-      "reason": "proposal_preview_not_ready",
-      "retry_count": 2
-    },
-    {
-      "action": "evaluation_abandoned",
-      "at": "2026-11-17T03:13:41.502884+00:00",
-      "bounty_id": "mx7f8sysgjjj265c6fzwmp2a7x8jd2ww",
-      "reason": "legacy_retry_limit"
-    },
-    {
       "action": "legacy_evidence_fallback_requeued",
       "at": "2026-11-17T03:33:21.910372+00:00",
       "bounty_id": "mx7f8sysgjjj265c6fzwmp2a7x8jd2ww",
@@ -8711,6 +8740,20 @@
       "action": "bid_followup_sent",
       "at": "2026-11-21T15:24:19.221565+00:00",
       "bounty_id": "mx7eetyt1wecy23d7y321cpngs8jkz1q"
+    },
+    {
+      "action": "bid_sent",
+      "at": "2026-11-22T00:59:34.252989+00:00",
+      "bounty_id": "mx788ak2jbky9e4e55vhqyk5rs8jp17p",
+      "payout_cents": 2000,
+      "version": 1
+    },
+    {
+      "action": "bid_sent",
+      "at": "2026-11-22T00:59:44.676710+00:00",
+      "bounty_id": "mx72h5rt4s2b48fw9n5vyzhz418jqds9",
+      "payout_cents": 5900,
+      "version": 1
     }
   ],
   "schema": 1,
