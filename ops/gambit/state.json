@@ -56,6 +56,12 @@
             "2026-11-14"
           ],
           "first_at": "2026-11-14T21:02:31.920956+00:00"
+        },
+        "operator_reprice_completed": {
+          "days": [
+            "2026-11-22"
+          ],
+          "first_at": "2026-11-22T20:47:52.433944+00:00"
         }
       },
       "mx71kmnjb2kh1wr75420taw3x18jhs2p": {
@@ -1799,7 +1805,7 @@
       "at": "2026-11-14T15:10:58.637693+00:00",
       "evidence_failures": 0,
       "feasible_ask_review_version": 3,
-      "last_asked_review_at": "2026-11-22T14:46:49.036662+00:00",
+      "last_asked_review_at": "2026-11-22T20:48:02.425165+00:00",
       "last_declined_bid": null,
       "last_error": "ValueError",
       "last_question_version": 3,
@@ -1900,7 +1906,7 @@
       "at": "2026-11-15T15:42:49.184587+00:00",
       "evidence_failures": 1,
       "feasible_ask_review_version": 1,
-      "last_asked_review_at": "2026-11-22T14:46:48.361702+00:00",
+      "last_asked_review_at": "2026-11-22T20:48:01.701808+00:00",
       "last_declined_bid": null,
       "last_error": "proposal_samples_missing",
       "last_question_version": 1,
@@ -2106,7 +2112,7 @@
       "at": "2026-11-11T01:45:31.148379+00:00",
       "evidence_failures": 2,
       "feasible_ask_review_version": 1,
-      "last_asked_review_at": "2026-11-22T14:46:50.677347+00:00",
+      "last_asked_review_at": "2026-11-22T20:48:04.130840+00:00",
       "last_declined_bid": null,
       "last_error": "proposal_samples_missing",
       "last_question_version": 1,
@@ -2147,7 +2153,7 @@
       "at": "2026-11-11T01:45:03.774113+00:00",
       "evidence_failures": 1,
       "feasible_ask_review_version": 1,
-      "last_asked_review_at": "2026-11-22T14:46:50.128326+00:00",
+      "last_asked_review_at": "2026-11-22T20:48:03.550388+00:00",
       "last_declined_bid": null,
       "last_error": "proposal_samples_missing",
       "last_question_version": 1,
@@ -2400,7 +2406,7 @@
       "at": "2026-11-11T01:44:38.145199+00:00",
       "evidence_failures": 1,
       "feasible_ask_review_version": 1,
-      "last_asked_review_at": "2026-11-22T14:46:49.586681+00:00",
+      "last_asked_review_at": "2026-11-22T20:48:03.001018+00:00",
       "last_declined_bid": null,
       "last_error": "proposal_samples_missing",
       "last_question_version": 1,
@@ -3884,10 +3890,10 @@
       }
     },
     "mx713jqgcsevmx5jfgvz6qnmed8j60gv": {
-      "bid_amount_cents": 800,
-      "bid_at": 1794690440384,
-      "bid_created_at": 1794690440384,
-      "bid_id": "p17bhdvbqv4vzxc6q7hm88h6c98j75zj",
+      "bid_amount_cents": 500,
+      "bid_at": 1795380471563,
+      "bid_created_at": 1795380471563,
+      "bid_id": "p176bbsqps0j9c236sbf3t7c3s8jpgj1",
       "bid_status": "active",
       "bid_status_changed_at": "2026-11-14T21:07:20.556345+00:00",
       "bid_updated_at": null,
@@ -3957,7 +3963,7 @@
       "declined_at": "2026-11-14T21:06:58.891775+00:00",
       "discount_percent": 20,
       "first_detected_at": "2026-11-14T21:01:53.775970+00:00",
-      "last_outgoing_at": "2026-11-16T09:40:22.461766+00:00",
+      "last_outgoing_at": "2026-11-22T20:47:52.424338+00:00",
       "observed_at": "2026-11-14T21:01:53.775970+00:00",
       "outcome": "declined",
       "owner_activity_status": "reply_observed",
@@ -3967,9 +3973,9 @@
       "posted_budget_cents": 1000,
       "posted_time_field": "created_at",
       "pricing_mode": "introductory_first_five",
-      "proposal_encrypted": "gAAAAABq-M2IfzIg755u3gnEaPZUX7iSNo1eZwOYbvr48am8GhPgxB2s5gBfZaGtETnN9axJ4x9-erKV4P6KyRni3wM3sf1qHmf-PvGs9DWc7k0O3rBSMaO4KySpIbdVLiLf6yHHbP2i7WKe6gMGRmMMSxlHbDp7bNKRGc8SG2F7lKfokqm7naqAyiacOgdR1rRIM_bRtakLPxnjee-dgr7XmW6oevUb3fNi8Q-2bMHHN5hn29DDjuGAi5Dh4ZD9gPGL8LEWBArThbiiBc0YGYuJpVb4uz7D-sW_uGcMDxntxOFXpFxf_XqXW_-M06Lc9yZXXtTEXrHwoMulg5jy4-hLbbFPBNeGVQzaHKD39IWXy7mp89xVgdfTDYSNmW4dq50GIPhT0NMR5eJ6WE7sxFiBLzPB5nwMYkdXU7g-ld6kRYeZ4M7wGprsIXNDyH9mo8LKQzrCFZaNKYsaQsEw-wYpi3rifsRa3YfRiyl9gCK6RJptIo1WFY9B9BDO_3_XwwTIB-v0yU1dAUsHo3mYG3ackUrqjhX581IlTkb2BE9rZT7Bw0vFtTRrwzKDaPGWJx2VmtSEY5BTpYWv2WtZ-uUQW24blCB2_Krj9EUEqmZUQkKRTKyFTB1Xp1-3HzhOwGLcjAZE6p41Oajr3eIozSwsianUmVqVLJT_gTgJ7dkqflJfcOhY32kqWCA7K_sX0VTrblfequmUxv1vZe4l7dn6yLrZ3Xt5S5B7Oavn8dnL0TlJUKUxzrNFjmfh9oC7JXf2n77c0_axtKFrk7SIpUrh0ERGlcglxSS6Gx64-fqmC92XCmHIYAXAjU0c_MtEoVP5zXl24nxXG_pqp396JiYP5mRh6_OsFMv-n_JvzXzIDYoNppi6Ssu1R1AKp0KJ-j5x5krzBtnFv1P8EV2sp68xV2KKD5yoZr-VF9iucctsDXOMmjE7BmV1-8k-tBRX7jSZpjFa8NPeDZpnTm_oRnfmzDowRlkLmif1bDvfOlzuUsUCDPmFvD3SoLfYu7CGKRJY0OHDWb6AMD-wXFPvLpsphx-0mnxbQymJC0spRbnLlLnYhB3T0wLcn-Jb9li8eK_oQIi-GcasH2iziAHO-Z5voJcIQcdctxQawRUPeEq4e10nPd3J7g96L1Ryy3cVICxAPMsTQ8jfJI5jpMgDlkhw0sDwUb9l6NJg-xOIN2rw6Wnmo4O7D2hPwMCipUFAhzNXo3Zrt9uilPS632j228vw8OqmXMtU0Osoaw4ij3GzhrIMwir58arUKd8MeF8DOdvTHNgZzf51",
-      "proposal_sha256": "6a043f4795844a38009ad0b8699273f37c29e7dd9be9e18acdae174c42de0fc3",
-      "proposal_text_redacted": "I will deliver one editable PowerPoint (.pptx) design file within 24 hours after hire for your offered $5. Three slides will show the conversation flow, the user's match-prediction request, and the chatbot's prediction response. I'll use a dark stadium-inspired interface with green accents, match-selection prompts, probability cards, and follow-up actions. I'll check that the flow and mockups agree, text remains readable, and both the question and prediction are clearly visible. Prediction values will be labeled illustrative.\nNew on TryBounty; introductory rate while I build my track record.\nPreliminary sample: Preliminary conversation sample \u2014 User: \u201cWho will win Team A vs Team B?\u201d Chatbot: \u201cTeam A is the slight favorite: Team A 45%, draw 30%, Team B 25%. Illustrative prediction\u2014not a guaranteed result.\u201d Follow-up buttons: \u201cWhy this prediction?\u201d and \u201cChoose another match.\u201d",
+      "proposal_encrypted": "gAAAAABrA1T33uShopfzKOogDN9zMLBoZvHO2CR4O_d0tZFiI5xxfuMY9ssFY-2YSUxTpiq9M_Ry0OBnhkzovNyocAPXPRvQzM6hToH_cLSEgyjSe_OXWPU0R6d46GpmgoKfMS5he1Dd8HWN1xSJevtrC2urPtMVCqSaGi76kRz3NYklX-OLqNp3Cd2IlpfAhjIaLVn5ZrpeBNa8ixaZET5s89tpwqHu8eJ_pO-bmNmmt-MPCevBMPL9cpDaKvaLHhlGkHyX8X4kPR-Yk9Svyo2mTTZ6-n9GJrT7ug-XcdT7DDWNNZDxS5hJtkwQJJO-MQ_qBAvpw9vp37y5gV7SsqL_leMMOsT6t9yMXMC8nAC8av1Lqgc-GXtC5Z0xBpq_Hi5Sv58Ik6-k2r9KhSEcGDiQEAyuZF9iFQ==",
+      "proposal_sha256": "0e5fc7370f7a72b150103b880b798cc1592ed769e8be441f597f51b4bfdafb21",
+      "proposal_text_redacted": "One PDF (designed in PowerPoint) with the chatbot conversation flow and a web mockup showing an illustrative match prediction; delivered within 48 hours of hire. Design only, not a working prediction service. New on TryBounty; introductory rate.",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 1000,
@@ -6785,12 +6791,12 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5OCwiY2hlY2twb2ludEF0IjoxNzk1Mzc5MjQxOTQ3fQ",
-  "last_bid_reconciliation": "2026-11-22T20:27:31.124545+00:00",
-  "last_check": "2026-11-22T20:27:31.133716+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5OCwiY2hlY2twb2ludEF0IjoxNzk1MzgwNDcwOTI0fQ",
+  "last_bid_reconciliation": "2026-11-22T20:48:01.431355+00:00",
+  "last_check": "2026-11-22T20:48:04.406662+00:00",
   "market_observation": {
     "fetched_at": "2026-11-22T20:46:45.418443+00:00",
-    "last_checked_at": "2026-11-22T20:47:08.020718+00:00",
+    "last_checked_at": "2026-11-22T20:47:30.537604+00:00",
     "last_open_count": 74,
     "newest_created_at": "2026-11-22T00:58:03.009000+00:00",
     "newest_posted_at": "2026-11-22T00:58:03.009000+00:00"
@@ -8406,13 +8412,18 @@
       "status": "observed_public"
     }
   },
+  "operator_actions_done": {
+    "hg6-mx713": {
+      "bid_id": "p176bbsqps0j9c236sbf3t7c3s8jpgj1",
+      "completed_at": "2026-11-22T20:47:52.433906+00:00",
+      "message_id": "qd71f4hrqq7byqyxtbxa340ngs8jq102",
+      "message_sent_at": "2026-11-22T20:47:52.424338+00:00",
+      "payout_cents": 500,
+      "price_confirmed_at": "2026-11-22T20:47:52.061304+00:00",
+      "status": "complete"
+    }
+  },
   "recent_outcomes": [
-    {
-      "action": "legacy_evidence_fallback_requeued",
-      "at": "2026-11-17T03:33:21.910372+00:00",
-      "bounty_id": "mx7f8sysgjjj265c6fzwmp2a7x8jd2ww",
-      "reason": "proposal_preview_not_ready"
-    },
     {
       "action": "proposal_brief_outline_sent",
       "at": "2026-11-17T03:34:11.730711+00:00",
@@ -8780,6 +8791,13 @@
       "bounty_id": "mx72h5rt4s2b48fw9n5vyzhz418jqds9",
       "payout_cents": 5900,
       "version": 1
+    },
+    {
+      "action": "operator_reprice_completed",
+      "action_id": "hg6-mx713",
+      "at": "2026-11-22T20:47:52.433953+00:00",
+      "bounty_id": "mx713jqgcsevmx5jfgvz6qnmed8j60gv",
+      "payout_cents": 500
     }
   ],
   "schema": 1,
