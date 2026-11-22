@@ -58,6 +58,38 @@ def rejection_reason(item, now):
     return None
 
 
+
+def payer_mechanism(item, opener=None):
+    """Only platform-bot or repository maintainer evidence counts as backing."""
+    url = str(item.get("comments_url") or "")
+    if not url.startswith("https://api.github.com/repos/") or not url.endswith("/comments"):
+        return "unverified"
+    request = urllib.request.Request(url + "?per_page=100", headers={
+        "Accept": "application/vnd.github+json",
+        "User-Agent": "ARI-Gambit-bounty-observer/1.0"})
+    try:
+        with (opener or urllib.request.urlopen)(request, timeout=12) as response:
+            comments = json.loads(response.read(300000).decode("utf-8"))
+    except (OSError, ValueError, TimeoutError):
+        return "unverified"
+    if not isinstance(comments, list):
+        return "unverified"
+    for comment in comments:
+        author = str((comment.get("user") or {}).get("login") or "").lower()
+        body = str(comment.get("body") or "")
+        if ("algora" in author and "bot" in author and
+                re.search(r"(?i)\b(bounty|reward)\b", body)):
+            return "algora"
+        if ("opire" in author and "bot" in author and
+                re.search(r"(?i)\b(bounty|reward)\b", body)):
+            return "opire"
+        if (comment.get("author_association") in {"OWNER", "MEMBER", "COLLABORATOR"} and
+                re.search(r"(?i)\b(pay|paid|payment|payout|reward)\b", body) and
+                re.search(r"(?i)\b(algora|opire|escrow|paypal|stripe|usdc|bank transfer)\b", body)):
+            return "maintainer_explicit"
+    return "unverified"
+
+
 def observe(state, opener=None, now=None):
     now = now or datetime.now(timezone.utc)
     market = state.setdefault("marketplaces", {}).setdefault(MARKETPLACE, {})
@@ -86,9 +118,14 @@ def observe(state, opener=None, now=None):
                                  "reason": reason})
                 continue
             cents = parse_reward_cents(item)
+            mechanism = payer_mechanism(item, opener=opener)
+            if mechanism == "unverified":
+                rejected.append({"id": str(item.get("id") or "")[:40],
+                                 "reason": "payer_mechanism_unverified"})
+                continue
             url = str(item.get("html_url") or "")
             listings.append({
-                "payer_mechanism": "unverified",
+                "payer_mechanism": mechanism,
                 "marketplace": MARKETPLACE,
                 "id": str(item.get("id") or "")[:40],
                 "url": url[:350],
