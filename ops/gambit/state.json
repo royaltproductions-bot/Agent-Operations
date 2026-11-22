@@ -6785,13 +6785,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5OCwiY2hlY2twb2ludEF0IjoxNzk1MzMxMTQ4MjY4fQ",
-  "last_bid_reconciliation": "2026-11-22T07:05:56.303168+00:00",
-  "last_check": "2026-11-22T07:05:56.309257+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5OCwiY2hlY2twb2ludEF0IjoxNzk1MzMyMzQ5NTEwfQ",
+  "last_bid_reconciliation": "2026-11-22T07:25:57.204812+00:00",
+  "last_check": "2026-11-22T07:25:57.210184+00:00",
   "market_observation": {
     "fetched_at": "2026-11-22T07:24:45.267282+00:00",
+    "last_checked_at": "2026-11-22T07:25:29.193555+00:00",
     "last_open_count": 74,
-    "newest_created_at": "2026-11-22T00:58:03.009000+00:00"
+    "newest_created_at": "2026-11-22T00:58:03.009000+00:00",
+    "newest_posted_at": "2026-11-22T00:58:03.009000+00:00"
   },
   "market_observation_history": [
     {
@@ -8239,178 +8241,157 @@
     "bountyboard": {
       "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
       "bidding_status": "operator_reconciliation_required",
-      "checked_at": "2026-11-22T06:25:26.252683+00:00",
+      "checked_at": "2026-11-22T07:25:28.383279+00:00",
       "listings": [],
       "open_count": 0,
       "status": "observed_authenticated"
     },
     "github_bounty": {
       "bidding_status": "platform_native_claim_not_verified",
-      "checked_at": "2026-11-22T05:25:24.171310+00:00",
+      "checked_at": "2026-11-22T07:25:28.557667+00:00",
       "listings": [
         {
-          "budget_cents": 10000,
+          "budget_cents": 3500,
           "claim_status": "unverified_platform_terms",
           "currency": "USD",
-          "id": "6538325756",
+          "id": "6539432381",
           "marketplace": "github_bounty",
-          "posted_at": "2026-11-22T04:14:02Z",
+          "posted_at": "2026-11-22T06:43:16Z",
           "status": "open",
-          "title": "[Bug Bounty] F-03 MEDIUM - Decoder blind to deposit_note_spl whose mint is loaded via Address Lookup Table",
-          "url": "https://github.com/paraloom-labs/paraloom-core/issues/1633"
+          "title": "COMMISSION WORLD OPEN-DATA INTELLIGENCE \u2014 source-cited reports from US$15",
+          "url": "https://github.com/kwesigaamon8-web/Amon-Kwesiga/issues/40"
         },
         {
-          "budget_cents": 25000,
+          "budget_cents": 7500,
           "claim_status": "unverified_platform_terms",
           "currency": "USD",
-          "id": "6538314859",
+          "id": "6539343641",
           "marketplace": "github_bounty",
-          "posted_at": "2026-11-22T04:12:46Z",
+          "posted_at": "2026-11-22T06:31:08Z",
           "status": "open",
-          "title": "fix(dwarf_trace): Preserve exact column-offset delta invariants across exception handler tables ($250 bounty) [cpython-pep626-line-profiler]",
-          "url": "https://github.com/IES-BoilerRoom/cpython-pep626-line-profiler/issues/2"
+          "title": "[demand] high-priority 2026-11-22T06:31",
+          "url": "https://github.com/relayhop/ClaudeEarnSelf-runtime/issues/1259"
         },
         {
-          "budget_cents": 12500,
+          "budget_cents": 20000,
           "claim_status": "unverified_platform_terms",
           "currency": "USD",
-          "id": "6538314806",
+          "id": "6539087837",
           "marketplace": "github_bounty",
-          "posted_at": "2026-11-22T04:12:46Z",
+          "posted_at": "2026-11-22T05:58:58Z",
           "status": "open",
-          "title": "fix(dwarf_trace): Resolve trace frame ceiling off-by-one and PEP 626 instruction-envelope residue ($125 bounty) [collect_trace_event_frames]",
-          "url": "https://github.com/IES-BoilerRoom/cpython-pep626-line-profiler/issues/1"
-        },
-        {
-          "budget_cents": 15000,
-          "claim_status": "unverified_platform_terms",
-          "currency": "USD",
-          "id": "6538183919",
-          "marketplace": "github_bounty",
-          "posted_at": "2026-11-22T03:57:28Z",
-          "status": "open",
-          "title": "[BOUNTY] Medium: slash_validator double-decrements registry stake counters for a reset-excluded orphan, halting settlement quorum",
-          "url": "https://github.com/paraloom-labs/paraloom-core/issues/1631"
-        },
-        {
-          "budget_cents": 15000,
-          "claim_status": "unverified_platform_terms",
-          "currency": "USD",
-          "id": "6538177063",
-          "marketplace": "github_bounty",
-          "posted_at": "2026-11-22T03:56:44Z",
-          "status": "open",
-          "title": "[BOUNTY] Medium: unregister_validator double-decrements registry stake counters for a reset-excluded orphan, halting settlement quorum",
-          "url": "https://github.com/paraloom-labs/paraloom-core/issues/1630"
-        },
-        {
-          "budget_cents": 12500,
-          "claim_status": "unverified_platform_terms",
-          "currency": "USD",
-          "id": "6537394295",
-          "marketplace": "github_bounty",
-          "posted_at": "2026-11-22T02:28:18Z",
-          "status": "open",
-          "title": "[Bug Bounty] Wallet import returns 502 for a valid Base address",
-          "url": "https://github.com/Ayush441-python/AUREN/issues/192"
+          "title": "[P1 COMMUNITY CREATION] Existing communities \u2192 creator bounties, tips and recognition; Fungi/Oyster \u00d7 $SHIIT example",
+          "url": "https://github.com/loftwah/app-composer/issues/1096"
         }
       ],
-      "open_count": 6,
+      "open_count": 3,
       "rejected": [
         {
-          "id": "6538571484",
+          "id": "6539788659",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6538282507",
+          "id": "6539782334",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6538272201",
+          "id": "6539686345",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6538140267",
+          "id": "6539662131",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6538138871",
+          "id": "6539606755",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6537797771",
+          "id": "6539600888",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6537615495",
+          "id": "6539597027",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6537613011",
+          "id": "6539555748",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6537597687",
+          "id": "6539542764",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6537595995",
+          "id": "6539496448",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6537558940",
+          "id": "6539421806",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6537407789",
+          "id": "6539410642",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6537399401",
+          "id": "6539410276",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6537371300",
+          "id": "6539399107",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6537289017",
+          "id": "6539398756",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6537257866",
+          "id": "6539398391",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6537257157",
+          "id": "6539374462",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6537163366",
+          "id": "6539351799",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6536884710",
+          "id": "6539299595",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6536776311",
+          "id": "6539228786",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6536753187",
+          "id": "6539196378",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6536614134",
+          "id": "6539154476",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6536610657",
+          "id": "6539152079",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6536606478",
+          "id": "6538914423",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6538902340",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6538897026",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6538891850",
           "reason": "no_explicit_20_to_300_usd_reward"
         }
       ],
