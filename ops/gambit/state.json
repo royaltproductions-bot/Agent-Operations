@@ -6785,13 +6785,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5OCwiY2hlY2twb2ludEF0IjoxNzk1MzYwMDEzNDU4fQ",
-  "last_bid_reconciliation": "2026-11-22T15:07:02.947474+00:00",
-  "last_check": "2026-11-22T15:07:02.956585+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5OCwiY2hlY2twb2ludEF0IjoxNzk1MzYxMjE1NTIzfQ",
+  "last_bid_reconciliation": "2026-11-22T15:27:05.387121+00:00",
+  "last_check": "2026-11-22T15:27:05.396045+00:00",
   "market_observation": {
     "fetched_at": "2026-11-22T15:25:49.919022+00:00",
+    "last_checked_at": "2026-11-22T15:26:35.090228+00:00",
     "last_open_count": 74,
-    "newest_created_at": "2026-11-22T00:58:03.009000+00:00"
+    "newest_created_at": "2026-11-22T00:58:03.009000+00:00",
+    "newest_posted_at": "2026-11-22T00:58:03.009000+00:00"
   },
   "market_observation_history": [
     {
@@ -8239,199 +8241,206 @@
     "bountyboard": {
       "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
       "bidding_status": "operator_reconciliation_required",
-      "checked_at": "2026-11-22T14:26:16.870133+00:00",
+      "checked_at": "2026-11-22T15:26:33.803714+00:00",
       "listings": [],
       "open_count": 0,
       "status": "observed_authenticated"
     },
     "github_bounty": {
       "bidding_status": "platform_native_claim_not_verified",
-      "checked_at": "2026-11-22T13:26:13.774935+00:00",
+      "checked_at": "2026-11-22T15:26:34.235139+00:00",
       "listings": [
         {
-          "budget_cents": 2458,
+          "budget_cents": 2500,
           "claim_status": "unverified_platform_terms",
           "currency": "USD",
-          "id": "6542470856",
+          "id": "6544130800",
           "marketplace": "github_bounty",
-          "posted_at": "2026-11-22T12:38:12Z",
+          "posted_at": "2026-11-22T15:23:36Z",
           "status": "open",
-          "title": "Propuesta T\u00e9cnica: MEV Protection + Keeper Infra + RWA Oracle Reliability ()",
-          "url": "https://github.com/gmsol-labs/gmx-solana/issues/523"
+          "title": "[bounty] stdlib.influx_line tutorial: InfluxDB line protocol serialization and parsing",
+          "url": "https://github.com/bad-antics/lateralus-lang/issues/664"
         },
         {
           "budget_cents": 2500,
           "claim_status": "unverified_platform_terms",
           "currency": "USD",
-          "id": "6542435228",
+          "id": "6543968471",
           "marketplace": "github_bounty",
-          "posted_at": "2026-11-22T12:34:41Z",
+          "posted_at": "2026-11-22T15:07:50Z",
           "status": "open",
-          "title": "stdlib: add convex_hull tutorial with 2D cross product orientation vectors",
-          "url": "https://github.com/bad-antics/lateralus-lang/issues/598"
+          "title": "[Bounty Claim] Tutorial: stdlib/parsec.ltl - Monadic Parser Combinators, Ordered Choice, Sequence & Predictive Grammars",
+          "url": "https://github.com/bad-antics/lateralus-lang/issues/662"
         },
         {
           "budget_cents": 2500,
           "claim_status": "unverified_platform_terms",
           "currency": "USD",
-          "id": "6542408847",
+          "id": "6543967348",
           "marketplace": "github_bounty",
-          "posted_at": "2026-11-22T12:32:05Z",
+          "posted_at": "2026-11-22T15:07:44Z",
           "status": "open",
-          "title": "stdlib: add shunting_yard tutorial with operator precedence and RPN vectors",
-          "url": "https://github.com/bad-antics/lateralus-lang/issues/596"
+          "title": "[Bounty Claim] Tutorial: stdlib/units.ltl - Dimensional Analysis, SI Base/Derived Unit Algebra & Homogeneity Invariants",
+          "url": "https://github.com/bad-antics/lateralus-lang/issues/660"
         },
         {
           "budget_cents": 2500,
           "claim_status": "unverified_platform_terms",
           "currency": "USD",
-          "id": "6542385855",
+          "id": "6543966126",
           "marketplace": "github_bounty",
-          "posted_at": "2026-11-22T12:29:48Z",
+          "posted_at": "2026-11-22T15:07:37Z",
           "status": "open",
-          "title": "stdlib: add miller_rabin tutorial with primality test and mod_pow vectors",
-          "url": "https://github.com/bad-antics/lateralus-lang/issues/594"
+          "title": "[Bounty Claim] Tutorial: stdlib/statistics.ltl - Descriptive Statistics, Variance, Interquartile Range (IQR) & Outlier Z-Scores",
+          "url": "https://github.com/bad-antics/lateralus-lang/issues/658"
         },
         {
           "budget_cents": 2500,
           "claim_status": "unverified_platform_terms",
           "currency": "USD",
-          "id": "6542363567",
+          "id": "6543965100",
           "marketplace": "github_bounty",
-          "posted_at": "2026-11-22T12:27:31Z",
+          "posted_at": "2026-11-22T15:07:31Z",
           "status": "open",
-          "title": "stdlib: add matrix_chain tutorial with interval DP and parenthesization vectors",
-          "url": "https://github.com/bad-antics/lateralus-lang/issues/592"
+          "title": "[Bounty Claim] Tutorial: stdlib/fsm.ltl - Deterministic Finite State Machines, Guarded Transition Tables & Escrow Automata",
+          "url": "https://github.com/bad-antics/lateralus-lang/issues/656"
         },
         {
           "budget_cents": 2500,
           "claim_status": "unverified_platform_terms",
           "currency": "USD",
-          "id": "6542340272",
+          "id": "6543964000",
           "marketplace": "github_bounty",
-          "posted_at": "2026-11-22T12:25:11Z",
+          "posted_at": "2026-11-22T15:07:25Z",
           "status": "open",
-          "title": "stdlib: add ext_gcd tutorial with B\u00e9zout identity and modular inverse vectors",
-          "url": "https://github.com/bad-antics/lateralus-lang/issues/590"
+          "title": "[Bounty Claim] Tutorial: stdlib/bitpack.ltl - Sub-Byte Integer Bitpacking, 4-Lane Word Compression & Signed ZigZag Bijection",
+          "url": "https://github.com/bad-antics/lateralus-lang/issues/654"
         },
         {
           "budget_cents": 2500,
           "claim_status": "unverified_platform_terms",
           "currency": "USD",
-          "id": "6542297563",
+          "id": "6543962898",
           "marketplace": "github_bounty",
-          "posted_at": "2026-11-22T12:20:54Z",
+          "posted_at": "2026-11-22T15:07:18Z",
           "status": "open",
-          "title": "stdlib: add floyd_warshall tutorial with all-pairs shortest path and negative cycle vectors",
-          "url": "https://github.com/bad-antics/lateralus-lang/issues/588"
+          "title": "[Bounty Claim] Tutorial: stdlib/bencode.ltl - BEP-0003 Canonical Bencode Serialization & Lexicographical Dictionary Ordering",
+          "url": "https://github.com/bad-antics/lateralus-lang/issues/652"
         },
         {
           "budget_cents": 2500,
           "claim_status": "unverified_platform_terms",
           "currency": "USD",
-          "id": "6542274853",
+          "id": "6543954706",
           "marketplace": "github_bounty",
-          "posted_at": "2026-11-22T12:18:37Z",
+          "posted_at": "2026-11-22T15:06:32Z",
           "status": "open",
-          "title": "stdlib: add lcs tutorial with 2D dynamic programming and sequence reconstruction vectors",
-          "url": "https://github.com/bad-antics/lateralus-lang/issues/586"
+          "title": "[Bounty Claim] Tutorial: stdlib/rational.ltl - Canonical Rational Arithmetic, Euclidean GCD Reduction & Zero-Drift Financial Splits",
+          "url": "https://github.com/bad-antics/lateralus-lang/issues/650"
         },
         {
-          "budget_cents": 2500,
+          "budget_cents": 6982,
           "claim_status": "unverified_platform_terms",
           "currency": "USD",
-          "id": "6542241041",
+          "id": "6543874235",
           "marketplace": "github_bounty",
-          "posted_at": "2026-11-22T12:14:58Z",
+          "posted_at": "2026-11-22T14:58:47Z",
           "status": "open",
-          "title": "stdlib: add bst tutorial with binary search tree and in-order traversal vectors",
-          "url": "https://github.com/bad-antics/lateralus-lang/issues/583"
+          "title": "[Medium] Root eviction griefing: 64 \u00d7 1-lamport deposits evict a victim's root from the 64-root history, blocking their spend (UnknownMerkleRoot)",
+          "url": "https://github.com/paraloom-labs/paraloom-core/issues/1661"
+        },
+        {
+          "budget_cents": 12500,
+          "claim_status": "unverified_platform_terms",
+          "currency": "USD",
+          "id": "6543791951",
+          "marketplace": "github_bounty",
+          "posted_at": "2026-11-22T14:50:41Z",
+          "status": "open",
+          "title": "[demand] high-priority 2026-11-22T14:50",
+          "url": "https://github.com/relayhop/ClaudeEarnSelf-runtime/issues/1262"
         }
       ],
-      "open_count": 9,
+      "open_count": 10,
       "rejected": [
         {
-          "id": "6542873808",
+          "id": "6544139971",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6542830671",
+          "id": "6544115884",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6542816909",
+          "id": "6544029967",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6542764718",
+          "id": "6543548763",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6542759467",
+          "id": "6543504501",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6542722159",
+          "id": "6543480833",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6542687146",
+          "id": "6543465618",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6542682569",
+          "id": "6543399117",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6542678488",
+          "id": "6543364115",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6542678104",
+          "id": "6543311639",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6542677915",
+          "id": "6543311456",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6542677756",
+          "id": "6543275205",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6542677251",
+          "id": "6543240309",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6542634697",
+          "id": "6543208539",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6542601282",
+          "id": "6543173546",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6542559421",
+          "id": "6543140463",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6542525793",
+          "id": "6543095743",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6542488575",
+          "id": "6543064399",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6542479245",
+          "id": "6543038690",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
-          "id": "6542258370",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6542242726",
+          "id": "6543014796",
           "reason": "no_explicit_20_to_300_usd_reward"
         }
       ],
