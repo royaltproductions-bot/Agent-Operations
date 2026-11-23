@@ -1,0 +1,15 @@
+ARI X-Variant 8-hour receipt watch
+Window UTC: 2026-11-23T10:00:00Z to 2026-11-23T18:00:00Z
+Report created: 2026-11-23T18:02:19Z (approximate run start; inspection completed shortly afterward)
+Evidence: GitHub main recursive tree (3340 entries, not truncated), main commits for window (none); gambit-state state.json and openai_budget.json; Gambit workflow and Actions runs; provider router and tests. State last_check/reconciliation 17:50:25Z; market observation 17:59:10Z; health 17:59:33Z. Final seconds may not be represented.
+
+Wolverine: 0 new receipts under ops/enterprise-runs; 0 evidenced new external actions, offers/assets, fulfillments, or verified earnings. Structural issue: no current buyer traction evidenced.
+Cyclops: 0 new receipts under ops/cyclops-runs; 0 evidenced new external actions, offers/assets, fulfillments, or verified earnings. Structural issue: distribution/checkout conversion remains unverified.
+Gambit: 0 standalone receipts and 0 events in bounded recent_outcomes during window; 74 open TryBounty listings observed (not 74 assessed); qualified assessments and passes unknown; 0 newly retained buyer questions, bids, repricings, declines, withdrawals, missing bids, claims/refunds, hires, submissions, verification failures, acceptances or completed settlements. Distinct settlements ledger entries: 0; platform earnings $0 verified; Stripe deposits unverified. Bid-to-hire and submission success not measurable yet. Last check/reconciliation 17:50:25Z. Watch health 36 successful cycles, 0 failed for current run at 17:59:33Z. GitHub Gambit run 45164706620 success, 45197796115 in progress at inspection; green workflow is not revenue. BountyBoard 0 open, operator reconciliation required; GitHub bounty discovery 30 candidates, 0 qualified paid listings. Public TryBounty profile not independently verified.
+Other X-variant receipt lanes: none independently identified in ops directory scan.
+Spending: November cumulative OpenAI reservation 15.217760 USD / 38 USD cap, 395 calls; NOT window expense or independently verified invoice.
+Evidence confidence: high for repository tree, window main commits, state snapshot and settlement ledger; limited for complete marketplace event coverage due to bounded recent_outcomes and inaccessible independent TryBounty profile.
+Errors: no GitHub read errors for primary evidence; independent marketplace profile unverified.
+Highest-impact refinement (PENDING): persist append-only timestamped commercial event receipts for assessments, passes, bids, buyer replies, hires, claims, deliverables, acceptance and settlement, reconciled against platform IDs; bounded recent_outcomes loses window completeness.
+Open improvements: G1 durable commercial event accounting PENDING; G2 pre-bid executable capability verification PENDING; G3 BountyBoard operator reconciliation BLOCKED; C1 Cyclops distribution/checkout verification UNKNOWN; W1 Wolverine buyer acquisition/receipts UNKNOWN.
+No operational files or workflows changed.
