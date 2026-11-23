@@ -6809,13 +6809,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5OCwiY2hlY2twb2ludEF0IjoxNzk1NDM5MzgwMzM2fQ",
-  "last_bid_reconciliation": "2026-11-23T13:09:48.881771+00:00",
-  "last_check": "2026-11-23T13:09:48.890463+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5OCwiY2hlY2twb2ludEF0IjoxNzk1NDQwNTgyMzM2fQ",
+  "last_bid_reconciliation": "2026-11-23T13:29:51.221609+00:00",
+  "last_check": "2026-11-23T13:29:51.229338+00:00",
   "market_observation": {
     "fetched_at": "2026-11-23T13:28:36.953827+00:00",
+    "last_checked_at": "2026-11-23T13:29:21.935225+00:00",
     "last_open_count": 74,
-    "newest_created_at": "2026-11-22T00:58:03.009000+00:00"
+    "newest_created_at": "2026-11-22T00:58:03.009000+00:00",
+    "newest_posted_at": "2026-11-22T00:58:03.009000+00:00"
   },
   "market_observation_history": [
     {
@@ -8263,17 +8265,57 @@
     "bountyboard": {
       "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
       "bidding_status": "operator_reconciliation_required",
-      "checked_at": "2026-11-23T12:29:17.833552+00:00",
+      "checked_at": "2026-11-23T13:29:20.630337+00:00",
       "listings": [],
       "open_count": 0,
       "status": "observed_authenticated"
     },
     "github_bounty": {
       "bidding_status": "platform_native_claim_not_verified",
-      "checked_at": "2026-11-23T11:29:15.333632+00:00",
+      "checked_at": "2026-11-23T13:29:20.954810+00:00",
       "listings": [],
       "open_count": 0,
       "rejected": [
+        {
+          "id": "6560375567",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6560310901",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6560293059",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6560253137",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6560010600",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6559915142",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6559803341",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6559790457",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6559306723",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6558535150",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
         {
           "id": "6558230521",
           "reason": "no_explicit_20_to_300_usd_reward"
@@ -8352,46 +8394,6 @@
         },
         {
           "id": "6556733453",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6556614959",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6556594254",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6556452651",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6556299639",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6556198162",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6556128457",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6556111510",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6556048636",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6555986742",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6555986435",
           "reason": "no_explicit_20_to_300_usd_reward"
         }
       ],
