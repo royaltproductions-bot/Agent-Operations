@@ -2854,7 +2854,13 @@ def process_operator_actions(state, actions=None, *, persist=None):
         phase["status"] = "complete"
         phase["completed_at"] = timestamp()
         record_bid_measurement(state, bounty_id, bid, proposal=note_text)
-        state.setdefault("commercial", {}).setdefault(bounty_id, {})["last_outgoing_at"] = phase["message_sent_at"]
+        commercial = state.setdefault("commercial", {}).setdefault(bounty_id, {})
+        commercial["last_outgoing_at"] = phase["message_sent_at"]
+        conversation = commercial.setdefault("conversation", {})
+        if not phase.get("conversation_counted"):
+            conversation["message_count"] = int(conversation.get("message_count") or 0) + 1
+            phase["conversation_counted"] = True
+        conversation["last_outgoing_at"] = phase["message_sent_at"]
         note(state, "operator_reprice_completed", bounty_id,
              action_id=action_id, payout_cents=amount)
         if persist:
