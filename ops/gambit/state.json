@@ -113,6 +113,12 @@
         }
       },
       "mx72h5rt4s2b48fw9n5vyzhz418jqds9": {
+        "bid_followup_sent": {
+          "days": [
+            "2026-11-23"
+          ],
+          "first_at": "2026-11-23T01:08:29.006022+00:00"
+        },
         "bid_sent": {
           "days": [
             "2026-11-22"
@@ -670,6 +676,12 @@
         }
       },
       "mx788ak2jbky9e4e55vhqyk5rs8jp17p": {
+        "bid_followup_sent": {
+          "days": [
+            "2026-11-23"
+          ],
+          "first_at": "2026-11-23T01:08:28.429858+00:00"
+        },
         "bid_sent": {
           "days": [
             "2026-11-22"
@@ -1862,6 +1874,7 @@
       "declined_at": null,
       "declined_version": null,
       "last_declined_bid": null,
+      "last_owner_reply_id": null,
       "rebid_invitation_id": null,
       "version": 1
     },
@@ -2127,6 +2140,7 @@
       "declined_at": null,
       "declined_version": null,
       "last_declined_bid": null,
+      "last_owner_reply_id": null,
       "rebid_invitation_id": null,
       "version": 1
     },
@@ -4118,6 +4132,8 @@
       "conversation_evidence_backfilled_at": "2026-11-22T01:05:18.809705+00:00",
       "discount_percent": 20,
       "first_detected_at": "2026-11-22T00:59:14.792703+00:00",
+      "followup_sent_at": "2026-11-23T01:08:29.006001+00:00",
+      "last_outgoing_at": "2026-11-23T01:08:29.006017+00:00",
       "observed_at": "2026-11-22T00:59:14.792703+00:00",
       "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
@@ -5123,6 +5139,8 @@
       "conversation_evidence_backfilled_at": "2026-11-22T01:05:19.091384+00:00",
       "discount_percent": 20,
       "first_detected_at": "2026-11-22T00:59:14.792532+00:00",
+      "followup_sent_at": "2026-11-23T01:08:28.429835+00:00",
+      "last_outgoing_at": "2026-11-23T01:08:28.429852+00:00",
       "observed_at": "2026-11-22T00:59:14.792532+00:00",
       "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
@@ -6791,12 +6809,12 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5OCwiY2hlY2twb2ludEF0IjoxNzk1Mzk0ODk3MTczfQ",
-  "last_bid_reconciliation": "2026-11-23T00:48:25.722263+00:00",
-  "last_check": "2026-11-23T00:48:25.735513+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5OCwiY2hlY2twb2ludEF0IjoxNzk1Mzk2MDk5NjY4fQ",
+  "last_bid_reconciliation": "2026-11-23T01:08:27.871825+00:00",
+  "last_check": "2026-11-23T01:08:29.015436+00:00",
   "market_observation": {
     "fetched_at": "2026-11-23T01:07:14.281280+00:00",
-    "last_checked_at": "2026-11-23T01:07:36.906221+00:00",
+    "last_checked_at": "2026-11-23T01:07:59.336119+00:00",
     "last_open_count": 74,
     "newest_created_at": "2026-11-22T00:58:03.009000+00:00",
     "newest_posted_at": "2026-11-22T00:58:03.009000+00:00"
@@ -8396,18 +8414,6 @@
   },
   "recent_outcomes": [
     {
-      "action": "proposal_brief_outline_sent",
-      "at": "2026-11-17T03:34:11.730711+00:00",
-      "bounty_id": "mx7f8sysgjjj265c6fzwmp2a7x8jd2ww"
-    },
-    {
-      "action": "bid_sent",
-      "at": "2026-11-17T03:34:11.730721+00:00",
-      "bounty_id": "mx7f8sysgjjj265c6fzwmp2a7x8jd2ww",
-      "payout_cents": 2800,
-      "version": 1
-    },
-    {
       "action": "pass_unsupported",
       "at": "2026-11-17T13:32:38.124812+00:00",
       "bounty_id": "mx7342wtqapkh64pxf989dz8a18jcg32",
@@ -8769,6 +8775,16 @@
       "at": "2026-11-22T20:47:52.433953+00:00",
       "bounty_id": "mx713jqgcsevmx5jfgvz6qnmed8j60gv",
       "payout_cents": 500
+    },
+    {
+      "action": "bid_followup_sent",
+      "at": "2026-11-23T01:08:28.429871+00:00",
+      "bounty_id": "mx788ak2jbky9e4e55vhqyk5rs8jp17p"
+    },
+    {
+      "action": "bid_followup_sent",
+      "at": "2026-11-23T01:08:29.006034+00:00",
+      "bounty_id": "mx72h5rt4s2b48fw9n5vyzhz418jqds9"
     }
   ],
   "schema": 1,
