@@ -141,7 +141,7 @@
   },
   "2026-11-24": {
     "conversion_rates": {
-      "bid_per_seen": 0.4148936170212766,
+      "bid_per_seen": 0.4105263157894737,
       "buyer_reply_per_bid": 0.05128205128205128,
       "hire_per_bid": 0.0
     },
@@ -157,13 +157,13 @@
       "passed_by_reason": {},
       "retry_pending": 0,
       "sample_excluded": 0,
-      "seen": 0,
+      "seen": 1,
       "settled": 0,
       "settled_cents": 0,
       "withdrawn": 0
     },
     "coverage": "Observed unique state records only; missing platform events unknown",
-    "generated_at": "2026-11-24T00:51:09.654764+00:00",
+    "generated_at": "2026-11-24T01:10:01.300546+00:00",
     "source": "gambit_state_observed"
   }
 }
