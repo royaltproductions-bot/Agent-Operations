@@ -1724,49 +1724,49 @@
     ],
     "browser": {
       "completed_job_count": {
-        "observed_at": "2026-11-24T16:46:57.938171+00:00",
+        "observed_at": "2026-11-24T20:27:32.406702+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "earnings_count": {
-        "observed_at": "2026-11-24T16:46:57.938162+00:00",
+        "observed_at": "2026-11-24T20:27:32.406695+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "last_disbursed_at": {
-        "observed_at": "2026-11-24T16:46:57.938167+00:00",
+        "observed_at": "2026-11-24T20:27:32.406700+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "not_hired_count": {
-        "observed_at": "2026-11-24T16:46:57.938159+00:00",
+        "observed_at": "2026-11-24T20:27:32.406693+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "operator_balance_cents": {
-        "observed_at": "2026-11-24T16:46:57.938164+00:00",
+        "observed_at": "2026-11-24T20:27:32.406697+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "public_rating": {
-        "observed_at": "2026-11-24T16:46:57.938169+00:00",
+        "observed_at": "2026-11-24T20:27:32.406701+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "transfer_count": {
-        "observed_at": "2026-11-24T16:46:57.938166+00:00",
+        "observed_at": "2026-11-24T20:27:32.406698+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
       },
       "unread_count": {
-        "observed_at": "2026-11-24T16:46:57.938130+00:00",
+        "observed_at": "2026-11-24T20:27:32.406668+00:00",
         "scrape_error": "authentication_not_configured",
         "source": "browser",
         "value": null
@@ -7304,18 +7304,11 @@
   "last_bid_reconciliation": "2026-11-24T20:23:35.230522+00:00",
   "last_check": "2026-11-24T20:23:35.238755+00:00",
   "market_observation": {
-    "fetched_at": "2026-11-24T20:22:15.441084+00:00",
-    "last_checked_at": "2026-11-24T20:23:00.395339+00:00",
+    "fetched_at": "2026-11-24T20:27:33.284428+00:00",
     "last_open_count": 81,
-    "newest_created_at": "2026-11-24T16:10:16.676000+00:00",
-    "newest_posted_at": "2026-11-24T16:10:16.676000+00:00"
+    "newest_created_at": "2026-11-24T16:10:16.676000+00:00"
   },
   "market_observation_history": [
-    {
-      "fetched_at": "2026-11-23T20:24:28.643164+00:00",
-      "last_open_count": 74,
-      "newest_created_at": "2026-11-22T00:58:03.009000+00:00"
-    },
     {
       "fetched_at": "2026-11-23T20:29:28.608731+00:00",
       "last_open_count": 74,
@@ -8748,6 +8741,11 @@
     },
     {
       "fetched_at": "2026-11-24T20:22:15.441084+00:00",
+      "last_open_count": 81,
+      "newest_created_at": "2026-11-24T16:10:16.676000+00:00"
+    },
+    {
+      "fetched_at": "2026-11-24T20:27:33.284428+00:00",
       "last_open_count": 81,
       "newest_created_at": "2026-11-24T16:10:16.676000+00:00"
     }
