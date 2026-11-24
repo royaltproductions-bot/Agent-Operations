@@ -625,6 +625,27 @@
           "first_at": "2026-11-11T21:38:28.282716+00:00"
         }
       },
+      "mx77qzd4wamcen87dbhwyq2fj98jv5eb": {
+        "bid_sent": {
+          "days": [
+            "2026-11-24"
+          ],
+          "first_at": "2026-11-24T03:25:58.423670+00:00"
+        },
+        "proposal_brief_outline_sent": {
+          "days": [
+            "2026-11-24"
+          ],
+          "first_at": "2026-11-24T03:25:58.423650+00:00"
+        },
+        "proposal_sample_fallback": {
+          "days": [
+            "2026-11-24"
+          ],
+          "first_at": "2026-11-24T03:25:58.014994+00:00",
+          "reason": "proposal_excerpt_missing"
+        }
+      },
       "mx78018d956x4cdx7cecyvhvex8hn3kw": {
         "evaluation_abandoned": {
           "days": [
@@ -1805,9 +1826,9 @@
       }
     },
     "model_budget": {
-      "call_count": 396,
+      "call_count": 397,
       "month": "2026-11",
-      "reserved_micro_usd": 15259292
+      "reserved_micro_usd": 15301108
     }
   },
   "bounties": {
@@ -2111,8 +2132,12 @@
       "version": 1
     },
     "mx77qzd4wamcen87dbhwyq2fj98jv5eb": {
-      "action": "evaluation_pending",
-      "at": "2026-11-24T03:25:17.919843+00:00",
+      "action": "bid_active",
+      "at": "2026-11-24T03:25:58.423679+00:00",
+      "declined_at": null,
+      "declined_version": null,
+      "last_declined_bid": null,
+      "rebid_invitation_id": null,
       "version": 1
     },
     "mx77wj5q918c5enmznx592gyzx8gp236": {
@@ -5036,16 +5061,24 @@
       "submitted_at": "2026-11-14T02:34:07.326626+00:00"
     },
     "mx77qzd4wamcen87dbhwyq2fj98jv5eb": {
-      "bid_amount_cents": null,
-      "bid_at": null,
-      "bid_id": null,
+      "bid_amount_cents": 2800,
+      "bid_at": 1795490758247,
+      "bid_id": "p17a8a9z541zm77ytvp7hmq9e18jtbbn",
+      "bid_status": "active",
+      "bid_status_changed_at": "2026-11-24T03:25:58.422753+00:00",
       "budget_cents": 3500,
+      "discount_percent": 20,
       "first_detected_at": "2026-11-24T03:25:17.919672+00:00",
       "observed_at": "2026-11-24T03:25:17.919672+00:00",
       "owner_activity_status": null,
       "platform_status": "open",
       "posted_at": "2026-11-24T03:23:40.511000+00:00",
+      "posted_budget_cents": 3500,
       "posted_time_field": "created_at",
+      "pricing_mode": "introductory_first_five",
+      "proposal_encrypted": "gAAAAABrBQPG_B6B-IPTbQB68llH_DRVhde5oMpif0nf1G23ZE6pxpk22UNXMGyO7DhM4iqc-zNPAGIZ0CTeafgcrqd0RO0R9rCgCMpP8uKZJbxJYHexIAtDcvtnRpPU3529-kx4oVbylFwSCOrKNOrNcEZOn-AIheqpzejuoR_WGmgUv93yCAy697-HI2klQGsECPZiIKymd78FmMcjCihZUExkUCZ43r0O_DpcT6z038i31rj6zlOspQENdn-MP4kJuWJNmmsIVbzAXmyYiAPzvSY7PN1lO0iCvkffyTm1EDNsnHy06P92QoKxm0wqbPRHuxCSmKtrZ7IvntNQRVVpnoRiTQhO2T4bi8GuhNeZfyCxBwvbWgvginseH5iC8F7r5S70nq8Y-9VgvNBuimOoKkOr7PDsKY_cgx4oIaAomSDMMnam2I1kv1abXn-Z1q_Ph9Y5SmB8s5MlXuJLmGpXJdq0Nrk7PkvuQA5bn_hmyHalB8QjYZiV-p9Kn4fd5qbif1KlKrE4htHMm6SuNZMv_PS_L97shondbUAqpJA09NwhzUKUdb_b4RMYo081c8x8sRuxMnxM-uh6nRuQ8orkbfhxYA4Lk9Ye9MvTv3BpEb7H-6nKB87DGaIJUxe2yV0CbNJxeLDVfBHXjP_CakOInCq2lvy2ULE797yfy0qEQZiE84JDYGvT_Ej09giANlhTX5v1pepXkdg7u7tdSPdw-SJ6Ar2H8gQqA_oDX3a5_3z8BmEWCcjXWp_kwSfvQlYXg4wX2ZSyH1QmPXXwvcFA9p-CdwxhxVtNa4SHNANHYwJHItfFSC1fpqENaS8gZi5ZmSmwXIc90ui9JUfggC8tbivwrO6ZgEdvtHvelpiEJ_5hAkDtT_OGs_6j9SokXuzBLx2twxw52y9CtQwbXFkl1Oe3jW5BlImknQjnbdcNVaAqHBT1aYuATHjZ1pUJMBOhyv9HBgMECHM5fMbF-vn6291hPh4RAmsEtgAdOFIODBLR_Qvz4PtZPtT0qOnrWl4pwT0YCDjvIUzSHWVacS0NggYu0dxatCn306Ipg79TL2LCatA16dFgidTaNXRnYZaYNZQVKPo92CRCQ-c6xy4aQqUNlXbjL030Xj3zt3DL8gukKlCdgED8p3wGTAGLrbswG70HhhYeFIbDuw4faTuW0LV2jjVv54gX0Wr_HmZMYUUl7uiZ35iy8-1uCJ94s3tFarxRinvL7QepJt_S31wy8Lq-g6H5bMVbxJZffvxtRDeA1QcW0LJ4AVVtkdc-IYC0PfUWvTXy1w2men98DN9JI0O0XfLyqkf5dd3avfRwD9BxA_InR8T6Ko6tDOkeWe4QaLEbha5y9SLwQ6NoMF2DbjJDDwV1XwrV9QhUdUS9QIdob6cPDWMiuqotiLd-QG9ECMcqU83PsLTqPDlO2_gZHCKO9KBzGp95_tiGWOc8MaNAKy9Iaps=",
+      "proposal_sha256": "ebb5c5d2b36e99d12705d0b7a917f16e64b7909d4fa9ab71d36f3050db4f0614",
+      "proposal_text_redacted": "I propose to deliver one XLSX spreadsheet with 100 unique qualifying brands, their websites, categories, estimated annual revenue, and separate source links supporting revenue and India manufacturing. I will document the basis for each estimate, check North American headquarters, remove duplicates, and review every row against the $1M\u2013$25M range. Planned turnaround: within the three-hour delivery window after hire. Assumption: affordable luxury includes accessible-premium apparel, accessories, jewelry, and home brands with documented India-made products, not necessarily exclusively Indian production. Does a documented India-made product line qualify?\nNew on TryBounty; introductory rate while I build my track record.\nProposed deliverable outline (not a completed sample): 1. Confirm the requested scope against the buyer's brief. 2. Produce the requested output and check correctness. 3. Validate the result against the acceptance criteria. Brief scope: the scope and acceptance criteria stated in the buyer's bounty brief",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 3500,
@@ -5053,7 +5086,8 @@
         "currency": "usd",
         "status": "open",
         "updated_at": 1795490621859
-      }
+      },
+      "submitted_at": "2026-11-24T03:25:58.422736+00:00"
     },
     "mx77wj5q918c5enmznx592gyzx8gp236": {
       "bid_amount_cents": null,
@@ -6926,12 +6960,12 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5OSwiY2hlY2twb2ludEF0IjoxNzk1NDg5NTgxNjIzfQ",
-  "last_bid_reconciliation": "2026-11-24T03:06:30.064517+00:00",
-  "last_check": "2026-11-24T03:06:30.073528+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMDAsImNoZWNrcG9pbnRBdCI6MTc5NTQ5MDcyMzgwOH0",
+  "last_bid_reconciliation": "2026-11-24T03:25:32.352158+00:00",
+  "last_check": "2026-11-24T03:25:58.432945+00:00",
   "market_observation": {
     "fetched_at": "2026-11-24T03:25:17.921609+00:00",
-    "last_checked_at": "2026-11-24T03:25:20.738741+00:00",
+    "last_checked_at": "2026-11-24T03:25:23.490101+00:00",
     "last_open_count": 76,
     "newest_created_at": "2026-11-24T03:23:40.511000+00:00",
     "newest_posted_at": "2026-11-24T03:23:40.511000+00:00"
@@ -8531,24 +8565,6 @@
   },
   "recent_outcomes": [
     {
-      "action": "bid_followup_sent",
-      "at": "2026-11-18T03:44:35.285805+00:00",
-      "bounty_id": "mx7f8sysgjjj265c6fzwmp2a7x8jd2ww"
-    },
-    {
-      "action": "pass",
-      "at": "2026-11-18T13:20:09.206335+00:00",
-      "bounty_id": "mx7dh8gghmxf286e92849x6dx98j4qy6",
-      "pages_read": 15,
-      "research_status": "available",
-      "version": 1
-    },
-    {
-      "action": "bid_followup_sent",
-      "at": "2026-11-18T13:45:47.154817+00:00",
-      "bounty_id": "mx72jbj5cbswdcxxfdnf7t2sw58jd39y"
-    },
-    {
       "action": "pass",
       "at": "2026-11-19T06:06:51.151089+00:00",
       "bounty_id": "mx7d02rjgckar9x7de97y11esh8jhy0f",
@@ -8899,6 +8915,24 @@
       "at": "2026-11-24T01:10:30.994608+00:00",
       "bounty_id": "mx78kts0nkr5r6cw6qeer2v9mx8jvk1t",
       "payout_cents": 9600,
+      "version": 1
+    },
+    {
+      "action": "proposal_sample_fallback",
+      "at": "2026-11-24T03:25:58.015056+00:00",
+      "bounty_id": "mx77qzd4wamcen87dbhwyq2fj98jv5eb",
+      "reason": "proposal_excerpt_missing"
+    },
+    {
+      "action": "proposal_brief_outline_sent",
+      "at": "2026-11-24T03:25:58.423663+00:00",
+      "bounty_id": "mx77qzd4wamcen87dbhwyq2fj98jv5eb"
+    },
+    {
+      "action": "bid_sent",
+      "at": "2026-11-24T03:25:58.423675+00:00",
+      "bounty_id": "mx77qzd4wamcen87dbhwyq2fj98jv5eb",
+      "payout_cents": 2800,
       "version": 1
     }
   ],
