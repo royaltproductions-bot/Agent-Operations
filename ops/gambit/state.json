@@ -1799,11 +1799,12 @@
       "ph7aydbn1st90vzpzasfv0zw8d8jqeaa",
       "ph758gdpt4azct03gzj8k1vf218jt31q",
       "ph7c3n1meh8jykeqbacyg6jth18jte1g",
-      "ph72xf7qrvkf45n6y036ggk5118jvj09"
+      "ph72xf7qrvkf45n6y036ggk5118jvj09",
+      "ph7cqw6qkvrszcxytyf4nxc5gh8jtvh9"
     ],
     "event_types": {
       "bounty.available": {
-        "count": 53,
+        "count": 54,
         "data_keys": [
           "bounty_id",
           "bounty_version",
@@ -1811,7 +1812,7 @@
           "title"
         ],
         "first_seen": "2026-11-08T20:41:15.070418+00:00",
-        "last_seen": "2026-11-24T03:30:21.298051+00:00"
+        "last_seen": "2026-11-24T09:05:50.827401+00:00"
       },
       "bounty.claimed": {
         "count": 1,
@@ -2930,7 +2931,12 @@
       "last_known_status": "open",
       "last_seen_open_at": "2026-11-24T09:05:47.858915+00:00",
       "version": 1,
-      "versions": {}
+      "versions": {
+        "1": {
+          "captured_at": "2026-11-24T09:05:51.176103+00:00",
+          "encrypted_brief": "gAAAAABrBVNvOMDao8sQSpPVmHptjQNGq6g8SqjhE16Q9XJcgDuuqPNJd2w7GlEQ3e1eWmx_e3UOtay22xBIu_rGGkPzWvRhbOshL703as6povzhrL2M2T21LQOveV3KnURc9IooKIUulQirrhUpuJPcp1fRrgOwtSwfzhRZG-Oi9Q8kJK09NCpZ5XulYLYJal0jONgwvtRNHp0DqSo7ubil65AqjW8vsU1lW7jlJc5KAAjFjFtZjC_6Ryf7QJE1OaxmlDuoBRrlIVCXA_1xhnWI-kQdmstY2UDij5D4MuPzdnBN4jiGYkFuvDGLnfxjZSc5zBzqqDa6qCCZwyzqiWDEotT8BXsSchbiNwn8SwbzvbjRdlq-uf4OvmElEshE5vIRLjEyzJZCLlo4h9G971bF7wigZAd3mLaK-F-6AsKcKHqlvCiwUZX0r7RhJKNMbnBej0i8gQHoR5ByHIgECyUrBq8pqYDo9t6v-1CeoHWOhIxLrOw6L8DQt4uXdce-I7GnCJJovQWM6ZakA74hYGqMjuEoOiwyfj3BAIm981DszWc7-6VrVLT7VG1Vu1ybrUkTx08V3acwNZf-Lmb-iWLRrgfB1Leb7alZo-nHA7LLR1O1gFWBEMFfVK_W_DIR67YbH9h8BJQTQp3Po8POO_tPUdZbp11mI_4ru-tIgp7KxUYxvKEg5XJetZovaRq6l60wGj0KzWj7A3EVhKZuBGrvQyThhIoPrkOcJp5pbc0MZuEw3xTqFSBPcbZWnwRdDuhAHMTzdpzhju12-7NtA4G6G3PO1J2KXFVmcXnCxrbKMRNczDucGdwi6PF-I_sHywqszuLoGv47MzMAaWj4X41Az1bolVeI0TUJQWeKGugO15nwV_e2GczSV0BXoN5VypV84R6K_HQd8y_sDzuGLUB6jJEUxWsKllqW5ww43d5_rY9TKrADCdhj5toLBreTHcJtXCkr1yw11R2fBVFz3beUEOuqyghqtnFyMM-fgRoXd387-xRwWlh6bnYiubF4vAj41wEVTFRghmnEROjpjxPFN0CYQQxY8eGSqsQwB96Tb9fV5JcbXeUoZaxhgmLZVKrcCRa71GJ7zSTUvmPsTXEpIJQqeBeOHvhUed_cIpm5kdfVdmZ5McAAsHk0G0gxf6u9DXLq7NewAl5DXyDGFzpkW2-1mCBCMjfS7XO0JYGSyVhUPvSICYuFSIbMsBk8v3A8-2ZFyJTL8E3M874fauPVlD96_A7Qp17g5t7PMZXaHALuW9SjtUMmYhQ0gimzba3YionJtWX1VHh6kddGKXvK5gQ4g7g1PmIUm_d4Eo_LX5JAfLOrHiCav5yMYcg165-5VXy9X3Av5uf9y8mYCf0Q60oGb4ImFG1anlUK8OfWIwu3bpC9JNeaVZDHJXZeQeYufnILspGvIt5WxyE67b17yOFzqDwDxkboQYo8NnSg2EPYg_w4EYuB3nabgq9MA4IoaY29SkUrvFDqfWT5hGtNYGJ3XDNhg9oQulGYdHJrXoAFCDBGtK3OsvKMBqR5fPg-9zNT4u7OErzNLKfTqA9seq02IHD6EwqQfTrLnWLoAkMoDIIkZZiFyPOI8QKPyPKYu4Kxmwi05BuciTScFDhni4ZC8mzATYzEXUDTQqlOcaLF9RLZpVCU8AfJs4ek9ra6c9REiLeRcylPq92qaGDQrQLiSKmMbl1zjq7_nhAp_E95FawjmP4ebRupW0jY3b-A3hpdSHEj5RJMNTVoicI107GvRrubXALeL72f7zJm_O0K99WBED2B1NKjUPMMX12t77pCt9CXmiuZYbGFcgXjuzeVEJPvjehhfSS_jtMAI1qsiQJa57hLxrDff-50Y9PFl7Q3W0lDhshxSF801sxqhboF9rAuDYtiRAVLlnHmRSu83kcMuv1bK9lM8ZanE_O4t-tvl95rs8IIAREKKjzQQOWgCFr7KLPwi-X3cUA-e5EdVhzNYpPzIRbvqy7O5_ZHTvoNFegzvLXgj-Dr5ZQ-3vSPpL6G-xRX5MtvkElR32jtI46xpjZZAC8fLgmXdAt-W7Ye2MhNOgXKiWipRJrMrDYMjU-fpoux1Xbtgam0zkxrfjn77k9SmGtZ_oVnpUA8d6_G7GaL7p2qizQSLTXFI78C0qW64isGmoVuAQKYWM34rvvwwBjbtEBrayUXJUMUdBXtmINrlIqxPEKhN-EbtHK39AfUI7oI_zO9wZQ0wE667F7hn9gWzGlxG06aAYP4VkTvXmxAkXXMXzlGc6rxdL3dX93DsF-jj-mWrjFdsNDzOtTI7WRLSqgtAvEht9fyCBKUUl9dAjGQ5-goqqlTNs4-Of0c_22I_U1B4E75YkzAtz204C0XLi_oZthyLnPRtyaeVeVVd9tyzuKCwPKZDcVxtUPZwGF34sgimxPS-D_nI0JNWbp5RuPw24SflbiPMKa4PrZLTDX1E-zEx4qMpLJXCNtj7Hk-RMzOHqcgiHpz982ANHk="
+        }
+      }
     },
     "mx75jrevnm0cd1nc5328ahps8x8j8yyf": {
       "first_detected_at": "2026-11-15T20:15:08.016651+00:00",
@@ -7060,8 +7066,10 @@
   "last_check": "2026-11-24T09:02:05.998391+00:00",
   "market_observation": {
     "fetched_at": "2026-11-24T09:05:47.860405+00:00",
+    "last_checked_at": "2026-11-24T09:05:50.434238+00:00",
     "last_open_count": 78,
-    "newest_created_at": "2026-11-24T09:04:06.843000+00:00"
+    "newest_created_at": "2026-11-24T09:04:06.843000+00:00",
+    "newest_posted_at": "2026-11-24T09:04:06.843000+00:00"
   },
   "market_observation_history": [
     {
