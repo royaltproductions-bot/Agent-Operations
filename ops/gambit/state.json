@@ -1675,6 +1675,7 @@
       "mx72h5rt4s2b48fw9n5vyzhz418jqds9",
       "mx72jbj5cbswdcxxfdnf7t2sw58jd39y",
       "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97",
+      "mx734bgdb3r4kjbccpvj068y098jt6x8",
       "mx75233tezm8q1nc50frv8sr3h8jtc91",
       "mx75jrevnm0cd1nc5328ahps8x8j8yyf",
       "mx75nwyvf4svm7q7a8hngq7v8d8j8s3h",
@@ -4619,14 +4620,26 @@
     "mx734bgdb3r4kjbccpvj068y098jt6x8": {
       "bid_amount_cents": 700,
       "bid_at": 1795536721060,
+      "bid_created_at": 1795536721060,
       "bid_id": "p17bhrxsb4zz8rdjdabab0dpqn8jt215",
       "bid_status": "active",
       "bid_status_changed_at": "2026-11-24T16:12:01.244050+00:00",
+      "bid_updated_at": null,
       "budget_cents": 850,
+      "conversation": {
+        "last_incoming_at": null,
+        "last_outgoing_at": null,
+        "message_count": 0,
+        "response_lag_minutes": [],
+        "unanswered": false,
+        "unknown_timestamp_count": 0
+      },
+      "conversation_evidence": [],
+      "conversation_evidence_backfilled_at": "2026-11-24T16:22:43.084617+00:00",
       "discount_percent": 20,
       "first_detected_at": "2026-11-24T16:11:37.825983+00:00",
       "observed_at": "2026-11-24T16:11:37.825983+00:00",
-      "owner_activity_status": null,
+      "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
       "posted_at": "2026-11-24T16:10:16.676000+00:00",
       "posted_budget_cents": 850,
@@ -7287,13 +7300,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMDUsImNoZWNrcG9pbnRBdCI6MTc5NTUzNjcwNDgxNn0",
-  "last_bid_reconciliation": "2026-11-24T16:02:56.970275+00:00",
-  "last_check": "2026-11-24T16:12:01.254965+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMDUsImNoZWNrcG9pbnRBdCI6MTc5NTUzNzM2MjczMX0",
+  "last_bid_reconciliation": "2026-11-24T16:22:53.939519+00:00",
+  "last_check": "2026-11-24T16:22:53.949267+00:00",
   "market_observation": {
     "fetched_at": "2026-11-24T16:21:37.967819+00:00",
+    "last_checked_at": "2026-11-24T16:22:22.321517+00:00",
     "last_open_count": 81,
-    "newest_created_at": "2026-11-24T16:10:16.676000+00:00"
+    "newest_created_at": "2026-11-24T16:10:16.676000+00:00",
+    "newest_posted_at": "2026-11-24T16:10:16.676000+00:00"
   },
   "market_observation_history": [
     {
