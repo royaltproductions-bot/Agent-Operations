@@ -947,6 +947,14 @@
           "first_at": "2026-11-11T01:44:15.814170+00:00"
         }
       },
+      "mx7aphk7rh69xty4dn4nzrqgdx8jtzmz": {
+        "bid_sent": {
+          "days": [
+            "2026-11-24"
+          ],
+          "first_at": "2026-11-24T10:56:24.306417+00:00"
+        }
+      },
       "mx7ay79vzjkqxk37ewe8ewfq1x8j4n0j": {
         "event_target_unavailable": {
           "days": [
@@ -1856,9 +1864,9 @@
       }
     },
     "model_budget": {
-      "call_count": 399,
+      "call_count": 400,
       "month": "2026-11",
-      "reserved_micro_usd": 15384266
+      "reserved_micro_usd": 15425436
     }
   },
   "bounties": {
@@ -2365,8 +2373,12 @@
       "version": 1
     },
     "mx7aphk7rh69xty4dn4nzrqgdx8jtzmz": {
-      "action": "evaluation_pending",
-      "at": "2026-11-24T10:56:07.726974+00:00",
+      "action": "bid_active",
+      "at": "2026-11-24T10:56:24.306435+00:00",
+      "declined_at": null,
+      "declined_version": null,
+      "last_declined_bid": null,
+      "rebid_invitation_id": null,
       "version": 1
     },
     "mx7aw00zmf8ksqwqw2w284hx3d8gptjp": {
@@ -4702,10 +4714,20 @@
       "bid_status": "active",
       "bid_status_changed_at": "2026-11-24T10:51:26.618890+00:00",
       "budget_cents": 850,
+      "conversation": {
+        "last_incoming_at": null,
+        "last_outgoing_at": null,
+        "message_count": 0,
+        "response_lag_minutes": [],
+        "unanswered": false,
+        "unknown_timestamp_count": 0
+      },
+      "conversation_evidence": [],
+      "conversation_evidence_backfilled_at": "2026-11-24T10:56:13.558089+00:00",
       "discount_percent": 20,
       "first_detected_at": "2026-11-24T10:51:07.554336+00:00",
       "observed_at": "2026-11-24T10:51:07.554336+00:00",
-      "owner_activity_status": null,
+      "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
       "posted_at": "2026-11-24T10:47:06.646000+00:00",
       "posted_budget_cents": 850,
@@ -5940,16 +5962,24 @@
       }
     },
     "mx7aphk7rh69xty4dn4nzrqgdx8jtzmz": {
-      "bid_amount_cents": null,
-      "bid_at": null,
-      "bid_id": null,
+      "bid_amount_cents": 700,
+      "bid_at": 1795517784133,
+      "bid_id": "p17e29xzb69mwp5wa9hwrmb11x8jvmta",
+      "bid_status": "active",
+      "bid_status_changed_at": "2026-11-24T10:56:24.305565+00:00",
       "budget_cents": 850,
+      "discount_percent": 20,
       "first_detected_at": "2026-11-24T10:56:07.726802+00:00",
       "observed_at": "2026-11-24T10:56:07.726802+00:00",
       "owner_activity_status": null,
       "platform_status": "open",
       "posted_at": "2026-11-24T10:54:18.564000+00:00",
+      "posted_budget_cents": 850,
       "posted_time_field": "created_at",
+      "pricing_mode": "introductory_first_five",
+      "proposal_encrypted": "gAAAAABrBW1Y478YvXm1YDPwdPa7lqq2-CMYjJ_8Qc_zPhvElPf8swdGkWCvGBS3vEfq0pmWmgvRd_unz0ZiQXXXiVqABeb4QGZViCSdfkoRpWplwFuUreuuEEsq9JhOwmB2aGAh-VnGeNT_G4HhXtT1-a9bQTe-yqB2NoATzeTvGqgB173-tym4eFu8deJuwmjp-G1G6Z3cUiv6x9f5VgzJRD9Q4X0g_D3z-_XUEclS2p7RGj5nwfsHXOBPOBp4FjOjR-zBcG7-DnzjpBsnV3RIDJtkbd4F9exIx5w_uZCIn25bOOAr_mPrstMmtVperh3R-gRLUWeESKhGSGuMXUuJesbY8tncYTdZbdGZQYF9Fbg1Vxik2RELfTBFBT_nV84Pe5BnVxQ1PGRkulDz09_JKkWe2Z8DOoy9T-c7e9zr9fEf4iqYHKVcFlx16pSQBPsLHXd4jqwVptH5ss2qBoMi7Eg6wnXU4Le5vtFLRu7x32J78fT9UFflTT6u9VDYLAtwnCyMHbiXGBk43QX1pL1DZau66bz0JyiMVOtQzhpElsZzT1jCXPdU9tBUhPq5C6_ib5QU9hjNoAzaPWSaCjetLzidxWsUYDKi0R_oXvu79CrnV55HVme27hv3tSmS1ohMLlQf_neXt8qzvix8RJdJ35Ql1m7bgTYmSknsQJBt-FvfeF2Gcx2GymqbcYq78UvaKdrXJex9o6PB7q5VLs5AzGtrMWi3G8zGZGZOb6D6jBc893jHhtWZyZ98fr8uR5mTM1sUWdVKofvUiPNGKMtiOgLKejmIZrtiN-RHvrXqZ28LczpPkTNybq7PrsDkXE2BPYx_eSVk82SoL89MELEZklU7uu4mwYWjBqmPzY4OFpUXfY2kX1iCaNGV0-C2qwuLYOmnX-YknZTYb9zSvRNzlKYXMax9vi6mFbffq0_-kqIO9xLVVbusy6nom-__ijct1hDiB4gQBWo8nJrK5psmb-WTFcLzrve7AR8FlZRqEvM7miiBvv4=",
+      "proposal_sha256": "8b2e4261e5bebc7ef2c3b055f5af51d7aff116b2da40ac68e869238f695dfd7f",
+      "proposal_text_redacted": "I will deliver a plain-text list of exactly 10 distinct no-cost side hustles, each with its name and a one-line description, within 3 hours after hire. I\u2019ll research startup requirements and screen out options requiring purchases, paid registration, inventory, or advertising. A short source section will let you check the no-upfront-cost claims. I\u2019ll assume access to an existing phone or computer and internet, with no new equipment purchases.\nNew on TryBounty; introductory rate while I build my track record.\nPreliminary sample: Preliminary wording example, subject to source checks: Proofreading \u2014 Help clients correct spelling, grammar, and punctuation using free document tools.",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 850,
@@ -5957,7 +5987,8 @@
         "currency": "usd",
         "status": "open",
         "updated_at": 1795517660273
-      }
+      },
+      "submitted_at": "2026-11-24T10:56:24.305545+00:00"
     },
     "mx7aw00zmf8ksqwqw2w284hx3d8gptjp": {
       "bid_amount_cents": 4000,
@@ -7168,12 +7199,12 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMDMsImNoZWNrcG9pbnRBdCI6MTc5NTUxNzQ3MzE3MX0",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMDQsImNoZWNrcG9pbnRBdCI6MTc5NTUxNzc3MzI0NH0",
   "last_bid_reconciliation": "2026-11-24T10:42:19.673084+00:00",
-  "last_check": "2026-11-24T10:51:26.629794+00:00",
+  "last_check": "2026-11-24T10:56:24.316960+00:00",
   "market_observation": {
     "fetched_at": "2026-11-24T10:56:07.728525+00:00",
-    "last_checked_at": "2026-11-24T10:56:10.251225+00:00",
+    "last_checked_at": "2026-11-24T10:56:12.939744+00:00",
     "last_open_count": 80,
     "newest_created_at": "2026-11-24T10:54:18.564000+00:00",
     "newest_posted_at": "2026-11-24T10:54:18.564000+00:00"
@@ -8773,12 +8804,6 @@
   },
   "recent_outcomes": [
     {
-      "action": "event_target_unavailable",
-      "at": "2026-11-19T16:37:49.300163+00:00",
-      "bounty_id": "mx7e7ncne2xn41ppq3rwxerjf98jhmpb",
-      "reason": "bounty_api_BOUNTY_NOT_FOUND"
-    },
-    {
       "action": "pass_unsupported",
       "at": "2026-11-19T16:37:49.532988+00:00",
       "bounty_id": "mx7en8exza6pf0gyt353wdy0rs8jhycq",
@@ -9141,6 +9166,13 @@
       "action": "bid_sent",
       "at": "2026-11-24T10:51:26.619733+00:00",
       "bounty_id": "mx75233tezm8q1nc50frv8sr3h8jtc91",
+      "payout_cents": 700,
+      "version": 1
+    },
+    {
+      "action": "bid_sent",
+      "at": "2026-11-24T10:56:24.306429+00:00",
+      "bounty_id": "mx7aphk7rh69xty4dn4nzrqgdx8jtzmz",
       "payout_cents": 700,
       "version": 1
     }
