@@ -155,7 +155,8 @@
       "hired": 0,
       "missing_unconfirmed": 0,
       "passed_by_reason": {
-        "unknown": 1
+        "unknown": 1,
+        "video_production": 1
       },
       "retry_pending": 0,
       "sample_excluded": 0,
@@ -165,7 +166,7 @@
       "withdrawn": 0
     },
     "coverage": "Observed unique state records only; missing platform events unknown",
-    "generated_at": "2026-11-24T09:05:51.185235+00:00",
+    "generated_at": "2026-11-24T09:05:53.854431+00:00",
     "source": "gambit_state_observed"
   }
 }

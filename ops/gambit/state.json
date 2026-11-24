@@ -379,6 +379,15 @@
           "first_at": "2026-11-11T01:44:15.205563+00:00"
         }
       },
+      "mx752c3qfh0hgjr0vny6vj86v58jvyen": {
+        "pass_unsupported": {
+          "days": [
+            "2026-11-24"
+          ],
+          "first_at": "2026-11-24T09:05:53.837829+00:00",
+          "reason": "video_production"
+        }
+      },
       "mx75jrevnm0cd1nc5328ahps8x8j8yyf": {
         "bid_followup_sent": {
           "days": [
@@ -2021,8 +2030,9 @@
       "version": 1
     },
     "mx752c3qfh0hgjr0vny6vj86v58jvyen": {
-      "action": "evaluation_pending",
-      "at": "2026-11-24T09:05:47.858918+00:00",
+      "action": "pass_unsupported",
+      "at": "2026-11-24T09:05:53.837820+00:00",
+      "reason": "video_production",
       "version": 1
     },
     "mx75jrevnm0cd1nc5328ahps8x8j8yyf": {
@@ -7061,12 +7071,12 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMDEsImNoZWNrcG9pbnRBdCI6MTc5NTUxMDkxMzQ1M30",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMDIsImNoZWNrcG9pbnRBdCI6MTc5NTUxMTE1MzU4MH0",
   "last_bid_reconciliation": "2026-11-24T09:02:02.921323+00:00",
-  "last_check": "2026-11-24T09:02:05.998391+00:00",
+  "last_check": "2026-11-24T09:05:53.847881+00:00",
   "market_observation": {
     "fetched_at": "2026-11-24T09:05:47.860405+00:00",
-    "last_checked_at": "2026-11-24T09:05:50.434238+00:00",
+    "last_checked_at": "2026-11-24T09:05:53.240308+00:00",
     "last_open_count": 78,
     "newest_created_at": "2026-11-24T09:04:06.843000+00:00",
     "newest_posted_at": "2026-11-24T09:04:06.843000+00:00"
@@ -8666,13 +8676,6 @@
   },
   "recent_outcomes": [
     {
-      "action": "bid_sent",
-      "at": "2026-11-19T16:33:03.049798+00:00",
-      "bounty_id": "mx7bj9svjat5eq1nqekktgm64s8jgh40",
-      "payout_cents": 2000,
-      "version": 1
-    },
-    {
       "action": "event_target_unavailable",
       "at": "2026-11-19T16:37:45.889368+00:00",
       "bounty_id": "mx7e7ncne2xn41ppq3rwxerjf98jhmpb",
@@ -9034,6 +9037,13 @@
       "bounty_id": "mx7ftyqtbm7vqtct1byr16t29h8jtfm5",
       "pages_read": 0,
       "research_status": "deferred",
+      "version": 1
+    },
+    {
+      "action": "pass_unsupported",
+      "at": "2026-11-24T09:05:53.837875+00:00",
+      "bounty_id": "mx752c3qfh0hgjr0vny6vj86v58jvyen",
+      "reason": "video_production",
       "version": 1
     }
   ],
