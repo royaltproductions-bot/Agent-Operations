@@ -760,6 +760,14 @@
           "reason": "proposal_samples_missing"
         }
       },
+      "mx78kts0nkr5r6cw6qeer2v9mx8jvk1t": {
+        "bid_sent": {
+          "days": [
+            "2026-11-24"
+          ],
+          "first_at": "2026-11-24T01:10:30.994593+00:00"
+        }
+      },
       "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": {
         "bid_followup_sent": {
           "days": [
@@ -1795,9 +1803,9 @@
       }
     },
     "model_budget": {
-      "call_count": 395,
+      "call_count": 396,
       "month": "2026-11",
-      "reserved_micro_usd": 15217760
+      "reserved_micro_usd": 15259292
     }
   },
   "bounties": {
@@ -2184,8 +2192,12 @@
       "version": 1
     },
     "mx78kts0nkr5r6cw6qeer2v9mx8jvk1t": {
-      "action": "evaluation_pending",
-      "at": "2026-11-24T01:09:57.826651+00:00",
+      "action": "bid_active",
+      "at": "2026-11-24T01:10:30.994614+00:00",
+      "declined_at": null,
+      "declined_version": null,
+      "last_declined_bid": null,
+      "rebid_invitation_id": null,
       "version": 1
     },
     "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": {
@@ -5290,16 +5302,24 @@
       }
     },
     "mx78kts0nkr5r6cw6qeer2v9mx8jvk1t": {
-      "bid_amount_cents": null,
-      "bid_at": null,
-      "bid_id": null,
+      "bid_amount_cents": 9600,
+      "bid_at": 1795482630780,
+      "bid_id": "p1750c86p3jf9cxsv34kyhsdtx8jt8m0",
+      "bid_status": "active",
+      "bid_status_changed_at": "2026-11-24T01:10:30.993606+00:00",
       "budget_cents": 12000,
+      "discount_percent": 20,
       "first_detected_at": "2026-11-24T01:09:57.826475+00:00",
       "observed_at": "2026-11-24T01:09:57.826475+00:00",
       "owner_activity_status": null,
       "platform_status": "open",
       "posted_at": "2026-11-24T01:06:10.019000+00:00",
+      "posted_budget_cents": 12000,
       "posted_time_field": "created_at",
+      "pricing_mode": "introductory_first_five",
+      "proposal_encrypted": "gAAAAABrBOQG2hW-6xozuMUdFPW0iwPNX_TfI_nQhsiWpNcHLyRQbDjVUMVYJSJkT1TCJ8qRSNcXCrY_O9QetNqG5r2gguGTqwr9OjMnuDQ3uzy8dE5DismQ1Engym4nZHylj-LlZh1Owsrjm4Hp_b2kjsJ9zy5OiQIyKSrSxuLX_v6zzEHrIbQyxytdp9zSI0Zbl59FVb4fOHwga8KE_b_ykSRa8eHprL4QgUUMvch0v8U_7tJSS9fY4FfrgNL1rgmrUWXbrSvK2rlsWmlTeh3ht6aAVA03scbwIZIeYZYGIXBEZHC45KXDFCBHgkue-GWyVTKZydDBLNiYbSeoCs4ZgGZS-4nHHX96NI1ngWofFCBPqQcnQ73c5iBz_sbEPsuFeZ3zpZTM_NzEuGJMsmuSYE_zPN06qCiuxfKA3fywZgcW4uzOlctncksEGlSbWWyEQFYssSlhA7v_c-P_1nBuNm7h9zxKjKwXIkQqjICx4vguF58dYS4VO3dfOIn-7ODCSjbTlIIugXwDMBKKXayJyG2TaDKpKpNI7UqF79KtsS17FrBvAvFllguOoF9IGl4L5bG9Q2LbjzkNTsC1AnHtke5E9ZOwwU2CPTAHPbdwqC5xkxlplDyNs5VHk-kYVNvJ_SdQsFRUhkasX13Lez13i9w0333GBT9-515zbUbrIdOKMOorm9-nFC2CZa1SsBP4Xx38h8MnqnzmCt5fHCQpkc0Z2kvZMvRlvK9-oT8yt9HH5SO7w1TmQRx58R1cNFt7Kkk1lWNYwUfPUBnkhmb2aSDx0W6zgZRw0bFm4MTq_k2-DcBpjuHJNVW5m4td0OsAQ6KxB2TwgDdDQbUYYxBZjt_pR7NZ1buhgAmC1EEoE3PGL59tTrUnMY59Tj118akwFL8arYEmif-HfofahripZ_afmyDr2HtcGAX6AywODrPvsbzlz4CRCX9NFwQt71MrpRP8x3W7iqNnKv3_lbU0lUjUOil-h4T9fKFQHBDrmhtv03wjS3r852e2Yf87IEDNG0aXL45Fo06pY4r-Q3qxPZIVXFHrkvqr8-a_Xzg_7iZ5cMMFU9bvMzE9I0QSUtZTqfwX4ARVb64-V3LzdP6TmRlVJomqR2_1qW63wduoYJ9lcFmI0fL-sheE7opExMa5HRVkusivI0pFW38nFg56MMR-2US7QDiqqgcDDM8vbh0dM2tCiwsw3e9M3NWH8DhP1ypewIPKxTB3InKiTsROFNYVVf2TzJzsmx0HxKQMLJ7gcKomqLP_RSoqw37qtKgRJvj11pd1lr3U4h3qD7QQCWjmOZGABvHHvu-02kJ6snKLa2CcRVDXgi3G8uKiWZU0xs7ncvw26XIQTvdAVKl9fUnLgxbHsNRDpDVJ0eZue_WFlU_2IjIStFjWf_1LfvgeCugbtu8ra_UKmZxZplucNjfF0pXNvN8BadmramoESHZtFcBcVJI=",
+      "proposal_sha256": "6d03bc3c59839bda16bfd0dcf845264619457a9225807f07c688a10ba41aea76",
+      "proposal_text_redacted": "I will deliver a runnable agent source ZIP, an XLSX invoice tracker, and a setup/test guide within 48 hours after hire. The agent will poll Gmail, extract invoice and payment-status details, and update matching spreadsheet rows without duplicating processed messages. I will include Gmail-format test messages covering unpaid, partial-payment, paid, and duplicate notices, plus automated tests and a reproducible demo. Checks will cover field extraction, status transitions, and repeat-run consistency. Gmail OAuth will run locally under your control; delivery testing will use fixtures, not claim a live Gmail connection.\nNew on TryBounty; introductory rate while I build my track record.\nPreliminary sample: Preliminary synthetic test example: an email stating \u201cInvoice DEMO-101: $250 due December 15\u201d creates an unpaid row; a subsequent \u201cPayment received for DEMO-101: $250\u201d updates that same row to paid. Proposed columns: invoice ID, vendor, amount, currency, due date, amount paid, status, Gmail message ID, and last updated.",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 12000,
@@ -5307,7 +5327,8 @@
         "currency": "usd",
         "status": "open",
         "updated_at": 1795482371179
-      }
+      },
+      "submitted_at": "2026-11-24T01:10:30.993585+00:00"
     },
     "mx78rdqaddbvhpg4hyfkd8v3e98gpcc8": {
       "bid_amount_cents": 2500,
@@ -6854,12 +6875,12 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5OCwiY2hlY2twb2ludEF0IjoxNzk1NDgxNDYwNzg0fQ",
-  "last_bid_reconciliation": "2026-11-24T00:51:09.639790+00:00",
-  "last_check": "2026-11-24T00:51:09.648713+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjo5OSwiY2hlY2twb2ludEF0IjoxNzk1NDgyNjA0MzAzfQ",
+  "last_bid_reconciliation": "2026-11-24T01:10:14.410073+00:00",
+  "last_check": "2026-11-24T01:10:31.004243+00:00",
   "market_observation": {
     "fetched_at": "2026-11-24T01:09:57.828117+00:00",
-    "last_checked_at": "2026-11-24T01:10:00.523176+00:00",
+    "last_checked_at": "2026-11-24T01:10:03.726872+00:00",
     "last_open_count": 75,
     "newest_created_at": "2026-11-24T01:06:10.019000+00:00",
     "newest_posted_at": "2026-11-24T01:06:10.019000+00:00"
@@ -8459,13 +8480,6 @@
   },
   "recent_outcomes": [
     {
-      "action": "bid_sent",
-      "at": "2026-11-17T13:32:53.419255+00:00",
-      "bounty_id": "mx72jbj5cbswdcxxfdnf7t2sw58jd39y",
-      "payout_cents": 500,
-      "version": 1
-    },
-    {
       "action": "bid_followup_sent",
       "at": "2026-11-18T03:44:35.285805+00:00",
       "bounty_id": "mx7f8sysgjjj265c6fzwmp2a7x8jd2ww"
@@ -8828,6 +8842,13 @@
       "action": "bid_followup_sent",
       "at": "2026-11-23T20:50:47.879887+00:00",
       "bounty_id": "mx713jqgcsevmx5jfgvz6qnmed8j60gv"
+    },
+    {
+      "action": "bid_sent",
+      "at": "2026-11-24T01:10:30.994608+00:00",
+      "bounty_id": "mx78kts0nkr5r6cw6qeer2v9mx8jvk1t",
+      "payout_cents": 9600,
+      "version": 1
     }
   ],
   "schema": 1,
