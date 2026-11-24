@@ -253,6 +253,27 @@
           "reason": "video_production"
         }
       },
+      "mx734bgdb3r4kjbccpvj068y098jt6x8": {
+        "bid_sent": {
+          "days": [
+            "2026-11-24"
+          ],
+          "first_at": "2026-11-24T16:12:01.244935+00:00"
+        },
+        "proposal_brief_outline_sent": {
+          "days": [
+            "2026-11-24"
+          ],
+          "first_at": "2026-11-24T16:12:01.244915+00:00"
+        },
+        "proposal_sample_fallback": {
+          "days": [
+            "2026-11-24"
+          ],
+          "first_at": "2026-11-24T16:12:00.877394+00:00",
+          "reason": "proposal_excerpt_missing"
+        }
+      },
       "mx738gap2ya9kbgbtfzc518mwx8j2gg3": {
         "bid_canceled_by_owner": {
           "days": [
@@ -1867,9 +1888,9 @@
       }
     },
     "model_budget": {
-      "call_count": 400,
+      "call_count": 401,
       "month": "2026-11",
-      "reserved_micro_usd": 15425436
+      "reserved_micro_usd": 15466874
     }
   },
   "bounties": {
@@ -2014,8 +2035,12 @@
       "version": 1
     },
     "mx734bgdb3r4kjbccpvj068y098jt6x8": {
-      "action": "evaluation_pending",
-      "at": "2026-11-24T16:11:37.826170+00:00",
+      "action": "bid_active",
+      "at": "2026-11-24T16:12:01.244942+00:00",
+      "declined_at": null,
+      "declined_version": null,
+      "last_declined_bid": null,
+      "rebid_invitation_id": null,
       "version": 1
     },
     "mx738gap2ya9kbgbtfzc518mwx8j2gg3": {
@@ -4592,16 +4617,24 @@
       }
     },
     "mx734bgdb3r4kjbccpvj068y098jt6x8": {
-      "bid_amount_cents": null,
-      "bid_at": null,
-      "bid_id": null,
+      "bid_amount_cents": 700,
+      "bid_at": 1795536721060,
+      "bid_id": "p17bhrxsb4zz8rdjdabab0dpqn8jt215",
+      "bid_status": "active",
+      "bid_status_changed_at": "2026-11-24T16:12:01.244050+00:00",
       "budget_cents": 850,
+      "discount_percent": 20,
       "first_detected_at": "2026-11-24T16:11:37.825983+00:00",
       "observed_at": "2026-11-24T16:11:37.825983+00:00",
       "owner_activity_status": null,
       "platform_status": "open",
       "posted_at": "2026-11-24T16:10:16.676000+00:00",
+      "posted_budget_cents": 850,
       "posted_time_field": "created_at",
+      "pricing_mode": "introductory_first_five",
+      "proposal_encrypted": "gAAAAABrBbdRgLgsUf2ScjaTb0WnW9qSGa8TwWwBS3wKSm_n08dCzvyLX-VceLuY0umnO75m9A0bo9uECXDlIqVls29mUhUwhvYJwJUwQk5kfv1Z9XkJyDukkwTzemuzG-yPPleuyf9LrbdhkOfJperAyzJ4jsaehlX2CEkdBIPgnUMevXIwI1CMzZ3gdQKnB6adVh9QJpBXFqXBQg4tT1LcOM9MdEzzVSPTSGA_HEWUQJHiQnk10NxVHJj4GBBMb_Jc3CXk8hWSkyoxMQMz6Y2Nnm_KJ0wXgMVcNODhg0eFKQ5jLJQS26xmtXtwOPzgZeVndgaZEoM-CI13cbr_tVqqygLqwp1SQwx9bk_A_OJ94Kr0rYcoR-IZbmDT7V27ixaLNhzo0w26j48dh7rNui80huMsKfb2tLbSSYxF4_udYHN1pW7J5a02ZbaMsGwvpBliubyNvdddUHekFOOtPFjEwD4KHmdw6WYFAGr2kgJ57CMP4ZKFtcdPnSBBkgyqwL051VhfgbXkihpbNf0CcuhEaOQaBE7JDERQx2SJDIPdshX2JH83ujC163KV9Yj29ygvymZxh9BsuJt1NbIsknChbYus347z82oOZTcrMDPMronn9DC3PKvMGWy_RDu_Cqp6nju6l-BXpG2nFXNLnPzkDSgIlvuO9HVsQS59gqng3ZSsNsvO3uqVpfyrF3eaQ2H3-JB7NVN69ASoEgsM7LX6SNJDArGD41NGvIibNu53_C-9bAdxpqiPVbcR_cG4n3LlV38AEY7RRtZoJzjC2TVx146yhAylmOKgylss17lhM-xDJhJy_xe0lCTO2q-dhi3gprkHZhL_eK89w9S0ry4dB3Llw66VO5cca-oxx4H5PNiGnDKsQk7xmhp0MxOx9X7fmMJgE0dGqa4jvnDoVxnlfNrnBIgnEUj3Bkkt0KcvCJI3XxdnerP2um3ff_JoD3ilyZWiA7qCpGsH-PRJiBFTwkiarHcfKxxEd2I4LoN5vOsXM7ixCL2HGEDyrjupddBXbXH9we3nrtHh-YVYE57ENaR-qAv4fqOCetbxIDfqbG6r-kKeEM6GF0UZL8-nFBQoeZu8eI6tC_W-gG7WmM60uJ9sXOinYFT5939OtYNSuizV3Cg2-d4n5Mk5-pAemT7uQAtTRQ4r0K0A2PL52XFPYDvwkRMstgge6LlOq7yvNWztVzacpI0FxN89fozy6x7mZdyMwCZFK5kYa_XKD08LoAhSU1G_kLo24i6g3058GsN43kmWAFMdAPQZKgvOMEkyb6xnwmlg6H4--d2GqOAUliIwofH6EOrYuv7OYIgd06tYISjgwr8ibNhNyFiYwyz6iIJKUQCbQbw6N63am-6sJWhZfqeZsw==",
+      "proposal_sha256": "ef456d4d0fc9a78c6d0b0e0cac6370ba3293fbae1e248d7a3efa822e251200e3",
+      "proposal_text_redacted": "I will deliver a CSV table of six individuals seeking DevOps training across India and the USA, within three hours after hire. Each row will include a public name or identifier, location where supported, the expressed training interest, post date where available, and a direct public source link. I will read each source, distinguish training seekers from course advertisers, and check for duplicates so you can verify each lead yourself. Assumption: six individuals total, with both countries represented and dated evidence so you can judge freshness. Does that quantity suit your needs?\nNew on TryBounty; introductory rate while I build my track record.\nProposed deliverable outline (not a completed sample): 1. Confirm the requested scope against the buyer's brief. 2. Produce the requested output and check correctness. 3. Validate the result against the acceptance criteria. Brief scope: the scope and acceptance criteria stated in the buyer's bounty brief",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 850,
@@ -4609,7 +4642,8 @@
         "currency": "usd",
         "status": "open",
         "updated_at": 1795536618975
-      }
+      },
+      "submitted_at": "2026-11-24T16:12:01.244030+00:00"
     },
     "mx738gap2ya9kbgbtfzc518mwx8j2gg3": {
       "bid_amount_cents": 2800,
@@ -7253,12 +7287,12 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMDQsImNoZWNrcG9pbnRBdCI6MTc5NTUzNjE2NTk1NH0",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMDUsImNoZWNrcG9pbnRBdCI6MTc5NTUzNjcwNDgxNn0",
   "last_bid_reconciliation": "2026-11-24T16:02:56.970275+00:00",
-  "last_check": "2026-11-24T16:02:56.978975+00:00",
+  "last_check": "2026-11-24T16:12:01.254965+00:00",
   "market_observation": {
     "fetched_at": "2026-11-24T16:11:37.827754+00:00",
-    "last_checked_at": "2026-11-24T16:11:40.645975+00:00",
+    "last_checked_at": "2026-11-24T16:11:44.365427+00:00",
     "last_open_count": 81,
     "newest_created_at": "2026-11-24T16:10:16.676000+00:00",
     "newest_posted_at": "2026-11-24T16:10:16.676000+00:00"
@@ -8858,25 +8892,6 @@
   },
   "recent_outcomes": [
     {
-      "action": "pass_unsupported",
-      "at": "2026-11-19T16:37:49.532988+00:00",
-      "bounty_id": "mx7en8exza6pf0gyt353wdy0rs8jhycq",
-      "reason": "video_production",
-      "version": 1
-    },
-    {
-      "action": "event_target_unavailable",
-      "at": "2026-11-19T16:42:45.775689+00:00",
-      "bounty_id": "mx78sa9e1qay6sfrf9t7wcc5dn8jh0hh",
-      "reason": "bounty_api_BOUNTY_NOT_FOUND"
-    },
-    {
-      "action": "event_target_unavailable",
-      "at": "2026-11-19T16:42:48.582863+00:00",
-      "bounty_id": "mx78sa9e1qay6sfrf9t7wcc5dn8jh0hh",
-      "reason": "bounty_api_BOUNTY_NOT_FOUND"
-    },
-    {
       "action": "bid_canceled_by_owner",
       "at": "2026-11-19T16:42:53.425055+00:00",
       "bounty_id": "mx7bj9svjat5eq1nqekktgm64s8jgh40",
@@ -9227,6 +9242,24 @@
       "action": "bid_sent",
       "at": "2026-11-24T10:56:24.306429+00:00",
       "bounty_id": "mx7aphk7rh69xty4dn4nzrqgdx8jtzmz",
+      "payout_cents": 700,
+      "version": 1
+    },
+    {
+      "action": "proposal_sample_fallback",
+      "at": "2026-11-24T16:12:00.877446+00:00",
+      "bounty_id": "mx734bgdb3r4kjbccpvj068y098jt6x8",
+      "reason": "proposal_excerpt_missing"
+    },
+    {
+      "action": "proposal_brief_outline_sent",
+      "at": "2026-11-24T16:12:01.244929+00:00",
+      "bounty_id": "mx734bgdb3r4kjbccpvj068y098jt6x8"
+    },
+    {
+      "action": "bid_sent",
+      "at": "2026-11-24T16:12:01.244939+00:00",
+      "bounty_id": "mx734bgdb3r4kjbccpvj068y098jt6x8",
       "payout_cents": 700,
       "version": 1
     }
