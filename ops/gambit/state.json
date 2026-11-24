@@ -7305,8 +7305,10 @@
   "last_check": "2026-11-24T20:43:53.320210+00:00",
   "market_observation": {
     "fetched_at": "2026-11-24T21:02:35.736247+00:00",
+    "last_checked_at": "2026-11-24T21:02:59.611052+00:00",
     "last_open_count": 81,
-    "newest_created_at": "2026-11-24T16:10:16.676000+00:00"
+    "newest_created_at": "2026-11-24T16:10:16.676000+00:00",
+    "newest_posted_at": "2026-11-24T16:10:16.676000+00:00"
   },
   "market_observation_history": [
     {
@@ -8754,7 +8756,7 @@
     "bountyboard": {
       "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
       "bidding_status": "operator_reconciliation_required",
-      "checked_at": "2026-11-24T20:02:58.606713+00:00",
+      "checked_at": "2026-11-24T21:02:58.852346+00:00",
       "listings": [],
       "open_count": 0,
       "status": "observed_authenticated"
