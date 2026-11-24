@@ -2109,6 +2109,11 @@
       "last_owner_reply_id": null,
       "version": 1
     },
+    "mx77qzd4wamcen87dbhwyq2fj98jv5eb": {
+      "action": "evaluation_pending",
+      "at": "2026-11-24T03:25:17.919843+00:00",
+      "version": 1
+    },
     "mx77wj5q918c5enmznx592gyzx8gp236": {
       "action": "pass_unsupported",
       "at": "2026-10-30T16:16:51.555435+00:00",
@@ -3067,6 +3072,13 @@
           "encrypted_brief": "gAAAAABq80T8pCb_gCxeJZJW25euIjLnGH4DIQYM0dp8TImK_mkYAAErfH82iUYhPLcy7plIqYZOBeV3LIDCXeoD4w2_ozLgMEzvdmN9_27oXaZmPQNIr-ZqbDEKiqWiAUZvYQ5eOsOYrxJidUOEcC7cxQZFDx2Vi9l_9i_LwmrWaPD_rEl-LWqNBw-l7QyAZgrx-urO1QQs4xR6pM3_47t2KAjaZXQbylQFqx1aCOzOM403AgkHatCQv69ALB3k8YEubqph5KPSZM_wDRRqTl30Ere9Vc9x8Z3Akq0UXN-g51Ny7huKdxrv6Q3ELPRwqQsX4yMzCAe7N6AYqcrQj-dIkCAyGbUWiHhCfRD1ExADMge2uBBnJU04xWF9qhmSCI_7aTNwTDlJIwj5zoxnwNxNETFBEkmMJJT12b62hnaiC6G-y-l8QbLKeUrub5LlgSnEWRxH3FWxTpQM-0XeD3t-bHJuZBKPncSmBYz6svBAHIq3wE-KOMB_xNVj7lTGBbn0MThNDyLAPAjJIaNdd9Cosvnnll4-s9ymzX1gDcCWCrTCA5ZjAytF_zIG4IX0Fg0Q2rrVpj5xzHowoGXi75YBFH1_OGpmDmDGGevkUiTnJOrjVwLaLD6RHnOS5uZGk8-xpYwfaB2BVpnOqO_o5dO2chF5qgeVoQDb-VyYym_4GHeNXCcv-namaWOi0Krjt-i7BLbbNYL1SK-voX9cy44oojtWLMfu0uPUDwrtPKGxPvforACXqJFKRkiL5HY2lsBZuhDwZNRgdq8unDW1vt6E_ET_0CH_b3pgLQWG-ov2cfJH6NrXkPiw0aLZoOFym4cChI402dmdqNbJexZfJNSEDzreM8XptXJ1hvY68W3RLisgDxnfd5WwBl0I9Tj-A8pf0H3WM_XMio2mYcY396hkvRXg9OZJQmilzrPMcy1xhDBHMh9GiTPYw34tPSm43lg7vu2FFM35Kwk9PvqtRbg_5iLhYjJ3AN9aVRtWGIbyIQzFJmpVMZAchzteDPf3ytXcfwLkD1zqwQ8XIF5_QPyW_njm0zuytZ-oHUmoGg9OOuZtuEx4tgK_9-NzLY3rSrQHjOxAz2CimJBzGJdBwA-GXsMUL2u1A-Sc9QpMSfy85My4E5hL5-gPkZvxmDFVpAQxOa-mSmknawv2ENgf3ZXL-cJ0TW4XTy1tMwGlDWLlVQYPxKQ8dD05qpmR2s_nqhQHF2-xQsVrwy_ofWqSirDSNZ3Q1PC9Eq-lkAqFmybIGkHBvojJhgLc9dlgagRAK9Ju29hU80PJznQdjPlnPC5g_vtNCs7WcZ4o6LPgCDdvGF3HHYxmwI9yb0vgq6VFu9SdRPIBSOB5E10G4ZMoxqs5hN13MYYaSlb8KozAhjrCsJY5MG_YW1dyh95-ZyTKVQgt2Ek7BBa9_h_mt1P_k2UDLPTHpdVpxkstthqkE1n08R17yA1I3y-31H5Pzb661Rc1H2-JHEyqxQ5sluyCvpQkF9ClONQx5mSTWwF9XRf417g4v1VJnC6ByI_nKDiJKM2-xqkiezVIvIo9NgJKtpGj1t3SzIpk4ytGiZWqeHl3f8hzukxzio_wAzGLp7ZcDw_PxCy-cktFRX_a6ddK5McbYujMCirGAVjQB2eRyMhiN7czZR72CsdYtD28t6-mGV1wCSURhjyvlAAfL4gGY6WQdjWNyM4bolha-9A7U6ClNeKWhaNABsE="
         }
       }
+    },
+    "mx77qzd4wamcen87dbhwyq2fj98jv5eb": {
+      "first_detected_at": "2026-11-24T03:25:17.919837+00:00",
+      "last_known_status": "open",
+      "last_seen_open_at": "2026-11-24T03:25:17.919840+00:00",
+      "version": 1,
+      "versions": {}
     },
     "mx77wj5q918c5enmznx592gyzx8gp236": {
       "first_detected_at": "2026-10-30T16:10:18.044161+00:00",
@@ -5017,6 +5029,26 @@
       },
       "submitted_at": "2026-11-14T02:34:07.326626+00:00"
     },
+    "mx77qzd4wamcen87dbhwyq2fj98jv5eb": {
+      "bid_amount_cents": null,
+      "bid_at": null,
+      "bid_id": null,
+      "budget_cents": 3500,
+      "first_detected_at": "2026-11-24T03:25:17.919672+00:00",
+      "observed_at": "2026-11-24T03:25:17.919672+00:00",
+      "owner_activity_status": null,
+      "platform_status": "open",
+      "posted_at": "2026-11-24T03:23:40.511000+00:00",
+      "posted_time_field": "created_at",
+      "sample_listing": false,
+      "source_fields": {
+        "budget_cents": 3500,
+        "created_at": 1795490620511,
+        "currency": "usd",
+        "status": "open",
+        "updated_at": 1795490621859
+      }
+    },
     "mx77wj5q918c5enmznx592gyzx8gp236": {
       "bid_amount_cents": null,
       "bid_at": null,
@@ -6892,16 +6924,11 @@
   "last_bid_reconciliation": "2026-11-24T03:06:30.064517+00:00",
   "last_check": "2026-11-24T03:06:30.073528+00:00",
   "market_observation": {
-    "fetched_at": "2026-11-24T03:20:17.531703+00:00",
-    "last_open_count": 75,
-    "newest_created_at": "2026-11-24T01:06:10.019000+00:00"
+    "fetched_at": "2026-11-24T03:25:17.921609+00:00",
+    "last_open_count": 76,
+    "newest_created_at": "2026-11-24T03:23:40.511000+00:00"
   },
   "market_observation_history": [
-    {
-      "fetched_at": "2026-11-23T03:22:19.747520+00:00",
-      "last_open_count": 74,
-      "newest_created_at": "2026-11-22T00:58:03.009000+00:00"
-    },
     {
       "fetched_at": "2026-11-23T03:27:20.104036+00:00",
       "last_open_count": 74,
@@ -8336,6 +8363,11 @@
       "fetched_at": "2026-11-24T03:20:17.531703+00:00",
       "last_open_count": 75,
       "newest_created_at": "2026-11-24T01:06:10.019000+00:00"
+    },
+    {
+      "fetched_at": "2026-11-24T03:25:17.921609+00:00",
+      "last_open_count": 76,
+      "newest_created_at": "2026-11-24T03:23:40.511000+00:00"
     }
   ],
   "marketplaces": {
