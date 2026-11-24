@@ -7300,13 +7300,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMDUsImNoZWNrcG9pbnRBdCI6MTc5NTU0NTc5MzYxOX0",
-  "last_bid_reconciliation": "2026-11-24T18:43:28.002146+00:00",
-  "last_check": "2026-11-24T18:43:28.010612+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMDUsImNoZWNrcG9pbnRBdCI6MTc5NTU0Njk5NTUxOH0",
+  "last_bid_reconciliation": "2026-11-24T19:03:30.197578+00:00",
+  "last_check": "2026-11-24T19:03:30.205787+00:00",
   "market_observation": {
     "fetched_at": "2026-11-24T19:02:09.621236+00:00",
+    "last_checked_at": "2026-11-24T19:02:54.981816+00:00",
     "last_open_count": 81,
-    "newest_created_at": "2026-11-24T16:10:16.676000+00:00"
+    "newest_created_at": "2026-11-24T16:10:16.676000+00:00",
+    "newest_posted_at": "2026-11-24T16:10:16.676000+00:00"
   },
   "market_observation_history": [
     {
@@ -8754,7 +8756,7 @@
     "bountyboard": {
       "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
       "bidding_status": "operator_reconciliation_required",
-      "checked_at": "2026-11-24T18:02:51.827452+00:00",
+      "checked_at": "2026-11-24T19:02:54.242175+00:00",
       "listings": [],
       "open_count": 0,
       "status": "observed_authenticated"
