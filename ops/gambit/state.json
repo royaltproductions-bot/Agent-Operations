@@ -118,6 +118,27 @@
           "reason": "proposal_preview_not_ready"
         }
       },
+      "mx72esxccgk6cfz08rrmd9hfwn8jwd05": {
+        "bid_sent": {
+          "days": [
+            "2026-11-25"
+          ],
+          "first_at": "2026-11-25T23:42:30.443007+00:00"
+        },
+        "proposal_brief_outline_sent": {
+          "days": [
+            "2026-11-25"
+          ],
+          "first_at": "2026-11-25T23:42:30.442990+00:00"
+        },
+        "proposal_sample_fallback": {
+          "days": [
+            "2026-11-25"
+          ],
+          "first_at": "2026-11-25T23:42:29.569770+00:00",
+          "reason": "proposal_preview_not_ready"
+        }
+      },
       "mx72h5rt4s2b48fw9n5vyzhz418jqds9": {
         "bid_followup_sent": {
           "days": [
@@ -1961,9 +1982,9 @@
       }
     },
     "model_budget": {
-      "call_count": 404,
+      "call_count": 406,
       "month": "2026-11",
-      "reserved_micro_usd": 15588760
+      "reserved_micro_usd": 15669548
     }
   },
   "bounties": {
@@ -2036,8 +2057,12 @@
       "version": 1
     },
     "mx72esxccgk6cfz08rrmd9hfwn8jwd05": {
-      "action": "evaluation_pending",
-      "at": "2026-11-25T23:41:47.469023+00:00",
+      "action": "bid_active",
+      "at": "2026-11-25T23:42:30.443015+00:00",
+      "declined_at": null,
+      "declined_version": null,
+      "last_declined_bid": null,
+      "rebid_invitation_id": null,
       "version": 1
     },
     "mx72gbvhm4s0e87p6cm72dwb318h7dx5": {
@@ -4490,16 +4515,24 @@
       "submitted_at": "2026-11-20T01:44:35.491006+00:00"
     },
     "mx72esxccgk6cfz08rrmd9hfwn8jwd05": {
-      "bid_amount_cents": null,
-      "bid_at": null,
-      "bid_id": null,
+      "bid_amount_cents": 4000,
+      "bid_at": 1795650149958,
+      "bid_id": "p178jz8pstsx0wqykbskc36xkh8jx8py",
+      "bid_status": "active",
+      "bid_status_changed_at": "2026-11-25T23:42:30.442145+00:00",
       "budget_cents": 5000,
+      "discount_percent": 20,
       "first_detected_at": "2026-11-25T23:41:47.468885+00:00",
       "observed_at": "2026-11-25T23:41:47.468885+00:00",
       "owner_activity_status": null,
       "platform_status": "open",
       "posted_at": "2026-11-25T23:41:02.490000+00:00",
+      "posted_budget_cents": 5000,
       "posted_time_field": "created_at",
+      "pricing_mode": "introductory_first_five",
+      "proposal_encrypted": "gAAAAABrB3Jm_w8eoTfxmh8SWdwY1sm5XsVDLAoTWFvQM4VkrIQQ8vF8mnvSqddgIM5Weju1Sf2H7CV1pAww0m5XOqUKR9w1hdggSwEFg9Uo2YUwraq_U6zc7tCudq5O1kMPdgZVePSI54GmmtlS40Xw4CyoUN2tan09nWbF-2nv3DS0K52UYLbe01ifz3pKAK_6INAIaM9qxtIuGfny8Ux3pbb0EwGtLtfSVxgza5EeObDvlUx7Kia9XFVzPxHZcRWRIM7kYvT152BViV8yh36MxJ4f_W4zA0eQEt-yDeE--2EvgqPlZqzUarGSubLJUfmwicmGhXZ3V798h72H7wJefLEgTJlJ9c9a-YthC20JA2KAQQP2PforcC0RJ9clIEQTrvnxISb1xGuTWmH69sKtwkXRcMHw3gok6_9Uav78CQu9ArajICJWokgyTB3at67QkJKBk_FmQFlGPGF4TgFNC00I_kfMD39RKOGAqex6wocldW6Dy0wBkck9JBvvNHC4yAF8m5gO4r81ijtLuHRiQl_GNeL9yVtZFoJDZfN4Lu6KbPnfc1GqViLpE-XrkJFKU0YuZbEwA6BpAM0jo68BnSj2mYzel5GPD6oic99n23LKgK3ksht9RYQkHElhULdGz1mUIBDAobBl5QVp-n5IoGiyLEJuqv9yPVhmGgFvXf_kXHYQSWjTIPqkShZJ9EzipkU3XnyN_Lt0ThHC6BWMELiEgbXjcajHQYr2Qtle5NdhaKqAV3nwdcJEbRMDkjxAC4_fCvYG_Jgs-27Hk-YOksRjgCLyHk-Y3yiZh6JnTfL22tpRu-UoioM1bBZmfaY7LjFFxA3BkjYL0pijTpFcIV5EK28w9BcnVV6-OdxCM5zrlzlZ2i8bpJ2_AlsNSP8uCrv_o35wyHjQ1QuPuZtjmyBlseJex_D2ZpCwYL64bORNGJJwNXX14qjdDTcF9Zwst9TpDlqiY5TkrHGI1Lkhc1QYRGXJAAHQZNNTTu_UB8jW1aY-Yx9ZAD1Y7OicrLu1vRNLOnQe3IlW-5R2o4nrYIb-Y04BfE-P5J2juBnRm1hl9ieSn3-_ig303ho4PIbWMKANoUY50JvLRI6apCxiWrGjZ14D-1hAOwrnTt1qtC1usf4SMp99sTp2YuxnnmpdhDUCDAzPCXPHp3wcqnnQKI9JvSwdWUP7EqhklkMTiUaPdvBft2ug2QY-hRSs1_0TUwVWalxZTugXnzAoYupBnJbRs4UvkcMedQdBuU3bb41fmJKduSOgwcsQLg8sK2jDBVk88e-b1lFjNIjPnYPd15QkdDLZowPVGmc5TkhT0MnjvUEf5dkNI8xSR9x1nNrAUtmLceQxk-TnRDGMihwr83b0JVKYMZ_zCgcOI2KlmA_dO91QXFUdI11gMvogumSzs4MHDqTx-YHyVrmmQB-oFxcgj3O-3w==",
+      "proposal_sha256": "eb78c7e690d17981db7ea2692db841b5b622b59360decf64b17bd75919456a0a",
+      "proposal_text_redacted": "I propose to deliver a shareable website-design PDF plus responsive HTML/CSS source ZIP for Adaptable\u2019s industrial-AI redesign. I\u2019ll review the existing site, simplify its messaging, and create a reindustrialization direction: structural grids, oversized typography, steel tones, safety-orange accents, and diagram-led sections. The PDF will show desktop and mobile layouts; I\u2019ll also render-check the source at both sizes and check navigation, contrast, and text overflow. Planned turnaround: 4\u20136 hours after hire. Assumption: the scope is the main marketing page and its revised section structure. Are any additional pages essential?\nNew on TryBounty; introductory rate while I build my track record.\nProposed deliverable outline (not a completed sample): 1. Confirm the requested scope against the buyer's brief. 2. Produce the requested output and check correctness. 3. Validate the result against the acceptance criteria. Brief scope: the scope and acceptance criteria stated in the buyer's bounty brief",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 5000,
@@ -4507,7 +4540,8 @@
         "currency": "usd",
         "status": "open",
         "updated_at": 1795650065073
-      }
+      },
+      "submitted_at": "2026-11-25T23:42:30.442132+00:00"
     },
     "mx72gbvhm4s0e87p6cm72dwb318h7dx5": {
       "bid_amount_cents": null,
@@ -7699,12 +7733,12 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMDgsImNoZWNrcG9pbnRBdCI6MTc5NTY0OTU3NDU5MX0",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMDksImNoZWNrcG9pbnRBdCI6MTc5NTY1MDExNjEwOX0",
   "last_bid_reconciliation": "2026-11-25T23:33:08.792985+00:00",
-  "last_check": "2026-11-25T23:33:08.802893+00:00",
+  "last_check": "2026-11-25T23:42:30.453058+00:00",
   "market_observation": {
     "fetched_at": "2026-11-25T23:41:48.675458+00:00",
-    "last_checked_at": "2026-11-25T23:41:51.823579+00:00",
+    "last_checked_at": "2026-11-25T23:41:55.541246+00:00",
     "last_open_count": 83,
     "newest_created_at": "2026-11-25T23:41:02.490000+00:00",
     "newest_posted_at": "2026-11-25T23:41:02.490000+00:00"
@@ -9305,24 +9339,6 @@
   "recent_outcomes": [
     {
       "action": "bid_sent",
-      "at": "2026-11-19T16:53:47.739114+00:00",
-      "bounty_id": "mx7cqdx474xgddxjdsyx0tv5sh8jhkhm",
-      "payout_cents": 6400,
-      "version": 1
-    },
-    {
-      "action": "proposal_sample_fallback",
-      "at": "2026-11-19T16:54:01.081016+00:00",
-      "bounty_id": "mx7b243vjfswpxt56b8xjefb3h8jhmwh",
-      "reason": "proposal_excerpt_missing"
-    },
-    {
-      "action": "proposal_brief_outline_sent",
-      "at": "2026-11-19T16:54:01.505653+00:00",
-      "bounty_id": "mx7b243vjfswpxt56b8xjefb3h8jhmwh"
-    },
-    {
-      "action": "bid_sent",
       "at": "2026-11-19T16:54:01.505661+00:00",
       "bounty_id": "mx7b243vjfswpxt56b8xjefb3h8jhmwh",
       "payout_cents": 2800,
@@ -9668,6 +9684,24 @@
       "at": "2026-11-25T21:32:53.883645+00:00",
       "bounty_id": "mx77pmhf4q4zqkv64v9q4wp4zs8hy7k4",
       "reason": "bulk_research_without_sources"
+    },
+    {
+      "action": "proposal_sample_fallback",
+      "at": "2026-11-25T23:42:29.569861+00:00",
+      "bounty_id": "mx72esxccgk6cfz08rrmd9hfwn8jwd05",
+      "reason": "proposal_preview_not_ready"
+    },
+    {
+      "action": "proposal_brief_outline_sent",
+      "at": "2026-11-25T23:42:30.443002+00:00",
+      "bounty_id": "mx72esxccgk6cfz08rrmd9hfwn8jwd05"
+    },
+    {
+      "action": "bid_sent",
+      "at": "2026-11-25T23:42:30.443012+00:00",
+      "bounty_id": "mx72esxccgk6cfz08rrmd9hfwn8jwd05",
+      "payout_cents": 4000,
+      "version": 1
     }
   ],
   "schema": 1,
