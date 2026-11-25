@@ -31,7 +31,7 @@ concurrency:
 jobs:
   find-and-fulfill:
     runs-on: ubuntu-latest
-    timeout-minutes: 235
+    timeout-minutes: 240
     env:
       BOUNTY_AGENT_API_KEY: ${{ secrets.BOUNTY_AGENT_API_KEY }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -67,7 +67,7 @@ jobs:
       - name: Restore isolated Gambit state and monthly budget
         run: |
           set -euo pipefail
-          git fetch --no-tags origin gambit-state
+          python3 -c 'from tools.gambit_watch import fetch_state_with_retry; fetch_state_with_retry()'
           git show origin/gambit-state:ops/gambit/state.json > ops/gambit/state.json
           git show origin/gambit-state:ops/gambit/openai_budget.json > ops/gambit/openai_budget.json
           # Preserve prior daily rows across resident worker checkouts.
@@ -114,10 +114,20 @@ jobs:
           set -euo pipefail
           # The current in-progress run is expected; only a distinct successor
           # should prevent dispatch. GitHub concurrency serializes the group.
-          queued="$(gh run list --workflow gambit-bounty.yml --limit 30 --json databaseId,status --jq '[.[] | select((.status == "queued" or .status == "pending" or .status == "waiting" or .status == "requested" or .status == "in_progress") and (.databaseId != (env.GITHUB_RUN_ID | tonumber)))] | length')"
-          if [ "$queued" = "0" ]; then
-            gh workflow run gambit-bounty.yml --ref main
-            echo "Queued successor Gambit resident run."
-          else
-            echo "Another Gambit run is already queued or running; no duplicate."
-          fi
+          for attempt in 1 2 3 4 5; do
+            if queued="$(timeout 30s gh run list --workflow gambit-bounty.yml --limit 30 --json databaseId,status --jq '[.[] | select((.status == "queued" or .status == "pending" or .status == "waiting" or .status == "requested" or .status == "in_progress") and (.databaseId != (env.GITHUB_RUN_ID | tonumber)))] | length')"; then
+              if [ "$queued" != "0" ]; then
+                echo "Another Gambit run is already queued or running; no duplicate."
+                exit 0
+              fi
+              if timeout 30s gh workflow run gambit-bounty.yml --ref main; then
+                echo "Queued successor Gambit resident run."
+                exit 0
+              fi
+            fi
+            if [ "$attempt" = 5 ]; then
+              echo "::error::Gambit successor check or dispatch failed after five attempts"
+              exit 1
+            fi
+            sleep "$((15 * 2 ** (attempt - 1)))"
+          done

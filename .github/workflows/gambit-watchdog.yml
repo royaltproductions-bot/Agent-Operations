@@ -1,0 +1,36 @@
+name: Gambit Watchdog
+on:
+  schedule:
+    - cron: '*/20 * * * *'
+  workflow_dispatch:
+permissions:
+  actions: write
+concurrency:
+  group: gambit-watchdog
+  cancel-in-progress: false
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Restore missing resident watcher
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3; do
+            if active="$(timeout 30s gh run list --workflow gambit-bounty.yml --limit 30 --json status --jq '[.[] | select(.status == "queued" or .status == "pending" or .status == "waiting" or .status == "requested" or .status == "in_progress")] | length')"; then
+              if [ "$active" != "0" ]; then
+                echo "Resident watcher already active."
+                exit 0
+              fi
+              if timeout 30s gh workflow run gambit-bounty.yml --ref main; then
+                echo "watchdog_dispatch: resident Gambit recovery requested" | tee -a "$GITHUB_STEP_SUMMARY"
+                exit 0
+              fi
+            fi
+            if [ "$attempt" = 3 ]; then exit 1; fi
+            sleep "$((15 * attempt))"
+          done

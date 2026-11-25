@@ -16,6 +16,18 @@ def command(args, **kwargs):
     return subprocess.run(args, check=True, **kwargs)
 
 
+def fetch_state_with_retry():
+    """Bound transient GitHub failures without authorizing unpersisted work."""
+    for attempt in range(3):
+        try:
+            command(['git', 'fetch', '--no-tags', 'origin', 'gambit-state'])
+            return
+        except (subprocess.TimeoutExpired, subprocess.CalledProcessError):
+            if attempt == 2:
+                raise
+            time.sleep((20, 40)[attempt])
+
+
 def checkpoint():
     """Persist Gambit state and its spending ledger on an isolated branch.
 
@@ -29,7 +41,7 @@ def checkpoint():
     if Path('ops/gambit/funnel_daily.json').exists():
         files.append('ops/gambit/funnel_daily.json')
     for attempt in range(4):
-        command(['git', 'fetch', '--no-tags', 'origin', 'gambit-state'])
+        fetch_state_with_retry()
         originals = [
             subprocess.run(['git', 'show', 'origin/gambit-state:' + p],
                            check=not (p.endswith("/funnel.json") or p.endswith("/funnel_daily.json")), stdout=subprocess.PIPE,
