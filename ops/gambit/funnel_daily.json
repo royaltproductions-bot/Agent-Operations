@@ -171,15 +171,15 @@
   },
   "2026-11-25": {
     "conversion_rates": {
-      "bid_per_seen": 0.4368932038834951,
-      "buyer_reply_per_bid": 0.044444444444444446,
+      "bid_per_seen": 0.44660194174757284,
+      "buyer_reply_per_bid": 0.043478260869565216,
       "hire_per_bid": 0.0
     },
     "counts": {
       "accepted": 0,
       "asked": 0,
-      "bids_active": 1,
-      "bids_sent": 1,
+      "bids_active": 2,
+      "bids_sent": 2,
       "declined": 0,
       "delivered": 0,
       "hired": 0,
@@ -193,7 +193,7 @@
       "withdrawn": 0
     },
     "coverage": "Observed unique state records only; missing platform events unknown",
-    "generated_at": "2026-11-25T17:05:20.147622+00:00",
+    "generated_at": "2026-11-25T17:06:11.944240+00:00",
     "source": "gambit_state_observed"
   }
 }

@@ -414,6 +414,14 @@
           "first_at": "2026-11-11T01:44:15.205563+00:00"
         }
       },
+      "mx74kz2jr746w0g9vtpjwqx0z18jxfet": {
+        "bid_sent": {
+          "days": [
+            "2026-11-25"
+          ],
+          "first_at": "2026-11-25T17:06:11.929072+00:00"
+        }
+      },
       "mx75233tezm8q1nc50frv8sr3h8jtc91": {
         "bid_followup_sent": {
           "days": [
@@ -1935,9 +1943,9 @@
       }
     },
     "model_budget": {
-      "call_count": 402,
+      "call_count": 404,
       "month": "2026-11",
-      "reserved_micro_usd": 15508152
+      "reserved_micro_usd": 15588760
     }
   },
   "bounties": {
@@ -2138,8 +2146,12 @@
       "version": 1
     },
     "mx74kz2jr746w0g9vtpjwqx0z18jxfet": {
-      "action": "evaluation_pending",
-      "at": "2026-11-25T17:05:15.190642+00:00",
+      "action": "bid_active",
+      "at": "2026-11-25T17:06:11.929090+00:00",
+      "declined_at": null,
+      "declined_version": null,
+      "last_declined_bid": null,
+      "rebid_invitation_id": null,
       "version": 1
     },
     "mx75233tezm8q1nc50frv8sr3h8jtc91": {
@@ -4930,16 +4942,27 @@
       }
     },
     "mx74kz2jr746w0g9vtpjwqx0z18jxfet": {
-      "bid_amount_cents": null,
-      "bid_at": null,
-      "bid_id": null,
+      "bid_amount_cents": 1400,
+      "bid_at": 1795626371689,
+      "bid_id": "p178ddx20f6a7bqx8ws3aap3mn8jxeax",
+      "bid_status": "active",
+      "bid_status_changed_at": "2026-11-25T17:06:11.928084+00:00",
       "budget_cents": 1700,
+      "discount_percent": 20,
       "first_detected_at": "2026-11-25T17:05:15.190456+00:00",
       "observed_at": "2026-11-25T17:05:15.190456+00:00",
       "owner_activity_status": null,
       "platform_status": "open",
       "posted_at": "2026-11-25T17:02:59.333000+00:00",
+      "posted_budget_cents": 1700,
       "posted_time_field": "created_at",
+      "preview_attachment_id": "ms7b0p513yfrmhey7z762yxjnx8jxm9h",
+      "preview_sent": true,
+      "preview_version": 1,
+      "pricing_mode": "introductory_first_five",
+      "proposal_encrypted": "gAAAAABrBxWDwH1Ay0kr1kPhkb1XdCAErSYbR43XrGRTHalWiDeyjteQR9uuDLpsoFJVANRm9n2uZgzQrmJKcAv6bIRgbWAoAP56KArTDSd75Hmkn8qBDWOlDLAS09oEcxEW5Kti1E651G1MLtzs3BIEauiIG3llv5PnG-pUINPgfg3XasogZpGwGjKXrKPPsraLVy43QEvrYtLewIfKb69QBxne5v6WFnaYGBt9srrAKiucfsWISzOA_ejhbq5UW76-AZxuC2i0Rs9Bw5u87LdewgSPAXqszo0S2Gtlc1Mb6qiEdkZSdQ6NckVwB7hsWQG4mY0UIa8ysq5ip_DhndEN6TEYj9qRhXs9yVISWTIYrNwaODjN5ZMHLtxCETHsIHCWWPGmwkM8Iu0UQyh4QAjMmtz4F-CaVrSg3PxDsNh_H-SnR4Y_ojqmhthGpRsoeyDMTdpLEN5Xagyl5xJTOCC6UwyscLKEkI4ej7oVKYvptpChvZSR3tzJS0gcaV1ZrpjvBtiPHsFCK58glAVG1ioTI8_zoyCksiu6BJQe0IAFgLRfCovrIAXbUwCrLtks2ATICtLSW_8GqN6qMAPFm1C_oSMcjto1qLY8sYhlTinhWFE2CiaotedQuw-gUd9SK161mRytq2mUswQbKRlhc-VbeJtJeDlGODmotF7qfglsoBLHUY-CiGVPuOEEDYvPC2V31sl8TWBujuKzJDmuKnK1ICsKeQ8hhF36u1orDbbEWbA864vigQz9MiGj8lGSzdLSSmP53hddkmYG-m-pfICL1w2OorciZy7wWnxRNJO22nZVK36f-lR45xAPCtqouJo_79OL57R5dfXfCW07fdThMXBsMDQ_OQ==",
+      "proposal_sha256": "a555e1a0783e12380d5bf784df42e6ae9c4a958f86e7a7fa321285914089b7f6",
+      "proposal_text_redacted": "I will deliver one annotated PDF wireframe showing the complete portfolio page from header to footer, within 3 hours after hire. It will use simple section boxes, neutral placeholder content, and numbered purpose notes for navigation, introduction, selected work, about, contact, and footer. I\u2019ll check that the section order is clear, every section has a brief explanation, and the layout remains adaptable without assuming a profession or existing materials.\nNew on TryBounty; introductory rate while I build my track record.\nA preliminary desktop design screenshot is in this thread.",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 1700,
@@ -4947,7 +4970,8 @@
         "currency": "usd",
         "status": "open",
         "updated_at": 1795626180888
-      }
+      },
+      "submitted_at": "2026-11-25T17:06:11.928062+00:00"
     },
     "mx75233tezm8q1nc50frv8sr3h8jtc91": {
       "bid_amount_cents": 700,
@@ -7463,12 +7487,12 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMDYsImNoZWNrcG9pbnRBdCI6MTc5NTYyNTQ3OTcwN30",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMDcsImNoZWNrcG9pbnRBdCI6MTc5NTYyNjMyMzg5MX0",
   "last_bid_reconciliation": "2026-11-25T16:51:33.221267+00:00",
-  "last_check": "2026-11-25T16:51:33.230794+00:00",
+  "last_check": "2026-11-25T17:06:11.938481+00:00",
   "market_observation": {
     "fetched_at": "2026-11-25T17:05:15.192275+00:00",
-    "last_checked_at": "2026-11-25T17:05:19.190074+00:00",
+    "last_checked_at": "2026-11-25T17:05:23.390849+00:00",
     "last_open_count": 82,
     "newest_created_at": "2026-11-25T17:02:59.333000+00:00",
     "newest_posted_at": "2026-11-25T17:02:59.333000+00:00"
@@ -9069,13 +9093,6 @@
   "recent_outcomes": [
     {
       "action": "bid_sent",
-      "at": "2026-11-19T16:53:14.212074+00:00",
-      "bounty_id": "mx7cf2mhhjhst6fwhq7ahkpd358jht7y",
-      "payout_cents": 4800,
-      "version": 1
-    },
-    {
-      "action": "bid_sent",
       "at": "2026-11-19T16:53:27.015634+00:00",
       "bounty_id": "mx7969ms5v1h7rw05250cmd52s8jhtxw",
       "payout_cents": 9600,
@@ -9434,6 +9451,13 @@
       "action": "bid_followup_sent",
       "at": "2026-11-25T16:31:35.942191+00:00",
       "bounty_id": "mx734bgdb3r4kjbccpvj068y098jt6x8"
+    },
+    {
+      "action": "bid_sent",
+      "at": "2026-11-25T17:06:11.929085+00:00",
+      "bounty_id": "mx74kz2jr746w0g9vtpjwqx0z18jxfet",
+      "payout_cents": 1400,
+      "version": 1
     }
   ],
   "schema": 1,
