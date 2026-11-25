@@ -171,7 +171,7 @@ def followup_due(record, now=None):
     if not bid_at or now - bid_at < timedelta(hours=24):
         return False
     incoming = utc_time((record.get('conversation') or {}).get('last_incoming_at'))
-    outgoing = utc_time((record.get('conversation') or {}).get('last_outgoing_at'))
+    outgoing = max((at for at in (utc_time((record.get('conversation') or {}).get('last_outgoing_at')), utc_time(record.get('last_outgoing_at'))) if at), default=None)
     if incoming and incoming > bid_at:
         return False
     return not outgoing or outgoing <= bid_at
@@ -355,6 +355,38 @@ def conversation_evidence(messages):
     return rows
 
 
+def record_outgoing_receipt(state, bounty_id, message_id, sent_at):
+    """Keep verified outbound receipts independently of stale thread snapshots."""
+    row = state.setdefault('commercial', {}).setdefault(bounty_id, {})
+    if not sent_at:
+        return
+    current = utc_time(row.get('last_outgoing_at'))
+    sent = utc_time(sent_at)
+    if not sent:
+        return
+    if not current or sent > current:
+        row['last_outgoing_at'] = sent_at
+    if not message_id:
+        return
+    receipts = row.setdefault('outgoing_receipts', {})
+    ident = str(message_id)
+    if ident in receipts:
+        return
+    receipts[ident] = sent_at
+    conversation = row.setdefault('conversation', {})
+    snapshot_ids = set(row.get('conversation_message_ids') or [])
+    # A full backfill that already contains the receipt must not be counted twice.
+    # Older legacy snapshots lack IDs; only add if their last outbound predates it.
+    prior = utc_time(conversation.get('last_outgoing_at'))
+    if ident not in snapshot_ids and (snapshot_ids or not prior or sent > prior):
+        conversation['message_count'] = int(conversation.get('message_count') or 0) + 1
+    if not prior or sent > prior:
+        conversation['last_outgoing_at'] = sent_at
+    incoming = utc_time(conversation.get('last_incoming_at'))
+    if incoming and sent >= incoming:
+        conversation['unanswered'] = False
+
+
 def record_conversation(state, bounty_id, messages):
     times = sorted((utc_time(m.get('created_at')), m.get('author_type')) for m in messages
                    if utc_time(m.get('created_at')) and m.get('author_type') in {'user', 'agent'})
@@ -363,7 +395,18 @@ def record_conversation(state, bounty_id, messages):
     last_in, last_out = (max(incoming) if incoming else None), (max(outgoing) if outgoing else None)
     row = state.setdefault('commercial', {}).setdefault(bounty_id, {})
     row['conversation_evidence'] = conversation_evidence(messages)
-    row['conversation'] = {'message_count': len(messages),
+    ids = {str(m.get('_id') or m.get('id')) for m in messages
+           if m.get('_id') or m.get('id')}
+    row['conversation_message_ids'] = sorted(ids)
+    missing = []
+    for ident, raw in (row.get('outgoing_receipts') or {}).items():
+        at = utc_time(raw)
+        if at and ident not in ids and (ids or not last_out or at > last_out):
+            missing.append(at)
+    if missing:
+        outgoing = sorted(outgoing + missing)
+        last_out = max(outgoing)
+    row['conversation'] = {'message_count': len(messages) + len(missing),
         'unknown_timestamp_count': sum(utc_time(m.get('created_at')) is None for m in messages),
         'last_incoming_at': last_in.isoformat() if last_in else None,
         'last_outgoing_at': last_out.isoformat() if last_out else None,

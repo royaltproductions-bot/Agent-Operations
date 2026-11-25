@@ -1837,6 +1837,54 @@ def respond_to_buyer(details, messages):
     return result
 
 
+def buyer_reoffer_cents(message):
+    """Only explicit, single USD price requests; never interpret a budget mention."""
+    text = str((message.get("content") or {}).get("text") or "").strip()
+    if re.search(r"\b(?:not|never|instead of|or|between|up to)\b", text, re.I):
+        return None
+    if len(re.findall(r"\$\s*\d", text)) != 1:
+        return None
+    match = re.fullmatch(
+        r"(?:please\s+)?(?:can you (?:do it|do this|deliver it) for|"
+        r"would you (?:do it|do this) for|"
+        r"(?:please )?(?:update|change|lower|revise|reduce) (?:your )?(?:bid|offer) to)"
+        r"\s*\$\s*(\d{1,5})(?:\.(\d{1,2}))?\s*(?:usd)?[.!?]?", text, re.I)
+    if not match:
+        return None
+    return int(match.group(1))*100 + int((match.group(2) or "").ljust(2,"0") or "0")
+
+
+def apply_buyer_reoffer(details, state, bounty_id, latest, messages):
+    """Use existing authenticated lower-price flow; never change the agreed scope."""
+    amount = buyer_reoffer_cents(latest)
+    bid = details.get("bid") or {}
+    current = bid.get("payout_cents")
+    if not amount or not isinstance(current, int) or amount < 1 or amount >= current:
+        return False
+    if unsupported_deliverable(details):
+        return False
+    when = commercial.utc_time(latest.get("created_at"))
+    row = state.get("commercial", {}).get(bounty_id, {})
+    last_out = commercial.utc_time(row.get("last_outgoing_at") or
+                                   (row.get("conversation") or {}).get("last_outgoing_at"))
+    if when is None or (last_out and last_out >= when):
+        return False
+    cap = cold_start_bid_cap_cents(state)
+    if cap is not None and amount > cap:
+        return False
+    original = str(bid.get("note") or saved_bid_note(state, bounty_id) or "").strip()
+    if not original or len(original) > 2000:
+        return False
+    action_id = "buyer-reoffer-" + key(bounty_id, buyer_message_id(latest))
+    confirm = "I've updated my bid to $%s for the same agreed deliverable and terms." % (
+        format(amount / 100, ".2f"))
+    process_operator_actions(state, [{
+        "id": action_id, "type": "reprice", "bounty_id": bounty_id,
+        "payout_cents": amount, "note": original, "confirm_message": confirm
+    }], persist=save_state)
+    return True
+
+
 def handle_open(item, state):
     bounty_id = str(item["_id"])
     details = api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}")
@@ -1960,7 +2008,8 @@ def handle_open(item, state):
                 current_reply_id = str(latest.get("_id") or latest.get("created_at") or
                                        key("owner-text", (latest.get("content") or {}).get("text")))
                 if current_reply_id != last_reply_id:
-                    reply = str(respond_to_buyer(details, messages).get("reply_text") or "").strip()
+                    repriced = apply_buyer_reoffer(details, state, bounty_id, latest, messages)
+                    reply = "" if repriced else str(respond_to_buyer(details, messages).get("reply_text") or "").strip()
                     if reply:
                         api(f"/v1/agent/bounties/{urllib.parse.quote(bounty_id, safe='')}/messages", "POST", {
                             "content": {"type": "text", "text": reply[:3000]},
@@ -2812,6 +2861,9 @@ def process_operator_actions(state, actions=None, *, persist=None):
         if not isinstance(action_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,80}", action_id):
             raise ValueError("operator_action_invalid_id")
         if action_id in done and done[action_id].get("status") == "complete":
+            phase = done[action_id]
+            if action.get("bounty_id") and phase.get("message_id") and phase.get("message_sent_at"):
+                commercial.record_outgoing_receipt(state, action["bounty_id"], phase["message_id"], phase["message_sent_at"])
             continue
         if action.get("type") != "reprice":
             raise ValueError("operator_action_unsupported_type")
@@ -2878,7 +2930,7 @@ def process_operator_actions(state, actions=None, *, persist=None):
         phase["status"] = "complete"
         phase["completed_at"] = timestamp()
         record_bid_measurement(state, bounty_id, bid, proposal=note_text)
-        state.setdefault("commercial", {}).setdefault(bounty_id, {})["last_outgoing_at"] = phase["message_sent_at"]
+        commercial.record_outgoing_receipt(state, bounty_id, phase.get("message_id"), phase["message_sent_at"])
         note(state, "operator_reprice_completed", bounty_id,
              action_id=action_id, payout_cents=amount)
         if persist:
@@ -3080,7 +3132,7 @@ def handle_hired(item, state):
                                       else csv_content)
             elif format_name == "text":
                 normalized_content = content
-            elif format_name in {"pdf", "docx"}:
+            elif format_name in {"pdf", "docx", "pptx", "mp4"}:
                 normalized_content = make_document(format_name, content)
             elif (format_name == "app_zip" and
                   gambit_app_builder.requested(details) and
