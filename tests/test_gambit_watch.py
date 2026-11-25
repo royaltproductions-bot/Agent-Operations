@@ -94,6 +94,32 @@ class WatchTests(TestCase):
         self.assertIn(['sudo','apt-get','update','-qq'], commands)
         self.assertIn(['sudo','apt-get','install','-y','--no-install-recommends','ffmpeg'], commands)
 
+    def test_checkpoint_fetch_retries_transient_errors(self):
+        with patch.object(watch, 'command', side_effect=[
+                watch.subprocess.TimeoutExpired('git', 60),
+                watch.subprocess.CalledProcessError(1, 'git'), None]) as run, \
+             patch.object(watch.time, 'sleep') as sleep:
+            watch.fetch_state_with_retry()
+        self.assertEqual(run.call_count, 3)
+        self.assertEqual([c.args[0] for c in sleep.call_args_list], [20, 40])
+
+    def test_checkpoint_fetch_fails_closed_after_three_attempts(self):
+        with patch.object(watch, 'command', side_effect=
+                watch.subprocess.TimeoutExpired('git', 60)) as run, \
+             patch.object(watch.time, 'sleep'):
+            with self.assertRaises(watch.subprocess.TimeoutExpired):
+                watch.fetch_state_with_retry()
+        self.assertEqual(run.call_count, 3)
+
+    def test_watchdog_is_independent_and_no_model_credentials(self):
+        workflow = Path('.github/workflows/gambit-watchdog.yml').read_text()
+        self.assertIn("cron: '*/20 * * * *'", workflow)
+        self.assertIn('actions: write', workflow)
+        self.assertIn('watchdog_dispatch', workflow)
+        self.assertNotIn('OPENAI_API_KEY', workflow)
+        self.assertNotIn('BOUNTY_AGENT_API_KEY', workflow)
+        self.assertIn('after five attempts', Path('.github/workflows/gambit-bounty.yml').read_text())
+
     def test_probe_outputs_do_not_leak_between_cycles(self):
         seen={}
         def command(args, env, timeout=None):
