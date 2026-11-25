@@ -29,6 +29,20 @@ class EarlyMarketTests(TestCase):
         self.assertEqual(state["settlements"]["paid"]["payout_cents"], 100)
         self.assertEqual(early.capture_ids(state, [{"_id": "new", "version": 3}]), 0)
 
+    def test_missing_old_listing_refresh_does_not_infer_hire_on_error(self):
+        from datetime import datetime, timezone, timedelta
+        now = datetime(2026,11,25,tzinfo=timezone.utc)
+        old = (now-timedelta(days=2)).isoformat()
+        state = {"commercial": {"a":{"posted_at":old,"platform_status":"open"},
+                                "b":{"posted_at":old,"platform_status":"open"}}}
+        with patch.object(early, "listing_status", side_effect=[
+                OSError("unavailable"), {"_id":"b","status":"claimed"}]):
+            early.refresh_tracked_statuses(state, [], "dummy", now)
+        self.assertEqual(state["commercial"]["a"]["platform_status"], "open")
+        self.assertNotIn("market_status_checked_at", state["commercial"]["a"])
+        self.assertEqual(state["commercial"]["b"]["platform_status"], "claimed")
+        self.assertEqual(state["commercial"]["b"]["market_status_checked_at"], now.isoformat())
+
     def test_open_market_pagination_requires_all_pages(self):
         class Response:
             def __init__(self, data):

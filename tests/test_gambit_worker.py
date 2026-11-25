@@ -715,14 +715,35 @@ class GambitTests(unittest.TestCase):
         self.assertEqual(result['reason'], 'unsupported_software_deployment')
         self.assertFalse(result.get('_retry_decision'))
 
-    def test_buyer_defined_prospect_count_is_not_arbitrarily_rejected(self):
-        for number in (10, 50, 500):
+    def test_buyer_defined_prospect_count_within_verified_research_capacity(self):
+        for number in (10, 50):
             details={"bounty":{
                 "title":"Find research contacts",
                 "description":"Research decision makers and their LinkedIn profiles.",
                 "verification":f"Submit exactly {number} prospect records with "
                                "LinkedIn profile URLs and supporting sources."}}
             self.assertIsNone(gambit.unsupported_deliverable(details))
+
+    def test_hg11_reject_live_setup_but_allow_invoice_file(self):
+        self.assertEqual("live_integration", gambit.unsupported_deliverable({
+            "bounty": {"title": "Set up Zapier invoice automation",
+                       "verification": "Working automation"}}))
+        self.assertIsNone(gambit.unsupported_deliverable({
+            "bounty": {"title": "Produce invoice template XLSX",
+                       "verification": "Deliver an XLSX spreadsheet"}}))
+
+    def test_hg11_bulk_research_requires_supplied_sources(self):
+        details = {"bounty": {"title": "Research 100 companies",
+                   "verification": "Deliver 100 verified rows in XLSX"}}
+        self.assertEqual("bulk_research_without_sources", gambit.unsupported_deliverable(details))
+        details["bounty"]["description"] = "Use the supplied source list."
+        self.assertIsNone(gambit.unsupported_deliverable(details))
+
+    def test_hg8_reject_presenter_ugc_and_real_voice(self):
+        for scope in ("UGC", "on-camera presenter", "real human voice"):
+            details = {"bounty": {"title": "Create captioned explainer video",
+                       "verification": "Deliver MP4 with " + scope}}
+            self.assertFalse(gambit.limited_explainer_video_requested(details))
 
     def test_company_website_urls_do_not_trigger_static_site_requirements(self):
         details={"bounty":{"title":"Find 15 New York Seed-Stage Fintech Startups",

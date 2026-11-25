@@ -408,6 +408,7 @@ def save_state(state):
         "coverage": "Observed unique state records only; missing platform events unknown",
         "counts": snapshot["today"],
         "conversion_rates": snapshot["conversion_rates"],
+        "market_status": commercial.market_status_summary(state),
     }
     daily_tmp = daily.with_suffix(".tmp")
     daily_tmp.write_text(json.dumps(existing, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -1344,7 +1345,8 @@ def limited_explainer_video_requested(details):
         return False
     if re.search(r"\b(?:live[- ]action|actor|actors|camera footage|screen recording|"
                  r"motion graphics|character animation|3d animation|custom animation|"
-                 r"lip sync|b-roll|stock footage|cinematic|reel)\b", text):
+                 r"lip sync|b-roll|stock footage|cinematic|reel|ugc|user.generated content|"
+                 r"on.camera|presenter|real (?:human )?voice|human narration|voice actor)\b", text):
         return False
     return True
 
@@ -1369,6 +1371,28 @@ def unsupported_deliverable(details):
     verification = (verification.lower() if isinstance(verification, str) else
                     json.dumps(verification, ensure_ascii=False).lower())
     requested = title + " " + description
+    full_scope = requested + " " + verification
+    # Do not bid on configuring live buyer accounts or operating recurring
+    # integrations. Locally runnable source and supplied-data work remain valid.
+    live_target = (r"\b(?:zapier|make\.com|n8n|webhooks?|live integrations?|"
+                   r"gmail accounts?|buyer accounts?|production integrations?)\b")
+    live_setup = (r"\b(?:set up|configure|connect|activate|deploy|run|maintain|operate)\b"
+                  r".{0,90}" + live_target)
+    live_acceptance = re.search(
+        r"\b(?:live|running|active|deployed|recurring)\s+"
+        r"(?:automation|integration|service|webhook|workflow)\b", verification)
+    if live_acceptance or re.search(live_setup, requested):
+        return "live_integration"
+    quantity = requested_list_size(details)
+    supplied_sources = bool(re.search(
+        r"\b(?:supplied|provided|attached|buyer.supplied)\s+"
+        r"(?:source list|list of (?:urls|companies|contacts|leads)|csv|xlsx|spreadsheet)\b",
+        full_scope))
+    research_scope = bool(re.search(
+        r"\b(?:research|find|source|compile|identify|verify|qualifying|prospect|leads|contacts)\b",
+        requested))
+    if quantity and quantity > 50 and research_scope and not supplied_sources:
+        return "bulk_research_without_sources"
 
     # These assignments require authenticated publishing or transaction
     # resources. Preparing a draft social post or analyzing a campaign is still
@@ -2541,7 +2565,7 @@ def requested_list_size(details):
         r"(?:at\s+least\s+|a\s+minimum\s+of\s+)?(\d{1,4})\s+"
         r"(?:(?:qualified|relevant|potential|targeted|local|sales|public)\s+){0,3}"
         r"(?:leads|contacts|companies|businesses|competitors|candidates|"
-        r"suppliers|agencies|investors|creators)\b", task, re.IGNORECASE)
+        r"suppliers|agencies|investors|creators|brands)\b", task, re.IGNORECASE)
     if match:
         return int(match.group(1))
     # Acceptance criteria often say "exactly 500 candidate records" or
@@ -2552,7 +2576,7 @@ def requested_list_size(details):
         r"(?:(?:distinct|unique|verified|qualified|potential|current|"
         r"relevant|targeted|professional|seed-stage)\s+){0,4}"
         r"(?:records|rows|leads|contacts|companies|startups|"
-        r"candidates|prospects|investors|professionals)\b",task,re.I)
+        r"candidates|prospects|investors|professionals|brands)\b",task,re.I)
     return int(fallback.group(1)) if fallback else None
 
 
@@ -2892,6 +2916,10 @@ def handle_hired(item, state):
     if claim.get("status") != "active" or not claim.get("claim_id"):
         return
     gap = unsupported_deliverable(details)
+    # The new bid qualification limit is not authorization to abandon an
+    # existing accepted research commitment. Existing quality gates still apply.
+    if gap == "bulk_research_without_sources":
+        gap = None
     if gap:
         unclaim_unfulfillable(
             bounty_id, claim["claim_id"], state, gap,
