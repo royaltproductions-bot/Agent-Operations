@@ -68,11 +68,36 @@ class OperatorRepriceTests(unittest.TestCase):
                 worker,"cold_start_bid_cap_cents",return_value=15000), patch.object(worker,"save_state"):
             self.assertTrue(worker.apply_buyer_reoffer(details,self.state,"mx-test",msg,[msg]))
             before=len(self.calls)
-            self.assertFalse(worker.apply_buyer_reoffer(details,self.state,"mx-test",msg,[msg]))
+            self.assertTrue(worker.apply_buyer_reoffer(details,self.state,"mx-test",msg,[msg]))
             self.assertEqual(len(self.calls),before)
         self.assertEqual(self.price,500)
         self.assertEqual(self.message_count,1)
         self.assertEqual([p["note"] for path,method,p in self.calls if method=="POST" and path.endswith("/bid")],["Original scope."])
+
+    def test_reoffer_resumes_after_price_write_before_confirmation(self):
+        details={"bounty":{"version":2,"title":"Write a report"},
+                 "bid":{"status":"active","payout_cents":1000,"note":"Original scope."}}
+        msg={"_id":"buyer-resume","created_at":"2026-11-25T20:00:00+00:00",
+             "content":{"text":"Can you do it for $5?"}}
+        def interrupt(path, method="GET", payload=None):
+            if path.endswith("/messages") and method=="POST":
+                raise RuntimeError("simulated interruption")
+            return self.fake_api(path,method,payload)
+        with patch.object(worker,"api",side_effect=interrupt), patch.object(
+                worker,"cold_start_bid_cap_cents",return_value=15000), patch.object(worker,"save_state"):
+            with self.assertRaisesRegex(RuntimeError,"simulated interruption"):
+                worker.apply_buyer_reoffer(details,self.state,"mx-test",msg,[msg])
+        self.assertEqual(self.price,500)
+        self.assertEqual(self.message_count,0)
+        details["bid"]["payout_cents"]=500
+        with patch.object(worker,"api",side_effect=self.fake_api), patch.object(
+                worker,"cold_start_bid_cap_cents",return_value=15000), patch.object(worker,"save_state"):
+            self.assertTrue(worker.apply_buyer_reoffer(details,self.state,"mx-test",msg,[msg]))
+            before=len(self.calls)
+            self.assertTrue(worker.apply_buyer_reoffer(details,self.state,"mx-test",msg,[msg]))
+            self.assertEqual(len(self.calls),before)
+        self.assertEqual(self.message_count,1)
+        self.assertEqual(len([p for path,method,p in self.calls if method=="POST" and path.endswith("/bid")]),1)
 
     def test_readback_mismatch_sends_no_message(self):
         def mismatch(path, method="GET", payload=None):

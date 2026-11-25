@@ -1855,27 +1855,52 @@ def buyer_reoffer_cents(message):
 
 
 def apply_buyer_reoffer(details, state, bounty_id, latest, messages):
-    """Use existing authenticated lower-price flow; never change the agreed scope."""
+    """Resume explicit lower-price requests without duplicate writes or replies."""
     amount = buyer_reoffer_cents(latest)
     bid = details.get("bid") or {}
     current = bid.get("payout_cents")
-    if not amount or not isinstance(current, int) or amount < 1 or amount >= current:
+    if (not amount or not isinstance(current, int) or isinstance(current, bool)
+            or bid.get("status") != "active"):
         return False
+    action_id = "buyer-reoffer-" + key(bounty_id, buyer_message_id(latest))
+    phases = state.setdefault("operator_actions_done", {})
+    phase = phases.get(action_id)
+    if phase and phase.get("status") == "complete":
+        commercial.record_outgoing_receipt(state, bounty_id, phase.get("message_id"),
+                                           phase.get("message_sent_at"))
+        return True
     if unsupported_deliverable(details):
-        return False
-    when = commercial.utc_time(latest.get("created_at"))
-    row = state.get("commercial", {}).get(bounty_id, {})
-    last_out = commercial.utc_time(row.get("last_outgoing_at") or
-                                   (row.get("conversation") or {}).get("last_outgoing_at"))
-    if when is None or (last_out and last_out >= when):
         return False
     cap = cold_start_bid_cap_cents(state)
     if cap is not None and amount > cap:
         return False
+    if phase:
+        # The previous run persisted this exact buyer's authorized intent.
+        # A successful price write may already have made amount == current.
+        if phase.get("payout_cents") != amount or phase.get("bounty_id") != bounty_id:
+            raise RuntimeError("buyer_reoffer_receipt_conflict")
+        if current < amount:
+            return False
+    else:
+        if amount >= current:
+            return False
+        when = commercial.utc_time(latest.get("created_at"))
+        row = state.get("commercial", {}).get(bounty_id, {})
+        outgoing_times = [commercial.utc_time(raw) for raw in
+            (row.get("last_outgoing_at"),
+             (row.get("conversation") or {}).get("last_outgoing_at"))]
+        last_out = max((at for at in outgoing_times if at), default=None)
+        if when is None or (last_out and last_out >= when):
+            return False
     original = str(bid.get("note") or saved_bid_note(state, bounty_id) or "").strip()
     if not original or len(original) > 2000:
         return False
-    action_id = "buyer-reoffer-" + key(bounty_id, buyer_message_id(latest))
+    if not phase:
+        # Record intent before the first external write. The same stable ID
+        # resumes both the price readback and buyer confirmation after a crash.
+        phases[action_id] = {"status": "intent", "bounty_id": bounty_id,
+                             "payout_cents": amount}
+        save_state(state)
     confirm = "I've updated my bid to $%s for the same agreed deliverable and terms." % (
         format(amount / 100, ".2f"))
     process_operator_actions(state, [{
@@ -1883,7 +1908,6 @@ def apply_buyer_reoffer(details, state, bounty_id, latest, messages):
         "payout_cents": amount, "note": original, "confirm_message": confirm
     }], persist=save_state)
     return True
-
 
 def handle_open(item, state):
     bounty_id = str(item["_id"])
