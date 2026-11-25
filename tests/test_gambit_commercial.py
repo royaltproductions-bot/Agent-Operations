@@ -25,6 +25,18 @@ class CommercialTests(unittest.TestCase):
         self.assertNotIn('private buyer brief',json.dumps(state))
         self.assertIsNone(row['bid_at'])
 
+    def test_market_status_transitions_are_unique_and_not_a_census(self):
+        state = {}
+        c.observe(state, {"_id":"a","status":"open",
+                          "created_at":(NOW-timedelta(days=2)).isoformat()}, NOW)
+        c.observe(state, {"_id":"a","status":"claimed"}, NOW+timedelta(minutes=1))
+        c.observe(state, {"_id":"a","status":"claimed"}, NOW+timedelta(minutes=2))
+        c.observe(state, {"_id":"a","status":"completed"}, NOW+timedelta(minutes=3))
+        summary = c.market_status_summary(state, NOW+timedelta(minutes=4))
+        self.assertEqual(summary["seven_day_unique_observed_hired_claimed_completed"], 1)
+        self.assertEqual(summary["seven_day_status_transitions"], {"claimed":1,"completed":1})
+        self.assertIn("not a platform-wide census", summary["scope"])
+
     def test_fresh_recent_unknown_stale_order_and_activity(self):
         rows = [{'_id':'stale','created_at':(NOW-timedelta(days=10)).isoformat()},
                 {'_id':'unknown'}, {'_id':'recent','created_at':(NOW-timedelta(days=2)).isoformat()},

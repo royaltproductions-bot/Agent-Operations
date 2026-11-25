@@ -112,6 +112,52 @@ def capture_ids(state, opened):
 
 
 
+def listing_status(api_key, bounty_id):
+    """One bounded authenticated GET; never infer status from a failed request."""
+    url = BASE + "/v1/agent/bounties/" + urllib.parse.quote(bounty_id, safe='')
+    request = urllib.request.Request(url, headers={
+        "Authorization": "Bearer " + api_key, "Accept": "application/json",
+        "Cache-Control": "no-cache", "User-Agent": "AriOperations-Gambit/1.0"})
+    with urllib.request.urlopen(request, timeout=5) as response:
+        data = json.load(response)
+    bounty = data.get("bounty") if isinstance(data, dict) else None
+    if not isinstance(bounty, dict) or not bounty.get("status"):
+        raise ValueError("market_status_missing")
+    return {**bounty, "_id": bounty_id}
+
+
+def refresh_tracked_statuses(state, opened, api_key, now=None, max_missing=4):
+    """Refresh observed open listings from pagination and rotate missing detail reads.
+
+    Bound expensive per-listing requests so measurement cannot delay new bids.
+    A missing, forbidden or unavailable listing remains unconfirmed.
+    """
+    now = now or datetime.now(timezone.utc)
+    rows = state.get("commercial", {})
+    open_ids = {str(item.get("_id")) for item in opened
+                if isinstance(item, dict) and item.get("status") == "open"}
+    pending = []
+    for ident, row in rows.items():
+        posted = commercial.utc_time(row.get("posted_at") or row.get("first_detected_at"))
+        if row.get("sample_listing") or not posted or now - posted < timedelta(hours=24):
+            continue
+        if ident in open_ids:
+            row["market_status_checked_at"] = now.isoformat()
+            continue
+        attempted = commercial.utc_time(row.get("market_status_attempted_at"))
+        if attempted and now - attempted < timedelta(hours=1):
+            continue
+        pending.append((attempted or datetime.min.replace(tzinfo=timezone.utc), ident))
+    for _, ident in sorted(pending)[:max_missing]:
+        rows[ident]["market_status_attempted_at"] = now.isoformat()
+        try:
+            result = listing_status(api_key, ident)
+        except (OSError, ValueError, urllib.error.URLError):
+            continue
+        commercial.observe(state, result, now)
+        rows[ident]["market_status_checked_at"] = now.isoformat()
+
+
 def other_pages(api_key, endpoint, collection, initial_cursor=None):
     result, cursor = [], initial_cursor
     for _ in range(MAX_PAGES):
@@ -280,6 +326,7 @@ def run(probe_mode=False):
     if state.get("schema") != 1:
         raise ValueError("incompatible_state")
     changed = capture_ids(state, opened)
+    refresh_tracked_statuses(state, opened, api_key)
     observation = record_market_observation(state, opened)
     # Every market fetch is an operational measurement, not a no-op. Persist
     # it even when there are no newly discovered listings.
@@ -294,6 +341,7 @@ def run(probe_mode=False):
         json.dumps(commercial.summarize(state), indent=2, sort_keys=True) + "\n",
         encoding="utf-8")
     temp_funnel.replace(funnel)
+    commercial.update_daily_market_status(STATE_PATH.with_name('funnel_daily.json'), state)
     # Expose newly discovered IDs separately from the observation checkpoint.
     if probe_mode and changed:
         output({"changed": True})

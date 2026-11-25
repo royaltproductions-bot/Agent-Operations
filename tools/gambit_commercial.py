@@ -67,11 +67,75 @@ def observe(state, item, now=None):
     record.setdefault('bid_amount_cents', None)
     record.setdefault('owner_activity_status', None)
     record['platform_status'] = item.get('status', record.get('platform_status'))
+    prior_status = old.get('platform_status')
+    new_status = record.get('platform_status')
+    if prior_status and new_status and prior_status != new_status and not record['sample_listing']:
+        # A missing or inaccessible listing is never inferred to be hired.
+        transitions = list(old.get('market_status_transitions') or [])
+        transitions.append({'at': now.isoformat(), 'from': prior_status,
+                            'to': new_status,
+                            'provider': 'gambit' if record.get('bid_status') == 'hired' else 'unknown'})
+        record['market_status_transitions'] = transitions
     changed = record != old
     if changed:
         record['observed_at'] = now.isoformat()
         records[bid] = record
     return changed
+
+
+def market_status_summary(state, now=None):
+    """Seven-day observed transitions, with explicit limits on census coverage."""
+    now = now or datetime.now(timezone.utc)
+    cutoff = now - timedelta(days=7)
+    records = {k: v for k, v in state.get('commercial', {}).items()
+               if not v.get('sample_listing')}
+    counts = {}
+    hire_ids = set()
+    today = []
+    older = checked = 0
+    for ident, row in records.items():
+        posted = utc_time(row.get('posted_at') or row.get('first_detected_at'))
+        if posted and now - posted >= timedelta(hours=24):
+            older += 1
+            last = utc_time(row.get('market_status_checked_at'))
+            checked += int(bool(last and now - last <= timedelta(hours=24)))
+        for event in row.get('market_status_transitions', []):
+            at = utc_time(event.get('at'))
+            if not at or not cutoff <= at <= now:
+                continue
+            status = event.get('to')
+            if status not in {'hired','claimed','completed','canceled','cancelled'}:
+                continue
+            counts[status] = counts.get(status, 0) + 1
+            if status in {'hired','claimed','completed'}:
+                hire_ids.add(ident)
+            if at.date() == now.date():
+                today.append({'bounty_id': ident, **event})
+    return {'scope': 'tracked non-sample listings only; not a platform-wide census',
+            'tracked': len(records), 'older_than_24h': older,
+            'older_checked_in_last_24h': checked,
+            'seven_day_status_transitions': counts,
+            'seven_day_unique_observed_hired_claimed_completed': len(hire_ids),
+            'today_transitions': today}
+
+
+def update_daily_market_status(path, state, now=None):
+    """Preserve existing daily funnel rows and merge model-free status data."""
+    import json
+    now = now or datetime.now(timezone.utc)
+    try:
+        existing = json.loads(path.read_text(encoding='utf-8'))
+    except (OSError, ValueError):
+        existing = {}
+    if not isinstance(existing, dict):
+        raise ValueError('invalid_daily_funnel')
+    day = now.date().isoformat()
+    row = existing.setdefault(day, {})
+    row['market_status'] = market_status_summary(state, now)
+    temporary = path.with_suffix('.tmp')
+    temporary.write_text(json.dumps(existing, indent=2, sort_keys=True) + '\n',
+                         encoding='utf-8')
+    temporary.replace(path)
 
 
 def is_fresh(item, state, hours=2, now=None):
