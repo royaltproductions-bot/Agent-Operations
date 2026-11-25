@@ -664,6 +664,12 @@
         }
       },
       "mx77qzd4wamcen87dbhwyq2fj98jv5eb": {
+        "bid_followup_sent": {
+          "days": [
+            "2026-11-25"
+          ],
+          "first_at": "2026-11-25T03:44:24.645784+00:00"
+        },
         "bid_sent": {
           "days": [
             "2026-11-24"
@@ -2230,6 +2236,7 @@
       "declined_at": null,
       "declined_version": null,
       "last_declined_bid": null,
+      "last_owner_reply_id": null,
       "rebid_invitation_id": null,
       "version": 1
     },
@@ -5355,6 +5362,8 @@
       "conversation_evidence_backfilled_at": "2026-11-24T03:30:24.627027+00:00",
       "discount_percent": 20,
       "first_detected_at": "2026-11-24T03:25:17.919672+00:00",
+      "followup_sent_at": "2026-11-25T03:44:24.645764+00:00",
+      "last_outgoing_at": "2026-11-25T03:44:24.645779+00:00",
       "observed_at": "2026-11-24T03:25:17.919672+00:00",
       "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
@@ -7309,12 +7318,12 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMDUsImNoZWNrcG9pbnRBdCI6MTc5NTU3NzA1MjAyM30",
-  "last_bid_reconciliation": "2026-11-25T03:24:22.147203+00:00",
-  "last_check": "2026-11-25T03:24:22.156642+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMDUsImNoZWNrcG9pbnRBdCI6MTc5NTU3ODI1NDE1OH0",
+  "last_bid_reconciliation": "2026-11-25T03:44:24.029783+00:00",
+  "last_check": "2026-11-25T03:44:24.655677+00:00",
   "market_observation": {
     "fetched_at": "2026-11-25T03:43:08.511059+00:00",
-    "last_checked_at": "2026-11-25T03:43:31.421708+00:00",
+    "last_checked_at": "2026-11-25T03:43:53.816542+00:00",
     "last_open_count": 81,
     "newest_created_at": "2026-11-24T16:10:16.676000+00:00",
     "newest_posted_at": "2026-11-24T16:10:16.676000+00:00"
@@ -8914,13 +8923,6 @@
   },
   "recent_outcomes": [
     {
-      "action": "pass_unsupported",
-      "at": "2026-11-19T16:52:51.902344+00:00",
-      "bounty_id": "mx7e5rpc2tppw4z62cqv9wcz898jhw0m",
-      "reason": "video_production",
-      "version": 1
-    },
-    {
       "action": "proposal_sample_fallback",
       "at": "2026-11-19T16:53:04.261150+00:00",
       "bounty_id": "mx7cg7yy7fge2t3q8gqcvxs7ax8jhghr",
@@ -9283,6 +9285,11 @@
       "action": "bid_followup_sent",
       "at": "2026-11-25T01:24:23.061290+00:00",
       "bounty_id": "mx78kts0nkr5r6cw6qeer2v9mx8jvk1t"
+    },
+    {
+      "action": "bid_followup_sent",
+      "at": "2026-11-25T03:44:24.645796+00:00",
+      "bounty_id": "mx77qzd4wamcen87dbhwyq2fj98jv5eb"
     }
   ],
   "schema": 1,
