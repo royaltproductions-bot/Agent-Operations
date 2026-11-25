@@ -195,12 +195,29 @@
     "coverage": "Observed unique state records only; missing platform events unknown",
     "generated_at": "2026-11-25T21:33:02.087394+00:00",
     "market_status": {
-      "older_checked_in_last_24h": 93,
+      "older_checked_in_last_24h": 95,
       "older_than_24h": 101,
       "scope": "tracked non-sample listings only; not a platform-wide census",
-      "seven_day_status_transitions": {},
-      "seven_day_unique_observed_hired_claimed_completed": 0,
-      "today_transitions": [],
+      "seven_day_status_transitions": {
+        "claimed": 2
+      },
+      "seven_day_unique_observed_hired_claimed_completed": 2,
+      "today_transitions": [
+        {
+          "at": "2026-11-25T21:41:40.522694+00:00",
+          "bounty_id": "mx7et2qfpvbmsmx5azezf5hxkx8hmd0d",
+          "from": "open",
+          "provider": "unknown",
+          "to": "claimed"
+        },
+        {
+          "at": "2026-11-25T21:41:40.522694+00:00",
+          "bounty_id": "mx7f8tqb7r75rmrp9hacmt52tn8hm0sn",
+          "from": "open",
+          "provider": "unknown",
+          "to": "claimed"
+        }
+      ],
       "tracked": 109
     },
     "source": "gambit_state_observed"
