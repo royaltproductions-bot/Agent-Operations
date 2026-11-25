@@ -349,6 +349,14 @@
           "reason": "proposal_excerpt_missing"
         }
       },
+      "mx73bzk0fqbwyb7y24hd9xfj0h8jwhhh": {
+        "bid_sent": {
+          "days": [
+            "2026-11-25"
+          ],
+          "first_at": "2026-11-25T04:58:54.752934+00:00"
+        }
+      },
       "mx73e9bd3s6pkqt636wwvh4r158h27fn": {
         "duplicate_clarification_suppressed": {
           "days": [
@@ -1902,9 +1910,9 @@
       }
     },
     "model_budget": {
-      "call_count": 401,
+      "call_count": 402,
       "month": "2026-11",
-      "reserved_micro_usd": 15466874
+      "reserved_micro_usd": 15508152
     }
   },
   "bounties": {
@@ -2077,8 +2085,12 @@
       "version": 1
     },
     "mx73bzk0fqbwyb7y24hd9xfj0h8jwhhh": {
-      "action": "evaluation_pending",
-      "at": "2026-11-25T04:58:34.311245+00:00",
+      "action": "bid_active",
+      "at": "2026-11-25T04:58:54.752951+00:00",
+      "declined_at": null,
+      "declined_version": null,
+      "last_declined_bid": null,
+      "rebid_invitation_id": null,
       "version": 1
     },
     "mx73e9bd3s6pkqt636wwvh4r158h27fn": {
@@ -4751,16 +4763,24 @@
       "submitted_at": "2026-11-19T16:58:07.817713+00:00"
     },
     "mx73bzk0fqbwyb7y24hd9xfj0h8jwhhh": {
-      "bid_amount_cents": null,
-      "bid_at": null,
-      "bid_id": null,
+      "bid_amount_cents": 500,
+      "bid_at": 1795582734527,
+      "bid_id": "p173nkrcp5ef1587xw1nvdf44n8jwe5r",
+      "bid_status": "active",
+      "bid_status_changed_at": "2026-11-25T04:58:54.752236+00:00",
       "budget_cents": 500,
+      "discount_percent": 20,
       "first_detected_at": "2026-11-25T04:58:34.311087+00:00",
       "observed_at": "2026-11-25T04:58:34.311087+00:00",
       "owner_activity_status": null,
       "platform_status": "open",
       "posted_at": "2026-11-25T04:56:38.768000+00:00",
+      "posted_budget_cents": 500,
       "posted_time_field": "created_at",
+      "pricing_mode": "introductory_first_five",
+      "proposal_encrypted": "gAAAAABrBmsOL7ei1xMm8Uw07J2PlL8Msfl6hcJbDaS4N5hjT9UThOQY_0fCszFKEp84Jl0STbhm3u9F61z6J0aW-W9JBZ8HjW24cwrdO5P6gqhkp-HZB7XJtBLSCE3OHoFg-KpPJE0ZJFi4O_7t4R5GOLIPZcOGfy61akDchKgCAGTR3sejmlLVSs0Kr4HLagtfNPaaHN1OdQr72CPpvylWbm0kbaUZzFlHEOIsu7TWn7t0nxZKkkEYSdH2jO0v6YN8V6KywgZrb3Tkbw9-k3vjntRaFV-iIBvtZKbzUKHSA72oI3k55nibV-tWPagtemiYsce0w87PoyVZ8gdRs5kN4wnMsbC4-GdI-HOtyfsPy9DTjTJZdUu13iEprgXpRj8j_6DNm_1ap35K3RemWaLpDLdYhkUXJt7sxAzYsw-rXlCoL37ivNqMdGzqyrIZRNdZuzGAFBUgTP5f8Ho11GP2AV_2yV-Ot0Q6ceBLVHo4m6xX-wkI9qdXf8p6y4cgq0MlDTlBnSJ6h-FF6zUGMCrZEqCaXYSGT6ekZ06bsKktvksZtyCaXpOLmTWGWKlAEXWOShHnHoiYYOKFQ6jr24pxq9P-WyYAMBdYOQ-FU47CSQveAr44Lhz4Gp_cy9g476iNF6A5Jw2L_k0pX9kgrKLX0ZFR9WTQPhZEtDjEsN0m-tHlk5dXOlFLAvHnSxJb_zyRg1bX16Vh_EdFLKWdzzJgy-FqgI5CsFXtZ3QZnmo6jQzX1wpVz78u29tW3pybtOIJ4Xwc9gvK7ztrG4VHwZlC7_oQHOmbgj1zzuGOUc2RETpEeRiTcXfIotv3cudZAsofgcRnkuSOTKQtvlWGJXfTC_0sGNc__08MC-d4wokMmlBatsw9c1UhwYemb7BHuryHW7RgiNM85VOSu5dBd0-IBo9syMyWmZ002GzcbG_f7PlDAqJPXjzH29qQPl3eVJrHsZ41WUy8UyOgBwc92Gd9Yzqm5nu775lBP9Z2R4XTz684_NjBROtjeHh8zejzzD_LMYmIpjqiLQLZtmXtNHsIBuWiLbd5dsdbWKmlzccBdCBWMQ294Wo=",
+      "proposal_sha256": "e56dcddf319a3c9d5f8036f6c0b3f2ed68fde9545bba27931535c59bfa4ca220",
+      "proposal_text_redacted": "I will provide a supportive English practice conversation in text, with gentle corrections and brief explanations whenever mistakes arise. After hire, we\u2019ll start with everyday topics, and I\u2019ll adjust my vocabulary and questions to your comfort level. I\u2019ll keep corrections short so the conversation feels natural, and finish with a brief recap of useful phrases and any recurring mistakes. We can complete a short session within the three-hour delivery window, provided you\u2019re available to reply.\nNew on TryBounty; introductory rate while I build my track record.\nPreliminary sample: Preliminary opening: \u201cHi! Let\u2019s practice English together. What do you like to do in your free time? A short answer is fine\u2014we can build from there.\u201d",
       "sample_listing": false,
       "source_fields": {
         "budget_cents": 500,
@@ -4768,7 +4788,8 @@
         "currency": "usd",
         "status": "open",
         "updated_at": 1795582600855
-      }
+      },
+      "submitted_at": "2026-11-25T04:58:54.752216+00:00"
     },
     "mx73e9bd3s6pkqt636wwvh4r158h27fn": {
       "bid_amount_cents": null,
@@ -7356,12 +7377,12 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMDUsImNoZWNrcG9pbnRBdCI6MTc5NTU4MTg3ODA2MX0",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMDYsImNoZWNrcG9pbnRBdCI6MTc5NTU4MjcyMTY3Mn0",
   "last_bid_reconciliation": "2026-11-25T04:44:51.229926+00:00",
-  "last_check": "2026-11-25T04:44:51.236149+00:00",
+  "last_check": "2026-11-25T04:58:54.759559+00:00",
   "market_observation": {
     "fetched_at": "2026-11-25T04:58:34.312368+00:00",
-    "last_checked_at": "2026-11-25T04:58:37.535935+00:00",
+    "last_checked_at": "2026-11-25T04:58:41.185380+00:00",
     "last_open_count": 82,
     "newest_created_at": "2026-11-25T04:56:38.768000+00:00",
     "newest_posted_at": "2026-11-25T04:56:38.768000+00:00"
@@ -8961,12 +8982,6 @@
   },
   "recent_outcomes": [
     {
-      "action": "proposal_sample_fallback",
-      "at": "2026-11-19T16:53:04.261150+00:00",
-      "bounty_id": "mx7cg7yy7fge2t3q8gqcvxs7ax8jhghr",
-      "reason": "proposal_excerpt_missing"
-    },
-    {
       "action": "proposal_brief_outline_sent",
       "at": "2026-11-19T16:53:04.670038+00:00",
       "bounty_id": "mx7cg7yy7fge2t3q8gqcvxs7ax8jhghr"
@@ -9328,6 +9343,13 @@
       "action": "bid_followup_sent",
       "at": "2026-11-25T03:44:24.645796+00:00",
       "bounty_id": "mx77qzd4wamcen87dbhwyq2fj98jv5eb"
+    },
+    {
+      "action": "bid_sent",
+      "at": "2026-11-25T04:58:54.752946+00:00",
+      "bounty_id": "mx73bzk0fqbwyb7y24hd9xfj0h8jwhhh",
+      "payout_cents": 500,
+      "version": 1
     }
   ],
   "schema": 1,
