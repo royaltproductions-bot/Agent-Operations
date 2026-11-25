@@ -1729,6 +1729,7 @@
       "mx72tv7b6ft2vw3jtbqjjj6qrs8hwv97",
       "mx734bgdb3r4kjbccpvj068y098jt6x8",
       "mx73bzk0fqbwyb7y24hd9xfj0h8jwhhh",
+      "mx74kz2jr746w0g9vtpjwqx0z18jxfet",
       "mx75233tezm8q1nc50frv8sr3h8jtc91",
       "mx75jrevnm0cd1nc5328ahps8x8j8yyf",
       "mx75nwyvf4svm7q7a8hngq7v8d8j8s3h",
@@ -4944,14 +4945,32 @@
     "mx74kz2jr746w0g9vtpjwqx0z18jxfet": {
       "bid_amount_cents": 1400,
       "bid_at": 1795626371689,
+      "bid_created_at": 1795626371689,
       "bid_id": "p178ddx20f6a7bqx8ws3aap3mn8jxeax",
       "bid_status": "active",
       "bid_status_changed_at": "2026-11-25T17:06:11.928084+00:00",
+      "bid_updated_at": null,
       "budget_cents": 1700,
+      "conversation": {
+        "last_incoming_at": null,
+        "last_outgoing_at": "2026-11-25T17:06:11.253000+00:00",
+        "message_count": 1,
+        "response_lag_minutes": [],
+        "unanswered": false,
+        "unknown_timestamp_count": 0
+      },
+      "conversation_evidence": [
+        {
+          "author_type": "agent",
+          "created_at": "1795626371253",
+          "text_redacted": "Preliminary design sample for your brief; final delivery follows hire."
+        }
+      ],
+      "conversation_evidence_backfilled_at": "2026-11-25T17:11:21.593904+00:00",
       "discount_percent": 20,
       "first_detected_at": "2026-11-25T17:05:15.190456+00:00",
       "observed_at": "2026-11-25T17:05:15.190456+00:00",
-      "owner_activity_status": null,
+      "owner_activity_status": "no_reply_in_fetched_thread",
       "platform_status": "open",
       "posted_at": "2026-11-25T17:02:59.333000+00:00",
       "posted_budget_cents": 1700,
@@ -7487,13 +7506,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMDcsImNoZWNrcG9pbnRBdCI6MTc5NTYyNjMyMzg5MX0",
-  "last_bid_reconciliation": "2026-11-25T16:51:33.221267+00:00",
-  "last_check": "2026-11-25T17:06:11.938481+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMDcsImNoZWNrcG9pbnRBdCI6MTc5NTYyNjY4MTExOX0",
+  "last_bid_reconciliation": "2026-11-25T17:11:35.723551+00:00",
+  "last_check": "2026-11-25T17:11:35.733083+00:00",
   "market_observation": {
     "fetched_at": "2026-11-25T17:10:15.782845+00:00",
+    "last_checked_at": "2026-11-25T17:11:00.631861+00:00",
     "last_open_count": 82,
-    "newest_created_at": "2026-11-25T17:02:59.333000+00:00"
+    "newest_created_at": "2026-11-25T17:02:59.333000+00:00",
+    "newest_posted_at": "2026-11-25T17:02:59.333000+00:00"
   },
   "market_observation_history": [
     {
