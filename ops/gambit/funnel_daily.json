@@ -171,7 +171,7 @@
   },
   "2026-11-25": {
     "conversion_rates": {
-      "bid_per_seen": 0.44660194174757284,
+      "bid_per_seen": 0.4423076923076923,
       "buyer_reply_per_bid": 0.043478260869565216,
       "hire_per_bid": 0.0
     },
@@ -187,13 +187,13 @@
       "passed_by_reason": {},
       "retry_pending": 0,
       "sample_excluded": 0,
-      "seen": 2,
+      "seen": 3,
       "settled": 0,
       "settled_cents": 0,
       "withdrawn": 0
     },
     "coverage": "Observed unique state records only; missing platform events unknown",
-    "generated_at": "2026-11-25T23:33:08.809560+00:00",
+    "generated_at": "2026-11-25T23:41:52.989925+00:00",
     "market_status": {
       "older_checked_in_last_24h": 95,
       "older_than_24h": 101,
