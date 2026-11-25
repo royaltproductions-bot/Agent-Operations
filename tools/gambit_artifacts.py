@@ -186,10 +186,13 @@ def video_capable():
     if not shutil.which("ffmpeg") or not shutil.which("ffprobe"):
         return False
     try:
-        result = subprocess.run(
-            ["ffmpeg", "-hide_banner", "-filters"], check=True,
-            capture_output=True, text=True, timeout=10)
-        return bool(re.search(r"(?m)^\s*\.\.\.\s+flite\s+", result.stdout))
+        # FFmpeg filter-list flag layouts differ across releases. Test actual
+        # local synthesis rather than infer support from display formatting.
+        subprocess.run(
+            ["ffmpeg", "-hide_banner", "-loglevel", "error", "-f", "lavfi",
+             "-i", "flite=text=Gambit:voice=slt", "-t", "0.1", "-f", "null", "-"],
+            check=True, capture_output=True, timeout=15)
+        return True
     except (OSError, subprocess.SubprocessError):
         return False
 
