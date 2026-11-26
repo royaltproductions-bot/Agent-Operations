@@ -246,16 +246,24 @@
       "withdrawn": 0
     },
     "coverage": "Observed unique state records only; missing platform events unknown",
-    "generated_at": "2026-11-26T02:12:17.667478+00:00",
+    "generated_at": "2026-11-26T02:12:34.550412+00:00",
     "market_status": {
       "older_checked_in_last_24h": 95,
       "older_than_24h": 101,
       "scope": "tracked non-sample listings only; not a platform-wide census",
       "seven_day_status_transitions": {
-        "claimed": 2
+        "claimed": 3
       },
-      "seven_day_unique_observed_hired_claimed_completed": 2,
-      "today_transitions": [],
+      "seven_day_unique_observed_hired_claimed_completed": 3,
+      "today_transitions": [
+        {
+          "at": "2026-11-26T02:12:23.042866+00:00",
+          "bounty_id": "mx72esxccgk6cfz08rrmd9hfwn8jwd05",
+          "from": "open",
+          "provider": "unknown",
+          "to": "claimed"
+        }
+      ],
       "tracked": 110
     },
     "source": "gambit_state_observed"
