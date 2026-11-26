@@ -2026,7 +2026,7 @@
       "at": "2026-11-14T15:10:58.637693+00:00",
       "evidence_failures": 0,
       "feasible_ask_review_version": 3,
-      "last_asked_review_at": "2026-11-25T20:31:58.404959+00:00",
+      "last_asked_review_at": "2026-11-26T02:33:26.024570+00:00",
       "last_declined_bid": null,
       "last_error": "ValueError",
       "last_question_version": 3,
@@ -2137,7 +2137,7 @@
       "at": "2026-11-15T15:42:49.184587+00:00",
       "evidence_failures": 1,
       "feasible_ask_review_version": 1,
-      "last_asked_review_at": "2026-11-25T20:31:57.476840+00:00",
+      "last_asked_review_at": "2026-11-26T02:33:25.221472+00:00",
       "last_declined_bid": null,
       "last_error": "proposal_samples_missing",
       "last_question_version": 1,
@@ -2398,7 +2398,7 @@
       "at": "2026-11-11T01:45:31.148379+00:00",
       "evidence_failures": 2,
       "feasible_ask_review_version": 1,
-      "last_asked_review_at": "2026-11-25T20:32:00.451492+00:00",
+      "last_asked_review_at": "2026-11-26T02:33:27.993641+00:00",
       "last_declined_bid": null,
       "last_error": "proposal_samples_missing",
       "last_question_version": 1,
@@ -2440,7 +2440,7 @@
       "at": "2026-11-11T01:45:03.774113+00:00",
       "evidence_failures": 1,
       "feasible_ask_review_version": 1,
-      "last_asked_review_at": "2026-11-25T20:31:59.721829+00:00",
+      "last_asked_review_at": "2026-11-26T02:33:27.338503+00:00",
       "last_declined_bid": null,
       "last_error": "proposal_samples_missing",
       "last_question_version": 1,
@@ -2715,7 +2715,7 @@
       "at": "2026-11-11T01:44:38.145199+00:00",
       "evidence_failures": 1,
       "feasible_ask_review_version": 1,
-      "last_asked_review_at": "2026-11-25T20:31:59.108777+00:00",
+      "last_asked_review_at": "2026-11-26T02:33:26.688287+00:00",
       "last_declined_bid": null,
       "last_error": "proposal_samples_missing",
       "last_question_version": 1,
@@ -4318,6 +4318,9 @@
           "text_redacted": "I can read text-based PDFs, Word, Excel, CSV, JSON, and text files. One supplied attachment could not be read. Could you provide its essential contents in a supported file or message?"
         }
       ],
+      "conversation_message_ids": [
+        "qd753x6nz4rynzk13q9htd27v58j4tkm"
+      ],
       "discount_percent": 20,
       "first_detected_at": "2026-11-13T12:18:47.223675+00:00",
       "market_status_checked_at": "2026-11-26T02:32:14.290130+00:00",
@@ -4832,6 +4835,9 @@
           "created_at": "1794669025077",
           "text_redacted": "Must all 75 prospects have a publicly documented typical investment check size, or may that field say \u201cnot publicly disclosed\u201d where the prospect otherwise has documented multifamily investments, geographic fit, and public business contact details?"
         }
+      ],
+      "conversation_message_ids": [
+        "qd701vbczw72kxy0z3d9ndna2n8j793f"
       ],
       "discount_percent": 20,
       "first_detected_at": "2026-11-14T15:09:24.063491+00:00",
@@ -5877,6 +5883,9 @@
           "text_redacted": "Which 3T model will you run (name/link or architecture specifications), and what workload should I price\u2014monthly input/output tokens and peak concurrent requests, or a dedicated deployment running 24/7?"
         }
       ],
+      "conversation_message_ids": [
+        "qd72y0ppd5s1v8ehw2saqpw1zd8hcxbs"
+      ],
       "first_detected_at": "2026-11-01T02:25:41.192984+00:00",
       "market_status_checked_at": "2026-11-26T02:32:14.290130+00:00",
       "observed_at": "2026-11-03T19:17:53.684281+00:00",
@@ -6028,6 +6037,9 @@
           "created_at": "1793658393330",
           "text_redacted": "Could you paste the current landing page\u2019s full text, including its offer, product details, calls to action, and any testimonials or supporting claims, so I can base the structure, revised copy, visual direction, and high-fidelity mockup on your actual content?"
         }
+      ],
+      "conversation_message_ids": [
+        "qd707yny2yfh9nzbc89vnpdf2x8hf1mt"
       ],
       "first_detected_at": "2026-11-02T22:26:09.638035+00:00",
       "market_status_checked_at": "2026-11-26T02:32:14.290130+00:00",
@@ -7099,6 +7111,9 @@
           "text_redacted": "What exact X profile URL should the SolGemLab landing page link to?"
         }
       ],
+      "conversation_message_ids": [
+        "qd7ebfrrywne1xc9h2kk5rmzp58hjgaw"
+      ],
       "first_detected_at": "2026-11-04T11:04:18.944618+00:00",
       "market_status_checked_at": "2026-11-26T02:32:14.290130+00:00",
       "observed_at": "2026-11-04T11:04:18.944618+00:00",
@@ -7774,12 +7789,12 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMTIsImNoZWNrcG9pbnRBdCI6MTc5NTY2MDEwMTM2Nn0",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMTIsImNoZWNrcG9pbnRBdCI6MTc5NTY2MDQwNDc3Nn0",
   "last_bid_reconciliation": "2026-11-26T02:28:35.644081+00:00",
-  "last_check": "2026-11-26T02:28:35.654801+00:00",
+  "last_check": "2026-11-26T02:33:28.406373+00:00",
   "market_observation": {
     "fetched_at": "2026-11-26T02:32:15.787275+00:00",
-    "last_checked_at": "2026-11-26T02:32:40.029780+00:00",
+    "last_checked_at": "2026-11-26T02:33:04.319005+00:00",
     "last_open_count": 82,
     "newest_created_at": "2026-11-25T17:02:59.333000+00:00",
     "newest_posted_at": "2026-11-25T17:02:59.333000+00:00"
@@ -9230,7 +9245,7 @@
     "bountyboard": {
       "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
       "bidding_status": "operator_reconciliation_required",
-      "checked_at": "2026-11-26T01:32:56.248866+00:00",
+      "checked_at": "2026-11-26T02:33:03.437233+00:00",
       "listings": [],
       "open_count": 0,
       "status": "observed_authenticated"
