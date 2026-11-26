@@ -1946,7 +1946,9 @@
       "ph7ceyf6341vpfgsp3kaf9dvs58jwexm",
       "ph75sk65emqqjnwqrht64k3xah8jwc1h",
       "ph75548ew1x4f58p26ydz9hqjs8jxqc8",
-      "ph74dg260y7wm5qekd6bebq1hx8jwvay"
+      "ph74dg260y7wm5qekd6bebq1hx8jwvay",
+      "ph74dafgmmf9hm2ayhqg4p6xdn8jzqa1",
+      "ph7asqmp84hkdwcnqvc8xb51g18jzcrk"
     ],
     "event_types": {
       "bounty.available": {
@@ -1970,6 +1972,15 @@
         ],
         "first_seen": "2026-11-08T20:44:12.972222+00:00",
         "last_seen": "2026-11-08T20:44:12.972222+00:00"
+      },
+      "bounty.updated": {
+        "count": 2,
+        "data_keys": [
+          "bounty_id",
+          "bounty_version"
+        ],
+        "first_seen": "2026-11-26T01:47:15.596134+00:00",
+        "last_seen": "2026-11-26T01:47:15.596171+00:00"
       },
       "work.message.created": {
         "count": 6,
@@ -2967,12 +2978,16 @@
     "mx72esxccgk6cfz08rrmd9hfwn8jwd05": {
       "first_detected_at": "2026-11-25T23:41:47.469018+00:00",
       "last_known_status": "open",
-      "last_seen_open_at": "2026-11-25T23:41:47.469020+00:00",
-      "version": 1,
+      "last_seen_open_at": "2026-11-26T01:47:15.598343+00:00",
+      "version": 3,
       "versions": {
         "1": {
           "captured_at": "2026-11-25T23:41:52.980261+00:00",
           "encrypted_brief": "gAAAAABrB3JAgvBtYXNxFx9HM7vG8NMEP2qoxJIn8PeS-VqG-rdvfLSehwT8EfC9kEZ2K6to8ys56ROBcpQnoYwP6HyM0GbHKmUzGzaGQLiVzaCjxVkBy5b5FuTyP2CrA7FHCQDXVKlvU0n-c4sgBjDDRBwqbAwfoVuV0l8Uvr1D1BWiHPmw6tkkSVcYGYVBgk5z5mc0ICHVyhnNlXCMdPSQl6166YiSUdqpoUXwpx-fBS73myVYZzGtmWCxutvZ3I5CkNL7B-reyY5jRRPqIPSNel49wI7u-ghxzwGe87rKfrJwkCPKwHjFzYM2zDbhMtoOpxDulZsIIvpD_24ug8Rdxnci_0pPlxcVqQmCdN-qrH9zK9Rkc35mY8tiF7DOXFLWGDWHl6i6Zh2GL9zsnaXa6fGZP8biTdhfIYWjgtNrOqMEZnF0fK1aJrvRaxSLB0MmM2fLbDQPBN5s2HC4pym4_15RYhCtfIvXZUosFaFUeY7Yln2LXsl2d3sXEMKA6seh5SNp6cPsLuwERp0QBRTOquHYTYgAbexMACY8PK2NpF8jaiNuBDdoNuRhUbbwgBcxHBxe6P2DzWz50Uh5XfTIRrpzNAqIGcbL4HXebW_YbgPAaJ_lz1hjHbvGP57jCLiKDrgrQAlIbzzLUynDevLCa26Y1_5IQewNruQqPcx28_It6uxf9DMdRAkwAquNMk1dsG08orDCdYxyqm73rONABAtWZAMRe_SOgYaPyA_-KV11DWAQJAb1vn2KLX2REqycpICRZYr6_WuI-Sb4n-K6CNbN1tpLctFvncT93-P1TN_6V1NjUUe0100HFPT_Y0Pxttv9dmqyy98o63-rwCb86q5GkcHUgQVMBI2lMhvsX0Hzp9S8foljzom_gzY8piAFTRPEP1jwZdyS1G88QVJoAp9BOtpqvvuOEhFK6s0LWrn4e55jdVZC4KoiPknYc_NXslLxDAJcbZOyTgUeuq_qa2XgqWJSBxnzJwzP8kAFBz6mph2T6gVn0H5WuODpTvap6VgsZ3OiaXw4NfDK3Se0xHtCg6AXZ6h9pqpPW0jInqKVWKLqlkhbs5W8KeFmstWyH3HLWKIEW3Xk1bvyy9KMcEBKPI19x1rBGNXuuoKRzKiz1atXKtaLf-kfB4FxInUvgIM9l6IVkF3E6kxSj8WgY9aBjDsZzeve7tlvk2BX2bStM6su3Vk="
+        },
+        "3": {
+          "captured_at": "2026-11-26T01:47:15.922436+00:00",
+          "encrypted_brief": "gAAAAABrB4-jYBxT9tJax-0vnkjaWeRSYRGctVqBWrrUO710UbX6lQwhVSTtUtxhM7wVqLKtA1aq6KSOXMQVPzLJznAZt-YStQ_cFhqGArFyE2SU767axBXtQ9axWCA2Y5NxNo541HJnIKbzHHYh6qAina554VMh4hMpYMQ4uobSR4KnECe4bw3AatpwvISwUKDxnZ3FIcMTvnq1xdLpYp5gCCnqS3SsLy16V0DNQvncxDms3OJZJeoCyb-Ym8XP0DsSjZo-0c_6dH9RT9TisSEoww2zaCFbxOFhcxuCN_a7jYB2cTquvpE_F5qFIeA9baoP_qtKEGvgxkSakVuW_3UvJYP-ucvagtSrmPx9tuzmeFh5kWcKxaOaQQx-yfa7jV1Oj3mBeFVj01CBt0XchuhpF4L7hAnzO85u7h1blsut-NFU7pauOwnjzezw7m-JHGqTsh_gC0wwCv63gLBfUbqOiKfKgoaRvXrJK3-xiiv5ti6EpvQZL8ipK9GOext2m_64-ldVyK240bCS181jog_b310SnslJF3oFoysPoXLxLVbpNO4MzMgJ2CgcIyZowDmB1bitaVkWbA9kpct2RiyI519Ehm0OMMupY2_6lDD-ojcBY2jP6ZsNusJkIXJD4vB6Z_kyMXuYifPjOUJRUjdw9IdZ3k2dvuIYzyVDImor7i1mcnnw0eo6hsvOShGKLRtOfe-dkUwCk3rdTz3rQmeHk2xjsTuQ5x0gIOYV7GXxBumbmbjwZDx6pWxMTRV2HaKmDXHyndaI5blOr5KNPR8d1c8S2R03eLWO2p3w5CjbvyZDdJhG1DWRnOX4_YegLh4x-thoVZDE_10xnHQpCGd_x2B7sN7RLl2fg_BQPBSp6tQoyaNG13cM1gg-ISZbIFxpUkwbBfm4h5unaYewKODDgqGAXlm4eTp5aLhL5041qKuDHZgESCRvoeRvLcQjwBl9foSiKVG067Dn4pLrN4gtqG3AKfPqUgaX5PxD7I4adz61T66kK_2k3aqelr6guZv1ZL1ipbghFKRMtPuE_gV7l0SNcO1o3itMUXPl5t0qKihX1khprCbn27ikNGj-GPrCF6dUeZbj7PA2T9su9cPyHO98humU-o6MQZpDhVDPylcPqurCebjbious7PnQ-Go65asnpB8FLgpVRbrep-1uNyaIMMJZkN0UUYGDNo3XYVsEIyhlBPp1NQ19mR4oO5wW6fzB-ePwnh8J7HbfFrsDbGVTJu5w7Y88IE3Vu5QzpUVeMTz6AUnwVXKkauB0guURJGekZ6aQN4UBBi4FRTaQ-PtKMsnTNH22BDVrVErq7Sa5PTZo-FzaH8FXEglskk3kqPP52-p0p9fg2UqFPwBL9AlQzU_0lYc3NpU7sc0zvoMAUhTtZeKZr2KIqshY429wRTRh0qhC17UZFVXwbIvuhl0c8GkfeHX6A_Sw4vArqQuYmuP11Ems-hokq_ZUTemsvUDIbQkJtIO745dim_j1u6FA6FlvzUhQpHDtPxrcqATXDfuI0eyBvCPZlMwGxJMRfO3gSr184qcnbvCbply4gwCxXrxiDcOqxlRxdFXq8rvkfCVgDrCUgwJQZse7ks--WCcEBPbstdGO9QJf579ZUasoPvD9SPTyrspClB582A8PBQkgtj5OW881G9M7kulKfUANO8mlBuCr8SSSKfma7AT6NdQbnLFWBvhLBUnFp8uRp6wjUxOWNw3uvharhPHuA8gENTtQjMew7lslKWrvnLegR4MCqwLX-x7BSQUBDrQ_knJyuCt24Ga1UBx1vm3aVRrZjxTBpQxpoqZ_ODbf-OZEdpfaarYOimiXksC7wsW6u1icbjD6mfb9KimkonAY9BEuYAzDv5Zjw_UPKqklP7nIkZEzmFGQoROJpBQQtmbDcD9pzX9dIGxxWRwFwmbhY1ypkw8D"
         }
       }
     },
@@ -4520,8 +4535,8 @@
       "bid_at": 1795650149958,
       "bid_created_at": 1795650149958,
       "bid_id": "p178jz8pstsx0wqykbskc36xkh8jx8py",
-      "bid_status": "active",
-      "bid_status_changed_at": "2026-11-25T23:42:30.442145+00:00",
+      "bid_status": "stale",
+      "bid_status_changed_at": "2026-11-26T01:47:15.922065+00:00",
       "bid_updated_at": null,
       "budget_cents": 5000,
       "conversation": {
@@ -7752,8 +7767,10 @@
   "last_check": "2026-11-26T01:33:31.303573+00:00",
   "market_observation": {
     "fetched_at": "2026-11-26T01:47:11.433538+00:00",
+    "last_checked_at": "2026-11-26T01:47:15.025963+00:00",
     "last_open_count": 83,
-    "newest_created_at": "2026-11-25T23:41:02.490000+00:00"
+    "newest_created_at": "2026-11-25T23:41:02.490000+00:00",
+    "newest_posted_at": "2026-11-25T23:41:02.490000+00:00"
   },
   "market_observation_history": [
     {
