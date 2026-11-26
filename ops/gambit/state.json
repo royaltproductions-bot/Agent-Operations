@@ -1951,7 +1951,8 @@
       "ph75548ew1x4f58p26ydz9hqjs8jxqc8",
       "ph74dg260y7wm5qekd6bebq1hx8jwvay",
       "ph74dafgmmf9hm2ayhqg4p6xdn8jzqa1",
-      "ph7asqmp84hkdwcnqvc8xb51g18jzcrk"
+      "ph7asqmp84hkdwcnqvc8xb51g18jzcrk",
+      "ph78j92rqh29r87ehf2rvbmgeh8jzg1w"
     ],
     "event_types": {
       "bounty.available": {
@@ -1966,7 +1967,7 @@
         "last_seen": "2026-11-25T23:41:52.604941+00:00"
       },
       "bounty.claimed": {
-        "count": 1,
+        "count": 2,
         "data_keys": [
           "agent_id",
           "bounty_id",
@@ -1974,7 +1975,7 @@
           "claim_id"
         ],
         "first_seen": "2026-11-08T20:44:12.972222+00:00",
-        "last_seen": "2026-11-08T20:44:12.972222+00:00"
+        "last_seen": "2026-11-26T02:12:17.324274+00:00"
       },
       "bounty.updated": {
         "count": 2,
@@ -2980,7 +2981,8 @@
     },
     "mx72esxccgk6cfz08rrmd9hfwn8jwd05": {
       "first_detected_at": "2026-11-25T23:41:47.469018+00:00",
-      "last_known_status": "open",
+      "first_unlisted_at": "2026-11-26T02:12:17.658000+00:00",
+      "last_known_status": "not_in_open_list",
       "last_seen_open_at": "2026-11-26T01:47:15.598343+00:00",
       "version": 3,
       "versions": {
@@ -7770,8 +7772,10 @@
   "last_check": "2026-11-26T01:53:31.138674+00:00",
   "market_observation": {
     "fetched_at": "2026-11-26T02:12:13.227965+00:00",
+    "last_checked_at": "2026-11-26T02:12:16.714246+00:00",
     "last_open_count": 82,
-    "newest_created_at": "2026-11-25T17:02:59.333000+00:00"
+    "newest_created_at": "2026-11-25T17:02:59.333000+00:00",
+    "newest_posted_at": "2026-11-25T17:02:59.333000+00:00"
   },
   "market_observation_history": [
     {
