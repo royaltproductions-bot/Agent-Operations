@@ -7799,13 +7799,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMTIsImNoZWNrcG9pbnRBdCI6MTc5NTcwNDI5NDk4OX0",
-  "last_bid_reconciliation": "2026-11-26T14:30:05.652151+00:00",
-  "last_check": "2026-11-26T14:44:58.789975+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMTIsImNoZWNrcG9pbnRBdCI6MTc5NTcwNDU5Mzk1M30",
+  "last_bid_reconciliation": "2026-11-26T14:50:07.623085+00:00",
+  "last_check": "2026-11-26T14:50:07.633474+00:00",
   "market_observation": {
     "fetched_at": "2026-11-26T14:48:46.443707+00:00",
+    "last_checked_at": "2026-11-26T14:49:33.305184+00:00",
     "last_open_count": 82,
-    "newest_created_at": "2026-11-25T17:02:59.333000+00:00"
+    "newest_created_at": "2026-11-25T17:02:59.333000+00:00",
+    "newest_posted_at": "2026-11-25T17:02:59.333000+00:00"
   },
   "market_observation_history": [
     {
@@ -9253,17 +9255,49 @@
     "bountyboard": {
       "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
       "bidding_status": "operator_reconciliation_required",
-      "checked_at": "2026-11-26T13:49:26.674602+00:00",
+      "checked_at": "2026-11-26T14:49:31.219314+00:00",
       "listings": [],
       "open_count": 0,
       "status": "observed_authenticated"
     },
     "github_bounty": {
       "bidding_status": "platform_native_claim_not_verified",
-      "checked_at": "2026-11-26T12:49:24.905782+00:00",
+      "checked_at": "2026-11-26T14:49:31.512785+00:00",
       "listings": [],
       "open_count": 0,
       "rejected": [
+        {
+          "id": "6629167055",
+          "reason": "payer_mechanism_unverified"
+        },
+        {
+          "id": "6628464446",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6628441397",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6628439835",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6628364305",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6627826264",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6627653526",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6627510026",
+          "reason": "payer_mechanism_unverified"
+        },
         {
           "id": "6626675743",
           "reason": "no_explicit_20_to_300_usd_reward"
@@ -9309,6 +9343,10 @@
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
+          "id": "6624874330",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
           "id": "6624710474",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
@@ -9346,42 +9384,6 @@
         },
         {
           "id": "6622310481",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6622003917",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6621857869",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6621754692",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6621718704",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6621716599",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6621714617",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6621712545",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6621710346",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6621680585",
           "reason": "no_explicit_20_to_300_usd_reward"
         }
       ],
