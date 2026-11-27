@@ -267,5 +267,18 @@
       "tracked": 111
     },
     "source": "gambit_state_observed"
+  },
+  "2026-11-27": {
+    "market_status": {
+      "older_checked_in_last_24h": 98,
+      "older_than_24h": 104,
+      "scope": "tracked non-sample listings only; not a platform-wide census",
+      "seven_day_status_transitions": {
+        "claimed": 3
+      },
+      "seven_day_unique_observed_hired_claimed_completed": 3,
+      "today_transitions": [],
+      "tracked": 111
+    }
   }
 }
