@@ -7907,13 +7907,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMTQsImNoZWNrcG9pbnRBdCI6MTc5NTc0NzYwMjcwM30",
-  "last_bid_reconciliation": "2026-11-27T02:46:57.042133+00:00",
-  "last_check": "2026-11-27T02:47:00.658880+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMTQsImNoZWNrcG9pbnRBdCI6MTc5NTc0ODgwMzU3Nn0",
+  "last_bid_reconciliation": "2026-11-27T03:06:57.617502+00:00",
+  "last_check": "2026-11-27T03:06:57.627380+00:00",
   "market_observation": {
     "fetched_at": "2026-11-27T03:05:36.090679+00:00",
+    "last_checked_at": "2026-11-27T03:06:23.073064+00:00",
     "last_open_count": 83,
-    "newest_created_at": "2026-11-27T00:09:53.669000+00:00"
+    "newest_created_at": "2026-11-27T00:09:53.669000+00:00",
+    "newest_posted_at": "2026-11-27T00:09:53.669000+00:00"
   },
   "market_observation_history": [
     {
@@ -9361,31 +9363,39 @@
     "bountyboard": {
       "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
       "bidding_status": "operator_reconciliation_required",
-      "checked_at": "2026-11-27T02:06:00.875927+00:00",
+      "checked_at": "2026-11-27T03:06:21.408496+00:00",
       "listings": [],
       "open_count": 0,
       "status": "observed_authenticated"
     },
     "github_bounty": {
       "bidding_status": "platform_native_claim_not_verified",
-      "checked_at": "2026-11-27T01:05:58.171285+00:00",
+      "checked_at": "2026-11-27T03:06:22.019828+00:00",
       "listings": [],
       "open_count": 0,
       "rejected": [
+        {
+          "id": "6638701572",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6638353246",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6637862722",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6637845968",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
         {
           "id": "6637765578",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
           "id": "6637754079",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6637549627",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6637528271",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
@@ -9482,14 +9492,6 @@
         },
         {
           "id": "6636040316",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6635942024",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6635590058",
           "reason": "no_explicit_20_to_300_usd_reward"
         }
       ],
