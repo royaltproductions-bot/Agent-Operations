@@ -7907,13 +7907,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMTQsImNoZWNrcG9pbnRBdCI6MTc5NTgxMjUxNzg3M30",
-  "last_bid_reconciliation": "2026-11-27T20:48:49.134080+00:00",
-  "last_check": "2026-11-27T20:48:52.109386+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMTQsImNoZWNrcG9pbnRBdCI6MTc5NTgxMzc0MjY5MH0",
+  "last_bid_reconciliation": "2026-11-27T21:09:17.363534+00:00",
+  "last_check": "2026-11-27T21:09:17.374235+00:00",
   "market_observation": {
     "fetched_at": "2026-11-27T21:07:54.365080+00:00",
+    "last_checked_at": "2026-11-27T21:08:42.060169+00:00",
     "last_open_count": 83,
-    "newest_created_at": "2026-11-27T00:09:53.669000+00:00"
+    "newest_created_at": "2026-11-27T00:09:53.669000+00:00",
+    "newest_posted_at": "2026-11-27T00:09:53.669000+00:00"
   },
   "market_observation_history": [
     {
@@ -9361,17 +9363,85 @@
     "bountyboard": {
       "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
       "bidding_status": "operator_reconciliation_required",
-      "checked_at": "2026-11-27T20:08:14.685904+00:00",
+      "checked_at": "2026-11-27T21:08:41.405751+00:00",
       "listings": [],
       "open_count": 0,
       "status": "observed_authenticated"
     },
     "github_bounty": {
       "bidding_status": "platform_native_claim_not_verified",
-      "checked_at": "2026-11-27T19:08:12.524529+00:00",
+      "checked_at": "2026-11-27T21:08:41.709526+00:00",
       "listings": [],
       "open_count": 0,
       "rejected": [
+        {
+          "id": "6654360333",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6654245337",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6654049729",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6653730420",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6653612716",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6653580457",
+          "reason": "payer_mechanism_unverified"
+        },
+        {
+          "id": "6653580207",
+          "reason": "payer_mechanism_unverified"
+        },
+        {
+          "id": "6653580334",
+          "reason": "payer_mechanism_unverified"
+        },
+        {
+          "id": "6653580031",
+          "reason": "payer_mechanism_unverified"
+        },
+        {
+          "id": "6653579895",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6653554866",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6653437056",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6653382619",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6653294482",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6653164171",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6653035276",
+          "reason": "payer_mechanism_unverified"
+        },
+        {
+          "id": "6653010970",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
         {
           "id": "6652832370",
           "reason": "no_explicit_20_to_300_usd_reward"
@@ -9422,74 +9492,6 @@
         },
         {
           "id": "6652272982",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6652252881",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6652246371",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6652236791",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6652187632",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6652125192",
-          "reason": "payer_mechanism_unverified"
-        },
-        {
-          "id": "6652084071",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6652077920",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6652077435",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6652075923",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6652071584",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6652067560",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6652029423",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6651971063",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6651941980",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6651665792",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6651473677",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6651462706",
           "reason": "no_explicit_20_to_300_usd_reward"
         }
       ],
