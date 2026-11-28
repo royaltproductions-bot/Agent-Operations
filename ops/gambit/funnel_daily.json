@@ -307,6 +307,30 @@
     "source": "gambit_state_observed"
   },
   "2026-11-28": {
+    "conversion_rates": {
+      "bid_per_seen": 0.45714285714285713,
+      "buyer_reply_per_bid": 0.041666666666666664,
+      "hire_per_bid": 0.0
+    },
+    "counts": {
+      "accepted": 0,
+      "asked": 0,
+      "bids_active": 0,
+      "bids_sent": 0,
+      "declined": 0,
+      "delivered": 0,
+      "hired": 0,
+      "missing_unconfirmed": 0,
+      "passed_by_reason": {},
+      "retry_pending": 0,
+      "sample_excluded": 0,
+      "seen": 0,
+      "settled": 0,
+      "settled_cents": 0,
+      "withdrawn": 0
+    },
+    "coverage": "Observed unique state records only; missing platform events unknown",
+    "generated_at": "2026-11-28T00:09:25.451880+00:00",
     "market_status": {
       "older_checked_in_last_24h": 98,
       "older_than_24h": 104,
@@ -317,6 +341,7 @@
       "seven_day_unique_observed_hired_claimed_completed": 3,
       "today_transitions": [],
       "tracked": 112
-    }
+    },
+    "source": "gambit_state_observed"
   }
 }
