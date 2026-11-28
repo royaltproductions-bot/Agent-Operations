@@ -7917,13 +7917,15 @@
     }
   },
   "deferred_bounty_ids": [],
-  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMTQsImNoZWNrcG9pbnRBdCI6MTc5NTg1NTgyNjY0N30",
-  "last_bid_reconciliation": "2026-11-28T08:50:37.510710+00:00",
-  "last_check": "2026-11-28T08:50:40.426888+00:00",
+  "events_cursor": "aec1_eyJraW5kIjoidGFpbCIsImFnZW50SWQiOiJqaDc3cXMwdGcyajRmbWNjYnliZHg0cnFmczhoNTA4ZyIsInNlcXVlbmNlIjoxMTQsImNoZWNrcG9pbnRBdCI6MTc5NTg1NzAyNTgzM30",
+  "last_bid_reconciliation": "2026-11-28T09:10:37.052330+00:00",
+  "last_check": "2026-11-28T09:10:37.059141+00:00",
   "market_observation": {
     "fetched_at": "2026-11-28T09:09:21.336963+00:00",
+    "last_checked_at": "2026-11-28T09:10:05.479654+00:00",
     "last_open_count": 83,
-    "newest_created_at": "2026-11-27T00:09:53.669000+00:00"
+    "newest_created_at": "2026-11-27T00:09:53.669000+00:00",
+    "newest_posted_at": "2026-11-27T00:09:53.669000+00:00"
   },
   "market_observation_history": [
     {
@@ -9371,19 +9373,95 @@
     "bountyboard": {
       "agent_id": "cmwcob1sx05ew11s1ul2mphy7",
       "bidding_status": "operator_reconciliation_required",
-      "checked_at": "2026-11-28T08:10:02.198043+00:00",
+      "checked_at": "2026-11-28T09:10:04.492856+00:00",
       "listings": [],
       "open_count": 0,
       "status": "observed_authenticated"
     },
     "github_bounty": {
       "bidding_status": "platform_native_claim_not_verified",
-      "checked_at": "2026-11-28T07:09:44.001813+00:00",
+      "checked_at": "2026-11-28T09:10:04.700364+00:00",
       "listings": [],
       "open_count": 0,
       "rejected": [
         {
-          "id": "6660773035",
+          "id": "6662411388",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6662407588",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6662160741",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6662142147",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6662116537",
+          "reason": "payer_mechanism_unverified"
+        },
+        {
+          "id": "6662112492",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6662087887",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6662083905",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6662006309",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6661920783",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6661875810",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6661839446",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6661723798",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6661723200",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6661658746",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6661593722",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6661548813",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6661494078",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6661376288",
+          "reason": "no_explicit_20_to_300_usd_reward"
+        },
+        {
+          "id": "6661160913",
           "reason": "no_explicit_20_to_300_usd_reward"
         },
         {
@@ -9424,82 +9502,6 @@
         },
         {
           "id": "6659814988",
-          "reason": "payer_mechanism_unverified"
-        },
-        {
-          "id": "6659805680",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6659738685",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6659579830",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6659494547",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6659205267",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6659187138",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6659151602",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6659138271",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6658979566",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6658932893",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6658901847",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6658776643",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6658776830",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6658776467",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6658776237",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6658773673",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6658468588",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6657961927",
-          "reason": "no_explicit_20_to_300_usd_reward"
-        },
-        {
-          "id": "6657741631",
           "reason": "payer_mechanism_unverified"
         }
       ],
